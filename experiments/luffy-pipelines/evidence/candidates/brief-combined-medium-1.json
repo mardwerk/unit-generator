@@ -1,0 +1,1897 @@
+{
+  "runId": "brief-combined-medium-1",
+  "status": "success",
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "intent": "Design a long-range melee unit whose elastic attacks reach distant enemies. Organize its three upgrade paths around Conqueror's Haki, Observation Haki and Armament Haki. Represent its Gear forms as special forms that unlock characteristic attacks where the definition supports them. Distinguish the base state, Gears Second through Fifth and Gear Fourth variants; explain unsupported runtime behavior instead of claiming it is implemented."
+  },
+  "definition": {
+    "id": "classic-three-path",
+    "version": "0.2.0",
+    "inputSchemaId": "https://mardwerk.org/definitions/classic-three-path/input/0.2.json",
+    "outputSchemaId": "https://mardwerk.org/schemas/unit-spec/0.1.json",
+    "fileDigest": "5ef7ecd9e2314aef1a79888a5967d1f2d19255763604d638c41a2d535ba83a17",
+    "implementationVersion": "scratch/combined/0.1.0",
+    "configuration": {
+      "maxRange": 80,
+      "maxManualAbilities": 1,
+      "maxProminentMechanics": 3
+    }
+  },
+  "unit": {
+    "schemaVersion": "0.1",
+    "id": "monkey-d-luffy",
+    "name": "Monkey D. Luffy",
+    "summary": "Long-range melee unit adapted from Monkey D. Luffy of the One Piece manga continuity. His rubber body delivers elastic direct strikes across the battlefield. Conqueror's Haki develops burst pressure, Observation Haki develops precision and cadence, and Armament Haki develops piercing attacks. Gear forms are externally selected encounter configurations; runtime transformation, reversion, simultaneous Gear combinations, and awakening after fatal damage are not implemented.",
+    "roles": ["damage", "burst", "control"],
+    "tags": ["one-piece", "straw-hat", "rubber-body", "long-range-melee", "haki", "gear-forms"],
+    "placement": {
+      "footprintRadiusWorldUnits": 1.5,
+      "allowedSurfaces": ["ground"],
+      "rules": [
+        "Occupies one placement.",
+        "Melee theme does not restrict attack range.",
+        "Sharp weapons, water, Sea-Prism Stone, and other source weaknesses are not implemented in this unit specification."
+      ]
+    },
+    "economy": {
+      "baseCostCredits": 600,
+      "costProfile": "medium"
+    },
+    "baseStats": {
+      "rangeWorldUnits": 60,
+      "durabilityHitPoints": 1000
+    },
+    "resources": [],
+    "states": [],
+    "statuses": [],
+    "actions": [
+      {
+        "id": "gum-gum-pistol",
+        "name": "Gum-Gum Pistol",
+        "summary": "Luffy stretches and slingshots his arm into one distant enemy.",
+        "unlockedByDefault": true,
+        "tags": ["base-attack", "elastic", "melee", "direct-strike"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gum-gum-pistol-targets",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gum-gum-pistol-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 1.2,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 60,
+        "emitters": [
+          {
+            "id": "rubber-arm",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gum-gum-pistol-damage",
+            "type": "damage",
+            "amountHitPoints": 90,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "conquerors-pressure",
+        "name": "Conqueror's Pressure",
+        "summary": "A recurring pressure blow adapted from Conqueror's Haki coating; it deals finite burst damage without claiming automatic knockout.",
+        "unlockedByDefault": false,
+        "tags": ["conquerors-haki", "burst", "direct-strike"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "conquerors-pressure-targets",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "conquerors-pressure-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 3.5,
+          "windupSeconds": 0.2,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 60,
+        "emitters": [
+          {
+            "id": "haki-coated-fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "conquerors-pressure-damage",
+            "type": "damage",
+            "amountHitPoints": 180,
+            "damageType": "haki"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "observation-reveal",
+        "name": "Presence Reading",
+        "summary": "Observation Haki reveals eligible hidden enemies and detects their presence.",
+        "unlockedByDefault": false,
+        "tags": ["observation-haki", "reveal", "precision"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "observation-reveal-targets",
+          "type": "area",
+          "maximumTargets": 8,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "observation-reveal-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 8
+        },
+        "timing": {
+          "cooldownSeconds": 4,
+          "windupSeconds": 0,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 60,
+        "emitters": [
+          {
+            "id": "future-sense",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "observation-reveal-effect",
+            "type": "reveal",
+            "durationSeconds": 6
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "emission-blast",
+        "name": "Emission",
+        "summary": "A projected Armament Haki blast that reaches a distant target.",
+        "unlockedByDefault": false,
+        "tags": ["armament-haki", "emission", "direct-strike"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "emission-blast-targets",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "emission-blast-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 4.5,
+          "windupSeconds": 0.25,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 48,
+        "emitters": [
+          {
+            "id": "emission-fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "emission-blast-damage",
+            "type": "damage",
+            "amountHitPoints": 140,
+            "damageType": "armament"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "internal-destruction",
+        "name": "Internal Destruction",
+        "summary": "A heavy Armament Haki strike adapted to represent damage penetrating within the target.",
+        "unlockedByDefault": false,
+        "tags": ["armament-haki", "internal-destruction", "direct-strike"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "internal-destruction-targets",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "internal-destruction-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 5.5,
+          "windupSeconds": 0.35,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 60,
+        "emitters": [
+          {
+            "id": "internal-impact",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "internal-destruction-damage",
+            "type": "damage",
+            "amountHitPoints": 260,
+            "damageType": "internal-haki"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-third-impact",
+        "name": "Gear Third Impact",
+        "summary": "Luffy enlarges a body part for a slower, high-damage elastic blow.",
+        "unlockedByDefault": false,
+        "tags": ["gear-third", "armament-path", "direct-strike"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-third-targets",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-third-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 5,
+          "windupSeconds": 0.7,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 60,
+        "emitters": [
+          {
+            "id": "giant-fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-third-damage",
+            "type": "damage",
+            "amountHitPoints": 360,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-second-strike",
+        "name": "Gear Second Barrage",
+        "summary": "An externally selected Gear Second attack configuration with faster elastic strikes.",
+        "unlockedByDefault": false,
+        "tags": ["gear-second", "speed", "direct-strike"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-second-targets",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-second-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 0.65,
+          "windupSeconds": 0.05,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 60,
+        "emitters": [
+          {
+            "id": "steam-powered-arm",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-second-damage",
+            "type": "damage",
+            "amountHitPoints": 105,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-fourth-strike",
+        "name": "Gear Fourth Compressed Strike",
+        "summary": "An externally selected Gear Fourth attack configuration using compressed, Armament-coated force.",
+        "unlockedByDefault": false,
+        "tags": ["gear-fourth", "armament-haki", "direct-strike"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-fourth-targets",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-fourth-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 2.2,
+          "windupSeconds": 0.25,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 65,
+        "emitters": [
+          {
+            "id": "compressed-limb",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-fourth-damage",
+            "type": "damage",
+            "amountHitPoints": 300,
+            "damageType": "armament"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-fifth-impact",
+        "name": "Gear Fifth Freedom Impact",
+        "summary": "An externally selected Gear Fifth attack configuration with a finite freedom-themed elastic burst. Environmental rubberization and living-target transformation are not implemented.",
+        "unlockedByDefault": false,
+        "tags": ["gear-fifth", "awakening-adaptation", "direct-strike"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-fifth-targets",
+          "type": "strongest",
+          "maximumTargets": 2,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-fifth-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 2
+        },
+        "timing": {
+          "cooldownSeconds": 2.8,
+          "windupSeconds": 0.2,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 70,
+        "emitters": [
+          {
+            "id": "freeform-fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-fifth-damage",
+            "type": "damage",
+            "amountHitPoints": 250,
+            "damageType": "awakening"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      }
+    ],
+    "abilities": [],
+    "summons": [],
+    "forms": [
+      {
+        "id": "gear-second-form",
+        "name": "Gear Second",
+        "summary": "External encounter selection representing Gear Second's speed-focused body pump. Runtime transformation, strain, and reversion are not implemented.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-second-strike"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "gear-fourth-form",
+        "name": "Gear Fourth",
+        "summary": "External encounter selection representing an Armament-coated, muscle-inflated compressed striking configuration. Specific variants are not separately implemented.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-fourth-strike"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "gear-fifth-form",
+        "name": "Gear Fifth",
+        "summary": "External encounter selection representing an awakened freedom-themed configuration. Fatal-damage awakening, runtime switching, environmental rubberization, and arbitrary imagination effects are not implemented.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-fifth-impact"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      }
+    ],
+    "upgradeGraph": {
+      "profile": "classic-three-path",
+      "paths": [
+        {
+          "id": "path-conquerors-haki",
+          "name": "Conqueror's Haki",
+          "summary": "Burst pressure, target saturation, and a bounded Gear Fifth unlock."
+        },
+        {
+          "id": "path-observation-haki",
+          "name": "Observation Haki",
+          "summary": "Attack cadence, presence detection, and a bounded Gear Second unlock."
+        },
+        {
+          "id": "path-armament-haki",
+          "name": "Armament Haki",
+          "summary": "Extended reach, piercing Haki attacks, enlarged impact, and a bounded Gear Fourth unlock."
+        }
+      ],
+      "nodes": [
+        {
+          "id": "conquerors-1",
+          "name": "Haki Pressure",
+          "summary": "Increase Gum-Gum Pistol impact damage.",
+          "path": "path-conquerors-haki",
+          "tier": 1,
+          "costCredits": 100,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "gum-gum-pistol",
+              "effectId": "gum-gum-pistol-damage",
+              "parameter": "amountHitPoints",
+              "operation": "add",
+              "value": 35
+            }
+          ],
+          "tags": ["conquerors-haki", "damage"]
+        },
+        {
+          "id": "conquerors-2",
+          "name": "Pressure Sweep",
+          "summary": "Let each Gum-Gum Pistol emission strike two eligible enemies.",
+          "path": "path-conquerors-haki",
+          "tier": 2,
+          "costCredits": 200,
+          "prerequisites": ["conquerors-1"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "maximumTargetsPerProjectile",
+              "operation": "set",
+              "value": 2
+            }
+          ],
+          "tags": ["conquerors-haki", "multi-target"]
+        },
+        {
+          "id": "conquerors-3",
+          "name": "Conqueror's Burst",
+          "summary": "Enable a separate recurring pressure blow.",
+          "path": "path-conquerors-haki",
+          "tier": 3,
+          "costCredits": 300,
+          "prerequisites": ["conquerors-2"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "conquerors-pressure"
+            }
+          ],
+          "tags": ["conquerors-haki", "burst"]
+        },
+        {
+          "id": "conquerors-4",
+          "name": "Advanced Coating",
+          "summary": "Increase the damage of the Conqueror's pressure blow.",
+          "path": "path-conquerors-haki",
+          "tier": 4,
+          "costCredits": 400,
+          "prerequisites": ["conquerors-3"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "conquerors-pressure",
+              "effectId": "conquerors-pressure-damage",
+              "parameter": "amountHitPoints",
+              "operation": "add",
+              "value": 100
+            }
+          ],
+          "tags": ["conquerors-haki", "coating"]
+        },
+        {
+          "id": "conquerors-5",
+          "name": "Nika's Freedom",
+          "summary": "Unlock external selection of the Gear Fifth encounter form.",
+          "path": "path-conquerors-haki",
+          "tier": 5,
+          "costCredits": 500,
+          "prerequisites": ["conquerors-4"],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "gear-fifth-form"
+            }
+          ],
+          "tags": ["conquerors-haki", "capstone", "gear-fifth"]
+        },
+        {
+          "id": "observation-1",
+          "name": "Keen Reading",
+          "summary": "Reduce Gum-Gum Pistol's scheduled cooldown through improved movement reading.",
+          "path": "path-observation-haki",
+          "tier": 1,
+          "costCredits": 110,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "cooldownSeconds",
+              "operation": "add",
+              "value": -0.15
+            }
+          ],
+          "tags": ["observation-haki", "cadence"]
+        },
+        {
+          "id": "observation-2",
+          "name": "Presence Detection",
+          "summary": "Enable recurring Observation Haki revelation of hidden eligible enemies.",
+          "path": "path-observation-haki",
+          "tier": 2,
+          "costCredits": 220,
+          "prerequisites": ["observation-1"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "observation-reveal"
+            }
+          ],
+          "tags": ["observation-haki", "reveal"]
+        },
+        {
+          "id": "observation-3",
+          "name": "Refined Prediction",
+          "summary": "Further reduce Gum-Gum Pistol's scheduled cooldown.",
+          "path": "path-observation-haki",
+          "tier": 3,
+          "costCredits": 330,
+          "prerequisites": ["observation-2"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "cooldownSeconds",
+              "operation": "add",
+              "value": -0.15
+            }
+          ],
+          "tags": ["observation-haki", "cadence"]
+        },
+        {
+          "id": "observation-4",
+          "name": "Future Sight",
+          "summary": "Extend the duration of Observation's reveal window to represent a bounded timing advantage.",
+          "path": "path-observation-haki",
+          "tier": 4,
+          "costCredits": 440,
+          "prerequisites": ["observation-3"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "observation-reveal",
+              "effectId": "observation-reveal-effect",
+              "parameter": "durationSeconds",
+              "operation": "add",
+              "value": 4
+            }
+          ],
+          "tags": ["observation-haki", "future-sight"]
+        },
+        {
+          "id": "observation-5",
+          "name": "Second Gear Timing",
+          "summary": "Unlock external selection of the Gear Second encounter form.",
+          "path": "path-observation-haki",
+          "tier": 5,
+          "costCredits": 550,
+          "prerequisites": ["observation-4"],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "gear-second-form"
+            }
+          ],
+          "tags": ["observation-haki", "capstone", "gear-second"]
+        },
+        {
+          "id": "armament-1",
+          "name": "Hardened Reach",
+          "summary": "Extend Gum-Gum Pistol's elastic strike range.",
+          "path": "path-armament-haki",
+          "tier": 1,
+          "costCredits": 120,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "rangeWorldUnits",
+              "operation": "add",
+              "value": 8
+            }
+          ],
+          "tags": ["armament-haki", "range"]
+        },
+        {
+          "id": "armament-2",
+          "name": "Emission",
+          "summary": "Enable a projected Armament Haki blast.",
+          "path": "path-armament-haki",
+          "tier": 2,
+          "costCredits": 240,
+          "prerequisites": ["armament-1"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "emission-blast"
+            }
+          ],
+          "tags": ["armament-haki", "emission"]
+        },
+        {
+          "id": "armament-3",
+          "name": "Internal Destruction",
+          "summary": "Enable a heavy direct strike adapted from Internal Destruction.",
+          "path": "path-armament-haki",
+          "tier": 3,
+          "costCredits": 360,
+          "prerequisites": ["armament-2"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "internal-destruction"
+            }
+          ],
+          "tags": ["armament-haki", "internal-destruction"]
+        },
+        {
+          "id": "armament-4",
+          "name": "Gear Third",
+          "summary": "Enable an enlarged, slower, high-damage impact attack.",
+          "path": "path-armament-haki",
+          "tier": 4,
+          "costCredits": 480,
+          "prerequisites": ["armament-3"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "gear-third-impact"
+            }
+          ],
+          "tags": ["armament-haki", "gear-third"]
+        },
+        {
+          "id": "armament-5",
+          "name": "Boundman Force",
+          "summary": "Unlock external selection of the Gear Fourth encounter form.",
+          "path": "path-armament-haki",
+          "tier": 5,
+          "costCredits": 600,
+          "prerequisites": ["armament-4"],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "gear-fourth-form"
+            }
+          ],
+          "tags": ["armament-haki", "capstone", "gear-fourth"]
+        }
+      ],
+      "selectionRules": {
+        "maximumPrimaryPathTier": 5,
+        "maximumCrossPathTier": 2,
+        "maximumCrossPaths": 1,
+        "maximumSelectedNodes": 7
+      }
+    },
+    "requirements": {
+      "visuals": [
+        {
+          "id": "straw-hat-silhouette",
+          "description": "Monkey D. Luffy wears his recognizable straw hat and pirate clothing."
+        },
+        {
+          "id": "elastic-limb-effects",
+          "description": "Elastic arms and legs visibly stretch toward distant targets."
+        },
+        {
+          "id": "haki-effects",
+          "description": "Conqueror's, Observation, and Armament Haki use distinct visual treatments."
+        },
+        {
+          "id": "gear-second-visual",
+          "description": "Gear Second uses a visibly accelerated, steam-like presentation."
+        },
+        {
+          "id": "gear-fourth-visual",
+          "description": "Gear Fourth uses an enlarged muscle-inflated body with Armament-coated limbs."
+        },
+        {
+          "id": "gear-fifth-visual",
+          "description": "Gear Fifth uses a white-haired, white-clothed awakened presentation."
+        }
+      ],
+      "animations": [
+        {
+          "id": "gum-gum-pistol-animation",
+          "description": "Luffy pulls back and slingshots one arm into a distant enemy."
+        },
+        {
+          "id": "haki-strike-animation",
+          "description": "Haki attacks add distinct coating, pressure, or projected impact motions."
+        },
+        {
+          "id": "gear-third-animation",
+          "description": "A large inflated limb delivers a slow, heavy strike."
+        },
+        {
+          "id": "gear-second-animation",
+          "description": "Rapid elastic punches emphasize speed and repeated motion."
+        },
+        {
+          "id": "gear-fourth-animation",
+          "description": "Compressed limbs recoil and release with forceful propulsion."
+        },
+        {
+          "id": "gear-fifth-animation",
+          "description": "Awakened elastic motion is exaggerated while remaining a bounded attack animation."
+        }
+      ],
+      "audio": [
+        {
+          "id": "rubber-impact",
+          "description": "Elastic snap and heavy blunt impact sounds accompany direct strikes."
+        },
+        {
+          "id": "haki-pressure",
+          "description": "Conqueror's and Armament Haki use distinct low-frequency pressure accents."
+        },
+        {
+          "id": "gear-form-cues",
+          "description": "Each externally selected Gear form has a distinct activation presentation, without runtime transformation logic."
+        }
+      ]
+    }
+  },
+  "design": {
+    "prototype": "combined",
+    "callBudget": {
+      "maximum": 4,
+      "outerRepairs": 1
+    },
+    "diagnosticStatus": "complete",
+    "review": {
+      "status": "rejected",
+      "issues": [
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: parameter"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: operation"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: value"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/type",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: parameter"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: operation"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: value"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/type",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-required",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must have required property 'replacementActionId'"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: parameter"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: operation"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: value"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/type",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-anyOf",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must match a schema in anyOf"
+        },
+        {
+          "code": "schema-required",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must have required property 'effect'"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: parameter"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: operation"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: value"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/type",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-required",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must have required property 'effectId'"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/type",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-anyOf",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must match a schema in anyOf"
+        },
+        {
+          "code": "schema-required",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must have required property 'resourceId'"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: actionId"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: parameter"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: operation"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: value"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/type",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-required",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must have required property 'resourceId'"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: actionId"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/type",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-anyOf",
+          "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+          "message": "must match a schema in anyOf"
+        },
+        {
+          "code": "schema-required",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must have required property 'abilityId'"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: actionId"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: parameter"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: operation"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: value"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/type",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-required",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must have required property 'summonId'"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: actionId"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: parameter"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: operation"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: value"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/type",
+          "message": "must be equal to constant"
+        },
+        {
+          "code": "schema-required",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must have required property 'formId'"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: actionId"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: parameter"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: operation"
+        },
+        {
+          "code": "schema-additionalProperties",
+          "path": "/upgradeGraph/nodes/1/operations/0",
+          "message": "must NOT have additional properties: value"
+        },
+        {
+          "code": "schema-const",
+          "path": "/upgradeGraph/nodes/1/operations/0/type",
+          "message": "must be equal to constant"
+        }
+      ],
+      "validation": {
+        "structure": {
+          "status": "failed",
+          "checks": ["output-schema"],
+          "issues": [
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: parameter"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: operation"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: value"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/type",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: parameter"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: operation"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: value"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/type",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-required",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must have required property 'replacementActionId'"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: parameter"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: operation"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: value"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/type",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-anyOf",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must match a schema in anyOf"
+            },
+            {
+              "code": "schema-required",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must have required property 'effect'"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: parameter"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: operation"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: value"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/type",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-required",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must have required property 'effectId'"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/type",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-anyOf",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must match a schema in anyOf"
+            },
+            {
+              "code": "schema-required",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must have required property 'resourceId'"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: actionId"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: parameter"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: operation"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: value"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/type",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-required",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must have required property 'resourceId'"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: actionId"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/type",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-anyOf",
+              "path": "/upgradeGraph/nodes/1/operations/0/parameter",
+              "message": "must match a schema in anyOf"
+            },
+            {
+              "code": "schema-required",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must have required property 'abilityId'"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: actionId"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: parameter"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: operation"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: value"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/type",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-required",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must have required property 'summonId'"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: actionId"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: parameter"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: operation"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: value"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/type",
+              "message": "must be equal to constant"
+            },
+            {
+              "code": "schema-required",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must have required property 'formId'"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: actionId"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: parameter"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: operation"
+            },
+            {
+              "code": "schema-additionalProperties",
+              "path": "/upgradeGraph/nodes/1/operations/0",
+              "message": "must NOT have additional properties: value"
+            },
+            {
+              "code": "schema-const",
+              "path": "/upgradeGraph/nodes/1/operations/0/type",
+              "message": "must be equal to constant"
+            }
+          ]
+        },
+        "system": {
+          "status": "not-completed",
+          "checks": [],
+          "issues": []
+        },
+        "constraints": {
+          "status": "not-completed",
+          "checks": [],
+          "issues": []
+        },
+        "uncheckedRules": [
+          "Character fidelity and prose/mechanic agreement require review.",
+          "The consuming game must implement these mechanics.",
+          "Runtime reachability, numerical balance and enjoyable progression are not established."
+        ],
+        "balance": {
+          "status": "not-tested"
+        }
+      },
+      "beforePreserved": true,
+      "findings": [
+        {
+          "kind": "validation-error",
+          "candidatePaths": ["/upgradeGraph/nodes/1/operations/0", "/actions/0/delivery"],
+          "sourceClaimIndices": [],
+          "evidence": "Conquerors-2 claims that Gum-Gum Pistol can strike two enemies, but its operation writes maximumTargetsPerProjectile as an action property while the contract places that cap on delivery. The base delivery cap is also 1, so the declared two-target upgrade is not mechanically realized.",
+          "change": "Make the upgrade modify targeting.maximumTargets and raise the base delivery cap to 2, while retaining the tier-2 prerequisite as the gate that actually enables two targets."
+        },
+        {
+          "kind": "low-utility",
+          "candidatePaths": [
+            "/roles/2",
+            "/actions/2",
+            "/upgradeGraph/nodes/6",
+            "/upgradeGraph/nodes/8"
+          ],
+          "sourceClaimIndices": [30, 32],
+          "evidence": "The supplied diagnostic reports control -> control with observed signal 0, while Observation's reveal and Future Sight timing changes produce little or no measured utility in the supplied scenarios. The unit has no control effect, so declaring control as a role overstates the implemented loop.",
+          "change": "Replace the declared control role with support; retain Observation's reveal and timing adaptations because their low measured utility is scenario-limited rather than proof that the source mechanic is unsupported."
+        },
+        {
+          "kind": "meaningful-omission",
+          "candidatePaths": ["/forms/1", "/forms/1/summary", "/actions/5", "/actions/7"],
+          "sourceClaimIndices": [18, 20, 21, 22, 24],
+          "evidence": "The request asks to distinguish Gear Second through Gear Fifth and Gear Fourth variants. The candidate honestly implements only Gear Second, Gear Fourth, and Gear Fifth forms, represents Gear Third as an Armament upgrade attack, and explicitly omits Gear Fourth variants. This is a recognized adaptation, but the base schema does not provide distinct Gear Third or Gear Fourth-variant forms without exceeding the declared form/mechanic budget.",
+          "change": "No DSL expansion is proposed; preserve the omission and external design-artifact explanation rather than claiming unsupported runtime forms or variants."
+        }
+      ],
+      "uncertainties": [
+        "The feasibility artifact reports a planned prominent-mechanic count of 6, but the candidate declares three forms and no abilities; under the supplied effective counting rule, the candidate's declared prominent count appears to be 3. This discrepancy cannot be resolved from the candidate snapshot alone.",
+        "The supplied diagnostics are uncalibrated and do not establish that Observation Haki lacks utility in scenarios with hidden enemies or stronger targeting requirements.",
+        "Gear Third and Gear Fourth variant forms remain intentionally omitted because the form budget and supported form semantics do not define runtime switching, reversion, simultaneous combinations, or a complete variant catalog."
+      ]
+    },
+    "limits": [
+      "Source fidelity review remains model judgment. Diagnostics are uncalibrated mechanical evidence.",
+      "A rejected or failed review preserves the draft; structural success does not mean the review succeeded.",
+      "Only complete valid transactions are committed. Large redesigns and missing top-level structures may remain unrepaired.",
+      "Feasibility and source attribution remain model judgments. A supported claim in the plan is not an independent verification of the final implementation."
+    ],
+    "feasibility": {
+      "plan": {
+        "identity": "Public design specification and feasibility report: Monkey D. Luffy is implemented as a long-range direct-strike melee unit using elastic punches, with a 60-world-unit reach. The three independent paths are Conqueror's Haki for impact pressure and multi-target offense, Observation Haki for targeting and attack cadence, and Armament Haki for piercing force and characteristic heavy attacks. The contract supports three,",
+        "requests": [
+          {
+            "requirement": "Design the unit as Monkey D. Luffy from the supplied One Piece manga continuity.",
+            "status": "supported",
+            "treatment": "Uses Luffy's resolved identity and rubber-body combat traits without importing excluded adaptations.",
+            "limitation": "The supplied evidence is a secondary reference rather than direct manga excerpts.",
+            "claimIndices": [0, 8, 9]
+          },
+          {
+            "requirement": "Create a long-range melee unit whose elastic attacks reach distant enemies.",
+            "status": "supported",
+            "treatment": "The base attack is a 60-world-unit direct strike representing a stretched, slingshot punch; melee is treated as the attack theme rather than a short-range restriction.",
+            "limitation": "The source gives no numeric range, so 60 is a design value rather than a source fact.",
+            "claimIndices": [10, 11]
+          },
+          {
+            "requirement": "Organize the three upgrade paths around Conqueror's Haki, Observation Haki, and Armament Haki.",
+            "status": "supported",
+            "treatment": "Uses exactly three independent five-tier paths with distinct property ownership and separate gameplay roles.",
+            "limitation": "The contract's legal selections permit one primary path to tier 5 and at most one other path to tier 2.",
+            "claimIndices": [28, 29, 30, 31]
+          },
+          {
+            "requirement": "Represent Gear forms as special forms where the definition supports them.",
+            "status": "adapted",
+            "treatment": "Declares Gear Second, Gear Fourth, and Gear Fifth as the three available encounter forms. Gear Third is represented as a characteristic attack upgrade rather than a form.",
+            "limitation": "Forms are externally selected encounter configurations with no runtime switching, reversion, transformation trigger, or simultaneous combinations.",
+            "claimIndices": [16, 18, 20, 23, 24]
+          },
+          {
+            "requirement": "Distinguish the base state, Gear Second through Gear Fifth, and Gear Fourth variants.",
+            "status": "adapted",
+            "treatment": "The base state is the unformed unit; Gear Second, Gear Fourth, and Gear Fifth are distinct form declarations; Gear Third is an Armament-path attack upgrade.",
+            "limitation": "Gear Fourth variants cannot be separately represented because the supplied evidence does not provide a complete variant catalog and the form budget is three. Gear transitions and Gear Second/Gear Third simultaneous activation are not runtime mechanics.",
+            "claimIndices": [18, 20, 22, 24]
+          },
+          {
+            "requirement": "Unlock characteristic attacks through Gear forms where supported.",
+            "status": "adapted",
+            "treatment": "Gum-Gum Pistol is the base attack; Gear Third adds an enlarged high-damage impact; Gear Fourth adds compressed high-force strikes; Armament upgrades provide adapted Emission and Internal Destruction attacks; Gear Fifth adds an adapted freedom-based impact.",
+            "limitation": "The evidence does not provide a complete named-attack catalog, exact Gear Fourth variant attacks, or precise Gear Fifth applications, so unsupported attacks are not invented.",
+            "claimIndices": [11, 18, 21, 23, 24, 33]
+          },
+          {
+            "requirement": "Explain unsupported runtime behavior instead of claiming it is implemented.",
+            "status": "supported",
+            "treatment": "Runtime form switching, automatic awakening after a fatal blow, form reversion, strain-based transformation duration, and arbitrary Gear combinations are recorded as omissions rather than mechanics.",
+            "limitation": "Forms require external activation and persist for the encounter under the contract.",
+            "claimIndices": [17, 22, 25]
+          }
+        ],
+        "baseAttack": {
+          "description": "Gum-Gum Pistol: Luffy stretches and slingshots his arm into one distant enemy as a long-range elastic melee strike.",
+          "delivery": "direct-strike",
+          "rangeWorldUnits": 60,
+          "claimIndices": [10, 11]
+        },
+        "paths": [
+          {
+            "name": "Conqueror's Haki",
+            "role": "burst and damage",
+            "ownedProperties": [
+              "primary impact damage",
+              "maximum targets per emission",
+              "Conqueror's pressure burst",
+              "coating-based burst damage",
+              "Gear Fifth form grant"
+            ],
+            "progression": [
+              "Tier 1: Increase Gum-Gum Pistol impact damage through concentrated Conqueror's pressure.",
+              "Tier 2: Increase the primary attack's maximum eligible targets through a controlled pressure sweep.",
+              "Tier 3: Add a resolved secondary pressure impact to the primary hit; the secondary action is damage-only and finite.",
+              "Tier 4: Increase burst damage when Conqueror's coating is applied to the strike.",
+              "Tier 5: Grant external selection of the Gear Fifth form, adding a larger finite burst to its elastic impact."
+            ],
+            "claimIndices": [28, 31, 35]
+          },
+          {
+            "name": "Observation Haki",
+            "role": "support and precision",
+            "ownedProperties": [
+              "target priority",
+              "target detection and reveal",
+              "primary attack interval",
+              "Future Sight timing window",
+              "Gear Second form grant"
+            ],
+            "progression": [
+              "Tier 1: Improve target priority so Luffy preferentially selects the most dangerous eligible enemy.",
+              "Tier 2: Reveal otherwise hidden eligible enemies through Observation's presence detection.",
+              "Tier 3: Reduce the primary attack interval through refined movement reading.",
+              "Tier 4: Add a finite Future Sight window that improves target timing; it does not predict arbitrary future events.",
+              "Tier 5: Grant external selection of the Gear Second form, emphasizing faster attack cadence."
+            ],
+            "claimIndices": [30, 32, 16]
+          },
+          {
+            "name": "Armament Haki",
+            "role": "damage and control-resistant piercing offense",
+            "ownedProperties": [
+              "primary attack range",
+              "Emission secondary attack",
+              "Internal Destruction secondary attack",
+              "Gear Third characteristic attack",
+              "Gear Fourth form grant"
+            ],
+            "progression": [
+              "Tier 1: Extend the elastic strike's owned range while maintaining direct-strike delivery.",
+              "Tier 2: Add a finite Emission secondary action that projects a short Haki blast at a distant target.",
+              "Tier 3: Add a finite Internal Destruction secondary action that deals direct internal damage to the struck target.",
+              "Tier 4: Add a Gear Third enlarged-impact attack with higher damage and a longer windup.",
+              "Tier 5: Grant external selection of the Gear Fourth form, whose attacks use compressed, Armament-coated blows."
+            ],
+            "claimIndices": [29, 33, 34, 18, 20, 21]
+          }
+        ],
+        "mechanics": [
+          {
+            "name": "Gear Second",
+            "kind": "form",
+            "implementation": "External encounter form selected after its owning upgrade grants it. It changes the current build toward faster attack cadence and higher speed-themed offense; it is not activated, reverted, or switched at runtime.",
+            "claimIndices": [16, 17, 22]
+          },
+          {
+            "name": "Gear Fourth",
+            "kind": "form",
+            "implementation": "External encounter form selected after its owning upgrade grants it. It supplies compressed, Armament-coated high-force strikes and air-propelled attack flavor; exact named variants are not separately implemented.",
+            "claimIndices": [20, 21]
+          },
+          {
+            "name": "Gear Fifth",
+            "kind": "form",
+            "implementation": "External encounter form selected after its owning upgrade grants it. It supplies a finite freedom-themed elastic burst and white-form presentation; awakening is not triggered by damage and environmental or living-target rubberization is not implemented.",
+            "claimIndices": [23, 24, 25, 26]
+          },
+          {
+            "name": "Conqueror's pressure secondary action",
+            "kind": "ability",
+            "implementation": "A finite secondary damage action triggered by the primary hit at its declared timing. It adapts the source's intimidation into damage pressure and does not knock enemies unconscious.",
+            "claimIndices": [31]
+          },
+          {
+            "name": "Emission",
+            "kind": "ability",
+            "implementation": "A finite secondary direct damage action representing a short projected Haki blast. Its exact source range and reliability are unspecified, so the design uses contract-valid declared values rather than asserting source accuracy.",
+            "claimIndices": [33]
+          },
+          {
+            "name": "Internal Destruction",
+            "kind": "ability",
+            "implementation": "A finite secondary direct damage action applied to a valid struck target, representing penetration and internal damage without introducing unsupported armor rules or stat modifiers.",
+            "claimIndices": [34]
+          },
+          {
+            "name": "Future Sight",
+            "kind": "other",
+            "implementation": "A finite Observation timing effect that improves target ordering and attack timing. It does not grant unrestricted future knowledge or automatic evasion because those behaviors are not defined by the contract or source excerpt.",
+            "claimIndices": [30, 32]
+          }
+        ],
+        "omissions": [
+          {
+            "sourceTrait": "Runtime Gear transformation, reversion, simultaneous Gear combinations, and Gear Fifth awakening after an apparently fatal blow.",
+            "reason": "The contract defines forms as externally selected encounter configurations with no runtime transformation, activation, reversion, or state-transfer behavior.",
+            "claimIndices": [22, 25]
+          },
+          {
+            "sourceTrait": "Gear Third's original post-use shrinking and Gear Second's severe strain, energy consumption, and possible lifespan shortening.",
+            "reason": "The supplied evidence does not define executable recovery, health, lifespan, or resource semantics for these drawbacks; post-timeskip removal of the stated Gear Second and Gear Third drawbacks also prevents assuming a universal penalty.",
+            "claimIndices": [17, 19]
+          },
+          {
+            "sourceTrait": "Separate Gear Fourth variants.",
+            "reason": "The source excerpt does not provide a complete variant catalog, and the three-form prominent-mechanic budget is already consumed by Gear Second, Gear Fourth, and Gear Fifth.",
+            "claimIndices": [20, 21]
+          },
+          {
+            "sourceTrait": "Gear Fifth's unrestricted imagination, environmental rubberization, and rubberization of other living beings.",
+            "reason": "These behaviors require broad runtime transformation and target-state mechanics outside the selected supported subset.",
+            "claimIndices": [23, 24, 26]
+          },
+          {
+            "sourceTrait": "Conqueror's Haki rendering weak-willed people or animals unconscious.",
+            "reason": "The design adapts Conqueror's Haki to finite damage pressure so it does not claim a source-accurate control effect without budgeting a control mechanic and supplying resistance context.",
+            "claimIndices": [31]
+          },
+          {
+            "sourceTrait": "Luffy's electric immunity, blunt-force resistance, sharp-weapon weakness, water weakness, and poison immunity.",
+            "reason": "The request focuses on elastic attacks, Haki paths, and Gear forms; defensive resistances, weaknesses, and poison-state behavior are omitted rather than represented as unsupported stat modifiers or unspecified statuses.",
+            "claimIndices": [12, 13, 14, 36]
+          },
+          {
+            "sourceTrait": "Gear Fourth's exact variants and complete Gear Fifth attack catalog.",
+            "reason": "The supplied record explicitly lacks a complete named-attack and variant catalog, so no additional attacks are invented.",
+            "claimIndices": [20, 23, 24]
+          }
+        ],
+        "uncertainties": [
+          "The 60-world-unit base range, damage values, intervals, windups, and secondary-action timings are design values within the authoritative numeric bands, not source facts.",
+          "The source does not specify exact Future Sight duration, reliability conditions, Emission range, Internal Destruction range, or Conqueror's coating limits.",
+          "The three forms are individually legal encounter selections, but the contract does not define safe simultaneous form combinations.",
+          "A consuming engine must supply deterministic targeting tie-breaking, target resistance context, and exact effect amounts before validation or balance evaluation.",
+          "The report uses no healing, shields, generic stat modifiers, runtime transformations, manual active ability, or damage-over-time declaration."
+        ]
+      },
+      "planningIssues": [
+        {
+          "code": "planned-mechanic-limit",
+          "message": "Planned prominent count 6 exceeds 3. Reduce declarations in the draft and preserve the unsupported intent in the adaptation report."
+        }
+      ]
+    },
+    "effectiveLimits": {
+      "pathCount": 3,
+      "tiersPerPath": 5,
+      "placementCostCredits": [450, 750],
+      "maximumRangeWorldUnits": 80,
+      "maximumManualAbilities": 1,
+      "maximumProminentMechanics": 3,
+      "prominentMechanicCounting": "Every declared ability plus every declared form plus one if control is used plus one if damage-over-time is used. Locked declarations still count. Resources do not directly count, but their associated abilities and forms do.",
+      "forms": {
+        "activation": "external",
+        "persistence": "encounter",
+        "reversion": "none",
+        "requirements": "empty; grant-form upgrade or explicit external unlock"
+      },
+      "formLimitations": "Forms are external encounter selections. They do not switch at runtime, revert, enforce mutually exclusive modes, or make arbitrary combinations safe. A grant-form upgrade unlocks a later external build selection.",
+      "intervalCadence": "For an enabled primary interval action, scheduled period = max(trigger.intervalSeconds, timing.cooldownSeconds). A fixed trigger interval can mask cooldown upgrades. A trigger floor of 0.15 seconds allows cooldown upgrades down to that floor; use a different explicit interval only when intentional. Windup delays resolution separately.",
+      "delivery": "Direct-strike and line-strike can have range up to the same configured maximum as projectiles. Melee does not imply short range. Projectile primary aim count and collateral pierce are separate; do not infer a combined minimum target cap.",
+      "excludedMechanics": [],
+      "allowedMechanics": null
+    }
+  },
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": ["output-schema"],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "default-mechanics",
+        "references-and-lifecycles",
+        "legal-upgrade-and-form-selections",
+        "numeric-bands"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "passed",
+      "checks": ["request-constraints"],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "error": null,
+  "metadata": {
+    "modelCalls": 3,
+    "repairs": 0,
+    "elapsedMs": 237853,
+    "calls": [
+      {
+        "stage": "feasibility",
+        "completed": true,
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 8525,
+          "outputTokens": 4595
+        }
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 19494,
+          "outputTokens": 5351
+        }
+      },
+      {
+        "stage": "review-patch",
+        "completed": true,
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 54217,
+          "outputTokens": 2806
+        }
+      }
+    ]
+  }
+}

@@ -1,6 +1,7 @@
 export default [
   {
     ignores: [
+      '.scratch/**',
       '**/dist/**',
       '**/.svelte-kit/**',
       '**/build/**',

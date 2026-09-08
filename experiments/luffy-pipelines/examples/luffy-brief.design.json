@@ -1,0 +1,501 @@
+{
+  "runId": "brief-refined-high-1",
+  "design": {
+    "prototype": "refined",
+    "callBudget": {
+      "normal": 3,
+      "maximum": 5,
+      "feasibilityCorrections": 1,
+      "outerRepairs": 1
+    },
+    "diagnosticStatus": "complete",
+    "review": {
+      "status": "unchanged",
+      "issues": [],
+      "validation": {
+        "structure": {
+          "status": "passed",
+          "checks": ["output-schema"],
+          "issues": []
+        },
+        "system": {
+          "status": "passed",
+          "checks": [
+            "default-mechanics",
+            "references-and-lifecycles",
+            "legal-upgrade-and-form-selections",
+            "numeric-bands"
+          ],
+          "issues": []
+        },
+        "constraints": {
+          "status": "passed",
+          "checks": ["request-constraints"],
+          "issues": []
+        },
+        "uncheckedRules": [
+          "Character fidelity and prose/mechanic agreement require review.",
+          "The consuming game must implement these mechanics.",
+          "Runtime reachability, numerical balance and enjoyable progression are not established."
+        ],
+        "balance": {
+          "status": "not-tested"
+        }
+      },
+      "beforePreserved": false,
+      "findings": [
+        {
+          "kind": "unsupported-mechanic",
+          "candidatePaths": ["/forms/1/summary", "/summary"],
+          "sourceClaimIndices": [20, 21],
+          "evidence": "The request asks for Gear Fourth variants, but the supplied evidence only establishes generic Gear Fourth muscle inflation, Armament coating, compression, and powerful blows. The knowledge gaps explicitly state that no complete Gear Fourth variant catalog was supplied. The candidate correctly implements only a generic Gear Fourth form and documents the limitation.",
+          "change": "No grounded schema edit is justified. Preserve the explicit generic-only limitation rather than inventing named variants unsupported by the supplied record."
+        },
+        {
+          "kind": "low-utility",
+          "candidatePaths": [
+            "/upgradeGraph/nodes/5/operations/0/value",
+            "/upgradeGraph/nodes/5/summary"
+          ],
+          "sourceClaimIndices": [],
+          "evidence": "The supplied diagnostic measured at most 0.836% relative utility gain for Observation Haki tier 1 across all six sampled scenarios. The reported facts show only one resolved fast-scenario hit and no material damage in the other sampled scenarios. This is a concrete diagnostic observation, but it does not establish universal weakness or identify a canonically required numeric value.",
+          "change": "No automatic numeric edit. A stronger range value or a different supported Observation-owned utility would require new scenario evidence and would risk changing the intended progression without a calibrated target."
+        },
+        {
+          "kind": "low-utility",
+          "candidatePaths": [
+            "/upgradeGraph/nodes/12/operations/0/value",
+            "/upgradeGraph/nodes/12/summary"
+          ],
+          "sourceClaimIndices": [],
+          "evidence": "The supplied diagnostic measured zero utility gain when Armament Haki tier 3 increased Armament Emission range by 10 world units after tiers 1 and 2. The sampled scenarios therefore did not require the added reach, although the mechanic remains executable in farther-target contexts.",
+          "change": "No automatic replacement of the range upgrade is justified. The diagnostic is scenario-limited, and changing the Armament path to cadence or damage would violate the existing property allocation and path identity without additional evidence."
+        },
+        {
+          "kind": "low-utility",
+          "candidatePaths": [
+            "/actions/1",
+            "/actions/2",
+            "/actions/3",
+            "/forms/0/operations/0",
+            "/forms/1/operations/0",
+            "/forms/2/operations/0"
+          ],
+          "sourceClaimIndices": [],
+          "evidence": "The complexity diagnostic assigns no connection credit to the Gear Second, Gear Fourth, and Gear Fifth fixed actions. Execution inspection also shows each form enables its characteristic action while leaving Gum-Gum Pistol enabled, so forms are additive encounter profiles rather than exclusive replacements. This is mechanically coherent with the candidate's stated 'add' wording, but it weakens form distinctness and may dilute the player decision between base and Gear profiles.",
+          "change": "A replacement-style repair is not proposed because disabling Gum-Gum Pistol would also discard path-owned effects on that action, and the supplied schema does not provide a safe form-local way to transfer those effects to the fixed Gear actions. Preserve the transparent additive limitation."
+        }
+      ],
+      "uncertainties": [
+        "The diagnostics are explicitly uncalibrated and scenario-limited; low measured utility does not prove a universally weak upgrade.",
+        "The supplied source does not establish a complete Gear Fourth variant list, exact attack parameters, or a safe canonical mapping for variants.",
+        "The form contract supports external encounter selections but does not define whether a selected form should replace or supplement the default action; the candidate documents and consistently implements supplementation."
+      ]
+    },
+    "limits": [
+      "Source fidelity review remains model judgment. Diagnostics are uncalibrated mechanical evidence.",
+      "A rejected or failed review preserves the draft; structural success does not mean the review succeeded.",
+      "Only complete valid transactions are committed. Large redesigns and missing top-level structures may remain unrepaired.",
+      "Feasibility and source attribution remain model judgments. A supported claim in the plan is not an independent verification of the final implementation."
+    ],
+    "feasibility": {
+      "plan": {
+        "identity": "Monkey D. Luffy \u2014 public design specification and feasibility report. Build: a 700-credit, one-placement long-range elastic attacker using a 36-world-unit direct-strike Gum-Gum Pistol. The unit has three independent five-tier paths: Conqueror's Haki for burst damage, Observation Haki for reach and cadence, and Armament Haki for emission and penetration-inspired damage. Feasibility: supported within classic-three-path",
+        "requests": [
+          {
+            "requirement": "Design the unit as Monkey D. Luffy from the supplied One Piece manga continuity.",
+            "status": "supported",
+            "treatment": "Uses Luffy's rubber body, Gum-Gum Pistol, Devil Fruit, and three Haki types as the source-specific foundation.",
+            "limitation": "The design does not establish facts beyond the supplied continuity record.",
+            "claimIndices": [0, 1, 8, 9, 10, 11]
+          },
+          {
+            "requirement": "Make elastic attacks reach distant enemies while retaining a melee-like physical impact.",
+            "status": "supported",
+            "treatment": "Uses a long-range direct-strike rather than a projectile: the stretched arm reaches the target and applies direct impact damage.",
+            "limitation": "The engine has no separate melee tag; long reach is represented by direct-strike delivery.",
+            "claimIndices": [10, 11]
+          },
+          {
+            "requirement": "Organize the unit around Conqueror's Haki, Observation Haki, and Armament Haki.",
+            "status": "supported",
+            "treatment": "Provides exactly three independent upgrade paths with distinct owned properties and executable combat roles.",
+            "limitation": "Some named Haki applications are adapted to damage, reach, cadence, or line-strike behavior because control, stat modifiers, and reactive scheduling are constrained.",
+            "claimIndices": [28]
+          },
+          {
+            "requirement": "Use Conqueror's Haki as an upgrade path.",
+            "status": "adapted",
+            "treatment": "Implements coating-inspired burst damage and a Gear Third enlarged-strike damage profile.",
+            "limitation": "The weak-willed knockout effect and advanced coating as a runtime body transformation are not implemented.",
+            "claimIndices": [31, 35]
+          },
+          {
+            "requirement": "Use Observation Haki as an upgrade path.",
+            "status": "adapted",
+            "treatment": "Implements greater reach, shorter recurring attack periods, and an additional elastic emitter as a deterministic combat distinction.",
+            "limitation": "Future Sight is not implemented as predictive or reactive scheduling.",
+            "claimIndices": [30, 32]
+          },
+          {
+            "requirement": "Use Armament Haki as an upgrade path.",
+            "status": "adapted",
+            "treatment": "Implements Emission as a secondary line-strike and Internal Destruction as an added direct-damage effect.",
+            "limitation": "Armor defense, Devil Fruit negation, and literal penetration are not represented by unsupported stat or target-property changes.",
+            "claimIndices": [29, 33, 34]
+          },
+          {
+            "requirement": "Represent Gear forms as special forms that unlock characteristic attacks where the definition supports them.",
+            "status": "adapted",
+            "treatment": "Declares three external encounter forms: Gear Second, generic Gear Fourth, and Gear Fifth. Their characteristic attacks are fixed encounter configurations using predeclared action profiles, not runtime transformations.",
+            "limitation": "Forms do not activate, revert, switch, or enforce mutually exclusive runtime modes.",
+            "claimIndices": [16, 18, 20, 21, 23, 24]
+          },
+          {
+            "requirement": "Distinguish the base state.",
+            "status": "supported",
+            "treatment": "The base state is the always-available no-form configuration using the ordinary Gum-Gum Pistol.",
+            "limitation": "No separate runtime state machine is introduced.",
+            "claimIndices": [9, 10, 11]
+          },
+          {
+            "requirement": "Distinguish Gear Second.",
+            "status": "adapted",
+            "treatment": "Declares Gear Second as an externally selected form with a fixed faster elastic-strike profile.",
+            "limitation": "The form cannot be triggered during combat, and exact strain, energy, lifespan, or recovery costs are not modeled.",
+            "claimIndices": [16, 17]
+          },
+          {
+            "requirement": "Distinguish Gear Third.",
+            "status": "adapted",
+            "treatment": "Represents Gear Third as a Conqueror-path enlarged-strike damage upgrade rather than a form.",
+            "limitation": "The original post-use shrinking drawback is omitted; no runtime body enlargement is claimed.",
+            "claimIndices": [18, 19]
+          },
+          {
+            "requirement": "Distinguish Gear Fourth and its variants.",
+            "status": "adapted",
+            "treatment": "Declares one generic Gear Fourth external form using a fixed compressed, Armament-coated heavy-strike profile.",
+            "limitation": "No named Gear Fourth variants are declared because the supplied evidence does not provide a complete variant catalog and the three-form budget is exhausted.",
+            "claimIndices": [20, 21]
+          },
+          {
+            "requirement": "Distinguish Gear Fifth.",
+            "status": "adapted",
+            "treatment": "Declares Gear Fifth as an externally selected awakened form with a fixed high-freedom direct-strike profile.",
+            "limitation": "No automatic awakening, imagination system, environmental rubberization, or runtime transformation is implemented.",
+            "claimIndices": [23, 24, 25, 26]
+          }
+        ],
+        "baseAttack": {
+          "description": "Gum-Gum Pistol: Luffy stretches and slingshots his arm into a distant direct physical strike.",
+          "delivery": "direct-strike",
+          "rangeWorldUnits": 36,
+          "claimIndices": [10, 11]
+        },
+        "paths": [
+          {
+            "name": "Conqueror's Haki",
+            "role": "damage and burst",
+            "ownedProperties": [
+              "Gum-Gum Pistol Conqueror-coating damage amountHitPoints",
+              "Gear Third enlarged-strike damage amountHitPoints"
+            ],
+            "progression": [
+              "Tier 1: add a fixed Conqueror's-coating damage effect to each Gum-Gum Pistol hit.",
+              "Tier 2: increase the coating damage.",
+              "Tier 3: multiply the coating damage.",
+              "Tier 4: add a Gear Third enlarged-strike damage effect to the base hit.",
+              "Tier 5: increase the enlarged-strike damage."
+            ],
+            "claimIndices": [28, 35, 18]
+          },
+          {
+            "name": "Observation Haki",
+            "role": "range, cadence, and multi-emitter precision",
+            "ownedProperties": [
+              "Gum-Gum Pistol rangeWorldUnits",
+              "Gum-Gum Pistol cooldownSeconds",
+              "Gum-Gum Pistol emitterCount"
+            ],
+            "progression": [
+              "Tier 1: increase Gum-Gum Pistol reach by 8 world units.",
+              "Tier 2: reduce the recurring attack period through cooldownSeconds; this is faster cadence, not projectile speed.",
+              "Tier 3: add one elastic emitter for a second independently resolved strike.",
+              "Tier 4: increase reach by another 10 world units.",
+              "Tier 5: reduce cooldownSeconds again for a faster recurring attack period."
+            ],
+            "claimIndices": [30, 32]
+          },
+          {
+            "name": "Armament Haki",
+            "role": "supporting damage and ranged burst",
+            "ownedProperties": [
+              "Armament Emission rangeWorldUnits",
+              "Armament Emission cooldownSeconds",
+              "Armament Emission damage amountHitPoints",
+              "Internal Destruction damage amountHitPoints"
+            ],
+            "progression": [
+              "Tier 1: enable the automatic Emission line-strike action.",
+              "Tier 2: increase Emission damage.",
+              "Tier 3: increase Emission range; this changes reach, not projectile travel speed.",
+              "Tier 4: add an Internal Destruction-inspired direct-damage effect to the Gum-Gum Pistol hit.",
+              "Tier 5: increase the Internal Destruction-inspired damage."
+            ],
+            "claimIndices": [29, 33, 34]
+          }
+        ],
+        "mechanics": [
+          {
+            "name": "Base state",
+            "kind": "other",
+            "implementation": "Always available no-form configuration. Uses the Gum-Gum Pistol automatic direct-strike action at 36 range, one target application, a 1.8-second cooldown, and fixed direct impact damage. This is a long-range physical strike, not a projectile.",
+            "claimIndices": [9, 10, 11]
+          },
+          {
+            "name": "Gum-Gum Pistol",
+            "kind": "other",
+            "implementation": "Primary automatic action with direct-strike delivery, 36-world-unit range, finite target cap of one, and a 1.8-second recurring period. Observation upgrades own its range, cooldown, and emitter count.",
+            "claimIndices": [10, 11]
+          },
+          {
+            "name": "Conqueror's coating damage",
+            "kind": "other",
+            "implementation": "A fixed direct-damage effect added and improved by the Conqueror's Haki path. It models enhanced attacks without claiming a runtime body coating or a control status.",
+            "claimIndices": [35]
+          },
+          {
+            "name": "Gear Third enlarged-strike profile",
+            "kind": "other",
+            "implementation": "A locked damage effect added by the Conqueror's path at tier 4 and strengthened at tier 5. It adapts Gear Third's enlarged high-damage distinction without declaring a runtime transformation.",
+            "claimIndices": [18, 19]
+          },
+          {
+            "name": "Armament Emission",
+            "kind": "other",
+            "implementation": "A locked automatic line-strike action enabled by Armament tier 1. It uses an 18-world-unit range, a 3.5-second cooldown, one target application, and direct damage. Its cooldown changes are recurring cadence changes, not projectile-speed changes.",
+            "claimIndices": [33]
+          },
+          {
+            "name": "Internal Destruction-inspired damage",
+            "kind": "other",
+            "implementation": "A locked direct-damage effect added to Gum-Gum Pistol by Armament tier 4 and strengthened at tier 5. It represents extra internal-impact damage without claiming literal penetration mechanics.",
+            "claimIndices": [34]
+          },
+          {
+            "name": "Gear Second",
+            "kind": "form",
+            "implementation": "Locked external encounter form. Selecting it chooses a fixed faster elastic-strike profile; activation is external, persistence is the encounter, reversion is none, and requirements are empty after unlock. It does not trigger or revert during combat.",
+            "claimIndices": [16, 17]
+          },
+          {
+            "name": "Gear Fourth",
+            "kind": "form",
+            "implementation": "Locked external encounter form representing generic compressed, Armament-coated heavy strikes. It is one fixed Gear Fourth configuration; no named variant switching or runtime transformation is declared.",
+            "claimIndices": [20, 21]
+          },
+          {
+            "name": "Gear Fifth",
+            "kind": "form",
+            "implementation": "Locked external encounter form representing an awakened high-freedom direct-strike profile. It is selected externally for the encounter and does not implement automatic awakening, environmental rubberization, or imagination-driven runtime behavior.",
+            "claimIndices": [23, 24, 25, 26]
+          }
+        ],
+        "omissions": [
+          {
+            "sourceTrait": "Runtime switching among base state, Gear Second, Gear Third, Gear Fourth, and Gear Fifth, including reversion.",
+            "reason": "Forms are encounter configurations with external activation, encounter persistence, and no reversion. Runtime transformations are outside the default contract.",
+            "claimIndices": [16, 20, 22, 24, 25]
+          },
+          {
+            "sourceTrait": "Conqueror's Haki rendering weak-willed people or animals unconscious.",
+            "reason": "No control mechanic is declared so the three-form budget remains within the prominent-mechanic limit; Conqueror's Haki is adapted to burst damage instead.",
+            "claimIndices": [31]
+          },
+          {
+            "sourceTrait": "Observation Haki Future Sight.",
+            "reason": "Reactive prediction and passive scheduling are unsupported. Observation is adapted to reach, cadence, and an additional emitter.",
+            "claimIndices": [30, 32]
+          },
+          {
+            "sourceTrait": "Armament Haki armor-like defense and Devil Fruit-defense negation.",
+            "reason": "Generic stat modifiers, shields, and target-property negation are outside the default contract.",
+            "claimIndices": [29]
+          },
+          {
+            "sourceTrait": "Literal Internal Destruction penetration.",
+            "reason": "The supported subset is an additional direct-damage effect; no interior-state or penetration mechanic is claimed.",
+            "claimIndices": [34]
+          },
+          {
+            "sourceTrait": "Gear Second strain, energy consumption, and possible lifespan shortening.",
+            "reason": "The supplied evidence gives no exact resource, duration, or recovery values, and no resource or damage-over-time mechanic is needed for the selected subset.",
+            "claimIndices": [17]
+          },
+          {
+            "sourceTrait": "Gear Third post-use shrinking.",
+            "reason": "The drawback is not represented because runtime transformation and reversion are unsupported; Gear Third is an upgrade-owned damage profile.",
+            "claimIndices": [18, 19]
+          },
+          {
+            "sourceTrait": "Named Gear Fourth variants.",
+            "reason": "The supplied record does not provide a complete variant catalog, and only one generic Gear Fourth form fits the three-form budget.",
+            "claimIndices": [20, 21]
+          },
+          {
+            "sourceTrait": "Gear Fifth automatic awakening, imagination-limited freedom, environmental or living-being rubberization, and joy effect.",
+            "reason": "These require runtime transformation, broad environmental targeting, or unspecified imagination behavior. Gear Fifth is reduced to one fixed external encounter form.",
+            "claimIndices": [23, 24, 25, 26]
+          },
+          {
+            "sourceTrait": "Rubber immunity or resistance, sharp-weapon weakness, water and Sea-Prism Stone weakness, and partial poison immunity.",
+            "reason": "No requested defensive or weakness system was supplied, and generic stat modifiers or environmental incapacitation are outside this compact implementation.",
+            "claimIndices": [12, 13, 14, 36]
+          }
+        ],
+        "uncertainties": [
+          "The supplied evidence names Gum-Gum Pistol but does not provide a complete catalog of characteristic attacks, Gear Fourth variants, or Gear Fifth applications; fixed noncanonical profile names are therefore avoided.",
+          "The numeric values are design parameters within the authoritative bands, not claims about canon power, range, cooldown, or duration.",
+          "No active abilities are declared. The budget is 0 active abilities, 3 forms, 0 control mechanics, and 0 damage-over-time mechanics, for 3 of 3 prominent-mechanic slots.",
+          "The plan uses no projectile delivery, so projectile travel speed, projectile count, and collateral pierce are intentionally absent. Observation upgrades change reach, recurring cooldown, and emitter count only.",
+          "A legal build still requires one primary path through tier 5 and at most one other path through tier 2; forms are separately selected after external unlock and do not create runtime mode combinations."
+        ]
+      },
+      "planningIssues": []
+    },
+    "effectiveLimits": {
+      "pathCount": 3,
+      "tiersPerPath": 5,
+      "placementCostCredits": [450, 750],
+      "maximumRangeWorldUnits": 80,
+      "maximumManualAbilities": 1,
+      "maximumProminentMechanics": 3,
+      "prominentMechanicCounting": "Every declared ability plus every declared form plus one if control is used plus one if damage-over-time is used. Locked declarations still count. Resources do not directly count, but their associated abilities and forms do.",
+      "forms": {
+        "activation": "external",
+        "persistence": "encounter",
+        "reversion": "none",
+        "requirements": "empty; grant-form upgrade or explicit external unlock"
+      },
+      "formLimitations": "Forms are external encounter selections. They do not switch at runtime, revert, enforce mutually exclusive modes, or make arbitrary combinations safe. A grant-form upgrade unlocks a later external build selection.",
+      "intervalCadence": "For an enabled primary interval action, scheduled period = max(trigger.intervalSeconds, timing.cooldownSeconds). A fixed trigger interval can mask cooldown upgrades. A trigger floor of 0.15 seconds allows cooldown upgrades down to that floor; use a different explicit interval only when intentional. Windup delays resolution separately.",
+      "delivery": "Direct-strike and line-strike can have range up to the same configured maximum as projectiles. Melee does not imply short range. Projectile primary aim count and collateral pierce are separate; do not infer a combined minimum target cap.",
+      "excludedMechanics": [],
+      "allowedMechanics": null
+    },
+    "feasibilityAttempts": [
+      {
+        "attempt": 0,
+        "stage": "feasibility",
+        "issues": []
+      }
+    ],
+    "upgradeVocabulary": {
+      "source": "/properties/upgradeGraph/properties/nodes/items/properties/operations/items/anyOf",
+      "operations": [
+        {
+          "type": "enable-action"
+        },
+        {
+          "type": "disable-action"
+        },
+        {
+          "type": "replace-action"
+        },
+        {
+          "type": "modify-action",
+          "parameters": [
+            "cooldownSeconds",
+            "rangeWorldUnits",
+            "emitterCount",
+            "projectilesPerCycle",
+            "maximumTargetsPerProjectile"
+          ],
+          "numericOperations": ["add", "multiply", "set"]
+        },
+        {
+          "type": "add-effect"
+        },
+        {
+          "type": "modify-effect",
+          "parameters": [
+            "amountHitPoints",
+            "amountHitPointsPerTick",
+            "durationSeconds",
+            "amount",
+            "amountCredits"
+          ],
+          "numericOperations": ["add", "multiply", "set"]
+        },
+        {
+          "type": "enable-resource"
+        },
+        {
+          "type": "modify-resource",
+          "parameters": ["startingAmount", "cap", "generationAmount"],
+          "numericOperations": ["add", "multiply", "set"]
+        },
+        {
+          "type": "grant-ability"
+        },
+        {
+          "type": "enable-summon"
+        },
+        {
+          "type": "grant-form"
+        },
+        {
+          "type": "modify-placement"
+        },
+        {
+          "type": "modify-economy",
+          "numericOperations": ["add", "multiply", "set"]
+        }
+      ],
+      "projectileSpeed": {
+        "declarationPath": "/actions/*/delivery/projectileSpeedWorldUnitsPerSecond",
+        "directlyModifiableByUpgrade": false,
+        "implementation": "A speed change needs a separately declared replacement action with a different projectileSpeedWorldUnitsPerSecond and a valid replace-action operation, or an honestly revised progression. Replacement must satisfy all existing reference, ownership and lifecycle rules."
+      },
+      "parameterMeaning": {
+        "cooldownSeconds": "Time gate between action invocations; recurring scheduling also uses trigger.intervalSeconds.",
+        "rangeWorldUnits": "Reach, not travel speed.",
+        "emitterCount": "Number of emitters, not travel speed.",
+        "projectilesPerCycle": "Shots emitted per cycle, not projectile travel speed.",
+        "maximumTargetsPerProjectile": "Collateral target/pierce limit, not projectile travel speed."
+      }
+    }
+  },
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": ["output-schema"],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "default-mechanics",
+        "references-and-lifecycles",
+        "legal-upgrade-and-form-selections",
+        "numeric-bands"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "passed",
+      "checks": ["request-constraints"],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "limits": "Accepted mechanics do not establish source fidelity, balance or complete Gear support."
+}

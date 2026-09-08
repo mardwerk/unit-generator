@@ -1,0 +1,64 @@
+{
+  "runId": "hidden-baseline-high-1",
+  "status": "failed",
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "intent": null
+  },
+  "definition": {
+    "id": "classic-three-path",
+    "version": "0.2.0",
+    "inputSchemaId": "https://mardwerk.org/definitions/classic-three-path/input/0.2.json",
+    "outputSchemaId": "https://mardwerk.org/schemas/unit-spec/0.1.json",
+    "fileDigest": "5ef7ecd9e2314aef1a79888a5967d1f2d19255763604d638c41a2d535ba83a17",
+    "implementationVersion": "classic-three-path/0.2.0",
+    "configuration": {
+      "maxRange": 80,
+      "maxManualAbilities": 1,
+      "maxProminentMechanics": 3
+    }
+  },
+  "unit": null,
+  "design": null,
+  "validation": {
+    "structure": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "system": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "error": {
+    "stage": "generation",
+    "code": "provider-http",
+    "message": "Model endpoint returned HTTP 524."
+  },
+  "metadata": {
+    "modelCalls": 1,
+    "repairs": 0,
+    "elapsedMs": 125903,
+    "calls": [
+      {
+        "stage": "draft",
+        "completed": false
+      }
+    ]
+  }
+}

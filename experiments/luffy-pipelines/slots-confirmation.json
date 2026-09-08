@@ -1,0 +1,14 @@
+[
+  {
+    "variant": "combined",
+    "track": "hidden",
+    "effort": "medium",
+    "replicate": 2
+  },
+  {
+    "variant": "combined",
+    "track": "brief",
+    "effort": "medium",
+    "replicate": 2
+  }
+]

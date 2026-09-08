@@ -1,0 +1,16 @@
+{
+  "at": "2026-09-08T12:26:38.000891+00:00",
+  "files": {
+    "refined/prototype.mjs": "a0eaec58b004b25b11be26bbaa500a7931c7fc06de5e6734e7c6d15c7ec2ee9b",
+    "refined/offline.test.mjs": "4cdefc9a0569293df848e45d61fddb3f5300380b4de55b710b160930717a2349",
+    "combined/prototype.mjs": "eac66721f91ca379a5fd590f24b561513130637317e76841ede785d872a22b3a",
+    "patch/prototype.mjs": "c0bb636e546671b7a2474081d52b737504820e8b7643a761fce3e559de1863ab",
+    "patch/patch.mjs": "3c8d2e7fa38346fef2e306519c11b7fcdba069a750e6f80b3ab6fe4e5fb0553b",
+    "patch/evaluate.mjs": "588000ebbc7ffda0ef407980ee634964011b0c7f565fa71c08319c2f6e8d775c",
+    "critique/evaluate.mjs": "9f37e90a102ba066c2b98ce7a96244ad013701fe4eec6f65a7571dd62dcfea1e",
+    "execution-review/index.mjs": "c881f002e81663a75c0a7bc7782663f958259bd723aec09d543973db541b61a8",
+    "slots-refined.json": "a5119a92fab60b2ed55be8047b444ec66ebc9111f47698b52ac8b56a3db473fa",
+    "run.mjs": "c63f9f363358ac367b802a7a82298ba650f07f5d0e9db6e1eb89207983e5077f",
+    "shared/execution-policy.mjs": "aef64e52aa7ee22741444cf689a4e54ddf0d5724da7e88d8179e67dd917e0788"
+  }
+}

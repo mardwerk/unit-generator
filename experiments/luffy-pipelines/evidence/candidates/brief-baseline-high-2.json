@@ -1,0 +1,1045 @@
+{
+  "runId": "brief-baseline-high-2",
+  "status": "failed",
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "intent": "Design a long-range melee unit whose elastic attacks reach distant enemies. Organize its three upgrade paths around Conqueror's Haki, Observation Haki and Armament Haki. Represent its Gear forms as special forms that unlock characteristic attacks where the definition supports them. Distinguish the base state, Gears Second through Fifth and Gear Fourth variants; explain unsupported runtime behavior instead of claiming it is implemented."
+  },
+  "definition": {
+    "id": "classic-three-path",
+    "version": "0.2.0",
+    "inputSchemaId": "https://mardwerk.org/definitions/classic-three-path/input/0.2.json",
+    "outputSchemaId": "https://mardwerk.org/schemas/unit-spec/0.1.json",
+    "fileDigest": "5ef7ecd9e2314aef1a79888a5967d1f2d19255763604d638c41a2d535ba83a17",
+    "implementationVersion": "classic-three-path/0.2.0",
+    "configuration": {
+      "maxRange": 80,
+      "maxManualAbilities": 1,
+      "maxProminentMechanics": 3
+    }
+  },
+  "unit": {
+    "schemaVersion": "0.1",
+    "id": "monkey-d-luffy-elastic-haki",
+    "name": "Monkey D. Luffy",
+    "summary": "Monkey D. Luffy is a long-range melee unit whose rubber-like body delivers elastic strikes across the field. His three upgrade paths focus on Conqueror's Haki control, Observation Haki targeting and reach, and Armament Haki impact power. The base state and Gear Second through Gear Fifth configurations, including Bounceman, Tankman, and Snakeman, are encounter forms selected after an external unlock or owning upgrade; live transformation, environmental rubberization, imagination-driven behavior, swimming weakness, and detailed Haki immunity rules are unsupported by this UnitSpec.",
+    "roles": ["damage", "burst", "control"],
+    "tags": ["one-piece-manga-continuity", "straw-hat", "elastic-melee", "haki", "gear-forms"],
+    "placement": {
+      "footprintRadiusWorldUnits": 0.85,
+      "allowedSurfaces": ["ground"],
+      "rules": []
+    },
+    "economy": {
+      "baseCostCredits": 700,
+      "costProfile": "classic-three-path"
+    },
+    "baseStats": {
+      "rangeWorldUnits": 32,
+      "durabilityHitPoints": 120
+    },
+    "resources": [],
+    "states": [],
+    "statuses": [
+      {
+        "id": "conquerors-overwhelm",
+        "name": "Conqueror's Overwhelm",
+        "kind": "stun",
+        "magnitude": 1,
+        "maximumStacks": 1,
+        "refresh": "refresh",
+        "removal": "expiry"
+      }
+    ],
+    "actions": [
+      {
+        "id": "elastic-pistol",
+        "name": "Gum-Gum Pistol",
+        "summary": "The base attack stretches a limb into a distant melee strike against the first eligible enemy in range.",
+        "unlockedByDefault": true,
+        "tags": ["damage", "elastic-melee"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "elastic-pistol-target",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "elastic-pistol-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 1.2,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 32,
+        "emitters": [
+          {
+            "id": "elastic-pistol-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "elastic-pistol-damage",
+            "type": "damage",
+            "amountHitPoints": 18,
+            "damageType": "elastic"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "conquerors-pressure",
+        "name": "Conqueror's Pressure",
+        "summary": "A Haki-infused elastic strike damages and overwhelms up to three eligible enemies in the first group.",
+        "unlockedByDefault": false,
+        "tags": ["damage", "control", "conquerors-haki"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "conquerors-pressure-target",
+          "type": "first",
+          "maximumTargets": 3,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "conquerors-pressure-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 3
+        },
+        "timing": {
+          "cooldownSeconds": 4.6,
+          "windupSeconds": 0.15,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 30,
+        "emitters": [
+          {
+            "id": "conquerors-pressure-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "conquerors-pressure-damage",
+            "type": "damage",
+            "amountHitPoints": 16,
+            "damageType": "conquerors-haki"
+          },
+          {
+            "id": "conquerors-pressure-stun",
+            "type": "status",
+            "statusId": "conquerors-overwhelm",
+            "durationSeconds": 1.1,
+            "stacks": 1,
+            "stacking": "refresh"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "future-sight-strike",
+        "name": "Future Sight Strike",
+        "summary": "An Observation Haki attack uses predictive targeting to prioritize the strongest eligible enemy.",
+        "unlockedByDefault": false,
+        "tags": ["damage", "observation-haki", "future-sight"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "future-sight-strike-target",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "future-sight-strike-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 3.8,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 43,
+        "emitters": [
+          {
+            "id": "future-sight-strike-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "future-sight-strike-damage",
+            "type": "damage",
+            "amountHitPoints": 14,
+            "damageType": "observation-haki"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "emission-smash",
+        "name": "Emission Smash",
+        "summary": "An Armament Haki blast projected through an extended strike delivers a heavy single-target hit.",
+        "unlockedByDefault": false,
+        "tags": ["damage", "armament-haki", "emission"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "emission-smash-target",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "emission-smash-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 3.5,
+          "windupSeconds": 0.15,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 35,
+        "emitters": [
+          {
+            "id": "emission-smash-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "emission-smash-damage",
+            "type": "damage",
+            "amountHitPoints": 34,
+            "damageType": "armament-haki"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-second-strike",
+        "name": "Gear Second Strike",
+        "summary": "The Gear Second encounter configuration enables a faster elastic strike.",
+        "unlockedByDefault": false,
+        "tags": ["damage", "gear-second"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-second-strike-target",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-second-strike-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 0.75,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 34,
+        "emitters": [
+          {
+            "id": "gear-second-strike-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-second-strike-damage",
+            "type": "damage",
+            "amountHitPoints": 22,
+            "damageType": "accelerated-elastic"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-third-strike",
+        "name": "Gear Third Strike",
+        "summary": "The Gear Third encounter configuration enables a slower, enlarged elastic blow with high damage.",
+        "unlockedByDefault": false,
+        "tags": ["damage", "burst", "gear-third"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-third-strike-target",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-third-strike-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 3.4,
+          "windupSeconds": 0.2,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 33,
+        "emitters": [
+          {
+            "id": "gear-third-strike-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-third-strike-damage",
+            "type": "damage",
+            "amountHitPoints": 78,
+            "damageType": "giant-elastic"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-fourth-bounceman-strike",
+        "name": "Gear Fourth: Bounceman Strike",
+        "summary": "The Bounceman encounter configuration enables a compressed Armament-coated elastic impact with strong reach.",
+        "unlockedByDefault": false,
+        "tags": ["damage", "burst", "gear-fourth", "bounceman"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-fourth-bounceman-target",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-fourth-bounceman-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 2.4,
+          "windupSeconds": 0.15,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 38,
+        "emitters": [
+          {
+            "id": "gear-fourth-bounceman-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-fourth-bounceman-damage",
+            "type": "damage",
+            "amountHitPoints": 58,
+            "damageType": "compressed-armament"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-fourth-tankman-strike",
+        "name": "Gear Fourth: Tankman Strike",
+        "summary": "The Tankman encounter configuration enables a slow, exceptionally forceful elastic impact. Defensive transformation is not implemented.",
+        "unlockedByDefault": false,
+        "tags": ["damage", "burst", "gear-fourth", "tankman"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-fourth-tankman-target",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-fourth-tankman-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 2.8,
+          "windupSeconds": 0.2,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 31,
+        "emitters": [
+          {
+            "id": "gear-fourth-tankman-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-fourth-tankman-damage",
+            "type": "damage",
+            "amountHitPoints": 92,
+            "damageType": "compressed-armament"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-fourth-snakeman-strike",
+        "name": "Gear Fourth: Snakeman Strike",
+        "summary": "The Snakeman encounter configuration enables a fast, predictive elastic strike against the strongest eligible enemy.",
+        "unlockedByDefault": false,
+        "tags": ["damage", "gear-fourth", "snakeman", "observation-haki"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-fourth-snakeman-target",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-fourth-snakeman-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 1.9,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 42,
+        "emitters": [
+          {
+            "id": "gear-fourth-snakeman-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-fourth-snakeman-damage",
+            "type": "damage",
+            "amountHitPoints": 38,
+            "damageType": "guided-elastic"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-fifth-strike",
+        "name": "Gear Fifth: Awakened Strike",
+        "summary": "The Gear Fifth encounter configuration enables a broad awakened elastic strike against up to three enemies. Environmental rubberization and imagination-driven behavior are unsupported.",
+        "unlockedByDefault": false,
+        "tags": ["damage", "burst", "gear-fifth", "awakening-adaptation"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-fifth-strike-target",
+          "type": "first",
+          "maximumTargets": 3,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-fifth-strike-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 3
+        },
+        "timing": {
+          "cooldownSeconds": 3.2,
+          "windupSeconds": 0.2,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 46,
+        "emitters": [
+          {
+            "id": "gear-fifth-strike-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-fifth-strike-damage",
+            "type": "damage",
+            "amountHitPoints": 70,
+            "damageType": "awakened-elastic"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      }
+    ],
+    "abilities": [],
+    "summons": [],
+    "forms": [
+      {
+        "id": "form-gear-second",
+        "name": "Gear Second configuration",
+        "summary": "Select this encounter configuration after its grant upgrade to enable the faster Gear Second elastic attack. It is not a runtime transformation.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-second-strike"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "form-gear-third",
+        "name": "Gear Third configuration",
+        "summary": "Select this encounter configuration after its grant upgrade to enable the enlarged Gear Third elastic attack. It is not a runtime transformation.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-third-strike"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "form-gear-fourth-bounceman",
+        "name": "Gear Fourth: Bounceman configuration",
+        "summary": "Select this encounter configuration after its grant upgrade to enable the compressed Bounceman strike. It does not implement live form switching.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-fourth-bounceman-strike"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "form-gear-fourth-tankman",
+        "name": "Gear Fourth: Tankman configuration",
+        "summary": "Select this encounter configuration after its grant upgrade to enable the heavy Tankman strike. Defensive stat changes are not implemented.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-fourth-tankman-strike"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "form-gear-fourth-snakeman",
+        "name": "Gear Fourth: Snakeman configuration",
+        "summary": "Select this encounter configuration after its grant upgrade to enable the predictive Snakeman strike. It does not implement live form switching.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-fourth-snakeman-strike"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "form-gear-fifth",
+        "name": "Gear Fifth configuration",
+        "summary": "Select this encounter configuration after its grant upgrade to enable the awakened elastic strike. Environmental transformation and unrestricted imagination are unsupported.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-fifth-strike"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      }
+    ],
+    "upgradeGraph": {
+      "profile": "classic-three-path",
+      "paths": [
+        {
+          "id": "conquerors-haki",
+          "name": "Conqueror's Haki",
+          "summary": "Builds crowd pressure and burst control through an overwhelming Haki strike, then grants Gear Second and Gear Fifth configurations."
+        },
+        {
+          "id": "observation-haki",
+          "name": "Observation Haki",
+          "summary": "Extends elastic reach, improves predictive priority targeting, and grants the Snakeman configuration."
+        },
+        {
+          "id": "armament-haki",
+          "name": "Armament Haki",
+          "summary": "Improves direct impact damage, adds projected Haki emission, and grants Gear Third plus Gear Fourth variants."
+        }
+      ],
+      "nodes": [
+        {
+          "id": "conquerors-haki-1",
+          "name": "Dominating tempo",
+          "summary": "Grants the Gear Second encounter configuration.",
+          "path": "conquerors-haki",
+          "tier": 1,
+          "costCredits": 145,
+          "prerequisites": [],
+          "tags": ["conquerors-haki", "gear-second"],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "form-gear-second"
+            }
+          ]
+        },
+        {
+          "id": "conquerors-haki-2",
+          "name": "Overwhelming rhythm",
+          "summary": "Primary cooldown \u00d70.9, improving sustained elastic pressure.",
+          "path": "conquerors-haki",
+          "tier": 2,
+          "costCredits": 290,
+          "prerequisites": ["conquerors-haki-1"],
+          "tags": ["conquerors-haki", "tempo"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "elastic-pistol",
+              "parameter": "cooldownSeconds",
+              "operation": "multiply",
+              "value": 0.9
+            }
+          ]
+        },
+        {
+          "id": "conquerors-haki-3",
+          "name": "Knockout presence",
+          "summary": "Enables the Conqueror's Pressure attack, which damages and overwhelms several enemies.",
+          "path": "conquerors-haki",
+          "tier": 3,
+          "costCredits": 580,
+          "prerequisites": ["conquerors-haki-2"],
+          "tags": ["conquerors-haki", "control"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "conquerors-pressure"
+            }
+          ]
+        },
+        {
+          "id": "conquerors-haki-4",
+          "name": "Haoshoku pressure",
+          "summary": "Conqueror's Pressure cooldown \u00d70.85, allowing its crowd-control strike to return sooner.",
+          "path": "conquerors-haki",
+          "tier": 4,
+          "costCredits": 1100,
+          "prerequisites": ["conquerors-haki-3"],
+          "tags": ["conquerors-haki", "burst", "control"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "conquerors-pressure",
+              "parameter": "cooldownSeconds",
+              "operation": "multiply",
+              "value": 0.85
+            }
+          ]
+        },
+        {
+          "id": "conquerors-haki-5",
+          "name": "Awakened king's coating",
+          "summary": "Grants the Gear Fifth encounter configuration and its bounded awakened elastic strike.",
+          "path": "conquerors-haki",
+          "tier": 5,
+          "costCredits": 2200,
+          "prerequisites": ["conquerors-haki-4"],
+          "tags": ["conquerors-haki", "gear-fifth"],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "form-gear-fifth"
+            }
+          ]
+        },
+        {
+          "id": "observation-haki-1",
+          "name": "Keen sight",
+          "summary": "Primary range +6 world units, strengthening long-range elastic coverage.",
+          "path": "observation-haki",
+          "tier": 1,
+          "costCredits": 145,
+          "prerequisites": [],
+          "tags": ["observation-haki", "range"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "elastic-pistol",
+              "parameter": "rangeWorldUnits",
+              "operation": "add",
+              "value": 6
+            }
+          ]
+        },
+        {
+          "id": "observation-haki-2",
+          "name": "Far-seeing reach",
+          "summary": "Primary range +8 world units, establishing the path's distant-target identity.",
+          "path": "observation-haki",
+          "tier": 2,
+          "costCredits": 290,
+          "prerequisites": ["observation-haki-1"],
+          "tags": ["observation-haki", "range"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "elastic-pistol",
+              "parameter": "rangeWorldUnits",
+              "operation": "add",
+              "value": 8
+            }
+          ]
+        },
+        {
+          "id": "observation-haki-3",
+          "name": "Future sight",
+          "summary": "Enables a separate strongest-target Observation Haki attack based on predictive targeting.",
+          "path": "observation-haki",
+          "tier": 3,
+          "costCredits": 580,
+          "prerequisites": ["observation-haki-2"],
+          "tags": ["observation-haki", "future-sight", "damage"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "future-sight-strike"
+            }
+          ]
+        },
+        {
+          "id": "observation-haki-4",
+          "name": "Extended prediction",
+          "summary": "Future Sight Strike range +7 world units, improving its ability to reach priority enemies.",
+          "path": "observation-haki",
+          "tier": 4,
+          "costCredits": 1100,
+          "prerequisites": ["observation-haki-3"],
+          "tags": ["observation-haki", "range"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "future-sight-strike",
+              "parameter": "rangeWorldUnits",
+              "operation": "add",
+              "value": 7
+            }
+          ]
+        },
+        {
+          "id": "observation-haki-5",
+          "name": "Snakeman prediction",
+          "summary": "Grants the Gear Fourth: Snakeman encounter configuration and its predictive elastic strike.",
+          "path": "observation-haki",
+          "tier": 5,
+          "costCredits": 2200,
+          "prerequisites": ["observation-haki-4"],
+          "tags": ["observation-haki", "gear-fourth", "snakeman"],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "form-gear-fourth-snakeman"
+            }
+          ]
+        },
+        {
+          "id": "armament-haki-1",
+          "name": "Hardening impact",
+          "summary": "Primary damage \u00d71.3, establishing Armament Haki as the direct-impact path.",
+          "path": "armament-haki",
+          "tier": 1,
+          "costCredits": 145,
+          "prerequisites": [],
+          "tags": ["armament-haki", "damage"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "elastic-pistol",
+              "effectId": "elastic-pistol-damage",
+              "parameter": "amountHitPoints",
+              "operation": "multiply",
+              "value": 1.3
+            }
+          ]
+        },
+        {
+          "id": "armament-haki-2",
+          "name": "Heavy hardening",
+          "summary": "Primary damage \u00d71.25 and grants the Gear Third encounter configuration.",
+          "path": "armament-haki",
+          "tier": 2,
+          "costCredits": 290,
+          "prerequisites": ["armament-haki-1"],
+          "tags": ["armament-haki", "damage", "gear-third"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "elastic-pistol",
+              "effectId": "elastic-pistol-damage",
+              "parameter": "amountHitPoints",
+              "operation": "multiply",
+              "value": 1.25
+            },
+            {
+              "type": "grant-form",
+              "formId": "form-gear-third"
+            }
+          ]
+        },
+        {
+          "id": "armament-haki-3",
+          "name": "Emission",
+          "summary": "Enables Emission Smash, a separate projected Armament Haki attack.",
+          "path": "armament-haki",
+          "tier": 3,
+          "costCredits": 580,
+          "prerequisites": ["armament-haki-2"],
+          "tags": ["armament-haki", "damage", "emission"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "emission-smash"
+            }
+          ]
+        },
+        {
+          "id": "armament-haki-4",
+          "name": "Tankman compression",
+          "summary": "Grants the Gear Fourth: Tankman encounter configuration and its high-damage strike. Defensive transformation is not implemented.",
+          "path": "armament-haki",
+          "tier": 4,
+          "costCredits": 1100,
+          "prerequisites": ["armament-haki-3"],
+          "tags": ["armament-haki", "gear-fourth", "tankman"],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "form-gear-fourth-tankman"
+            }
+          ]
+        },
+        {
+          "id": "armament-haki-5",
+          "name": "Bounceman compression",
+          "summary": "Grants the Gear Fourth: Bounceman encounter configuration and its compressed strike.",
+          "path": "armament-haki",
+          "tier": 5,
+          "costCredits": 2200,
+          "prerequisites": ["armament-haki-4"],
+          "tags": ["armament-haki", "gear-fourth", "bounceman"],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "form-gear-fourth-bounceman"
+            }
+          ]
+        }
+      ],
+      "selectionRules": {
+        "maximumPrimaryPathTier": 5,
+        "maximumCrossPathTier": 2,
+        "maximumCrossPaths": 1,
+        "maximumSelectedNodes": 7
+      }
+    },
+    "requirements": {
+      "visuals": [
+        {
+          "id": "luffy-silhouette",
+          "description": "A readable straw-hatted pirate silhouette with exaggerated elastic limbs and clear Haki visual accents."
+        },
+        {
+          "id": "gear-form-readability",
+          "description": "Distinct encounter visuals for the base state, Gear Second, Gear Third, Gear Fourth Bounceman, Gear Fourth Tankman, Gear Fourth Snakeman, and Gear Fifth configurations."
+        }
+      ],
+      "animations": [
+        {
+          "id": "elastic-punch",
+          "description": "A readable wind-up, stretch, and recoil animation for the base Gum-Gum Pistol attack."
+        },
+        {
+          "id": "haki-strike",
+          "description": "Distinct dark Haki accent effects for Conqueror's, Observation, and Armament Haki attacks."
+        },
+        {
+          "id": "gear-attacks",
+          "description": "Separate attack silhouettes for accelerated, enlarged, compressed, predictive, and awakened elastic strikes without implying unsupported live transformation."
+        }
+      ],
+      "audio": [
+        {
+          "id": "elastic-impact",
+          "description": "A rubber-like snap followed by a heavy impact cue."
+        },
+        {
+          "id": "conquerors-pressure-audio",
+          "description": "A low, forceful Haki pressure cue for the Conqueror's Pressure attack."
+        },
+        {
+          "id": "gear-selection",
+          "description": "Distinct encounter-configuration activation cues for the Gear forms."
+        }
+      ]
+    }
+  },
+  "design": null,
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": ["output-schema"],
+      "issues": []
+    },
+    "system": {
+      "status": "failed",
+      "checks": [
+        "default-mechanics",
+        "references-and-lifecycles",
+        "legal-upgrade-and-form-selections",
+        "numeric-bands"
+      ],
+      "issues": [
+        {
+          "code": "CLASSIC_MECHANIC_LIMIT",
+          "path": "/",
+          "message": "The definition prominent-mechanic limit was exceeded."
+        }
+      ]
+    },
+    "constraints": {
+      "status": "failed",
+      "checks": ["request-constraints"],
+      "issues": [
+        {
+          "code": "CONSTRAINT_COMPLEXITY_LIMIT",
+          "path": "/",
+          "message": "Unit exceeds the requested prominent mechanic limit."
+        }
+      ]
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "error": {
+    "stage": "validation",
+    "code": "validation-failed",
+    "message": "Required checks did not pass. The candidate and completed research are returned."
+  },
+  "metadata": {
+    "modelCalls": 2,
+    "repairs": 1,
+    "elapsedMs": 380646,
+    "calls": [
+      {
+        "stage": "draft",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 25806,
+          "outputTokens": 9702
+        }
+      },
+      {
+        "stage": "repair",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 24463,
+          "outputTokens": 11120
+        }
+      }
+    ]
+  }
+}

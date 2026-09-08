@@ -1,0 +1,662 @@
+{
+  "runId": "hidden-baseline-high-2",
+  "status": "success",
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "intent": null
+  },
+  "definition": {
+    "id": "classic-three-path",
+    "version": "0.2.0",
+    "inputSchemaId": "https://mardwerk.org/definitions/classic-three-path/input/0.2.json",
+    "outputSchemaId": "https://mardwerk.org/schemas/unit-spec/0.1.json",
+    "fileDigest": "5ef7ecd9e2314aef1a79888a5967d1f2d19255763604d638c41a2d535ba83a17",
+    "implementationVersion": "classic-three-path/0.2.0",
+    "configuration": {
+      "maxRange": 80,
+      "maxManualAbilities": 1,
+      "maxProminentMechanics": 3
+    }
+  },
+  "unit": {
+    "schemaVersion": "0.1",
+    "id": "unit-monkey-d-luffy",
+    "name": "Monkey D. Luffy",
+    "summary": "Straw Hat Luffy is a rubber-bodied captain who stretches into ranged punches, controls the battlefield through observation, and builds toward explosive Gear techniques and an encounter-selected awakened configuration.",
+    "roles": ["damage", "control", "burst"],
+    "tags": ["one-piece-manga", "straw-hat", "rubber", "captain", "haki", "pirate"],
+    "placement": {
+      "footprintRadiusWorldUnits": 1.3,
+      "allowedSurfaces": ["ground"],
+      "rules": []
+    },
+    "economy": {
+      "baseCostCredits": 650,
+      "costProfile": "classic-three-path"
+    },
+    "baseStats": {
+      "rangeWorldUnits": 26,
+      "durabilityHitPoints": 155
+    },
+    "resources": [],
+    "states": [],
+    "statuses": [
+      {
+        "id": "luffy-slow",
+        "name": "Read and restrain",
+        "kind": "slow",
+        "magnitude": 0.25,
+        "maximumStacks": 1,
+        "refresh": "refresh",
+        "removal": "expiry"
+      }
+    ],
+    "actions": [
+      {
+        "id": "gum-gum-pistol",
+        "name": "Gum-Gum Pistol",
+        "summary": "Stretching his arm into a slingshot punch, Luffy strikes the first enemies in range.",
+        "unlockedByDefault": true,
+        "tags": ["damage", "rubber", "projectile"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.05
+        },
+        "targeting": {
+          "id": "gum-gum-pistol-targeting",
+          "type": "first",
+          "maximumTargets": 2,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gum-gum-pistol-delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 58
+        },
+        "timing": {
+          "cooldownSeconds": 1.25,
+          "windupSeconds": 0,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 26,
+        "emitters": [
+          {
+            "id": "gum-gum-pistol-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gum-gum-pistol-damage",
+            "type": "damage",
+            "amountHitPoints": 14,
+            "damageType": "kinetic"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "future-sight",
+        "name": "Future Sight",
+        "summary": "Luffy reads movement several seconds ahead and disrupts the strongest enemy in a distant lane.",
+        "unlockedByDefault": false,
+        "tags": ["control", "observation", "haki"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.05
+        },
+        "targeting": {
+          "id": "future-sight-targeting",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "future-sight-delivery",
+          "type": "beam",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 3.2,
+          "windupSeconds": 0,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 42,
+        "emitters": [
+          {
+            "id": "future-sight-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "future-sight-reveal",
+            "type": "reveal",
+            "durationSeconds": 3
+          },
+          {
+            "id": "future-sight-slow",
+            "type": "status",
+            "statusId": "luffy-slow",
+            "durationSeconds": 2,
+            "stacks": 1,
+            "stacking": "refresh"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-third-strike",
+        "name": "Gear Third Strike",
+        "summary": "Luffy enlarges a body part with air for one heavy manual blow.",
+        "unlockedByDefault": false,
+        "tags": ["burst", "gear", "armament"],
+        "trigger": {
+          "type": "manual"
+        },
+        "targeting": {
+          "id": "gear-third-targeting",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-third-delivery",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 18,
+          "windupSeconds": 0,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 26,
+        "emitters": [
+          {
+            "id": "gear-third-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-third-damage",
+            "type": "damage",
+            "amountHitPoints": 55,
+            "damageType": "kinetic"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      }
+    ],
+    "abilities": [
+      {
+        "id": "gear-third-ability",
+        "name": "Gear Third Strike",
+        "summary": "Manually invoke one enlarged, high-damage strike after unlocking the technique.",
+        "unlockedByDefault": false,
+        "type": "active",
+        "actionId": "gear-third-strike",
+        "cooldownSeconds": 18,
+        "initialCooldownSeconds": 0,
+        "maximumCharges": 1,
+        "rechargeSeconds": 18,
+        "playerComplexity": 2
+      }
+    ],
+    "summons": [],
+    "forms": [
+      {
+        "id": "gear-fifth-configuration",
+        "name": "Gear Fifth configuration",
+        "summary": "An encounter-selected awakened configuration that expresses Nika-like freedom through faster elastic attacks. This is a build form, not a runtime transformation.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "modify-action",
+            "actionId": "gum-gum-pistol",
+            "parameter": "cooldownSeconds",
+            "operation": "multiply",
+            "value": 0.7
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      }
+    ],
+    "upgradeGraph": {
+      "profile": "classic-three-path",
+      "paths": [
+        {
+          "id": "elastic-force",
+          "name": "Elastic force",
+          "summary": "Develops Luffy's stretched punches into heavier impacts, extra releases, and bounded multi-target reach."
+        },
+        {
+          "id": "observation-control",
+          "name": "Observation control",
+          "summary": "Extends awareness, reveals hidden threats, slows enemies, and unlocks a distant Future Sight action."
+        },
+        {
+          "id": "gear-tempo",
+          "name": "Gear tempo",
+          "summary": "Improves sustained attack cadence, unlocks a manual Gear Third burst, and finishes with an awakened encounter configuration."
+        }
+      ],
+      "nodes": [
+        {
+          "id": "elastic-force-1",
+          "name": "Rubberized impact",
+          "summary": "Gum-Gum Pistol damage \u00d71.2.",
+          "path": "elastic-force",
+          "tier": 1,
+          "costCredits": 180,
+          "prerequisites": [],
+          "tags": ["elastic-force", "damage"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "gum-gum-pistol",
+              "effectId": "gum-gum-pistol-damage",
+              "parameter": "amountHitPoints",
+              "operation": "multiply",
+              "value": 1.2
+            }
+          ]
+        },
+        {
+          "id": "elastic-force-2",
+          "name": "Stretching displacement",
+          "summary": "Gum-Gum Pistol displaces its target by 3 world units, with one application per target.",
+          "path": "elastic-force",
+          "tier": 2,
+          "costCredits": 360,
+          "prerequisites": ["elastic-force-1"],
+          "tags": ["elastic-force", "forced-movement"],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "gum-gum-pistol",
+              "effect": {
+                "id": "gum-gum-pistol-displacement",
+                "type": "forced-movement",
+                "distanceWorldUnits": 3,
+                "maximumApplicationsPerTarget": 1
+              }
+            }
+          ]
+        },
+        {
+          "id": "elastic-force-3",
+          "name": "Compressed blow",
+          "summary": "Gum-Gum Pistol damage \u00d71.3.",
+          "path": "elastic-force",
+          "tier": 3,
+          "costCredits": 720,
+          "prerequisites": ["elastic-force-2"],
+          "tags": ["elastic-force", "damage"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "gum-gum-pistol",
+              "effectId": "gum-gum-pistol-damage",
+              "parameter": "amountHitPoints",
+              "operation": "multiply",
+              "value": 1.3
+            }
+          ]
+        },
+        {
+          "id": "elastic-force-4",
+          "name": "Rapid limbs",
+          "summary": "Gum-Gum Pistol releases two projectiles per cycle.",
+          "path": "elastic-force",
+          "tier": 4,
+          "costCredits": 1440,
+          "prerequisites": ["elastic-force-3"],
+          "tags": ["elastic-force", "projectile"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "projectilesPerCycle",
+              "operation": "set",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "id": "elastic-force-5",
+          "name": "Wide rubber barrage",
+          "summary": "Each Gum-Gum Pistol projectile can hit up to two selected targets.",
+          "path": "elastic-force",
+          "tier": 5,
+          "costCredits": 2880,
+          "prerequisites": ["elastic-force-4"],
+          "tags": ["elastic-force", "damage", "capstone"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "maximumTargetsPerProjectile",
+              "operation": "set",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "id": "observation-control-1",
+          "name": "Keen senses",
+          "summary": "Gum-Gum Pistol range +5 world units.",
+          "path": "observation-control",
+          "tier": 1,
+          "costCredits": 180,
+          "prerequisites": [],
+          "tags": ["observation-control", "range"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "rangeWorldUnits",
+              "operation": "add",
+              "value": 5
+            }
+          ]
+        },
+        {
+          "id": "observation-control-2",
+          "name": "Read the field",
+          "summary": "Gum-Gum Pistol reveals struck enemies for 3 seconds.",
+          "path": "observation-control",
+          "tier": 2,
+          "costCredits": 360,
+          "prerequisites": ["observation-control-1"],
+          "tags": ["observation-control", "reveal"],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "gum-gum-pistol",
+              "effect": {
+                "id": "gum-gum-pistol-reveal",
+                "type": "reveal",
+                "durationSeconds": 3
+              }
+            }
+          ]
+        },
+        {
+          "id": "observation-control-3",
+          "name": "Anticipated movement",
+          "summary": "Gum-Gum Pistol applies a 25% slow for 2 seconds, refreshed on hit.",
+          "path": "observation-control",
+          "tier": 3,
+          "costCredits": 720,
+          "prerequisites": ["observation-control-2"],
+          "tags": ["observation-control", "control"],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "gum-gum-pistol",
+              "effect": {
+                "id": "gum-gum-pistol-slow",
+                "type": "status",
+                "statusId": "luffy-slow",
+                "durationSeconds": 2,
+                "stacks": 1,
+                "stacking": "refresh"
+              }
+            }
+          ]
+        },
+        {
+          "id": "observation-control-4",
+          "name": "Future Sight",
+          "summary": "Enables the independent Future Sight action against the strongest enemy in its long range.",
+          "path": "observation-control",
+          "tier": 4,
+          "costCredits": 1440,
+          "prerequisites": ["observation-control-3"],
+          "tags": ["observation-control", "haki"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "future-sight"
+            }
+          ]
+        },
+        {
+          "id": "observation-control-5",
+          "name": "Unbroken focus",
+          "summary": "Future Sight cooldown \u00d70.75.",
+          "path": "observation-control",
+          "tier": 5,
+          "costCredits": 2880,
+          "prerequisites": ["observation-control-4"],
+          "tags": ["observation-control", "control", "capstone"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "future-sight",
+              "parameter": "cooldownSeconds",
+              "operation": "multiply",
+              "value": 0.75
+            }
+          ]
+        },
+        {
+          "id": "gear-tempo-1",
+          "name": "Gear Second circulation",
+          "summary": "Gum-Gum Pistol cooldown \u00d70.9.",
+          "path": "gear-tempo",
+          "tier": 1,
+          "costCredits": 180,
+          "prerequisites": [],
+          "tags": ["gear-tempo", "speed"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "cooldownSeconds",
+              "operation": "multiply",
+              "value": 0.9
+            }
+          ]
+        },
+        {
+          "id": "gear-tempo-2",
+          "name": "Accelerated rhythm",
+          "summary": "Gum-Gum Pistol cooldown \u00d70.85.",
+          "path": "gear-tempo",
+          "tier": 2,
+          "costCredits": 360,
+          "prerequisites": ["gear-tempo-1"],
+          "tags": ["gear-tempo", "speed"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "cooldownSeconds",
+              "operation": "multiply",
+              "value": 0.85
+            }
+          ]
+        },
+        {
+          "id": "gear-tempo-3",
+          "name": "Gear Third",
+          "summary": "Unlocks the manual Gear Third Strike ability.",
+          "path": "gear-tempo",
+          "tier": 3,
+          "costCredits": 720,
+          "prerequisites": ["gear-tempo-2"],
+          "tags": ["gear-tempo", "burst"],
+          "operations": [
+            {
+              "type": "grant-ability",
+              "abilityId": "gear-third-ability"
+            }
+          ]
+        },
+        {
+          "id": "gear-tempo-4",
+          "name": "Armament compression",
+          "summary": "Gear Third Strike damage \u00d71.7.",
+          "path": "gear-tempo",
+          "tier": 4,
+          "costCredits": 1440,
+          "prerequisites": ["gear-tempo-3"],
+          "tags": ["gear-tempo", "burst"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "gear-third-strike",
+              "effectId": "gear-third-damage",
+              "parameter": "amountHitPoints",
+              "operation": "multiply",
+              "value": 1.7
+            }
+          ]
+        },
+        {
+          "id": "gear-tempo-5",
+          "name": "Awakened freedom",
+          "summary": "Grants the Gear Fifth encounter configuration with Gum-Gum Pistol cooldown \u00d70.7 while selected.",
+          "path": "gear-tempo",
+          "tier": 5,
+          "costCredits": 2880,
+          "prerequisites": ["gear-tempo-4"],
+          "tags": ["gear-tempo", "form", "capstone"],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "gear-fifth-configuration"
+            }
+          ]
+        }
+      ],
+      "selectionRules": {
+        "maximumPrimaryPathTier": 5,
+        "maximumCrossPathTier": 2,
+        "maximumCrossPaths": 1,
+        "maximumSelectedNodes": 7
+      }
+    },
+    "requirements": {
+      "visuals": [
+        {
+          "id": "luffy-visual",
+          "description": "A readable silhouette of a young pirate captain wearing a straw hat, with clearly elastic attack poses."
+        },
+        {
+          "id": "rubber-limbs",
+          "description": "Stretching arms and enlarged impact shapes communicate the rubber-bodied fighting style."
+        }
+      ],
+      "animations": [
+        {
+          "id": "gum-gum-pistol-animation",
+          "description": "Wind-up, extended-arm launch, elastic recoil, and impact for Gum-Gum Pistol."
+        },
+        {
+          "id": "future-sight-animation",
+          "description": "A brief focused observation cue followed by a distant beam-like disruption."
+        },
+        {
+          "id": "gear-third-animation",
+          "description": "Inflation of an enlarged limb followed by a heavy direct strike."
+        },
+        {
+          "id": "gear-fifth-form-animation",
+          "description": "Encounter configuration presentation with white, freer visual motion; no live transformation is required."
+        }
+      ],
+      "audio": [
+        {
+          "id": "gum-gum-pistol-audio",
+          "description": "Elastic snap followed by a powerful blunt impact."
+        },
+        {
+          "id": "haki-focus-audio",
+          "description": "Short focused pulse for observation and Armament-inspired attacks."
+        },
+        {
+          "id": "gear-burst-audio",
+          "description": "Deep expansion cue and heavy compressed release."
+        }
+      ]
+    }
+  },
+  "design": null,
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": ["output-schema"],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "default-mechanics",
+        "references-and-lifecycles",
+        "legal-upgrade-and-form-selections",
+        "numeric-bands"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "passed",
+      "checks": ["request-constraints"],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "error": null,
+  "metadata": {
+    "modelCalls": 2,
+    "repairs": 1,
+    "elapsedMs": 204703,
+    "calls": [
+      {
+        "stage": "draft",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 25725,
+          "outputTokens": 7272
+        }
+      },
+      {
+        "stage": "repair",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 22132,
+          "outputTokens": 3821
+        }
+      }
+    ]
+  }
+}

@@ -12,3 +12,15 @@ pnpm-lock.yaml
 
 .scratch/
 packages/definitions/definitions/**/*.json
+
+# Working artifacts from opt-in pipeline experiments.
+experiments/luffy-pipelines/**/runs/
+experiments/luffy-pipelines/**/smoke-artifacts*/
+experiments/luffy-pipelines/**/offline/
+experiments/luffy-pipelines/execution-review/candidates/
+experiments/luffy-pipelines/execution-review/candidate-summary.json
+experiments/luffy-pipelines/review-packets/
+experiments/luffy-pipelines/review-decisions/
+experiments/luffy-pipelines/summary.json
+experiments/luffy-pipelines/comparison.md
+experiments/luffy-pipelines/slots-*.outcomes.json

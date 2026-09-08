@@ -1,0 +1,100 @@
+{
+  "runId": "hidden-staged-high-1",
+  "status": "failed",
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "intent": null
+  },
+  "definition": {
+    "id": "classic-three-path",
+    "version": "0.2.0",
+    "inputSchemaId": "https://mardwerk.org/definitions/classic-three-path/input/0.2.json",
+    "outputSchemaId": "https://mardwerk.org/schemas/unit-spec/0.1.json",
+    "fileDigest": "5ef7ecd9e2314aef1a79888a5967d1f2d19255763604d638c41a2d535ba83a17",
+    "implementationVersion": "prototype-staged-fragments/0.1.0",
+    "configuration": {
+      "maxRange": 80,
+      "maxManualAbilities": 1,
+      "maxProminentMechanics": 3
+    }
+  },
+  "unit": null,
+  "design": null,
+  "validation": {
+    "structure": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "system": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "error": {
+    "stage": "p1",
+    "code": "invalid-fragment",
+    "message": "p1: Unassigned shared write b.pistol/effect/b.pistol.hit/amountHitPoints. Unassigned shared write b.pistol/action/cooldownSeconds. Unassigned shared write b.pistol/effect/b.pistol.hit/amountHitPoints. Unassigned shared write b.pistol/effect/b.pistol.hit/amountHitPoints. Unassigned shared write b.pistol/action/cooldownSeconds. Unassigned shared write b.pistol/effect/b.pistol.hit/amountHitPoints. Unassigned shared write b.pistol/effect/b.pistol.hit/amountHitPoints. No owned target b.pistol. No owned target b.sense."
+  },
+  "metadata": {
+    "modelCalls": 4,
+    "repairs": 0,
+    "elapsedMs": 418190,
+    "calls": [
+      {
+        "stage": "staged-roster",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 5686,
+          "outputTokens": 7209
+        }
+      },
+      {
+        "stage": "staged-base",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 8071,
+          "outputTokens": 6312
+        }
+      },
+      {
+        "stage": "base-fragment-repair",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 9470,
+          "outputTokens": 3413
+        }
+      },
+      {
+        "stage": "staged-p1",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 9392,
+          "outputTokens": 5515
+        }
+      }
+    ]
+  }
+}

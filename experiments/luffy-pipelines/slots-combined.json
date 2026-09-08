@@ -1,0 +1,38 @@
+[
+  {
+    "variant": "combined",
+    "track": "hidden",
+    "effort": "medium",
+    "replicate": 1
+  },
+  {
+    "variant": "combined",
+    "track": "brief",
+    "effort": "medium",
+    "replicate": 1
+  },
+  {
+    "variant": "combined",
+    "track": "hidden",
+    "effort": "high",
+    "replicate": 1
+  },
+  {
+    "variant": "combined",
+    "track": "brief",
+    "effort": "high",
+    "replicate": 1
+  },
+  {
+    "variant": "combined",
+    "track": "hidden",
+    "effort": "high",
+    "replicate": 2
+  },
+  {
+    "variant": "combined",
+    "track": "brief",
+    "effort": "high",
+    "replicate": 2
+  }
+]

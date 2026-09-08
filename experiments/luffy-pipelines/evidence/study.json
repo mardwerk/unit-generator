@@ -1,0 +1,37 @@
+{
+  "version": 1,
+  "status": "authorized",
+  "subject": "Monkey D. Luffy",
+  "sourceFile": "shared/research.json",
+  "sourceSha256": "4fedbd28f55cea5f3ce319c615a71a1469af7736f006cf6b01ee0af85152649d",
+  "generationDefinition": "classic-three-path",
+  "variants": ["baseline", "direct", "plan", "critique"],
+  "replicatesPlanned": 2,
+  "perRunMaxModelCalls": 4,
+  "perRunMaxRepairs": 1,
+  "generatorModel": "gpt-5.6-luna",
+  "requestedAgentModel": "gpt-6-astra",
+  "requestedAgentReasoning": "medium",
+  "track": "both separately",
+  "paidBudget": "Only gpt-5.6-luna, roughly USD30 theoretical API cost per prototype authorized",
+  "principles": [
+    "Preserve every failed attempt and intermediate draft.",
+    "Do not loosen validators or inject hidden design preferences.",
+    "Keep fidelity, validity, observed utility and operational cost separate.",
+    "Luffy is development evidence, not generalization proof.",
+    "Evaluate combined pipeline on fresh runs before selecting it."
+  ],
+  "tracks": ["hidden", "brief"],
+  "maxSpendUsdPerPrototype": 30,
+  "totalCallBudget": 96,
+  "initialReasoning": "high",
+  "pricing": {
+    "standardInputPerMillionUsd": 0.2,
+    "standardOutputPerMillionUsd": 1.2,
+    "conservativeInputPerMillionUsd": 1.1,
+    "conservativeOutputPerMillionUsd": 3.96,
+    "source": "https://developers.openai.com/api/docs/models/gpt-5.6-luna",
+    "note": "Conservative allowance uses Fast long-context cache-write plus10%regional uplift; failed/unknown-usage calls retain reservation. No cache discounts assumed."
+  },
+  "commonRequestShaping": "All model request objects omit rawResearch knowledge/sources and receive same43 factualclaims explicitly. Original input and full research remain in retained result."
+}

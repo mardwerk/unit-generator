@@ -1,0 +1,1042 @@
+{
+  "runId": "hidden-compiler-high-1",
+  "status": "success",
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "intent": null
+  },
+  "definition": {
+    "id": "classic-three-path",
+    "version": "0.2.0",
+    "inputSchemaId": "https://mardwerk.org/definitions/classic-three-path/input/0.2.json",
+    "outputSchemaId": "https://mardwerk.org/schemas/unit-spec/0.1.json",
+    "fileDigest": "5ef7ecd9e2314aef1a79888a5967d1f2d19255763604d638c41a2d535ba83a17",
+    "implementationVersion": "prototype-compact-compiler/0.1.0",
+    "configuration": {
+      "maxRange": 80,
+      "maxManualAbilities": 1,
+      "maxProminentMechanics": 3
+    }
+  },
+  "unit": {
+    "schemaVersion": "0.1",
+    "id": "compiled-unit",
+    "name": "Straw Hat Captain",
+    "summary": "A rubber-bodied captain who fires elastic punches and can release a nearby Conqueror's Haki stun aura.",
+    "roles": ["damage", "control", "burst"],
+    "tags": [],
+    "placement": {
+      "footprintRadiusWorldUnits": 1,
+      "allowedSurfaces": ["land"],
+      "rules": []
+    },
+    "economy": {
+      "baseCostCredits": 650,
+      "costProfile": "classic-three-path"
+    },
+    "baseStats": {
+      "rangeWorldUnits": 32,
+      "durabilityHitPoints": 100
+    },
+    "resources": [],
+    "states": [],
+    "statuses": [
+      {
+        "id": "status-1-0",
+        "name": "Conqueror's Haki",
+        "kind": "stun",
+        "magnitude": 1,
+        "maximumStacks": 1,
+        "refresh": "refresh",
+        "removal": "expiry"
+      }
+    ],
+    "actions": [
+      {
+        "id": "a-0",
+        "name": "Gum-Gum Pistol",
+        "summary": "Fires a stretched, slingshot punch at the first enemy in range.",
+        "unlockedByDefault": true,
+        "tags": [],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "target-0",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery-0",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 1.2,
+          "windupSeconds": 0.15,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 32,
+        "emitters": [
+          {
+            "id": "emitter-0",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect-0-0",
+            "type": "damage",
+            "amountHitPoints": 24,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "a-1",
+        "name": "Conqueror's Haki",
+        "summary": "Releases a nearby aura that stuns weak-willed enemies.",
+        "unlockedByDefault": false,
+        "tags": [],
+        "trigger": {
+          "type": "manual"
+        },
+        "targeting": {
+          "id": "target-1",
+          "type": "area",
+          "maximumTargets": 8,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery-1",
+          "type": "aura",
+          "maximumTargetsPerProjectile": 1,
+          "radiusWorldUnits": 16
+        },
+        "timing": {
+          "cooldownSeconds": 18,
+          "windupSeconds": 0.45,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 16,
+        "emitters": [
+          {
+            "id": "emitter-1",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect-1-0",
+            "type": "status",
+            "statusId": "status-1-0",
+            "durationSeconds": 2.5,
+            "stacks": 1,
+            "stacking": "refresh"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ability-1",
+        "name": "Conqueror's Haki",
+        "summary": "Releases a nearby aura that stuns weak-willed enemies.",
+        "unlockedByDefault": false,
+        "type": "active",
+        "actionId": "a-1",
+        "cooldownSeconds": 18,
+        "initialCooldownSeconds": 0,
+        "maximumCharges": 1,
+        "rechargeSeconds": 18,
+        "playerComplexity": 1
+      }
+    ],
+    "summons": [],
+    "forms": [],
+    "upgradeGraph": {
+      "profile": "classic-three-path",
+      "paths": [
+        {
+          "id": "p-0",
+          "name": "Gear 2 Pump",
+          "summary": "Accelerates the firing cycle of Gum-Gum Pistol."
+        },
+        {
+          "id": "p-1",
+          "name": "Armament Haki",
+          "summary": "Strengthens Gum-Gum Pistol with harder impacts, emission, and penetrating force."
+        },
+        {
+          "id": "p-2",
+          "name": "Conqueror's Haki",
+          "summary": "Unlocks and extends the captain's manual nearby stun aura."
+        }
+      ],
+      "nodes": [
+        {
+          "id": "p-0-t-1",
+          "name": "Rapid Circulation",
+          "summary": "Reduces Gum-Gum Pistol's firing interval.",
+          "path": "p-0",
+          "tier": 1,
+          "costCredits": 100,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-0",
+              "parameter": "cooldownSeconds",
+              "operation": "set",
+              "value": 0.95
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-0-t-2",
+          "name": "Pressurized Flow",
+          "summary": "Further reduces Gum-Gum Pistol's firing interval.",
+          "path": "p-0",
+          "tier": 2,
+          "costCredits": 190,
+          "prerequisites": ["p-0-t-1"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-0",
+              "parameter": "cooldownSeconds",
+              "operation": "set",
+              "value": 0.75
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-0-t-3",
+          "name": "High-Speed Pump",
+          "summary": "Further reduces Gum-Gum Pistol's firing interval.",
+          "path": "p-0",
+          "tier": 3,
+          "costCredits": 300,
+          "prerequisites": ["p-0-t-2"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-0",
+              "parameter": "cooldownSeconds",
+              "operation": "set",
+              "value": 0.6
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-0-t-4",
+          "name": "Overdrive Rhythm",
+          "summary": "Further reduces Gum-Gum Pistol's firing interval.",
+          "path": "p-0",
+          "tier": 4,
+          "costCredits": 430,
+          "prerequisites": ["p-0-t-3"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-0",
+              "parameter": "cooldownSeconds",
+              "operation": "set",
+              "value": 0.45
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-0-t-5",
+          "name": "Sustained Gear 2",
+          "summary": "Sets Gum-Gum Pistol to its fastest firing interval on this path.",
+          "path": "p-0",
+          "tier": 5,
+          "costCredits": 580,
+          "prerequisites": ["p-0-t-4"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-0",
+              "parameter": "cooldownSeconds",
+              "operation": "set",
+              "value": 0.32
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-1-t-1",
+          "name": "Haki Hardening",
+          "summary": "Increases Gum-Gum Pistol's impact damage.",
+          "path": "p-1",
+          "tier": 1,
+          "costCredits": 120,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "a-0",
+              "effectId": "effect-0-0",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 34
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-1-t-2",
+          "name": "Reinforced Strike",
+          "summary": "Further increases Gum-Gum Pistol's impact damage.",
+          "path": "p-1",
+          "tier": 2,
+          "costCredits": 230,
+          "prerequisites": ["p-1-t-1"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "a-0",
+              "effectId": "effect-0-0",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 46
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-1-t-3",
+          "name": "Emission",
+          "summary": "Extends Gum-Gum Pistol's effective range.",
+          "path": "p-1",
+          "tier": 3,
+          "costCredits": 350,
+          "prerequisites": ["p-1-t-2"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-0",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 40
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-1-t-4",
+          "name": "Internal Destruction",
+          "summary": "Lets Gum-Gum Pistol pierce one additional target.",
+          "path": "p-1",
+          "tier": 4,
+          "costCredits": 480,
+          "prerequisites": ["p-1-t-3"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-0",
+              "parameter": "maximumTargetsPerProjectile",
+              "operation": "set",
+              "value": 2
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-1-t-5",
+          "name": "Advanced Armament",
+          "summary": "Sets Gum-Gum Pistol to its highest damage and extended range on this path.",
+          "path": "p-1",
+          "tier": 5,
+          "costCredits": 620,
+          "prerequisites": ["p-1-t-4"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "a-0",
+              "effectId": "effect-0-0",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 62
+            },
+            {
+              "type": "modify-action",
+              "actionId": "a-0",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 52
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-2-t-1",
+          "name": "Conqueror's Release",
+          "summary": "Enables the manual Conqueror's Haki aura.",
+          "path": "p-2",
+          "tier": 1,
+          "costCredits": 130,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "a-1"
+            },
+            {
+              "type": "grant-ability",
+              "abilityId": "ability-1"
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-2-t-2",
+          "name": "Widened Will",
+          "summary": "Extends the aura's activation range.",
+          "path": "p-2",
+          "tier": 2,
+          "costCredits": 250,
+          "prerequisites": ["p-2-t-1"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-1",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 20
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-2-t-3",
+          "name": "Overwhelming Presence",
+          "summary": "Further extends the aura's activation range.",
+          "path": "p-2",
+          "tier": 3,
+          "costCredits": 380,
+          "prerequisites": ["p-2-t-2"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-1",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 24
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-2-t-4",
+          "name": "Kingly Pressure",
+          "summary": "Further extends the aura's activation range.",
+          "path": "p-2",
+          "tier": 4,
+          "costCredits": 520,
+          "prerequisites": ["p-2-t-3"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-1",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 28
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-2-t-5",
+          "name": "Emperor's Reach",
+          "summary": "Sets the aura to its maximum activation range on this path.",
+          "path": "p-2",
+          "tier": 5,
+          "costCredits": 680,
+          "prerequisites": ["p-2-t-4"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-1",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 32
+            }
+          ],
+          "tags": ["upgrade"]
+        }
+      ],
+      "selectionRules": {
+        "maximumPrimaryPathTier": 5,
+        "maximumCrossPathTier": 2,
+        "maximumCrossPaths": 1,
+        "maximumSelectedNodes": 7
+      }
+    },
+    "requirements": {
+      "visuals": [],
+      "animations": []
+    }
+  },
+  "design": {
+    "ir": {
+      "name": "Straw Hat Captain",
+      "summary": "A rubber-bodied captain who fires elastic punches and can release a nearby Conqueror's Haki stun aura.",
+      "roles": ["damage", "control", "burst"],
+      "placementCost": 650,
+      "baseRange": 32,
+      "actions": [
+        {
+          "name": "Gum-Gum Pistol",
+          "summary": "Fires a stretched, slingshot punch at the first enemy in range.",
+          "claims": [10, 11],
+          "enabled": true,
+          "trigger": "interval",
+          "cooldown": 1.2,
+          "windup": 0.15,
+          "range": 32,
+          "targeting": "first",
+          "targets": 1,
+          "delivery": "direct-strike",
+          "pierce": 1,
+          "shots": 1,
+          "speed": 0,
+          "radius": 0,
+          "lifetime": 0,
+          "effects": [
+            {
+              "kind": "damage",
+              "amount": 24,
+              "damageType": "blunt"
+            }
+          ]
+        },
+        {
+          "name": "Conqueror's Haki",
+          "summary": "Releases a nearby aura that stuns weak-willed enemies.",
+          "claims": [31],
+          "enabled": false,
+          "trigger": "manual",
+          "cooldown": 18,
+          "windup": 0.45,
+          "range": 16,
+          "targeting": "area",
+          "targets": 8,
+          "delivery": "aura",
+          "pierce": 1,
+          "shots": 1,
+          "speed": 0,
+          "radius": 16,
+          "lifetime": 0,
+          "effects": [
+            {
+              "kind": "status",
+              "name": "Conqueror's Haki",
+              "status": "stun",
+              "magnitude": 1,
+              "duration": 2.5
+            }
+          ]
+        }
+      ],
+      "paths": [
+        {
+          "name": "Gear 2 Pump",
+          "summary": "Accelerates the firing cycle of Gum-Gum Pistol.",
+          "tiers": [
+            {
+              "name": "Rapid Circulation",
+              "summary": "Reduces Gum-Gum Pistol's firing interval.",
+              "claims": [16],
+              "cost": 100,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "cooldown",
+                  "value": 0.95
+                }
+              ]
+            },
+            {
+              "name": "Pressurized Flow",
+              "summary": "Further reduces Gum-Gum Pistol's firing interval.",
+              "claims": [16],
+              "cost": 190,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "cooldown",
+                  "value": 0.75
+                }
+              ]
+            },
+            {
+              "name": "High-Speed Pump",
+              "summary": "Further reduces Gum-Gum Pistol's firing interval.",
+              "claims": [16],
+              "cost": 300,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "cooldown",
+                  "value": 0.6
+                }
+              ]
+            },
+            {
+              "name": "Overdrive Rhythm",
+              "summary": "Further reduces Gum-Gum Pistol's firing interval.",
+              "claims": [16],
+              "cost": 430,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "cooldown",
+                  "value": 0.45
+                }
+              ]
+            },
+            {
+              "name": "Sustained Gear 2",
+              "summary": "Sets Gum-Gum Pistol to its fastest firing interval on this path.",
+              "claims": [16, 17],
+              "cost": 580,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "cooldown",
+                  "value": 0.32
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Armament Haki",
+          "summary": "Strengthens Gum-Gum Pistol with harder impacts, emission, and penetrating force.",
+          "tiers": [
+            {
+              "name": "Haki Hardening",
+              "summary": "Increases Gum-Gum Pistol's impact damage.",
+              "claims": [28, 29],
+              "cost": 120,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "damage",
+                  "value": 34
+                }
+              ]
+            },
+            {
+              "name": "Reinforced Strike",
+              "summary": "Further increases Gum-Gum Pistol's impact damage.",
+              "claims": [29],
+              "cost": 230,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "damage",
+                  "value": 46
+                }
+              ]
+            },
+            {
+              "name": "Emission",
+              "summary": "Extends Gum-Gum Pistol's effective range.",
+              "claims": [33],
+              "cost": 350,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "range",
+                  "value": 40
+                }
+              ]
+            },
+            {
+              "name": "Internal Destruction",
+              "summary": "Lets Gum-Gum Pistol pierce one additional target.",
+              "claims": [34],
+              "cost": 480,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "pierce",
+                  "value": 2
+                }
+              ]
+            },
+            {
+              "name": "Advanced Armament",
+              "summary": "Sets Gum-Gum Pistol to its highest damage and extended range on this path.",
+              "claims": [29, 33, 34],
+              "cost": 620,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "damage",
+                  "value": 62
+                },
+                {
+                  "action": 0,
+                  "parameter": "range",
+                  "value": 52
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Conqueror's Haki",
+          "summary": "Unlocks and extends the captain's manual nearby stun aura.",
+          "tiers": [
+            {
+              "name": "Conqueror's Release",
+              "summary": "Enables the manual Conqueror's Haki aura.",
+              "claims": [31],
+              "cost": 130,
+              "changes": [
+                {
+                  "action": 1,
+                  "parameter": "enable",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "name": "Widened Will",
+              "summary": "Extends the aura's activation range.",
+              "claims": [31],
+              "cost": 250,
+              "changes": [
+                {
+                  "action": 1,
+                  "parameter": "range",
+                  "value": 20
+                }
+              ]
+            },
+            {
+              "name": "Overwhelming Presence",
+              "summary": "Further extends the aura's activation range.",
+              "claims": [31],
+              "cost": 380,
+              "changes": [
+                {
+                  "action": 1,
+                  "parameter": "range",
+                  "value": 24
+                }
+              ]
+            },
+            {
+              "name": "Kingly Pressure",
+              "summary": "Further extends the aura's activation range.",
+              "claims": [31],
+              "cost": 520,
+              "changes": [
+                {
+                  "action": 1,
+                  "parameter": "range",
+                  "value": 28
+                }
+              ]
+            },
+            {
+              "name": "Emperor's Reach",
+              "summary": "Sets the aura to its maximum activation range on this path.",
+              "claims": [31, 40],
+              "cost": 680,
+              "changes": [
+                {
+                  "action": 1,
+                  "parameter": "range",
+                  "value": 32
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "omissions": [
+        {
+          "trait": "Gear 3's enlarged body parts",
+          "reason": "Runtime transformations are unsupported, so its enlargement is not implemented as a form change."
+        },
+        {
+          "trait": "Gear 4's inflated muscle form and compression movement",
+          "reason": "Runtime transformations and custom movement mechanics are unsupported; only concrete attack changes are represented."
+        },
+        {
+          "trait": "Gear 5 and awakened environmental rubber",
+          "reason": "Forms and runtime transformations are unsupported, and the source does not provide a bounded attack specification for the awakened applications."
+        },
+        {
+          "trait": "Rubber immunity to electricity and resistance to blunt force",
+          "reason": "The compact effect model has no defensive resistance or immunity effect."
+        },
+        {
+          "trait": "Weakness to water, submersion, and Sea-Prism Stone",
+          "reason": "Environmental weakness states and conditional loss of control are unsupported."
+        },
+        {
+          "trait": "Observation Haki and Future Sight",
+          "reason": "The prototype has no prediction, evasion, or target-reading mechanic."
+        },
+        {
+          "trait": "Straw Hat crew and Grand Fleet assistance",
+          "reason": "Summons, secondary actions, and additional allied emitters are unsupported."
+        },
+        {
+          "trait": "Poison immunity",
+          "reason": "The prototype has no poison damage type or resistance mechanic."
+        }
+      ]
+    },
+    "mappings": [
+      {
+        "irPath": "/actions/0",
+        "claimIndices": [10, 11],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/actions/0"]
+      },
+      {
+        "irPath": "/actions/1",
+        "claimIndices": [31],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/actions/1"]
+      },
+      {
+        "irPath": "/paths/0/tiers/0",
+        "claimIndices": [16],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/0/operations/0"]
+      },
+      {
+        "irPath": "/paths/0/tiers/1",
+        "claimIndices": [16],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/1/operations/0"]
+      },
+      {
+        "irPath": "/paths/0/tiers/2",
+        "claimIndices": [16],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/2/operations/0"]
+      },
+      {
+        "irPath": "/paths/0/tiers/3",
+        "claimIndices": [16],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/3/operations/0"]
+      },
+      {
+        "irPath": "/paths/0/tiers/4",
+        "claimIndices": [16, 17],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/4/operations/0"]
+      },
+      {
+        "irPath": "/paths/1/tiers/0",
+        "claimIndices": [28, 29],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/5/operations/0"]
+      },
+      {
+        "irPath": "/paths/1/tiers/1",
+        "claimIndices": [29],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/6/operations/0"]
+      },
+      {
+        "irPath": "/paths/1/tiers/2",
+        "claimIndices": [33],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/7/operations/0"]
+      },
+      {
+        "irPath": "/paths/1/tiers/3",
+        "claimIndices": [34],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/8/operations/0"]
+      },
+      {
+        "irPath": "/paths/1/tiers/4",
+        "claimIndices": [29, 33, 34],
+        "sources": [
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca"
+        ],
+        "targets": ["/upgradeGraph/nodes/9/operations/0", "/upgradeGraph/nodes/9/operations/1"]
+      },
+      {
+        "irPath": "/paths/2/tiers/0",
+        "claimIndices": [31],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/10/operations/0", "/upgradeGraph/nodes/10/operations/1"]
+      },
+      {
+        "irPath": "/paths/2/tiers/1",
+        "claimIndices": [31],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/11/operations/0"]
+      },
+      {
+        "irPath": "/paths/2/tiers/2",
+        "claimIndices": [31],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/12/operations/0"]
+      },
+      {
+        "irPath": "/paths/2/tiers/3",
+        "claimIndices": [31],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/13/operations/0"]
+      },
+      {
+        "irPath": "/paths/2/tiers/4",
+        "claimIndices": [31, 40],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/14/operations/0"]
+      }
+    ],
+    "omissions": [
+      {
+        "trait": "Gear 3's enlarged body parts",
+        "reason": "Runtime transformations are unsupported, so its enlargement is not implemented as a form change."
+      },
+      {
+        "trait": "Gear 4's inflated muscle form and compression movement",
+        "reason": "Runtime transformations and custom movement mechanics are unsupported; only concrete attack changes are represented."
+      },
+      {
+        "trait": "Gear 5 and awakened environmental rubber",
+        "reason": "Forms and runtime transformations are unsupported, and the source does not provide a bounded attack specification for the awakened applications."
+      },
+      {
+        "trait": "Rubber immunity to electricity and resistance to blunt force",
+        "reason": "The compact effect model has no defensive resistance or immunity effect."
+      },
+      {
+        "trait": "Weakness to water, submersion, and Sea-Prism Stone",
+        "reason": "Environmental weakness states and conditional loss of control are unsupported."
+      },
+      {
+        "trait": "Observation Haki and Future Sight",
+        "reason": "The prototype has no prediction, evasion, or target-reading mechanic."
+      },
+      {
+        "trait": "Straw Hat crew and Grand Fleet assistance",
+        "reason": "Summons, secondary actions, and additional allied emitters are unsupported."
+      },
+      {
+        "trait": "Poison immunity",
+        "reason": "The prototype has no poison damage type or resistance mechanic."
+      }
+    ],
+    "representability": {
+      "supported": [
+        "explicit attack delivery, targeting, range, shots, pierce, cadence and windup",
+        "direct damage, damage over time, single-stack status, bounded forced movement and reveal",
+        "one optional manual ability",
+        "three independent cumulative paths with action unlocks and absolute numeric changes"
+      ],
+      "unsupported": [
+        "resources",
+        "states",
+        "forms including encounter forms",
+        "summons",
+        "secondary actions",
+        "economy income",
+        "runtime transformations",
+        "effect additions after declaration",
+        "action replacement or disable",
+        "per-emitter timing and multiple emitters",
+        "stacking effects",
+        "tag filters",
+        "custom placement or visuals"
+      ],
+      "defaults": {
+        "placement": "land, radius 1, no extra placement rules",
+        "durability": 100,
+        "placementCostBand": "medium 450..750 unless request says low 200..400 or high 800..1200; model chooses actual cost",
+        "tags": [],
+        "assets": "empty requirements, no invented visual claims",
+        "scheduling": "interval floor .15 seconds, aggregate timing, one emitter",
+        "effects": "one stack, refresh, expiry; movement max one application per target",
+        "manualAbility": "one charge, zero initial cooldown, recharge equal to action cooldown, complexity 1",
+        "identities": "array-index IDs are syntax only",
+        "upgrades": "array order sets tier and same-path prerequisite; values are absolute set operations",
+        "outputRange": "model chooses base range and every action range independently"
+      }
+    },
+    "issues": []
+  },
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": ["output-schema"],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "default-mechanics",
+        "references-and-lifecycles",
+        "legal-upgrade-and-form-selections",
+        "numeric-bands"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "passed",
+      "checks": ["request-constraints"],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "error": null,
+  "metadata": {
+    "modelCalls": 1,
+    "repairs": 0,
+    "elapsedMs": 91345,
+    "calls": [
+      {
+        "stage": "draft",
+        "completed": true,
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 4608,
+          "outputTokens": 4880
+        }
+      }
+    ]
+  }
+}

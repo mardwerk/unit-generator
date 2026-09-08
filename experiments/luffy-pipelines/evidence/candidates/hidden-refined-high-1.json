@@ -1,0 +1,1127 @@
+{
+  "runId": "hidden-refined-high-1",
+  "status": "success",
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "intent": null
+  },
+  "definition": {
+    "id": "classic-three-path",
+    "version": "0.2.0",
+    "inputSchemaId": "https://mardwerk.org/definitions/classic-three-path/input/0.2.json",
+    "outputSchemaId": "https://mardwerk.org/schemas/unit-spec/0.1.json",
+    "fileDigest": "5ef7ecd9e2314aef1a79888a5967d1f2d19255763604d638c41a2d535ba83a17",
+    "implementationVersion": "scratch/refined/0.1.0",
+    "configuration": {
+      "maxRange": 80,
+      "maxManualAbilities": 1,
+      "maxProminentMechanics": 3
+    }
+  },
+  "unit": {
+    "schemaVersion": "0.1",
+    "id": "unit.monkey-d-luffy",
+    "name": "Monkey D. Luffy",
+    "summary": "A ranged damage captain adaptation of Monkey D. Luffy from the original One Piece manga continuity. His Gum-Gum Pistol provides dependable stretched-arm pressure, while three independent upgrade paths specialize in sustained elastic fire, Haki burst and control, or slower high-impact Gear-inspired attacks. Gear techniques are represented as selected automatic attacks rather than runtime transformations.",
+    "roles": ["damage", "burst", "control"],
+    "tags": ["one-piece", "straw-hat", "captain", "rubber", "haki", "ranged", "gear-attacks"],
+    "placement": {
+      "footprintRadiusWorldUnits": 1.2,
+      "allowedSurfaces": ["ground"],
+      "rules": ["single-placement"]
+    },
+    "economy": {
+      "baseCostCredits": 600,
+      "costProfile": "medium"
+    },
+    "baseStats": {
+      "rangeWorldUnits": 30,
+      "durabilityHitPoints": 220
+    },
+    "resources": [],
+    "states": [],
+    "statuses": [
+      {
+        "id": "status.conqueror-overwhelm",
+        "name": "Conqueror's Overwhelm",
+        "kind": "stun",
+        "magnitude": 1,
+        "maximumStacks": 1,
+        "refresh": "replace",
+        "removal": "expiry"
+      }
+    ],
+    "actions": [
+      {
+        "id": "action.gum-gum-pistol",
+        "name": "Gum-Gum Pistol",
+        "summary": "Luffy stretches and slingshots his arm as a recurring ranged punch. Its projectile speed is fixed; Elastic Rush upgrades its reach, recurring cadence, shot count and collateral cap separately.",
+        "unlockedByDefault": true,
+        "tags": ["primary", "ranged", "rubber", "damage"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "target.pistol",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery.pistol",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 70
+        },
+        "timing": {
+          "cooldownSeconds": 0.8,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 30,
+        "emitters": [
+          {
+            "id": "emitter.pistol",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect.pistol-impact",
+            "type": "damage",
+            "amountHitPoints": 8,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "action.haki-emission",
+        "name": "Haki Emission",
+        "summary": "A separate automatic short-range Haki blast adapted from Luffy's Emission technique. It is locked until Haki Command tier 2 and deals direct line-strike damage without claiming penetration.",
+        "unlockedByDefault": false,
+        "tags": ["haki", "burst", "line-strike"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "target.emission",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery.emission",
+          "type": "line-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 1.5,
+          "windupSeconds": 0.05,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 24,
+        "emitters": [
+          {
+            "id": "emitter.emission",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect.emission-blast",
+            "type": "damage",
+            "amountHitPoints": 10,
+            "damageType": "haki"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "action.gum-gum-gigant",
+        "name": "Gum-Gum Gigant",
+        "summary": "A slow automatic direct strike inspired by Gear 3's enlarged high-damage attacks. It represents the characteristic attack without runtime enlargement or post-use shrinking.",
+        "unlockedByDefault": false,
+        "tags": ["gear-3", "burst", "direct-strike"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "target.gigant",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery.gigant",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 2.2,
+          "windupSeconds": 0.2,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 18,
+        "emitters": [
+          {
+            "id": "emitter.gigant",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect.gigant-impact",
+            "type": "damage",
+            "amountHitPoints": 26,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "action.compressed-kong-gun",
+        "name": "Compressed Kong Gun",
+        "summary": "A slower direct strike adapting Gear 4's compressed-release blows. It emphasizes a separate high-damage attack and does not model transformation, flight or generic defensive coating.",
+        "unlockedByDefault": false,
+        "tags": ["gear-4", "burst", "direct-strike"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "target.kong-gun",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery.kong-gun",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 3,
+          "windupSeconds": 0.25,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 26,
+        "emitters": [
+          {
+            "id": "emitter.kong-gun",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect.kong-gun-impact",
+            "type": "damage",
+            "amountHitPoints": 34,
+            "damageType": "haki"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "action.freedom-impact",
+        "name": "Freedom Impact",
+        "summary": "A slow chain attack inspired by Gear 5's awakened freedom. It strikes distinct eligible targets within range with equal damage and does not claim environmental rubberization, living-target conversion or runtime awakening.",
+        "unlockedByDefault": false,
+        "tags": ["gear-5", "burst", "chain"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "target.freedom-impact",
+          "type": "strongest",
+          "maximumTargets": 3,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery.freedom-impact",
+          "type": "chain",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 4.5,
+          "windupSeconds": 0.2,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 32,
+        "emitters": [
+          {
+            "id": "emitter.freedom-impact",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect.freedom-impact",
+            "type": "damage",
+            "amountHitPoints": 18,
+            "damageType": "rubber"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "action.conquerors-haki",
+        "name": "Conqueror's Haki",
+        "summary": "A manually invoked aura that stuns eligible weak-willed enemies for a short duration. Status immunity and resistance are supplied by game context.",
+        "unlockedByDefault": false,
+        "tags": ["haki", "control", "ability"],
+        "trigger": {
+          "type": "manual"
+        },
+        "targeting": {
+          "id": "target.conquerors-haki",
+          "type": "area",
+          "maximumTargets": 8,
+          "includeTags": ["weak-willed"],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery.conquerors-haki",
+          "type": "aura",
+          "maximumTargetsPerProjectile": 8,
+          "radiusWorldUnits": 20
+        },
+        "timing": {
+          "cooldownSeconds": 0.15,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 20,
+        "emitters": [
+          {
+            "id": "emitter.conquerors-haki",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect.conquerors-overwhelm",
+            "type": "status",
+            "statusId": "status.conqueror-overwhelm",
+            "durationSeconds": 2,
+            "stacks": 1,
+            "stacking": "replace"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ability.conquerors-haki",
+        "name": "Conqueror's Haki",
+        "summary": "Manually activate Conqueror's Haki to stun up to eight eligible weak-willed enemies in a 20-unit aura. It is the unit's sole native active ability and has a 30-second cooldown.",
+        "unlockedByDefault": false,
+        "type": "active",
+        "actionId": "action.conquerors-haki",
+        "cooldownSeconds": 30,
+        "initialCooldownSeconds": 0,
+        "maximumCharges": 1,
+        "rechargeSeconds": 30,
+        "playerComplexity": 3
+      }
+    ],
+    "summons": [],
+    "forms": [],
+    "upgradeGraph": {
+      "profile": "classic-three-path",
+      "paths": [
+        {
+          "id": "path.elastic-rush",
+          "name": "Elastic Rush",
+          "summary": "Sustained ranged pressure through longer reach, faster recurring attacks, additional shots and limited collateral targeting."
+        },
+        {
+          "id": "path.haki-command",
+          "name": "Haki Command",
+          "summary": "Burst and control through Armament damage, a separate Emission attack and one manual Conqueror's Haki ability."
+        },
+        {
+          "id": "path.gears-as-attacks",
+          "name": "Gears as Attacks",
+          "summary": "Slower, high-impact characteristic attacks inspired by Gear 3, Gear 4 and Gear 5 without runtime transformations."
+        }
+      ],
+      "nodes": [
+        {
+          "id": "node.elastic-rush-1",
+          "name": "Stretching Reach",
+          "summary": "Increase Gum-Gum Pistol's attack range from 30 to 38 world units.",
+          "path": "path.elastic-rush",
+          "tier": 1,
+          "costCredits": 90,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "action.gum-gum-pistol",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 38
+            }
+          ],
+          "tags": ["elastic-rush", "range"]
+        },
+        {
+          "id": "node.elastic-rush-2",
+          "name": "Gear 2 Circulation",
+          "summary": "Reduce Gum-Gum Pistol's scheduled recurring period from 0.80 to 0.68 seconds. This improves cadence, not projectile travel speed.",
+          "path": "path.elastic-rush",
+          "tier": 2,
+          "costCredits": 180,
+          "prerequisites": ["node.elastic-rush-1"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "action.gum-gum-pistol",
+              "parameter": "cooldownSeconds",
+              "operation": "set",
+              "value": 0.68
+            }
+          ],
+          "tags": ["elastic-rush", "cadence"]
+        },
+        {
+          "id": "node.elastic-rush-3",
+          "name": "Double Slingshot",
+          "summary": "Increase Gum-Gum Pistol's projectiles per cycle from 1 to 2, adding a second shot rather than collateral pierce.",
+          "path": "path.elastic-rush",
+          "tier": 3,
+          "costCredits": 300,
+          "prerequisites": ["node.elastic-rush-2"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "action.gum-gum-pistol",
+              "parameter": "projectilesPerCycle",
+              "operation": "set",
+              "value": 2
+            }
+          ],
+          "tags": ["elastic-rush", "multi-shot"]
+        },
+        {
+          "id": "node.elastic-rush-4",
+          "name": "Accelerated Pump",
+          "summary": "Reduce Gum-Gum Pistol's scheduled recurring period from 0.68 to 0.58 seconds for further sustained pressure. This remains a cadence upgrade, not projectile speed.",
+          "path": "path.elastic-rush",
+          "tier": 4,
+          "costCredits": 420,
+          "prerequisites": ["node.elastic-rush-3"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "action.gum-gum-pistol",
+              "parameter": "cooldownSeconds",
+              "operation": "set",
+              "value": 0.58
+            }
+          ],
+          "tags": ["elastic-rush", "cadence"]
+        },
+        {
+          "id": "node.elastic-rush-5",
+          "name": "Rubber Ricochet",
+          "summary": "Increase Gum-Gum Pistol's collateral target cap from 1 to 2, allowing each projectile to hit one additional eligible target.",
+          "path": "path.elastic-rush",
+          "tier": 5,
+          "costCredits": 560,
+          "prerequisites": ["node.elastic-rush-4"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "action.gum-gum-pistol",
+              "parameter": "maximumTargetsPerProjectile",
+              "operation": "set",
+              "value": 2
+            }
+          ],
+          "tags": ["elastic-rush", "collateral"]
+        },
+        {
+          "id": "node.haki-command-1",
+          "name": "Armament Imprint",
+          "summary": "Add a 6-hit-point direct Haki damage effect to Gum-Gum Pistol, adapting Armament Haki's offensive coating without adding defense or generic stat modification.",
+          "path": "path.haki-command",
+          "tier": 1,
+          "costCredits": 100,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "action.gum-gum-pistol",
+              "effect": {
+                "id": "effect.armament-imprint",
+                "type": "damage",
+                "amountHitPoints": 6,
+                "damageType": "haki"
+              }
+            }
+          ],
+          "tags": ["haki-command", "armament", "damage"]
+        },
+        {
+          "id": "node.haki-command-2",
+          "name": "Emission",
+          "summary": "Enable Haki Emission as a separate automatic 24-unit line-strike attack with a 1.50-second recurring period.",
+          "path": "path.haki-command",
+          "tier": 2,
+          "costCredits": 210,
+          "prerequisites": ["node.haki-command-1"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "action.haki-emission"
+            }
+          ],
+          "tags": ["haki-command", "emission", "burst"]
+        },
+        {
+          "id": "node.haki-command-3",
+          "name": "Internal Destruction Adaptation",
+          "summary": "Increase Haki Emission's direct damage from 10 to 18 hit points. Penetration and internal destruction are not modeled as unsupported mechanics.",
+          "path": "path.haki-command",
+          "tier": 3,
+          "costCredits": 330,
+          "prerequisites": ["node.haki-command-2"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "action.haki-emission",
+              "effectId": "effect.emission-blast",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 18
+            }
+          ],
+          "tags": ["haki-command", "burst"]
+        },
+        {
+          "id": "node.haki-command-4",
+          "name": "Conqueror's Haki",
+          "summary": "Grant the sole native manual active ability, allowing a 20-unit aura to stun up to eight eligible weak-willed enemies.",
+          "path": "path.haki-command",
+          "tier": 4,
+          "costCredits": 450,
+          "prerequisites": ["node.haki-command-3"],
+          "operations": [
+            {
+              "type": "grant-ability",
+              "abilityId": "ability.conquerors-haki"
+            }
+          ],
+          "tags": ["haki-command", "control", "active-ability"]
+        },
+        {
+          "id": "node.haki-command-5",
+          "name": "Conqueror's Coating",
+          "summary": "Increase the existing Armament Imprint effect on Gum-Gum Pistol from 6 to 12 hit points. This is a bounded damage increase, not a defensive stat modifier.",
+          "path": "path.haki-command",
+          "tier": 5,
+          "costCredits": 600,
+          "prerequisites": ["node.haki-command-4"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "action.gum-gum-pistol",
+              "effectId": "effect.armament-imprint",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 12
+            }
+          ],
+          "tags": ["haki-command", "armament", "damage"]
+        },
+        {
+          "id": "node.gears-as-attacks-1",
+          "name": "Gum-Gum Gigant",
+          "summary": "Enable the slow automatic Gum-Gum Gigant direct strike inspired by Gear 3's enlarged attacks.",
+          "path": "path.gears-as-attacks",
+          "tier": 1,
+          "costCredits": 110,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "action.gum-gum-gigant"
+            }
+          ],
+          "tags": ["gears-as-attacks", "gear-3", "burst"]
+        },
+        {
+          "id": "node.gears-as-attacks-2",
+          "name": "Enlarged Impact",
+          "summary": "Increase Gum-Gum Gigant's direct damage from 26 to 38 hit points.",
+          "path": "path.gears-as-attacks",
+          "tier": 2,
+          "costCredits": 230,
+          "prerequisites": ["node.gears-as-attacks-1"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "action.gum-gum-gigant",
+              "effectId": "effect.gigant-impact",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 38
+            }
+          ],
+          "tags": ["gears-as-attacks", "gear-3", "damage"]
+        },
+        {
+          "id": "node.gears-as-attacks-3",
+          "name": "Compressed Kong Gun",
+          "summary": "Enable the separate 26-unit Compressed Kong Gun direct strike adapting Gear 4's compression-based power.",
+          "path": "path.gears-as-attacks",
+          "tier": 3,
+          "costCredits": 350,
+          "prerequisites": ["node.gears-as-attacks-2"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "action.compressed-kong-gun"
+            }
+          ],
+          "tags": ["gears-as-attacks", "gear-4", "burst"]
+        },
+        {
+          "id": "node.gears-as-attacks-4",
+          "name": "Haki Compression",
+          "summary": "Increase Compressed Kong Gun's direct damage from 34 to 52 hit points while leaving its delivery and cadence unchanged.",
+          "path": "path.gears-as-attacks",
+          "tier": 4,
+          "costCredits": 470,
+          "prerequisites": ["node.gears-as-attacks-3"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "action.compressed-kong-gun",
+              "effectId": "effect.kong-gun-impact",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 52
+            }
+          ],
+          "tags": ["gears-as-attacks", "gear-4", "damage"]
+        },
+        {
+          "id": "node.gears-as-attacks-5",
+          "name": "Freedom Impact",
+          "summary": "Enable Freedom Impact as a slow 32-unit chain attack, then raise its collateral cap from 1 to 3 distinct eligible targets including the first.",
+          "path": "path.gears-as-attacks",
+          "tier": 5,
+          "costCredits": 620,
+          "prerequisites": ["node.gears-as-attacks-4"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "action.freedom-impact"
+            },
+            {
+              "type": "modify-action",
+              "actionId": "action.freedom-impact",
+              "parameter": "maximumTargetsPerProjectile",
+              "operation": "set",
+              "value": 3
+            }
+          ],
+          "tags": ["gears-as-attacks", "gear-5", "chain"]
+        }
+      ],
+      "selectionRules": {
+        "maximumPrimaryPathTier": 5,
+        "maximumCrossPathTier": 2,
+        "maximumCrossPaths": 1,
+        "maximumSelectedNodes": 7
+      }
+    },
+    "requirements": {
+      "visuals": [
+        {
+          "id": "visual.straw-hat",
+          "description": "Straw hat, red vest, blue shorts and sandals consistent with Monkey D. Luffy's recognizable manga design."
+        },
+        {
+          "id": "visual.rubber-stretch",
+          "description": "The attacking arm visibly stretches backward and snaps forward during Gum-Gum Pistol."
+        },
+        {
+          "id": "visual.haki",
+          "description": "Dark Haki coating and sharp emission accents appear on Haki attacks."
+        },
+        {
+          "id": "visual.gear-attacks",
+          "description": "Gum-Gum Gigant, Compressed Kong Gun and Freedom Impact use distinct enlarged, compressed and exuberant impact silhouettes without changing the unit's runtime form."
+        }
+      ],
+      "animations": [
+        {
+          "id": "animation.pistol",
+          "description": "Luffy braces, stretches one arm and launches a slingshot punch."
+        },
+        {
+          "id": "animation.emission",
+          "description": "Luffy thrusts a coated hand forward and releases a compact Haki blast."
+        },
+        {
+          "id": "animation.conquerors-haki",
+          "description": "Luffy stands firm as a short aura pulse radiates outward with a dominating visual shockwave."
+        },
+        {
+          "id": "animation.gigant",
+          "description": "A large direct punch lands with a heavy, enlarged impact pose."
+        },
+        {
+          "id": "animation.kong-gun",
+          "description": "Luffy compresses and releases a powerful forward blow with a dense impact burst."
+        },
+        {
+          "id": "animation.freedom-impact",
+          "description": "A playful, highly elastic strike bounces through successive targets without implying environmental transformation."
+        }
+      ],
+      "audio": [
+        {
+          "id": "audio.pistol",
+          "description": "Elastic snap followed by a forceful punch impact."
+        },
+        {
+          "id": "audio.haki",
+          "description": "Low resonant Haki crackle and compressed blast report."
+        },
+        {
+          "id": "audio.conquerors-haki",
+          "description": "Deep shockwave pulse with a brief stunned-enemy sting."
+        },
+        {
+          "id": "audio.gear-attacks",
+          "description": "Distinct heavy impact sounds for enlarged, compressed and chained attacks."
+        }
+      ]
+    }
+  },
+  "design": {
+    "prototype": "refined",
+    "callBudget": {
+      "normal": 3,
+      "maximum": 5,
+      "feasibilityCorrections": 1,
+      "outerRepairs": 1
+    },
+    "diagnosticStatus": "complete",
+    "review": {
+      "status": "rejected",
+      "issues": [
+        {
+          "code": "patch-rejected",
+          "path": "/",
+          "message": "Unexpected token 'I', \"Increase G\"... is not valid JSON"
+        }
+      ],
+      "validation": null,
+      "beforePreserved": true,
+      "findings": [
+        {
+          "kind": "low-utility",
+          "candidatePaths": [
+            "/upgradeGraph/nodes/0/summary",
+            "/upgradeGraph/nodes/0/operations/0/value"
+          ],
+          "sourceClaimIndices": [10, 11],
+          "evidence": "The supplied diagnostic measured only 0.006768 relative utility gain for Stretching Reach across all six scenarios. The only observed difference was one fewer targeting failure in the fast scenario; all other scenario observables were unchanged.",
+          "change": "Increase the tier-1 range gain from 30 to 45 world units so the upgrade has a more executable reach breakpoint while preserving the stretched-arm identity."
+        },
+        {
+          "kind": "low-utility",
+          "candidatePaths": ["/abilities/0", "/actions/5"],
+          "sourceClaimIndices": [31],
+          "evidence": "Ability integration measured 0.5, with 0/1 abilities meeting the integration threshold. Role consistency also reported a control signal of 0, and sampled scenarios recorded no status uptime. The supplied diagnostic limits state that manual abilities use a separate invocation path, so this result does not prove the ability is mechanically inactive during manual play.",
+          "change": "No executable patch is justified. Converting Conqueror's Haki to an automatic action would remove the intended manual player decision; retain the manual ability and treat its automated-scenario utility as unresolved."
+        }
+      ],
+      "uncertainties": [
+        "The range adjustment is based on uncalibrated sampled diagnostics rather than a complete balance simulation; its utility in scenarios not supplied remains uncertain.",
+        "The Conqueror's Haki findings cannot distinguish absent manual invocation from weak control performance because the supplied simulations do not establish manual ability execution coverage."
+      ]
+    },
+    "limits": [
+      "Source fidelity review remains model judgment. Diagnostics are uncalibrated mechanical evidence.",
+      "A rejected or failed review preserves the draft; structural success does not mean the review succeeded.",
+      "Only complete valid transactions are committed. Large redesigns and missing top-level structures may remain unrepaired.",
+      "Feasibility and source attribution remain model judgments. A supported claim in the plan is not an independent verification of the final implementation."
+    ],
+    "feasibility": {
+      "plan": {
+        "identity": "Monkey D. Luffy, One Piece manga continuity. Public design specification and feasibility report: a single-placement 600-credit ranged damage unit using Gum-Gum Pistol as its readable base attack. The design is feasible under classic-three-path: three independent five-tier paths, legal 5/2 crosspathing, one native manual ability, one control mechanic, no damage-over-time mechanic, and zero forms, totaling two of three",
+        "requests": [],
+        "baseAttack": {
+          "description": "Gum-Gum Pistol: Luffy stretches and slingshots his arm as a recurring ranged punch. The base action uses one fixed-speed projectile, one shot per cycle, one target, and an initial 0.80-second attack period; later upgrades explicitly distinguish cadence, extra shots, collateral targets, and projectile travel speed.",
+          "delivery": "projectile",
+          "rangeWorldUnits": 30,
+          "claimIndices": [10, 11]
+        },
+        "paths": [
+          {
+            "name": "Elastic Rush",
+            "role": "Damage; choose this path for sustained ranged pressure, faster recurring attacks, extra shots, and limited collateral targeting.",
+            "ownedProperties": [
+              "Gum-Gum Pistol rangeWorldUnits",
+              "Gum-Gum Pistol timing.cooldownSeconds",
+              "Gum-Gum Pistol delivery.projectilesPerCycle",
+              "Gum-Gum Pistol delivery.maximumTargetsPerProjectile"
+            ],
+            "progression": [
+              "Tier 1 \u2014 Stretching Reach: increase Gum-Gum Pistol range from 30 to 38 world units.",
+              "Tier 2 \u2014 Gear 2-inspired Circulation: reduce the recurring attack period from 0.80 to 0.68 seconds; this is a shorter attack period, not faster projectile travel.",
+              "Tier 3 \u2014 Double Slingshot: increase projectilesPerCycle from 1 to 2; this adds shots, not collateral pierce.",
+              "Tier 4 \u2014 Accelerated Pump: reduce the recurring attack period from 0.68 to 0.58 seconds; this is cadence only, not projectile speed.",
+              "Tier 5 \u2014 Rubber Ricochet: increase maximumTargetsPerProjectile from 1 to 2; this adds one collateral target, not an additional shot."
+            ],
+            "claimIndices": [10, 11, 16, 17]
+          },
+          {
+            "name": "Haki Command",
+            "role": "Burst/control; choose this path for direct Haki damage, a secondary emission attack, and a single manual Conqueror's Haki control ability.",
+            "ownedProperties": [
+              "Gum-Gum Pistol Armament damage effect amountHitPoints",
+              "Haki Emission action lifecycle and damage effect amountHitPoints",
+              "Conqueror's Haki ability lifecycle and status durationSeconds"
+            ],
+            "progression": [
+              "Tier 1 \u2014 Armament Imprint: add a direct-damage effect to Gum-Gum Pistol, adapting Armament Haki's offensive coating without generic stat modification.",
+              "Tier 2 \u2014 Emission: enable Haki Emission as a separate automatic line-strike action at 24 world units.",
+              "Tier 3 \u2014 Internal Destruction adaptation: increase Haki Emission's direct-damage effect; penetration and internal destruction are not implemented.",
+              "Tier 4 \u2014 Conqueror's Haki: grant the sole native manual active ability, affecting eligible weak-willed enemies in an aura.",
+              "Tier 5 \u2014 Conqueror's Coating: increase the existing Armament Imprint damage effect on Gum-Gum Pistol; this is damage, not a defensive stat modifier."
+            ],
+            "claimIndices": [28, 29, 31, 33, 34, 35]
+          },
+          {
+            "name": "Gears as Attacks",
+            "role": "Burst; choose this path for slower, high-damage characteristic attacks. These are enabled actions, not runtime transformations or forms.",
+            "ownedProperties": [
+              "Gum-Gum Gigant action lifecycle and damage effect amountHitPoints",
+              "Compressed Kong Gun action lifecycle and damage effect amountHitPoints",
+              "Freedom Impact action lifecycle and delivery.maximumTargetsPerProjectile"
+            ],
+            "progression": [
+              "Tier 1 \u2014 Gum-Gum Gigant: enable a 2.20-second automatic direct-strike action at 18 world units, inspired by Gear 3's enlarged high-damage attacks.",
+              "Tier 2 \u2014 Enlarged Impact: increase Gum-Gum Gigant's direct-damage effect.",
+              "Tier 3 \u2014 Compressed Kong Gun: enable a 3.00-second automatic direct-strike action at 26 world units, adapting Gear 4's compressed-release blows.",
+              "Tier 4 \u2014 Haki Compression: increase Compressed Kong Gun's direct-damage effect; its air propulsion and flight behavior are not modeled.",
+              "Tier 5 \u2014 Freedom Impact: enable a 4.50-second automatic chain action at 32 world units with a maximum of 3 distinct targets, adapting a Gear 5-style freedom attack without awakening or environmental rubberization."
+            ],
+            "claimIndices": [18, 20, 21, 23, 24, 26]
+          }
+        ],
+        "mechanics": [
+          {
+            "name": "Gum-Gum Pistol",
+            "kind": "other",
+            "implementation": "Enabled primary interval action. Projectile delivery, 30-world-unit range, fixed projectileSpeedWorldUnitsPerSecond, one projectile per cycle, maximum one target initially, 0.80-second cooldown/period. Elastic Rush owns its mutable range, cadence, shot count, and collateral cap.",
+            "claimIndices": [10, 11]
+          },
+          {
+            "name": "Armament Haki Imprint",
+            "kind": "other",
+            "implementation": "Tier-1 Haki Command add-effect on Gum-Gum Pistol. Applies direct damage only; it does not claim defense increase, generic stat modification, Devil Fruit negation, or protected-target interaction.",
+            "claimIndices": [28, 29]
+          },
+          {
+            "name": "Haki Emission",
+            "kind": "other",
+            "implementation": "Locked automatic line-strike action enabled at Haki Command tier 2, with 24-world-unit range and a 1.50-second cooldown. Tier 3 modifies only its direct-damage effect; no penetration parameter is introduced.",
+            "claimIndices": [33, 34]
+          },
+          {
+            "name": "Conqueror's Haki",
+            "kind": "ability",
+            "implementation": "Locked manual active ability granted at Haki Command tier 4. One native ability, one charge, no resource cost, 30-second cooldown. Aura delivery uses a 20-world-unit radius, targets only enemies tagged weak-willed, caps applications at 8 targets, and applies unconscious for 2.0 seconds with one stack and no refresh. Immunity and resistance come from supplied game context.",
+            "claimIndices": [31]
+          },
+          {
+            "name": "Gum-Gum Gigant",
+            "kind": "other",
+            "implementation": "Locked automatic direct-strike action enabled at Gears as Attacks tier 1. It uses an 18-world-unit range, 2.20-second cooldown, and a finite direct-damage effect. It is a characteristic attack adaptation, not a Gear 3 form.",
+            "claimIndices": [18]
+          },
+          {
+            "name": "Compressed Kong Gun",
+            "kind": "other",
+            "implementation": "Locked automatic direct-strike action enabled at Gears as Attacks tier 3. It uses a 26-world-unit range, 3.00-second cooldown, and finite direct damage. It adapts Gear 4 compression and power without runtime inflation, flight, or transformation.",
+            "claimIndices": [20, 21]
+          },
+          {
+            "name": "Freedom Impact",
+            "kind": "other",
+            "implementation": "Locked automatic chain action enabled at Gears as Attacks tier 5. It uses 32-world-unit range, 4.50-second cooldown, and a maximum of 3 distinct targets including the first; every hit uses the same effect amount. It adapts an awakened attack without a form, environmental conversion, living-target rubberization, or imagination-driven rules.",
+            "claimIndices": [23, 24, 26]
+          }
+        ],
+        "omissions": [
+          {
+            "sourceTrait": "Gear 2's runtime body transformation, substantial strain, rapid energy consumption, and possible lifespan shortening.",
+            "reason": "Runtime transformations are excluded, and no self-damage or unsupported lifespan mechanic is added. Gear 2 is honestly adapted only as Elastic Rush cadence upgrades.",
+            "claimIndices": [16, 17]
+          },
+          {
+            "sourceTrait": "Gear 3's runtime enlargement and original post-use shrinking drawback.",
+            "reason": "Gum-Gum Gigant is an enabled characteristic attack rather than a form; the source's temporary body state and shrink recovery are omitted.",
+            "claimIndices": [18, 19, 22]
+          },
+          {
+            "sourceTrait": "Gear 4's inflated-muscle transformation, Armament coating as a body state, compression-based movement, and airborne propulsion comparable to Moon Walk.",
+            "reason": "Compressed Kong Gun preserves the attack's compression/power distinction but omits runtime transformation and flight because forms and runtime movement transformations are unsupported here.",
+            "claimIndices": [20, 21, 22]
+          },
+          {
+            "sourceTrait": "Gear 5's awakened transformation, white hair and clothes, fatal-blow awakening trigger, imagination-limited freedom, joy aura, and environmental or living-being rubberization.",
+            "reason": "Forms are encounter selections only and cannot runtime-transform, trigger, revert, or safely encode arbitrary imagination. Freedom Impact is an explicit attack adaptation; the remaining distinctions are omitted.",
+            "claimIndices": [23, 24, 25, 26]
+          },
+          {
+            "sourceTrait": "Rubber immunity to electricity, blunt-force resistance, vulnerability to sharp weapons, and loss of strength or independent movement in water or around Sea-Prism Stone.",
+            "reason": "Generic defensive stat modifiers, damage-type immunities, and context-specific incapacitation are not represented in this compact executable subset.",
+            "claimIndices": [12, 13, 14]
+          },
+          {
+            "sourceTrait": "Luffy's immense baseline strength, durability, speed, reflexes, agility, endurance, and stamina.",
+            "reason": "Generic stat modifiers are outside the default contract; only explicit attack effects and cadence are modeled.",
+            "claimIndices": [15]
+          },
+          {
+            "sourceTrait": "Observation Haki, Future Sight, and their movement-reading or several-seconds-ahead behavior.",
+            "reason": "Passive/reactive scheduling and predictive combat behavior are unsupported. No false reveal or evasion mechanic is claimed.",
+            "claimIndices": [30, 32]
+          },
+          {
+            "sourceTrait": "Full Armament Haki defense, Devil Fruit defense negation, and Internal Destruction's penetration of targets or objects.",
+            "reason": "Armament is adapted to direct attack damage, while defense modification, defense negation, and penetration effects are not declared capabilities.",
+            "claimIndices": [29, 34]
+          },
+          {
+            "sourceTrait": "Luffy's partial poison immunity and slow susceptibility to strong poison.",
+            "reason": "No poison-status contract or resistance parameter is supplied, so the trait remains unimplemented rather than being invented.",
+            "claimIndices": [36]
+          },
+          {
+            "sourceTrait": "Crew, family, affiliations, captaincy, liberation history, World Government conflict, Four Emperor status, Grand Fleet size, and bounty progression.",
+            "reason": "These are narrative, social, roster, or economy-context facts rather than executable unit mechanics in this specification.",
+            "claimIndices": [0, 1, 2, 3, 4, 5]
+          }
+        ],
+        "uncertainties": [
+          "No gameplay intent or constraints were supplied, so the selected combat subset does not claim a preferred role beyond the required three-path structure.",
+          "Exact attack periods, ranges, ability cooldown, status duration, and purchase cost are neutral design values, not source facts; balance is not established.",
+          "Projectile travel speed remains fixed because the supplied upgrade vocabulary cannot directly modify projectileSpeedWorldUnitsPerSecond. Elastic Rush changes recurring period, projectilesPerCycle, and maximumTargetsPerProjectile as separate properties.",
+          "The weak-willed target tag and all status immunity or resistance behavior must be supplied by the consuming game's context.",
+          "The design declares one ability and no forms; therefore it stays below the prominent-mechanic limit while preserving executable attacks for selected Gear distinctions.",
+          "Strictly increasing positive node prices and final reference validation remain implementation obligations for the eventual DSL serialization."
+        ]
+      },
+      "planningIssues": []
+    },
+    "effectiveLimits": {
+      "pathCount": 3,
+      "tiersPerPath": 5,
+      "placementCostCredits": [450, 750],
+      "maximumRangeWorldUnits": 80,
+      "maximumManualAbilities": 1,
+      "maximumProminentMechanics": 3,
+      "prominentMechanicCounting": "Every declared ability plus every declared form plus one if control is used plus one if damage-over-time is used. Locked declarations still count. Resources do not directly count, but their associated abilities and forms do.",
+      "forms": {
+        "activation": "external",
+        "persistence": "encounter",
+        "reversion": "none",
+        "requirements": "empty; grant-form upgrade or explicit external unlock"
+      },
+      "formLimitations": "Forms are external encounter selections. They do not switch at runtime, revert, enforce mutually exclusive modes, or make arbitrary combinations safe. A grant-form upgrade unlocks a later external build selection.",
+      "intervalCadence": "For an enabled primary interval action, scheduled period = max(trigger.intervalSeconds, timing.cooldownSeconds). A fixed trigger interval can mask cooldown upgrades. A trigger floor of 0.15 seconds allows cooldown upgrades down to that floor; use a different explicit interval only when intentional. Windup delays resolution separately.",
+      "delivery": "Direct-strike and line-strike can have range up to the same configured maximum as projectiles. Melee does not imply short range. Projectile primary aim count and collateral pierce are separate; do not infer a combined minimum target cap.",
+      "excludedMechanics": [],
+      "allowedMechanics": null
+    },
+    "feasibilityAttempts": [
+      {
+        "attempt": 0,
+        "stage": "feasibility",
+        "issues": []
+      }
+    ],
+    "upgradeVocabulary": {
+      "source": "/properties/upgradeGraph/properties/nodes/items/properties/operations/items/anyOf",
+      "operations": [
+        {
+          "type": "enable-action"
+        },
+        {
+          "type": "disable-action"
+        },
+        {
+          "type": "replace-action"
+        },
+        {
+          "type": "modify-action",
+          "parameters": [
+            "cooldownSeconds",
+            "rangeWorldUnits",
+            "emitterCount",
+            "projectilesPerCycle",
+            "maximumTargetsPerProjectile"
+          ],
+          "numericOperations": ["add", "multiply", "set"]
+        },
+        {
+          "type": "add-effect"
+        },
+        {
+          "type": "modify-effect",
+          "parameters": [
+            "amountHitPoints",
+            "amountHitPointsPerTick",
+            "durationSeconds",
+            "amount",
+            "amountCredits"
+          ],
+          "numericOperations": ["add", "multiply", "set"]
+        },
+        {
+          "type": "enable-resource"
+        },
+        {
+          "type": "modify-resource",
+          "parameters": ["startingAmount", "cap", "generationAmount"],
+          "numericOperations": ["add", "multiply", "set"]
+        },
+        {
+          "type": "grant-ability"
+        },
+        {
+          "type": "enable-summon"
+        },
+        {
+          "type": "grant-form"
+        },
+        {
+          "type": "modify-placement"
+        },
+        {
+          "type": "modify-economy",
+          "numericOperations": ["add", "multiply", "set"]
+        }
+      ],
+      "projectileSpeed": {
+        "declarationPath": "/actions/*/delivery/projectileSpeedWorldUnitsPerSecond",
+        "directlyModifiableByUpgrade": false,
+        "implementation": "A speed change needs a separately declared replacement action with a different projectileSpeedWorldUnitsPerSecond and a valid replace-action operation, or an honestly revised progression. Replacement must satisfy all existing reference, ownership and lifecycle rules."
+      },
+      "parameterMeaning": {
+        "cooldownSeconds": "Time gate between action invocations; recurring scheduling also uses trigger.intervalSeconds.",
+        "rangeWorldUnits": "Reach, not travel speed.",
+        "emitterCount": "Number of emitters, not travel speed.",
+        "projectilesPerCycle": "Shots emitted per cycle, not projectile travel speed.",
+        "maximumTargetsPerProjectile": "Collateral target/pierce limit, not projectile travel speed."
+      }
+    }
+  },
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": ["output-schema"],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "default-mechanics",
+        "references-and-lifecycles",
+        "legal-upgrade-and-form-selections",
+        "numeric-bands"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "passed",
+      "checks": ["request-constraints"],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "error": null,
+  "metadata": {
+    "modelCalls": 3,
+    "repairs": 0,
+    "elapsedMs": 435123,
+    "calls": [
+      {
+        "stage": "feasibility",
+        "completed": true,
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 8971,
+          "outputTokens": 10023
+        }
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 20003,
+          "outputTokens": 8062
+        }
+      },
+      {
+        "stage": "review-patch",
+        "completed": true,
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 35707,
+          "outputTokens": 5474
+        }
+      }
+    ]
+  }
+}

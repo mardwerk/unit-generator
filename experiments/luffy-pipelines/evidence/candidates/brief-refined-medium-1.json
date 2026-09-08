@@ -1,0 +1,1090 @@
+{
+  "runId": "brief-refined-medium-1",
+  "status": "success",
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "intent": "Design a long-range melee unit whose elastic attacks reach distant enemies. Organize its three upgrade paths around Conqueror's Haki, Observation Haki and Armament Haki. Represent its Gear forms as special forms that unlock characteristic attacks where the definition supports them. Distinguish the base state, Gears Second through Fifth and Gear Fourth variants; explain unsupported runtime behavior instead of claiming it is implemented."
+  },
+  "definition": {
+    "id": "classic-three-path",
+    "version": "0.2.0",
+    "inputSchemaId": "https://mardwerk.org/definitions/classic-three-path/input/0.2.json",
+    "outputSchemaId": "https://mardwerk.org/schemas/unit-spec/0.1.json",
+    "fileDigest": "5ef7ecd9e2314aef1a79888a5967d1f2d19255763604d638c41a2d535ba83a17",
+    "implementationVersion": "scratch/refined/0.1.0",
+    "configuration": {
+      "maxRange": 80,
+      "maxManualAbilities": 1,
+      "maxProminentMechanics": 3
+    }
+  },
+  "unit": {
+    "schemaVersion": "0.1",
+    "id": "monkey-d-luffy-classic-three-path",
+    "name": "Monkey D. Luffy",
+    "summary": "The base state is a long-range melee fighter whose rubber-bodied Gum-Gum Pistol stretches into distant enemies. Conqueror's Haki adds impact and collateral pressure, Observation Haki improves reach and firing cadence, and Armament Haki adds hardened supplemental strikes while unlocking Gear Fourth. Gear Second, Gear Fourth, and Gear Fifth are encounter forms with external activation. Gear Third and separate Gear Fourth variants remain description-only unsupported distinctions. Runtime transformation, automatic awakening, reversion, environmental rubberization, and unrestricted imagination are unsupported.",
+    "roles": ["damage", "burst", "support"],
+    "tags": ["one-piece", "luffy", "rubber", "elastic", "long-range-melee", "haki", "gear-forms"],
+    "placement": {
+      "footprintRadiusWorldUnits": 1.5,
+      "allowedSurfaces": ["ground"],
+      "rules": [
+        "Occupies one placement.",
+        "Elastic attacks are represented as physical projectiles rather than literal body-extension collision.",
+        "Water, Sea-Prism Stone, weapon damage types, and runtime transformation rules require external game context."
+      ]
+    },
+    "economy": {
+      "baseCostCredits": 650,
+      "costProfile": "medium",
+      "incomePerWaveCredits": 0
+    },
+    "baseStats": {
+      "rangeWorldUnits": 70,
+      "durabilityHitPoints": 100
+    },
+    "resources": [],
+    "states": [],
+    "statuses": [],
+    "actions": [
+      {
+        "id": "gum-gum-pistol",
+        "name": "Gum-Gum Pistol",
+        "summary": "Luffy stretches and slingshots one elastic fist at a distant enemy.",
+        "unlockedByDefault": true,
+        "tags": ["base-attack", "elastic", "melee-style", "physical"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gum-gum-pistol-targeting",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gum-gum-pistol-delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 120
+        },
+        "timing": {
+          "cooldownSeconds": 0.9,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 70,
+        "emitters": [
+          {
+            "id": "fist-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "pistol-impact",
+            "type": "damage",
+            "amountHitPoints": 32,
+            "damageType": "physical"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-second-gatling",
+        "name": "Gear Second Gatling",
+        "summary": "A rapid elastic barrage characteristic of Gear Second. It is available only when the Gear Second encounter form is selected.",
+        "unlockedByDefault": false,
+        "tags": ["gear-second", "elastic", "rapid-fire"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-second-targeting",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-second-delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 150
+        },
+        "timing": {
+          "cooldownSeconds": 0.45,
+          "windupSeconds": 0.05,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 65,
+        "emitters": [
+          {
+            "id": "gear-second-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 2
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-second-impact",
+            "type": "damage",
+            "amountHitPoints": 18,
+            "damageType": "physical"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-fourth-compressed-strike",
+        "name": "Gear Fourth Compressed Strike",
+        "summary": "A compressed, Armament-coated elastic blow characteristic of Gear Fourth. It is available only when the Gear Fourth encounter form is selected.",
+        "unlockedByDefault": false,
+        "tags": ["gear-fourth", "armament", "compressed-impact"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-fourth-targeting",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-fourth-delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 2,
+          "projectileSpeedWorldUnitsPerSecond": 105
+        },
+        "timing": {
+          "cooldownSeconds": 1.1,
+          "windupSeconds": 0.15,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 60,
+        "emitters": [
+          {
+            "id": "gear-fourth-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-fourth-impact",
+            "type": "damage",
+            "amountHitPoints": 58,
+            "damageType": "physical"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear-fifth-freeform-blow",
+        "name": "Gear Fifth Freeform Blow",
+        "summary": "A bounded awakened elastic strike characteristic of Gear Fifth. It is available only when the Gear Fifth encounter form is selected; unrestricted imagination and environmental rubberization are not implemented.",
+        "unlockedByDefault": false,
+        "tags": ["gear-fifth", "awakening", "elastic"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear-fifth-targeting",
+          "type": "nearest",
+          "maximumTargets": 2,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear-fifth-delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 2,
+          "projectileSpeedWorldUnitsPerSecond": 110
+        },
+        "timing": {
+          "cooldownSeconds": 0.8,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 75,
+        "emitters": [
+          {
+            "id": "gear-fifth-emitter",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear-fifth-impact",
+            "type": "damage",
+            "amountHitPoints": 45,
+            "damageType": "physical"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      }
+    ],
+    "abilities": [],
+    "summons": [],
+    "forms": [
+      {
+        "id": "gear-second-form",
+        "name": "Gear Second",
+        "summary": "An externally selected encounter form representing Luffy's accelerated blood circulation and rapid elastic attacks. It does not transform at runtime, enforce strain, shorten lifespan, or automatically revert.",
+        "externallyUnlocked": true,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-second-gatling"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "gear-fourth-form",
+        "name": "Gear Fourth",
+        "summary": "An externally selected encounter form representing inflated muscles, Armament-coated limbs, compression-based blows, and airborne-kick identity. It is unlocked by Armament Haki Tier 3 and does not runtime-transform or select a separate variant.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-fourth-compressed-strike"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "gear-fifth-form",
+        "name": "Gear Fifth",
+        "summary": "An externally selected encounter form representing Luffy's awakened white-haired state through a bounded elastic attack. It does not trigger from a fatal blow, rubberize the environment or living beings, grant unlimited imagination, or switch at runtime.",
+        "externallyUnlocked": true,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear-fifth-freeform-blow"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      }
+    ],
+    "upgradeGraph": {
+      "profile": "classic-three-path",
+      "paths": [
+        {
+          "id": "path-conquerors-haki",
+          "name": "Conqueror's Haki",
+          "summary": "Builds overwhelming impact, collateral pressure, and multiple simultaneous elastic punches."
+        },
+        {
+          "id": "path-observation-haki",
+          "name": "Observation Haki",
+          "summary": "Improves distant awareness through greater reach, faster attack cadence, and additional planned shots."
+        },
+        {
+          "id": "path-armament-haki",
+          "name": "Armament Haki",
+          "summary": "Adds hardened supplemental damage and unlocks the Gear Fourth encounter form, with later emission-inspired force."
+        }
+      ],
+      "nodes": [
+        {
+          "id": "conquerors-tier-1",
+          "name": "Overwhelming Impact",
+          "summary": "Adds 6 physical damage to every Gum-Gum Pistol hit.",
+          "path": "path-conquerors-haki",
+          "tier": 1,
+          "costCredits": 120,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "gum-gum-pistol",
+              "effectId": "pistol-impact",
+              "parameter": "amountHitPoints",
+              "operation": "add",
+              "value": 6
+            }
+          ],
+          "tags": ["conquerors-haki", "impact"]
+        },
+        {
+          "id": "conquerors-tier-2",
+          "name": "Driving Through",
+          "summary": "Allows each elastic projectile to hit one additional collateral target.",
+          "path": "path-conquerors-haki",
+          "tier": 2,
+          "costCredits": 180,
+          "prerequisites": ["conquerors-tier-1"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "maximumTargetsPerProjectile",
+              "operation": "add",
+              "value": 1
+            }
+          ],
+          "tags": ["conquerors-haki", "pierce"]
+        },
+        {
+          "id": "conquerors-tier-3",
+          "name": "King's Barrage",
+          "summary": "Adds a second fist emitter to the recurring Gum-Gum Pistol attack.",
+          "path": "path-conquerors-haki",
+          "tier": 3,
+          "costCredits": 260,
+          "prerequisites": ["conquerors-tier-2"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "emitterCount",
+              "operation": "add",
+              "value": 1
+            }
+          ],
+          "tags": ["conquerors-haki", "barrage"]
+        },
+        {
+          "id": "conquerors-tier-4",
+          "name": "Advanced Pressure",
+          "summary": "Adds another 8 physical damage to every Gum-Gum Pistol hit.",
+          "path": "path-conquerors-haki",
+          "tier": 4,
+          "costCredits": 360,
+          "prerequisites": ["conquerors-tier-3"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "gum-gum-pistol",
+              "effectId": "pistol-impact",
+              "parameter": "amountHitPoints",
+              "operation": "add",
+              "value": 8
+            }
+          ],
+          "tags": ["conquerors-haki", "advanced"]
+        },
+        {
+          "id": "conquerors-tier-5",
+          "name": "Coated King's Strike",
+          "summary": "Adds a final 12 physical damage to every Gum-Gum Pistol hit, adapting Conqueror's coating into bounded attack power rather than a runtime coating state.",
+          "path": "path-conquerors-haki",
+          "tier": 5,
+          "costCredits": 480,
+          "prerequisites": ["conquerors-tier-4"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "gum-gum-pistol",
+              "effectId": "pistol-impact",
+              "parameter": "amountHitPoints",
+              "operation": "add",
+              "value": 12
+            }
+          ],
+          "tags": ["conquerors-haki", "capstone", "coating"]
+        },
+        {
+          "id": "observation-tier-1",
+          "name": "Far-Sight Awareness",
+          "summary": "Extends Gum-Gum Pistol range by 5 world units.",
+          "path": "path-observation-haki",
+          "tier": 1,
+          "costCredits": 110,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "rangeWorldUnits",
+              "operation": "add",
+              "value": 5
+            }
+          ],
+          "tags": ["observation-haki", "range"]
+        },
+        {
+          "id": "observation-tier-2",
+          "name": "Sharper Reactions",
+          "summary": "Reduces the Gum-Gum Pistol cooldown by 15 percent, producing a genuinely shorter recurring attack period.",
+          "path": "path-observation-haki",
+          "tier": 2,
+          "costCredits": 170,
+          "prerequisites": ["observation-tier-1"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "cooldownSeconds",
+              "operation": "multiply",
+              "value": 0.85
+            }
+          ],
+          "tags": ["observation-haki", "cadence"]
+        },
+        {
+          "id": "observation-tier-3",
+          "name": "Consecutive Read",
+          "summary": "Adds one additional projectile per Gum-Gum Pistol cycle. This is an extra shot, not faster projectile travel or extra collateral pierce.",
+          "path": "path-observation-haki",
+          "tier": 3,
+          "costCredits": 250,
+          "prerequisites": ["observation-tier-2"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "projectilesPerCycle",
+              "operation": "add",
+              "value": 1
+            }
+          ],
+          "tags": ["observation-haki", "extra-shot"]
+        },
+        {
+          "id": "observation-tier-4",
+          "name": "Predictive Timing",
+          "summary": "Reduces the Gum-Gum Pistol cooldown by a further 20 percent for faster recurring attacks inspired by advanced Observation Haki.",
+          "path": "path-observation-haki",
+          "tier": 4,
+          "costCredits": 350,
+          "prerequisites": ["observation-tier-3"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "cooldownSeconds",
+              "operation": "multiply",
+              "value": 0.8
+            }
+          ],
+          "tags": ["observation-haki", "future-sight"]
+        },
+        {
+          "id": "observation-tier-5",
+          "name": "Future Sight Barrage",
+          "summary": "Adds one more projectile per Gum-Gum Pistol cycle for planned consecutive punches. It does not implement literal prediction or increase projectile travel speed.",
+          "path": "path-observation-haki",
+          "tier": 5,
+          "costCredits": 470,
+          "prerequisites": ["observation-tier-4"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "gum-gum-pistol",
+              "parameter": "projectilesPerCycle",
+              "operation": "add",
+              "value": 1
+            }
+          ],
+          "tags": ["observation-haki", "capstone", "future-sight"]
+        },
+        {
+          "id": "armament-tier-1",
+          "name": "Hardened Impact",
+          "summary": "Adds a declared 10-point Armament Haki damage effect to each successful Gum-Gum Pistol application.",
+          "path": "path-armament-haki",
+          "tier": 1,
+          "costCredits": 130,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "gum-gum-pistol",
+              "effect": {
+                "id": "armament-impact",
+                "type": "damage",
+                "amountHitPoints": 10,
+                "damageType": "haki-physical"
+              }
+            }
+          ],
+          "tags": ["armament-haki", "supplemental-damage"]
+        },
+        {
+          "id": "armament-tier-2",
+          "name": "Hardening Mastery",
+          "summary": "Increases the Armament Haki supplemental damage by 6 hit points.",
+          "path": "path-armament-haki",
+          "tier": 2,
+          "costCredits": 190,
+          "prerequisites": ["armament-tier-1"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "gum-gum-pistol",
+              "effectId": "armament-impact",
+              "parameter": "amountHitPoints",
+              "operation": "add",
+              "value": 6
+            }
+          ],
+          "tags": ["armament-haki", "hardening"]
+        },
+        {
+          "id": "armament-tier-3",
+          "name": "Gear Fourth Access",
+          "summary": "Grants the external Gear Fourth encounter form and its compressed-strike action.",
+          "path": "path-armament-haki",
+          "tier": 3,
+          "costCredits": 280,
+          "prerequisites": ["armament-tier-2"],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "gear-fourth-form"
+            }
+          ],
+          "tags": ["armament-haki", "gear-fourth", "form"]
+        },
+        {
+          "id": "armament-tier-4",
+          "name": "Emission Burst",
+          "summary": "Adds a separate 12-point emission-inspired damage effect to each Gum-Gum Pistol application; exact blast geometry is not separately simulated.",
+          "path": "path-armament-haki",
+          "tier": 4,
+          "costCredits": 380,
+          "prerequisites": ["armament-tier-3"],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "gum-gum-pistol",
+              "effect": {
+                "id": "emission-burst",
+                "type": "damage",
+                "amountHitPoints": 12,
+                "damageType": "haki-physical"
+              }
+            }
+          ],
+          "tags": ["armament-haki", "emission"]
+        },
+        {
+          "id": "armament-tier-5",
+          "name": "Internal Destruction Force",
+          "summary": "Adds 8 hit points to the Armament Haki supplemental effect, adapting Internal Destruction as bounded damage without literal penetration simulation.",
+          "path": "path-armament-haki",
+          "tier": 5,
+          "costCredits": 500,
+          "prerequisites": ["armament-tier-4"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "gum-gum-pistol",
+              "effectId": "armament-impact",
+              "parameter": "amountHitPoints",
+              "operation": "add",
+              "value": 8
+            }
+          ],
+          "tags": ["armament-haki", "capstone", "internal-destruction"]
+        }
+      ],
+      "selectionRules": {
+        "maximumPrimaryPathTier": 5,
+        "maximumCrossPathTier": 2,
+        "maximumCrossPaths": 1,
+        "maximumSelectedNodes": 7
+      }
+    },
+    "requirements": {
+      "visuals": [
+        {
+          "id": "luffy-base-visual",
+          "description": "Straw-hat pirate captain with a lean rubber-bodied silhouette and an extended fist during Gum-Gum Pistol."
+        },
+        {
+          "id": "gear-second-visual",
+          "description": "Optional Gear Second encounter presentation with steam-like motion emphasis."
+        },
+        {
+          "id": "gear-fourth-visual",
+          "description": "Optional Gear Fourth encounter presentation with inflated muscles, dark Armament-coated limbs, and compressed striking posture."
+        },
+        {
+          "id": "gear-fifth-visual",
+          "description": "Optional Gear Fifth encounter presentation with white hair and clothing, without implying unrestricted environmental transformation."
+        }
+      ],
+      "animations": [
+        {
+          "id": "gum-gum-pistol-animation",
+          "description": "Luffy pulls back and slingshots one elastic arm toward the selected distant enemy."
+        },
+        {
+          "id": "haki-impact-animation",
+          "description": "A brief darkened impact flash indicates Armament or Conqueror's Haki supplemental force when those upgrades are selected."
+        },
+        {
+          "id": "gear-form-animation",
+          "description": "Selected encounter forms use distinct idle and attack presentation; no runtime transformation or reversion animation is required."
+        }
+      ],
+      "audio": [
+        {
+          "id": "elastic-punch-sound",
+          "description": "A stretched-rubber snap followed by a heavy punch impact."
+        },
+        {
+          "id": "haki-impact-sound",
+          "description": "A short forceful crack layered onto upgraded Haki impacts."
+        }
+      ]
+    }
+  },
+  "design": {
+    "prototype": "refined",
+    "callBudget": {
+      "normal": 3,
+      "maximum": 5,
+      "feasibilityCorrections": 1,
+      "outerRepairs": 1
+    },
+    "diagnosticStatus": "unavailable",
+    "review": {
+      "status": "applied",
+      "issues": [],
+      "validation": {
+        "structure": {
+          "status": "passed",
+          "checks": ["output-schema"],
+          "issues": []
+        },
+        "system": {
+          "status": "passed",
+          "checks": [
+            "default-mechanics",
+            "references-and-lifecycles",
+            "legal-upgrade-and-form-selections",
+            "numeric-bands"
+          ],
+          "issues": []
+        },
+        "constraints": {
+          "status": "passed",
+          "checks": ["request-constraints"],
+          "issues": []
+        },
+        "uncheckedRules": [
+          "Character fidelity and prose/mechanic agreement require review.",
+          "The consuming game must implement these mechanics.",
+          "Runtime reachability, numerical balance and enjoyable progression are not established."
+        ],
+        "balance": {
+          "status": "not-tested"
+        }
+      },
+      "beforePreserved": false,
+      "findings": [
+        {
+          "kind": "validation-error",
+          "candidatePaths": ["/upgradeGraph/nodes/0/operations/0"],
+          "sourceClaimIndices": [],
+          "evidence": "The first Conqueror's Haki upgrade uses an unsupported no-op modify-action operation with parameter \"none\", operation \"add\", and value 0. The unchanged schema validator rejects this operation shape, so the draft cannot compile.",
+          "change": "Replace the no-op with a valid modify-effect operation that increases the Gum-Gum Pistol's declared damage effect, matching the node summary and the path's owned base-damage property."
+        },
+        {
+          "kind": "meaningful-omission",
+          "candidatePaths": ["/summary"],
+          "sourceClaimIndices": [18, 20, 21, 22, 24],
+          "evidence": "The request asks the design to distinguish the base state, Gear Second through Fifth, and Gear Fourth variants. The candidate declares only Gear Second, Gear Fourth, and Gear Fifth forms. Its summary does not explicitly preserve Gear Third or the Gear Fourth-variant distinction as unsupported or description-only adaptations.",
+          "change": "Clarify in the summary that the base state is the default configuration, while Gear Third and separate Gear Fourth variants are retained only as unsupported distinctions rather than implemented forms."
+        }
+      ],
+      "uncertainties": [
+        "No simulation or diagnostic evidence was supplied, so cadence, damage, balance, and practical form utility remain untested.",
+        "The supplied source does not provide a complete catalog of Gear Fourth variants; the proposed summary preserves that limitation rather than selecting unsupported variants."
+      ]
+    },
+    "limits": [
+      "Source fidelity review remains model judgment. Diagnostics are uncalibrated mechanical evidence.",
+      "A rejected or failed review preserves the draft; structural success does not mean the review succeeded.",
+      "Only complete valid transactions are committed. Large redesigns and missing top-level structures may remain unrepaired.",
+      "Feasibility and source attribution remain model judgments. A supported claim in the plan is not an independent verification of the final implementation."
+    ],
+    "feasibility": {
+      "plan": {
+        "identity": "Design specification and feasibility report: Monkey D. Luffy is a single long-range physical attacker whose elastic Gum-Gum Pistol is represented as a fast projectile, preserving melee-style punches at distant reach. The base state is the ordinary rubber-bodied fighter. Three independent paths are Conqueror's Haki for impact and crowd pressure, Observation Haki for reach and attack cadence, and Armament Haki for hard",
+        "requests": [
+          {
+            "requirement": "Use Monkey D. Luffy from the supplied One Piece manga continuity.",
+            "status": "supported",
+            "treatment": "Uses only the supplied Luffy identity and manga-continuity evidence.",
+            "limitation": "The source is secondary reference material and later developments outside the supplied record are excluded.",
+            "claimIndices": [0, 1, 8, 9]
+          },
+          {
+            "requirement": "Design a long-range melee unit whose elastic attacks reach distant enemies.",
+            "status": "adapted",
+            "treatment": "The base Gum-Gum Pistol is a physical elastic punch delivered as a projectile with 70 world-unit range.",
+            "limitation": "The contract models the attack as projectile delivery rather than literal body-extension collision; projectile travel speed is fixed and not directly upgradeable.",
+            "claimIndices": [10, 11]
+          },
+          {
+            "requirement": "Organize the three upgrade paths around Conqueror's Haki, Observation Haki, and Armament Haki.",
+            "status": "supported",
+            "treatment": "The three paths use those exact names, with independent ownership of damage, cadence/reach, and additional hardened-impact effects.",
+            "limitation": "Exact Haki immunities, resistance checks, and target willpower are not supplied by the contract.",
+            "claimIndices": [28, 29, 30, 31]
+          },
+          {
+            "requirement": "Represent Gear forms as special forms where the definition supports them.",
+            "status": "adapted",
+            "treatment": "Three form declarations are budgeted for Gear Second, Gear Fourth, and Gear Fifth; each is an external encounter selection with no runtime switching or reversion.",
+            "limitation": "Forms are not runtime transformations and cannot automatically trigger from health, damage, imagination, or battle events.",
+            "claimIndices": [16, 20, 23, 24, 25]
+          },
+          {
+            "requirement": "Distinguish the base state, Gear Second, Gear Third, Gear Fourth variants, and Gear Fifth.",
+            "status": "adapted",
+            "treatment": "The base state is explicit; Gear Second, Gear Fourth, and Gear Fifth receive form declarations; Gear Third and Gear Fourth variant distinctions are represented as named upgrade descriptions rather than additional forms.",
+            "limitation": "The three-form prominent-mechanic budget prevents separate declarations for every Gear and Gear Fourth variant.",
+            "claimIndices": [16, 18, 20, 21, 22, 24]
+          },
+          {
+            "requirement": "Explain unsupported runtime behavior instead of claiming it is implemented.",
+            "status": "supported",
+            "treatment": "Runtime transformation, automatic awakening, reversion, environmental rubberization, and imagination-driven arbitrary forms are listed as omissions or limitations.",
+            "limitation": "No runtime transformation mechanic is declared.",
+            "claimIndices": [22, 23, 24, 25, 26]
+          },
+          {
+            "requirement": "Use the supplied facts only and preserve unsupported source distinctions as omissions.",
+            "status": "supported",
+            "treatment": "Unimplemented traits remain in omissions rather than being converted into unsupported mechanics.",
+            "limitation": "The supplied record does not fully specify named attacks, Gear Fourth variants, or Gear Fifth applications.",
+            "claimIndices": [20, 21, 23, 24, 28, 32]
+          }
+        ],
+        "baseAttack": {
+          "description": "Gum-Gum Pistol: Luffy stretches and slingshots one elastic fist at a distant enemy, functioning as a long-range melee-style physical punch.",
+          "delivery": "projectile",
+          "rangeWorldUnits": 70,
+          "claimIndices": [10, 11, 15]
+        },
+        "paths": [
+          {
+            "name": "Conqueror's Haki",
+            "role": "damage",
+            "ownedProperties": [
+              "Base attack damage amount",
+              "Base attack collateral target cap",
+              "Base attack emitter count"
+            ],
+            "progression": [
+              "Tier 1: add a small direct-damage increase to the elastic punch, representing basic Conqueror's pressure.",
+              "Tier 2: increase maximumTargetsPerProjectile to let the punch carry its force through more enemies.",
+              "Tier 3: add a second emitter, representing a broader burst of overwhelming strikes.",
+              "Tier 4: add another direct-damage increase for advanced Conqueror's force.",
+              "Tier 5: add a final direct-damage increase representing body-coating-enhanced attacks; this is damage, not a runtime coating transformation."
+            ],
+            "claimIndices": [28, 31, 35]
+          },
+          {
+            "name": "Observation Haki",
+            "role": "support",
+            "ownedProperties": [
+              "Base attack range",
+              "Base attack cooldown",
+              "Base attack projectilesPerCycle"
+            ],
+            "progression": [
+              "Tier 1: increase attack range to represent enhanced presence detection.",
+              "Tier 2: reduce the recurring attack period through a lower cooldown, representing faster reactions.",
+              "Tier 3: increase projectilesPerCycle by one, representing more precise consecutive punches; this is not projectile travel speed.",
+              "Tier 4: further reduce the recurring attack period for advanced predictive timing; this is not projectile travel speed.",
+              "Tier 5: add another projectile per cycle for Future Sight-inspired attack planning; this is extra shots, not extra collateral targets."
+            ],
+            "claimIndices": [30, 32]
+          },
+          {
+            "name": "Armament Haki",
+            "role": "burst",
+            "ownedProperties": [
+              "Armament bonus-effect damage amount",
+              "Gear Fourth form grant",
+              "Emission-style supplemental damage"
+            ],
+            "progression": [
+              "Tier 1: add a separate Armament damage effect to each successful punch, representing hardened impact.",
+              "Tier 2: increase that supplemental effect's damage for stronger physical contact.",
+              "Tier 3: grant the Gear Fourth external form as an encounter build option.",
+              "Tier 4: add an Emission-style supplemental damage effect to the long-range punch; the effect is a declared damage addition, not an unmodeled blast rule.",
+              "Tier 5: increase the supplemental damage to represent Internal Destruction-inspired force; penetration and internal anatomy are not separately simulated."
+            ],
+            "claimIndices": [20, 29, 33, 34]
+          }
+        ],
+        "mechanics": [
+          {
+            "name": "Gear Second form",
+            "kind": "form",
+            "implementation": "Locked external encounter form. When granted by its owning upgrade, the player may select Gear Second before the encounter. It does not switch at runtime, impose automatic strain, shorten lifespan, or revert. Its characteristic speed is represented by Observation-path cadence upgrades rather than a transformation.",
+            "claimIndices": [16, 17]
+          },
+          {
+            "name": "Gear Fourth form",
+            "kind": "form",
+            "implementation": "Locked external encounter form granted by Armament Haki Tier 3. It represents inflated muscles, Armament-coated limbs, compression-based blows, and airborne kick identity in presentation, while executable combat improvement comes from the Armament damage path. It does not runtime-transform or enforce a variant.",
+            "claimIndices": [20, 21]
+          },
+          {
+            "name": "Gear Fifth form",
+            "kind": "form",
+            "implementation": "Locked external encounter form. It represents the awakened white-haired state as an encounter configuration, with its combat distinction expressed through the available damage and reach upgrades. It does not trigger from a fatal blow, rubberize the environment or living beings, switch at runtime, or provide unlimited imagination effects.",
+            "claimIndices": [23, 24, 25, 26]
+          }
+        ],
+        "omissions": [
+          {
+            "sourceTrait": "Runtime Gear switching, automatic awakening, transformation reversion, and simultaneous Gear-state management.",
+            "reason": "Forms are encounter configurations with external activation, encounter persistence, no reversion, and no runtime transformation support.",
+            "claimIndices": [22, 24, 25]
+          },
+          {
+            "sourceTrait": "Gear Third as a separately selectable form and its original post-use shrinking drawback.",
+            "reason": "The three-form prominent-mechanic budget is used by Gear Second, Gear Fourth, and Gear Fifth; Gear Third is retained only as a source distinction and is not declared. Shrinking is not implemented because runtime transformation and unsupported stat-state behavior are unavailable.",
+            "claimIndices": [18, 19]
+          },
+          {
+            "sourceTrait": "Separate Gear Fourth variants.",
+            "reason": "The supplied evidence confirms Gear Fourth but does not provide a complete variant catalog, and separate variant forms would exceed the form budget.",
+            "claimIndices": [20, 21]
+          },
+          {
+            "sourceTrait": "Gear Fifth's unrestricted imagination, environmental or living-being rubberization, and joy aura.",
+            "reason": "The contract has no generic imagination, mass transformation, aura, or runtime environmental-conversion mechanic. Gear Fifth remains an external form with bounded attack upgrades.",
+            "claimIndices": [23, 24, 26]
+          },
+          {
+            "sourceTrait": "Exact Conqueror's Haki knockout behavior against weak-willed enemies.",
+            "reason": "No supplied target-willpower field or guaranteed unconscious status implementation is available. Conqueror's Haki is adapted to damage and collateral pressure.",
+            "claimIndices": [31]
+          },
+          {
+            "sourceTrait": "Future Sight as literal several-seconds-ahead prediction.",
+            "reason": "No prediction, evasion, or reactive scheduling mechanic is available. Observation is represented by range, shorter recurring attack periods, and extra shots; none changes projectile travel speed.",
+            "claimIndices": [30, 32]
+          },
+          {
+            "sourceTrait": "Armament Haki defense, Devil Fruit negation, Emission's exact blast behavior, and Internal Destruction's literal penetration.",
+            "reason": "The default contract excludes generic defense/stat modifiers and does not define Devil Fruit interactions or internal-target damage. Supported portions are represented by declared supplemental damage effects.",
+            "claimIndices": [29, 33, 34]
+          },
+          {
+            "sourceTrait": "Rubber immunity to electricity, blunt-force resistance, sharp-weapon weakness, water weakness, Sea-Prism Stone weakness, and partial poison immunity.",
+            "reason": "The request focuses on the three Haki paths and elastic attacks; the contract and supplied context do not provide enemy damage-type, water, Sea-Prism Stone, or toxin systems for executable checks.",
+            "claimIndices": [12, 13, 14, 36]
+          },
+          {
+            "sourceTrait": "Gear Second's exact energy drain and lifespan shortening, and Gear Third's exact drawback history.",
+            "reason": "The source provides no executable resource, lifespan, or transformation-state specification for these effects, so they are not invented.",
+            "claimIndices": [17, 19]
+          }
+        ],
+        "uncertainties": [
+          "The supplied record does not establish exact attack damage, cooldown, resource costs, form durations, recovery requirements, or balance values.",
+          "Projectile travel speed is fixed in the base action; no path claims to increase it. Observation cadence changes are shorter recurring attack periods, while Conqueror's collateral changes are additional targets and emitters, and Observation projectilesPerCycle changes are extra shots.",
+          "The specification stays within the three-form prominent-mechanic budget and declares no active ability, damage-over-time mechanic, or control mechanic."
+        ]
+      },
+      "planningIssues": []
+    },
+    "effectiveLimits": {
+      "pathCount": 3,
+      "tiersPerPath": 5,
+      "placementCostCredits": [450, 750],
+      "maximumRangeWorldUnits": 80,
+      "maximumManualAbilities": 1,
+      "maximumProminentMechanics": 3,
+      "prominentMechanicCounting": "Every declared ability plus every declared form plus one if control is used plus one if damage-over-time is used. Locked declarations still count. Resources do not directly count, but their associated abilities and forms do.",
+      "forms": {
+        "activation": "external",
+        "persistence": "encounter",
+        "reversion": "none",
+        "requirements": "empty; grant-form upgrade or explicit external unlock"
+      },
+      "formLimitations": "Forms are external encounter selections. They do not switch at runtime, revert, enforce mutually exclusive modes, or make arbitrary combinations safe. A grant-form upgrade unlocks a later external build selection.",
+      "intervalCadence": "For an enabled primary interval action, scheduled period = max(trigger.intervalSeconds, timing.cooldownSeconds). A fixed trigger interval can mask cooldown upgrades. A trigger floor of 0.15 seconds allows cooldown upgrades down to that floor; use a different explicit interval only when intentional. Windup delays resolution separately.",
+      "delivery": "Direct-strike and line-strike can have range up to the same configured maximum as projectiles. Melee does not imply short range. Projectile primary aim count and collateral pierce are separate; do not infer a combined minimum target cap.",
+      "excludedMechanics": [],
+      "allowedMechanics": null
+    },
+    "feasibilityAttempts": [
+      {
+        "attempt": 0,
+        "stage": "feasibility",
+        "issues": []
+      }
+    ],
+    "upgradeVocabulary": {
+      "source": "/properties/upgradeGraph/properties/nodes/items/properties/operations/items/anyOf",
+      "operations": [
+        {
+          "type": "enable-action"
+        },
+        {
+          "type": "disable-action"
+        },
+        {
+          "type": "replace-action"
+        },
+        {
+          "type": "modify-action",
+          "parameters": [
+            "cooldownSeconds",
+            "rangeWorldUnits",
+            "emitterCount",
+            "projectilesPerCycle",
+            "maximumTargetsPerProjectile"
+          ],
+          "numericOperations": ["add", "multiply", "set"]
+        },
+        {
+          "type": "add-effect"
+        },
+        {
+          "type": "modify-effect",
+          "parameters": [
+            "amountHitPoints",
+            "amountHitPointsPerTick",
+            "durationSeconds",
+            "amount",
+            "amountCredits"
+          ],
+          "numericOperations": ["add", "multiply", "set"]
+        },
+        {
+          "type": "enable-resource"
+        },
+        {
+          "type": "modify-resource",
+          "parameters": ["startingAmount", "cap", "generationAmount"],
+          "numericOperations": ["add", "multiply", "set"]
+        },
+        {
+          "type": "grant-ability"
+        },
+        {
+          "type": "enable-summon"
+        },
+        {
+          "type": "grant-form"
+        },
+        {
+          "type": "modify-placement"
+        },
+        {
+          "type": "modify-economy",
+          "numericOperations": ["add", "multiply", "set"]
+        }
+      ],
+      "projectileSpeed": {
+        "declarationPath": "/actions/*/delivery/projectileSpeedWorldUnitsPerSecond",
+        "directlyModifiableByUpgrade": false,
+        "implementation": "A speed change needs a separately declared replacement action with a different projectileSpeedWorldUnitsPerSecond and a valid replace-action operation, or an honestly revised progression. Replacement must satisfy all existing reference, ownership and lifecycle rules."
+      },
+      "parameterMeaning": {
+        "cooldownSeconds": "Time gate between action invocations; recurring scheduling also uses trigger.intervalSeconds.",
+        "rangeWorldUnits": "Reach, not travel speed.",
+        "emitterCount": "Number of emitters, not travel speed.",
+        "projectilesPerCycle": "Shots emitted per cycle, not projectile travel speed.",
+        "maximumTargetsPerProjectile": "Collateral target/pierce limit, not projectile travel speed."
+      }
+    }
+  },
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": ["output-schema"],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "default-mechanics",
+        "references-and-lifecycles",
+        "legal-upgrade-and-form-selections",
+        "numeric-bands"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "passed",
+      "checks": ["request-constraints"],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "error": null,
+  "metadata": {
+    "modelCalls": 3,
+    "repairs": 0,
+    "elapsedMs": 180214,
+    "calls": [
+      {
+        "stage": "feasibility",
+        "completed": true,
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 9052,
+          "outputTokens": 3411
+        }
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 19861,
+          "outputTokens": 4469
+        }
+      },
+      {
+        "stage": "review-patch",
+        "completed": true,
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 24634,
+          "outputTokens": 1580
+        }
+      }
+    ]
+  }
+}

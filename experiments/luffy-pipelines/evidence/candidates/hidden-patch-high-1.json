@@ -1,0 +1,832 @@
+{
+  "runId": "hidden-patch-high-1",
+  "status": "success",
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "intent": null
+  },
+  "definition": {
+    "id": "classic-three-path",
+    "version": "0.2.0",
+    "inputSchemaId": "https://mardwerk.org/definitions/classic-three-path/input/0.2.json",
+    "outputSchemaId": "https://mardwerk.org/schemas/unit-spec/0.1.json",
+    "fileDigest": "5ef7ecd9e2314aef1a79888a5967d1f2d19255763604d638c41a2d535ba83a17",
+    "implementationVersion": "scratch/patch/0.1.0",
+    "configuration": {
+      "maxRange": 80,
+      "maxManualAbilities": 1,
+      "maxProminentMechanics": 3
+    }
+  },
+  "unit": {
+    "schemaVersion": "0.1",
+    "id": "monkey-d-luffy",
+    "name": "Monkey D. Luffy",
+    "summary": "One Piece manga-continuity adaptation focused on Luffy's elastic ranged punches, overwhelming captain's presence, and deliberate Gear-powered burst attacks. His rubber body is represented through reach and projectile attacks; sharp weapons, water, and Sea-Prism Stone remain encounter-context weaknesses rather than unsupported runtime stat mechanics.",
+    "roles": ["damage", "control", "burst"],
+    "tags": [
+      "monkey-d-luffy",
+      "one-piece-manga",
+      "straw-hat",
+      "captain",
+      "rubber-body",
+      "haki",
+      "gear-techniques"
+    ],
+    "placement": {
+      "footprintRadiusWorldUnits": 1,
+      "allowedSurfaces": ["ground", "platform"],
+      "rules": [
+        "Occupies one placement.",
+        "Cannot be placed on water.",
+        "Sharp weapons, submersion, and Sea-Prism Stone are encounter-context counters."
+      ]
+    },
+    "economy": {
+      "baseCostCredits": 650,
+      "costProfile": "medium"
+    },
+    "baseStats": {
+      "rangeWorldUnits": 32,
+      "durabilityHitPoints": 180
+    },
+    "resources": [
+      {
+        "id": "luffy.stamina",
+        "name": "Fighting Stamina",
+        "unlockedByDefault": false,
+        "ownershipScope": "unit",
+        "startingAmount": 2,
+        "cap": 2,
+        "generation": [
+          {
+            "event": "on-hit",
+            "amount": 1,
+            "actionId": "luffy.gum_gum_pistol"
+          }
+        ],
+        "spend": [
+          {
+            "event": "ability",
+            "referenceId": "luffy.gear_burst_ability",
+            "amount": 1
+          },
+          {
+            "event": "action",
+            "referenceId": "luffy.gear_burst",
+            "amount": 1
+          }
+        ],
+        "recovery": {
+          "type": "refill-on-wave",
+          "amount": 2
+        },
+        "persistence": "encounter"
+      }
+    ],
+    "states": [],
+    "statuses": [
+      {
+        "id": "luffy.conquerors_stagger",
+        "name": "Conqueror's Stagger",
+        "kind": "stun",
+        "magnitude": 1,
+        "maximumStacks": 1,
+        "refresh": "refresh",
+        "removal": "expiry"
+      }
+    ],
+    "actions": [
+      {
+        "id": "luffy.gum_gum_pistol",
+        "name": "Gum-Gum Pistol",
+        "summary": "A stretched, slingshot-like punch that strikes enemies at range.",
+        "unlockedByDefault": true,
+        "tags": ["primary", "elasticity", "projectile"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "luffy.gum_gum_pistol.targeting",
+          "type": "first",
+          "maximumTargets": 2,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "luffy.gum_gum_pistol.delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 100
+        },
+        "timing": {
+          "cooldownSeconds": 0.9,
+          "windupSeconds": 0,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 32,
+        "emitters": [
+          {
+            "id": "luffy.gum_gum_pistol.fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "luffy.gum_gum_pistol.impact",
+            "type": "damage",
+            "amountHitPoints": 14,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "luffy.conquerors_roar",
+        "name": "Conqueror's Roar",
+        "summary": "A periodic burst of intimidating Haki that briefly stuns several nearby enemies.",
+        "unlockedByDefault": false,
+        "tags": ["control", "conquerors-haki", "area"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "luffy.conquerors_roar.targeting",
+          "type": "area",
+          "maximumTargets": 4,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "luffy.conquerors_roar.delivery",
+          "type": "aura",
+          "maximumTargetsPerProjectile": 4,
+          "radiusWorldUnits": 12
+        },
+        "timing": {
+          "cooldownSeconds": 4.5,
+          "windupSeconds": 0,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 26,
+        "emitters": [
+          {
+            "id": "luffy.conquerors_roar.presence",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "luffy.conquerors_roar.stagger",
+            "type": "status",
+            "statusId": "luffy.conquerors_stagger",
+            "durationSeconds": 1.1,
+            "stacks": 1,
+            "stacking": "refresh"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "luffy.gear_burst",
+        "name": "Gear Burst",
+        "summary": "A manually invoked compressed-limb strike that converts stored fighting stamina into a powerful Haki-coated blow.",
+        "unlockedByDefault": false,
+        "tags": ["burst", "gear", "armament-haki", "projectile"],
+        "trigger": {
+          "type": "manual"
+        },
+        "targeting": {
+          "id": "luffy.gear_burst.targeting",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "luffy.gear_burst.delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 120
+        },
+        "timing": {
+          "cooldownSeconds": 0.6,
+          "windupSeconds": 0.25,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 28,
+        "emitters": [
+          {
+            "id": "luffy.gear_burst.fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "luffy.gear_burst.impact",
+            "type": "damage",
+            "amountHitPoints": 48,
+            "damageType": "armament"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [
+          {
+            "resourceId": "luffy.stamina",
+            "amountPerCycle": 1
+          }
+        ],
+        "stateInteractions": []
+      },
+      {
+        "id": "luffy.nika_freedom",
+        "name": "Nika's Freedom",
+        "summary": "An encounter-selected awakened configuration that creates a bounded field of chaotic elastic force around Luffy.",
+        "unlockedByDefault": false,
+        "tags": ["awakening", "gear-five", "area", "forced-movement"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "luffy.nika_freedom.targeting",
+          "type": "area",
+          "maximumTargets": 6,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "luffy.nika_freedom.delivery",
+          "type": "aura",
+          "maximumTargetsPerProjectile": 6,
+          "radiusWorldUnits": 14
+        },
+        "timing": {
+          "cooldownSeconds": 2.4,
+          "windupSeconds": 0,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 34,
+        "emitters": [
+          {
+            "id": "luffy.nika_freedom.field",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "luffy.nika_freedom.impact",
+            "type": "damage",
+            "amountHitPoints": 20,
+            "damageType": "awakening"
+          },
+          {
+            "id": "luffy.nika_freedom.bounce",
+            "type": "forced-movement",
+            "distanceWorldUnits": 4.5,
+            "maximumApplicationsPerTarget": 1
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      }
+    ],
+    "abilities": [
+      {
+        "id": "luffy.gear_burst_ability",
+        "name": "Gear Burst",
+        "summary": "Spend one Fighting Stamina to manually fire a high-impact Gear strike at the strongest enemy in range.",
+        "unlockedByDefault": false,
+        "type": "active",
+        "actionId": "luffy.gear_burst",
+        "cooldownSeconds": 12,
+        "initialCooldownSeconds": 0,
+        "maximumCharges": 1,
+        "rechargeSeconds": 12,
+        "playerComplexity": 2,
+        "resourceId": "luffy.stamina"
+      }
+    ],
+    "summons": [],
+    "forms": [
+      {
+        "id": "luffy.nika_awakened_configuration",
+        "name": "Awakened Nika Configuration",
+        "summary": "An encounter configuration inspired by Gear 5's awakened freedom; it enables a bounded area attack and does not represent runtime transformation or state transfer.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "luffy.nika_freedom"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      }
+    ],
+    "upgradeGraph": {
+      "profile": "classic-three-path",
+      "paths": [
+        {
+          "id": "luffy.path_rubber_rush",
+          "name": "Rubber Rush",
+          "summary": "Improves Luffy's elastic punch cadence and repeated impact damage, trading specialization in crowd control and burst timing for reliable sustained damage."
+        },
+        {
+          "id": "luffy.path_haki_command",
+          "name": "Haki Command",
+          "summary": "Builds Luffy's captain's presence into enemy disruption, adding brief stuns, piercing punches, and a periodic area roar."
+        },
+        {
+          "id": "luffy.path_gear_ascension",
+          "name": "Gear Ascension",
+          "summary": "Unlocks a stamina-gated active Gear strike and culminates in an externally selected awakened configuration, trading passive consistency for deliberate burst windows."
+        }
+      ],
+      "nodes": [
+        {
+          "id": "luffy.rubber_rush.1",
+          "name": "Quick Stretch",
+          "summary": "Reduces Gum-Gum Pistol's cooldown for faster elastic punches.",
+          "path": "luffy.path_rubber_rush",
+          "tier": 1,
+          "costCredits": 110,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "luffy.gum_gum_pistol",
+              "parameter": "cooldownSeconds",
+              "operation": "multiply",
+              "value": 0.82
+            }
+          ],
+          "tags": ["damage", "cadence"]
+        },
+        {
+          "id": "luffy.rubber_rush.2",
+          "name": "Heavy Recoil",
+          "summary": "Adds force to each Gum-Gum Pistol impact.",
+          "path": "luffy.path_rubber_rush",
+          "tier": 2,
+          "costCredits": 240,
+          "prerequisites": ["luffy.rubber_rush.1"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "luffy.gum_gum_pistol",
+              "effectId": "luffy.gum_gum_pistol.impact",
+              "parameter": "amountHitPoints",
+              "operation": "add",
+              "value": 5
+            }
+          ],
+          "tags": ["damage", "impact"]
+        },
+        {
+          "id": "luffy.rubber_rush.3",
+          "name": "Twin Launch",
+          "summary": "Fires two elastic punches per Gum-Gum Pistol cycle.",
+          "path": "luffy.path_rubber_rush",
+          "tier": 3,
+          "costCredits": 390,
+          "prerequisites": ["luffy.rubber_rush.2"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "luffy.gum_gum_pistol",
+              "parameter": "projectilesPerCycle",
+              "operation": "add",
+              "value": 1
+            }
+          ],
+          "tags": ["damage", "multi-projectile"]
+        },
+        {
+          "id": "luffy.rubber_rush.4",
+          "name": "Jet Circulation",
+          "summary": "Uses Gear 2-inspired circulation to sharply accelerate Luffy's main attack cadence.",
+          "path": "luffy.path_rubber_rush",
+          "tier": 4,
+          "costCredits": 560,
+          "prerequisites": ["luffy.rubber_rush.3"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "luffy.gum_gum_pistol",
+              "parameter": "cooldownSeconds",
+              "operation": "multiply",
+              "value": 0.76
+            }
+          ],
+          "tags": ["damage", "gear-two", "cadence"]
+        },
+        {
+          "id": "luffy.rubber_rush.5",
+          "name": "Gigant Impact",
+          "summary": "Finishes the sustained-damage path with a bounded increase to every Gum-Gum Pistol impact.",
+          "path": "luffy.path_rubber_rush",
+          "tier": 5,
+          "costCredits": 760,
+          "prerequisites": ["luffy.rubber_rush.4"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "luffy.gum_gum_pistol",
+              "effectId": "luffy.gum_gum_pistol.impact",
+              "parameter": "amountHitPoints",
+              "operation": "multiply",
+              "value": 1.35
+            }
+          ],
+          "tags": ["damage", "capstone", "gear-three"]
+        },
+        {
+          "id": "luffy.haki_command.1",
+          "name": "Overwhelming Will",
+          "summary": "Gum-Gum Pistol hits briefly stagger their targets with a focused burst of Conqueror's Haki.",
+          "path": "luffy.path_haki_command",
+          "tier": 1,
+          "costCredits": 120,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "luffy.gum_gum_pistol",
+              "effect": {
+                "id": "luffy.gum_gum_pistol.conquerors_stagger",
+                "type": "status",
+                "statusId": "luffy.conquerors_stagger",
+                "durationSeconds": 0.45,
+                "stacks": 1,
+                "stacking": "refresh"
+              }
+            }
+          ],
+          "tags": ["control", "conquerors-haki"]
+        },
+        {
+          "id": "luffy.haki_command.2",
+          "name": "Piercing Emission",
+          "summary": "Projects each launched punch through a second eligible enemy.",
+          "path": "luffy.path_haki_command",
+          "tier": 2,
+          "costCredits": 260,
+          "prerequisites": ["luffy.haki_command.1"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "luffy.gum_gum_pistol",
+              "parameter": "maximumTargetsPerProjectile",
+              "operation": "add",
+              "value": 1
+            }
+          ],
+          "tags": ["control", "emission", "piercing"]
+        },
+        {
+          "id": "luffy.haki_command.3",
+          "name": "Captain's Roar",
+          "summary": "Enables the periodic Conqueror's Roar area action.",
+          "path": "luffy.path_haki_command",
+          "tier": 3,
+          "costCredits": 410,
+          "prerequisites": ["luffy.haki_command.2"],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "luffy.conquerors_roar"
+            }
+          ],
+          "tags": ["control", "area", "captain"]
+        },
+        {
+          "id": "luffy.haki_command.4",
+          "name": "Knockback Authority",
+          "summary": "Conqueror's Roar also throws affected enemies backward, creating space around Luffy.",
+          "path": "luffy.path_haki_command",
+          "tier": 4,
+          "costCredits": 580,
+          "prerequisites": ["luffy.haki_command.3"],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "luffy.conquerors_roar",
+              "effect": {
+                "id": "luffy.conquerors_roar.knockback",
+                "type": "forced-movement",
+                "distanceWorldUnits": 5,
+                "maximumApplicationsPerTarget": 1
+              }
+            }
+          ],
+          "tags": ["control", "forced-movement"]
+        },
+        {
+          "id": "luffy.haki_command.5",
+          "name": "Conqueror's Shockwave",
+          "summary": "Finishes the control path by adding a bounded damage pulse to Conqueror's Roar.",
+          "path": "luffy.path_haki_command",
+          "tier": 5,
+          "costCredits": 780,
+          "prerequisites": ["luffy.haki_command.4"],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "luffy.conquerors_roar",
+              "effect": {
+                "id": "luffy.conquerors_roar.shockwave",
+                "type": "damage",
+                "amountHitPoints": 22,
+                "damageType": "conquerors"
+              }
+            }
+          ],
+          "tags": ["control", "damage", "capstone"]
+        },
+        {
+          "id": "luffy.gear_ascension.1",
+          "name": "Stored Momentum",
+          "summary": "Unlocks Fighting Stamina, which is generated by successful Gum-Gum Pistol hits and refilled at wave start.",
+          "path": "luffy.path_gear_ascension",
+          "tier": 1,
+          "costCredits": 140,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "enable-resource",
+              "resourceId": "luffy.stamina"
+            }
+          ],
+          "tags": ["burst", "resource", "gear"]
+        },
+        {
+          "id": "luffy.gear_ascension.2",
+          "name": "Gear Compression",
+          "summary": "Grants the manual Gear Burst ability, converting one stored Stamina into a high-impact strike.",
+          "path": "luffy.path_gear_ascension",
+          "tier": 2,
+          "costCredits": 300,
+          "prerequisites": ["luffy.gear_ascension.1"],
+          "operations": [
+            {
+              "type": "grant-ability",
+              "abilityId": "luffy.gear_burst_ability"
+            }
+          ],
+          "tags": ["burst", "active-ability", "gear-four"]
+        },
+        {
+          "id": "luffy.gear_ascension.3",
+          "name": "Armament Release",
+          "summary": "Strengthens Gear Burst with a more forceful Haki-coated impact.",
+          "path": "luffy.path_gear_ascension",
+          "tier": 3,
+          "costCredits": 460,
+          "prerequisites": ["luffy.gear_ascension.2"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "luffy.gear_burst",
+              "effectId": "luffy.gear_burst.impact",
+              "parameter": "amountHitPoints",
+              "operation": "add",
+              "value": 18
+            }
+          ],
+          "tags": ["burst", "armament-haki"]
+        },
+        {
+          "id": "luffy.gear_ascension.4",
+          "name": "Boundless Rebound",
+          "summary": "Gear Burst's compressed release launches the target backward after impact.",
+          "path": "luffy.path_gear_ascension",
+          "tier": 4,
+          "costCredits": 640,
+          "prerequisites": ["luffy.gear_ascension.3"],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "luffy.gear_burst",
+              "effect": {
+                "id": "luffy.gear_burst.rebound",
+                "type": "forced-movement",
+                "distanceWorldUnits": 6,
+                "maximumApplicationsPerTarget": 1
+              }
+            }
+          ],
+          "tags": ["burst", "forced-movement", "gear-four"]
+        },
+        {
+          "id": "luffy.gear_ascension.5",
+          "name": "Awakened Freedom",
+          "summary": "Grants the encounter-selectable Awakened Nika Configuration, enabling a bounded field of elastic force rather than a runtime transformation.",
+          "path": "luffy.path_gear_ascension",
+          "tier": 5,
+          "costCredits": 820,
+          "prerequisites": ["luffy.gear_ascension.4"],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "luffy.nika_awakened_configuration"
+            }
+          ],
+          "tags": ["awakening", "gear-five", "capstone", "form"]
+        }
+      ],
+      "selectionRules": {
+        "maximumPrimaryPathTier": 5,
+        "maximumCrossPathTier": 2,
+        "maximumCrossPaths": 1,
+        "maximumSelectedNodes": 7
+      }
+    },
+    "requirements": {
+      "visuals": [
+        {
+          "id": "luffy.visual.base",
+          "description": "Monkey D. Luffy in his recognizable Straw Hat pirate appearance, with an expressive cheerful combat-ready stance."
+        },
+        {
+          "id": "luffy.visual.elasticity",
+          "description": "Stretching arm and slingshot punch visuals for Gum-Gum Pistol."
+        },
+        {
+          "id": "luffy.visual.haki",
+          "description": "Dark Haki accents on Gear Burst and a visible pressure-wave cue for Conqueror's Roar."
+        },
+        {
+          "id": "luffy.visual.awakening",
+          "description": "White-accented awakened encounter configuration visuals for Nika's Freedom."
+        }
+      ],
+      "animations": [
+        {
+          "id": "luffy.animation.pistol",
+          "description": "Wind-back, elastic extension, and snap-back animation for the ranged punch."
+        },
+        {
+          "id": "luffy.animation.roar",
+          "description": "Brief commanding stance followed by a circular intimidation pulse."
+        },
+        {
+          "id": "luffy.animation.gear_burst",
+          "description": "Compressed-limb windup and explosive forward release for the manual Gear strike."
+        },
+        {
+          "id": "luffy.animation.nika_field",
+          "description": "Playful, exaggerated awakened-area motion accompanying the bounded elastic field."
+        }
+      ],
+      "audio": [
+        {
+          "id": "luffy.audio.pistol",
+          "description": "Rubber snap and heavy impact sound for Gum-Gum Pistol."
+        },
+        {
+          "id": "luffy.audio.haki",
+          "description": "Low, forceful pressure pulse for Conqueror's Roar."
+        },
+        {
+          "id": "luffy.audio.gear",
+          "description": "Rising compression effect followed by a strong release impact for Gear Burst."
+        },
+        {
+          "id": "luffy.audio.awakening",
+          "description": "Distinctive energetic cue for selecting the awakened encounter configuration."
+        }
+      ]
+    }
+  },
+  "design": {
+    "prototype": "patch",
+    "callBudget": {
+      "maximum": 3,
+      "ceiling": 5,
+      "outerRepairs": 1
+    },
+    "diagnosticStatus": "unavailable",
+    "review": {
+      "status": "applied",
+      "issues": [],
+      "validation": {
+        "structure": {
+          "status": "passed",
+          "checks": ["output-schema"],
+          "issues": []
+        },
+        "system": {
+          "status": "passed",
+          "checks": [
+            "default-mechanics",
+            "references-and-lifecycles",
+            "legal-upgrade-and-form-selections",
+            "numeric-bands"
+          ],
+          "issues": []
+        },
+        "constraints": {
+          "status": "passed",
+          "checks": ["request-constraints"],
+          "issues": []
+        },
+        "uncheckedRules": [
+          "Character fidelity and prose/mechanic agreement require review.",
+          "The consuming game must implement these mechanics.",
+          "Runtime reachability, numerical balance and enjoyable progression are not established."
+        ],
+        "balance": {
+          "status": "not-tested"
+        }
+      },
+      "beforePreserved": false,
+      "findings": [
+        {
+          "kind": "validation-error",
+          "candidatePaths": ["/actions/2/resourceCosts/0", "/resources/0/spend"],
+          "sourceClaimIndices": [],
+          "evidence": "The unchanged validator reports MECHANIC_RESOURCE_SPEND_INCOMPLETE at /actions/2/resourceCosts/0: luffy.gear_burst consumes luffy.stamina, but the resource declares only an ability spend for luffy.gear_burst_ability and no action spend for luffy.gear_burst.",
+          "change": "Add the matching action spend declaration for luffy.gear_burst while preserving the existing ability spend declaration."
+        }
+      ],
+      "uncertainties": []
+    },
+    "limits": [
+      "Source fidelity review remains model judgment. Diagnostics are uncalibrated mechanical evidence.",
+      "A rejected or failed review preserves the draft; structural success does not mean the review succeeded.",
+      "Only complete valid transactions are committed. Large redesigns and missing top-level structures may remain unrepaired."
+    ]
+  },
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": ["output-schema"],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "default-mechanics",
+        "references-and-lifecycles",
+        "legal-upgrade-and-form-selections",
+        "numeric-bands"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "passed",
+      "checks": ["request-constraints"],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "error": null,
+  "metadata": {
+    "modelCalls": 2,
+    "repairs": 0,
+    "elapsedMs": 314656,
+    "calls": [
+      {
+        "stage": "draft",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 16715,
+          "outputTokens": 12019
+        }
+      },
+      {
+        "stage": "review-patch",
+        "completed": true,
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 20179,
+          "outputTokens": 5005
+        }
+      }
+    ]
+  }
+}

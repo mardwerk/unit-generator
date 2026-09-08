@@ -1,0 +1,1254 @@
+{
+  "runId": "brief-compiler-low-1",
+  "status": "success",
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "intent": "Design a long-range melee unit whose elastic attacks reach distant enemies. Organize its three upgrade paths around Conqueror's Haki, Observation Haki and Armament Haki. Represent its Gear forms as special forms that unlock characteristic attacks where the definition supports them. Distinguish the base state, Gears Second through Fifth and Gear Fourth variants; explain unsupported runtime behavior instead of claiming it is implemented."
+  },
+  "definition": {
+    "id": "classic-three-path",
+    "version": "0.2.0",
+    "inputSchemaId": "https://mardwerk.org/definitions/classic-three-path/input/0.2.json",
+    "outputSchemaId": "https://mardwerk.org/schemas/unit-spec/0.1.json",
+    "fileDigest": "5ef7ecd9e2314aef1a79888a5967d1f2d19255763604d638c41a2d535ba83a17",
+    "implementationVersion": "prototype-compact-compiler/0.1.0",
+    "configuration": {
+      "maxRange": 80,
+      "maxManualAbilities": 1,
+      "maxProminentMechanics": 3
+    }
+  },
+  "unit": {
+    "schemaVersion": "0.1",
+    "id": "compiled-unit",
+    "name": "Straw Hat Luffy",
+    "summary": "A long-range melee tower that stretches elastic attacks across the battlefield, with specializations in Conqueror's Haki, Observation Haki, and Armament Haki.",
+    "roles": ["damage", "control", "burst"],
+    "tags": [],
+    "placement": {
+      "footprintRadiusWorldUnits": 1,
+      "allowedSurfaces": ["land"],
+      "rules": []
+    },
+    "economy": {
+      "baseCostCredits": 650,
+      "costProfile": "classic-three-path"
+    },
+    "baseStats": {
+      "rangeWorldUnits": 35,
+      "durabilityHitPoints": 100
+    },
+    "resources": [],
+    "states": [],
+    "statuses": [
+      {
+        "id": "status-1-1",
+        "name": "Overwhelmed",
+        "kind": "stun",
+        "magnitude": 1,
+        "maximumStacks": 1,
+        "refresh": "refresh",
+        "removal": "expiry"
+      }
+    ],
+    "actions": [
+      {
+        "id": "a-0",
+        "name": "Gum-Gum Pistol",
+        "summary": "A stretched, slingshot punch that directly strikes a distant enemy.",
+        "unlockedByDefault": true,
+        "tags": [],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "target-0",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery-0",
+          "type": "direct-strike",
+          "maximumTargetsPerProjectile": 1
+        },
+        "timing": {
+          "cooldownSeconds": 1.2,
+          "windupSeconds": 0.15,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 35,
+        "emitters": [
+          {
+            "id": "emitter-0",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect-0-0",
+            "type": "damage",
+            "amountHitPoints": 32,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "a-1",
+        "name": "Conqueror's Haki Burst",
+        "summary": "A manual burst of Conqueror's Haki that damages and stuns nearby enemies.",
+        "unlockedByDefault": false,
+        "tags": [],
+        "trigger": {
+          "type": "manual"
+        },
+        "targeting": {
+          "id": "target-1",
+          "type": "area",
+          "maximumTargets": 6,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery-1",
+          "type": "aura",
+          "maximumTargetsPerProjectile": 1,
+          "radiusWorldUnits": 10
+        },
+        "timing": {
+          "cooldownSeconds": 18,
+          "windupSeconds": 0.4,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 24,
+        "emitters": [
+          {
+            "id": "emitter-1",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect-1-0",
+            "type": "damage",
+            "amountHitPoints": 24,
+            "damageType": "haki"
+          },
+          {
+            "id": "effect-1-1",
+            "type": "status",
+            "statusId": "status-1-1",
+            "durationSeconds": 1.5,
+            "stacks": 1,
+            "stacking": "refresh"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "a-2",
+        "name": "Future-Sight Barrage",
+        "summary": "A rapid homing elastic strike guided by advanced Observation Haki.",
+        "unlockedByDefault": false,
+        "tags": [],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "target-2",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery-2",
+          "type": "homing-projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 38
+        },
+        "timing": {
+          "cooldownSeconds": 1.1,
+          "windupSeconds": 0.2,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 42,
+        "emitters": [
+          {
+            "id": "emitter-2",
+            "emitterCount": 1,
+            "projectilesPerCycle": 2
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect-2-0",
+            "type": "damage",
+            "amountHitPoints": 20,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "a-3",
+        "name": "Emission Smash",
+        "summary": "A projected Armament Haki blow that travels through a line of enemies.",
+        "unlockedByDefault": false,
+        "tags": [],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "target-3",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "delivery-3",
+          "type": "line-strike",
+          "maximumTargetsPerProjectile": 3
+        },
+        "timing": {
+          "cooldownSeconds": 2.4,
+          "windupSeconds": 0.3,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 30,
+        "emitters": [
+          {
+            "id": "emitter-3",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "effect-3-0",
+            "type": "damage",
+            "amountHitPoints": 48,
+            "damageType": "haki"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      }
+    ],
+    "abilities": [
+      {
+        "id": "ability-1",
+        "name": "Conqueror's Haki Burst",
+        "summary": "A manual burst of Conqueror's Haki that damages and stuns nearby enemies.",
+        "unlockedByDefault": false,
+        "type": "active",
+        "actionId": "a-1",
+        "cooldownSeconds": 18,
+        "initialCooldownSeconds": 0,
+        "maximumCharges": 1,
+        "rechargeSeconds": 18,
+        "playerComplexity": 1
+      }
+    ],
+    "summons": [],
+    "forms": [],
+    "upgradeGraph": {
+      "profile": "classic-three-path",
+      "paths": [
+        {
+          "id": "p-0",
+          "name": "Conqueror's Haki",
+          "summary": "Turns Luffy's presence into a close-range crowd-control burst and strengthens its impact."
+        },
+        {
+          "id": "p-1",
+          "name": "Observation Haki",
+          "summary": "Improves target acquisition and unlocks predictive homing strikes based on Future Sight."
+        },
+        {
+          "id": "p-2",
+          "name": "Armament Haki",
+          "summary": "Adds projected and reinforced Haki force to Luffy's attacks, culminating in a powerful line-breaking smash."
+        }
+      ],
+      "nodes": [
+        {
+          "id": "p-0-t-1",
+          "name": "Haki Presence",
+          "summary": "Unlocks the manual Conqueror's Haki Burst.",
+          "path": "p-0",
+          "tier": 1,
+          "costCredits": 180,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "a-1"
+            },
+            {
+              "type": "grant-ability",
+              "abilityId": "ability-1"
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-0-t-2",
+          "name": "Overwhelming Force",
+          "summary": "Increases the burst's Haki damage.",
+          "path": "p-0",
+          "tier": 2,
+          "costCredits": 300,
+          "prerequisites": ["p-0-t-1"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "a-1",
+              "effectId": "effect-1-0",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 42
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-0-t-3",
+          "name": "Wider Dominance",
+          "summary": "Expands the burst's affected area.",
+          "path": "p-0",
+          "tier": 3,
+          "costCredits": 450,
+          "prerequisites": ["p-0-t-2"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-1",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 30
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-0-t-4",
+          "name": "Conqueror's Pressure",
+          "summary": "Allows the burst to affect more enemies.",
+          "path": "p-0",
+          "tier": 4,
+          "costCredits": 625,
+          "prerequisites": ["p-0-t-3"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-1",
+              "parameter": "projectilesPerCycle",
+              "operation": "set",
+              "value": 8
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-0-t-5",
+          "name": "Supreme Coating",
+          "summary": "Further increases the burst's damage and stun duration.",
+          "path": "p-0",
+          "tier": 5,
+          "costCredits": 850,
+          "prerequisites": ["p-0-t-4"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "a-1",
+              "effectId": "effect-1-0",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 75
+            },
+            {
+              "type": "modify-action",
+              "actionId": "a-1",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 36
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-1-t-1",
+          "name": "Sixth Sense",
+          "summary": "Unlocks the Future-Sight Barrage.",
+          "path": "p-1",
+          "tier": 1,
+          "costCredits": 170,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "a-2"
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-1-t-2",
+          "name": "Sharper Reading",
+          "summary": "Extends the range of the Gum-Gum Pistol.",
+          "path": "p-1",
+          "tier": 2,
+          "costCredits": 285,
+          "prerequisites": ["p-1-t-1"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-0",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 45
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-1-t-3",
+          "name": "Future Sight",
+          "summary": "Improves the barrage's firing cadence.",
+          "path": "p-1",
+          "tier": 3,
+          "costCredits": 420,
+          "prerequisites": ["p-1-t-2"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-2",
+              "parameter": "cooldownSeconds",
+              "operation": "set",
+              "value": 0.8
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-1-t-4",
+          "name": "Predictive Reach",
+          "summary": "Extends both Observation-based attack ranges.",
+          "path": "p-1",
+          "tier": 4,
+          "costCredits": 590,
+          "prerequisites": ["p-1-t-3"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-0",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 58
+            },
+            {
+              "type": "modify-action",
+              "actionId": "a-2",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 58
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-1-t-5",
+          "name": "Several Seconds Ahead",
+          "summary": "Adds another guided strike to each barrage.",
+          "path": "p-1",
+          "tier": 5,
+          "costCredits": 790,
+          "prerequisites": ["p-1-t-4"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-2",
+              "parameter": "projectilesPerCycle",
+              "operation": "set",
+              "value": 3
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-2-t-1",
+          "name": "Hardening",
+          "summary": "Unlocks the Emission Smash.",
+          "path": "p-2",
+          "tier": 1,
+          "costCredits": 190,
+          "prerequisites": [],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "a-3"
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-2-t-2",
+          "name": "Reinforced Blows",
+          "summary": "Increases Gum-Gum Pistol damage through Armament reinforcement.",
+          "path": "p-2",
+          "tier": 2,
+          "costCredits": 315,
+          "prerequisites": ["p-2-t-1"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "a-0",
+              "effectId": "effect-0-0",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 48
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-2-t-3",
+          "name": "Emission Force",
+          "summary": "Increases the projected smash's damage.",
+          "path": "p-2",
+          "tier": 3,
+          "costCredits": 465,
+          "prerequisites": ["p-2-t-2"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "a-3",
+              "effectId": "effect-3-0",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 72
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-2-t-4",
+          "name": "Internal Destruction",
+          "summary": "Extends the Emission Smash through more enemies.",
+          "path": "p-2",
+          "tier": 4,
+          "costCredits": 640,
+          "prerequisites": ["p-2-t-3"],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "a-3",
+              "parameter": "maximumTargetsPerProjectile",
+              "operation": "set",
+              "value": 6
+            }
+          ],
+          "tags": ["upgrade"]
+        },
+        {
+          "id": "p-2-t-5",
+          "name": "Advanced Armament",
+          "summary": "Further increases the projected smash's damage and reach.",
+          "path": "p-2",
+          "tier": 5,
+          "costCredits": 875,
+          "prerequisites": ["p-2-t-4"],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "a-3",
+              "effectId": "effect-3-0",
+              "parameter": "amountHitPoints",
+              "operation": "set",
+              "value": 115
+            },
+            {
+              "type": "modify-action",
+              "actionId": "a-3",
+              "parameter": "rangeWorldUnits",
+              "operation": "set",
+              "value": 42
+            }
+          ],
+          "tags": ["upgrade"]
+        }
+      ],
+      "selectionRules": {
+        "maximumPrimaryPathTier": 5,
+        "maximumCrossPathTier": 2,
+        "maximumCrossPaths": 1,
+        "maximumSelectedNodes": 7
+      }
+    },
+    "requirements": {
+      "visuals": [],
+      "animations": []
+    }
+  },
+  "design": {
+    "ir": {
+      "name": "Straw Hat Luffy",
+      "summary": "A long-range melee tower that stretches elastic attacks across the battlefield, with specializations in Conqueror's Haki, Observation Haki, and Armament Haki.",
+      "roles": ["damage", "control", "burst"],
+      "placementCost": 650,
+      "baseRange": 35,
+      "actions": [
+        {
+          "name": "Gum-Gum Pistol",
+          "summary": "A stretched, slingshot punch that directly strikes a distant enemy.",
+          "claims": [10, 11, 12],
+          "enabled": true,
+          "trigger": "interval",
+          "cooldown": 1.2,
+          "windup": 0.15,
+          "range": 35,
+          "targeting": "first",
+          "targets": 1,
+          "delivery": "direct-strike",
+          "pierce": 1,
+          "shots": 1,
+          "speed": 0,
+          "radius": 0,
+          "lifetime": 0,
+          "effects": [
+            {
+              "kind": "damage",
+              "amount": 32,
+              "damageType": "blunt"
+            }
+          ]
+        },
+        {
+          "name": "Conqueror's Haki Burst",
+          "summary": "A manual burst of Conqueror's Haki that damages and stuns nearby enemies.",
+          "claims": [27, 28],
+          "enabled": false,
+          "trigger": "manual",
+          "cooldown": 18,
+          "windup": 0.4,
+          "range": 24,
+          "targeting": "area",
+          "targets": 6,
+          "delivery": "aura",
+          "pierce": 1,
+          "shots": 1,
+          "speed": 0,
+          "radius": 10,
+          "lifetime": 0,
+          "effects": [
+            {
+              "kind": "damage",
+              "amount": 24,
+              "damageType": "haki"
+            },
+            {
+              "kind": "status",
+              "name": "Overwhelmed",
+              "status": "stun",
+              "magnitude": 1,
+              "duration": 1.5
+            }
+          ]
+        },
+        {
+          "name": "Future-Sight Barrage",
+          "summary": "A rapid homing elastic strike guided by advanced Observation Haki.",
+          "claims": [29, 10, 11],
+          "enabled": false,
+          "trigger": "interval",
+          "cooldown": 1.1,
+          "windup": 0.2,
+          "range": 42,
+          "targeting": "strongest",
+          "targets": 1,
+          "delivery": "homing-projectile",
+          "pierce": 1,
+          "shots": 2,
+          "speed": 38,
+          "radius": 0,
+          "lifetime": 0,
+          "effects": [
+            {
+              "kind": "damage",
+              "amount": 20,
+              "damageType": "blunt"
+            }
+          ]
+        },
+        {
+          "name": "Emission Smash",
+          "summary": "A projected Armament Haki blow that travels through a line of enemies.",
+          "claims": [30, 31, 26],
+          "enabled": false,
+          "trigger": "interval",
+          "cooldown": 2.4,
+          "windup": 0.3,
+          "range": 30,
+          "targeting": "first",
+          "targets": 1,
+          "delivery": "line-strike",
+          "pierce": 3,
+          "shots": 1,
+          "speed": 0,
+          "radius": 0,
+          "lifetime": 0,
+          "effects": [
+            {
+              "kind": "damage",
+              "amount": 48,
+              "damageType": "haki"
+            }
+          ]
+        }
+      ],
+      "paths": [
+        {
+          "name": "Conqueror's Haki",
+          "summary": "Turns Luffy's presence into a close-range crowd-control burst and strengthens its impact.",
+          "tiers": [
+            {
+              "name": "Haki Presence",
+              "summary": "Unlocks the manual Conqueror's Haki Burst.",
+              "claims": [27, 28],
+              "cost": 180,
+              "changes": [
+                {
+                  "action": 1,
+                  "parameter": "enable",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "name": "Overwhelming Force",
+              "summary": "Increases the burst's Haki damage.",
+              "claims": [27, 28],
+              "cost": 300,
+              "changes": [
+                {
+                  "action": 1,
+                  "parameter": "damage",
+                  "value": 42
+                }
+              ]
+            },
+            {
+              "name": "Wider Dominance",
+              "summary": "Expands the burst's affected area.",
+              "claims": [27, 28],
+              "cost": 450,
+              "changes": [
+                {
+                  "action": 1,
+                  "parameter": "range",
+                  "value": 30
+                }
+              ]
+            },
+            {
+              "name": "Conqueror's Pressure",
+              "summary": "Allows the burst to affect more enemies.",
+              "claims": [27, 28],
+              "cost": 625,
+              "changes": [
+                {
+                  "action": 1,
+                  "parameter": "shots",
+                  "value": 8
+                }
+              ]
+            },
+            {
+              "name": "Supreme Coating",
+              "summary": "Further increases the burst's damage and stun duration.",
+              "claims": [27, 28, 32],
+              "cost": 850,
+              "changes": [
+                {
+                  "action": 1,
+                  "parameter": "damage",
+                  "value": 75
+                },
+                {
+                  "action": 1,
+                  "parameter": "range",
+                  "value": 36
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Observation Haki",
+          "summary": "Improves target acquisition and unlocks predictive homing strikes based on Future Sight.",
+          "tiers": [
+            {
+              "name": "Sixth Sense",
+              "summary": "Unlocks the Future-Sight Barrage.",
+              "claims": [29, 10, 11],
+              "cost": 170,
+              "changes": [
+                {
+                  "action": 2,
+                  "parameter": "enable",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "name": "Sharper Reading",
+              "summary": "Extends the range of the Gum-Gum Pistol.",
+              "claims": [29, 11],
+              "cost": 285,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "range",
+                  "value": 45
+                }
+              ]
+            },
+            {
+              "name": "Future Sight",
+              "summary": "Improves the barrage's firing cadence.",
+              "claims": [29],
+              "cost": 420,
+              "changes": [
+                {
+                  "action": 2,
+                  "parameter": "cooldown",
+                  "value": 0.8
+                }
+              ]
+            },
+            {
+              "name": "Predictive Reach",
+              "summary": "Extends both Observation-based attack ranges.",
+              "claims": [29, 11],
+              "cost": 590,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "range",
+                  "value": 58
+                },
+                {
+                  "action": 2,
+                  "parameter": "range",
+                  "value": 58
+                }
+              ]
+            },
+            {
+              "name": "Several Seconds Ahead",
+              "summary": "Adds another guided strike to each barrage.",
+              "claims": [29],
+              "cost": 790,
+              "changes": [
+                {
+                  "action": 2,
+                  "parameter": "shots",
+                  "value": 3
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "Armament Haki",
+          "summary": "Adds projected and reinforced Haki force to Luffy's attacks, culminating in a powerful line-breaking smash.",
+          "tiers": [
+            {
+              "name": "Hardening",
+              "summary": "Unlocks the Emission Smash.",
+              "claims": [26, 30],
+              "cost": 190,
+              "changes": [
+                {
+                  "action": 3,
+                  "parameter": "enable",
+                  "value": 1
+                }
+              ]
+            },
+            {
+              "name": "Reinforced Blows",
+              "summary": "Increases Gum-Gum Pistol damage through Armament reinforcement.",
+              "claims": [26, 12],
+              "cost": 315,
+              "changes": [
+                {
+                  "action": 0,
+                  "parameter": "damage",
+                  "value": 48
+                }
+              ]
+            },
+            {
+              "name": "Emission Force",
+              "summary": "Increases the projected smash's damage.",
+              "claims": [30, 31],
+              "cost": 465,
+              "changes": [
+                {
+                  "action": 3,
+                  "parameter": "damage",
+                  "value": 72
+                }
+              ]
+            },
+            {
+              "name": "Internal Destruction",
+              "summary": "Extends the Emission Smash through more enemies.",
+              "claims": [31],
+              "cost": 640,
+              "changes": [
+                {
+                  "action": 3,
+                  "parameter": "pierce",
+                  "value": 6
+                }
+              ]
+            },
+            {
+              "name": "Advanced Armament",
+              "summary": "Further increases the projected smash's damage and reach.",
+              "claims": [30, 31],
+              "cost": 875,
+              "changes": [
+                {
+                  "action": 3,
+                  "parameter": "damage",
+                  "value": 115
+                },
+                {
+                  "action": 3,
+                  "parameter": "range",
+                  "value": 42
+                }
+              ]
+            }
+          ]
+        }
+      ],
+      "omissions": [
+        {
+          "trait": "Gear Second through Gear Fifth and Gear Fourth variants as runtime forms",
+          "reason": "Forms and runtime transformations are unsupported; their documented traits are adapted into concrete attack improvements rather than switchable states."
+        },
+        {
+          "trait": "Gear Second's temporary body-pumping state and lifespan or energy strain",
+          "reason": "States, resources, and runtime transformation behavior are unsupported, and exact costs or durations are not supplied."
+        },
+        {
+          "trait": "Gear Third's post-use shrinking",
+          "reason": "The prototype cannot represent runtime states or transformation drawbacks."
+        },
+        {
+          "trait": "Gear Fourth's muscle inflation and selectable variants",
+          "reason": "Forms and custom action replacement are unsupported, and the supplied evidence does not provide a complete catalog of its variants."
+        },
+        {
+          "trait": "Gear Fifth's awakened freedom and environmental rubberization",
+          "reason": "Runtime transformations and changing other living beings or the environment are unsupported."
+        },
+        {
+          "trait": "Rubber immunity to electricity and resistance to blunt force",
+          "reason": "The schema has no defensive-resistance effect type."
+        },
+        {
+          "trait": "Weakness to sharp weapons, water, and Sea-Prism Stone",
+          "reason": "The schema has no conditional vulnerability, terrain, or incapacitation mechanic."
+        },
+        {
+          "trait": "Poison immunity",
+          "reason": "No poison status or resistance effect is representable, and the supplied evidence leaves its full scope unspecified."
+        },
+        {
+          "trait": "Internal Destruction as a distinct penetration effect",
+          "reason": "The schema supports damage and pierce but not damage that bypasses or destroys targets from within; it is represented as stronger projected damage and increased pierce."
+        }
+      ]
+    },
+    "mappings": [
+      {
+        "irPath": "/actions/0",
+        "claimIndices": [10, 11, 12],
+        "sources": [
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca"
+        ],
+        "targets": ["/actions/0"]
+      },
+      {
+        "irPath": "/actions/1",
+        "claimIndices": [27, 28],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/actions/1"]
+      },
+      {
+        "irPath": "/actions/2",
+        "claimIndices": [29, 10, 11],
+        "sources": [
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca"
+        ],
+        "targets": ["/actions/2"]
+      },
+      {
+        "irPath": "/actions/3",
+        "claimIndices": [30, 31, 26],
+        "sources": [
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca"
+        ],
+        "targets": ["/actions/3"]
+      },
+      {
+        "irPath": "/paths/0/tiers/0",
+        "claimIndices": [27, 28],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/0/operations/0", "/upgradeGraph/nodes/0/operations/1"]
+      },
+      {
+        "irPath": "/paths/0/tiers/1",
+        "claimIndices": [27, 28],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/1/operations/0"]
+      },
+      {
+        "irPath": "/paths/0/tiers/2",
+        "claimIndices": [27, 28],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/2/operations/0"]
+      },
+      {
+        "irPath": "/paths/0/tiers/3",
+        "claimIndices": [27, 28],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/3/operations/0"]
+      },
+      {
+        "irPath": "/paths/0/tiers/4",
+        "claimIndices": [27, 28, 32],
+        "sources": [
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca"
+        ],
+        "targets": ["/upgradeGraph/nodes/4/operations/0", "/upgradeGraph/nodes/4/operations/1"]
+      },
+      {
+        "irPath": "/paths/1/tiers/0",
+        "claimIndices": [29, 10, 11],
+        "sources": [
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca",
+          "505dd462a59de785c62a62ca"
+        ],
+        "targets": ["/upgradeGraph/nodes/5/operations/0"]
+      },
+      {
+        "irPath": "/paths/1/tiers/1",
+        "claimIndices": [29, 11],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/6/operations/0"]
+      },
+      {
+        "irPath": "/paths/1/tiers/2",
+        "claimIndices": [29],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/7/operations/0"]
+      },
+      {
+        "irPath": "/paths/1/tiers/3",
+        "claimIndices": [29, 11],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/8/operations/0", "/upgradeGraph/nodes/8/operations/1"]
+      },
+      {
+        "irPath": "/paths/1/tiers/4",
+        "claimIndices": [29],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/9/operations/0"]
+      },
+      {
+        "irPath": "/paths/2/tiers/0",
+        "claimIndices": [26, 30],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/10/operations/0"]
+      },
+      {
+        "irPath": "/paths/2/tiers/1",
+        "claimIndices": [26, 12],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/11/operations/0"]
+      },
+      {
+        "irPath": "/paths/2/tiers/2",
+        "claimIndices": [30, 31],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/12/operations/0"]
+      },
+      {
+        "irPath": "/paths/2/tiers/3",
+        "claimIndices": [31],
+        "sources": ["505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/13/operations/0"]
+      },
+      {
+        "irPath": "/paths/2/tiers/4",
+        "claimIndices": [30, 31],
+        "sources": ["505dd462a59de785c62a62ca", "505dd462a59de785c62a62ca"],
+        "targets": ["/upgradeGraph/nodes/14/operations/0", "/upgradeGraph/nodes/14/operations/1"]
+      }
+    ],
+    "omissions": [
+      {
+        "trait": "Gear Second through Gear Fifth and Gear Fourth variants as runtime forms",
+        "reason": "Forms and runtime transformations are unsupported; their documented traits are adapted into concrete attack improvements rather than switchable states."
+      },
+      {
+        "trait": "Gear Second's temporary body-pumping state and lifespan or energy strain",
+        "reason": "States, resources, and runtime transformation behavior are unsupported, and exact costs or durations are not supplied."
+      },
+      {
+        "trait": "Gear Third's post-use shrinking",
+        "reason": "The prototype cannot represent runtime states or transformation drawbacks."
+      },
+      {
+        "trait": "Gear Fourth's muscle inflation and selectable variants",
+        "reason": "Forms and custom action replacement are unsupported, and the supplied evidence does not provide a complete catalog of its variants."
+      },
+      {
+        "trait": "Gear Fifth's awakened freedom and environmental rubberization",
+        "reason": "Runtime transformations and changing other living beings or the environment are unsupported."
+      },
+      {
+        "trait": "Rubber immunity to electricity and resistance to blunt force",
+        "reason": "The schema has no defensive-resistance effect type."
+      },
+      {
+        "trait": "Weakness to sharp weapons, water, and Sea-Prism Stone",
+        "reason": "The schema has no conditional vulnerability, terrain, or incapacitation mechanic."
+      },
+      {
+        "trait": "Poison immunity",
+        "reason": "No poison status or resistance effect is representable, and the supplied evidence leaves its full scope unspecified."
+      },
+      {
+        "trait": "Internal Destruction as a distinct penetration effect",
+        "reason": "The schema supports damage and pierce but not damage that bypasses or destroys targets from within; it is represented as stronger projected damage and increased pierce."
+      }
+    ],
+    "representability": {
+      "supported": [
+        "explicit attack delivery, targeting, range, shots, pierce, cadence and windup",
+        "direct damage, damage over time, single-stack status, bounded forced movement and reveal",
+        "one optional manual ability",
+        "three independent cumulative paths with action unlocks and absolute numeric changes"
+      ],
+      "unsupported": [
+        "resources",
+        "states",
+        "forms including encounter forms",
+        "summons",
+        "secondary actions",
+        "economy income",
+        "runtime transformations",
+        "effect additions after declaration",
+        "action replacement or disable",
+        "per-emitter timing and multiple emitters",
+        "stacking effects",
+        "tag filters",
+        "custom placement or visuals"
+      ],
+      "defaults": {
+        "placement": "land, radius 1, no extra placement rules",
+        "durability": 100,
+        "placementCostBand": "medium 450..750 unless request says low 200..400 or high 800..1200; model chooses actual cost",
+        "tags": [],
+        "assets": "empty requirements, no invented visual claims",
+        "scheduling": "interval floor .15 seconds, aggregate timing, one emitter",
+        "effects": "one stack, refresh, expiry; movement max one application per target",
+        "manualAbility": "one charge, zero initial cooldown, recharge equal to action cooldown, complexity 1",
+        "identities": "array-index IDs are syntax only",
+        "upgrades": "array order sets tier and same-path prerequisite; values are absolute set operations",
+        "outputRange": "model chooses base range and every action range independently"
+      }
+    },
+    "issues": []
+  },
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": ["output-schema"],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "default-mechanics",
+        "references-and-lifecycles",
+        "legal-upgrade-and-form-selections",
+        "numeric-bands"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "passed",
+      "checks": ["request-constraints"],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "error": null,
+  "metadata": {
+    "modelCalls": 1,
+    "repairs": 0,
+    "elapsedMs": 40131,
+    "calls": [
+      {
+        "stage": "draft",
+        "completed": true,
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 4691,
+          "outputTokens": 2098
+        }
+      }
+    ]
+  }
+}

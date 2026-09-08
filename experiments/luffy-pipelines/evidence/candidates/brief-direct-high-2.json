@@ -1,0 +1,1123 @@
+{
+  "runId": "brief-direct-high-2",
+  "status": "failed",
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "intent": "Design a long-range melee unit whose elastic attacks reach distant enemies. Organize its three upgrade paths around Conqueror's Haki, Observation Haki and Armament Haki. Represent its Gear forms as special forms that unlock characteristic attacks where the definition supports them. Distinguish the base state, Gears Second through Fifth and Gear Fourth variants; explain unsupported runtime behavior instead of claiming it is implemented."
+  },
+  "definition": {
+    "id": "classic-three-path",
+    "version": "0.2.0",
+    "inputSchemaId": "https://mardwerk.org/definitions/classic-three-path/input/0.2.json",
+    "outputSchemaId": "https://mardwerk.org/schemas/unit-spec/0.1.json",
+    "fileDigest": "5ef7ecd9e2314aef1a79888a5967d1f2d19255763604d638c41a2d535ba83a17",
+    "implementationVersion": "prototype-evidence-direct/0.1.0",
+    "configuration": {
+      "maxRange": 80,
+      "maxManualAbilities": 1,
+      "maxProminentMechanics": 3
+    }
+  },
+  "unit": {
+    "schemaVersion": "0.1",
+    "id": "monkey-d-luffy-classic-three-path",
+    "name": "Monkey D. Luffy",
+    "summary": "A long-range melee adaptation of Monkey D. Luffy from the One Piece manga continuity. His base attack stretches a fist into a distant projectile. Conqueror's Haki provides bounded crowd control and coated-impact damage, Observation Haki provides detection, marked-target precision and encounter configurations for rapid attacks, and Armament Haki provides stronger blows, Emission and Internal Destruction. Gear 2 through Gear 5 and two Gear Fourth configurations are represented as encounter forms that externally select additional attacks; runtime transformation, state transfer, reversion and exact form durations are not implemented by this definition. Rubber resistances, water or Sea-Prism Stone incapacitation, and poison immunity are not implemented because the supported default mechanics do not provide the required defensive or contextual rules.",
+    "roles": ["damage", "burst", "control", "support"],
+    "tags": [
+      "monkey-d-luffy",
+      "straw-hat",
+      "elastic",
+      "long-range-melee",
+      "haki",
+      "gear-forms",
+      "one-piece-manga"
+    ],
+    "placement": {
+      "footprintRadiusWorldUnits": 1.5,
+      "allowedSurfaces": ["ground"],
+      "rules": [
+        "Occupies one placement.",
+        "Base state is the unformed encounter configuration.",
+        "Gear forms are encounter selections, not runtime transformations."
+      ]
+    },
+    "economy": {
+      "baseCostCredits": 700,
+      "costProfile": "medium"
+    },
+    "baseStats": {
+      "rangeWorldUnits": 42,
+      "durabilityHitPoints": 300
+    },
+    "resources": [],
+    "states": [],
+    "statuses": [
+      {
+        "id": "conquerors-stun",
+        "name": "Overwhelmed Will",
+        "kind": "stun",
+        "magnitude": 1,
+        "maximumStacks": 1,
+        "refresh": "replace",
+        "removal": "expiry"
+      },
+      {
+        "id": "future-sight-mark",
+        "name": "Future-Sight Mark",
+        "kind": "mark",
+        "magnitude": 1,
+        "maximumStacks": 1,
+        "refresh": "refresh",
+        "removal": "expiry"
+      }
+    ],
+    "actions": [
+      {
+        "id": "elastic-pistol",
+        "name": "Gum-Gum Pistol",
+        "summary": "A stretched, slingshot punch that reaches distant enemies as a physical projectile.",
+        "unlockedByDefault": true,
+        "tags": ["elastic", "base", "melee-at-range"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "elastic-pistol-targets",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "elastic-pistol-delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 120
+        },
+        "timing": {
+          "cooldownSeconds": 1.1,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 42,
+        "emitters": [
+          {
+            "id": "stretched-fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "elastic-pistol-damage",
+            "type": "damage",
+            "amountHitPoints": 18,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "conquerors-presence",
+        "name": "Conqueror's Haki",
+        "summary": "A periodic wave of Conqueror's Haki that can stun weak-willed targets near Luffy.",
+        "unlockedByDefault": false,
+        "tags": ["conquerors-haki", "control", "aura"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "conquerors-presence-targets",
+          "type": "area",
+          "maximumTargets": 3,
+          "includeTags": ["weak-willed"],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "conquerors-presence-delivery",
+          "type": "aura",
+          "maximumTargetsPerProjectile": 3,
+          "radiusWorldUnits": 18
+        },
+        "timing": {
+          "cooldownSeconds": 6,
+          "windupSeconds": 0,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 18,
+        "emitters": [
+          {
+            "id": "conquerors-wave",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "conquerors-stun-effect",
+            "type": "status",
+            "statusId": "conquerors-stun",
+            "durationSeconds": 1.2,
+            "stacks": 1,
+            "stacking": "replace"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "observation-scan",
+        "name": "Observation Haki",
+        "summary": "A wide detection pulse that reveals targets and marks their movements for follow-up strikes.",
+        "unlockedByDefault": false,
+        "tags": ["observation-haki", "reveal", "mark"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "observation-scan-targets",
+          "type": "area",
+          "maximumTargets": 8,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "observation-scan-delivery",
+          "type": "aura",
+          "maximumTargetsPerProjectile": 8,
+          "radiusWorldUnits": 44
+        },
+        "timing": {
+          "cooldownSeconds": 2,
+          "windupSeconds": 0,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 44,
+        "emitters": [
+          {
+            "id": "observation-pulse",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "observation-reveal-effect",
+            "type": "reveal",
+            "durationSeconds": 3
+          },
+          {
+            "id": "future-sight-mark-effect",
+            "type": "status",
+            "statusId": "future-sight-mark",
+            "durationSeconds": 2.5,
+            "stacks": 1,
+            "stacking": "refresh"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "future-sight-strike",
+        "name": "Future-Sight Strike",
+        "summary": "A precise elastic strike that automatically selects targets marked by Observation Haki.",
+        "unlockedByDefault": false,
+        "tags": ["observation-haki", "future-sight", "precision"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "future-sight-strike-targets",
+          "type": "marked",
+          "maximumTargets": 2,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "future-sight-strike-delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 150
+        },
+        "timing": {
+          "cooldownSeconds": 1,
+          "windupSeconds": 0.05,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 48,
+        "emitters": [
+          {
+            "id": "future-sight-fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "future-sight-damage",
+            "type": "damage",
+            "amountHitPoints": 26,
+            "damageType": "precise"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "armament-emission",
+        "name": "Armament Emission",
+        "summary": "A projected Armament Haki blast that strikes an enemy without requiring a fully extended physical punch.",
+        "unlockedByDefault": false,
+        "tags": ["armament-haki", "emission", "burst"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "armament-emission-targets",
+          "type": "first",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "armament-emission-delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 90
+        },
+        "timing": {
+          "cooldownSeconds": 2.8,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 30,
+        "emitters": [
+          {
+            "id": "emitted-haki",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "armament-emission-damage",
+            "type": "damage",
+            "amountHitPoints": 26,
+            "damageType": "armament"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear2-rapid-pistol",
+        "name": "Gear 2 Rapid Pistol",
+        "summary": "A rapid elastic attack adapted from Gear 2's stated increase to Luffy's speed; selecting the form does not perform a runtime transformation.",
+        "unlockedByDefault": false,
+        "tags": ["gear-2", "elastic", "rapid"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear2-rapid-targets",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear2-rapid-delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 150
+        },
+        "timing": {
+          "cooldownSeconds": 0.42,
+          "windupSeconds": 0.05,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 45,
+        "emitters": [
+          {
+            "id": "gear2-fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear2-rapid-damage",
+            "type": "damage",
+            "amountHitPoints": 20,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear3-giant-pistol",
+        "name": "Gear 3 Giant Pistol",
+        "summary": "A slower, enlarged elastic strike adapted from Gear 3's high-damage enlarged body-part attacks.",
+        "unlockedByDefault": false,
+        "tags": ["gear-3", "elastic", "heavy"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear3-giant-targets",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear3-giant-delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 80
+        },
+        "timing": {
+          "cooldownSeconds": 2.2,
+          "windupSeconds": 0.2,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 50,
+        "emitters": [
+          {
+            "id": "gear3-giant-fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear3-giant-damage",
+            "type": "damage",
+            "amountHitPoints": 62,
+            "damageType": "blunt"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear4-power-blow",
+        "name": "Gear Fourth Power Blow",
+        "summary": "A compressed, high-force projectile adapted from Gear 4's inflated muscles and compression-release attacks.",
+        "unlockedByDefault": false,
+        "tags": ["gear-4", "compression", "burst"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear4-power-targets",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear4-power-delivery",
+          "type": "projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 100
+        },
+        "timing": {
+          "cooldownSeconds": 1.8,
+          "windupSeconds": 0.15,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 55,
+        "emitters": [
+          {
+            "id": "gear4-power-fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear4-power-damage",
+            "type": "damage",
+            "amountHitPoints": 70,
+            "damageType": "armament"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear4-pursuit-blow",
+        "name": "Gear Fourth Pursuit Blow",
+        "summary": "A faster homing compressed blow used as a bounded game adaptation for a second Gear Fourth encounter configuration; canonical variant details are not established by the supplied evidence.",
+        "unlockedByDefault": false,
+        "tags": ["gear-4", "compression", "pursuit"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear4-pursuit-targets",
+          "type": "strongest",
+          "maximumTargets": 1,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear4-pursuit-delivery",
+          "type": "homing-projectile",
+          "maximumTargetsPerProjectile": 1,
+          "projectileSpeedWorldUnitsPerSecond": 110
+        },
+        "timing": {
+          "cooldownSeconds": 0.95,
+          "windupSeconds": 0.1,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 60,
+        "emitters": [
+          {
+            "id": "gear4-pursuit-fist",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear4-pursuit-damage",
+            "type": "damage",
+            "amountHitPoints": 38,
+            "damageType": "armament"
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      },
+      {
+        "id": "gear5-freedom-burst",
+        "name": "Gear 5 Freedom Burst",
+        "summary": "A bounded area attack adapted from Gear 5's awakened strength and freedom, using impact and forced movement rather than implementing literal environmental transformation.",
+        "unlockedByDefault": false,
+        "tags": ["gear-5", "awakening", "area", "forced-movement"],
+        "trigger": {
+          "type": "interval",
+          "intervalSeconds": 0.15
+        },
+        "targeting": {
+          "id": "gear5-freedom-targets",
+          "type": "area",
+          "maximumTargets": 8,
+          "includeTags": [],
+          "excludeTags": []
+        },
+        "delivery": {
+          "id": "gear5-freedom-delivery",
+          "type": "aura",
+          "maximumTargetsPerProjectile": 8,
+          "radiusWorldUnits": 14
+        },
+        "timing": {
+          "cooldownSeconds": 2,
+          "windupSeconds": 0.15,
+          "rateScope": "aggregate"
+        },
+        "rangeWorldUnits": 55,
+        "emitters": [
+          {
+            "id": "gear5-freedom-impact",
+            "emitterCount": 1,
+            "projectilesPerCycle": 1
+          }
+        ],
+        "effects": [
+          {
+            "id": "gear5-freedom-damage",
+            "type": "damage",
+            "amountHitPoints": 34,
+            "damageType": "awakened"
+          },
+          {
+            "id": "gear5-freedom-displacement",
+            "type": "forced-movement",
+            "distanceWorldUnits": -6,
+            "maximumApplicationsPerTarget": 1
+          }
+        ],
+        "conditions": [],
+        "resourceCosts": [],
+        "stateInteractions": []
+      }
+    ],
+    "abilities": [],
+    "summons": [],
+    "forms": [
+      {
+        "id": "gear2-form",
+        "name": "Gear 2",
+        "summary": "An encounter configuration that enables Gear 2 Rapid Pistol. It adapts the supplied speed increase without implementing runtime body transformation, strain, lifespan effects or reversion.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear2-rapid-pistol"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "gear3-form",
+        "name": "Gear 3",
+        "summary": "An encounter configuration that enables Gear 3 Giant Pistol, representing enlarged high-damage attacks without implementing runtime body transformation or post-use shrinking.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear3-giant-pistol"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "gear4-power-form",
+        "name": "Gear Fourth: Power Configuration",
+        "summary": "An encounter configuration that enables a compressed high-force Gear Fourth attack. It does not implement runtime transformation or state transfer.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear4-power-blow"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "gear4-pursuit-form",
+        "name": "Gear Fourth: Pursuit Configuration",
+        "summary": "An encounter configuration that enables a distinct homing compressed attack as a bounded adaptation of a second Gear Fourth variant. The supplied evidence does not establish a complete canonical variant catalog.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear4-pursuit-blow"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      },
+      {
+        "id": "gear5-form",
+        "name": "Gear 5",
+        "summary": "An encounter configuration that enables Gear 5 Freedom Burst as a bounded area-impact interpretation of awakened strength and freedom. Runtime awakening, imagination-based transformations and environmental rubberization are not implemented.",
+        "externallyUnlocked": false,
+        "requirements": [],
+        "activation": "external",
+        "operations": [
+          {
+            "type": "enable-action",
+            "actionId": "gear5-freedom-burst"
+          }
+        ],
+        "persistence": "encounter",
+        "reversion": "none"
+      }
+    ],
+    "upgradeGraph": {
+      "profile": "classic-three-path",
+      "paths": [
+        {
+          "id": "path-conquerors-haki",
+          "name": "Conqueror's Haki",
+          "summary": "Controls weak-willed enemies and develops bounded Haki-coated impact damage before unlocking the Gear 5 encounter configuration."
+        },
+        {
+          "id": "path-observation-haki",
+          "name": "Observation Haki",
+          "summary": "Improves reach, reveals and marks targets, enables Future-Sight strikes and unlocks rapid and pursuit-oriented encounter configurations."
+        },
+        {
+          "id": "path-armament-haki",
+          "name": "Armament Haki",
+          "summary": "Raises direct attack power, adds projected Emission and Internal Destruction damage, and unlocks heavy Gear 3 and Gear Fourth power configurations."
+        }
+      ],
+      "nodes": [
+        {
+          "id": "conquerors-t1",
+          "name": "Conqueror's Presence",
+          "summary": "Unlocks the periodic Conqueror's Haki aura against weak-willed targets.",
+          "path": "path-conquerors-haki",
+          "tier": 1,
+          "costCredits": 300,
+          "prerequisites": [],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "conquerors-presence"
+            }
+          ],
+          "tags": ["conquerors-haki", "control"]
+        },
+        {
+          "id": "conquerors-t2",
+          "name": "Overwhelming Will",
+          "summary": "Extends the stun duration of Conqueror's Haki.",
+          "path": "path-conquerors-haki",
+          "tier": 2,
+          "costCredits": 500,
+          "prerequisites": ["conquerors-t1"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "conquerors-presence",
+              "effectId": "conquerors-stun-effect",
+              "parameter": "durationSeconds",
+              "operation": "add",
+              "value": 0.6
+            }
+          ],
+          "tags": ["conquerors-haki", "control", "duration"]
+        },
+        {
+          "id": "conquerors-t3",
+          "name": "Conqueror's Coating",
+          "summary": "Adds a bounded Conqueror-coated impact to every base elastic punch.",
+          "path": "path-conquerors-haki",
+          "tier": 3,
+          "costCredits": 800,
+          "prerequisites": ["conquerors-t2"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "elastic-pistol",
+              "effect": {
+                "id": "conquerors-coating-damage",
+                "type": "damage",
+                "amountHitPoints": 8,
+                "damageType": "conqueror-coated"
+              }
+            }
+          ],
+          "tags": ["conquerors-haki", "burst", "coating"]
+        },
+        {
+          "id": "conquerors-t4",
+          "name": "King's Impact",
+          "summary": "Strengthens the added Conqueror-coated damage without changing the base punch's Armament-owned damage property.",
+          "path": "path-conquerors-haki",
+          "tier": 4,
+          "costCredits": 1200,
+          "prerequisites": ["conquerors-t3"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "elastic-pistol",
+              "effectId": "conquerors-coating-damage",
+              "parameter": "amountHitPoints",
+              "operation": "add",
+              "value": 7
+            }
+          ],
+          "tags": ["conquerors-haki", "burst", "damage"]
+        },
+        {
+          "id": "conquerors-t5",
+          "name": "Awakened Sovereignty",
+          "summary": "Grants the Gear 5 encounter configuration, whose external selection enables its bounded freedom burst.",
+          "path": "path-conquerors-haki",
+          "tier": 5,
+          "costCredits": 1700,
+          "prerequisites": ["conquerors-t4"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "gear5-form"
+            }
+          ],
+          "tags": ["conquerors-haki", "capstone", "gear-5"]
+        },
+        {
+          "id": "observation-t1",
+          "name": "Far-Sighted Elasticity",
+          "summary": "Extends the base Gum-Gum Pistol's range.",
+          "path": "path-observation-haki",
+          "tier": 1,
+          "costCredits": 320,
+          "prerequisites": [],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "elastic-pistol",
+              "parameter": "rangeWorldUnits",
+              "operation": "add",
+              "value": 8
+            }
+          ],
+          "tags": ["observation-haki", "range"]
+        },
+        {
+          "id": "observation-t2",
+          "name": "Presence Reading",
+          "summary": "Unlocks the Observation Haki scan that reveals and marks targets.",
+          "path": "path-observation-haki",
+          "tier": 2,
+          "costCredits": 520,
+          "prerequisites": ["observation-t1"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "observation-scan"
+            }
+          ],
+          "tags": ["observation-haki", "reveal", "mark"]
+        },
+        {
+          "id": "observation-t3",
+          "name": "Future Sight",
+          "summary": "Unlocks marked-target Future-Sight strikes and grants the Gear 2 encounter configuration.",
+          "path": "path-observation-haki",
+          "tier": 3,
+          "costCredits": 820,
+          "prerequisites": ["observation-t2"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "future-sight-strike"
+            },
+            {
+              "type": "grant-form",
+              "formId": "gear2-form"
+            }
+          ],
+          "tags": ["observation-haki", "future-sight", "gear-2"]
+        },
+        {
+          "id": "observation-t4",
+          "name": "Reading the Route",
+          "summary": "Allows each Future-Sight projectile to apply to a second eligible marked target.",
+          "path": "path-observation-haki",
+          "tier": 4,
+          "costCredits": 1240,
+          "prerequisites": ["observation-t3"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "modify-action",
+              "actionId": "future-sight-strike",
+              "parameter": "maximumTargetsPerProjectile",
+              "operation": "add",
+              "value": 1
+            }
+          ],
+          "tags": ["observation-haki", "precision", "multi-target"]
+        },
+        {
+          "id": "observation-t5",
+          "name": "Unavoidable Pursuit",
+          "summary": "Grants the Gear Fourth Pursuit encounter configuration, whose external selection enables its bounded homing blow.",
+          "path": "path-observation-haki",
+          "tier": 5,
+          "costCredits": 1760,
+          "prerequisites": ["observation-t4"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "gear4-pursuit-form"
+            }
+          ],
+          "tags": ["observation-haki", "capstone", "gear-4"]
+        },
+        {
+          "id": "armament-t1",
+          "name": "Hardening",
+          "summary": "Raises the direct damage of the base Gum-Gum Pistol through Armament Haki.",
+          "path": "path-armament-haki",
+          "tier": 1,
+          "costCredits": 340,
+          "prerequisites": [],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "modify-effect",
+              "actionId": "elastic-pistol",
+              "effectId": "elastic-pistol-damage",
+              "parameter": "amountHitPoints",
+              "operation": "add",
+              "value": 6
+            }
+          ],
+          "tags": ["armament-haki", "damage"]
+        },
+        {
+          "id": "armament-t2",
+          "name": "Emission",
+          "summary": "Unlocks a projected Armament Haki blast for a separate burst option.",
+          "path": "path-armament-haki",
+          "tier": 2,
+          "costCredits": 540,
+          "prerequisites": ["armament-t1"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "enable-action",
+              "actionId": "armament-emission"
+            }
+          ],
+          "tags": ["armament-haki", "emission", "burst"]
+        },
+        {
+          "id": "armament-t3",
+          "name": "Internal Destruction",
+          "summary": "Adds a bounded internal-damage component to the base elastic punch.",
+          "path": "path-armament-haki",
+          "tier": 3,
+          "costCredits": 840,
+          "prerequisites": ["armament-t2"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "add-effect",
+              "actionId": "elastic-pistol",
+              "effect": {
+                "id": "internal-destruction-damage",
+                "type": "damage",
+                "amountHitPoints": 10,
+                "damageType": "internal"
+              }
+            }
+          ],
+          "tags": ["armament-haki", "internal-destruction", "damage"]
+        },
+        {
+          "id": "armament-t4",
+          "name": "Giant Expansion",
+          "summary": "Grants the Gear 3 encounter configuration, enabling its slower high-damage attack.",
+          "path": "path-armament-haki",
+          "tier": 4,
+          "costCredits": 1280,
+          "prerequisites": ["armament-t3"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "gear3-form"
+            }
+          ],
+          "tags": ["armament-haki", "gear-3", "burst"]
+        },
+        {
+          "id": "armament-t5",
+          "name": "Compressed Haki Body",
+          "summary": "Grants the Gear Fourth Power encounter configuration, enabling its compressed high-force blow.",
+          "path": "path-armament-haki",
+          "tier": 5,
+          "costCredits": 1820,
+          "prerequisites": ["armament-t4"],
+          "exclusions": [],
+          "operations": [
+            {
+              "type": "grant-form",
+              "formId": "gear4-power-form"
+            }
+          ],
+          "tags": ["armament-haki", "capstone", "gear-4"]
+        }
+      ],
+      "selectionRules": {
+        "maximumPrimaryPathTier": 5,
+        "maximumCrossPathTier": 2,
+        "maximumCrossPaths": 1,
+        "maximumSelectedNodes": 7
+      }
+    },
+    "requirements": {
+      "visuals": [
+        {
+          "id": "straw-hat-captain",
+          "description": "A cheerful pirate captain wearing Luffy's characteristic straw hat and recognizable manga-continuity pirate attire."
+        },
+        {
+          "id": "elastic-combat-silhouette",
+          "description": "Base attacks visibly stretch the arm toward distant enemies before snapping back."
+        },
+        {
+          "id": "haki-effects",
+          "description": "Conqueror's Haki uses a dark-red or black pressure-wave presentation; Observation Haki uses a focused sensing pulse; Armament Haki uses dark hardened limbs or projected impact accents."
+        },
+        {
+          "id": "gear2-visual",
+          "description": "Gear 2 encounter configuration uses a steam-like speed accent without requiring runtime transformation."
+        },
+        {
+          "id": "gear3-visual",
+          "description": "Gear 3 encounter configuration shows an enlarged fist or arm during its attack."
+        },
+        {
+          "id": "gear4-power-visual",
+          "description": "Gear Fourth Power configuration shows an inflated, Haki-coated combat silhouette."
+        },
+        {
+          "id": "gear4-pursuit-visual",
+          "description": "Gear Fourth Pursuit configuration uses the same bounded inflated Haki-coated silhouette with a distinct tracking projectile presentation."
+        },
+        {
+          "id": "gear5-visual",
+          "description": "Gear 5 encounter configuration uses white hair and clothing as described in the supplied evidence."
+        }
+      ],
+      "animations": [
+        {
+          "id": "base-pistol-animation",
+          "description": "Luffy pulls back and launches a stretched fist toward the selected enemy."
+        },
+        {
+          "id": "conquerors-animation",
+          "description": "A short-radius pressure pulse radiates from Luffy and briefly overwhelms eligible weak-willed targets."
+        },
+        {
+          "id": "observation-animation",
+          "description": "A sensing pulse expands outward, briefly outlining revealed and marked enemies."
+        },
+        {
+          "id": "armament-emission-animation",
+          "description": "Luffy projects a compact Armament Haki blast toward the selected enemy."
+        },
+        {
+          "id": "gear2-animation",
+          "description": "The encounter attack cycles rapidly with compressed recoil and steam-like motion accents."
+        },
+        {
+          "id": "gear3-animation",
+          "description": "A visibly enlarged fist launches with a heavy windup and impact."
+        },
+        {
+          "id": "gear4-power-animation",
+          "description": "An inflated Haki-coated limb compresses and releases a powerful projectile blow."
+        },
+        {
+          "id": "gear4-pursuit-animation",
+          "description": "A compressed Haki-coated blow launches with a tracking trajectory."
+        },
+        {
+          "id": "gear5-animation",
+          "description": "A white-clad awakened presentation delivers a broad impact with a short forced-movement reaction."
+        }
+      ]
+    }
+  },
+  "design": null,
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": ["output-schema"],
+      "issues": []
+    },
+    "system": {
+      "status": "failed",
+      "checks": [
+        "default-mechanics",
+        "references-and-lifecycles",
+        "legal-upgrade-and-form-selections",
+        "numeric-bands"
+      ],
+      "issues": [
+        {
+          "code": "CLASSIC_MECHANIC_LIMIT",
+          "path": "/",
+          "message": "The definition prominent-mechanic limit was exceeded."
+        }
+      ]
+    },
+    "constraints": {
+      "status": "failed",
+      "checks": ["request-constraints"],
+      "issues": [
+        {
+          "code": "CONSTRAINT_COMPLEXITY_LIMIT",
+          "path": "/",
+          "message": "Unit exceeds the requested prominent mechanic limit."
+        }
+      ]
+    },
+    "uncheckedRules": [
+      "Character fidelity and prose/mechanic agreement require review.",
+      "The consuming game must implement these mechanics.",
+      "Runtime reachability, numerical balance and enjoyable progression are not established."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "error": {
+    "stage": "validation",
+    "code": "validation-failed",
+    "message": "Required checks did not pass. The candidate and completed research are returned."
+  },
+  "metadata": {
+    "modelCalls": 2,
+    "repairs": 1,
+    "elapsedMs": 357888,
+    "calls": [
+      {
+        "stage": "draft",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 16943,
+          "outputTokens": 13227
+        }
+      },
+      {
+        "stage": "repair",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 21772,
+          "outputTokens": 6373
+        }
+      }
+    ]
+  }
+}
