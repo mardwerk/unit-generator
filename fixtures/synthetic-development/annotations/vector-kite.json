@@ -1,0 +1,1 @@
+{"annotationVersion":"0.1.0","declaredRoles":["damage","control"],"expectedHardAcceptance":true,"expectedProfile":"classic-three-path-quality","knownLimitations":[],"mechanicFamilies":["active-ability","beam","bounded-secondary-action","complete-resource-cycle","form","projectile","status"],"qualityClass":"mature-reference","schemaVersion":"0.1","unitId":"vector-kite"}

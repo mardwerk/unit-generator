@@ -1,0 +1,31 @@
+{
+  "name": "@mardwerk/unit-cli",
+  "version": "0.2.0",
+  "description": "Stateless generation, research, validation and explicit export.",
+  "license": "MPL-2.0",
+  "type": "module",
+  "bin": {
+    "mardwerk-unit": "dist/index.js"
+  },
+  "files": [
+    "dist"
+  ],
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@mardwerk/unit-core": "workspace:*",
+    "@mardwerk/unit-providers": "workspace:*",
+    "@mardwerk/unit-definitions": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}

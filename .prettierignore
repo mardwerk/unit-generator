@@ -1,0 +1,14 @@
+dist/
+build/
+.svelte-kit/
+node_modules/
+coverage/
+fixtures/
+schemas/
+packages/definitions/schemas/
+playwright-report/
+test-results/
+pnpm-lock.yaml
+
+.scratch/
+packages/definitions/definitions/**/*.json

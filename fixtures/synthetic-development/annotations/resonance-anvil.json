@@ -1,0 +1,1 @@
+{"annotationVersion":"0.1.0","declaredRoles":["damage","control"],"expectedHardAcceptance":true,"expectedProfile":"classic-three-path-quality","knownLimitations":[],"mechanicFamilies":["automatic-ability","beam","direct-strike","status"],"qualityClass":"mature-reference","schemaVersion":"0.1","unitId":"resonance-anvil"}

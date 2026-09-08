@@ -1,0 +1,68 @@
+{
+  "$id": "https://mardwerk.org/schemas/unit-preview/0.1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "unitId",
+    "name",
+    "summary",
+    "roles",
+    "baseCostCredits",
+    "pathNames",
+    "abilityNames",
+    "formNames",
+    "warnings"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1",
+      "type": "string"
+    },
+    "unitId": {
+      "type": "string"
+    },
+    "name": {
+      "type": "string"
+    },
+    "summary": {
+      "type": "string"
+    },
+    "roles": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "baseCostCredits": {
+      "minimum": 0,
+      "maximum": 9007199254740991,
+      "type": "number"
+    },
+    "pathNames": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "abilityNames": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "formNames": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    }
+  }
+}

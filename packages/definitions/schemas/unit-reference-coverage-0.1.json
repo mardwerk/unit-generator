@@ -1,0 +1,86 @@
+{
+  "$id": "https://mardwerk.org/schemas/unit-reference-coverage/0.1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "schemaVersion",
+    "unitId",
+    "status",
+    "supportedMechanics",
+    "approximatedMechanics",
+    "opaqueMechanics",
+    "unsupportedMechanics",
+    "warnings"
+  ],
+  "properties": {
+    "schemaVersion": {
+      "const": "0.1",
+      "type": "string"
+    },
+    "unitId": {
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._-]{0,127}$",
+      "type": "string"
+    },
+    "status": {
+      "anyOf": [
+        {
+          "const": "complete",
+          "type": "string"
+        },
+        {
+          "const": "partial",
+          "type": "string"
+        },
+        {
+          "const": "unsupported",
+          "type": "string"
+        }
+      ]
+    },
+    "supportedMechanics": {
+      "uniqueItems": true,
+      "maxItems": 256,
+      "type": "array",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "approximatedMechanics": {
+      "uniqueItems": true,
+      "maxItems": 256,
+      "type": "array",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "opaqueMechanics": {
+      "uniqueItems": true,
+      "maxItems": 256,
+      "type": "array",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "unsupportedMechanics": {
+      "uniqueItems": true,
+      "maxItems": 256,
+      "type": "array",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      }
+    },
+    "warnings": {
+      "maxItems": 256,
+      "type": "array",
+      "items": {
+        "minLength": 1,
+        "type": "string"
+      }
+    }
+  }
+}

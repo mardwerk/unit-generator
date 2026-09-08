@@ -1,0 +1,36 @@
+{
+  "name": "@mardwerk/unit-reference-lab",
+  "version": "0.1.0",
+  "description": "Original synthetic references, benchmarks, and calibration for Mardwerk units.",
+  "license": "MPL-2.0",
+  "type": "module",
+  "sideEffects": false,
+  "files": [
+    "dist"
+  ],
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.js"
+    }
+  },
+  "types": "./dist/index.d.ts",
+  "engines": {
+    "node": ">=24"
+  },
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "fixtures": "pnpm build && node dist/write-fixtures.js ../../fixtures",
+    "test": "vitest run",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@mardwerk/manifest": "link:../../../foundation/packages/manifest",
+    "@mardwerk/unit-definitions": "workspace:*"
+  },
+  "devDependencies": {
+    "@types/node": "catalog:",
+    "typescript": "catalog:",
+    "vitest": "catalog:"
+  }
+}
