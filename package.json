@@ -12,7 +12,7 @@
   "scripts": {
     "boundary:check": "node scripts/check-public-boundary.mjs",
     "build": "pnpm -r --if-present build",
-    "build:packages": "pnpm --filter @mardwerk/unit-core --filter @mardwerk/unit-definitions --filter @mardwerk/unit-reference-lab --filter @mardwerk/unit-providers build",
+    "build:packages": "pnpm --filter @mardwerk/unit-core --filter @mardwerk/unit-definitions --filter @mardwerk/unit-lab --filter @mardwerk/unit-providers build",
     "check": "pnpm format:check && pnpm lint && pnpm build:packages && pnpm typecheck && pnpm test && pnpm build && pnpm boundary:check",
     "dev": "pnpm --filter @mardwerk/unit-web dev",
     "format": "prettier --write .",

@@ -16,7 +16,7 @@ import {
   applyCorruption
 } from '../src/classic/corruption.js';
 import {
-  QUALITY_METRIC_IDS,
+  DIAGNOSTIC_METRIC_IDS,
   type SimulationReport,
   type SimulationScenario,
   type UnitBuild
@@ -29,8 +29,8 @@ import {
   type UnitSpec
 } from '../src/classic/schemas.js';
 import {
-  DEFAULT_SCORE_PROFILE,
-  scoreUnitQuality,
+  DEFAULT_DIAGNOSTIC_PROFILE,
+  diagnoseUnit,
   type BuildEvaluation
 } from '../src/classic/scoring.js';
 import {
@@ -40,6 +40,7 @@ import {
   simulateBuild
 } from '../src/classic/simulator.js';
 import { validateUnitSpec } from '../src/classic/validation.js';
+import { unitDiagnosticReportSchema } from '../src/classic/report-schemas.js';
 
 const damage = (id: string, amountHitPoints: number): Effect => ({
   id,
@@ -443,108 +444,238 @@ function completeEvaluations(unit: UnitSpec): BuildEvaluation[] {
   );
 }
 
-describe('explainable quality scoring', () => {
+describe('explainable unit diagnostics', () => {
+  it.each([
+    { observable: 'hits', fact: 'hits -1' },
+    { observable: 'resource cycles', fact: 'useful resource cycles -1' }
+  ])('explains a utility loss caused only by $observable', ({ observable, fact }) => {
+    const unit = unitFixture();
+    unit.resources.push({
+      id: 'charge',
+      name: 'Charge',
+      unlockedByDefault: true,
+      ownershipScope: 'unit',
+      startingAmount: 0,
+      cap: 10,
+      generation: [{ event: 'on-hit', actionId: 'bolt', amount: 1 }],
+      spend: [{ event: 'action', referenceId: 'bolt', amount: 1 }],
+      recovery: { type: 'none' },
+      persistence: 'encounter'
+    });
+    const parentValues = {
+      hits: 33,
+      resourcesGenerated: { charge: 5 },
+      resourcesSpent: { charge: 5 }
+    };
+    const childValues =
+      observable === 'hits'
+        ? { ...parentValues, hits: 32 }
+        : { ...parentValues, resourcesSpent: { charge: 4 } };
+    const report = diagnoseUnit(unit, {
+      evaluations: [
+        evaluation(unit, [], 500, [['durable', 100, parentValues]]),
+        evaluation(unit, ['alpha-1'], 600, [['durable', 100, childValues]])
+      ]
+    });
+    expect(report.hardAcceptance).toBe(true);
+    expect(report.reviewFindings).toContainEqual(
+      expect.objectContaining({
+        code: 'SCENARIO_REGRESSING_UPGRADE_EDGE',
+        facts: [expect.stringContaining(fact)]
+      })
+    );
+  });
+
+  it.each([
+    { value: 0.01, code: 'SCENARIO_LOW_UTILITY_GAIN' },
+    { value: -2, code: 'SCENARIO_REGRESSING_UPGRADE_EDGE' }
+  ])('distinguishes $code from zero utility gain using real simulations', ({ value, code }) => {
+    const unit = unitFixture();
+    unit.upgradeGraph.nodes.find(({ id }) => id === 'alpha-2')!.operations = [
+      {
+        type: 'modify-effect',
+        actionId: 'bolt',
+        effectId: 'bolt-damage',
+        parameter: 'amountHitPoints',
+        operation: 'add',
+        value
+      }
+    ];
+    const report = diagnoseUnit(unit, { evaluations: completeEvaluations(unit) });
+    const finding = report.reviewFindings.find(
+      (entry) =>
+        'childSelection' in entry && entry.childSelection.upgradeIds.join(',') === 'alpha-1,alpha-2'
+    );
+    expect(finding).toMatchObject({ code });
+    if (!finding || !('relativeUtilityGain' in finding)) throw new Error('Missing upgrade finding');
+    expect(Math.sign(finding.relativeUtilityGain)).toBe(Math.sign(value));
+    expect(report.assessment.generalQuality).toBe('unrated');
+  });
+
+  it('reports scenario-dead upgrades for review without issuing a general-quality rating', () => {
+    const unit = unitFixture();
+    unit.baseStats.rangeWorldUnits = 200;
+    for (const action of unit.actions) action.rangeWorldUnits = 200;
+    unit.upgradeGraph.nodes.find(({ id }) => id === 'alpha-2')!.operations = [
+      {
+        type: 'modify-action',
+        actionId: 'bolt',
+        parameter: 'rangeWorldUnits',
+        operation: 'add',
+        value: 1
+      }
+    ];
+    const report = diagnoseUnit(unit, { evaluations: completeEvaluations(unit) });
+    expect(report.hardAcceptance).toBe(true);
+    expect(report.diagnosticEligibility.eligible).toBe(true);
+    expect(report.rawMetrics.progressionCoherence).toBe(1);
+    expect(report.assessment).toEqual({
+      status: 'needs-review',
+      generalQuality: 'unrated',
+      unknownDimensions: ['source-fidelity', 'gameplay-quality', 'competitive-balance']
+    });
+    expect(report).not.toHaveProperty('compositeScore');
+    expect(report).not.toHaveProperty('diagnosticIndex');
+    expect(report.reviewFindings).toContainEqual(
+      expect.objectContaining({
+        code: 'SCENARIO_NO_UTILITY_GAIN',
+        parentSelection: { upgradeIds: ['alpha-1'] },
+        childSelection: { upgradeIds: ['alpha-1', 'alpha-2'] },
+        relativeUtilityGain: 0,
+        scenarioFingerprints: expect.arrayContaining([expect.stringMatching(/^[0-9a-f]{64}$/)]),
+        facts: expect.arrayContaining([expect.stringContaining('damage 0 HP')])
+      })
+    );
+    const gains = report.evidence.find(({ metric }) => metric === 'marginalUpgradeValue')!;
+    const positiveCount = gains.facts.filter((fact) => {
+      const gain = /relative utility gain (-?[\d.]+)/.exec(fact)?.[1];
+      return gain !== undefined && Number(gain) > 0;
+    }).length;
+    expect(gains.summary).toBe(
+      `${positiveCount}/${gains.facts.length} measured upgrade edges add observable utility.`
+    );
+    expect(Value.Check(unitDiagnosticReportSchema, report)).toBe(true);
+    expect(Value.Check(unitDiagnosticReportSchema, { ...report, compositeScore: 83.2 })).toBe(
+      false
+    );
+    expect(Value.Check(unitDiagnosticReportSchema, { ...report, schemaVersion: '0.1' })).toBe(
+      false
+    );
+
+    const renamed = structuredClone(unit);
+    renamed.name = 'Another source-neutral unit';
+    renamed.summary = 'A different fictional description with the same executable mechanics.';
+    const changed = diagnoseUnit(renamed, { evaluations: completeEvaluations(renamed) });
+    expect(changed.normalizedMetrics).toEqual(report.normalizedMetrics);
+    expect(changed.assessment).toEqual(report.assessment);
+
+    const missing = diagnoseUnit(unit);
+    expect(missing.assessment.status).toBe('unrated');
+    expect(missing.reviewFindings).toEqual([]);
+    expect(missing.assessment.generalQuality).toBe('unrated');
+  });
   it('derives hard acceptance from strict validation instead of caller input', () => {
-    const report = scoreUnitQuality(unitFixture());
+    const report = diagnoseUnit(unitFixture());
     const invalid = unitFixture();
     invalid.abilities[0]!.actionId = 'missing-action';
-    const rejected = scoreUnitQuality(invalid);
+    const rejected = diagnoseUnit(invalid);
 
-    expect(Object.keys(report.rawMetrics)).toEqual(QUALITY_METRIC_IDS);
-    expect(Object.keys(report.normalizedMetrics)).toEqual(QUALITY_METRIC_IDS);
-    expect(report.evidence.map(({ metric }) => metric)).toEqual(QUALITY_METRIC_IDS);
+    expect(Object.keys(report.rawMetrics)).toEqual(DIAGNOSTIC_METRIC_IDS);
+    expect(Object.keys(report.normalizedMetrics)).toEqual(DIAGNOSTIC_METRIC_IDS);
+    expect(report.evidence.map(({ metric }) => metric)).toEqual(DIAGNOSTIC_METRIC_IDS);
     expect(
       report.evidence.every(({ facts, summary }) => facts.length > 0 && summary.length > 0)
     ).toBe(true);
     expect(report.hardAcceptance).toBe(true);
-    expect(report.compositeScore).toBeNull();
-    expect(report.scoreEligibility).toMatchObject({ eligible: false });
+    expect(report.diagnosticEligibility.eligible).toBe(false);
+    expect(report.diagnosticEligibility).toMatchObject({ eligible: false });
     expect(rejected.hardAcceptance).toBe(false);
-    expect(rejected.compositeScore).toBeNull();
+    expect(rejected.diagnosticEligibility.eligible).toBe(false);
     expect(Object.values(rejected.rawMetrics).every(Number.isFinite)).toBe(true);
   });
 
   it('withholds comparison when evidence is omitted or invalid and rejects unknown role advantages', () => {
     const unit = unitFixture();
     const evaluations = completeEvaluations(unit);
-    const measured = scoreUnitQuality(unit, { evaluations });
-    const omitted = scoreUnitQuality(unit);
+    const measured = diagnoseUnit(unit, { evaluations });
+    const omitted = diagnoseUnit(unit);
     const invalid = structuredClone(evaluations);
     invalid[0]!.simulations[0]!.damageHitPoints = Number.NaN;
-    const rejected = scoreUnitQuality(unit, { evaluations: invalid });
-    expect(measured.scoreEligibility).toEqual({ eligible: true, reasons: [] });
-    expect(measured.compositeScore).not.toBeNull();
+    const rejected = diagnoseUnit(unit, { evaluations: invalid });
+    expect(measured.diagnosticEligibility).toEqual({ eligible: true, reasons: [] });
+    expect(measured).not.toHaveProperty('compositeScore');
     expect(measured.evidence.every(({ status }) => status === 'measured')).toBe(true);
     for (const report of [omitted, rejected]) {
-      expect(report.compositeScore).toBeNull();
-      expect(report.scoreEligibility.eligible).toBe(false);
+      expect(report.diagnosticEligibility.eligible).toBe(false);
+      expect(report.diagnosticEligibility.eligible).toBe(false);
       expect(report.evidence.find(({ metric }) => metric === 'roleConsistency')?.status).toBe(
         'unavailable'
       );
     }
     const renamedRole = structuredClone(unit);
     renamedRole.roles = ['unknown-role'];
-    const unknown = scoreUnitQuality(renamedRole, {
+    const unknown = diagnoseUnit(renamedRole, {
       evaluations: completeEvaluations(renamedRole)
     });
     expect(unknown.rawMetrics.roleConsistency).toBeLessThanOrEqual(
       measured.rawMetrics.roleConsistency
     );
-    expect(unknown.scoreEligibility.reasons).toContain('UNSUPPORTED_ROLE');
-    expect(unknown.compositeScore).toBeNull();
+    expect(unknown.diagnosticEligibility.reasons).toContain('UNSUPPORTED_ROLE');
+    expect(unknown.diagnosticEligibility.eligible).toBe(false);
     expect(unknown.evidence.find(({ metric }) => metric === 'roleConsistency')?.status).toBe(
       'unsupported'
     );
-    const partial = scoreUnitQuality(unit, { evaluations: evaluations.slice(0, 2) });
-    expect(partial.scoreEligibility.reasons).toContain('INCOMPLETE_BUILD_COVERAGE');
-    expect(partial.compositeScore).toBeNull();
-    const skippedStep = scoreUnitQuality(unit, {
+    const partial = diagnoseUnit(unit, { evaluations: evaluations.slice(0, 2) });
+    expect(partial.diagnosticEligibility.reasons).toContain('INCOMPLETE_BUILD_COVERAGE');
+    expect(partial.diagnosticEligibility.eligible).toBe(false);
+    const skippedStep = diagnoseUnit(unit, {
       evaluations: evaluations.filter(({ build }) => build.selection.join() !== 'alpha-1')
     });
-    expect(skippedStep.scoreEligibility.reasons).toContain('INCOMPLETE_UPGRADE_EDGE_COVERAGE');
-    expect(skippedStep.compositeScore).toBeNull();
+    expect(skippedStep.diagnosticEligibility.reasons).toContain('INCOMPLETE_UPGRADE_EDGE_COVERAGE');
+    expect(skippedStep.diagnosticEligibility.eligible).toBe(false);
   });
 
   it('distinguishes valid unsupported topology and unsupported execution evidence', () => {
     const unit = unitFixture();
     unit.upgradeGraph.paths.push({ id: 'fourth', name: 'Fourth', summary: 'Another topology.' });
-    const topology = scoreUnitQuality(unit, { evaluations: completeEvaluations(unit) });
+    const topology = diagnoseUnit(unit, { evaluations: completeEvaluations(unit) });
     expect(topology.hardAcceptance).toBe(true);
-    expect(topology.scoreEligibility.reasons).toContain('UNSUPPORTED_TOPOLOGY');
-    expect(topology.compositeScore).toBeNull();
+    expect(topology.diagnosticEligibility.reasons).toContain('UNSUPPORTED_TOPOLOGY');
+    expect(topology.diagnosticEligibility.eligible).toBe(false);
     const standard = unitFixture();
     const evaluations = completeEvaluations(standard);
     evaluations[0]!.simulations[0]!.warnings.push(
       'A mechanic is unsupported and will not execute.'
     );
-    const coverage = scoreUnitQuality(standard, { evaluations });
+    const coverage = diagnoseUnit(standard, { evaluations });
     expect(coverage.hardAcceptance).toBe(true);
-    expect(coverage.scoreEligibility.reasons).toContain('UNSUPPORTED_SIMULATION_EVIDENCE');
-    expect(coverage.compositeScore).toBeNull();
+    expect(coverage.diagnosticEligibility.reasons).toContain('UNSUPPORTED_SIMULATION_EVIDENCE');
+    expect(coverage.diagnosticEligibility.eligible).toBe(false);
     expect(coverage.evidence.find(({ metric }) => metric === 'roleConsistency')?.status).toBe(
       'unsupported'
     );
   });
 
   it('ships a normalized non-dominating documented default profile', () => {
-    const weights = Object.values(DEFAULT_SCORE_PROFILE.weights);
+    const weights = Object.values(DEFAULT_DIAGNOSTIC_PROFILE.weights);
 
     expect(weights.reduce((sum, weight) => sum + weight, 0)).toBeCloseTo(1, 12);
-    expect(Math.max(...weights)).toBeLessThanOrEqual(DEFAULT_SCORE_PROFILE.maximumMetricWeight);
-    expect(Object.keys(DEFAULT_SCORE_PROFILE.formulas)).toEqual(QUALITY_METRIC_IDS);
+    expect(Math.max(...weights)).toBeLessThanOrEqual(
+      DEFAULT_DIAGNOSTIC_PROFILE.maximumMetricWeight
+    );
+    expect(Object.keys(DEFAULT_DIAGNOSTIC_PROFILE.formulas)).toEqual(DIAGNOSTIC_METRIC_IDS);
     expect(
-      Object.values(DEFAULT_SCORE_PROFILE.formulas).every(({ formula }) => formula.length > 0)
+      Object.values(DEFAULT_DIAGNOSTIC_PROFILE.formulas).every(({ formula }) => formula.length > 0)
     ).toBe(true);
   });
 
   it('rejects non-finite, non-positive, and infeasible metric-weight caps', () => {
     for (const maximumMetricWeight of [Number.NaN, Number.POSITIVE_INFINITY, 0, 0.09]) {
-      const profile = structuredClone(DEFAULT_SCORE_PROFILE);
+      const profile = structuredClone(DEFAULT_DIAGNOSTIC_PROFILE);
       profile.maximumMetricWeight = maximumMetricWeight;
-      expect(
-        () => scoreUnitQuality(unitFixture(), { profile }),
-        String(maximumMetricWeight)
-      ).toThrow(/maximumMetricWeight/);
+      expect(() => diagnoseUnit(unitFixture(), { profile }), String(maximumMetricWeight)).toThrow(
+        /maximumMetricWeight/
+      );
     }
   });
 
@@ -579,13 +710,13 @@ describe('explainable quality scoring', () => {
       )
     ];
 
-    const original = scoreUnitQuality(unit, { evaluations });
-    const withLabels = scoreUnitQuality(labelled, { evaluations });
+    const original = diagnoseUnit(unit, { evaluations });
+    const withLabels = diagnoseUnit(labelled, { evaluations });
     expect(withLabels.rawMetrics).toEqual(original.rawMetrics);
     expect(withLabels.normalizedMetrics).toEqual(original.normalizedMetrics);
-    expect(withLabels.compositeScore).toBe(original.compositeScore);
+    expect(withLabels.normalizedMetrics).toEqual(original.normalizedMetrics);
 
-    for (const metric of QUALITY_METRIC_IDS.slice(6)) {
+    for (const metric of DIAGNOSTIC_METRIC_IDS.slice(6)) {
       const facts = original.evidence.find((item) => item.metric === metric)!.facts.join(' ');
       expect(facts).toMatch(/durable|grouped/);
     }
@@ -598,8 +729,8 @@ describe('explainable quality scoring', () => {
     cosmetic.upgradeGraph.nodes.forEach((node, index) => {
       node.tags = [`cosmetic-${index}`, 'claimed-perfect-path', 'source-label'];
     });
-    const original = scoreUnitQuality(unit);
-    const changed = scoreUnitQuality(cosmetic);
+    const original = diagnoseUnit(unit);
+    const changed = diagnoseUnit(cosmetic);
 
     expect(changed.rawMetrics.pathIdentity).toBe(original.rawMetrics.pathIdentity);
     expect(changed.rawMetrics.pathDistinctness).toBe(original.rawMetrics.pathDistinctness);
@@ -615,8 +746,8 @@ describe('explainable quality scoring', () => {
       node.tags = ['claimed-shared-mechanic'];
     });
 
-    const original = scoreUnitQuality(unit);
-    const changed = scoreUnitQuality(cosmetic);
+    const original = diagnoseUnit(unit);
+    const changed = diagnoseUnit(cosmetic);
     for (const metric of ['abilityIntegration', 'baseContinuity', 'complexityEconomy'] as const) {
       expect(changed.rawMetrics[metric], metric).toBe(original.rawMetrics[metric]);
     }
@@ -638,10 +769,10 @@ describe('explainable quality scoring', () => {
     });
     unit.actions[0]!.resourceCosts = [{ resourceId: 'charge', amountPerCycle: 1 }];
     const parent = evaluation(unit, [], 500, [['durable', 100]]);
-    const withoutSpend = scoreUnitQuality(unit, {
+    const withoutSpend = diagnoseUnit(unit, {
       evaluations: [parent, evaluation(unit, ['alpha-1'], 600, [['durable', 100]], [])]
     });
-    const rawSpendOnly = scoreUnitQuality(unit, {
+    const rawSpendOnly = diagnoseUnit(unit, {
       evaluations: [
         parent,
         evaluation(
@@ -658,12 +789,12 @@ describe('explainable quality scoring', () => {
       withoutSpend.rawMetrics.marginalUpgradeValue
     );
     expect(rawSpendOnly.rawMetrics.powerCurveShape).toBe(withoutSpend.rawMetrics.powerCurveShape);
-    expect(rawSpendOnly.compositeScore).toBe(withoutSpend.compositeScore);
+    expect(rawSpendOnly.normalizedMetrics).toEqual(withoutSpend.normalizedMetrics);
   });
 
   it('ignores a declared parent that is not an exact valid one-upgrade subset', () => {
     const unit = unitFixture();
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [
         evaluation(unit, ['beta-1'], 610, [['durable', 1]]),
         evaluation(unit, ['alpha-1'], 600, [['durable', 1]]),
@@ -680,7 +811,7 @@ describe('explainable quality scoring', () => {
 
   it('neutralizes incomplete and duplicate scenario sets instead of cherry-picking evidence', () => {
     const unit = unitFixture();
-    const incomplete = scoreUnitQuality(unit, {
+    const incomplete = diagnoseUnit(unit, {
       evaluations: [
         evaluation(unit, ['alpha-1', 'alpha-2', 'beta-1'], 930, [
           ['durable', 120],
@@ -689,7 +820,7 @@ describe('explainable quality scoring', () => {
         evaluation(unit, ['alpha-1', 'beta-1', 'beta-2'], 940, [['durable', 60]])
       ]
     });
-    const duplicate = scoreUnitQuality(unit, {
+    const duplicate = diagnoseUnit(unit, {
       evaluations: [
         evaluation(unit, ['alpha-1'], 600, [
           ['durable', 100],
@@ -699,7 +830,8 @@ describe('explainable quality scoring', () => {
     });
 
     for (const report of [incomplete, duplicate]) {
-      for (const metric of QUALITY_METRIC_IDS.slice(6)) expect(report.rawMetrics[metric]).toBe(0.5);
+      for (const metric of DIAGNOSTIC_METRIC_IDS.slice(6))
+        expect(report.rawMetrics[metric]).toBe(0.5);
     }
     expect(incomplete.warnings).toContain(
       'Dynamic scenario evidence was neutralized because build evaluations do not have identical scenario-fingerprint sets.'
@@ -713,15 +845,16 @@ describe('explainable quality scoring', () => {
     const unit = unitFixture();
     const low = evaluation(unit, ['alpha-1'], 600, [['durable', 1]]);
     const high = evaluation(unit, ['alpha-1'], 600, [['durable', 1_000]]);
-    const forward = scoreUnitQuality(unit, {
+    const forward = diagnoseUnit(unit, {
       evaluations: [low, high]
     });
-    const reversed = scoreUnitQuality(unit, {
+    const reversed = diagnoseUnit(unit, {
       evaluations: [high, low]
     });
 
     expect(forward.rawMetrics).toEqual(reversed.rawMetrics);
-    for (const metric of QUALITY_METRIC_IDS.slice(6)) expect(forward.rawMetrics[metric]).toBe(0.5);
+    for (const metric of DIAGNOSTIC_METRIC_IDS.slice(6))
+      expect(forward.rawMetrics[metric]).toBe(0.5);
     expect(forward.warnings).toContain(
       'Dynamic scenario evidence was neutralized because 1 selection key is duplicated.'
     );
@@ -731,7 +864,7 @@ describe('explainable quality scoring', () => {
     const unit = formUnitFixture();
     const plain = build(unit, ['alpha-1', 'alpha-2'], 820);
     const focused = build(unit, ['alpha-1', 'alpha-2'], 820, ['focus-form']);
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [
         { build: plain, simulations: [simulateBuild(plain, BUILT_IN_SCENARIOS.durable)] },
         { build: focused, simulations: [simulateBuild(focused, BUILT_IN_SCENARIOS.durable)] }
@@ -747,7 +880,7 @@ describe('explainable quality scoring', () => {
     const plainParent = build(unit, ['alpha-1', 'alpha-2'], 820);
     const focusedParent = build(unit, ['alpha-1', 'alpha-2'], 820, ['focus-form']);
     const focusedChild = build(unit, ['alpha-1', 'alpha-2', 'beta-1'], 930, ['focus-form']);
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [
         {
           build: plainParent,
@@ -791,10 +924,10 @@ describe('explainable quality scoring', () => {
         }
       ]
     ]);
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [engaged, idle]
     });
-    const reversed = scoreUnitQuality(unit, {
+    const reversed = diagnoseUnit(unit, {
       evaluations: [idle, engaged]
     });
 
@@ -810,14 +943,15 @@ describe('explainable quality scoring', () => {
   it('propagates simulation warnings and neutralizes all dynamic evidence after truncation', () => {
     const unit = unitFixture();
     const warning = 'Action bolt emissions exceed per-cycle cap 4096; truncated.';
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [
         evaluation(unit, [], 500, [['durable', 100]]),
         evaluation(unit, ['alpha-1'], 600, [['durable', 1_000_000, { warnings: [warning] }]], [])
       ]
     });
 
-    for (const metric of QUALITY_METRIC_IDS.slice(6)) expect(report.rawMetrics[metric]).toBe(0.5);
+    for (const metric of DIAGNOSTIC_METRIC_IDS.slice(6))
+      expect(report.rawMetrics[metric]).toBe(0.5);
     expect(report.warnings).toContain(`Simulation durable for alpha-1: ${warning}`);
     expect(report.warnings).toContain(
       'Dynamic scenario evidence was neutralized because 1 simulation report was truncated or capped.'
@@ -827,13 +961,14 @@ describe('explainable quality scoring', () => {
   it('neutralizes dynamic evidence when a simulator safety limit is reached', () => {
     const unit = unitFixture();
     const warning = 'Event limit 100000 reached.';
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [
         evaluation(unit, ['alpha-1'], 600, [['durable', 1_000_000, { warnings: [warning] }]])
       ]
     });
 
-    for (const metric of QUALITY_METRIC_IDS.slice(6)) expect(report.rawMetrics[metric]).toBe(0.5);
+    for (const metric of DIAGNOSTIC_METRIC_IDS.slice(6))
+      expect(report.rawMetrics[metric]).toBe(0.5);
     expect(report.warnings).toContain(`Simulation durable for alpha-1: ${warning}`);
     expect(report.warnings).toContain(
       'Dynamic scenario evidence was neutralized because 1 simulation report was truncated or capped.'
@@ -842,12 +977,13 @@ describe('explainable quality scoring', () => {
 
   it('neutralizes non-finite simulation measurements instead of emitting NaN metrics', () => {
     const unit = unitFixture();
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [evaluation(unit, ['alpha-1'], 600, [['durable', Number.NaN]])]
     });
 
     expect(Object.values(report.rawMetrics).every(Number.isFinite)).toBe(true);
-    for (const metric of QUALITY_METRIC_IDS.slice(6)) expect(report.rawMetrics[metric]).toBe(0.5);
+    for (const metric of DIAGNOSTIC_METRIC_IDS.slice(6))
+      expect(report.rawMetrics[metric]).toBe(0.5);
     expect(report.warnings).toContain(
       'Dynamic scenario evidence was neutralized because 1 simulation report contains non-finite measurements.'
     );
@@ -860,13 +996,14 @@ describe('explainable quality scoring', () => {
     const invalidBuild = evaluation(unit, ['beta-1'], 610, [['durable', 100]]);
     invalidBuild.build.totalCostCredits = -1;
 
-    const incompleteReport = scoreUnitQuality(unit, { evaluations: [incomplete] });
-    const invalidBuildReport = scoreUnitQuality(unit, { evaluations: [invalidBuild] });
+    const incompleteReport = diagnoseUnit(unit, { evaluations: [incomplete] });
+    const invalidBuildReport = diagnoseUnit(unit, { evaluations: [invalidBuild] });
     for (const report of [incompleteReport, invalidBuildReport]) {
-      for (const metric of QUALITY_METRIC_IDS.slice(6)) expect(report.rawMetrics[metric]).toBe(0.5);
+      for (const metric of DIAGNOSTIC_METRIC_IDS.slice(6))
+        expect(report.rawMetrics[metric]).toBe(0.5);
       expect(Object.values(report.rawMetrics).every(Number.isFinite)).toBe(true);
       expect(Object.values(report.normalizedMetrics).every(Number.isFinite)).toBe(true);
-      expect(report.compositeScore).toBeNull();
+      expect(report.diagnosticEligibility.eligible).toBe(false);
     }
     expect(incompleteReport.warnings).toContain(
       'Dynamic scenario evidence was neutralized because 1 simulation report has an invalid or incomplete shape.'
@@ -886,11 +1023,12 @@ describe('explainable quality scoring', () => {
     const child = evaluation(unit, ['alpha-1'], 600, [['durable', 100]], []);
     child.simulations[0]!.scenarioFingerprint = 'e'.repeat(64);
 
-    const wrongBuildReport = scoreUnitQuality(unit, { evaluations: [wrongBuild] });
-    const wrongUnitReport = scoreUnitQuality(unit, { evaluations: [wrongUnit] });
-    const wrongScenarioReport = scoreUnitQuality(unit, { evaluations: [parent, child] });
+    const wrongBuildReport = diagnoseUnit(unit, { evaluations: [wrongBuild] });
+    const wrongUnitReport = diagnoseUnit(unit, { evaluations: [wrongUnit] });
+    const wrongScenarioReport = diagnoseUnit(unit, { evaluations: [parent, child] });
     for (const report of [wrongBuildReport, wrongUnitReport, wrongScenarioReport]) {
-      for (const metric of QUALITY_METRIC_IDS.slice(6)) expect(report.rawMetrics[metric]).toBe(0.5);
+      for (const metric of DIAGNOSTIC_METRIC_IDS.slice(6))
+        expect(report.rawMetrics[metric]).toBe(0.5);
     }
     for (const report of [wrongBuildReport, wrongUnitReport])
       expect(report.warnings).toContain(
@@ -911,7 +1049,7 @@ describe('explainable quality scoring', () => {
     const compiled = compileUnit(foreign, { upgradeIds: ['alpha-1'] });
     if (!compiled.ok) throw new Error('Expected foreign fixture to compile.');
     const relabeled = { ...compiled.build, unitId: unit.id };
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [
         {
           build: relabeled,
@@ -920,7 +1058,8 @@ describe('explainable quality scoring', () => {
       ]
     });
 
-    for (const metric of QUALITY_METRIC_IDS.slice(6)) expect(report.rawMetrics[metric]).toBe(0.5);
+    for (const metric of DIAGNOSTIC_METRIC_IDS.slice(6))
+      expect(report.rawMetrics[metric]).toBe(0.5);
     expect(report.warnings).toContain(
       'Dynamic scenario evidence was neutralized because 1 build evaluation is invalid.'
     );
@@ -928,7 +1067,7 @@ describe('explainable quality scoring', () => {
 
   it('accepts legitimate aggregate report values above the per-field UnitSpec cap', () => {
     const unit = unitFixture();
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [evaluation(unit, ['alpha-1'], 600, [['durable', 2_000_000_000_000]])]
     });
 
@@ -951,7 +1090,7 @@ describe('explainable quality scoring', () => {
       persistence: 'encounter'
     });
     unit.actions[0]!.resourceCosts = [{ resourceId: 'toString', amountPerCycle: 1 }];
-    const safe = scoreUnitQuality(unit, {
+    const safe = diagnoseUnit(unit, {
       evaluations: [
         evaluation(unit, ['alpha-1'], 600, [
           ['durable', 100, { resourcesGenerated: {}, resourcesSpent: { toString: 1 } }]
@@ -960,7 +1099,7 @@ describe('explainable quality scoring', () => {
     });
     const unknown = evaluation(unit, ['alpha-1'], 600, [['durable', 100]]);
     unknown.simulations[0]!.resourcesSpent = { missing: 1 };
-    const rejected = scoreUnitQuality(unit, { evaluations: [unknown] });
+    const rejected = diagnoseUnit(unit, { evaluations: [unknown] });
 
     expect(safe.rawMetrics.scenarioRobustness).toBeGreaterThan(0.5);
     expect(Object.values(safe.rawMetrics).every(Number.isFinite)).toBe(true);
@@ -977,8 +1116,9 @@ describe('explainable quality scoring', () => {
     unknownAction.simulations[0]!.damageByAction = { missing: 100 };
 
     for (const invalid of [malformedId, unknownAction]) {
-      const report = scoreUnitQuality(unit, { evaluations: [invalid] });
-      for (const metric of QUALITY_METRIC_IDS.slice(6)) expect(report.rawMetrics[metric]).toBe(0.5);
+      const report = diagnoseUnit(unit, { evaluations: [invalid] });
+      for (const metric of DIAGNOSTIC_METRIC_IDS.slice(6))
+        expect(report.rawMetrics[metric]).toBe(0.5);
       expect(report.warnings).toContain(
         'Dynamic scenario evidence was neutralized because 1 simulation report has an invalid or incomplete shape.'
       );
@@ -996,11 +1136,21 @@ describe('explainable quality scoring', () => {
       ['grouped', 60]
     ]);
 
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [dominant, dominated]
     });
     expect(unit.upgradeGraph.nodes.every(({ costCredits }) => costCredits > 0)).toBe(true);
     expect(report.rawMetrics.crossPathHealth).toBe(0);
+    expect(report.reviewFindings).toContainEqual(
+      expect.objectContaining({
+        code: 'SCENARIO_DOMINATED_CROSS_PATH_BUILD',
+        dominantSelection: { upgradeIds: ['alpha-1', 'alpha-2', 'beta-1'] },
+        dominatedSelection: { upgradeIds: ['alpha-1', 'beta-1', 'beta-2'] },
+        dominantCostCredits: 930,
+        dominatedCostCredits: 940,
+        facts: expect.arrayContaining([expect.stringContaining('damage 60 HP')])
+      })
+    );
     expect(report.evidence.find(({ metric }) => metric === 'crossPathHealth')?.summary).toMatch(
       /^1\/1 comparable/
     );
@@ -1017,7 +1167,7 @@ describe('explainable quality scoring', () => {
       ['grouped', 120]
     ]);
 
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [durablePath, groupedPath]
     });
     expect(report.rawMetrics.crossPathHealth).toBe(1);
@@ -1048,9 +1198,9 @@ describe('explainable quality scoring', () => {
       }
     ];
 
-    const original = scoreUnitQuality(unit);
-    const changed = scoreUnitQuality(noOp);
-    const repeatedSet = scoreUnitQuality(repeated);
+    const original = diagnoseUnit(unit);
+    const changed = diagnoseUnit(noOp);
+    const repeatedSet = diagnoseUnit(repeated);
     expect(changed.rawMetrics.progressionCoherence).toBeLessThan(
       original.rawMetrics.progressionCoherence
     );
@@ -1091,8 +1241,8 @@ describe('explainable quality scoring', () => {
       removal: 'expiry'
     });
 
-    expect(scoreUnitQuality(inert).rawMetrics.complexityEconomy).toBeLessThan(
-      scoreUnitQuality(unit).rawMetrics.complexityEconomy
+    expect(diagnoseUnit(inert).rawMetrics.complexityEconomy).toBeLessThan(
+      diagnoseUnit(unit).rawMetrics.complexityEconomy
     );
   });
 
@@ -1105,15 +1255,15 @@ describe('explainable quality scoring', () => {
       value: 'never-present'
     });
 
-    expect(scoreUnitQuality(conditioned).rawMetrics.complexityEconomy).toBeLessThan(
-      scoreUnitQuality(unit).rawMetrics.complexityEconomy
+    expect(diagnoseUnit(conditioned).rawMetrics.complexityEconomy).toBeLessThan(
+      diagnoseUnit(unit).rawMetrics.complexityEconomy
     );
   });
 
   it('does not call microscopic output scenario-robust', () => {
     const unit = unitFixture();
     unit.roles = ['damage'];
-    const report = scoreUnitQuality(unit, {
+    const report = diagnoseUnit(unit, {
       evaluations: [
         evaluation(unit, ['alpha-1'], 600, [
           [
@@ -1153,10 +1303,10 @@ describe('explainable quality scoring', () => {
         ]
       ])
     ];
-    const general = scoreUnitQuality(unit, { evaluations });
+    const general = diagnoseUnit(unit, { evaluations });
     const specialist = structuredClone(unit);
     specialist.roles = ['boss-specialist'];
-    const specialized = scoreUnitQuality(specialist, {
+    const specialized = diagnoseUnit(specialist, {
       evaluations: [
         evaluation(specialist, ['alpha-1'], 600, [
           ['durable', 100, { firstEffectSeconds: 0 }],
@@ -1325,23 +1475,25 @@ describe('deterministic corruptions', () => {
     expectCapacityFailure(fullInteractions, 'undefined-state');
   });
 
-  it('keeps representative quality corruptions schema-valid and scores each below the original', () => {
+  it('keeps diagnostic corruptions schema-valid and changes their declared metrics', () => {
     const source = unitFixture();
     expect(validateUnitSpec(source).issues).toEqual([]);
-    const original = scoreUnitQuality(source, {
+    const original = diagnoseUnit(source, {
       evaluations: completeEvaluations(source)
-    }).compositeScore!;
+    });
 
     for (const id of VALID_CORRUPTION_IDS) {
       const corrupted = applyCorruption(source, id);
       expect(Value.Check(unitSpecSchema, corrupted.unit), id).toBe(true);
       expect(validateUnitSpec(corrupted.unit).issues, id).toEqual([]);
       expect(corrupted.descriptor.expectedHardValidation).toBe(true);
-      expect(
-        scoreUnitQuality(corrupted.unit, { evaluations: completeEvaluations(corrupted.unit) })
-          .compositeScore,
-        id
-      ).toBeLessThan(original);
+      const changed = diagnoseUnit(corrupted.unit, {
+        evaluations: completeEvaluations(corrupted.unit)
+      });
+      for (const metric of corrupted.descriptor.expectedAffectedMetrics)
+        expect(changed.normalizedMetrics[metric], `${id}/${metric}`).not.toBe(
+          original.normalizedMetrics[metric]
+        );
     }
   });
 

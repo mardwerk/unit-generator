@@ -2,7 +2,7 @@ import { Type, type Static, type TSchema } from '@sinclair/typebox';
 
 export const UNIT_SPEC_SCHEMA_VERSION = '0.1' as const;
 export const REFERENCE_BUNDLE_SCHEMA_VERSION = '0.1' as const;
-export const SCORE_PROFILE_VERSION = 'synthetic-0.2' as const;
+export const DIAGNOSTIC_PROFILE_VERSION = 'synthetic-0.2' as const;
 export const SOURCE_POINTER_PATTERN =
   "^#(?:/(?:[A-Za-z0-9._!$&'()*+,;=:@/?-]|~[01]|%[0-9A-Fa-f]{2})*)?$" as const;
 export const TARGET_POINTER_PATTERN = '^(?:/(?:[^~/]|~[01])*)*$' as const;

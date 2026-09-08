@@ -27,8 +27,8 @@ COPY unit-generator/packages/definitions/src ./packages/definitions/src
 COPY unit-generator/packages/definitions/definitions ./packages/definitions/definitions
 COPY unit-generator/packages/providers/package.json unit-generator/packages/providers/tsconfig.json ./packages/providers/
 COPY unit-generator/packages/providers/src ./packages/providers/src
-COPY unit-generator/packages/reference-lab/package.json unit-generator/packages/reference-lab/tsconfig.json ./packages/reference-lab/
-COPY unit-generator/packages/reference-lab/src ./packages/reference-lab/src
+COPY unit-generator/packages/unit-lab/package.json unit-generator/packages/unit-lab/tsconfig.json ./packages/unit-lab/
+COPY unit-generator/packages/unit-lab/src ./packages/unit-lab/src
 COPY unit-generator/apps/cli/package.json unit-generator/apps/cli/tsconfig.json ./apps/cli/
 COPY unit-generator/apps/cli/src ./apps/cli/src
 COPY unit-generator/apps/web/package.json unit-generator/apps/web/tsconfig.json ./apps/web/

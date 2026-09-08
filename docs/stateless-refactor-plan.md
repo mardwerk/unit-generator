@@ -20,7 +20,7 @@ Only Unit Generator changes are in scope. Keep TypeScript, pnpm, the CLI, and Sv
 | `apps/cli/src/index.ts` requires an output directory and writes checkpoints automatically.                                                                                                                 | Return a complete result to stdout by default. Write only at a caller-selected export destination.                                                        |
 | The Svelte page stores recent jobs in localStorage, loads jobs by URL, and reconnects to persisted progress.                                                                                               | Replace job navigation with a single request-scoped stream and in-memory current-run state.                                                               |
 | `deployment/compose.yaml` starts web, API, worker, and NATS with named volumes.                                                                                                                            | Remove this deployment requirement. The optional playground needs one Node process.                                                                       |
-| Reference Lab, simulator, compiler, bundles, and domain contracts are exported together from core.                                                                                                         | Preserve useful default-system logic and tests while removing them from the generic library and ordinary application path.                                |
+| Unit Lab, simulator, compiler, bundles, and domain contracts are exported together from core.                                                                                                              | Preserve useful default-system logic and tests while removing them from the generic library and ordinary application path.                                |
 
 The inspected baseline passed 127 core tests and 31 provider tests. No live models, full workspace checks, or browser tests were run for this planning task. The plan was formatted with Prettier. The repository public-boundary check reported 12 existing local-path findings in `.scratch/handoffs/20260905T115208Z-generation-progress.md`, with none in this plan. Leave that existing handoff untouched during this planning task. Existing fixtures are synthetic development material, not evidence that the designs meet the user's preferences.
 
@@ -46,12 +46,12 @@ packages/definitions/
 
 apps/cli/                     Library calls, input files, stdout, explicit export
 apps/web/                     Optional SvelteKit playground and local server routes
-packages/reference-lab/       Default-system developer diagnostics only
+packages/unit-lab/       Default-system developer diagnostics only
 ```
 
 The exact private file split can follow the implementation. These are ownership assignments, not a requirement to create a file per function.
 
-Core imports neither providers nor bundled definitions. Definitions use core contracts. Providers implement core execution interfaces. The CLI and Svelte server select a definition and supply configured providers. Reference Lab may depend on the default definition; core, providers, and normal generation must not depend on Reference Lab.
+Core imports neither providers nor bundled definitions. Definitions use core contracts. Providers implement core execution interfaces. The CLI and Svelte server select a definition and supply configured providers. Unit Lab may depend on the default definition; core, providers, and normal generation must not depend on Unit Lab.
 
 Retain the existing Foundation model-client and UI libraries where they remain useful. The inspected model-client is stateless transport. Remove direct `service-kit`, `generator-sdk`, and manifest/bundle dependencies from generation. Foundation UI has a transitive manifest dependency, so this does not promise that the name disappears from the entire lockfile. No paid platform, platform runtime, or platform storage is required. The existing sibling FOSS Foundation build convention can remain; packaging Foundation independently is outside this refactor.
 
@@ -165,7 +165,7 @@ Extract generic JSON limits from `schema-validation.ts`; they currently depend o
 
 3. **Extract the complete classic-three-path definition.**
 
-   Move the default content schemas, compiler, relevant reports, validators, constraint handling, and fixture generator out of the generic core. Extract default constants and prompt/brief schemas from `generation-schemas.ts` and providers. Keep the original mechanic/compiler tests beside their new owner. Separate static profile checks from simulation and scoring. Move optional simulator/scoring/corruption logic beside default diagnostics and retarget Reference Lab to it.
+   Move the default content schemas, compiler, relevant reports, validators, constraint handling, and fixture generator out of the generic core. Extract default constants and prompt/brief schemas from `generation-schemas.ts` and providers. Keep the original mechanic/compiler tests beside their new owner. Separate static profile checks from simulation and scoring. Move optional simulator/scoring/corruption logic beside default diagnostics and retarget Unit Lab to it.
 
    Ship editable rules, input/output schemas, instructions, examples, configuration, and trusted validator/workflow entry points together. Share authoritative parameter values between instructions and checks. Provide a documented local copy/edit/load path. Existing UnitSpec files may remain usable through this definition when they meet its versioned schema; no universal UnitSpec compatibility layer is introduced.
 
@@ -197,7 +197,7 @@ Extract generic JSON limits from `schema-validation.ts`; they currently depend o
 
    Reduce the page to subject, adaptation notes, Generate/Cancel, progress, readable output, structured JSON, research, validation, and explicit downloads. Allow JSON edits and explicit revalidation with the original creative request and context. Any edit immediately invalidates the previous acceptance display; an unvalidated edit is a candidate, including when exported. Put sources, supported constraints, context, system selection, and custom JSON input under advanced options. For a different input schema, a generic JSON input panel is sufficient; do not build a schema-driven form framework. Retain a small default-system renderer where useful and fall back to readable JSON for other definitions. Credentials stay in server configuration. Local trusted execution requires loopback defaults and appropriate origin/request checks; browsers do not choose command executables or arbitrary code paths.
 
-   Remove localStorage recent jobs, sessionStorage persistence, saved-job URL behavior, checkpoint UI, and runtime Reference Lab pages. Keep the result and received research only in current page memory. Refresh discards it. Free-text input remains fully functional. Catalog autocomplete and portraits are deferred, and no frontend framework change is required.
+   Remove localStorage recent jobs, sessionStorage persistence, saved-job URL behavior, checkpoint UI, and runtime Unit Lab pages. Keep the result and received research only in current page memory. Refresh discards it. Free-text input remains fully functional. Catalog autocomplete and portraits are deferred, and no frontend framework change is required.
 
    Delete `apps/api` and `apps/worker` after callers switch. Remove the four-service Compose stack, queues, named volumes, service preflight, and worker startup dependencies. An optional replacement container runs the Svelte server alone without application data volumes. Do not migrate or delete existing user job databases or artifacts automatically.
 
@@ -205,7 +205,7 @@ Extract generic JSON limits from `schema-validation.ts`; they currently depend o
 
 7. **Finish the breaking-change cleanup and measure design quality.**
 
-   Remove the old `generateUnit` pipeline, public `DraftProvider`, checkpoint types, bundle generation/writers, job envelopes, universal tower exports, and stale callers. Retain bounded supplied-file reading where the CLI needs it. Simplify Reference Lab to default-system developer fixtures and diagnostics; remove manifest-bundle machinery that no longer has a caller rather than retaining a compatibility service.
+   Remove the old `generateUnit` pipeline, public `DraftProvider`, checkpoint types, bundle generation/writers, job envelopes, universal tower exports, and stale callers. Retain bounded supplied-file reading where the CLI needs it. Simplify Unit Lab to default-system developer fixtures and diagnostics; remove manifest-bundle machinery that no longer has a caller rather than retaining a compatibility service.
 
    Move generated default schemas under their definition and keep one authoring source. Update schema generation, package exports, lockfile, root scripts, `.env` documentation, README, architectural docs, external-client handoff, deployment instructions, CI, and `scripts/check-public-boundary.mjs`. CI must enforce core's allowed dependencies and must not require removed infrastructure. Existing public-source/license rules remain. Archive or rewrite superseded job and simulator claims so the active docs describe the new product.
 

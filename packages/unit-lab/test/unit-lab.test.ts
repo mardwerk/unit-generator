@@ -4,12 +4,12 @@ import path from 'node:path';
 import { canonicalJson, type ArtifactManifest } from '@mardwerk/manifest';
 import { hashBytes } from '@mardwerk/manifest/node';
 import {
-  DEFAULT_SCORE_PROFILE,
+  DEFAULT_DIAGNOSTIC_PROFILE,
   INVALID_CORRUPTION_IDS,
-  QUALITY_METRIC_IDS,
+  DIAGNOSTIC_METRIC_IDS,
   VALID_CORRUPTION_IDS,
   compileUnit,
-  scoreUnitQuality,
+  diagnoseUnit,
   validateReferenceBundleData,
   validateReferenceBundleDirectory,
   validateUnitSpec,
@@ -17,7 +17,7 @@ import {
   type ReferenceAnnotation,
   type ReferenceCoverage,
   type ReferenceSet,
-  type ScoreProfile
+  type DiagnosticProfile
 } from '@mardwerk/unit-definitions/diagnostics';
 import { describe, expect, it, vi } from 'vitest';
 
@@ -54,6 +54,27 @@ function refreshArtifact(bundle: MutableReferenceBundle, artifactId: string): vo
 }
 
 describe('synthetic development references', () => {
+  it('samples both secondary paths for every maximum-path build', () => {
+    for (const unit of SYNTHETIC_UNITS) {
+      const selections = representativeSelections(unit);
+      expect(selections).toHaveLength(28);
+      const keys = new Set(selections.map(({ upgradeIds }) => [...upgradeIds].sort().join(',')));
+      for (const primary of unit.upgradeGraph.paths) {
+        const primaryIds = unit.upgradeGraph.nodes
+          .filter(({ path }) => path === primary.id)
+          .map(({ id }) => id);
+        for (const secondary of unit.upgradeGraph.paths.filter(({ id }) => id !== primary.id)) {
+          for (const maximumTier of [1, 2]) {
+            const secondaryIds = unit.upgradeGraph.nodes
+              .filter(({ path, tier }) => path === secondary.id && tier! <= maximumTier)
+              .map(({ id }) => id);
+            expect(keys.has([...primaryIds, ...secondaryIds].sort().join(','))).toBe(true);
+          }
+        }
+      }
+    }
+  });
+
   it('forms one valid source-neutral bundle with three complete classic path graphs', () => {
     const bundle = validateReferenceBundleData(SYNTHETIC_REFERENCE_BUNDLE);
     expect(bundle.valid ? Object.keys(bundle.value.units).sort() : bundle.issues).toEqual(
@@ -293,8 +314,8 @@ describe('synthetic benchmark and calibration', () => {
     expect(report.memberUnitIds).toEqual(
       SYNTHETIC_REFERENCE_SET.members.map(({ unitId }) => unitId)
     );
-    expect(report.scoreProfile).toEqual(DEFAULT_SCORE_PROFILE);
-    expect(report.scoreProfile).not.toBe(DEFAULT_SCORE_PROFILE);
+    expect(report.diagnosticProfile).toEqual(DEFAULT_DIAGNOSTIC_PROFILE);
+    expect(report.diagnosticProfile).not.toBe(DEFAULT_DIAGNOSTIC_PROFILE);
     expect(report.unitResults).toHaveLength(SYNTHETIC_UNITS.length);
     expect(report.unitResults.every(({ hardAcceptance }) => hardAcceptance)).toBe(true);
     expect(report.unitResults.every(({ representatives }) => representatives.length >= 19)).toBe(
@@ -310,7 +331,7 @@ describe('synthetic benchmark and calibration', () => {
       true
     );
     for (const comparison of report.corruptionComparisons) {
-      expect(comparison.corruptedQuality.unitId).toBe(comparison.unitId);
+      expect(comparison.corruptedDiagnostics.unitId).toBe(comparison.unitId);
       expect(comparison.dynamicEvidenceWarnings).toEqual([]);
     }
     for (const constraint of report.rankingConstraints) {
@@ -366,7 +387,7 @@ describe('synthetic benchmark and calibration', () => {
   }, 60_000);
 
   it('returns a deterministic bounded candidate without changing the prior', () => {
-    const prior = structuredClone(DEFAULT_SCORE_PROFILE);
+    const prior = structuredClone(DEFAULT_DIAGNOSTIC_PROFILE);
     const first = calibrateSyntheticProfile();
     const second = calibrateSyntheticProfile();
     expect(second).toEqual(first);
@@ -375,10 +396,10 @@ describe('synthetic benchmark and calibration', () => {
     expect(first.memberUnitIds).toEqual(
       SYNTHETIC_REFERENCE_SET.members.map(({ unitId }) => unitId)
     );
-    expect(first.priorProfile.id).toBe(DEFAULT_SCORE_PROFILE.id);
-    expect(first.priorProfile.version).toBe(DEFAULT_SCORE_PROFILE.version);
-    expect(first.priorProfile).toEqual(DEFAULT_SCORE_PROFILE);
-    expect(first.normalizedPriorProfile.id).toBe(DEFAULT_SCORE_PROFILE.id);
+    expect(first.priorProfile.id).toBe(DEFAULT_DIAGNOSTIC_PROFILE.id);
+    expect(first.priorProfile.version).toBe(DEFAULT_DIAGNOSTIC_PROFILE.version);
+    expect(first.priorProfile).toEqual(DEFAULT_DIAGNOSTIC_PROFILE);
+    expect(first.normalizedPriorProfile.id).toBe(DEFAULT_DIAGNOSTIC_PROFILE.id);
     expect(first.configuration).toEqual({
       margin: 0.025,
       regularization: 0.05,
@@ -390,8 +411,8 @@ describe('synthetic benchmark and calibration', () => {
       SYNTHETIC_UNITS.length * VALID_CORRUPTION_IDS.length
     );
     expect(first.candidateProfile).toMatchObject({
-      id: DEFAULT_SCORE_PROFILE.id,
-      version: `${DEFAULT_SCORE_PROFILE.version}-synthetic-candidate-${SYNTHETIC_REFERENCE_SET.version}-all`,
+      id: DEFAULT_DIAGNOSTIC_PROFILE.id,
+      version: `${DEFAULT_DIAGNOSTIC_PROFILE.version}-synthetic-candidate-${SYNTHETIC_REFERENCE_SET.version}-all`,
       calibrationStatus: 'synthetic initial calibration'
     });
     expect(first.objectiveAfter).toBeLessThanOrEqual(first.objectiveBefore);
@@ -415,26 +436,26 @@ describe('synthetic benchmark and calibration', () => {
       )
     ).toBe(true);
     expect(() =>
-      scoreUnitQuality(VECTOR_KITE, {
+      diagnoseUnit(VECTOR_KITE, {
         profile: first.candidateProfile
       })
     ).not.toThrow();
     expect(executeSyntheticBenchmark({ profile: first.candidateProfile }).report.status).toBe(
       'passed'
     );
-    expect(DEFAULT_SCORE_PROFILE).toEqual(prior);
+    expect(DEFAULT_DIAGNOSTIC_PROFILE).toEqual(prior);
     // Two calibrations and the candidate check execute five full benchmarks.
   }, 60_000);
 
   it('normalizes equivalent scaled priors consistently', () => {
-    const scaledPrior: ScoreProfile = {
-      ...DEFAULT_SCORE_PROFILE,
+    const scaledPrior: DiagnosticProfile = {
+      ...DEFAULT_DIAGNOSTIC_PROFILE,
       weights: Object.fromEntries(
-        Object.entries(DEFAULT_SCORE_PROFILE.weights).map(([metric, weight]) => [
+        Object.entries(DEFAULT_DIAGNOSTIC_PROFILE.weights).map(([metric, weight]) => [
           metric,
           weight * 7
         ])
-      ) as typeof DEFAULT_SCORE_PROFILE.weights
+      ) as typeof DEFAULT_DIAGNOSTIC_PROFILE.weights
     };
     const options = { unitId: VECTOR_KITE.id, maximumIterations: 1 } as const;
     const scaled = calibrateSyntheticProfile({ ...options, priorProfile: scaledPrior });
@@ -444,30 +465,30 @@ describe('synthetic benchmark and calibration', () => {
     expect(scaled.objectiveAfter).toBe(normalized.objectiveAfter);
     expect(scaled.memberUnitIds).toEqual([VECTOR_KITE.id]);
     expect(scaled.candidateProfile.version).toBe(
-      `${DEFAULT_SCORE_PROFILE.version}-synthetic-candidate-${SYNTHETIC_REFERENCE_SET.version}-${VECTOR_KITE.id}`
+      `${DEFAULT_DIAGNOSTIC_PROFILE.version}-synthetic-candidate-${SYNTHETIC_REFERENCE_SET.version}-${VECTOR_KITE.id}`
     );
   }, 30_000);
 
   it('projects exact capped nanounits for one-eleventh caps and tiny anchors', () => {
     const equalWeights = Object.fromEntries(
-      QUALITY_METRIC_IDS.map((metric) => [metric, 1])
-    ) as ScoreProfile['weights'];
+      DIAGNOSTIC_METRIC_IDS.map((metric) => [metric, 1])
+    ) as DiagnosticProfile['weights'];
     const eleventh = calibrateSyntheticProfile({
       unitId: VECTOR_KITE.id,
       priorProfile: {
-        ...DEFAULT_SCORE_PROFILE,
+        ...DEFAULT_DIAGNOSTIC_PROFILE,
         version: 'one-eleventh-prior',
         weights: equalWeights,
-        maximumMetricWeight: 1 / QUALITY_METRIC_IDS.length
+        maximumMetricWeight: 1 / DIAGNOSTIC_METRIC_IDS.length
       },
       initialStep: MINIMUM_CALIBRATION_STEP,
       minimumStep: MINIMUM_CALIBRATION_STEP,
       maximumIterations: 1
     });
-    expect(eleventh.priorProfile.maximumMetricWeight).toBe(1 / QUALITY_METRIC_IDS.length);
+    expect(eleventh.priorProfile.maximumMetricWeight).toBe(1 / DIAGNOSTIC_METRIC_IDS.length);
     expect(eleventh.normalizedPriorProfile.maximumMetricWeight).toBe(0.090909091);
     expect(
-      QUALITY_METRIC_IDS.map((metric) =>
+      DIAGNOSTIC_METRIC_IDS.map((metric) =>
         Math.round(eleventh.normalizedPriorProfile.weights[metric] * 1_000_000_000)
       )
     ).toEqual([...Array(10).fill(90_909_091), 90_909_090]);
@@ -475,9 +496,9 @@ describe('synthetic benchmark and calibration', () => {
     const tiny = calibrateSyntheticProfile({
       unitId: VECTOR_KITE.id,
       priorProfile: {
-        ...DEFAULT_SCORE_PROFILE,
+        ...DEFAULT_DIAGNOSTIC_PROFILE,
         version: 'tiny-anchor-prior',
-        weights: { ...DEFAULT_SCORE_PROFILE.weights, pathIdentity: Number.MIN_VALUE },
+        weights: { ...DEFAULT_DIAGNOSTIC_PROFILE.weights, pathIdentity: Number.MIN_VALUE },
         maximumMetricWeight: 0.2
       },
       initialStep: MINIMUM_CALIBRATION_STEP,
@@ -494,7 +515,7 @@ describe('synthetic benchmark and calibration', () => {
         weights.every((value) => value >= 0 && value <= report.candidateProfile.maximumMetricWeight)
       ).toBe(true);
       expect(() =>
-        scoreUnitQuality(VECTOR_KITE, {
+        diagnoseUnit(VECTOR_KITE, {
           profile: report.candidateProfile
         })
       ).not.toThrow();
@@ -514,7 +535,7 @@ describe('synthetic benchmark and calibration', () => {
     for (const maximumMetricWeight of [Number.NaN, Number.POSITIVE_INFINITY, 0, 0.05]) {
       expect(() =>
         calibrateSyntheticProfile({
-          priorProfile: { ...DEFAULT_SCORE_PROFILE, maximumMetricWeight }
+          priorProfile: { ...DEFAULT_DIAGNOSTIC_PROFILE, maximumMetricWeight }
         })
       ).toThrow(/maximumMetricWeight/);
     }
@@ -604,6 +625,7 @@ describe('synthetic benchmark and calibration', () => {
     expect(Object.keys(snapshot.contracts)).toEqual([
       'unitSpecVersion',
       'referenceBundleVersion',
+      'diagnosticReportVersion',
       'syntheticFixtureConformance',
       'syntheticFixtureMode'
     ]);
@@ -652,7 +674,7 @@ describe('synthetic benchmark and calibration', () => {
           }>;
         }
       ).unitResults[0]?.representatives
-    ).toHaveLength(22);
+    ).toHaveLength(28);
   }, 30_000);
 
   it('projects scenarios from only the exact selected representative and rejects other selections', () => {
@@ -685,7 +707,9 @@ describe('synthetic benchmark and calibration', () => {
       });
     }
 
-    const aggregateScore = snapshot.evaluation.compositeScore;
+    expect(snapshot.schemaVersion).toBe('0.2');
+    expect(snapshot.evaluation).not.toHaveProperty('compositeScore');
+    expect(snapshot.evaluation.assessment.generalQuality).toBe('unrated');
     const invalid = createLabSnapshot(VECTOR_KITE.id, {
       upgradeIds: ['kite-precision-1', 'kite-reserve-1']
     });
@@ -695,7 +719,7 @@ describe('synthetic benchmark and calibration', () => {
       selectedBuildLabel: 'Unresolved selection',
       compiler: { success: false },
       scenarios: [],
-      compositeScore: aggregateScore
+      assessment: snapshot.evaluation.assessment
     });
     expect(invalid.evaluation.compiler.errors).toContain(
       'Selection is not one of the evaluated valid representatives.'

@@ -1,5 +1,5 @@
 {
-  "name": "@mardwerk/unit-reference-lab",
+  "name": "@mardwerk/unit-lab",
   "version": "0.1.0",
   "description": "Original synthetic references, benchmarks, and calibration for Mardwerk units.",
   "license": "MPL-2.0",

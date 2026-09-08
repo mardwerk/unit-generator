@@ -1,11 +1,12 @@
 import {
   BUILT_IN_SCENARIOS,
-  DEFAULT_SCORE_PROFILE,
+  DEFAULT_DIAGNOSTIC_PROFILE,
+  DIAGNOSTIC_METRIC_IDS,
   EXPECTED_CORRUPTION_FAILURE_CODES,
   VALID_CORRUPTION_IDS,
   compileResolvedSelection,
   generateCorruptions,
-  scoreUnitQuality,
+  diagnoseUnit,
   simulateBuild,
   validateBuildSelection,
   validateReferenceBundleData,
@@ -15,15 +16,15 @@ import {
   type BuildSelection,
   type CorruptionComparison,
   type CorruptionDescriptor,
-  type QualityMetricId,
-  type QualityReport,
+  type DiagnosticMetricId,
+  type UnitDiagnosticReport,
   type RankingConstraintEvidence,
   type ReferenceAnnotation,
   type ReferenceBundleData,
   type ReferenceCoverage,
   type ReferenceProvenance,
   type ReferenceSet,
-  type ScoreProfile,
+  type DiagnosticProfile,
   type SimulationReport,
   type UnitBuild,
   type UnitSpec,
@@ -36,7 +37,7 @@ export const SYNTHETIC_SCENARIOS = BUILT_IN_SCENARIOS;
 
 export interface SyntheticBenchmarkOptions {
   unitId?: string;
-  profile?: ScoreProfile;
+  profile?: DiagnosticProfile;
   bundle?: ReferenceBundleData;
 }
 
@@ -58,7 +59,7 @@ interface EvaluatedUnit {
   validationIssues: ValidationIssue[];
   representatives: CompiledRepresentative[];
   compileIssues: ValidationIssue[];
-  quality: QualityReport;
+  diagnostics: UnitDiagnosticReport;
 }
 
 export interface SyntheticBenchmarkExecution {
@@ -78,7 +79,7 @@ const selectionKey = (upgradeIds: readonly string[]) =>
   [...upgradeIds].sort(compareText).join('\0');
 
 function resolveSyntheticDevelopmentReference(
-  profile: ScoreProfile,
+  profile: DiagnosticProfile,
   bundle: ReferenceBundleData
 ): SyntheticReferenceResolution {
   const validation = validateReferenceBundleData(bundle);
@@ -155,12 +156,13 @@ export function representativeSelections(unit: UnitSpec): BuildSelection[] {
   }
   paths.forEach(({ nodes }, index) => {
     if (nodes.length === 0 || paths.length < 2) return;
-    const cross = paths[(index + 1) % paths.length]!.nodes;
-    for (let crossTier = 1; crossTier <= Math.min(2, cross.length); crossTier += 1) {
-      desired.push([
-        ...nodes.map(({ id }) => id),
-        ...cross.slice(0, crossTier).map(({ id }) => id)
-      ]);
+    for (const { nodes: cross } of paths.filter((_, secondary) => secondary !== index)) {
+      for (let crossTier = 1; crossTier <= Math.min(2, cross.length); crossTier += 1) {
+        desired.push([
+          ...nodes.map(({ id }) => id),
+          ...cross.slice(0, crossTier).map(({ id }) => id)
+        ]);
+      }
     }
   });
 
@@ -223,7 +225,7 @@ export function representativeSelections(unit: UnitSpec): BuildSelection[] {
 
 function evaluateUnit(
   unit: UnitSpec,
-  profile: ScoreProfile,
+  profile: DiagnosticProfile,
   provenance?: ReferenceProvenance,
   hardValid = false
 ): EvaluatedUnit {
@@ -234,7 +236,7 @@ function evaluateUnit(
       validationIssues,
       representatives: [],
       compileIssues: [],
-      quality: scoreUnitQuality(unit, { profile })
+      diagnostics: diagnoseUnit(unit, { profile })
     };
   }
 
@@ -259,7 +261,7 @@ function evaluateUnit(
     validationIssues: [],
     representatives,
     compileIssues,
-    quality: scoreUnitQuality(unit, {
+    diagnostics: diagnoseUnit(unit, {
       evaluations: representatives.map(({ build, simulations }) => ({ build, simulations })),
       profile
     })
@@ -280,43 +282,47 @@ function unitResult(evaluation: EvaluatedUnit): BenchmarkUnitResult {
       },
       simulations: [...simulations]
     })),
-    quality: evaluation.quality
+    diagnostics: evaluation.diagnostics
   };
 }
 
-const neutralizedDynamicEvidence = (quality: QualityReport) =>
-  quality.warnings.filter((warning) =>
+const neutralizedDynamicEvidence = (diagnostics: UnitDiagnosticReport) =>
+  diagnostics.warnings.filter((warning) =>
     warning.startsWith('Dynamic scenario evidence was neutralized')
   );
 
 function corruptionComparison(
   original: EvaluatedUnit,
   corrupted: EvaluatedUnit,
-  descriptor: CorruptionDescriptor
+  descriptor: CorruptionDescriptor,
+  profile: DiagnosticProfile
 ): CorruptionComparison {
   const actualHardValidation =
     corrupted.validationIssues.length === 0 &&
     corrupted.compileIssues.length === 0 &&
     corrupted.representatives.length > 0;
-  const originalScore = original.quality.compositeScore;
-  const corruptedScore = corrupted.quality.compositeScore;
+  const originalDiagnosticIndex = diagnosticIndex(original.diagnostics, profile);
+  const corruptedDiagnosticIndex = diagnosticIndex(corrupted.diagnostics, profile);
   const margin =
-    originalScore === null || corruptedScore === null ? null : originalScore - corruptedScore;
+    originalDiagnosticIndex === null || corruptedDiagnosticIndex === null
+      ? null
+      : originalDiagnosticIndex - corruptedDiagnosticIndex;
   const validationIssues = [...corrupted.validationIssues, ...corrupted.compileIssues];
   const expectedFailureCode =
     EXPECTED_CORRUPTION_FAILURE_CODES[
       descriptor.id as keyof typeof EXPECTED_CORRUPTION_FAILURE_CODES
     ] ?? null;
   const dynamicEvidenceWarnings = [
-    ...neutralizedDynamicEvidence(original.quality).map((warning) => `original: ${warning}`),
-    ...neutralizedDynamicEvidence(corrupted.quality).map((warning) => `corrupted: ${warning}`)
+    ...neutralizedDynamicEvidence(original.diagnostics).map((warning) => `original: ${warning}`),
+    ...neutralizedDynamicEvidence(corrupted.diagnostics).map((warning) => `corrupted: ${warning}`)
   ];
   const expectedMetricsChanged =
     descriptor.expectedAffectedMetrics.length > 0 &&
     descriptor.expectedAffectedMetrics.every(
       (metric) =>
         Math.abs(
-          original.quality.normalizedMetrics[metric] - corrupted.quality.normalizedMetrics[metric]
+          original.diagnostics.normalizedMetrics[metric] -
+            corrupted.diagnostics.normalizedMetrics[metric]
         ) >= EXPECTED_METRIC_CHANGE_EPSILON
     );
   const passedExpectation = descriptor.expectedHardValidation
@@ -333,19 +339,33 @@ function corruptionComparison(
     descriptor: structuredClone(descriptor),
     expectedFailureCode,
     actualHardValidation,
-    originalScore,
+    originalDiagnosticIndex,
+    corruptedDiagnosticIndex,
     margin,
-    corruptedQuality: structuredClone(corrupted.quality),
+    corruptedDiagnostics: structuredClone(corrupted.diagnostics),
     dynamicEvidenceWarnings,
     validationIssues,
     passedExpectation
   };
 }
 
+/** Relative synthetic benchmark objective only, never a general-quality rating. */
+function diagnosticIndex(report: UnitDiagnosticReport, profile: DiagnosticProfile): number | null {
+  if (!report.diagnosticEligibility.eligible) return null;
+  return (
+    Math.round(
+      DIAGNOSTIC_METRIC_IDS.reduce(
+        (total, metric) => total + report.normalizedMetrics[metric] * profile.weights[metric],
+        0
+      ) * 1_000_000_000
+    ) / 1_000_000_000
+  );
+}
+
 export function executeSyntheticBenchmark(
   options: SyntheticBenchmarkOptions = {}
 ): SyntheticBenchmarkExecution {
-  const profile = options.profile ?? DEFAULT_SCORE_PROFILE;
+  const profile = options.profile ?? DEFAULT_DIAGNOSTIC_PROFILE;
   const resolution = resolveSyntheticDevelopmentReference(
     profile,
     options.bundle ?? SYNTHETIC_REFERENCE_BUNDLE
@@ -365,7 +385,7 @@ export function executeSyntheticBenchmark(
     const original = evaluateUnit(unit, profile, provenance, true);
     evaluations.set(unit.id, original);
     expectationWarnings.push(
-      ...neutralizedDynamicEvidence(original.quality).map(
+      ...neutralizedDynamicEvidence(original.diagnostics).map(
         (warning) => `${unit.id}: original ${warning}`
       )
     );
@@ -377,7 +397,7 @@ export function executeSyntheticBenchmark(
         undefined,
         descriptor.expectedHardValidation
       );
-      const comparison = corruptionComparison(original, corrupted, corruption.descriptor);
+      const comparison = corruptionComparison(original, corrupted, corruption.descriptor, profile);
       comparisons.push(comparison);
       if (
         VALID_CORRUPTION_IDS.includes(
@@ -389,8 +409,8 @@ export function executeSyntheticBenchmark(
         constraints.push({
           unitId: unit.id,
           corruptionId: corruption.descriptor.id,
-          originalMetrics: { ...original.quality.normalizedMetrics },
-          corruptedMetrics: { ...corrupted.quality.normalizedMetrics }
+          originalMetrics: { ...original.diagnostics.normalizedMetrics },
+          corruptedMetrics: { ...corrupted.diagnostics.normalizedMetrics }
         });
       }
     }
@@ -414,11 +434,11 @@ export function executeSyntheticBenchmark(
   ];
   return {
     report: {
-      schemaVersion: '0.1',
+      schemaVersion: '0.2',
       referenceSetId: resolution.referenceSet.id,
       referenceSetVersion: resolution.referenceSet.version,
       memberUnitIds: selected.map(({ unit }) => unit.id),
-      scoreProfile: structuredClone(profile),
+      diagnosticProfile: structuredClone(profile),
       status: warnings.length === 0 ? 'passed' : 'failed',
       unitResults,
       corruptionComparisons: comparisons,

@@ -1,5 +1,5 @@
 {
-  "$id": "https://mardwerk.org/schemas/unit-score-profile/0.1.json",
+  "$id": "https://mardwerk.org/schemas/unit-diagnostic-profile/0.1.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "type": "object",

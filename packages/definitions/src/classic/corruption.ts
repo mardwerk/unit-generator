@@ -1,7 +1,7 @@
 import type {
   CorruptedUnit,
   CorruptionDescriptor,
-  QualityMetricId,
+  DiagnosticMetricId,
   ValidationIssue
 } from './reports.js';
 import {
@@ -39,13 +39,13 @@ const descriptor = (
   id: CorruptionId,
   category: CorruptionDescriptor['category'],
   seed: number,
-  expectedAffectedMetrics: QualityMetricId[],
+  expectedAffectedMetrics: DiagnosticMetricId[],
   changedNodes: string[]
 ): CorruptionDescriptor => ({
   id,
   category,
   seed,
-  expectedHardValidation: category === 'valid-quality',
+  expectedHardValidation: category === 'valid-diagnostic',
   expectedAffectedMetrics,
   changedNodes
 });
@@ -54,35 +54,35 @@ const descriptor = (
 export const CORRUPTION_CATALOG: readonly CorruptionDescriptor[] = [
   descriptor(
     'duplicate-path-identity',
-    'valid-quality',
+    'valid-diagnostic',
     11_101,
     ['pathDistinctness'],
     ['/actions', '/upgradeGraph/nodes/*/operations']
   ),
   descriptor(
     'flatten-upgrade',
-    'valid-quality',
+    'valid-diagnostic',
     11_203,
     ['progressionCoherence'],
     ['/upgradeGraph/nodes/*/operations']
   ),
   descriptor(
     'unrelated-complexity-effect',
-    'valid-quality',
+    'valid-diagnostic',
     11_309,
     ['complexityEconomy'],
     ['/actions/*/effects']
   ),
   descriptor(
     'disconnect-ability',
-    'valid-quality',
+    'valid-diagnostic',
     11_419,
     ['complexityEconomy'],
     ['/actions', '/abilities']
   ),
   descriptor(
     'zero-cost-power',
-    'valid-quality',
+    'valid-diagnostic',
     11_527,
     ['crossPathHealth'],
     ['/upgradeGraph/nodes/*/costCredits']
@@ -651,7 +651,7 @@ function applyValidatedCorruption(
   }
   if (canonicalStringify(unit) === canonicalStringify(source))
     throw new CorruptionNotApplicableError(id, 'operator produced no data change');
-  if (base.category === 'valid-quality') assertValidQualityCorruption(unit, id);
+  if (base.category === 'valid-diagnostic') assertValidQualityCorruption(unit, id);
   return { descriptor: copyDescriptor(base, actualSeed, changedNodes), unit };
 }
 

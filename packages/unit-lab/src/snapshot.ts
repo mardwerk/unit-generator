@@ -1,10 +1,11 @@
 import {
-  DEFAULT_SCORE_PROFILE,
+  DEFAULT_DIAGNOSTIC_PROFILE,
   REFERENCE_BUNDLE_SCHEMA_VERSION,
   UNIT_SPEC_SCHEMA_VERSION,
   validateReferenceBundleData,
   type BuildSelection,
   type CorruptionComparison,
+  type UnitDiagnosticReport,
   type SimulationReport,
   type UnitSpec
 } from '@mardwerk/unit-definitions/diagnostics';
@@ -27,9 +28,11 @@ export type LabRunStatus =
   'idle' | 'running' | 'complete' | 'invalid' | 'compilation_failure' | 'error';
 
 export interface LabSnapshot {
+  schemaVersion: '0.2';
   contracts: {
     unitSpecVersion: string;
     referenceBundleVersion: string;
+    diagnosticReportVersion: UnitDiagnosticReport['schemaVersion'];
     syntheticFixtureConformance: { valid: boolean; issues: string[] };
     syntheticFixtureMode: boolean;
   };
@@ -38,7 +41,7 @@ export interface LabSnapshot {
     name: string;
     unitCount: number;
     mechanicCoverage: string[];
-    scoreProfile: string;
+    diagnosticProfile: string;
     calibrationStatus: string;
     benchmark: { status: LabRunStatus; progress?: number; message?: string };
   };
@@ -80,18 +83,21 @@ export interface LabSnapshot {
     }>;
     metrics: Array<{
       key: string;
+      status: UnitDiagnosticReport['evidence'][number]['status'];
       raw: number;
       normalized: number;
       evidence: string[];
     }>;
-    compositeScore?: number;
+    assessment: UnitDiagnosticReport['assessment'];
+    diagnosticEligibility: UnitDiagnosticReport['diagnosticEligibility'];
+    reviewFindings: UnitDiagnosticReport['reviewFindings'];
     warnings: string[];
     comparisons: Array<{
       name: string;
       kind: 'valid_corruption' | 'invalid_corruption';
       accepted: boolean;
-      originalScore?: number;
-      corruptedScore?: number;
+      originalDiagnosticIndex?: number;
+      corruptedDiagnosticIndex?: number;
       reasons: string[];
     }>;
     calibrationStatus: string;
@@ -196,10 +202,10 @@ function comparisonReasons(comparison: CorruptionComparison): string[] {
   }
   if (comparison.margin !== null) {
     return [
-      `Original ${comparison.originalScore}; corrupted ${comparison.corruptedQuality.compositeScore}; margin ${comparison.margin}.`
+      `Synthetic diagnostic index: original ${comparison.originalDiagnosticIndex}; corrupted ${comparison.corruptedDiagnosticIndex}; margin ${comparison.margin}. This is not a general-quality rating.`
     ];
   }
-  return ['No comparable score was produced.'];
+  return ['No comparable synthetic diagnostic index was produced.'];
 }
 
 function unitCards(): LabSnapshot['units'] {
@@ -319,9 +325,11 @@ export function createLabSnapshot(
         : 'complete';
 
   return {
+    schemaVersion: '0.2',
     contracts: {
       unitSpecVersion: UNIT_SPEC_SCHEMA_VERSION,
       referenceBundleVersion: REFERENCE_BUNDLE_SCHEMA_VERSION,
+      diagnosticReportVersion: result.diagnostics.schemaVersion,
       syntheticFixtureConformance: {
         valid: bundleValidation.valid,
         issues: bundleValidation.valid
@@ -337,8 +345,8 @@ export function createLabSnapshot(
       name: 'Original synthetic development references',
       unitCount: SYNTHETIC_REFERENCE_SET.members.length,
       mechanicCoverage: [...SYNTHETIC_MECHANIC_COVERAGE],
-      scoreProfile: `${DEFAULT_SCORE_PROFILE.id}@${DEFAULT_SCORE_PROFILE.version}`,
-      calibrationStatus: DEFAULT_SCORE_PROFILE.calibrationStatus,
+      diagnosticProfile: `${DEFAULT_DIAGNOSTIC_PROFILE.id}@${DEFAULT_DIAGNOSTIC_PROFILE.version}`,
+      calibrationStatus: DEFAULT_DIAGNOSTIC_PROFILE.calibrationStatus,
       benchmark: {
         status: 'complete',
         progress: 1,
@@ -374,29 +382,32 @@ export function createLabSnapshot(
               selected.name,
               selected.representative.selection
             ),
-      metrics: result.quality.evidence.map((metric) => ({
+      metrics: result.diagnostics.evidence.map((metric) => ({
         key: metric.metric,
+        status: metric.status,
         raw: metric.raw,
         normalized: metric.normalized,
         evidence: [metric.summary, ...metric.facts.slice(0, 2)]
       })),
-      ...(result.quality.compositeScore === null
-        ? {}
-        : { compositeScore: result.quality.compositeScore }),
-      warnings: [...result.quality.warnings, ...benchmark.warnings],
+      assessment: structuredClone(result.diagnostics.assessment),
+      diagnosticEligibility: structuredClone(result.diagnostics.diagnosticEligibility),
+      reviewFindings: structuredClone(result.diagnostics.reviewFindings),
+      warnings: [...result.diagnostics.warnings, ...benchmark.warnings],
       comparisons: comparisons.map((comparison) => ({
         name: comparison.descriptor.id,
         kind: comparison.descriptor.expectedHardValidation
           ? 'valid_corruption'
           : 'invalid_corruption',
         accepted: comparison.actualHardValidation,
-        ...(comparison.originalScore === null ? {} : { originalScore: comparison.originalScore }),
-        ...(comparison.corruptedQuality.compositeScore === null
+        ...(comparison.originalDiagnosticIndex === null
           ? {}
-          : { corruptedScore: comparison.corruptedQuality.compositeScore }),
+          : { originalDiagnosticIndex: comparison.originalDiagnosticIndex }),
+        ...(comparison.corruptedDiagnosticIndex === null
+          ? {}
+          : { corruptedDiagnosticIndex: comparison.corruptedDiagnosticIndex }),
         reasons: comparisonReasons(comparison)
       })),
-      calibrationStatus: DEFAULT_SCORE_PROFILE.calibrationStatus,
+      calibrationStatus: DEFAULT_DIAGNOSTIC_PROFILE.calibrationStatus,
       raw: benchmark
     }
   };

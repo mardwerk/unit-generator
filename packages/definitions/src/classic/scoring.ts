@@ -1,28 +1,35 @@
 import {
-  QUALITY_METRIC_IDS,
-  type MetricEvidence,
-  type QualityMetricId,
-  type QualityReport,
-  type ScoreProfile,
+  DIAGNOSTIC_METRIC_IDS,
+  type DiagnosticMetricEvidence,
+  type DiagnosticMetricId,
+  type DiagnosticReviewFinding,
+  type BuildSelection,
+  type UnitDiagnosticReport,
+  type DiagnosticProfile,
   type SimulationReport,
   type UnitBuild
 } from './reports.js';
 import { compileResolvedSelection } from './compiler.js';
 import { finiteJsonIssues } from './schema-validation.js';
-import { SCORE_PROFILE_VERSION, type Effect, type UnitSpec, type UpgradeNode } from './schemas.js';
+import {
+  DIAGNOSTIC_PROFILE_VERSION,
+  type Effect,
+  type UnitSpec,
+  type UpgradeNode
+} from './schemas.js';
 import { fingerprintUnitBuild } from './simulator.js';
 import { validateBuildSelection, validateUnitBuild, validateUnitSpec } from './validation.js';
 
-export interface ScoreFormula {
+export interface DiagnosticFormula {
   kind: 'static' | 'dynamic';
   description: string;
   formula: string;
 }
 
-export interface ExplainableScoreProfile extends ScoreProfile {
+export interface ExplainableDiagnosticProfile extends DiagnosticProfile {
   title: string;
   description: string;
-  formulas: Record<QualityMetricId, ScoreFormula>;
+  formulas: Record<DiagnosticMetricId, DiagnosticFormula>;
 }
 
 export interface BuildEvaluation {
@@ -31,22 +38,23 @@ export interface BuildEvaluation {
   parentSelection?: readonly string[];
 }
 
-export interface QualityScoringOptions {
+export interface UnitDiagnosticOptions {
   evaluations?: readonly BuildEvaluation[];
-  profile?: ScoreProfile;
+  profile?: DiagnosticProfile;
 }
 
 const NORMALIZATION = Object.fromEntries(
-  QUALITY_METRIC_IDS.map((metric) => [metric, { minimum: 0, maximum: 1 }])
-) as Record<QualityMetricId, { minimum: number; maximum: number }>;
+  DIAGNOSTIC_METRIC_IDS.map((metric) => [metric, { minimum: 0, maximum: 1 }])
+) as Record<DiagnosticMetricId, { minimum: number; maximum: number }>;
 
 /** Source-neutral, deliberately uncalibrated Step 1 defaults. */
-export const DEFAULT_SCORE_PROFILE: ExplainableScoreProfile = {
+export const DEFAULT_DIAGNOSTIC_PROFILE: ExplainableDiagnosticProfile = {
+  // Persisted in reference annotations; this historical ID is not a general-quality claim.
   id: 'classic-three-path-quality',
-  version: SCORE_PROFILE_VERSION,
-  title: 'Classic three-path quality (synthetic Step 1 prior)',
+  version: DIAGNOSTIC_PROFILE_VERSION,
+  title: 'Classic three-path diagnostics (synthetic prior)',
   description:
-    'Eleven bounded features; static structure and deterministic scenario evidence remain visible beside the composite.',
+    'Eleven bounded diagnostics for mechanics and supplied scenarios. They do not rate general quality.',
   calibrationStatus: 'uncalibrated',
   maximumMetricWeight: 0.12,
   weights: {
@@ -71,12 +79,13 @@ export const DEFAULT_SCORE_PROFILE: ExplainableScoreProfile = {
     },
     pathDistinctness: {
       kind: 'static',
-      description: 'Paths reach useful separation; extra distance past the target earns no bonus.',
+      description: 'Path feature distance is capped at a heuristic threshold.',
       formula: 'mean_pair(min(1, weighted_jaccard_distance(path_a, path_b) / 0.65))'
     },
     progressionCoherence: {
       kind: 'static',
-      description: 'Upgrades are meaningful, tier-contiguous, and connected to earlier path tiers.',
+      description:
+        'Declared upgrade changes are non-no-op, tier-contiguous, and connected to earlier tiers.',
       formula:
         '0.5 * meaningful_operation_ratio + 0.25 * tier_continuity + 0.25 * dependency_continuity'
     },
@@ -95,7 +104,7 @@ export const DEFAULT_SCORE_PROFILE: ExplainableScoreProfile = {
     complexityEconomy: {
       kind: 'static',
       description:
-        'Every weighted mechanic atom should provide distinct, non-negligible gameplay value.',
+        'Weighted mechanic atoms are checked for declared output and connection to available mechanics.',
       formula: 'valuable_weighted_mechanic_atoms / all_weighted_mechanic_atoms'
     },
     marginalUpgradeValue: {
@@ -274,7 +283,7 @@ function pathIdentity(unit: UnitSpec): MetricResult {
       scores.map(({ score }) => score),
       0
     ),
-    summary: `${scores.filter(({ score }) => score >= 0.7).length}/${scores.length} paths have a recognizable recurring focus.`,
+    summary: `${scores.filter(({ score }) => score >= 0.7).length}/${scores.length} paths meet the feature-recurrence threshold.`,
     facts: scores.map(
       ({ id, score, repeated }) =>
         `${id}: identity ${round(score)}, ${repeated} recurring mechanic/role features.`
@@ -300,7 +309,7 @@ function pathDistinctness(unit: UnitSpec): MetricResult {
   }
   return {
     raw: mean(scores, paths.length <= 1 ? 1 : 0),
-    summary: `${scores.filter((score) => score >= 1).length}/${scores.length} path pairs reach the useful-distinctness target.`,
+    summary: `${scores.filter((score) => score >= 1).length}/${scores.length} path pairs reach the heuristic feature-distance threshold.`,
     facts:
       facts.length > 0
         ? facts
@@ -454,7 +463,7 @@ function progressionCoherence(unit: UnitSpec): MetricResult {
     .map(({ id }) => id);
   return {
     raw,
-    summary: `${meaningful.length}/${nodes.length} upgrades are mechanically meaningful and connected progression scores ${round(raw)}.`,
+    summary: `${meaningful.length}/${nodes.length} upgrades declare non-no-op changes; the tier/dependency diagnostic is ${round(raw)}.`,
     facts: [
       `Tier continuity: ${round(mean(tierScores, 0))}; prerequisite continuity: ${round(mean(dependencyChecks, 0))}.`,
       flat.length === 0
@@ -553,7 +562,7 @@ function baseContinuity(unit: UnitSpec): MetricResult {
       connections.map(({ score }) => score),
       1
     ),
-    summary: `${connections.length - weak.length}/${connections.length} upgrade operations retain or explicitly bridge the base loop.`,
+    summary: `${connections.length - weak.length}/${connections.length} upgrade operations match the base-loop connection rules.`,
     facts: [
       weak.length === 0
         ? 'No disconnected upgrade targets detected.'
@@ -575,7 +584,7 @@ function abilityIntegration(unit: UnitSpec): MetricResult {
     summary:
       scores.length === 0
         ? 'The unit declares no abilities, so ability integration is not applicable.'
-        : `${scores.filter(({ score }) => score >= 0.7).length}/${scores.length} abilities connect strongly to the unit loop.`,
+        : `${scores.filter(({ score }) => score >= 0.7).length}/${scores.length} abilities meet the declared-mechanic integration threshold.`,
     facts:
       scores.length === 0
         ? ['No ability complexity was added.']
@@ -848,7 +857,7 @@ function complexityEconomy(unit: UnitSpec): MetricResult {
   }
   return {
     raw: complexity === 0 ? 1 : clamp(value / complexity),
-    summary: `${round(value)}/${round(complexity)} weighted mechanic atoms provide distinct gameplay value.`,
+    summary: `${round(value)}/${round(complexity)} weighted mechanic atoms receive credit under declared-output and connection rules.`,
     facts: [
       negligible.length === 0
         ? 'No negligible or disconnected effects detected.'
@@ -857,18 +866,21 @@ function complexityEconomy(unit: UnitSpec): MetricResult {
   };
 }
 
-function reportUtility(report: SimulationReport) {
+function usefulResourceCycles(report: SimulationReport): number {
   const resourceIds = new Set([
     ...Object.keys(report.resourcesGenerated),
     ...Object.keys(report.resourcesSpent)
   ]);
-  const usefulResourceCycles = [...resourceIds].reduce((sum, id) => {
+  return [...resourceIds].reduce((sum, id) => {
     const generated = Object.hasOwn(report.resourcesGenerated, id)
       ? report.resourcesGenerated[id]!
       : 0;
     const spent = Object.hasOwn(report.resourcesSpent, id) ? report.resourcesSpent[id]! : 0;
     return sum + Math.min(Math.max(0, generated), Math.max(0, spent));
   }, 0);
+}
+
+function reportUtility(report: SimulationReport) {
   const positive =
     Math.log1p(Math.max(0, report.damageHitPoints)) +
     2 * Math.log1p(Math.max(0, report.kills)) +
@@ -876,7 +888,7 @@ function reportUtility(report: SimulationReport) {
     0.5 * Math.log1p(Math.max(0, report.targetsAffected)) +
     0.5 * Math.log1p(Math.max(0, report.statusUptimeTargetSeconds)) +
     0.75 * Math.log1p(Math.max(0, report.economyGeneratedCredits)) +
-    0.25 * clamp(usefulResourceCycles / 10);
+    0.25 * clamp(usefulResourceCycles(report) / 10);
   return Math.max(0, positive - 0.25 * Math.log1p(Math.max(0, report.targetingFailures)));
 }
 
@@ -1138,7 +1150,7 @@ function marginalUpgradeValue(edges: readonly EvaluationEdge[]): MetricResult {
   const scores = edges.map(({ relativeGain }) => clamp((relativeGain + 0.01) / 0.09));
   return {
     raw: mean(scores),
-    summary: `${scores.filter((score) => score > 0.1).length}/${scores.length} measured upgrade edges add observable utility.`,
+    summary: `${edges.filter(({ relativeGain }) => relativeGain > 0).length}/${scores.length} measured upgrade edges add observable utility.`,
     facts: edges.map(
       ({ parent, child, relativeGain, scenarioIds }) =>
         `${selectionLabel(parent.build)} -> ${selectionLabel(child.build)}: relative utility gain ${round(relativeGain)} across ${scenarioIds.join(', ')}.`
@@ -1168,7 +1180,7 @@ function powerCurveShape(edges: readonly EvaluationEdge[]): MetricResult {
   );
   return {
     raw,
-    summary: `${regressions} regressions and ${dead} dead steps across ${gains.length} measured edges.`,
+    summary: `${regressions} utility losses greater than 1%; ${dead} edges within ±1% utility gain, across ${gains.length} measured edges.`,
     facts: [
       `Scenarios: ${sortedUnique(edges.flatMap(({ scenarioIds }) => scenarioIds)).join(', ')}.`,
       `Largest positive gain share: ${round(largestShare)}; aggregate curve score: ${round(raw)}.`
@@ -1260,8 +1272,8 @@ function crossPathHealth(unit: UnitSpec, evaluations: readonly BuildEvaluation[]
     facts: [
       'Comparable builds have equal selected-node count, distinct per-path tier allocation, and costs within 25%.',
       zeroCostPower.length === 0
-        ? 'No zero-cost meaningful upgrade was found.'
-        : `Zero-cost meaningful upgrades: ${zeroCostPower
+        ? 'No zero-cost upgrade with a declared non-no-op change was found.'
+        : `Zero-cost upgrades with declared non-no-op changes: ${zeroCostPower
             .map(({ id }) => id)
             .sort()
             .join(', ')}.`,
@@ -1270,6 +1282,90 @@ function crossPathHealth(unit: UnitSpec, evaluations: readonly BuildEvaluation[]
         : `Strictly dominated pairs: ${dominated.length}; structural health: ${round(structuralHealth)}; scenarios: ${sortedUnique(evaluations.flatMap(({ simulations }) => simulations.map(({ scenarioId }) => scenarioId))).join(', ')}.`
     ]
   };
+}
+
+function diagnosticSelection(build: UnitBuild): BuildSelection {
+  return {
+    upgradeIds: [...build.selection].sort(compareText),
+    ...(build.selectedFormIds.length === 0
+      ? {}
+      : { formIds: [...build.selectedFormIds].sort(compareText) })
+  };
+}
+
+function observationDifferences(before: BuildEvaluation, after: BuildEvaluation): string[] {
+  const previous = new Map(
+    before.simulations.map((report) => [report.scenarioFingerprint, report])
+  );
+  return [...after.simulations]
+    .sort((left, right) => compareText(left.scenarioFingerprint, right.scenarioFingerprint))
+    .map((report) => {
+      const parent = previous.get(report.scenarioFingerprint)!;
+      return `${report.scenarioId}: damage ${round(report.damageHitPoints - parent.damageHitPoints)} HP; kills ${report.kills - parent.kills}; hits ${report.hits - parent.hits}; targets ${report.targetsAffected - parent.targetsAffected}; status uptime ${round(report.statusUptimeTargetSeconds - parent.statusUptimeTargetSeconds)} target-seconds; economy ${round(report.economyGeneratedCredits - parent.economyGeneratedCredits)} credits; useful resource cycles ${round(usefulResourceCycles(report) - usefulResourceCycles(parent))}; targeting failures ${report.targetingFailures - parent.targetingFailures}.`;
+    });
+}
+
+function reviewFindings(
+  unit: UnitSpec,
+  evaluations: readonly BuildEvaluation[],
+  edges: readonly EvaluationEdge[]
+): DiagnosticReviewFinding[] {
+  const findings: DiagnosticReviewFinding[] = [];
+  for (const { parent, child, relativeGain, scenarioIds } of edges) {
+    if (relativeGain > 0.01) continue;
+    const code =
+      relativeGain < 0
+        ? 'SCENARIO_REGRESSING_UPGRADE_EDGE'
+        : relativeGain === 0
+          ? 'SCENARIO_NO_UTILITY_GAIN'
+          : 'SCENARIO_LOW_UTILITY_GAIN';
+    const observation =
+      relativeGain < 0
+        ? 'Lower measured utility'
+        : relativeGain === 0
+          ? 'No measured utility gain'
+          : 'Measured utility gain at most 1%';
+    findings.push({
+      code,
+      summary: `${observation} for ${selectionLabel(parent.build)} -> ${selectionLabel(child.build)} in the supplied scenarios. Other situations and unmodeled benefits are not assessed.`,
+      parentSelection: diagnosticSelection(parent.build),
+      childSelection: diagnosticSelection(child.build),
+      relativeUtilityGain: relativeGain,
+      scenarioIds: [...scenarioIds],
+      scenarioFingerprints: scenarioFingerprints(parent),
+      facts: observationDifferences(parent, child)
+    });
+  }
+  const ordered = [...evaluations].sort((left, right) =>
+    compareText(buildSelectionKey(left.build), buildSelectionKey(right.build))
+  );
+  for (let left = 0; left < ordered.length; left += 1) {
+    for (const right of ordered.slice(left + 1)) {
+      const first = ordered[left]!;
+      if (!comparableBuilds(unit, first, right)) continue;
+      const pair = strictlyDominates(first, right)
+        ? ([first, right] as const)
+        : strictlyDominates(right, first)
+          ? ([right, first] as const)
+          : undefined;
+      if (!pair) continue;
+      const [dominant, dominated] = pair;
+      findings.push({
+        code: 'SCENARIO_DOMINATED_CROSS_PATH_BUILD',
+        summary: `${selectionLabel(dominant.build)} dominates ${selectionLabel(dominated.build)} on the measured observables and costs in the supplied scenarios. This does not establish universal dominance.`,
+        dominantSelection: diagnosticSelection(dominant.build),
+        dominatedSelection: diagnosticSelection(dominated.build),
+        dominantCostCredits: dominant.build.totalCostCredits,
+        dominatedCostCredits: dominated.build.totalCostCredits,
+        scenarioIds: [...dominant.simulations]
+          .sort((a, b) => compareText(a.scenarioFingerprint, b.scenarioFingerprint))
+          .map(({ scenarioId }) => scenarioId),
+        scenarioFingerprints: scenarioFingerprints(dominant),
+        facts: observationDifferences(dominated, dominant)
+      });
+    }
+  }
+  return findings;
 }
 
 function deepestEvaluations(evaluations: readonly BuildEvaluation[]) {
@@ -1396,7 +1492,7 @@ function scenarioRobustness(evaluations: readonly BuildEvaluation[]): MetricResu
       scenarioScores.map(({ score }) => score),
       0
     ),
-    summary: `${scenarioScores.filter(({ score }) => score >= 0.5).length}/${scenarioScores.length} supplied scenarios were materially engaged; specialization does not remove scenarios.`,
+    summary: `${scenarioScores.filter(({ score }) => score >= 0.5).length}/${scenarioScores.length} supplied scenarios meet the engagement diagnostic threshold; all supplied scenarios are included.`,
     facts: [
       `Aggregated ${deepest.length} deepest representative builds at selection depth ${deepest[0]?.build.selection.length ?? 0}.`,
       ...scenarioScores.map(
@@ -1525,17 +1621,17 @@ function validateEvaluations(
   return result;
 }
 
-function assertProfile(profile: ScoreProfile) {
+function assertProfile(profile: DiagnosticProfile) {
   if (
     !Number.isFinite(profile.maximumMetricWeight) ||
     profile.maximumMetricWeight <= 0 ||
-    profile.maximumMetricWeight * QUALITY_METRIC_IDS.length < 1 - 1e-9
+    profile.maximumMetricWeight * DIAGNOSTIC_METRIC_IDS.length < 1 - 1e-9
   ) {
     throw new Error(
       'Score profile maximumMetricWeight must be finite, positive, and large enough for normalized weights.'
     );
   }
-  const weights = QUALITY_METRIC_IDS.map((metric) => profile.weights[metric]);
+  const weights = DIAGNOSTIC_METRIC_IDS.map((metric) => profile.weights[metric]);
   if (
     weights.some(
       (weight) => !Number.isFinite(weight) || weight < 0 || weight > profile.maximumMetricWeight
@@ -1548,7 +1644,7 @@ function assertProfile(profile: ScoreProfile) {
   if (Math.abs(weights.reduce((sum, weight) => sum + weight, 0) - 1) > 1e-9) {
     throw new Error('Score profile weights must sum to 1.');
   }
-  for (const metric of QUALITY_METRIC_IDS) {
+  for (const metric of DIAGNOSTIC_METRIC_IDS) {
     const range = profile.normalization[metric];
     if (
       !range ||
@@ -1567,11 +1663,11 @@ function assertProfile(profile: ScoreProfile) {
  * Scores finished-unit mechanics only. Validation decides hardAcceptance; source,
  * provenance, annotations, prose, and extensions are intentionally not inputs.
  */
-export function scoreUnitQuality(
+export function diagnoseUnit(
   unit: UnitSpec,
-  options: QualityScoringOptions = {}
-): QualityReport {
-  const profile = options.profile ?? DEFAULT_SCORE_PROFILE;
+  options: UnitDiagnosticOptions = {}
+): UnitDiagnosticReport {
+  const profile = options.profile ?? DEFAULT_DIAGNOSTIC_PROFILE;
   assertProfile(profile);
   const unitValidation = validateUnitSpec(unit);
   const hardAcceptance = unitValidation.valid && unitValidation.value !== undefined;
@@ -1693,15 +1789,15 @@ export function scoreUnitQuality(
     ...(!hasUpgradeEdgeCoverage ? ['INCOMPLETE_UPGRADE_EDGE_COVERAGE'] : []),
     ...(!hasCrossPathEvidence ? ['MISSING_CROSS_PATH_EVIDENCE'] : [])
   ];
-  const scoreEligibility = {
+  const diagnosticEligibility = {
     eligible: eligibilityReasons.length === 0,
     reasons: eligibilityReasons
   };
-  const metricStatus = (metric: QualityMetricId): MetricEvidence['status'] => {
+  const metricStatus = (metric: DiagnosticMetricId): DiagnosticMetricEvidence['status'] => {
     if (!hardAcceptance) return 'unavailable';
     if (!applicable || (metric === 'roleConsistency' && unknownRoles.length > 0))
       return 'unsupported';
-    if (DEFAULT_SCORE_PROFILE.formulas[metric].kind === 'static') return 'measured';
+    if (DEFAULT_DIAGNOSTIC_PROFILE.formulas[metric].kind === 'static') return 'measured';
     if (unsupportedReports.length > 0) return 'unsupported';
     if (
       dynamicEvaluations.length === 0 ||
@@ -1721,9 +1817,9 @@ export function scoreUnitQuality(
   const unavailable = (): MetricResult => ({
     raw: 0.5,
     summary: 'Metric unavailable because the UnitSpec failed strict validation.',
-    facts: ['Strict UnitSpec validation is required before quality metrics are interpreted.']
+    facts: ['Strict UnitSpec validation is required before diagnostic metrics are interpreted.']
   });
-  const results: Record<QualityMetricId, MetricResult> = scorableUnit
+  const results: Record<DiagnosticMetricId, MetricResult> = scorableUnit
     ? {
         pathIdentity: pathIdentity(scorableUnit),
         pathDistinctness: pathDistinctness(scorableUnit),
@@ -1737,13 +1833,13 @@ export function scoreUnitQuality(
         roleConsistency: roleConsistency(scorableUnit, dynamicEvaluations),
         scenarioRobustness: scenarioRobustness(dynamicEvaluations)
       }
-    : (Object.fromEntries(QUALITY_METRIC_IDS.map((metric) => [metric, unavailable()])) as Record<
-        QualityMetricId,
+    : (Object.fromEntries(DIAGNOSTIC_METRIC_IDS.map((metric) => [metric, unavailable()])) as Record<
+        DiagnosticMetricId,
         MetricResult
       >);
-  const rawMetrics = {} as Record<QualityMetricId, number>;
-  const normalizedMetrics = {} as Record<QualityMetricId, number>;
-  const evidence = QUALITY_METRIC_IDS.map((metric) => {
+  const rawMetrics = {} as Record<DiagnosticMetricId, number>;
+  const normalizedMetrics = {} as Record<DiagnosticMetricId, number>;
+  const evidence = DIAGNOSTIC_METRIC_IDS.map((metric) => {
     const result = results[metric];
     const range = profile.normalization[metric];
     const raw = round(clamp(Number.isFinite(result.raw) ? result.raw : 0.5));
@@ -1760,8 +1856,8 @@ export function scoreUnitQuality(
     };
   });
   const warnings = [
-    ...(!scoreEligibility.eligible
-      ? [`Composite score withheld: ${eligibilityReasons.join(', ')}.`]
+    ...(!diagnosticEligibility.eligible
+      ? [`Diagnostic comparison unavailable: ${eligibilityReasons.join(', ')}.`]
       : []),
     ...(unknownRoles.length > 0 ? [`Unsupported role IDs: ${unknownRoles.join(', ')}.`] : []),
     ...(requestedEvaluations.length === 0
@@ -1827,20 +1923,16 @@ export function scoreUnitQuality(
       : [
           `${invalidParentLinks.length} declared parent selection${invalidParentLinks.length === 1 ? ' was' : 's were'} ignored because it was not an exact one-upgrade subset.`
         ]),
-    ...(profile.calibrationStatus === 'uncalibrated' ? ['The score profile is uncalibrated.'] : []),
+    ...(profile.calibrationStatus === 'uncalibrated'
+      ? ['The diagnostic profile is uncalibrated.']
+      : []),
     ...(!hardAcceptance
       ? [
-          `Hard acceptance failed; strict UnitSpec validation reported ${unitValidation.issues.length} issue${unitValidation.issues.length === 1 ? '' : 's'}, so the composite score is withheld.`
+          `Hard acceptance failed; strict UnitSpec validation reported ${unitValidation.issues.length} issue${unitValidation.issues.length === 1 ? '' : 's'}.`
         ]
       : [])
   ];
-  const weightedScore = QUALITY_METRIC_IDS.reduce(
-    (score, metric) => score + normalizedMetrics[metric] * profile.weights[metric],
-    0
-  );
-  const compositeScore = scoreEligibility.eligible
-    ? round(100 * (Number.isFinite(weightedScore) ? weightedScore : 0))
-    : null;
+  const findings = scorableUnit ? reviewFindings(scorableUnit, dynamicEvaluations, edges) : [];
   let unitId = 'invalid-unit';
   try {
     if (typeof unit?.id === 'string' && unit.id.length > 0) unitId = unit.id;
@@ -1848,17 +1940,22 @@ export function scoreUnitQuality(
     // Strict validation already records unsafe input; retain a stable report identity.
   }
   return {
-    schemaVersion: '0.1',
+    schemaVersion: '0.2',
     unitId,
     hardAcceptance,
-    scoreEligibility,
+    diagnosticEligibility,
     rawMetrics,
     normalizedMetrics,
-    compositeScore,
+    assessment: {
+      status: !hardAcceptance ? 'invalid' : findings.length > 0 ? 'needs-review' : 'unrated',
+      generalQuality: 'unrated',
+      unknownDimensions: ['source-fidelity', 'gameplay-quality', 'competitive-balance']
+    },
+    reviewFindings: findings,
     evidence,
     warnings: sortedUnique(warnings),
-    scoreProfileId: profile.id,
-    scoreProfileVersion: profile.version,
+    diagnosticProfileId: profile.id,
+    diagnosticProfileVersion: profile.version,
     calibrationStatus: profile.calibrationStatus
   };
 }

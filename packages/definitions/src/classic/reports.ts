@@ -69,7 +69,7 @@ export interface SimulationReport {
   warnings: string[];
 }
 
-export const QUALITY_METRIC_IDS = [
+export const DIAGNOSTIC_METRIC_IDS = [
   'pathIdentity',
   'pathDistinctness',
   'progressionCoherence',
@@ -83,10 +83,10 @@ export const QUALITY_METRIC_IDS = [
   'scenarioRobustness'
 ] as const;
 
-export type QualityMetricId = (typeof QUALITY_METRIC_IDS)[number];
+export type DiagnosticMetricId = (typeof DIAGNOSTIC_METRIC_IDS)[number];
 
-export interface MetricEvidence {
-  metric: QualityMetricId;
+export interface DiagnosticMetricEvidence {
+  metric: DiagnosticMetricId;
   status: 'measured' | 'unavailable' | 'unsupported';
   raw: number;
   normalized: number;
@@ -94,36 +94,68 @@ export interface MetricEvidence {
   facts: string[];
 }
 
-export interface ScoreProfile {
+export interface DiagnosticProfile {
   id: string;
   version: string;
   calibrationStatus: 'uncalibrated' | 'synthetic initial calibration';
-  weights: Record<QualityMetricId, number>;
+  weights: Record<DiagnosticMetricId, number>;
   maximumMetricWeight: number;
-  normalization: Record<QualityMetricId, { minimum: number; maximum: number }>;
+  normalization: Record<DiagnosticMetricId, { minimum: number; maximum: number }>;
 }
 
-export interface QualityReport {
-  schemaVersion: '0.1';
+export interface UnitDiagnosticReport {
+  schemaVersion: '0.2';
   unitId: string;
   hardAcceptance: boolean;
-  scoreEligibility: { eligible: boolean; reasons: string[] };
-  rawMetrics: Record<QualityMetricId, number>;
-  normalizedMetrics: Record<QualityMetricId, number>;
-  compositeScore: number | null;
-  evidence: MetricEvidence[];
+  diagnosticEligibility: { eligible: boolean; reasons: string[] };
+  rawMetrics: Record<DiagnosticMetricId, number>;
+  normalizedMetrics: Record<DiagnosticMetricId, number>;
+  assessment: {
+    status: 'invalid' | 'needs-review' | 'unrated';
+    generalQuality: 'unrated';
+    unknownDimensions: Array<'source-fidelity' | 'gameplay-quality' | 'competitive-balance'>;
+  };
+  reviewFindings: DiagnosticReviewFinding[];
+  evidence: DiagnosticMetricEvidence[];
   warnings: string[];
-  scoreProfileId: string;
-  scoreProfileVersion: string;
-  calibrationStatus: ScoreProfile['calibrationStatus'];
+  diagnosticProfileId: string;
+  diagnosticProfileVersion: string;
+  calibrationStatus: DiagnosticProfile['calibrationStatus'];
 }
+
+/** Findings describe the supplied scenarios only; they do not prove an upgrade is useless. */
+export type DiagnosticReviewFinding =
+  | {
+      code:
+        | 'SCENARIO_NO_UTILITY_GAIN'
+        | 'SCENARIO_LOW_UTILITY_GAIN'
+        | 'SCENARIO_REGRESSING_UPGRADE_EDGE';
+      summary: string;
+      parentSelection: BuildSelection;
+      childSelection: BuildSelection;
+      relativeUtilityGain: number;
+      scenarioIds: string[];
+      scenarioFingerprints: string[];
+      facts: string[];
+    }
+  | {
+      code: 'SCENARIO_DOMINATED_CROSS_PATH_BUILD';
+      summary: string;
+      dominantSelection: BuildSelection;
+      dominatedSelection: BuildSelection;
+      dominantCostCredits: number;
+      dominatedCostCredits: number;
+      scenarioIds: string[];
+      scenarioFingerprints: string[];
+      facts: string[];
+    };
 
 export interface CorruptionDescriptor {
   id: string;
-  category: 'valid-quality' | 'hard-invalid';
+  category: 'valid-diagnostic' | 'hard-invalid';
   seed: number;
   expectedHardValidation: boolean;
-  expectedAffectedMetrics: QualityMetricId[];
+  expectedAffectedMetrics: DiagnosticMetricId[];
   changedNodes: string[];
 }
 
@@ -139,7 +171,7 @@ export interface BenchmarkUnitResult {
     selection: BuildSelection;
     simulations: SimulationReport[];
   }>;
-  quality: QualityReport;
+  diagnostics: UnitDiagnosticReport;
 }
 
 export interface CorruptionComparison {
@@ -147,9 +179,10 @@ export interface CorruptionComparison {
   descriptor: CorruptionDescriptor;
   expectedFailureCode: string | null;
   actualHardValidation: boolean;
-  originalScore: number | null;
+  originalDiagnosticIndex: number | null;
+  corruptedDiagnosticIndex: number | null;
   margin: number | null;
-  corruptedQuality: QualityReport;
+  corruptedDiagnostics: UnitDiagnosticReport;
   dynamicEvidenceWarnings: string[];
   validationIssues: ValidationIssue[];
   passedExpectation: boolean;
@@ -158,16 +191,16 @@ export interface CorruptionComparison {
 export interface RankingConstraintEvidence {
   unitId: string;
   corruptionId: string;
-  originalMetrics: Record<QualityMetricId, number>;
-  corruptedMetrics: Record<QualityMetricId, number>;
+  originalMetrics: Record<DiagnosticMetricId, number>;
+  corruptedMetrics: Record<DiagnosticMetricId, number>;
 }
 
 export interface BenchmarkReport {
-  schemaVersion: '0.1';
+  schemaVersion: '0.2';
   referenceSetId: string;
   referenceSetVersion: string;
   memberUnitIds: string[];
-  scoreProfile: ScoreProfile;
+  diagnosticProfile: DiagnosticProfile;
   status: 'passed' | 'failed';
   unitResults: BenchmarkUnitResult[];
   corruptionComparisons: CorruptionComparison[];
@@ -191,11 +224,11 @@ export interface CalibrationReport {
   referenceSetId: string;
   referenceSetVersion: string;
   memberUnitIds: string[];
-  priorProfile: ScoreProfile;
-  normalizedPriorProfile: ScoreProfile;
+  priorProfile: DiagnosticProfile;
+  normalizedPriorProfile: DiagnosticProfile;
   configuration: CalibrationConfiguration;
   rankingConstraints: RankingConstraintEvidence[];
-  candidateProfile: ScoreProfile;
+  candidateProfile: DiagnosticProfile;
   iterations: number;
   converged: boolean;
   objectiveBefore: number;

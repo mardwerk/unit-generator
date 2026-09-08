@@ -1,17 +1,17 @@
 import {
-  DEFAULT_SCORE_PROFILE,
-  QUALITY_METRIC_IDS,
+  DEFAULT_DIAGNOSTIC_PROFILE,
+  DIAGNOSTIC_METRIC_IDS,
   type CalibrationReport,
-  type QualityMetricId,
+  type DiagnosticMetricId,
   type RankingConstraintEvidence,
   type ReferenceBundleData,
-  type ScoreProfile
+  type DiagnosticProfile
 } from '@mardwerk/unit-definitions/diagnostics';
 
 import { executeSyntheticBenchmark } from './benchmark.js';
 
 export interface SyntheticCalibrationOptions {
-  priorProfile?: ScoreProfile;
+  priorProfile?: DiagnosticProfile;
   unitId?: string;
   margin?: number;
   regularization?: number;
@@ -29,7 +29,7 @@ interface Objective {
 
 const WEIGHT_PRECISION = 1_000_000_000;
 export const MINIMUM_CALIBRATION_STEP = 1 / WEIGHT_PRECISION;
-type WeightNanounits = Record<QualityMetricId, number>;
+type WeightNanounits = Record<DiagnosticMetricId, number>;
 
 const round = (value: number) => {
   const rounded = Math.round(value * WEIGHT_PRECISION) / WEIGHT_PRECISION;
@@ -59,7 +59,7 @@ function validateMaximumMetricWeight(value: number): void {
   if (!Number.isFinite(value) || value <= 0 || value > 1) {
     throw new RangeError('maximumMetricWeight must be finite, positive, and at most 1.');
   }
-  if (value < 1 / QUALITY_METRIC_IDS.length) {
+  if (value < 1 / DIAGNOSTIC_METRIC_IDS.length) {
     throw new RangeError('maximumMetricWeight is too small for normalized weights.');
   }
 }
@@ -113,27 +113,27 @@ function largestRemainderNanounits(
   if (remaining > eligible.length) throw new RangeError('Weights cannot fit maximumMetricWeight.');
   for (const quota of eligible.slice(0, remaining)) quota.nanounits += 1;
   return Object.fromEntries(
-    quotas.map(({ index, nanounits }) => [QUALITY_METRIC_IDS[index], nanounits])
+    quotas.map(({ index, nanounits }) => [DIAGNOSTIC_METRIC_IDS[index], nanounits])
   ) as WeightNanounits;
 }
 
-function weightsFromNanounits(nanounits: WeightNanounits): Record<QualityMetricId, number> {
-  const first = QUALITY_METRIC_IDS[0];
+function weightsFromNanounits(nanounits: WeightNanounits): Record<DiagnosticMetricId, number> {
+  const first = DIAGNOSTIC_METRIC_IDS[0];
   return Object.fromEntries(
-    [...QUALITY_METRIC_IDS.slice(1), first].map((metric) => [
+    [...DIAGNOSTIC_METRIC_IDS.slice(1), first].map((metric) => [
       metric,
       nanounits[metric] / WEIGHT_PRECISION
     ])
-  ) as Record<QualityMetricId, number>;
+  ) as Record<DiagnosticMetricId, number>;
 }
 
-function normalizedPrior(profile: ScoreProfile): {
+function normalizedPrior(profile: DiagnosticProfile): {
   nanounits: WeightNanounits;
-  weights: Record<QualityMetricId, number>;
+  weights: Record<DiagnosticMetricId, number>;
   maximumMetricWeight: number;
 } {
   validateMaximumMetricWeight(profile.maximumMetricWeight);
-  const values = QUALITY_METRIC_IDS.map((metric) => profile.weights[metric]);
+  const values = DIAGNOSTIC_METRIC_IDS.map((metric) => profile.weights[metric]);
   if (values.some((value) => !Number.isFinite(value) || value < 0)) {
     throw new RangeError('Prior weights must be finite and non-negative.');
   }
@@ -146,9 +146,9 @@ function normalizedPrior(profile: ScoreProfile): {
   return { nanounits, weights: weightsFromNanounits(nanounits), maximumMetricWeight };
 }
 
-function weightedScore(metrics: Record<QualityMetricId, number>, weights: WeightNanounits) {
+function weightedScore(metrics: Record<DiagnosticMetricId, number>, weights: WeightNanounits) {
   return (
-    QUALITY_METRIC_IDS.reduce((sum, metric) => sum + metrics[metric] * weights[metric], 0) /
+    DIAGNOSTIC_METRIC_IDS.reduce((sum, metric) => sum + metrics[metric] * weights[metric], 0) /
     WEIGHT_PRECISION
   );
 }
@@ -172,7 +172,7 @@ function objective(
     marginShortfall += shortfall;
     squaredShortfall += shortfall * shortfall;
   }
-  const priorPenalty = QUALITY_METRIC_IDS.reduce(
+  const priorPenalty = DIAGNOSTIC_METRIC_IDS.reduce(
     (sum, metric) => sum + ((weights[metric] - prior[metric]) / WEIGHT_PRECISION) ** 2,
     0
   );
@@ -189,8 +189,8 @@ function objective(
 
 function transferred(
   weights: WeightNanounits,
-  receiver: QualityMetricId,
-  donor: QualityMetricId,
+  receiver: DiagnosticMetricId,
+  donor: DiagnosticMetricId,
   step: number,
   maximum: number
 ) {
@@ -206,7 +206,7 @@ function transferred(
 export function calibrateSyntheticProfile(
   options: SyntheticCalibrationOptions = {}
 ): CalibrationReport {
-  const priorProfile = options.priorProfile ?? DEFAULT_SCORE_PROFILE;
+  const priorProfile = options.priorProfile ?? DEFAULT_DIAGNOSTIC_PROFILE;
   const margin = boundedPositive(options.margin ?? 0.025, 'margin');
   const regularization = boundedPositive(options.regularization ?? 0.05, 'regularization');
   const initialStep = calibrationStepNanounits(options.initialStep ?? 0.02, 'initialStep');
@@ -222,7 +222,7 @@ export function calibrateSyntheticProfile(
   if (minimumStep > initialStep) throw new RangeError('minimumStep must not exceed initialStep.');
 
   const prior = normalizedPrior(priorProfile);
-  const normalizedProfile: ScoreProfile = {
+  const normalizedProfile: DiagnosticProfile = {
     ...structuredClone(priorProfile),
     weights: prior.weights,
     maximumMetricWeight: prior.maximumMetricWeight
@@ -248,8 +248,8 @@ export function calibrateSyntheticProfile(
     iterations += 1;
     let bestWeights: WeightNanounits | undefined;
     let best = current;
-    for (const receiver of QUALITY_METRIC_IDS) {
-      for (const donor of QUALITY_METRIC_IDS) {
+    for (const receiver of DIAGNOSTIC_METRIC_IDS) {
+      for (const donor of DIAGNOSTIC_METRIC_IDS) {
         if (receiver === donor) continue;
         const candidate = transferred(
           weights,
@@ -273,7 +273,7 @@ export function calibrateSyntheticProfile(
   }
   current = objective(weights, prior.nanounits, constraints, margin, regularization);
 
-  const candidateProfile: ScoreProfile = {
+  const candidateProfile: DiagnosticProfile = {
     ...structuredClone(normalizedProfile),
     id: priorProfile.id,
     version: `${priorProfile.version}-synthetic-candidate-${benchmark.report.referenceSetVersion}-${options.unitId ?? 'all'}`,

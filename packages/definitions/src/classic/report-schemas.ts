@@ -1,5 +1,5 @@
 import { Type, type TSchema } from '@sinclair/typebox';
-import { QUALITY_METRIC_IDS } from './reports.js';
+import { DIAGNOSTIC_METRIC_IDS } from './reports.js';
 import { simulationScenarioSchema } from './schemas.js';
 
 const text = () => Type.String();
@@ -13,13 +13,17 @@ const strict = <T extends Record<string, TSchema>>(properties: T) =>
 const variants = <T extends string>(values: readonly T[]) =>
   Type.Union(values.map((value) => Type.Literal(value)));
 const nullable = <T extends TSchema>(schema: T) => Type.Union([schema, Type.Null()]);
-const document = <T extends Record<string, TSchema>>(name: string, properties: T) =>
+const document = <T extends Record<string, TSchema>>(
+  name: string,
+  properties: T,
+  version = '0.1'
+) =>
   Type.Object(properties, {
-    $id: `https://mardwerk.org/schemas/${name}/0.1.json`,
+    $id: `https://mardwerk.org/schemas/${name}/${version}.json`,
     $schema: 'https://json-schema.org/draft/2020-12/schema',
     additionalProperties: false
   });
-const metrics = () => strict(Object.fromEntries(QUALITY_METRIC_IDS.map((id) => [id, amount()])));
+const metrics = () => strict(Object.fromEntries(DIAGNOSTIC_METRIC_IDS.map((id) => [id, amount()])));
 const fingerprint = () => Type.String({ pattern: '^[0-9a-f]{64}$' });
 
 export const validationIssueSchema = strict({
@@ -28,7 +32,7 @@ export const validationIssueSchema = strict({
   message: text(),
   category: variants(['schema', 'reference', 'graph', 'operation', 'mechanic', 'simulation'])
 });
-export const scoreProfileSchema = document('unit-score-profile', {
+export const diagnosticProfileSchema = document('unit-diagnostic-profile', {
   id: text(),
   version: text(),
   calibrationStatus: variants(['uncalibrated', 'synthetic initial calibration']),
@@ -36,7 +40,7 @@ export const scoreProfileSchema = document('unit-score-profile', {
   maximumMetricWeight: Type.Number({ exclusiveMinimum: 0, maximum: 1 }),
   normalization: strict(
     Object.fromEntries(
-      QUALITY_METRIC_IDS.map((id) => [id, strict({ minimum: number(), maximum: number() })])
+      DIAGNOSTIC_METRIC_IDS.map((id) => [id, strict({ minimum: number(), maximum: number() })])
     )
   ),
   title: Type.Optional(text()),
@@ -44,7 +48,7 @@ export const scoreProfileSchema = document('unit-score-profile', {
   formulas: Type.Optional(
     strict(
       Object.fromEntries(
-        QUALITY_METRIC_IDS.map((id) => [
+        DIAGNOSTIC_METRIC_IDS.map((id) => [
           id,
           strict({ kind: variants(['static', 'dynamic']), description: text(), formula: text() })
         ])
@@ -76,31 +80,72 @@ export const simulationReportSchema = document('unit-simulation-report', {
   eventCount: count(),
   warnings: strings()
 });
-export const qualityReportSchema = document('unit-quality-report', {
-  schemaVersion: Type.Literal('0.1'),
-  unitId: text(),
-  hardAcceptance: Type.Boolean(),
-  scoreEligibility: strict({ eligible: Type.Boolean(), reasons: strings() }),
-  rawMetrics: metrics(),
-  normalizedMetrics: metrics(),
-  compositeScore: nullable(Type.Number({ minimum: 0, maximum: 100 })),
-  evidence: Type.Array(
-    strict({
-      metric: variants(QUALITY_METRIC_IDS),
-      status: variants(['measured', 'unavailable', 'unsupported']),
-      raw: amount(),
-      normalized: amount(),
-      summary: text(),
-      facts: strings()
-    })
-  ),
-  warnings: strings(),
-  scoreProfileId: text(),
-  scoreProfileVersion: text(),
-  calibrationStatus: variants(['uncalibrated', 'synthetic initial calibration'])
-});
+const selection = () => strict({ upgradeIds: strings(), formIds: Type.Optional(strings()) });
+export const unitDiagnosticReportSchema = document(
+  'unit-diagnostic-report',
+  {
+    schemaVersion: Type.Literal('0.2'),
+    unitId: text(),
+    hardAcceptance: Type.Boolean(),
+    diagnosticEligibility: strict({ eligible: Type.Boolean(), reasons: strings() }),
+    rawMetrics: metrics(),
+    normalizedMetrics: metrics(),
+    assessment: strict({
+      status: variants(['invalid', 'needs-review', 'unrated']),
+      generalQuality: Type.Literal('unrated'),
+      unknownDimensions: Type.Array(
+        variants(['source-fidelity', 'gameplay-quality', 'competitive-balance']),
+        { uniqueItems: true }
+      )
+    }),
+    reviewFindings: Type.Array(
+      Type.Union([
+        strict({
+          code: variants([
+            'SCENARIO_NO_UTILITY_GAIN',
+            'SCENARIO_LOW_UTILITY_GAIN',
+            'SCENARIO_REGRESSING_UPGRADE_EDGE'
+          ]),
+          summary: text(),
+          parentSelection: selection(),
+          childSelection: selection(),
+          relativeUtilityGain: number(),
+          scenarioIds: strings(),
+          scenarioFingerprints: Type.Array(fingerprint()),
+          facts: strings()
+        }),
+        strict({
+          code: Type.Literal('SCENARIO_DOMINATED_CROSS_PATH_BUILD'),
+          summary: text(),
+          dominantSelection: selection(),
+          dominatedSelection: selection(),
+          dominantCostCredits: amount(),
+          dominatedCostCredits: amount(),
+          scenarioIds: strings(),
+          scenarioFingerprints: Type.Array(fingerprint()),
+          facts: strings()
+        })
+      ])
+    ),
+    evidence: Type.Array(
+      strict({
+        metric: variants(DIAGNOSTIC_METRIC_IDS),
+        status: variants(['measured', 'unavailable', 'unsupported']),
+        raw: amount(),
+        normalized: amount(),
+        summary: text(),
+        facts: strings()
+      })
+    ),
+    warnings: strings(),
+    diagnosticProfileId: text(),
+    diagnosticProfileVersion: text(),
+    calibrationStatus: variants(['uncalibrated', 'synthetic initial calibration'])
+  },
+  '0.2'
+);
 export const reportSchemas = {
-  'unit-score-profile-0.1.json': scoreProfileSchema,
+  'unit-diagnostic-profile-0.1.json': diagnosticProfileSchema,
   'unit-simulation-report-0.1.json': simulationReportSchema,
-  'unit-quality-report-0.1.json': qualityReportSchema
+  'unit-diagnostic-report-0.2.json': unitDiagnosticReportSchema
 };

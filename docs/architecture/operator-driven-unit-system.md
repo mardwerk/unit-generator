@@ -2,14 +2,14 @@
 
 The active architecture is the stateless definition runner described in [execution](../generation-pipeline.md) and the approved [refactor plan](../stateless-refactor-plan.md).
 
-| Package                        | Responsibility                                                                                     |
-| ------------------------------ | -------------------------------------------------------------------------------------------------- |
-| `@mardwerk/unit-core`          | Generic definition execution, research contracts, independent validation, limits, result envelopes |
-| `@mardwerk/unit-definitions`   | Bundled game rules, schemas, instructions, examples, trusted workflows and validators              |
-| `@mardwerk/unit-providers`     | Generic model transports, process configuration, authorized source discovery/acquisition           |
-| `@mardwerk/unit-reference-lab` | Optional default-system synthetic fixtures and developer diagnostics                               |
-| CLI                            | Stateless generation, research, validation and explicit export                                     |
-| Web                            | One local Svelte server and current-run browser memory                                             |
+| Package                      | Responsibility                                                                                     |
+| ---------------------------- | -------------------------------------------------------------------------------------------------- |
+| `@mardwerk/unit-core`        | Generic definition execution, research contracts, independent validation, limits, result envelopes |
+| `@mardwerk/unit-definitions` | Bundled game rules, schemas, instructions, examples, trusted workflows and validators              |
+| `@mardwerk/unit-providers`   | Generic model transports, process configuration, authorized source discovery/acquisition           |
+| `@mardwerk/unit-lab`         | Optional default-system synthetic fixtures and developer diagnostics                               |
+| CLI                          | Stateless generation, research, validation and explicit export                                     |
+| Web                          | One local Svelte server and current-run browser memory                                             |
 
 The default content types do not belong to core. Replacing the definition can replace input, output and workflow together. The runner enforces caller limits and final checks regardless of the definition's model instructions.
 

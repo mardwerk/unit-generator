@@ -80,6 +80,12 @@ The result has Design, JSON, Checks, and Research views. Open JSON to edit the u
 
 Set `UNIT_DEFINITION_PATHS` to a JSON object mapping custom selector IDs to local definition directories. Browser requests cannot choose code paths or command executables. Autocomplete and portraits remain deferred.
 
+## Unit Lab
+
+Unit Lab is the optional unit evaluation package, `@mardwerk/unit-lab`. It inspects mechanics and simulated upgrade behavior. It does not assign an overall design-quality score or assess character fidelity. See [Unit diagnostics](docs/unit-diagnostics-v0.2.md) and the [Luffy and BTD6 review](docs/luffy-btd6-review.md). Equivalent map evaluation tools are called Map Lab.
+
+The [unit glossary](CONTEXT.md) links to Foundation's shared Mardwerk vocabulary.
+
 ## Development
 
 ```bash
@@ -87,8 +93,8 @@ pnpm check
 pnpm test:e2e
 ```
 
-Tests run without paid model calls. [Live quality observations](docs/live-quality-check.md) record the early real-model checks and their limits. Run `node scripts/live-smoke.mjs --discovery --out <new-file>` to repeat the opt-in smoke check. Default-system simulation, scoring and synthetic Reference Lab fixtures remain optional developer diagnostics, outside normal generation and the playground.
+Tests run without paid model calls. [Live quality observations](docs/live-quality-check.md) record the early real-model checks and their limits. Run `node scripts/live-smoke.mjs --discovery --out <new-file>` to repeat the opt-in smoke check. Default-system simulation, scoring and synthetic Unit Lab fixtures remain optional developer diagnostics, outside normal generation and the playground.
 
-Packages are split into generic `core`, generic `providers`, game-specific `definitions`, and optional `reference-lab` diagnostics. Apps are `cli` and `web`. See [architecture](docs/generation-pipeline.md), [migration notes](docs/migration-0.2.md), and the approved [refactor plan](docs/stateless-refactor-plan.md).
+Packages are split into generic `core`, generic `providers`, game-specific `definitions`, and optional `unit-lab` diagnostics. Apps are `cli` and `web`. See [architecture](docs/generation-pipeline.md), [migration notes](docs/migration-0.2.md), and the approved [refactor plan](docs/stateless-refactor-plan.md).
 
 MPL-2.0. See `LICENSE` and `NOTICE`.

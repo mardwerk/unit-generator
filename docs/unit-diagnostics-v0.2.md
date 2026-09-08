@@ -1,21 +1,22 @@
-# Unit quality scoring 0.1
+# Unit diagnostics 0.2
 
 This document describes optional classic-system developer diagnostics. These checks are not part of stateless generation acceptance.
 
-The scoring profile is `classic-three-path-quality` version `synthetic-0.2`. Its default status is
+The diagnostic profile is `classic-three-path-quality` version `synthetic-0.2`. Its stored ID is retained for existing reference annotations; the word `quality` in that legacy ID is not a rating claim. Its default status is
 `uncalibrated`; a calibration run produces a candidate labeled exactly
 `synthetic initial calibration`. This phase calibrates only against original synthetic fixtures. Any
 operator-supplied Towerright reference set is outside this calibration.
 
-`scoreUnitQuality` always derives hard acceptance by running strict `validateUnitSpec`. A hard-invalid
-unit receives unavailable neutral metric evidence and `compositeScore: null`; quality cannot offset
-invalid structure or mechanics. UnitSpec mechanics, declared roles, the score profile, and validated
-deterministic simulations are the only score inputs. Names, summaries, arbitrary
+`diagnoseUnit` always derives hard acceptance by running strict `validateUnitSpec`. A hard-invalid
+unit receives unavailable metric evidence and an `invalid` assessment. No overall quality number is returned. UnitSpec mechanics, declared roles, the diagnostic profile, and validated
+deterministic simulations are the only diagnostic inputs. Names, summaries, arbitrary
 unit/action/node/source tags, extensions, provenance, source identity, annotations, and expected
-acceptance are not score atoms or equality signals. A tag with defined simulator behavior can still
+acceptance are not metric features or equality signals. A tag with defined simulator behavior can still
 affect dynamic observations through that behavior.
 
-## Common definitions and composite
+Unit Lab uses the weighted diagnostic index only to compare original synthetic examples with controlled corruptions and to explore calibration. The diagnostic report and snapshot do not expose that index as a unit rating. The underlying heuristic formulas remain available for audit; removing the total does not make them calibrated measures of design quality.
+
+## Metrics and the synthetic diagnostic index
 
 ```text
 clamp01(x) = min(1, max(0, x))
@@ -24,7 +25,8 @@ round6(x) = round(x * 1_000_000) / 1_000_000, with -0 replaced by 0
 
 raw[m] = round6(metric_formula[m])
 normalized[m] = round6(clamp01((raw[m] - minimum[m]) / (maximum[m] - minimum[m])))
-composite = scoreEligibility.eligible ? round6(100 * sum_m(weight[m] * normalized[m])) : null
+round9(x) = round(x * 1_000_000_000) / 1_000_000_000
+diagnosticIndex = diagnosticEligibility.eligible ? round9(sum_m(weight[m] * normalized[m])) : null
 ```
 
 All `synthetic-0.2` normalization ranges are `[0, 1]`. Weights must be finite, non-negative, sum to
@@ -45,17 +47,19 @@ positive, and feasible: `maximumMetricWeight * metricCount >= 1 - 1e-9`.
 | `roleConsistency`      |   0.08 |
 | `scenarioRobustness`   |   0.08 |
 
+For a standard three-path unit, Unit Lab samples the base, all fifteen pure-path prefixes, and twelve completed-main-path cross builds using both secondary paths at tiers one and two. These 28 representatives do not cover every legal build or encounter.
+
 Every metric produces a summary and concrete facts in `evidence`; raw and normalized vectors remain
-present beside the composite. Each evidence item has `status: "measured"`, `"unavailable"`, or
+available for inspection. Each evidence item has `status: "measured"`, `"unavailable"`, or
 `"unsupported"`. Numeric priors remain diagnostic values and never make unavailable evidence comparable.
 
-The current scorer implements the classic three-path profile only. A comparable composite requires
+The current diagnostic implementation implements the classic three-path profile only. A comparable synthetic diagnostic index requires
 strict acceptance, exactly three declared upgrade paths, recognized role IDs, a measured base build,
 coverage of every upgrade node with a measured parent-child edge, and at least one comparable
-cross-path pair. All builds must share at least two scenario fingerprints. `scoreEligibility.eligible`
+cross-path pair. All builds must share at least two scenario fingerprints. `diagnosticEligibility.eligible`
 is false and `reasons` lists machine-readable codes when these requirements fail. Unsupported
-simulation warnings also withhold the composite. The generation evaluator pins and computes its
-scenario reports; `scoreUnitQuality` alone validates supplied reports without authenticating their
+simulation warnings also withhold the diagnostic index. Unit Lab pins and computes its
+scenario reports; `diagnoseUnit` alone validates supplied reports without authenticating their
 observations.
 
 ## Static feature atoms
@@ -336,22 +340,25 @@ not remove scenarios or select a best half. With no observations the neutral pri
 
 ## Reports and warnings
 
-`QualityReport` `0.1` returns hard acceptance, score eligibility with reason codes, raw metrics, normalized metrics, composite or `null`,
-metric evidence, sorted warnings, profile ID/version, and calibration status. Missing simulation
-evidence, an evaluation without reports, an uncalibrated profile, and failed hard acceptance are
-reported explicitly.
+`UnitDiagnosticReport` `0.2` returns strict mechanical acceptance, diagnostic eligibility with reason codes, raw and normalized metrics, metric evidence, review findings, warnings, profile identity and calibration status. It has no `compositeScore` field.
+
+The assessment is `invalid` when strict validation fails, `needs-review` when supplied scenario evidence produces findings, and `unrated` otherwise. General quality always remains unrated. Source fidelity, gameplay quality and competitive balance are explicitly unknown.
+
+Review findings identify exact parent and child selections with negative, zero or at most 1% relative utility gain, and comparable crosspath pairs with observed dominance. They include scenario identities and fingerprints, observable differences, and costs for dominance comparisons. The 1% threshold is an exploratory diagnostic threshold, not a calibrated boundary between good and bad upgrades. These findings concern the supplied scenarios and their utility model. They do not prove an upgrade is universally useless. Unsupported or malformed dynamic evidence cannot produce these findings.
+
+Positive upgrade summaries now count raw relative utility gains greater than zero. A zero gain is never counted as useful merely because normalization maps it to a positive number.
 
 Supplied dynamic evidence is untrusted. Each build must pass strict `UnitBuild` validation, match the
 UnitSpec ID, and be byte-semantically equivalent to recompiling its own upgrade/form selection, as
 checked by the canonical build fingerprint. Each simulation must have the complete exact-key `0.1`
 report shape, bounded finite quantities and safe integer counts, stable record keys, and resource and
 action keys present in that build. Its unit ID and build fingerprint must match the evaluation. Across
-all reports, scenario ID and fingerprint have a one-to-one association. The scorer cannot authenticate
+all reports, scenario ID and fingerprint have a one-to-one association. The diagnostic implementation cannot authenticate
 a scenario from a report alone; the fingerprint becomes verifiable when the canonical scenario input
 is also available.
 
 Each `BenchmarkReport` unit result groups the public unit-level output as
-`{ unitId, hardAcceptance, representatives: [{ selection, simulations }], quality }`. Resolved builds
+`{ unitId, hardAcceptance, representatives: [{ selection, simulations }], diagnostics }`. Resolved builds
 remain internal to benchmark evaluation and are not duplicated in that report shape.
 
 Every simulation warning is propagated with its scenario and canonical build selection. A report
@@ -362,7 +369,7 @@ identity mismatch, inconsistent scenario ID/fingerprint association, empty or du
 fingerprints within an evaluation, non-identical fingerprint sets across evaluations, or duplicate
 build-selection keys also neutralizes all dynamic evidence. This is conservative: one bad supplied
 item discards the entire dynamic collection. The metrics follow their neutral no-evidence paths; the
-structural zero-cost component of `crossPathHealth` still applies. The composite is withheld and the
+structural zero-cost component of `crossPathHealth` still applies. The diagnostic index is withheld and the
 report names each cause. Invalid declared parent links also invalidate the dynamic collection.
 Warnings describing unsupported, unmodeled, unscheduled, unavailable, or skipped mechanics mark
 that evidence unsupported. The one-wave passive-income modeling warning is informational and keeps
@@ -371,10 +378,10 @@ the observations eligible.
 ## Synthetic corruptions and benchmark
 
 Corruption operators clone a strict hard-valid source, must produce an actual structural change, and
-enforce their schema-capacity prerequisites. A `valid-quality` output must remain strictly hard-valid.
+enforce their schema-capacity prerequisites. A `valid-diagnostic` output must remain strictly hard-valid.
 Generation does not force a score regression, expected metric movement, or a particular invalid
-failure; the benchmark tests those expectations independently. A valid-quality comparison passes
-only when the corrupted result remains hard-valid, the original composite is strictly higher, every
+failure; the benchmark tests those expectations independently. A valid-diagnostic comparison passes
+only when the corrupted result remains hard-valid, the original diagnostic index is strictly higher, every
 declared affected metric changes by at least `0.000001`, and neither side has neutralized dynamic
 evidence. A hard-invalid comparison passes only when hard acceptance fails with its exact expected
 validation code.
@@ -390,10 +397,9 @@ reference evidence fails the benchmark instead of being ranked or calibrated.
 
 Each self-contained `CorruptionComparison` includes `unitId`; a nested `descriptor` with ID, category,
 seed, expected hard validation, expected affected metrics, and exact `changedNodes` pointers; the
-expected failure code; actual hard validation; original score and margin; nested `corruptedQuality`;
-dynamic-evidence warnings; validation issues; and the pass/fail result. The corrupted composite is
-available as `corruptedQuality.compositeScore`. `BenchmarkReport` also persists reference set
-ID/version, selected member IDs, the complete score profile, unit results, comparisons, and the exact
+expected failure code; actual hard validation; `originalDiagnosticIndex`, `corruptedDiagnosticIndex` and margin; nested `corruptedDiagnostics`;
+dynamic-evidence warnings; validation issues; and the pass/fail result. The two diagnostic indices exist only for synthetic ordering comparisons; neither is an overall quality rating. `BenchmarkReport` also persists reference set
+ID/version, selected member IDs, the complete diagnostic profile, unit results, comparisons, and the exact
 normalized-metric `rankingConstraints` used by calibration; the summary counts are not the only
 evidence retained.
 

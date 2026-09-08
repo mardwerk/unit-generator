@@ -96,7 +96,7 @@ export const SYNTHETIC_REFERENCE_MANIFEST: ArtifactManifest = buildManifest({
   bundleId: 'synthetic-development-0.1.0',
   createdAt: '2026-01-01T00:00:00Z',
   producer: {
-    name: '@mardwerk/unit-reference-lab',
+    name: '@mardwerk/unit-lab',
     version: '0.1.0',
     component: 'synthetic-reference-fixtures'
   },

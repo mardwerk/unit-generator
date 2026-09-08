@@ -167,7 +167,7 @@ importers:
         specifier: 'catalog:'
         version: 4.0.4(@types/node@24.13.3)(tsx@4.23.13)
 
-  packages/reference-lab:
+  packages/unit-lab:
     dependencies:
       '@mardwerk/manifest':
         specifier: link:../../../foundation/packages/manifest

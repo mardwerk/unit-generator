@@ -1,5 +1,5 @@
 {
-  "$id": "https://mardwerk.org/schemas/unit-quality-report/0.1.json",
+  "$id": "https://mardwerk.org/schemas/unit-diagnostic-report/0.2.json",
   "$schema": "https://json-schema.org/draft/2020-12/schema",
   "additionalProperties": false,
   "type": "object",
@@ -7,19 +7,20 @@
     "schemaVersion",
     "unitId",
     "hardAcceptance",
-    "scoreEligibility",
+    "diagnosticEligibility",
     "rawMetrics",
     "normalizedMetrics",
-    "compositeScore",
+    "assessment",
+    "reviewFindings",
     "evidence",
     "warnings",
-    "scoreProfileId",
-    "scoreProfileVersion",
+    "diagnosticProfileId",
+    "diagnosticProfileVersion",
     "calibrationStatus"
   ],
   "properties": {
     "schemaVersion": {
-      "const": "0.1",
+      "const": "0.2",
       "type": "string"
     },
     "unitId": {
@@ -28,7 +29,7 @@
     "hardAcceptance": {
       "type": "boolean"
     },
-    "scoreEligibility": {
+    "diagnosticEligibility": {
       "additionalProperties": false,
       "type": "object",
       "required": [
@@ -195,17 +196,259 @@
         }
       }
     },
-    "compositeScore": {
-      "anyOf": [
-        {
-          "minimum": 0,
-          "maximum": 100,
-          "type": "number"
+    "assessment": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "status",
+        "generalQuality",
+        "unknownDimensions"
+      ],
+      "properties": {
+        "status": {
+          "anyOf": [
+            {
+              "const": "invalid",
+              "type": "string"
+            },
+            {
+              "const": "needs-review",
+              "type": "string"
+            },
+            {
+              "const": "unrated",
+              "type": "string"
+            }
+          ]
         },
-        {
-          "type": "null"
+        "generalQuality": {
+          "const": "unrated",
+          "type": "string"
+        },
+        "unknownDimensions": {
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "const": "source-fidelity",
+                "type": "string"
+              },
+              {
+                "const": "gameplay-quality",
+                "type": "string"
+              },
+              {
+                "const": "competitive-balance",
+                "type": "string"
+              }
+            ]
+          }
         }
-      ]
+      }
+    },
+    "reviewFindings": {
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "code",
+              "summary",
+              "parentSelection",
+              "childSelection",
+              "relativeUtilityGain",
+              "scenarioIds",
+              "scenarioFingerprints",
+              "facts"
+            ],
+            "properties": {
+              "code": {
+                "anyOf": [
+                  {
+                    "const": "SCENARIO_NO_UTILITY_GAIN",
+                    "type": "string"
+                  },
+                  {
+                    "const": "SCENARIO_LOW_UTILITY_GAIN",
+                    "type": "string"
+                  },
+                  {
+                    "const": "SCENARIO_REGRESSING_UPGRADE_EDGE",
+                    "type": "string"
+                  }
+                ]
+              },
+              "summary": {
+                "type": "string"
+              },
+              "parentSelection": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "upgradeIds"
+                ],
+                "properties": {
+                  "upgradeIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "formIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "childSelection": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "upgradeIds"
+                ],
+                "properties": {
+                  "upgradeIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "formIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "relativeUtilityGain": {
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991,
+                "type": "number"
+              },
+              "scenarioIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "scenarioFingerprints": {
+                "type": "array",
+                "items": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                }
+              },
+              "facts": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          {
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "code",
+              "summary",
+              "dominantSelection",
+              "dominatedSelection",
+              "dominantCostCredits",
+              "dominatedCostCredits",
+              "scenarioIds",
+              "scenarioFingerprints",
+              "facts"
+            ],
+            "properties": {
+              "code": {
+                "const": "SCENARIO_DOMINATED_CROSS_PATH_BUILD",
+                "type": "string"
+              },
+              "summary": {
+                "type": "string"
+              },
+              "dominantSelection": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "upgradeIds"
+                ],
+                "properties": {
+                  "upgradeIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "formIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "dominatedSelection": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "upgradeIds"
+                ],
+                "properties": {
+                  "upgradeIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  },
+                  "formIds": {
+                    "type": "array",
+                    "items": {
+                      "type": "string"
+                    }
+                  }
+                }
+              },
+              "dominantCostCredits": {
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "type": "number"
+              },
+              "dominatedCostCredits": {
+                "minimum": 0,
+                "maximum": 9007199254740991,
+                "type": "number"
+              },
+              "scenarioIds": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "scenarioFingerprints": {
+                "type": "array",
+                "items": {
+                  "pattern": "^[0-9a-f]{64}$",
+                  "type": "string"
+                }
+              },
+              "facts": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ]
+      }
     },
     "evidence": {
       "type": "array",
@@ -313,10 +556,10 @@
         "type": "string"
       }
     },
-    "scoreProfileId": {
+    "diagnosticProfileId": {
       "type": "string"
     },
-    "scoreProfileVersion": {
+    "diagnosticProfileVersion": {
       "type": "string"
     },
     "calibrationStatus": {

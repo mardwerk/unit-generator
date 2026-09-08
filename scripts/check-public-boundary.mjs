@@ -101,7 +101,7 @@ function isMalformedFixture(file) {
 }
 
 function isFixtureWriter(file) {
-  return file === 'packages/reference-lab/src/write-fixtures.ts';
+  return file === 'packages/unit-lab/src/write-fixtures.ts';
 }
 
 function isAllowedNegativeFixture(file, rule, line) {
