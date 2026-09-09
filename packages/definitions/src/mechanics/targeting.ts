@@ -157,7 +157,8 @@ export interface TargetEntity extends Point {
   areaTypes?: readonly string[];
   baseId?: string;
   ownerId?: string;
-  parentId?: string;
+  /** null explicitly means no parent; undefined means parentage is unknown. */
+  parentId?: string | null;
   towerSet?: string;
 }
 
@@ -265,6 +266,7 @@ function evaluate<T extends TargetEntity>(
     }
     case 'identity': {
       const value = entity[predicate.field];
+      if (predicate.field === 'parentId' && value === null) return known(false);
       return typeof value === 'string'
         ? known(predicate.values.includes(value))
         : missing(predicate.field);
@@ -273,7 +275,9 @@ function evaluate<T extends TargetEntity>(
       const own = entity[predicate.field];
       const source = context.source?.[predicate.sourceField];
       const absent = [
-        typeof own !== 'string' ? predicate.field : '',
+        typeof own !== 'string' && !(predicate.field === 'parentId' && own === null)
+          ? predicate.field
+          : '',
         typeof source !== 'string' ? `source.${predicate.sourceField}` : ''
       ].filter(Boolean);
       return absent.length ? { matches: false, missingFacts: absent } : known(own === source);

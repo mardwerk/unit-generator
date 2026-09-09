@@ -198,6 +198,32 @@ describe('shared target predicates', () => {
     expect(compiled.test(tower, { ...context, numericFact: () => 2 })).toBe(false);
   });
 
+  it('distinguishes a known root actor from unknown parentage under exclusions', () => {
+    const context = { source: { id: 'provider', x: 0, y: 0 } };
+    const exclusion = compileTargetPredicate({
+      kind: 'not',
+      predicate: {
+        kind: 'source-relation',
+        field: 'parentId',
+        sourceField: 'id'
+      }
+    });
+    expect(exclusion.test({ ...entity, parentId: null }, context)).toBe(true);
+    expect(exclusion.test({ ...entity, parentId: 'provider' }, context)).toBe(false);
+    expect(exclusion.test({ ...entity, parentId: 'other' }, context)).toBe(true);
+    expect(exclusion.evaluate(entity, context)).toEqual({
+      matches: false,
+      missingFacts: ['parentId']
+    });
+    const identity = compileTargetPredicate({
+      kind: 'identity',
+      field: 'parentId',
+      values: ['provider']
+    });
+    expect(identity.test({ ...entity, parentId: null })).toBe(false);
+    expect(() => identity.test(entity)).toThrow(MissingTargetFactsError);
+  });
+
   it('uses explicit boolean and external facts instead of implicit missing-false defaults', () => {
     const concealed = compileTargetPredicate({ kind: 'boolean', fact: 'concealed', value: false });
     expect(concealed.test(entity)).toBe(true);
