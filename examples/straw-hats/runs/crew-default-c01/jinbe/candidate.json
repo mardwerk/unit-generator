@@ -1,0 +1,196 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "jinbe",
+  "name": "Jinbe",
+  "description": "Base-only Jinbe, a whale-shark fish-man with no Devil Fruit. Fish-Man Karate/Jujutsu drive direct-contact water force; Haki and Buraikan add combat utility. Helmsmanship is adapted as ally range support; navigation, Shark Network, defense and Uchimizu deflection are omitted. Numbers are gameplay tuning.",
+  "cost": 650,
+  "baseForm": "base",
+  "stunProtectionSeconds": 1.25,
+  "mechanics": {
+    "attacks": [],
+    "actors": [],
+    "passiveSummons": [],
+    "income": [],
+    "rangeSupport": [
+      {
+        "id": "helmsman-positioning",
+        "radius": 10,
+        "global": false,
+        "includesOwner": false,
+        "stackGroup": "jinbe-helmsmanship",
+        "rangeMultiplier": 1,
+        "rangeAdditive": 0.75
+      }
+    ]
+  },
+  "forms": [
+    {
+      "id": "base",
+      "name": "Jinbe",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Fish-Man Karate: Water-Particle Strike",
+        "delivery": "direct-contact",
+        "damage": 72,
+        "period": 1.8,
+        "windup": 0.35,
+        "reach": 3.5,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": []
+    }
+  ],
+  "paths": [
+    {
+      "id": "fish-man-karate",
+      "name": "Fish-Man Karate",
+      "description": "Extends Jinbe's no-contact water force, models strikes through water within the target, and improves his disciplined attack rhythm without invoking a Devil Fruit.",
+      "upgrades": [
+        {
+          "name": "Heavy Palm",
+          "cost": 120,
+          "description": "Adds the force expected from Jinbe's exceptional fish-man strength.",
+          "modifiers": {
+            "flatDamage": 12
+          }
+        },
+        {
+          "name": "Karate Mastery",
+          "cost": 180,
+          "description": "Improves the efficiency of Jinbe's refined Fish-Man Karate strikes.",
+          "modifiers": {
+            "damageMultiplier": 1.12
+          }
+        },
+        {
+          "name": "Water-Particle Reach",
+          "cost": 220,
+          "description": "Extends the air-water force beyond ordinary melee range without changing it into a projectile.",
+          "modifiers": {
+            "reachAdd": 1
+          }
+        },
+        {
+          "name": "Body-Water Shock",
+          "cost": 260,
+          "description": "Adds an internal damage fraction, adapting Jinbe's demonstrated ability to affect water within a target's body.",
+          "modifiers": {
+            "internalFraction": 0.25
+          }
+        },
+        {
+          "name": "Delayed Force",
+          "cost": 300,
+          "description": "Shortens primary timing as a gameplay adaptation of Jinbe's delayed, disciplined water-force release.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.9
+          }
+        }
+      ]
+    },
+    {
+      "id": "fish-man-jujutsu",
+      "name": "Fish-Man Jujutsu",
+      "description": "Models liquid-as-cloth manipulation, forceful weight redirection and tactical grappling. Uchimizu's defensive deflection is not separately simulated, and no independent water creation is claimed.",
+      "upgrades": [
+        {
+          "name": "Liquid Cloth Grip",
+          "cost": 130,
+          "description": "Extends Jinbe's effective reach through Fish-Man Jujutsu's tangible-liquid manipulation.",
+          "modifiers": {
+            "reachAdd": 1.25
+          }
+        },
+        {
+          "name": "Redirected Weight",
+          "cost": 190,
+          "description": "Improves damage as an adaptation of Jinbe's advanced grappling and weight-redirection throws.",
+          "modifiers": {
+            "damageMultiplier": 1.12
+          }
+        },
+        {
+          "name": "Binding Throw",
+          "cost": 240,
+          "description": "Adds impact force to close grapples and throws, useful against large or durable targets.",
+          "modifiers": {
+            "flatDamage": 10
+          }
+        },
+        {
+          "name": "Current Reading",
+          "cost": 310,
+          "description": "Enables primary retargeting when the selected target is lost before resolution, useful against evasive formations.",
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Long-Current Control",
+          "cost": 360,
+          "description": "Further extends modeled liquid manipulation at range; this is a gameplay adaptation, not independent water creation.",
+          "modifiers": {
+            "reachAdd": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "knight-of-the-sea",
+      "name": "Knight of the Sea",
+      "description": "Combines Jinbe's physical power with Armament and Observation Haki, ending in a Buraikan-inspired piercing shockwave. Kairagi's defensive combat is omitted because it is unsupported by this runtime.",
+      "upgrades": [
+        {
+          "name": "Whale-Shark Power",
+          "cost": 140,
+          "description": "Adds another flat damage increase for Jinbe's tremendous physical strength.",
+          "modifiers": {
+            "flatDamage": 10
+          }
+        },
+        {
+          "name": "Armament Haki",
+          "cost": 230,
+          "description": "Adds authored armor penetration to Jinbe's hardened Fish-Man Karate and Jujutsu blows.",
+          "modifiers": {
+            "armorIgnore": 0.25
+          }
+        },
+        {
+          "name": "Observation Haki",
+          "cost": 250,
+          "description": "Allows the unit to detect concealed eligible targets, adapting Jinbe's presence-sensing ability.",
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Veteran's Read",
+          "cost": 280,
+          "description": "Enables primary retargeting when a target is lost before resolution, adapting Jinbe's tactical battlefield judgment.",
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Buraikan",
+          "cost": 420,
+          "description": "Adds a periodic piercing water shockwave from the contact point; it can exceed primary reach, stops at obstacles and triggers no other effects.",
+          "modifiers": {
+            "emission": {
+              "cycles": 3,
+              "damage": 18,
+              "width": 1.5,
+              "length": 8,
+              "cap": 4
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

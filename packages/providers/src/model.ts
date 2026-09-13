@@ -58,7 +58,7 @@ export function supportsStructured(schema: JsonSchema): boolean {
   };
   return schema.type === 'object' && check(schema);
 }
-function safeError(error: unknown): RunError {
+function classifyError(error: unknown): RunError {
   if (error instanceof RunError) return error;
   const message = error instanceof Error ? error.message : '';
   const http = message.match(/HTTP (\d{3})/);
@@ -78,6 +78,16 @@ function safeError(error: unknown): RunError {
   if (/size limit|exceeded|output limit/i.test(message))
     return new RunError('output-limit', 'Model output exceeded the configured byte limit.');
   return new RunError('provider-failed', 'The configured model could not complete the request.');
+}
+function safeError(error: unknown): RunError {
+  const safe = classifyError(error);
+  if (error && typeof error === 'object') {
+    const metadata = error as { usage?: unknown; provider?: unknown };
+    for (const field of ['usage', 'provider'] as const)
+      if (metadata[field] && typeof metadata[field] === 'object')
+        Object.assign(safe, { [field]: metadata[field] });
+  }
+  return safe;
 }
 export function adaptModel(
   client: ModelClient,
@@ -111,11 +121,26 @@ export function adaptModel(
           try {
             value = JSON.parse(result.output as string);
           } catch {
-            throw new RunError('invalid-json', 'The model did not return complete JSON.');
+            throw Object.assign(
+              new RunError('invalid-json', 'The model did not return complete JSON.'),
+              {
+                ...(result.usage ? { usage: result.usage } : {}),
+                ...(result.provider ? { provider: result.provider } : {})
+              }
+            );
           }
         }
+        let copied: unknown;
+        try {
+          copied = jsonCopy(value, call.maxOutputBytes);
+        } catch (error) {
+          throw Object.assign(error as Error, {
+            ...(result.usage ? { usage: result.usage } : {}),
+            ...(result.provider ? { provider: result.provider } : {})
+          });
+        }
         return {
-          value: jsonCopy(value, call.maxOutputBytes),
+          value: copied,
           mode: structured ? 'structured' : 'json',
           ...(result.usage ? { usage: result.usage } : {}),
           ...(result.provider?.model || options.model
@@ -129,59 +154,85 @@ export function adaptModel(
   };
 }
 export function createHttpProvider(
-  options: HttpStructuredModelClientOptions & { structured?: boolean }
+  options: HttpStructuredModelClientOptions & { structured?: boolean; jsonMode?: boolean }
 ): ModelAdapter {
+  const { jsonMode = true, ...clientOptions } = options;
   const endpoint = new URL(options.endpoint);
   if (!['http:', 'https:'].includes(endpoint.protocol) || endpoint.username || endpoint.password)
     throw new RunError(
       'configuration',
       'Use an HTTP(S) model endpoint without embedded credentials.'
     );
-  return adaptModel(
-    new HttpStructuredModelClient({
-      ...options,
-      extractResponse: (value, response) => {
-        const body = value as {
-          model?: string;
-          choices?: {
-            finish_reason?: string;
-            message?: { content?: unknown; refusal?: unknown };
-          }[];
-          usage?: { prompt_tokens?: number; completion_tokens?: number };
-        };
-        const choice = body.choices?.[0];
-        if (choice?.message?.refusal)
-          throw new RunError('refusal', 'The model declined the request.');
-        if (choice?.finish_reason && choice.finish_reason !== 'stop')
-          throw new RunError('truncated', 'Model output did not finish.');
-        if (typeof choice?.message?.content !== 'string')
-          throw new RunError('invalid-response', 'The model response did not contain text.');
-        const usage = body.usage;
-        return {
-          text: choice.message.content,
-          ...(usage
-            ? {
-                usage: {
-                  ...(Number.isFinite(usage.prompt_tokens)
-                    ? { inputTokens: usage.prompt_tokens }
-                    : {}),
-                  ...(Number.isFinite(usage.completion_tokens)
-                    ? { outputTokens: usage.completion_tokens }
-                    : {})
+  const makeAdapter = (objectMode: boolean) =>
+    adaptModel(
+      new HttpStructuredModelClient({
+        ...clientOptions,
+        ...(objectMode
+          ? {
+              fetch: async (input: RequestInfo | URL, init?: RequestInit) => {
+                if (init?.body && typeof init.body === 'string') {
+                  try {
+                    const body = JSON.parse(init.body) as Record<string, unknown>;
+                    if (!body.response_format)
+                      init = {
+                        ...init,
+                        body: JSON.stringify({ ...body, response_format: { type: 'json_object' } })
+                      };
+                  } catch {
+                    /* model-client reports malformed requests */
+                  }
                 }
+                return (clientOptions.fetch ?? globalThis.fetch)(input, init);
               }
-            : {}),
-          provider: {
-            model: body.model ?? options.model,
-            ...(response.headers.get('x-request-id')
-              ? { requestId: response.headers.get('x-request-id')! }
-              : {})
-          }
-        };
-      }
-    }),
-    { model: options.model, structured: options.structured }
-  );
+            }
+          : {}),
+        extractResponse: (value, response) => {
+          const body = value as {
+            model?: string;
+            choices?: {
+              finish_reason?: string;
+              message?: { content?: unknown; refusal?: unknown };
+            }[];
+            usage?: { prompt_tokens?: number; completion_tokens?: number };
+          };
+          const choice = body.choices?.[0];
+          if (choice?.message?.refusal)
+            throw new RunError('refusal', 'The model declined the request.');
+          if (choice?.finish_reason && choice.finish_reason !== 'stop')
+            throw new RunError('truncated', 'Model output did not finish.');
+          if (typeof choice?.message?.content !== 'string')
+            throw new RunError('invalid-response', 'The model response did not contain text.');
+          const usage = body.usage;
+          return {
+            text: choice.message.content,
+            ...(usage
+              ? {
+                  usage: {
+                    ...(Number.isFinite(usage.prompt_tokens)
+                      ? { inputTokens: usage.prompt_tokens }
+                      : {}),
+                    ...(Number.isFinite(usage.completion_tokens)
+                      ? { outputTokens: usage.completion_tokens }
+                      : {})
+                  }
+                }
+              : {}),
+            provider: {
+              model: body.model ?? options.model,
+              ...(response.headers.get('x-request-id')
+                ? { requestId: response.headers.get('x-request-id')! }
+                : {})
+            }
+          };
+        }
+      }),
+      { model: options.model, structured: options.structured }
+    );
+  const plain = makeAdapter(false);
+  const object = jsonMode ? makeAdapter(true) : plain;
+  return {
+    generate: (call) => (call.schema.type === 'object' ? object : plain).generate(call)
+  };
 }
 export function createCommandProvider(options: CommandModelClientOptions): ModelAdapter {
   return adaptModel(new CommandModelClient(options), { structured: false, model: 'local-command' });

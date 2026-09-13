@@ -1,0 +1,431 @@
+{
+  "id": "nami",
+  "operation": "generation",
+  "status": "failed",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "default",
+    "label": "Default",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "71f612abfd5ab0825293f6e4a232768c3cd0f37703536e22b2678dfa056598cb",
+  "unitSha256": "67a31ae0251bf7bef104673f247f10a163795c2ad3f4d8ab57bc3e4fb195ba79",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "600c00487b3edecefeba05e31f24f03f81948740f15dc3e223a85d126a7f82be",
+    "implementationVersion": "manga-mayhem/0.1.2",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "input": {
+    "subject": "Nami",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Preserve a navigator fighting through Clima-Tact weather science, lightning, and weather deception. Consider Zeus inhabiting the Clima-Tact by the selected continuity. Build a playable kit with at least 15 meaningful purchasable upgrades that each change executable behavior. Select a coherent subset instead of claiming exhaustive coverage. Disclose omitted defining abilities and any source limits. Treat numerical damage, costs, cooldowns, range, targeting and unlock progression as explicit gameplay adaptations. Do not invent character powers to meet upgrade count; deepen sourced abilities where possible.",
+    "context": {
+      "evidencePurpose": "Curated development demonstration, available to generation and review; not an unseen benchmark.",
+      "reviewScope": "Selected manga continuity through end of Wano; exclude later manga, anime-only and game-only facts from this request.",
+      "priorReviewCorrections": "Mirage Tempo creates illusions; it does not establish sensing concealed enemies. Do not grant detection from mirages. Damage multipliers do not implement projectile steering or improved reliability. Describe their actual scope, including collateral damage.",
+      "descriptionAgreement": "Descriptions must state the scope of the actual executable modifiers. Unsupported history dependence, target senses, recoil, movement and elemental status must remain explicit omissions."
+    },
+    "sources": [
+      {
+        "url": "https://onepiece.fandom.com/wiki/Nami/Abilities_and_Powers",
+        "title": "Nami/Abilities and Powers | One Piece Wiki | Fandom",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+          "Secondary fan-edited evidence captured 2026-09-09T17:43:11.254Z; may include later manga, anime, and game facts outside the requested continuity."
+        ],
+        "id": "nami-fan-abilities-1",
+        "origin": "retrieved",
+        "characters": 54437,
+        "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf"
+      },
+      {
+        "id": "nami-official-profile",
+        "title": "Nami | ONE PIECE.com official character profile",
+        "url": "https://one-piece.com/character/nami/index.html",
+        "origin": "retrieved",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+          "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+          "Retrieved 2026-09-09T17:42:04.255995+00:00."
+        ],
+        "characters": 973,
+        "sha256": "0ad4b28c952bc17b4ea053bf282f332f147b6e8a9afec611a52ea91dd6fe7936"
+      }
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Nami",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied pages do not provide gameplay values for damage, costs, cooldowns, ranges, targeting rules, resource limits, or unlock progression. Any such values would be explicit gameplay adaptations rather than character evidence.",
+        "The request for at least 15 purchasable upgrades is a design requirement, not evidence about Nami. A kit can deepen the sourced Clima-Tact, weather, lightning, mist, heat, wind, Zeus, and Impact behaviors, but the sources do not support an exhaustive upgrade tree.",
+        "Mirage Tempo is supported as illusion and deception. The supplied evidence does not support detecting concealed enemies, revealing targets, granting senses, or improving reliability merely because an illusion or damage multiplier exists.",
+        "The source supports specific directed-lightning behavior from Nami's Clima-Tact and Zeus, but does not support treating arbitrary damage multipliers as projectile steering, homing, recoil reduction, or general accuracy improvements.",
+        "No supplied page establishes generic elemental status rules such as stun, burn, shock, slow, freeze, or damage-over-time behavior beyond the described attack outcomes and collateral harm.",
+        "Impact's drawback is supported, but the sources do not define a general recoil system for Nami's other attacks or weapons.",
+        "The supplied pages do not document movement buffs, evasive bonuses, or history-dependent gameplay mechanics. Nami's agility and speed feats should not automatically become universal movement modifiers.",
+        "The named Clima-Tact, Perfect Clima-Tact, Sorcery Clima-Tact, further upgraded second model, and Zeus-associated third model are weapon states or upgrades. No bodily transformation for Nami is supported in the supplied pages.",
+        "The abilities page contains material from after Wano, including Egghead and Elbaph feats, as well as non-canon and video-game sections. Those later or separate-continuity facts and techniques, including Mirai Kick and Kyoda, are omitted from this selected record.",
+        "The supplied material gives broad descriptions of Zeus's sentience and attack control but no precise limits on cloud duration, consciousness transfer, storage capacity, range, or vulnerability."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "nami-fan-abilities-1",
+          "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+          "sourceCharacters": 54437,
+          "visibleCharacters": 54437,
+          "complete": true
+        },
+        {
+          "sourceId": "nami-official-profile",
+          "sha256": "0ad4b28c952bc17b4ea053bf282f332f147b6e8a9afec611a52ea91dd6fe7936",
+          "sourceCharacters": 973,
+          "visibleCharacters": 973,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://onepiece.fandom.com/wiki/Nami/Abilities_and_Powers",
+          "title": "Nami/Abilities and Powers | One Piece Wiki | Fandom",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+            "Secondary fan-edited evidence captured 2026-09-09T17:43:11.254Z; may include later manga, anime, and game facts outside the requested continuity."
+          ],
+          "id": "nami-fan-abilities-1",
+          "origin": "supplied",
+          "characters": 54437,
+          "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf"
+        },
+        {
+          "id": "nami-official-profile",
+          "title": "Nami | ONE PIECE.com official character profile",
+          "url": "https://one-piece.com/character/nami/index.html",
+          "origin": "supplied",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+            "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+            "Retrieved 2026-09-09T17:42:04.255995+00:00."
+          ],
+          "characters": 973,
+          "sha256": "0ad4b28c952bc17b4ea053bf282f332f147b6e8a9afec611a52ea91dd6fe7936"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Nami",
+        "identity": {
+          "status": "resolved",
+          "name": "Nami",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "Both supplied pages identify Nami as the One Piece character and support her post-timeskip identity, Clima-Tact combat style, and Wano-era Zeus weapon state. The selected record is restricted to the requested manga cutoff; later Egghead and Elbaph material, anime-only material, non-canon material, and game-only techniques are excluded."
+        },
+        "claimCount": 36,
+        "knowledgeSha256": "b300ef9b3a2ca69aa6cd67c1a8410ff38543f8ccb58ee6b0939af292ce1a9a9f"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": []
+    },
+    "system": {
+      "status": "failed",
+      "checks": [
+        "manga-contract",
+        "legal-progression",
+        "reachable-resource-and-techniques",
+        "unit-qualification"
+      ],
+      "issues": [
+        {
+          "code": "MANGA_CONTRACT",
+          "path": "/forms/0",
+          "message": "Contextual Technique tiers must be distinct."
+        },
+        {
+          "code": "MANGA_CONTRACT",
+          "path": "/forms/0",
+          "message": "Contextual Technique tiers must be distinct."
+        }
+      ]
+    },
+    "constraints": {
+      "status": "not-provided",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "blocked",
+    "findings": [
+      {
+        "code": "MANGA_CONTRACT",
+        "dimension": "validity",
+        "severity": "blocker",
+        "location": "/forms/0",
+        "message": "Contextual Technique tiers must be distinct."
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 0,
+      "evaluatedBuilds": 0,
+      "purchaseEdges": 0,
+      "probes": 0,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Natural-language description agreement needs independent review; this report describes executable limits.",
+        "Stationary probes do not establish game balance or live-game parity."
+      ]
+    }
+  },
+  "metadata": {
+    "modelCalls": 3,
+    "repairs": 0,
+    "elapsedMs": 29844840,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 17034,
+          "outputTokens": 4728,
+          "totalTokens": 21762
+        },
+        "outputSha256": "b300ef9b3a2ca69aa6cd67c1a8410ff38543f8ccb58ee6b0939af292ce1a9a9f"
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "b300ef9b3a2ca69aa6cd67c1a8410ff38543f8ccb58ee6b0939af292ce1a9a9f",
+            "sources": [
+              {
+                "sourceId": "nami-fan-abilities-1",
+                "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+                "sourceCharacters": 54437,
+                "visibleCharacters": 54437,
+                "complete": true
+              },
+              {
+                "sourceId": "nami-official-profile",
+                "sha256": "0ad4b28c952bc17b4ea053bf282f332f147b6e8a9afec611a52ea91dd6fe7936",
+                "sourceCharacters": 973,
+                "visibleCharacters": 973,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 45273,
+          "outputTokens": 7550,
+          "totalTokens": 52823
+        },
+        "outputSha256": "67a31ae0251bf7bef104673f247f10a163795c2ad3f4d8ab57bc3e4fb195ba79"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": false,
+        "evidence": [
+          {
+            "knowledgeSha256": "b300ef9b3a2ca69aa6cd67c1a8410ff38543f8ccb58ee6b0939af292ce1a9a9f",
+            "sources": [
+              {
+                "sourceId": "nami-fan-abilities-1",
+                "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+                "sourceCharacters": 54437,
+                "visibleCharacters": 54437,
+                "complete": true
+              },
+              {
+                "sourceId": "nami-official-profile",
+                "sha256": "0ad4b28c952bc17b4ea053bf282f332f147b6e8a9afec611a52ea91dd6fe7936",
+                "sourceCharacters": 973,
+                "visibleCharacters": 973,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "model": "gpt-5.6-luna",
+        "errorCode": "provider-failed"
+      }
+    ]
+  },
+  "error": {
+    "stage": "fidelity-review",
+    "code": "provider-failed",
+    "message": "The configured model could not complete the request."
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-12T10:36:41.260Z",
+        "completed": true,
+        "inputTokenUpperBound": 67261,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-12T10:38:08.543Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 17034,
+          "outputTokens": 4728,
+          "totalTokens": 21762
+        },
+        "outputSha256": "b300ef9b3a2ca69aa6cd67c1a8410ff38543f8ccb58ee6b0939af292ce1a9a9f",
+        "knownInputTokens": 17034,
+        "knownOutputTokens": 4728,
+        "knownStandardApiEquivalentUsd": 0.009080399999999999,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "draft",
+        "startedAt": "2026-09-12T10:38:08.562Z",
+        "completed": true,
+        "inputTokenUpperBound": 183973,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-12T10:40:30.743Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 45273,
+          "outputTokens": 7550,
+          "totalTokens": 52823
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "b300ef9b3a2ca69aa6cd67c1a8410ff38543f8ccb58ee6b0939af292ce1a9a9f",
+            "sources": [
+              {
+                "sourceId": "nami-fan-abilities-1",
+                "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+                "sourceCharacters": 54437,
+                "visibleCharacters": 54437,
+                "complete": true
+              },
+              {
+                "sourceId": "nami-official-profile",
+                "sha256": "0ad4b28c952bc17b4ea053bf282f332f147b6e8a9afec611a52ea91dd6fe7936",
+                "sourceCharacters": 973,
+                "visibleCharacters": 973,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "67a31ae0251bf7bef104673f247f10a163795c2ad3f4d8ab57bc3e4fb195ba79",
+        "knownInputTokens": 45273,
+        "knownOutputTokens": 7550,
+        "knownStandardApiEquivalentUsd": 0.018114599999999998,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 3,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-12T10:40:30.781Z",
+        "completed": false,
+        "inputTokenUpperBound": 175845,
+        "maxOutputTokens": 10680,
+        "endedAt": "2026-09-12T18:54:06.074Z",
+        "errorCode": "provider-failed",
+        "evidence": [
+          {
+            "knowledgeSha256": "b300ef9b3a2ca69aa6cd67c1a8410ff38543f8ccb58ee6b0939af292ce1a9a9f",
+            "sources": [
+              {
+                "sourceId": "nami-fan-abilities-1",
+                "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+                "sourceCharacters": 54437,
+                "visibleCharacters": 54437,
+                "complete": true
+              },
+              {
+                "sourceId": "nami-official-profile",
+                "sha256": "0ad4b28c952bc17b4ea053bf282f332f147b6e8a9afec611a52ea91dd6fe7936",
+                "sourceCharacters": 973,
+                "visibleCharacters": 973,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "model": "gpt-5.6-luna",
+        "knownInputTokens": null,
+        "knownOutputTokens": null,
+        "knownStandardApiEquivalentUsd": 0,
+        "usageComplete": false,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0.12490995
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 0.027194999999999997,
+    "unknownUsageCalls": 1,
+    "unknownUsageConservativeAllowanceUsd": 0.12490995,
+    "failedCalls": 1
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-resume-a-20260912/nami"
+}

@@ -68,6 +68,88 @@ function sources(): SourceAdapter {
   };
 }
 describe('stateless definition runner', () => {
+  it('retries malformed draft JSON once with the same completed research and call receipts', async () => {
+    let drafts = 0;
+    const run = vi.fn(async (_input, ctx) => {
+      await ctx.research({ subject: 'Hero', sources: [source] });
+      return {
+        candidate: await ctx.model({
+          stage: 'draft',
+          instructions: 'Draft',
+          input: { subject: 'Hero' },
+          schema: output
+        })
+      };
+    });
+    const model: ModelAdapter = {
+      generate: vi.fn(async (call) => {
+        if (call.stage === 'research') return { value: knowledge, mode: 'fixture' };
+        if (++drafts === 1)
+          throw Object.assign(new RunError('invalid-json', 'Malformed response.'), {
+            usage: { inputTokens: 100, outputTokens: 40 },
+            provider: { model: 'same-model' }
+          });
+        return { value: { value: 2 }, mode: 'fixture', model: 'same-model' };
+      })
+    };
+    const result = await generate({ ...definition, run }, {}, { model });
+    expect(result.status).toBe('success');
+    expect(run).toHaveBeenCalledTimes(1);
+    expect(result.research).toHaveLength(1);
+    expect(result.metadata).toMatchObject({ modelCalls: 3, repairs: 0, formatRetries: 1 });
+    expect(result.metadata.calls[1]).toMatchObject({
+      completed: false,
+      errorCode: 'invalid-json',
+      model: 'same-model',
+      usage: { inputTokens: 100, outputTokens: 40 }
+    });
+    const calls = vi.mocked(model.generate).mock.calls.map(([call]) => call);
+    expect(calls[2]!.input).toEqual(calls[1]!.input);
+    expect(calls[2]!.schema).toEqual(calls[1]!.schema);
+    expect(result.metadata.calls[2]!.evidence).toEqual(result.metadata.calls[1]!.evidence);
+  });
+  it.each([1, 6])(
+    'keeps repeated malformed drafts within the shared %i-call limit',
+    async (maxModelCalls) => {
+      const model: ModelAdapter = {
+        generate: vi.fn(async () => {
+          throw new RunError('invalid-json', 'Malformed response.');
+        })
+      };
+      const result = await generate(definition, {}, { model, limits: { maxModelCalls } });
+      expect(result.error?.code).toBe('invalid-json');
+      expect(result.candidate).toBeUndefined();
+      expect(result.metadata.calls).toHaveLength(Math.min(maxModelCalls, 2));
+      expect(model.generate).toHaveBeenCalledTimes(Math.min(maxModelCalls, 2));
+    }
+  );
+  it('does not reset the format allowance for candidate repair', async () => {
+    let count = 0;
+    const model: ModelAdapter = {
+      generate: async () => {
+        if (++count !== 2) throw new RunError('invalid-json', 'Malformed response.');
+        return { value: { value: 1 }, mode: 'fixture' };
+      }
+    };
+    const result = await generate(definition, {}, { model });
+    expect(result.metadata).toMatchObject({ modelCalls: 3, repairs: 1, formatRetries: 1 });
+    expect(result.error?.code).toBe('invalid-json');
+    expect(result.candidate).toEqual({ value: 1 });
+  });
+  it.each(['refusal', 'timeout', 'provider-http', 'output-limit', 'truncated'])(
+    'does not format-retry %s failures',
+    async (code) => {
+      const model: ModelAdapter = {
+        generate: vi.fn(async () => {
+          throw new RunError(code, 'Failed.');
+        })
+      };
+      const result = await generate(definition, {}, { model });
+      expect(result.error?.code).toBe(code);
+      expect(model.generate).toHaveBeenCalledTimes(1);
+      expect(result.metadata.formatRetries).toBeUndefined();
+    }
+  );
   it('enforces final semantic checks and repairs using the complete existing candidate', async () => {
     const model: ModelAdapter = {
       generate: vi.fn(async (call) => ({
@@ -214,9 +296,14 @@ describe('reusable research and partial results', () => {
     expect(adapter.discover).toHaveBeenCalledTimes(1);
     expect(result.sources[0]!.content).toBe(source.content);
     const input = vi.mocked(model.generate).mock.calls[0]![0].input as {
-      sources: { excerpt: string }[];
+      sources: { content: string }[];
     };
-    expect(input.sources[0]!.excerpt.length).toBe(12000);
+    expect(input.sources[0]!.content).toBe(source.content);
+    expect(result.sourceVisibility?.[0]).toMatchObject({
+      sourceId: source.id,
+      visibleCharacters: source.content.length,
+      complete: true
+    });
     expect(result.sources[0]!.content.length).toBeGreaterThan(12000);
   });
   it('does not discover or fetch without permission and requires explicit ungrounded policy', async () => {

@@ -1,20 +1,21 @@
 # Mardwerk Unit Generator
 
-A stateless TypeScript library and CLI for generating game content with interchangeable definitions. The optional Svelte playground runs locally in one process.
+The Unit Generator CLI is the canonical product for turning original concepts and existing characters into editable game units. UnitLab is its localhost human web abstraction: it prepares CLI requests, observes runs, presents mechanics and sources, and exports results. Agents and Towerright can invoke the CLI directly.
 
-A definition supplies game rules, accepted input, output schema, instructions, examples, workflow and trusted validation. The runner supplies model/tool access, execution limits, cancellation and independently executed final checks. It has no database, saved jobs, application cache or storage adapter. The caller owns retention.
+A definition supplies game rules, accepted input, output schema, instructions, examples, workflow and trusted validation. The runner supplies model/tool access, execution limits, cancellation and independently executed final checks. It stores no prompts, research or generated units between runs. The caller owns retention.
 
 ## Local setup
 
-Use Node.js 24 or newer and pnpm 10.18.3. This checkout uses relative links to the public [Mardwerk Foundation](https://github.com/mardwerk/foundation) checkout beside it. Build Foundation first, then:
+Use Node.js 24 or newer, pnpm 10.18.3 and git. From a fresh clone:
 
 ```bash
-pnpm install
-pnpm build
-node apps/cli/dist/index.js generate 'Clockwork heron' --original --provider fixture
+node scripts/setup.mjs
+pnpm dev
 ```
 
-The fixture provider is an explicit synthetic demo. Configure a real connection as described in [provider configuration](docs/providers.md) for creative generation.
+The setup script installs and builds the pinned public [Mardwerk Foundation](https://github.com/mardwerk/foundation) source beside this repository, then builds Unit Generator. It preserves existing checkouts. See [local setup](docs/setup.md) for development checkouts and the built app.
+
+Open the URL printed in the terminal and follow [Create your first unit](docs/getting-started.md). Default generation uses Luna with high reasoning; Quality uses Astra with low reasoning. Configure a model endpoint in `.env` as described in [provider configuration](docs/providers.md). Without credentials, choose the explicit Demo fixture to explore the editor with synthetic original concepts.
 
 ```bash
 # Name-only input, with authorized source discovery and identity checking.
@@ -59,14 +60,19 @@ Core also exports independently callable `research` and `validate`. Every invoca
 
 The `0.2` result includes definition identity, original input, accepted `output` or failed `candidate`, captured sources, organized knowledge, coverage gaps, validation and model metadata. Completed research survives subsequent generation and repair failures. Sources contain captured substantive text; model excerpts are a separate prompt concern.
 
-Validation reports structure, implemented game checks, request constraints and unchecked rules separately. Balance is not tested. A passing schema-only definition reports system checks as `not-provided`. Success means the declared checks passed, not proven balance or source fidelity.
+Validation reports structure, implemented game checks, request constraints and unchecked rules separately. Balance is not tested. A passing schema-only definition reports system checks as `not-provided`. Success means the declared checks passed. Source fidelity and balance still need review. Supported contracts also include deterministic mechanic qualification with purchase findings, probe evidence and explicit coverage gaps.
 
 ## Definitions
 
-- `classic-three-path` is the editable BTD6-inspired default, with three five-tier paths and crosspath rules. It owns the classic content schema, compiler and mechanics.
+- `tower-defense` uses the generalized tower-defense mechanics engine, with three five-tier paths, crosspaths, attacks, abilities, summoned actors, income and support. Its [contract documentation](docs/btd6-derived-0.2.md) records the supported mechanics and remaining limits.
+- `manga-mayhem` extends the same engine with direct-contact combat, runtime forms, stamina and contextual Techniques. Its supported scope and limits are in the [MangaMayhem contract](docs/manga-mayhem-contract-0.1.md).
+- `classic-three-path` retains the earlier content schema, compiler and mechanics for existing results.
 - `merge-family-example` demonstrates another input/output contract and a shared three-copy merge rule. It is an example contract, not a game engine.
+- `btd6-derived` retains the earlier captured-endpoint contract. Its [contract documentation](docs/btd6-derived-0.1.md) distinguishes supported mechanics from unverified BTD6 behavior.
 
-Copy and edit a definition directory, then pass `--definition ./my-definition`. See [definition authoring](docs/definition-authoring.md). The default strategy uses one draft and up to one targeted repair. Custom trusted workflows may use any sequence within caller limits. The runner always performs final validation.
+Tower defense and MangaMayhem share normalized mechanical behavior while keeping their own game rules and unit contracts. Matching captured fields does not establish native BTD6 parity; unsupported captured endpoints remain explicit and cannot execute. `classic-three-path` remains the default during final qualification. The [manually authored Luffy design](docs/references/luffy-unit-design-v0.1.md) is the MangaMayhem development reference, with provisional tuning. The [completed comparison](experiments/two-lane-comparison/README.md) evaluated Astra Low and Luna High under the historical 0.1 contracts.
+
+Copy and edit a definition directory, then pass `--definition ./my-definition`. See [definition authoring](docs/definition-authoring.md). The default strategy uses one draft and up to one targeted repair. One malformed draft or repair response may also receive a format retry within the same total call limit, without repeating research. Custom trusted workflows may use any sequence within caller limits. The runner always performs final validation.
 
 The playground keeps the current result in page memory. Refreshing discards it, so export anything you want to keep.
 
@@ -74,15 +80,15 @@ Dark mode is the default. The sun or moon button switches themes and saves that 
 
 The composer and controls come from Foundation's `@mardwerk/ui` package and `@mardwerk/ui/styles.css`. Build `@mardwerk/ui` in the sibling Foundation checkout after changing shared components.
 
-Enter a subject and optional adaptation notes in the composer. Choose a definition and model connection in its footer, then select Generate. Ctrl+Enter or Command+Enter also generates while a composer field is focused. Advanced contains source material and research options. Its JSON input section accepts a complete request that replaces the form fields. The merge-family definition replaces the subject fields with a JSON request and an example to edit.
+Enter a subject and optional adaptation notes in the composer. Choose game rules and generation quality in its footer, then select Generate. Ctrl+Enter or Command+Enter also generates while a composer field is focused. Existing character input exposes Sources & continuity beside the adaptation notes. Advanced contains source material for original concepts and custom model connections. Its JSON input section accepts a complete request that replaces the form fields. The merge-family definition replaces the subject fields with a JSON request and an example to edit.
 
-The result has Design, JSON, Checks, and Research views. Open JSON to edit the unit, then select Validate edit. Export result downloads the checked result. Unvalidated changes download as a candidate instead.
+The result has Design, JSON, Checks, and Research views. Open JSON to edit the unit, then select Check changes. Character edits also receive a bounded source review using retained evidence and the selected model, preserving the exact edited unit. Without a model, locally valid character edits remain explicitly marked drafts. Export result downloads the checked result. Unvalidated changes download as a candidate; rule-valid character edits awaiting source review download as a draft.
 
 Set `UNIT_DEFINITION_PATHS` to a JSON object mapping custom selector IDs to local definition directories. Browser requests cannot choose code paths or command executables. Autocomplete and portraits remain deferred.
 
-## Unit Lab
+## UnitLab
 
-Unit Lab is the optional unit evaluation package, `@mardwerk/unit-lab`. It inspects mechanics and simulated upgrade behavior. It does not assign an overall design-quality score or assess character fidelity. See [Unit diagnostics](docs/unit-diagnostics-v0.2.md) and the [Luffy and BTD6 review](docs/luffy-btd6-review.md). Equivalent map evaluation tools are called Map Lab.
+The `@mardwerk/unit-lab` package supplies diagnostic and qualification tools used by the CLI and UnitLab. UnitLab has an ordinary human mode and a developer diagnostic workbench mode; both observe the canonical CLI workflow. It inspects mechanics and simulated upgrade behavior. It does not assign an overall design-quality score or assess character fidelity. See [Unit diagnostics](docs/unit-diagnostics-v0.2.md) and the [Luffy and BTD6 review](docs/luffy-btd6-review.md). The parallel map human workbench is MapLab.
 
 The [unit glossary](CONTEXT.md) links to Foundation's shared Mardwerk vocabulary.
 
@@ -93,8 +99,8 @@ pnpm check
 pnpm test:e2e
 ```
 
-Tests run without paid model calls. [Live quality observations](docs/live-quality-check.md) record the early real-model checks and their limits. Run `node scripts/live-smoke.mjs --discovery --out <new-file>` to repeat the opt-in smoke check. Default-system simulation, scoring and synthetic Unit Lab fixtures remain optional developer diagnostics, outside normal generation and the playground.
+Tests run without paid model calls. [Live quality observations](docs/live-quality-check.md) record the early real-model checks and their limits. Run `node scripts/live-smoke.mjs --discovery --out <new-file>` to repeat the opt-in smoke check. Current mechanic qualification runs in the CLI and playground. Historical Classic scoring and calibration fixtures remain optional developer diagnostics.
 
-Packages are split into generic `core`, generic `providers`, game-specific `definitions`, and optional `unit-lab` diagnostics. Apps are `cli` and `web`. See [architecture](docs/generation-pipeline.md), [migration notes](docs/migration-0.2.md), and the approved [refactor plan](docs/stateless-refactor-plan.md).
+Packages are split into generic `core`, generic `providers`, game-specific `definitions`, and optional `unit-lab` diagnostics. Apps are `cli` and `web`. See the [module design map](docs/codebase-design.md), [generation pipeline](docs/generation-pipeline.md), [migration notes](docs/migration-0.2.md), and the approved [refactor plan](docs/stateless-refactor-plan.md).
 
 MPL-2.0. See `LICENSE` and `NOTICE`.

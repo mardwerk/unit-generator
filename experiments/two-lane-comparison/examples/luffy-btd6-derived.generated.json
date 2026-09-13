@@ -1,0 +1,469 @@
+{
+  "schemaVersion": "btd6-derived/0.1",
+  "id": "monkey-d-luffy-straw-hat-vanguard",
+  "name": "Monkey D. Luffy \u2014 Straw Hat Vanguard",
+  "description": "A long-reach contact fighter with elastic punches, Haki specialization, and activated Gear transformations. Three paths emphasize reach and heavy blows, perception and control, or temporary combat forms. This is an authored tower interpretation of the manga character, not a claim of canonical numerical strength or tested game balance.",
+  "placementCost": 850,
+  "resolution": "upgrades",
+  "base": {
+    "displayRange": 36,
+    "targeting": {
+      "modes": ["first", "last", "close", "strong"],
+      "default": "first"
+    },
+    "attacks": [
+      {
+        "id": "gum-gum-pistol",
+        "delivery": "contact",
+        "intervalSeconds": 0.9,
+        "reach": {
+          "kind": "radius",
+          "radius": 36,
+          "throughWalls": false
+        },
+        "detectsCamo": false,
+        "damage": 2,
+        "pierce": 2,
+        "projectiles": 1,
+        "immuneTo": ["lead"],
+        "onHit": []
+      }
+    ],
+    "abilities": []
+  },
+  "paths": [
+    {
+      "id": "elastic-force",
+      "name": "Elastic Force",
+      "upgrades": [
+        {
+          "id": "longer-stretch",
+          "name": "Longer Stretch",
+          "description": "Adds 8 reach and display range to the automatic punch.",
+          "cost": 250,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "gum-gum-pistol",
+              "stat": "radius",
+              "operator": "add",
+              "value": 8
+            },
+            {
+              "kind": "display-range",
+              "operator": "add",
+              "value": 8
+            }
+          ]
+        },
+        {
+          "id": "sweeping-blows",
+          "name": "Sweeping Blows",
+          "description": "Automatic elastic strikes contact 3 additional targets per emission.",
+          "cost": 450,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "gum-gum-pistol",
+              "stat": "pierce",
+              "operator": "add",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "id": "heavy-recoil",
+          "name": "Heavy Recoil",
+          "description": "Adds 4 automatic punch damage.",
+          "cost": 1500,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "gum-gum-pistol",
+              "stat": "damage",
+              "operator": "add",
+              "value": 4
+            }
+          ]
+        },
+        {
+          "id": "gear-three",
+          "name": "Gear Third",
+          "description": "Unlocks a 15-second giant-limb transformation: 24 damage and 18 pierce per slow contact strike. This fixed snapshot does not inherit crosspath upgrades.",
+          "cost": 5500,
+          "operations": [
+            {
+              "kind": "grant-ability",
+              "ability": {
+                "id": "gear-three",
+                "name": "Gear Third",
+                "cooldownSeconds": 45,
+                "durationSeconds": 15,
+                "effect": {
+                  "kind": "transform",
+                  "displayRange": 54,
+                  "attacks": [
+                    {
+                      "id": "giant-limb-strike",
+                      "delivery": "contact",
+                      "intervalSeconds": 1.1,
+                      "reach": {
+                        "kind": "radius",
+                        "radius": 54,
+                        "throughWalls": false
+                      },
+                      "detectsCamo": false,
+                      "damage": 24,
+                      "pierce": 18,
+                      "projectiles": 1,
+                      "immuneTo": ["lead"],
+                      "onHit": []
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "elastic-powerhouse",
+          "name": "Elastic Powerhouse",
+          "description": "Adds 16 damage and 10 pierce to automatic punches outside transformations.",
+          "cost": 22000,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "gum-gum-pistol",
+              "stat": "damage",
+              "operator": "add",
+              "value": 16
+            },
+            {
+              "kind": "attack-stat",
+              "attackId": "gum-gum-pistol",
+              "stat": "pierce",
+              "operator": "add",
+              "value": 10
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "haki",
+      "name": "Haki Mastery",
+      "upgrades": [
+        {
+          "id": "observation",
+          "name": "Observation Haki",
+          "description": "Automatic punches can select camouflaged targets in range. Transformation snapshots remain unchanged.",
+          "cost": 400,
+          "operations": [
+            {
+              "kind": "detect-camo",
+              "attackId": "gum-gum-pistol"
+            }
+          ]
+        },
+        {
+          "id": "armament",
+          "name": "Armament Haki",
+          "description": "Removes the automatic punch's lead damage immunity and adds 1 damage.",
+          "cost": 650,
+          "operations": [
+            {
+              "kind": "damage-immunities",
+              "attackId": "gum-gum-pistol",
+              "immuneTo": []
+            },
+            {
+              "kind": "attack-stat",
+              "attackId": "gum-gum-pistol",
+              "stat": "damage",
+              "operator": "add",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "conquerors-presence",
+          "name": "Conqueror's Presence",
+          "description": "Unlocks an activated, non-damaging Haki pulse that stuns up to 40 eligible nearby targets for 3 seconds. Strong-willed and boss tags resist the stun.",
+          "cost": 2400,
+          "operations": [
+            {
+              "kind": "grant-ability",
+              "ability": {
+                "id": "conquerors-pulse",
+                "name": "Conqueror's Presence",
+                "cooldownSeconds": 30,
+                "effect": {
+                  "kind": "attack",
+                  "attacks": [
+                    {
+                      "id": "conquerors-pulse-hit",
+                      "delivery": "instant",
+                      "intervalSeconds": 1,
+                      "reach": {
+                        "kind": "radius",
+                        "radius": 48,
+                        "throughWalls": false
+                      },
+                      "detectsCamo": true,
+                      "damage": 0,
+                      "pierce": 40,
+                      "projectiles": 1,
+                      "immuneTo": [],
+                      "onHit": [
+                        {
+                          "kind": "stun",
+                          "durationSeconds": 3,
+                          "speedMultiplier": 0,
+                          "immuneTo": ["strong-willed", "boss"]
+                        }
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "internal-destruction",
+          "name": "Internal Destruction",
+          "description": "Adds 10 automatic punch damage as a bounded abstraction of advanced Armament's offensive force; does not simulate internal anatomy.",
+          "cost": 6500,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "gum-gum-pistol",
+              "stat": "damage",
+              "operator": "add",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "id": "conquerors-coating",
+          "name": "Conqueror's Coating",
+          "description": "Triples automatic punch damage. The activated control pulse retains its independent strength and cooldown.",
+          "cost": 28000,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "gum-gum-pistol",
+              "stat": "damage",
+              "operator": "multiply",
+              "value": 3
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "gear-evolution",
+      "name": "Gear Evolution",
+      "upgrades": [
+        {
+          "id": "battle-rhythm",
+          "name": "Battle Rhythm",
+          "description": "Multiplies automatic punch interval by 0.8.",
+          "cost": 300,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "gum-gum-pistol",
+              "stat": "intervalSeconds",
+              "operator": "multiply",
+              "value": 0.8
+            }
+          ]
+        },
+        {
+          "id": "trained-strength",
+          "name": "Trained Strength",
+          "description": "Adds 2 automatic punch damage.",
+          "cost": 550,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "gum-gum-pistol",
+              "stat": "damage",
+              "operator": "add",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "id": "gear-two",
+          "name": "Gear Second",
+          "description": "Unlocks a 12-second rapid contact transformation. Its explicit snapshot deals 6 damage every 0.18 seconds, without camo detection or lead damage.",
+          "cost": 2800,
+          "operations": [
+            {
+              "kind": "grant-ability",
+              "ability": {
+                "id": "gear-two",
+                "name": "Gear Second",
+                "cooldownSeconds": 35,
+                "durationSeconds": 12,
+                "effect": {
+                  "kind": "transform",
+                  "displayRange": 42,
+                  "attacks": [
+                    {
+                      "id": "rapid-elastic-strike",
+                      "delivery": "contact",
+                      "intervalSeconds": 0.18,
+                      "reach": {
+                        "kind": "radius",
+                        "radius": 42,
+                        "throughWalls": false
+                      },
+                      "detectsCamo": false,
+                      "damage": 6,
+                      "pierce": 5,
+                      "projectiles": 1,
+                      "immuneTo": ["lead"],
+                      "onHit": []
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "gear-four",
+          "name": "Gear Fourth",
+          "description": "Unlocks a separate 16-second compression-strike transformation with intrinsic Armament coating. Gear Second remains available, but forms cannot overlap.",
+          "cost": 9000,
+          "operations": [
+            {
+              "kind": "grant-ability",
+              "ability": {
+                "id": "gear-four",
+                "name": "Gear Fourth",
+                "cooldownSeconds": 55,
+                "durationSeconds": 16,
+                "effect": {
+                  "kind": "transform",
+                  "displayRange": 50,
+                  "attacks": [
+                    {
+                      "id": "compression-strike",
+                      "delivery": "contact",
+                      "intervalSeconds": 0.35,
+                      "reach": {
+                        "kind": "radius",
+                        "radius": 50,
+                        "throughWalls": false
+                      },
+                      "detectsCamo": false,
+                      "damage": 30,
+                      "pierce": 12,
+                      "projectiles": 1,
+                      "immuneTo": [],
+                      "onHit": []
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "gear-five",
+          "name": "Gear Fifth",
+          "description": "Unlocks a separate 20-second awakened elastic-strike snapshot with 65 damage and 24 pierce. Earlier forms remain available. Environmental rubberization is not simulated.",
+          "cost": 42000,
+          "operations": [
+            {
+              "kind": "grant-ability",
+              "ability": {
+                "id": "gear-five",
+                "name": "Gear Fifth",
+                "cooldownSeconds": 70,
+                "durationSeconds": 20,
+                "effect": {
+                  "kind": "transform",
+                  "displayRange": 60,
+                  "attacks": [
+                    {
+                      "id": "awakened-elastic-strike",
+                      "delivery": "contact",
+                      "intervalSeconds": 0.3,
+                      "reach": {
+                        "kind": "radius",
+                        "radius": 60,
+                        "throughWalls": false
+                      },
+                      "detectsCamo": false,
+                      "damage": 65,
+                      "pierce": 24,
+                      "projectiles": 1,
+                      "immuneTo": [],
+                      "onHit": []
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "endpoints": [
+    {
+      "tiers": [0, 0, 0],
+      "model": {
+        "displayRange": 36,
+        "targeting": {
+          "modes": ["first", "last", "close", "strong"],
+          "default": "first"
+        },
+        "attacks": [
+          {
+            "id": "gum-gum-pistol",
+            "delivery": "contact",
+            "intervalSeconds": 0.9,
+            "reach": {
+              "kind": "radius",
+              "radius": 36,
+              "throughWalls": false
+            },
+            "detectsCamo": false,
+            "damage": 2,
+            "pierce": 2,
+            "projectiles": 1,
+            "immuneTo": ["lead"],
+            "onHit": []
+          }
+        ],
+        "abilities": []
+      }
+    }
+  ],
+  "adaptations": [
+    "All costs, radii, damage, pierce, attack intervals, control durations and cooldowns are original design parameters, not source measurements or balance findings. Elastic melee uses contact delivery even at extended reach.",
+    "The three-path purchase structure is a gameplay specialization rather than a chronological biography. Gear Third and the advanced Gear path cannot coexist in a legal build; this is a deliberate loadout restriction, not a character limitation.",
+    "Observation is mapped to camo eligibility and Armament to removal of the authored lead immunity. Observation remains meaningful against camouflaged targets during purchased automatic attacks; it does not propagate into transformation snapshots.",
+    "Gear Fourth includes its required Armament coating intrinsically rather than requiring a purchase on another path. Gear Fifth also uses an authored coated-strike snapshot. Neither form receives implicit base upgrades.",
+    "Conqueror's unconsciousness is approximated by a temporary zero-damage stun pulse. Strong-willed and boss are encounter-authored control immunity tags, not a simulated willpower contest. The pulse can affect camouflaged targets independently of punch detection.",
+    "Gear forms have separate cooldowns and fixed attack snapshots. They replace all automatic attacks temporarily, retain earlier unlocked abilities, and cannot overlap. Fixed timing is a bounded gameplay abstraction, not faithful resource simulation.",
+    "Internal Destruction and Conqueror's Coating increase personal strike damage only; this does not claim simulation of anatomy, armor systems or non-contact advanced Haki.",
+    "Only the base endpoint is declared; no combination-specific endpoint overrides are authored."
+  ],
+  "unsupported": [
+    "Stamina and energy expenditure, transformation strain, lifespan consequences, resource-dependent exhaustion and recovery cannot be executed. Duration and cooldown alone do not faithfully implement these limitations.",
+    "Simultaneous Gear Second and Gear Third use is unsupported by the one-transformation rule and is additionally excluded by this design's path allocation.",
+    "Gear Third's historical post-use shrinking, early transformation exit, and contextual shared Haki cooldowns cannot be represented by the declared lifecycle.",
+    "Gear Fourth flight, character locomotion, compression trajectories and elastic body geometry are not simulated by stationary contact attacks.",
+    "Gear Fifth environmental and living-target rubberization, free-form body manipulation and imaginative interaction with terrain are unsupported; the declared form represents only a bounded offensive subset.",
+    "Observation's prediction of future movement and defensive evasion are unsupported. Camo detection is not future sight.",
+    "Luffy's incoming-damage resistances, vulnerability to sharp attacks, swimming inability, Sea-Prism Stone weakness and poison resistance require defensive or environmental systems absent here.",
+    "Crew recruitment, allied crew actions and Grand Fleet support are not represented as summons or substituted personal damage."
+  ]
+}

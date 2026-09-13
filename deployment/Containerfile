@@ -32,14 +32,15 @@ COPY unit-generator/packages/unit-lab/src ./packages/unit-lab/src
 COPY unit-generator/apps/cli/package.json unit-generator/apps/cli/tsconfig.json ./apps/cli/
 COPY unit-generator/apps/cli/src ./apps/cli/src
 COPY unit-generator/apps/web/package.json unit-generator/apps/web/tsconfig.json ./apps/web/
+COPY unit-generator/apps/web/start.mjs unit-generator/apps/web/request-limits.mjs ./apps/web/
 COPY unit-generator/apps/web/src ./apps/web/src
 COPY unit-generator/apps/web/svelte.config.js unit-generator/apps/web/vite.config.ts ./apps/web/
 RUN pnpm install --frozen-lockfile && pnpm build
 
 FROM docker.io/library/node:24-bookworm-slim AS runtime
-ENV NODE_ENV=production HOST=0.0.0.0 PORT=5173 ORIGIN=http://127.0.0.1:5173 BODY_SIZE_LIMIT=4194304
+ENV NODE_ENV=production HOST=0.0.0.0 PORT=5173 ORIGIN=http://127.0.0.1:5173
 WORKDIR /workspace/unit-generator
 COPY --from=build /workspace /workspace
 USER node
 EXPOSE 5173
-CMD ["node", "apps/web/build/index.js"]
+CMD ["node", "apps/web/start.mjs"]

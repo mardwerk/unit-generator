@@ -1,0 +1,247 @@
+{
+  "implementationHashes": {
+    "core": "ce76bee058ebbfdd0c5a5ca78d8b626293daa67eb2f1c0c0d26e9bc930444705",
+    "definitions": "4e15e820b279a926a835e5fd550176953e6caa9cc894fa43b574eb9b44a402b6",
+    "providers": "e851841e02466a29c4956ad0116992d4ba84579591b88a1bc9949b4d664d2375",
+    "unit-lab": "a50b8409fb81ed4a5f26c5282b2e01ab6b55018fee782dfdfe08470e5ce514e4"
+  },
+  "runnerSha256": "b995d8381042511f3f59c3d3bcafd350e4428d041255447068edb253c26c63d4",
+  "operation": "generation",
+  "originalResult": null,
+  "label": "luffy-quality-01",
+  "startedAt": "2026-09-09T18:43:08.469Z",
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "fallbackReason": "Explicit common-input generation-mode comparison after source-review correction",
+  "requests": ".scratch/straw-hats/requests",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "fileDigest": "109f06dccbf90375d4bcffcfbbeb868968dbf8468cbf00ccabc0a5117f9caf20"
+  },
+  "limits": {
+    "maxRepairs": 1,
+    "maxModelCalls": 6,
+    "maxResearchCalls": 1,
+    "timeoutMs": 1800000,
+    "callTimeoutMs": 300000
+  },
+  "pricing": {
+    "rates": {
+      "gpt-5.6-luna": {
+        "input": 0.2,
+        "output": 1.2
+      },
+      "gpt-6-astra": {
+        "input": 10,
+        "output": 50
+      }
+    },
+    "currency": "USD",
+    "unit": "per million tokens",
+    "source": "https://developers.openai.com/api/docs/pricing",
+    "verifiedAt": "2026-09-09",
+    "scope": "Standard API-equivalent estimate using published rates captured earlier today. Not a provider invoice. Agent development and independent review usage excluded. Unknown usage is not zero."
+  },
+  "results": [
+    {
+      "id": "luffy",
+      "status": "success",
+      "blockers": [],
+      "calls": 4,
+      "repairs": 1,
+      "accounting": {
+        "calls": [
+          {
+            "sequence": 1,
+            "stage": "research",
+            "startedAt": "2026-09-09T18:43:08.536Z",
+            "completed": true,
+            "inputTokenUpperBound": 148242,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-09T18:45:37.592Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 38994,
+              "outputTokens": 4882,
+              "totalTokens": 43876
+            },
+            "outputSha256": "f7106ecaa6539fe321f57b8a1f0ef8245c1acdbdaf1465f9a1d9273785658172",
+            "knownInputTokens": 38994,
+            "knownOutputTokens": 4882,
+            "knownStandardApiEquivalentUsd": 0.63404,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 2,
+            "stage": "draft",
+            "startedAt": "2026-09-09T18:45:37.690Z",
+            "completed": true,
+            "inputTokenUpperBound": 261094,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-09T18:47:14.963Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 65399,
+              "outputTokens": 3117,
+              "totalTokens": 68516
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "f7106ecaa6539fe321f57b8a1f0ef8245c1acdbdaf1465f9a1d9273785658172",
+                "sources": [
+                  {
+                    "sourceId": "luffy-fan-abilities-1",
+                    "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                    "sourceCharacters": 129355,
+                    "visibleCharacters": 129355,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "luffy-official-profile",
+                    "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f",
+                    "sourceCharacters": 1122,
+                    "visibleCharacters": 1122,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "luffy-official-wano",
+                    "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                    "sourceCharacters": 1654,
+                    "visibleCharacters": 1654,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "f5bb7a73c30b499f093336e5e90060aefd4f09ade9cbcc3a5fa0f5dc65789d47",
+            "knownInputTokens": 65399,
+            "knownOutputTokens": 3117,
+            "knownStandardApiEquivalentUsd": 0.80984,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 3,
+            "stage": "repair",
+            "startedAt": "2026-09-09T18:47:15.476Z",
+            "completed": true,
+            "inputTokenUpperBound": 410443,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-09T18:48:49.162Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 105394,
+              "outputTokens": 2941,
+              "totalTokens": 108335
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "f7106ecaa6539fe321f57b8a1f0ef8245c1acdbdaf1465f9a1d9273785658172",
+                "sources": [
+                  {
+                    "sourceId": "luffy-fan-abilities-1",
+                    "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                    "sourceCharacters": 129355,
+                    "visibleCharacters": 129355,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "luffy-official-profile",
+                    "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f",
+                    "sourceCharacters": 1122,
+                    "visibleCharacters": 1122,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "luffy-official-wano",
+                    "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                    "sourceCharacters": 1654,
+                    "visibleCharacters": 1654,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "09f3434377799f3fbcb240212f7e8704a1e0f28c8a781ca10b84b198776deab1",
+            "knownInputTokens": 105394,
+            "knownOutputTokens": 2941,
+            "knownStandardApiEquivalentUsd": 1.20099,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 4,
+            "stage": "fidelity-review",
+            "startedAt": "2026-09-09T18:48:50.165Z",
+            "completed": true,
+            "inputTokenUpperBound": 351503,
+            "maxOutputTokens": 12300,
+            "endedAt": "2026-09-09T18:52:29.436Z",
+            "model": "gpt-6-astra",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 92365,
+              "outputTokens": 7146,
+              "totalTokens": 99511
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "f7106ecaa6539fe321f57b8a1f0ef8245c1acdbdaf1465f9a1d9273785658172",
+                "sources": [
+                  {
+                    "sourceId": "luffy-fan-abilities-1",
+                    "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                    "sourceCharacters": 129355,
+                    "visibleCharacters": 129355,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "luffy-official-profile",
+                    "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f",
+                    "sourceCharacters": 1122,
+                    "visibleCharacters": 1122,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "luffy-official-wano",
+                    "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                    "sourceCharacters": 1654,
+                    "visibleCharacters": 1654,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "5afc011c03b28f8e8d56ca393519fe9a2a8db241cc00c199c1ee4957048be56d",
+            "knownInputTokens": 92365,
+            "knownOutputTokens": 7146,
+            "knownStandardApiEquivalentUsd": 1.28095,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          }
+        ],
+        "knownStandardApiEquivalentUsd": 3.92582,
+        "unknownUsageCalls": 0,
+        "unknownUsageConservativeAllowanceUsd": 0,
+        "failedCalls": 0
+      },
+      "publicArtifacts": "examples/straw-hats/runs/luffy-quality-01/luffy",
+      "privateArtifacts": ".scratch/straw-hats/runs/luffy-quality-01/luffy"
+    }
+  ],
+  "completedAt": "2026-09-09T18:52:29.841Z"
+}

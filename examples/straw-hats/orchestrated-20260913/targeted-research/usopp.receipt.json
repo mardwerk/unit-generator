@@ -1,0 +1,264 @@
+{
+  "schemaVersion": "0.2",
+  "status": "success",
+  "subject": "Usopp",
+  "reused": false,
+  "grounding": "grounded",
+  "gaps": [
+    "The supplied pages do not provide a comprehensive Usopp character page covering every ability, technique, weapon, transformation, limitation, and weakness through the end of Wano Country.",
+    "No transformation or formal power-up specific to Usopp is documented in the supplied pages.",
+    "No explicit physical limitations or combat weaknesses specific to Usopp are documented, beyond the official characterization of cowardice and negativity and the implied reliance on equipment, ammunition, and deception.",
+    "The Kabuto page includes anime-only techniques and movie-only material; those items are omitted from the selected manga-through-Wano record because the requested continuity excludes them.",
+    "The Pop Green page includes Film Z, One Piece Odyssey, and other non-manga or non-canon material; those portions are omitted from the selected record.",
+    "The supplied official Wano Country summary confirms the arc's broad events and the Straw Hats' participation but does not detail Usopp's individual Wano battles, techniques, injuries, or equipment usage.",
+    "The supplied pages do not establish the complete status or chronology of every named weapon and technique through the end of Wano.",
+    "The requested continuity string is retained exactly as supplied; the sources support the identity and endpoint but do not themselves provide exhaustive chapter-by-chapter verification of every claim through that endpoint."
+  ],
+  "sourceVisibility": [
+    {
+      "sourceId": "e3c046986b461b6b725d42d0",
+      "sha256": "9535329ed55a5ef3694d691feb3923cb679a6c6b25d806a44160c9323323ca1a",
+      "sourceCharacters": 10661,
+      "visibleCharacters": 10661,
+      "complete": true
+    },
+    {
+      "sourceId": "9e84709c1d2602b99c06d06b",
+      "sha256": "abd372733f8394185c219549d3c2acbc0421f0c4bf97476bdc02c8685a53eb28",
+      "sourceCharacters": 16366,
+      "visibleCharacters": 16366,
+      "complete": true
+    },
+    {
+      "sourceId": "72f30fd57248332af12db874",
+      "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+      "sourceCharacters": 1806,
+      "visibleCharacters": 1806,
+      "complete": true
+    },
+    {
+      "sourceId": "600b250f9838e58b36ccca0c",
+      "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+      "sourceCharacters": 1673,
+      "visibleCharacters": 1673,
+      "complete": true
+    }
+  ],
+  "knowledge": {
+    "subject": "Usopp",
+    "identity": {
+      "status": "resolved",
+      "name": "Usopp",
+      "continuity": "One Piece manga through the end of Wano Country arc",
+      "explanation": "The supplied official character page identifies Usopp as a Straw Hat Pirates member and sniper, while the supplied official Wano Country story page covers the requested endpoint. The requested continuity is therefore supported. The Pop Green and Kabuto pages are character-specific ability and equipment pages for Usopp, though some cited material on them includes anime, film, game, or other non-manga content that is excluded from this selected continuity."
+    },
+    "claims": [
+      {
+        "text": "Usopp is a member of the Straw Hat Pirates and serves as the crew's sniper.",
+        "sourceIds": [
+          "72f30fd57248332af12db874"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp is from Syrup Village in the East Blue and is the son of a sniper in the Red-Haired Pirates. He dreams of becoming a brave warrior of the sea.",
+        "sourceIds": [
+          "72f30fd57248332af12db874"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp is characterized as cowardly and negative but repeatedly summons courage to confront dangerous adventures and powerful enemies.",
+        "sourceIds": [
+          "72f30fd57248332af12db874"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp's defining combat style is long-range precision sniping, primarily using slingshots and ammunition with varied effects to confuse, restrain, damage, or otherwise manipulate opponents.",
+        "sourceIds": [
+          "72f30fd57248332af12db874",
+          "9e84709c1d2602b99c06d06b"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp is skilled at lying, bluffing, deception, and psychological disruption, and these tactics can contribute directly to his effectiveness in battle.",
+        "sourceIds": [
+          "72f30fd57248332af12db874"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp is highly dexterous and talented at inventing weapons, tools, and specialized ammunition.",
+        "sourceIds": [
+          "72f30fd57248332af12db874"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "After two years of training with Heracles on the Boin Archipelago, Usopp learned to use Pop Greens, seeds that can rapidly grow into full-sized hostile plants with varied effects.",
+        "sourceIds": [
+          "e3c046986b461b6b725d42d0",
+          "72f30fd57248332af12db874"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Pop Greens can produce different combat effects, including piercing, explosions, shock waves, restraints, smokescreens, and defensive or utility plants; the supplied evidence states that Usopp fires them with the Kuro Kabuto.",
+        "sourceIds": [
+          "e3c046986b461b6b725d42d0"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "The supplied evidence names Usopp's Pop Green techniques as Midori Boshi: Devil, Sargasso, Rafflesia, Take Jave Rin, Dokuro Bakuhatsu So, Humandrake, Trampolia, Impact Wolf, Boaty Banana, Uchiwa So, Grow Up Kuro Kabuto: Bakun So, Super Grow Up Kuro Kabuto, Platanus Shuriken, Nemuri So, Hanabibana, Baku Bokkuri, Sprinkler, Sea Devil, Yabusame Devil, Cushion Kazue, and Hebi Hanabi.",
+        "sourceIds": [
+          "e3c046986b461b6b725d42d0"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "The Pop Green page states that Usopp maintains an Usopp Garden aboard the Thousand Sunny to mass-produce Pop Greens, based on an SBS reference summarized by that page.",
+        "sourceIds": [
+          "e3c046986b461b6b725d42d0"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Kabuto is a large, Dial-powered slingshot developed by Usopp before Enies Lobby using Dials obtained in Skypiea. Its design improves firing speed, distance, stability, and accuracy, and its Breath Dial adds force and rotation to shots.",
+        "sourceIds": [
+          "9e84709c1d2602b99c06d06b"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Named Kabuto techniques in the supplied evidence include Hi no Tori Boshi, Himawari Boshi, Cho Kemuri Boshi, Rokuren Mamushi Boshi, Midare-uchi Salt Star, Ageha Ryusei, Kamakiri Ryusei, Atlas Suisei, Torimochi Boshi, Gokiburi Boshi, Tokuyo Abura Boshi, and Super Size Hi no Tori Boshi.",
+        "sourceIds": [
+          "9e84709c1d2602b99c06d06b"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "The supplied Kabuto evidence describes Hi no Tori Boshi as a powerful phoenix-shaped fire projectile; Himawari Boshi as five simultaneous explosive shots; Cho Kemuri Boshi as a long-range smokescreen; Rokuren Mamushi Boshi as six shots in a snake-like pattern; Midare-uchi Salt Star as salt-filled shots; and Torimochi Boshi as a sticky immobilizing projectile.",
+        "sourceIds": [
+          "9e84709c1d2602b99c06d06b"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "The supplied Kabuto evidence describes Ageha Ryusei and Kamakiri Ryusei as high-speed projectiles with different trajectories and effects, Atlas Suisei as four converging shots, Gokiburi Boshi as a psychological attack using artificial cockroaches, Tokuyo Abura Boshi as oil pellets that cause slipping, and Super Size Hi no Tori Boshi as a larger fire-based attack created with Franky's assistance.",
+        "sourceIds": [
+          "9e84709c1d2602b99c06d06b"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "The supplied official character page identifies Usopp by the epithet 'God' Usopp and states that his bounty is 500 million berries; it also identifies his age as 19 and his height as 176 cm.",
+        "sourceIds": [
+          "72f30fd57248332af12db874"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp has no Devil Fruit power identified in the supplied pages. His documented special capabilities are marksmanship, specialized ammunition, Pop Greens, inventiveness, deception, and psychological tactics.",
+        "sourceIds": [
+          "72f30fd57248332af12db874",
+          "e3c046986b461b6b725d42d0",
+          "9e84709c1d2602b99c06d06b"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "The supplied official Wano Country summary places Usopp among the Straw Hat Pirates who participated in the raid on Onigashima and states that the Straw Hats left Wano after Kaidou and Big Mom were defeated.",
+        "sourceIds": [
+          "600b250f9838e58b36ccca0c"
+        ],
+        "kind": "evidence"
+      }
+    ],
+    "gaps": [
+      "The supplied pages do not provide a comprehensive Usopp character page covering every ability, technique, weapon, transformation, limitation, and weakness through the end of Wano Country.",
+      "No transformation or formal power-up specific to Usopp is documented in the supplied pages.",
+      "No explicit physical limitations or combat weaknesses specific to Usopp are documented, beyond the official characterization of cowardice and negativity and the implied reliance on equipment, ammunition, and deception.",
+      "The Kabuto page includes anime-only techniques and movie-only material; those items are omitted from the selected manga-through-Wano record because the requested continuity excludes them.",
+      "The Pop Green page includes Film Z, One Piece Odyssey, and other non-manga or non-canon material; those portions are omitted from the selected record.",
+      "The supplied official Wano Country summary confirms the arc's broad events and the Straw Hats' participation but does not detail Usopp's individual Wano battles, techniques, injuries, or equipment usage.",
+      "The supplied pages do not establish the complete status or chronology of every named weapon and technique through the end of Wano.",
+      "The requested continuity string is retained exactly as supplied; the sources support the identity and endpoint but do not themselves provide exhaustive chapter-by-chapter verification of every claim through that endpoint."
+    ]
+  },
+  "metadata": {
+    "modelCalls": 1,
+    "repairs": 0,
+    "elapsedMs": 44422,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 11714,
+          "outputTokens": 1706,
+          "totalTokens": 13420
+        },
+        "outputSha256": "02e24af6d3db6f4600d44c5aef5ec31cf0bc8e67bee1dbb6825b8d16f8b2140f"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "e3c046986b461b6b725d42d0",
+      "url": "https://onepiece.fandom.com/wiki/Pop_Green",
+      "title": "Pop Green | One Piece Wiki | Fandom",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+      ]
+    },
+    {
+      "id": "9e84709c1d2602b99c06d06b",
+      "url": "https://onepiece.fandom.com/wiki/Usopp_Tactics/Kabuto",
+      "title": "Usopp Tactics/Kabuto | One Piece Wiki | Fandom",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+      ]
+    },
+    {
+      "id": "72f30fd57248332af12db874",
+      "url": "https://one-piece.com/character/usopp/index.html",
+      "title": "\u30a6\u30bd\u30c3\u30d7 | \u30ad\u30e3\u30e9\u30af\u30bf\u30fc\u691c\u7d22 | ONE PIECE.com\uff08\u30ef\u30f3\u30d4\u30fc\u30b9 \u30c9\u30c3\u30c8\u30b3\u30e0\uff09",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+      ]
+    },
+    {
+      "id": "600b250f9838e58b36ccca0c",
+      "url": "https://one-piece.com/story/land_of_wano2/index.html",
+      "title": "\u30ef\u30ce\u56fd\u7de8 | \u3053\u308c\u307e\u3067\u306e\u30b9\u30c8\u30fc\u30ea\u30fc | ONE PIECE.com\uff08\u30ef\u30f3\u30d4\u30fc\u30b9 \u30c9\u30c3\u30c8\u30b3\u30e0\uff09",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+      ]
+    }
+  ],
+  "privateResultPath": ".scratch/straw-hats/orchestrated-20260913/targeted-research/usopp.result.json",
+  "resultSha256": "e230b32f2aad430aa73058e247c038324dba3abccdfb32cfe0432b15e00173ba",
+  "review": {
+    "acceptedForGeneration": false,
+    "notes": [
+      "Semantic review rejected initial research for mixed-canon Pop Green names in an evidence claim and missing Kuro Kabuto details. Do not use this record for generation. Bounded source-specific retry is usopp-v2."
+    ]
+  }
+}

@@ -255,6 +255,47 @@ function checkPackageManifest(file, source, packageNames, issues) {
   }
 }
 
+function checkCrewReceipt(file, source, issues) {
+  if (
+    !file.startsWith('examples/straw-hats/runs/') ||
+    !['receipt.json', 'independent-review.json', 'run.json'].includes(basename(file))
+  )
+    return 0;
+  let receipt;
+  try {
+    receipt = JSON.parse(source);
+  } catch {
+    issues.push({
+      location: file,
+      code: 'invalid-receipt',
+      message: 'could not parse crew receipt'
+    });
+    return 0;
+  }
+  let copiedCharacters = 0;
+  const visit = (value, path = '') => {
+    if (!value || typeof value !== 'object') return;
+    for (const [key, child] of Object.entries(value)) {
+      const location = `${path}/${key}`;
+      if (
+        ['content', 'quote', 'sourceQuote', 'excerpt'].includes(key) &&
+        typeof child === 'string' &&
+        child.length
+      ) {
+        copiedCharacters += child.length;
+        issues.push({
+          location: `${file}${location}`,
+          code: 'private-source-text',
+          message: 'keep source text private; publish source IDs, URLs, hashes and offsets'
+        });
+      }
+      visit(child, location);
+    }
+  };
+  visit(receipt);
+  return copiedCharacters;
+}
+
 function check() {
   const files = publicFiles();
   const issues = [];
@@ -275,6 +316,7 @@ function check() {
   }
 
   let scanned = 0;
+  let copiedSourceCharacters = 0;
   for (const file of files) {
     if (file === scriptPath) continue;
     const absolute = resolve(root, file);
@@ -291,13 +333,21 @@ function check() {
     }
     scanned += 1;
 
-    const rules = isDocumentation(file) ? documentationRules : textRules;
+    // Preserve exact generated payload bytes and receipt hashes. Presentation rules apply to prose.
+    const generatedPayload =
+      /^examples\/straw-hats\/runs\/[^/]+\/[^/]+\/(?:unit|candidate|receipt)\.json$/.test(file);
+    const rules = isDocumentation(file)
+      ? documentationRules
+      : generatedPayload
+        ? textRules.filter(({ code }) => code !== 'unicode-em-dash')
+        : textRules;
     for (const rule of rules) {
       if (rule.pattern.test(file)) {
         issues.push({ location: file, code: rule.code, message: rule.message });
       }
     }
     addTextIssues(file, source, issues, rules);
+    copiedSourceCharacters += checkCrewReceipt(file, source, issues);
     if (file.endsWith('/package.json') || file === 'package.json') {
       checkPackageManifest(file, packageSources.get(file) ?? source, packageNames, issues);
     }
@@ -315,6 +365,10 @@ function check() {
     );
     for (const issue of issues)
       console.error(`- ${issue.location} [${issue.code}] ${issue.message}`);
+    if (copiedSourceCharacters)
+      console.error(
+        `Crew receipts contain ${copiedSourceCharacters} copied source characters in total.`
+      );
     process.exitCode = 1;
     return;
   }

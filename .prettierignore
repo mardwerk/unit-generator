@@ -24,3 +24,7 @@ experiments/luffy-pipelines/review-decisions/
 experiments/luffy-pipelines/summary.json
 experiments/luffy-pipelines/comparison.md
 experiments/luffy-pipelines/slots-*.outcomes.json
+
+# Retain exact generated payloads and hash-stamped experiment evidence.
+examples/straw-hats/runs/**/*.json
+experiments/two-lane-comparison/runs/

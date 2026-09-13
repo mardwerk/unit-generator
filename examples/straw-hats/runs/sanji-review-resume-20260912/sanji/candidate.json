@@ -1,0 +1,255 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "sanji-black-leg",
+  "name": "Sanji",
+  "description": "Sanji is a stationary direct-contact kick fighter adapted from the One Piece manga through the end of Wano Country. His base profile uses Black Leg Style; purchases add Diable Jambe heat, Armament Haki penetration, Observation-based concealment detection, aerial reach and Attack Cuisine healing. Ifrit Jambe is an optional positive-drain alternate form representing his Wano awakening. The Raid Suit was destroyed in Wano and is unavailable. Numerical values, costs, ranges, timing and stamina rules are gameplay adaptations. Flaming attacks deal damage and can penetrate armor, but burning damage-over-time, fire immunity, terrain ignition and recoil are omitted. Sky Walk is represented through reach and aerial attack tuning, not actual movement. Blue Walk, knives, facial reconstruction, Lady Radar, broader Observation senses and the chivalric restriction against attacking women are disclosed omissions because this executable subset cannot represent them faithfully. Attack Cuisine heals allies only; its source-described combat enhancement is omitted rather than encoded as a damage buff.",
+  "cost": 650,
+  "baseForm": "black-leg",
+  "stunProtectionSeconds": 0.75,
+  "support": {
+    "name": "Sanji's prepared meal",
+    "interval": 18,
+    "radius": 5,
+    "cap": 2,
+    "heal": 10
+  },
+  "stamina": {
+    "unlockTier": 3,
+    "maximum": 100,
+    "entryMinimum": 35,
+    "recoveryPerSecond": 7,
+    "reentrySeconds": 4,
+    "techniqueCost": 20,
+    "techniqueCooldown": 10
+  },
+  "forms": [
+    {
+      "id": "black-leg",
+      "name": "Black Leg Style",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Black Leg: Mouton Shot",
+        "delivery": "direct-contact",
+        "damage": 24,
+        "period": 1.1,
+        "windup": 0.22,
+        "reach": 2.4,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "anti-manner-kick-course",
+          "name": "Anti-Manner Kick Course",
+          "unlockTier": 3,
+          "damage": 58,
+          "windup": 0.4,
+          "recovery": 0.65,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "ifrit-jambe",
+      "name": "Ifrit Jambe",
+      "unlockTier": 4,
+      "drainPerSecond": 8.5,
+      "primary": {
+        "name": "Ifrit Jambe: Flambage Shot",
+        "delivery": "direct-contact",
+        "damage": 38,
+        "period": 1.05,
+        "windup": 0.24,
+        "reach": 2.5,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "ifrit-jambe-combination",
+          "name": "Ifrit Jambe Combination",
+          "unlockTier": 4,
+          "damage": 29,
+          "windup": 0.35,
+          "recovery": 0.75,
+          "hits": 4,
+          "hitSpan": 0.6,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "black-leg-mastery",
+      "name": "Black Leg Mastery",
+      "description": "Builds Sanji's core kick discipline with stronger, faster and more reliable direct-contact attacks. Flat damage additions affect primary attacks and every Technique.",
+      "upgrades": [
+        {
+          "name": "Zeff's Foundation",
+          "description": "Adds 3 flat damage to all primary attacks and Techniques, including utility Techniques with zero base damage.",
+          "cost": 120,
+          "modifiers": {
+            "flatDamage": 3
+          }
+        },
+        {
+          "name": "Handstand Momentum",
+          "description": "Reduces primary timing by 7%, representing Sanji's flips, handstands and rapid kick transitions. Techniques are not sped up.",
+          "cost": 170,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.93
+          }
+        },
+        {
+          "name": "Sky Walk Angles",
+          "description": "Adds 0.5 reach to primary contact and Techniques, adapting Sanji's aerial approach without granting actual movement.",
+          "cost": 210,
+          "modifiers": {
+            "reachAdd": 0.5
+          }
+        },
+        {
+          "name": "Combat Instinct",
+          "description": "Enables one primary retarget at resolution if the selected target is lost or becomes ineligible; Techniques remain locked to their selected target.",
+          "cost": 260,
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Mastered Black Leg",
+          "description": "Adds 5 more flat damage to all primary attacks and Techniques.",
+          "cost": 340,
+          "modifiers": {
+            "flatDamage": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "jambe-and-haki",
+      "name": "Jambe and Haki",
+      "description": "Represents the heat of Diable Jambe, Sanji's Armament Haki and the harder-hitting Ifrit Jambe adaptation. No elemental burning status is added.",
+      "upgrades": [
+        {
+          "name": "Diable Jambe",
+          "description": "Multiplies primary and Technique damage by 1.10, adapting flaming kicks without adding damage-over-time or environmental fire.",
+          "cost": 150,
+          "modifiers": {
+            "damageMultiplier": 1.1
+          }
+        },
+        {
+          "name": "Burn Through Defense",
+          "description": "Ignores 20% of remaining armor on ordinary damage from primary attacks and Techniques.",
+          "cost": 230,
+          "modifiers": {
+            "armorIgnore": 0.2
+          }
+        },
+        {
+          "name": "Armament Hardening",
+          "description": "Converts 15% of ordinary damage from primary attacks and Techniques to internal damage that bypasses armor, while still respecting invulnerability.",
+          "cost": 280,
+          "modifiers": {
+            "internalFraction": 0.15
+          }
+        },
+        {
+          "name": "Ifrit Pressure",
+          "description": "Further multiplies primary and Technique damage by 1.20, representing the combined awakened constitution, Armament Haki and hotter Ifrit flames.",
+          "cost": 390,
+          "modifiers": {
+            "damageMultiplier": 1.2
+          }
+        },
+        {
+          "name": "Crushing Kick",
+          "description": "Adds a 0.4-second contact stun to eligible primary contacts. This brief control effect is a gameplay adaptation of Sanji's forceful kicks, not a claim of a named source technique.",
+          "cost": 320,
+          "modifiers": {
+            "contactStun": 0.4
+          }
+        }
+      ]
+    },
+    {
+      "id": "cook-and-observation",
+      "name": "Cook and Observation",
+      "description": "Uses Sanji's cooking role for executable ally healing and his Observation Haki for concealment detection. Support purchases replace the unit's current healing configuration on this path.",
+      "upgrades": [
+        {
+          "name": "Vital Recipe",
+          "description": "Replaces the support configuration with an ally meal that heals up to 3 living injured allies within 5.5 range every 16 seconds for 14 health. This is healing only, not an ally damage buff.",
+          "cost": 140,
+          "modifiers": {
+            "support": {
+              "name": "Vital Recipe",
+              "interval": 16,
+              "radius": 5.5,
+              "cap": 3,
+              "heal": 14
+            }
+          }
+        },
+        {
+          "name": "Observation Haki",
+          "description": "Enables detection of concealed targets for Sanji's primary acquisition and contact eligibility where concealment is otherwise the only barrier.",
+          "cost": 240,
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Second Course",
+          "description": "Replaces the support configuration with a meal healing up to 4 living injured allies within 5 range every 13 seconds for 18 health.",
+          "cost": 290,
+          "modifiers": {
+            "support": {
+              "name": "Second Course",
+              "interval": 13,
+              "radius": 5,
+              "cap": 4,
+              "heal": 18
+            }
+          }
+        },
+        {
+          "name": "Aerial Interception",
+          "description": "Adds 0.4 reach to primary contact and Techniques, improving Sanji's adapted Sky Walk interception range.",
+          "cost": 310,
+          "modifiers": {
+            "reachAdd": 0.4
+          }
+        },
+        {
+          "name": "Raid Recovery Meal",
+          "description": "Replaces the support configuration with a meal healing up to 5 living injured allies within 6 range every 10 seconds for 22 health. It never resurrects or grants damage buffs.",
+          "cost": 420,
+          "modifiers": {
+            "support": {
+              "name": "Raid Recovery Meal",
+              "interval": 10,
+              "radius": 6,
+              "cap": 5,
+              "heal": 22
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

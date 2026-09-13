@@ -1,0 +1,20 @@
+{
+  "id": "btd6-derived",
+  "version": "0.1.0",
+  "contractVersion": "0.2",
+  "inputSchema": "input.schema.json",
+  "outputSchema": "output.schema.json",
+  "rules": "rules.md",
+  "instructions": "instructions.md",
+  "implementation": "btd6-derived",
+  "repairAttempts": 1,
+  "validation": {
+    "kind": "trusted",
+    "checks": [
+      "schema",
+      "legal-three-path-builds",
+      "resolved-models"
+    ],
+    "uncheckedRules": []
+  }
+}

@@ -1,0 +1,466 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "monkey-d-luffy-wano",
+  "name": "Monkey D. Luffy",
+  "description": "Straw Hat captain, One Piece manga through Wano. A stationary stretched-contact fighter; fists are not ammunition. All numbers, prices, caps, unlock schedules and stamina rules are provisional game adaptations, not canon measurements or measured balance. Highest tier on any path unlocks Second at 1, Third at 2, all Fourth variants at 3 and Fifth at 5. One replacement primary and one contextual Technique button; base has no Technique. Second's tier-2 Gigant Jet Shell replaces Jet Gatling, briefly interpreting Second+Third without simultaneous forms or unit travel. Fourth includes inherent Haki in its authored attack power; purchased Haki adds specialization, not a canonical prerequisite. Snakeman's changing-path punches use fast direct contacts and a single-target Black Mamba barrage; curved trajectories, acceleration and obstacle bypass are omitted. Selectable Stuffed Tankman without feeding is an adaptation: its repeatable recoil primary and commanded Cannonball omit incoming strikes, trapping and enemy-as-projectile collisions; Cannonball instead reports bounded displacement. Fifth's unnamed Wano hook briefly slows eligible targets as bounded bodily rubberization, not terrain creation or reality alteration. Bajrang Gun uses a capped impact rather than island-scale destruction; noncontact Haki is represented by direct delivery geometry, with penetration governed by purchases. Shared exhaustion and base recovery replace distinct Gear drawbacks, including Fourth's ten-minute Haki lockout; purchased Haki remains active in base. Omitted: defensive rubber properties, lightning immunity, poison resistance, shields, evasion, flight, traversal, food healing, Seastone interactions, Voice of All Things, borrowed Nightmare form, improvised equipment, lightning throwing and unselected moves. No post-Wano move names. Motion and injuries come from the caller; this unit neither follows enemies nor simulates defensive combat.",
+  "cost": 700,
+  "baseForm": "base",
+  "stunProtectionSeconds": 3,
+  "stamina": {
+    "unlockTier": 1,
+    "maximum": 100,
+    "entryMinimum": 30,
+    "recoveryPerSecond": 10,
+    "reentrySeconds": 3,
+    "techniqueCost": 25,
+    "techniqueCooldown": 10
+  },
+  "forms": [
+    {
+      "id": "base",
+      "name": "Base",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Gum-Gum Pistol",
+        "delivery": "direct-contact",
+        "damage": 20,
+        "period": 1.5,
+        "windup": 0.3,
+        "reach": 45,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": []
+    },
+    {
+      "id": "gear-second",
+      "name": "Gear Second",
+      "unlockTier": 1,
+      "drainPerSecond": 3,
+      "primary": {
+        "name": "Gum-Gum Jet Pistol",
+        "delivery": "direct-contact",
+        "damage": 24,
+        "period": 0.8,
+        "windup": 0.12,
+        "reach": 45,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "jet-gatling",
+          "name": "Gum-Gum Jet Gatling",
+          "unlockTier": 1,
+          "delivery": "direct-contact",
+          "damage": 15,
+          "windup": 0.2,
+          "recovery": 1.4,
+          "hits": 6,
+          "hitSpan": 0.75,
+          "shape": {
+            "kind": "single"
+          }
+        },
+        {
+          "id": "gigant-jet-shell",
+          "name": "Gum-Gum Gigant Jet Shell",
+          "unlockTier": 2,
+          "delivery": "direct-contact",
+          "damage": 110,
+          "windup": 0.55,
+          "recovery": 1.6,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 9,
+            "cap": 4
+          },
+          "control": {
+            "displacement": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "gear-third",
+      "name": "Gear Third",
+      "unlockTier": 2,
+      "drainPerSecond": 3.5,
+      "primary": {
+        "name": "Gum-Gum Gigant Pistol",
+        "delivery": "direct-contact",
+        "damage": 58,
+        "period": 2,
+        "windup": 0.5,
+        "reach": 48,
+        "shape": {
+          "kind": "area",
+          "radius": 8,
+          "cap": 4
+        }
+      },
+      "techniques": [
+        {
+          "id": "gigant-bazooka",
+          "name": "Gum-Gum Gigant Bazooka",
+          "unlockTier": 2,
+          "delivery": "direct-contact",
+          "damage": 135,
+          "windup": 0.65,
+          "recovery": 1.8,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 12,
+            "cap": 6
+          },
+          "control": {
+            "displacement": 8
+          }
+        }
+      ]
+    },
+    {
+      "id": "gear-fourth-boundman",
+      "name": "Gear Fourth: Boundman",
+      "unlockTier": 3,
+      "drainPerSecond": 5,
+      "primary": {
+        "name": "Gum-Gum Kong Gun",
+        "delivery": "direct-contact",
+        "damage": 90,
+        "period": 1.35,
+        "windup": 0.25,
+        "reach": 32,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "king-kong-gun",
+          "name": "Gum-Gum King Kong Gun",
+          "unlockTier": 3,
+          "delivery": "direct-contact",
+          "damage": 230,
+          "windup": 0.8,
+          "recovery": 2,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 12,
+            "cap": 6
+          }
+        }
+      ]
+    },
+    {
+      "id": "gear-fourth-snakeman",
+      "name": "Gear Fourth: Snakeman",
+      "unlockTier": 3,
+      "drainPerSecond": 5,
+      "primary": {
+        "name": "Gum-Gum Jet Culverin",
+        "delivery": "direct-contact",
+        "damage": 33,
+        "period": 0.45,
+        "windup": 0.08,
+        "reach": 55,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "black-mamba",
+          "name": "Gum-Gum Black Mamba",
+          "unlockTier": 3,
+          "delivery": "direct-contact",
+          "damage": 24,
+          "windup": 0.15,
+          "recovery": 1.65,
+          "hits": 8,
+          "hitSpan": 1.05,
+          "shape": {
+            "kind": "single"
+          }
+        }
+      ]
+    },
+    {
+      "id": "gear-fourth-tankman",
+      "name": "Gear Fourth: Tankman — Stuffed Version",
+      "unlockTier": 3,
+      "drainPerSecond": 4.5,
+      "primary": {
+        "name": "Stuffed Torso Recoil — Adapted Contact",
+        "delivery": "direct-contact",
+        "damage": 110,
+        "period": 2.3,
+        "windup": 0.5,
+        "reach": 18,
+        "shape": {
+          "kind": "area",
+          "radius": 8,
+          "cap": 5
+        }
+      },
+      "techniques": [
+        {
+          "id": "cannonball",
+          "name": "Gum-Gum Cannonball",
+          "unlockTier": 3,
+          "delivery": "direct-contact",
+          "damage": 220,
+          "windup": 0.6,
+          "recovery": 2,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "control": {
+            "displacement": 22
+          }
+        }
+      ]
+    },
+    {
+      "id": "gear-fifth",
+      "name": "Gear Fifth",
+      "unlockTier": 5,
+      "drainPerSecond": 8,
+      "primary": {
+        "name": "Enlarged Spinning Hook — Unnamed Wano Attack",
+        "delivery": "direct-contact",
+        "damage": 105,
+        "period": 1,
+        "windup": 0.2,
+        "reach": 55,
+        "shape": {
+          "kind": "single"
+        },
+        "onHit": [
+          {
+            "id": "luffy-bodily-rubberization",
+            "kind": "slow",
+            "durationSeconds": 1.5,
+            "immuneTo": [],
+            "requiresTags": [
+              "slowable"
+            ],
+            "requiresDamage": true,
+            "stacking": {
+              "scope": "target",
+              "reapply": "refresh",
+              "maxStacks": 1
+            },
+            "speedMultiplier": 0.75,
+            "combine": "strongest"
+          }
+        ]
+      },
+      "techniques": [
+        {
+          "id": "bajrang-gun",
+          "name": "Gum-Gum Bajrang Gun",
+          "unlockTier": 5,
+          "delivery": "direct-contact",
+          "damage": 420,
+          "windup": 1.5,
+          "recovery": 2.5,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 20,
+            "cap": 12
+          },
+          "control": {
+            "displacement": 12
+          }
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "conqueror-haki",
+      "name": "Conqueror Haki",
+      "description": "Selective intimidation becomes bounded stuns, then Supreme King coating increases attack power. Stuns require both weakWilled and stunnable; existing stun and its following protection block reapplication. Pulses deal no damage. This path alone owns pulse configuration. Sky splitting is not terrain or weather control.",
+      "upgrades": [
+        {
+          "name": "Focused Intimidation",
+          "cost": 250,
+          "description": "Primary contact can stun eligible weak-willed enemies for 0.4 seconds.",
+          "modifiers": {
+            "contactStun": 0.4
+          }
+        },
+        {
+          "name": "Selective Supreme King Burst",
+          "cost": 550,
+          "description": "Every four successful primary cycles can trigger a radius-30 pulse stunning up to six eligible enemies for 1 second, at least 5 seconds apart.",
+          "modifiers": {
+            "pulse": {
+              "cycles": 4,
+              "radius": 30,
+              "cap": 6,
+              "stun": 1,
+              "interval": 5
+            }
+          }
+        },
+        {
+          "name": "Fish-Man Island Resolve",
+          "cost": 1200,
+          "description": "Replaces the pulse with radius 45, cap 12 and 1.5-second stun; requires three successful primary cycles and at least 4 seconds between pulses. A bounded interpretation, not 50,000 targets.",
+          "modifiers": {
+            "pulse": {
+              "cycles": 3,
+              "radius": 45,
+              "cap": 12,
+              "stun": 1.5,
+              "interval": 4
+            }
+          }
+        },
+        {
+          "name": "Supreme King Infusion",
+          "cost": 2600,
+          "description": "Multiplies primary and all Technique damage by 1.35; coating improves offense even against enemies immune to intimidation.",
+          "modifiers": {
+            "damageMultiplier": 1.35
+          }
+        },
+        {
+          "name": "Emperor's Coating",
+          "cost": 6500,
+          "description": "Further multiplies primary and all Technique damage by 1.5. Raises eligible primary contact stun to 0.8 seconds without overriding longer pulse stuns.",
+          "modifiers": {
+            "damageMultiplier": 1.5,
+            "contactStun": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "id": "observation-haki",
+      "name": "Observation Haki",
+      "description": "Presence sensing detects concealment; improved attack placement extends effective reach, permits one primary replacement target and shortens primary timing. These are bounded offensive interpretations of Observation and future sight, not future-motion simulation, guaranteed hits, evasion or obstacle bypass. Techniques keep their locked target.",
+      "upgrades": [
+        {
+          "name": "Sense Presence",
+          "cost": 250,
+          "description": "Enables concealed-target detection for acquisition and eligible contacts; obstacles and invulnerability remain separate checks.",
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Read Intent",
+          "cost": 500,
+          "description": "Adds 3 reach and allows one replacement for a lost primary target at resolution without restarting windup. Never retargets Techniques.",
+          "modifiers": {
+            "reachAdd": 3,
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Katakuri's Lesson",
+          "cost": 1150,
+          "description": "Multiplies primary windup and cycle timing by 0.85. Technique timing is unchanged.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.85
+          }
+        },
+        {
+          "name": "Udon Foresight",
+          "cost": 2400,
+          "description": "Adds another 5 effective reach and multiplies primary timing by another 0.9.",
+          "modifiers": {
+            "reachAdd": 5,
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Sustained Future Sight",
+          "cost": 6000,
+          "description": "Multiplies primary timing by another 0.75, improving repeated contact cadence without accelerating Techniques or guaranteeing contact.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.75
+          }
+        }
+      ]
+    },
+    {
+      "id": "armament-haki",
+      "name": "Armament Haki",
+      "description": "Hardening adds offense and armor penetration; advanced emission and internal destruction supply bounded follow-through and armor-bypassing damage. This path alone owns emission configuration. Emission starts at primary contact, extends away from Luffy and stops at obstacles; it excludes flat damage additions and never advances counters. Logia tangibility, defensive hardening and explosive-cuff removal are omitted, not invulnerability bypasses.",
+      "upgrades": [
+        {
+          "name": "Armament Hardening",
+          "cost": 275,
+          "description": "Adds 4 damage to primary attacks and every hit of all Techniques before purchased multipliers.",
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Reinforced Fists",
+          "cost": 600,
+          "description": "Ignores 25% of armor on ordinary primary and Technique damage.",
+          "modifiers": {
+            "armorIgnore": 0.25
+          }
+        },
+        {
+          "name": "Hyougoro's Emission Lesson",
+          "cost": 1300,
+          "description": "Adds 2 reach. Every three successful primary cycles emit a bounded 24-damage follow-through, width 6 and length 14, hitting up to three targets.",
+          "modifiers": {
+            "reachAdd": 2,
+            "emission": {
+              "cycles": 3,
+              "damage": 24,
+              "width": 6,
+              "length": 14,
+              "cap": 3
+            }
+          }
+        },
+        {
+          "name": "Internal Destruction",
+          "cost": 2800,
+          "description": "Converts 35% of primary and Technique damage into internal damage that bypasses armor, never invulnerability.",
+          "modifiers": {
+            "internalFraction": 0.35
+          }
+        },
+        {
+          "name": "Mastered Internal Flow",
+          "cost": 6500,
+          "description": "Raises internal fraction to 60%. Replaces emission with 42 damage, width 8, length 20 and cap four, now every two successful primary cycles.",
+          "modifiers": {
+            "internalFraction": 0.6,
+            "emission": {
+              "cycles": 2,
+              "damage": 42,
+              "width": 8,
+              "length": 20,
+              "cap": 4
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

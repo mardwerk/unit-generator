@@ -19,26 +19,28 @@ import {
 import { loadDefinition, loadTrustedModule, readJson, readText } from '@mardwerk/unit-core/files';
 import {
   loadBundledDefinition,
+  defaultDefinitionId,
   bundledDefinitions,
   implementations,
-  classicFixture,
-  mergeFixture,
-  type ClassicInput
+  createBundledFixture
 } from '@mardwerk/unit-definitions';
+import { qualifyUnit } from '@mardwerk/unit-lab';
 import { createProvidersFromEnv } from '@mardwerk/unit-providers';
 
 const help = `mardwerk-unit generate <subject> [--original] [--research] [--allow-ungrounded]
   [--input request.json] [--knowledge research.json] [--source-url URL] [--source-file file]
   [--intent text] [--constraints constraints.json] [--context context.json]
-  [--definition classic-three-path|merge-family-example|directory|trusted.mjs]
-  [--provider fixture|openai-compatible|command] [--out result.json] [--json]
+  [--definition tower-defense|manga-mayhem|classic-three-path|btd6-derived|merge-family-example|directory|trusted.mjs]
+  [--mode default|quality] [--provider fixture|openai-compatible|command] [--out result.json] [--json]
+  [--max-sources 1..8]
 mardwerk-unit research <subject> [--research] [--source-url URL] [--source-file file]
   [--knowledge research.json] [--continuity text] [--out research.json]
 mardwerk-unit validate <result-or-content.json> [--definition definition] [--input request.json]
 mardwerk-unit playground [--port 5173]
 
 Stdout is JSON; progress is JSON lines on stderr. Nothing is saved unless --out is given.
-The default requires source grounding. --research authorizes discovery and public page reads.
+Character generation discovers and reads public sources by default. --no-research disables network research.
+Default uses Luna High; --mode quality uses Astra Low. Both run the same validation.
 --original identifies an invented concept. --allow-ungrounded explicitly permits unverified generation.
 --no-research overrides any configured network permission. A .mjs definition is trusted local code.
 `;
@@ -94,6 +96,7 @@ export async function runCli(argv: string[], options: CliOptions = {}): Promise<
         context: { type: 'string' },
         continuity: { type: 'string' },
         provider: { type: 'string' },
+        mode: { type: 'string' },
         original: { type: 'boolean' },
         research: { type: 'boolean' },
         'no-research': { type: 'boolean' },
@@ -101,6 +104,7 @@ export async function runCli(argv: string[], options: CliOptions = {}): Promise<
         'follow-links': { type: 'boolean' },
         'source-url': { type: 'string', multiple: true },
         'source-file': { type: 'string', multiple: true },
+        'max-sources': { type: 'string' },
         port: { type: 'string' }
       }
     });
@@ -124,9 +128,10 @@ export async function runCli(argv: string[], options: CliOptions = {}): Promise<
         }
       );
     if (command === 'playground') {
-      const entry = fileURLToPath(new URL('../../web/build/index.js', import.meta.url));
+      const entry = fileURLToPath(new URL('../../web/start.mjs', import.meta.url));
       try {
         await access(entry);
+        await access(fileURLToPath(new URL('../../web/build/index.js', import.meta.url)));
       } catch {
         throw new RunError(
           'playground-unavailable',
@@ -144,7 +149,6 @@ export async function runCli(argv: string[], options: CliOptions = {}): Promise<
             ...(options.env ?? process.env),
             HOST: '127.0.0.1',
             PORT: String(port),
-            BODY_SIZE_LIMIT: '4194304',
             ORIGIN: `http://127.0.0.1:${port}`
           }
         });
@@ -159,16 +163,43 @@ export async function runCli(argv: string[], options: CliOptions = {}): Promise<
         child.once('exit', (code) => done(options.signal?.aborted ? 130 : (code ?? 1)));
       });
     }
+    if (values.mode && !['default', 'quality'].includes(values.mode))
+      throw new RunError('usage', 'Choose --mode default or --mode quality.');
+    const maxSources =
+      values['max-sources'] === undefined ? undefined : Number(values['max-sources']);
+    if (
+      maxSources !== undefined &&
+      (!Number.isInteger(maxSources) || maxSources < 1 || maxSources > 8)
+    )
+      throw new RunError('usage', '--max-sources must be an integer from 1 to 8.');
+    if (values.mode && values.provider)
+      throw new RunError(
+        'usage',
+        'Choose a generation mode or an advanced provider override, not both.'
+      );
     const fixtureMode = values.provider === 'fixture';
     const configured =
       options.execution || fixtureMode || command === 'validate'
-        ? { providers: {}, execution: options.execution ?? {} }
+        ? { providers: {}, execution: options.execution ?? {}, executionForMode: undefined }
         : createProvidersFromEnv(options.env ?? process.env);
+    const selectedExecution =
+      !options.execution &&
+      !fixtureMode &&
+      command !== 'validate' &&
+      !(command === 'research' && (values.original || values['no-research'] || values.knowledge)) &&
+      !values.provider
+        ? configured.executionForMode!(values.mode === 'quality' ? 'quality' : 'default')
+        : configured.execution;
     const execution: Execution = {
-      ...configured.execution,
+      ...selectedExecution,
+      ...(maxSources === undefined ? {} : { limits: { ...selectedExecution.limits, maxSources } }),
+      ...(!fixtureMode && command === 'generate' ? { reviewFidelity: true } : {}),
       ...(options.signal ? { signal: options.signal } : {}),
       policy: {
-        ...configured.execution.policy,
+        ...selectedExecution.policy,
+        ...(!options.execution && !fixtureMode && command !== 'validate'
+          ? { network: 'allow' as const, discovery: true, followLinks: true }
+          : {}),
         ...(values.research ? { network: 'allow' as const, discovery: true } : {}),
         ...(values['no-research']
           ? { network: 'deny' as const, discovery: false, followLinks: false }
@@ -176,6 +207,14 @@ export async function runCli(argv: string[], options: CliOptions = {}): Promise<
         ...(values['allow-ungrounded'] ? { allowUngrounded: true } : {}),
         ...(values['follow-links'] ? { followLinks: true } : {})
       },
+      ...(!fixtureMode
+        ? {
+            evaluate:
+              selectedExecution.evaluate ??
+              (({ definitionId, candidate, research }) =>
+                qualifyUnit({ definitionId, candidate, research }))
+          }
+        : {}),
       onProgress: (event) => stderr(JSON.stringify(event) + '\n')
     };
     if (values.provider && !fixtureMode) {
@@ -194,7 +233,7 @@ export async function runCli(argv: string[], options: CliOptions = {}): Promise<
       if (positionals.length !== 2) throw new RunError('usage', 'Validate requires one JSON file.');
       const value = await readJson(positionals[1]!);
       const envelope = value as Partial<RunResult>;
-      const name = values.definition ?? envelope.definition?.id ?? 'classic-three-path';
+      const name = values.definition ?? envelope.definition?.id ?? defaultDefinitionId;
       const definition = await selectDefinition(name);
       if (
         envelope.definition &&
@@ -225,7 +264,7 @@ export async function runCli(argv: string[], options: CliOptions = {}): Promise<
     } else {
       const definition =
         command === 'generate'
-          ? await selectDefinition(values.definition ?? 'classic-three-path')
+          ? await selectDefinition(values.definition ?? defaultDefinitionId)
           : undefined;
       if (input === undefined) {
         if (positionals.length !== 2)
@@ -265,23 +304,8 @@ export async function runCli(argv: string[], options: CliOptions = {}): Promise<
             'usage',
             'Fixture mode generates demo content; it does not research real characters.'
           );
-        if (definition?.id === 'classic-three-path') {
-          if (!values.original && request.kind !== 'original')
-            throw new RunError(
-              'usage',
-              'Fixture mode requires --original and does not claim character knowledge.'
-            );
-          execution.model = {
-            generate: async () => ({
-              value: classicFixture(request as unknown as ClassicInput),
-              mode: 'fixture'
-            })
-          };
-        } else if (definition?.id === 'merge-family-example')
-          execution.model = {
-            generate: async () => ({ value: mergeFixture(String(request.brief)), mode: 'fixture' })
-          };
-        else throw new RunError('usage', 'Fixture mode supports bundled examples only.');
+        const fixture = createBundledFixture(definition!.id, request);
+        execution.model = { generate: async () => ({ value: fixture, mode: 'fixture' }) };
       }
       const outcome: RunResult | ResearchResult =
         command === 'generate'

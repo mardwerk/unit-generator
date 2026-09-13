@@ -198,3 +198,34 @@ describe('public website sources', () => {
     ).toBe('failed');
   });
 });
+
+it('reads the public same-host wiki API when a Fandom article denies HTML', async () => {
+  const article = 'https://story.fandom.com/wiki/Hero/Abilities';
+  const api = new URL('/api.php', article);
+  api.search = new URLSearchParams({
+    action: 'parse',
+    page: 'Hero/Abilities',
+    prop: 'wikitext',
+    format: 'json'
+  }).toString();
+  const { read, request } = fixture({
+    [article]: { status: 403 },
+    [api.href]: {
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        parse: {
+          title: 'Hero abilities',
+          wikitext: { '*': 'Hero uses a staff.<ref>Chapter 12</ref>' }
+        }
+      })
+    }
+  });
+  const result = await read({ concept: 'Hero', urls: [article] });
+  expect(request).toHaveBeenCalledTimes(2);
+  expect(result.sources.at(-1)).toMatchObject({
+    url: api.href,
+    status: 'read',
+    content: 'Hero uses a staff.<ref>Chapter 12</ref>',
+    truncated: false
+  });
+});

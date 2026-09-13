@@ -1,0 +1,321 @@
+{
+  "schemaVersion": "0.2",
+  "status": "success",
+  "subject": "Usopp",
+  "reused": false,
+  "grounding": "grounded",
+  "gaps": [
+    "The requested continuity is supported by the supplied sources, but the official character page also contains information beyond the requested endpoint; those later or adaptation-specific facts were excluded.",
+    "The supplied pages do not provide a complete, chapter-by-chapter inventory of every Usopp technique, ammunition type, transformation, or limitation through the end of Wano.",
+    "The supplied evidence does not establish any Devil Fruit, Armament Haki, or Conqueror's Haki ability for Usopp; none is included as fact.",
+    "The exact mechanics and limits of the Kabuto and Kuro Kabuto are only partially documented in the supplied pages.",
+    "Anime-only, film, live-show, game, One Piece Party, and other non-canon techniques appearing in the supplied pages were excluded from the selected manga-continuity record.",
+    "The supplied evidence includes a later Observation Haki claim set on Elbaph; it was excluded because it falls after the requested Wano Country endpoint."
+  ],
+  "sourceVisibility": [
+    {
+      "sourceId": "54d165efb76d89f7854b39e1",
+      "sha256": "708681eb4b675b7bd51e47102f0f66eb497ed1b658f05eeceea169cc076f33fb",
+      "sourceCharacters": 26973,
+      "visibleCharacters": 26973,
+      "complete": true
+    },
+    {
+      "sourceId": "3d8c550f8c7489ee197bc6b5",
+      "sha256": "062b4e1f3e6589d54b3f706bdb4aa4182f0a626a566ed1446204a13533d40631",
+      "sourceCharacters": 22867,
+      "visibleCharacters": 22867,
+      "complete": true
+    },
+    {
+      "sourceId": "72f30fd57248332af12db874",
+      "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+      "sourceCharacters": 1806,
+      "visibleCharacters": 1806,
+      "complete": true
+    },
+    {
+      "sourceId": "600b250f9838e58b36ccca0c",
+      "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+      "sourceCharacters": 1673,
+      "visibleCharacters": 1673,
+      "complete": true
+    }
+  ],
+  "knowledge": {
+    "subject": "Usopp",
+    "identity": {
+      "status": "resolved",
+      "name": "Usopp",
+      "continuity": "One Piece manga through the end of Wano Country arc",
+      "explanation": "The supplied character pages identify Usopp as the One Piece character and support facts from the original manga continuity through the Wano Country arc. Adaptation-only, non-canon, and post-Wano material is excluded from the selected record."
+    },
+    "claims": [
+      {
+        "text": "Usopp is a member of the Straw Hat Pirates and serves as their sniper and gunner. He is the son of Yasopp, a sniper of the Red Hair Pirates, and aims to become a brave warrior of the sea.",
+        "sourceIds": [
+          "72f30fd57248332af12db874",
+          "3d8c550f8c7489ee197bc6b5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp's defining combat style is long-range marksmanship using slingshots and specialized ammunition. He relies on precision, distance, deception, hit-and-run tactics, traps, and battlefield analysis rather than close-range physical strength.",
+        "sourceIds": [
+          "72f30fd57248332af12db874",
+          "3d8c550f8c7489ee197bc6b5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "He has exceptional eyesight and marksmanship, including accurately striking targets from distances exceeding a mile and calculating trajectory, wind, distance, and booster-shot adjustments to hit Sugar through a small opening from the old King's Plateau.",
+        "sourceIds": [
+          "3d8c550f8c7489ee197bc6b5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp is resourceful and inventive, with engineering, chemistry, weapon-crafting, gardening, artistic, and tactical skills. He designs and modifies weapons, manufactures specialized ammunition, and cultivates Pop Greens aboard the Thousand Sunny.",
+        "sourceIds": [
+          "72f30fd57248332af12db874",
+          "3d8c550f8c7489ee197bc6b5",
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp is an adept liar who uses bluffs, psychological warfare, distractions, and deception in combat. His cowardice and negative outlook remain limitations, although he becomes more confident and strategically effective after the timeskip.",
+        "sourceIds": [
+          "72f30fd57248332af12db874",
+          "3d8c550f8c7489ee197bc6b5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp's principal weapons are the Ginga Pachinko, the Kabuto, and the post-timeskip Kuro Kabuto. He also uses Dials, hammers, fire-based ammunition, smoke, explosives, seastone handcuffs, and other improvised tools.",
+        "sourceIds": [
+          "3d8c550f8c7489ee197bc6b5",
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Kuro Kabuto is a compact modified slingshot developed during the two-year timeskip. In its standard form it retains the prior Kabuto's basic design and functions while being more portable, and it can also be enlarged for close-range strikes.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1",
+          "3d8c550f8c7489ee197bc6b5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Grow Up Kuro Kabuto, also called Kuro Kabuto Chomping Grass, is activated by water because of the Bakun So living inside the weapon. The slingshot expands, consumes nearby rubble, and fires the debris as ammunition.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1",
+          "3d8c550f8c7489ee197bc6b5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Totsugeki Ryuseigun is a Grow Up Kuro Kabuto technique that consumes nearby debris and fires a barrage of rubble; Usopp used it with seastone handcuffs to defeat or restrain Buffalo and capture Caesar Clown.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Super Grow Up Kuro Kabuto, also called Great Kuro Kabuto, is a still larger form used for especially long-range attacks, including the Bagworm shot that incapacitated Sugar.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1",
+          "3d8c550f8c7489ee197bc6b5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Bagworm is an extremely long-range incapacitation technique. Usopp uses three explosive Kayaku Boshi as boosters to adjust the projectile's height, direction, and trajectory before it opens to deliver its payload.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1",
+          "3d8c550f8c7489ee197bc6b5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "After two years of training with Heracles, Usopp gained Pop Greens: rapidly growing hostile plant seeds with distinct combat and utility properties, fired as ammunition through Kuro Kabuto.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1",
+          "3d8c550f8c7489ee197bc6b5",
+          "72f30fd57248332af12db874"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Named Pop Green techniques documented in the supplied pages include Midori Boshi: Devil, Sargasso, Rafflesia, Take Jave-rin, Dokuro Bakuhatsu So, Humandrake, Trampolia, Impact Wolf, Boaty Banana, Uchiwa So, Platanus Shuriken, Nemuri So, Hanabibana, Baku Bokkuri, and Sprinkler.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Midori Boshi: Devil creates a large Venus flytrap with attacking vines; its saliva is acidic enough to corrode flooring and cause Ulti serious discomfort before Page One intervened.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Midori Boshi: Sargasso creates resilient seaweed that can delay an avalanche of rock and earth. Midori Boshi: Rafflesia creates a foul-smelling flower that disables enemies' senses.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Midori Boshi: Take Jave-rin creates bamboo stalks that stab or impale targets, but larger and stronger opponents can dent or overcome the bamboo, as Page One did.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Midori Boshi: Dokuro Bakuhatsu So creates a skull-shaped explosion. Midori Boshi: Humandrake creates humanoid plants that entangle targets when triggered, while Midori Boshi: Trampolia launches nearby targets into the air.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Midori Boshi: Impact Wolf creates a wolf-shaped plant whose nose releases a shockwave approximately three meters in diameter, powerful enough to knock out the Energy Steroid-enhanced fish-man Daruma.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Midori Boshi: Boaty Banana creates a durable banana-shaped boat, and Midori Boshi: Uchiwa So creates fan-ended grass used as oars. Midori Boshi: Platanus Shuriken creates star-shaped cutting plants, but quick opponents can parry them.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Midori Boshi: Nemuri So releases sleeping gas; Midori Boshi: Hanabibana creates detonating flowers; Midori Boshi: Baku Bokkuri creates timed explosive pinecones; and Midori Boshi: Sprinkler sprays water but could not generate enough water to contain the Onigashima fire.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp can use non-Pop-Green ammunition with Kuro Kabuto, including Bakusui Boshi sleeping gas, Fire Bird Star, seastone handcuffs, and Kibidan Boshi, which fires Tama's kibi dangos to tame animals and SMILE users.",
+        "sourceIds": [
+          "54d165efb76d89f7854b39e1"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp awakened Observation Haki during the Dressrosa revolt, allowing him to perceive the auras of Luffy, Law, and Sugar and pinpoint Sugar's location for his long-range shot.",
+        "sourceIds": [
+          "3d8c550f8c7489ee197bc6b5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp has considerable endurance, durability, willpower, and some physical strength. He has survived severe impacts and continued fighting while injured, and by the end of the Wano Country arc he was able to carry Kin'emon and Kikunojo after the raid.",
+        "sourceIds": [
+          "3d8c550f8c7489ee197bc6b5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Usopp's close-combat ability and raw physical power are limited relative to the stronger Straw Hats. He lacks formal martial-arts skill, prefers improvised weapons when forced into close range, and can be overwhelmed by physically powerful opponents such as Page One and Ulti.",
+        "sourceIds": [
+          "3d8c550f8c7489ee197bc6b5"
+        ],
+        "kind": "evidence"
+      }
+    ],
+    "gaps": [
+      "The requested continuity is supported by the supplied sources, but the official character page also contains information beyond the requested endpoint; those later or adaptation-specific facts were excluded.",
+      "The supplied pages do not provide a complete, chapter-by-chapter inventory of every Usopp technique, ammunition type, transformation, or limitation through the end of Wano.",
+      "The supplied evidence does not establish any Devil Fruit, Armament Haki, or Conqueror's Haki ability for Usopp; none is included as fact.",
+      "The exact mechanics and limits of the Kabuto and Kuro Kabuto are only partially documented in the supplied pages.",
+      "Anime-only, film, live-show, game, One Piece Party, and other non-canon techniques appearing in the supplied pages were excluded from the selected manga-continuity record.",
+      "The supplied evidence includes a later Observation Haki claim set on Elbaph; it was excluded because it falls after the requested Wano Country endpoint."
+    ]
+  },
+  "metadata": {
+    "modelCalls": 1,
+    "repairs": 0,
+    "elapsedMs": 57224,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 17048,
+          "outputTokens": 2322,
+          "totalTokens": 19370
+        },
+        "outputSha256": "fe74e6b867a05a6ace3ceaa935675ae6aa63a51df85a1d9d3a755b908aaf2db3"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "54d165efb76d89f7854b39e1",
+      "url": "https://onepiece.fandom.com/wiki/Usopp_Tactics/Kuro_Kabuto",
+      "title": "Usopp Tactics/Kuro Kabuto | One Piece Wiki | Fandom",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+      ]
+    },
+    {
+      "id": "3d8c550f8c7489ee197bc6b5",
+      "url": "https://onepiece.fandom.com/api.php?action=parse&page=Usopp%2FAbilities+and+Powers&prop=wikitext&format=json",
+      "title": "Usopp/Abilities and Powers",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Raw MediaWiki article source, including citation templates. Templates and images are not rendered."
+      ]
+    },
+    {
+      "id": "72f30fd57248332af12db874",
+      "url": "https://one-piece.com/character/usopp/index.html",
+      "title": "\u30a6\u30bd\u30c3\u30d7 | \u30ad\u30e3\u30e9\u30af\u30bf\u30fc\u691c\u7d22 | ONE PIECE.com\uff08\u30ef\u30f3\u30d4\u30fc\u30b9 \u30c9\u30c3\u30c8\u30b3\u30e0\uff09",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+      ]
+    },
+    {
+      "id": "600b250f9838e58b36ccca0c",
+      "url": "https://one-piece.com/story/land_of_wano2/index.html",
+      "title": "\u30ef\u30ce\u56fd\u7de8 | \u3053\u308c\u307e\u3067\u306e\u30b9\u30c8\u30fc\u30ea\u30fc | ONE PIECE.com\uff08\u30ef\u30f3\u30d4\u30fc\u30b9 \u30c9\u30c3\u30c8\u30b3\u30e0\uff09",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+      ]
+    }
+  ],
+  "privateResultPath": ".scratch/straw-hats/orchestrated-20260913/targeted-research/usopp-v3.result.json",
+  "resultSha256": "8bff17a863f0ba7688a8a3b5af175e6f76b8cdabd2bb57272662f93d86a8e527",
+  "review": {
+    "acceptedForGeneration": true,
+    "notes": [
+      "Exact Wano continuity and resolved identity verified. All four fresh sources read with complete model visibility. General abilities fetched through public wiki API fallback.",
+      "Distinct Pop Green effects, Kuro Kabuto water-triggered growth and debris barrage, and Dressrosa Observation awakening supported. No continuous Haki mastery asserted.",
+      "Nemuri So, Hanabibana, and Baku Bokkuri are retained based on Wano evidence, correcting mistaken earlier request exclusion.",
+      "Later Elbaph Observation claim explicitly excluded. No Armament, Conqueror, or Devil Fruit support claimed.",
+      "Canon facts do not substantiate game numerical tuning."
+    ]
+  }
+}

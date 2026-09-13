@@ -21,4 +21,4 @@ The container runs one Svelte server with no application data volume. Supply any
 
 Development uses `pnpm dev`. Vite reads the repository `.env` through its configured environment directory. Built-server use should inject environment values or use the CLI launcher, which reads the repository `.env`.
 
-Request bodies are bounded to 4 MiB, streamed output to 64 MiB and queued output to 40 MiB. A slow/disconnected reader aborts its request. Responses use `Cache-Control: no-store`. Nothing is saved server-side, so reconnection starts a new invocation. Export data you want to retain.
+Generation request bodies are bounded to 4 MiB. Checking an edited result accepts up to 40 MiB because the request includes retained evidence and the edited Candidate. Streamed output is bounded to 64 MiB and queued output to 40 MiB. The CLI, container and browser-test launcher use `apps/web/start.mjs` to apply the matching server body ceiling. A slow/disconnected reader aborts its request. Responses use `Cache-Control: no-store`. Nothing is saved server-side, so reconnection starts a new invocation. Export data you want to retain.

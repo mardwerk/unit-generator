@@ -1,0 +1,38 @@
+[
+  {
+    "member": "luffy",
+    "predecessor": "examples/straw-hats/runs/crew-v3-luffy-20260913/luffy/unit.json",
+    "refinement": "examples/straw-hats/runs/crew-v4-luffy-prose-20260913/luffy/unit.json",
+    "predecessorFileSha256": "1d9f1f088a37add967baed607351120036989ad5669c77fb56bd3a0d6e8654a4",
+    "refinementFileSha256": "dd5f407444701f95e8f29ef7d8c7f1527f826acb2370fafebec6eef7df7b51e8",
+    "comparison": "Deep equality after removing description fields only",
+    "equivalent": true
+  },
+  {
+    "member": "robin",
+    "predecessor": "examples/straw-hats/runs/crew-v3-robin-20260913/robin/unit.json",
+    "refinement": "examples/straw-hats/runs/crew-v4-prose-20260913/robin/unit.json",
+    "predecessorFileSha256": "e798d1c73280aff22b2dd47f4ebdb137880f0b6f3a4b1b0fe9e4b715e56635dc",
+    "refinementFileSha256": "30b4fb4a92e0dfd0fd678c9b249dfe45746ed21d69aedd6be71b58eacffb37b9",
+    "comparison": "Deep equality after removing description fields only",
+    "equivalent": true
+  },
+  {
+    "member": "zoro",
+    "predecessor": "examples/straw-hats/runs/crew-v2-a-20260913/zoro/unit.json",
+    "refinement": "examples/straw-hats/runs/crew-v4-prose-20260913/zoro/unit.json",
+    "predecessorFileSha256": "a591b3a2fb08039550961aab9c6738e50086e71feec171fbc4aa282a119b01de",
+    "refinementFileSha256": "9621f49b99ba2932f9c79bfec5c8bef98e0843cf4780a174a6a8459a8b0fc7c8",
+    "comparison": "Deep equality after removing description fields only",
+    "equivalent": true
+  },
+  {
+    "member": "sanji",
+    "predecessor": "examples/straw-hats/runs/crew-v2-b-20260913/sanji/unit.json",
+    "refinement": "examples/straw-hats/runs/crew-v4-prose-b-20260913/sanji/unit.json",
+    "predecessorFileSha256": "1a2dffd2e11556df6061378b20626688056d45c362067c8327e34135b4180457",
+    "refinementFileSha256": "1c0c2403ac38b1028cb7ce1fe22773a40080e8993df0260a190eb807af40e651",
+    "comparison": "Deep equality after removing description fields only",
+    "equivalent": true
+  }
+]

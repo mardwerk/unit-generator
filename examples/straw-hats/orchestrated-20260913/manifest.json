@@ -1,0 +1,91 @@
+{
+  "id": "straw-hats-fresh-20260913",
+  "status": "accepted",
+  "continuity": "One Piece manga through the end of Wano Country arc",
+  "manualUnitEdits": false,
+  "units": [
+    {
+      "member": "luffy",
+      "unit": "../runs/crew-v5-luffy-balance-20260913/luffy-balance/unit.json",
+      "receipt": "../runs/crew-v5-luffy-balance-20260913/luffy-balance/receipt.json",
+      "receiptId": "luffy-balance",
+      "document": "../../../docs/straw-hats-units/monkey-d-luffy-wano.md",
+      "balanceReport": "balance/comparison.json"
+    },
+    {
+      "member": "zoro",
+      "unit": "../runs/crew-v4-prose-20260913/zoro/unit.json",
+      "receipt": "../runs/crew-v4-prose-20260913/zoro/receipt.json",
+      "receiptId": "zoro",
+      "document": "../../../docs/straw-hats-units/roronoa-zoro-wano.md",
+      "balanceReport": "balance/comparison.json"
+    },
+    {
+      "member": "nami",
+      "unit": "../runs/crew-v6-nami-20260913/nami-faithful/unit.json",
+      "receipt": "../runs/crew-v6-nami-20260913/nami-faithful/receipt.json",
+      "receiptId": "nami-faithful",
+      "document": "../../../docs/straw-hats-units/nami-wano.md",
+      "balanceReport": "balance/comparison.json"
+    },
+    {
+      "member": "usopp",
+      "unit": "../runs/crew-v4-usopp-20260913/usopp/unit.json",
+      "receipt": "../runs/crew-v4-usopp-20260913/usopp/receipt.json",
+      "receiptId": "usopp",
+      "document": "../../../docs/straw-hats-units/usopp.md",
+      "balanceReport": "balance/comparison.json"
+    },
+    {
+      "member": "sanji",
+      "unit": "../runs/crew-v7-sanji-guarded-20260913/sanji-balance/unit.json",
+      "receipt": "../runs/crew-v7-sanji-guarded-20260913/sanji-balance/receipt.json",
+      "receiptId": "sanji-balance",
+      "document": "../../../docs/straw-hats-units/sanji.md",
+      "balanceReport": "balance/comparison.json"
+    },
+    {
+      "member": "chopper",
+      "unit": "../runs/crew-v3-chopper-20260913/chopper/unit.json",
+      "receipt": "../runs/crew-v3-chopper-20260913/chopper/receipt.json",
+      "receiptId": "chopper",
+      "document": "../../../docs/straw-hats-units/tony-tony-chopper.md",
+      "balanceReport": "balance/comparison.json"
+    },
+    {
+      "member": "robin",
+      "unit": "../runs/crew-v4-prose-20260913/robin/unit.json",
+      "receipt": "../runs/crew-v4-prose-20260913/robin/receipt.json",
+      "receiptId": "robin",
+      "document": "../../../docs/straw-hats-units/nico-robin-wano.md",
+      "balanceReport": "balance/comparison.json"
+    },
+    {
+      "member": "franky",
+      "unit": "../runs/crew-v4-franky-review-20260913/franky/unit.json",
+      "receipt": "../runs/crew-v4-franky-review-20260913/franky/receipt.json",
+      "receiptId": "franky",
+      "document": "../../../docs/straw-hats-units/franky.md",
+      "balanceReport": "balance/comparison.json"
+    },
+    {
+      "member": "brook",
+      "unit": "../runs/crew-v5-brook-balance-20260913/brook-balance/unit.json",
+      "receipt": "../runs/crew-v5-brook-balance-20260913/brook-balance/receipt.json",
+      "receiptId": "brook-balance",
+      "document": "../../../docs/straw-hats-units/brook.md",
+      "balanceReport": "balance/comparison.json"
+    },
+    {
+      "member": "jinbe",
+      "unit": "../runs/crew-v4-jinbe-balance-20260913/jinbe-balance/unit.json",
+      "receipt": "../runs/crew-v4-jinbe-balance-20260913/jinbe-balance/receipt.json",
+      "receiptId": "jinbe-balance",
+      "document": "../../../docs/straw-hats-units/jinbe-wano.md",
+      "balanceReport": "balance/comparison.json"
+    }
+  ],
+  "acceptanceReview": "reviews/final-acceptance.md",
+  "audit": "manifest-audit.json",
+  "balanceScope": "Deterministic single-placement encounter and supplied-injury support comparisons; no shared-team or wave-economy claim."
+}

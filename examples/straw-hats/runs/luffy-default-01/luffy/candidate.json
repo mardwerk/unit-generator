@@ -1,0 +1,435 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "monkey-d-luffy",
+  "name": "Monkey D. Luffy",
+  "description": "End-of-Wano Luffy: elastic direct-contact brawler using Haki and distinct Gear forms. Damage, reach, timing, stamina and costs are gameplay adaptations. Omits allies, Voice of All Things, food-based recovery, seastone suppression and situational forms.",
+  "cost": 1200,
+  "baseForm": "base",
+  "stunProtectionSeconds": 1.25,
+  "stamina": {
+    "unlockTier": 1,
+    "maximum": 100,
+    "entryMinimum": 35,
+    "recoveryPerSecond": 8,
+    "reentrySeconds": 1.5,
+    "techniqueCost": 24,
+    "techniqueCooldown": 4.5
+  },
+  "forms": [
+    {
+      "id": "base",
+      "name": "Base Form",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Elastic Brawling",
+        "delivery": "direct-contact",
+        "damage": 24,
+        "period": 1.45,
+        "windup": 0.25,
+        "reach": 7.5,
+        "shape": {
+          "kind": "sweep",
+          "width": 1.2,
+          "cap": 3
+        }
+      },
+      "techniques": [
+        {
+          "id": "gomu-gomu-no-rifle",
+          "name": "Gomu Gomu no Rifle",
+          "unlockTier": 1,
+          "damage": 50,
+          "windup": 0.35,
+          "recovery": 0.55,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "gear-2",
+      "name": "Gear 2",
+      "unlockTier": 1,
+      "drainPerSecond": 4,
+      "primary": {
+        "name": "Gear 2 Rapid Strikes",
+        "delivery": "direct-contact",
+        "damage": 29,
+        "period": 1.05,
+        "windup": 0.18,
+        "reach": 8,
+        "shape": {
+          "kind": "sweep",
+          "width": 1.1,
+          "cap": 3
+        }
+      },
+      "techniques": [
+        {
+          "id": "red-hawk",
+          "name": "Red Hawk",
+          "unlockTier": 1,
+          "damage": 70,
+          "windup": 0.25,
+          "recovery": 0.6,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "gear-3",
+      "name": "Gear 3",
+      "unlockTier": 2,
+      "drainPerSecond": 5,
+      "primary": {
+        "name": "Gigantic Inflated Limb",
+        "delivery": "direct-contact",
+        "damage": 53,
+        "period": 1.8,
+        "windup": 0.55,
+        "reach": 9,
+        "shape": {
+          "kind": "area",
+          "radius": 2.2,
+          "cap": 4
+        }
+      },
+      "techniques": [
+        {
+          "id": "red-roc",
+          "name": "Gomu Gomu no Red Roc",
+          "unlockTier": 2,
+          "damage": 105,
+          "windup": 0.65,
+          "recovery": 0.8,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 2.5,
+            "cap": 4
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "gear-4-boundman",
+      "name": "Gear 4: Boundman",
+      "unlockTier": 3,
+      "drainPerSecond": 8,
+      "primary": {
+        "name": "Boundman Rebound Strikes",
+        "delivery": "direct-contact",
+        "damage": 70,
+        "period": 1.35,
+        "windup": 0.3,
+        "reach": 10,
+        "shape": {
+          "kind": "sweep",
+          "width": 1.8,
+          "cap": 4
+        }
+      },
+      "techniques": [
+        {
+          "id": "boundman-compressed-strike",
+          "name": "Boundman Compressed Strike",
+          "unlockTier": 3,
+          "damage": 140,
+          "windup": 0.55,
+          "recovery": 0.9,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "sweep",
+            "width": 2,
+            "cap": 4
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "gear-4-tankman",
+      "name": "Gear 4: Tankman",
+      "unlockTier": 3,
+      "drainPerSecond": 7,
+      "primary": {
+        "name": "Tankman Recoil Body",
+        "delivery": "direct-contact",
+        "damage": 82,
+        "period": 1.9,
+        "windup": 0.55,
+        "reach": 8.5,
+        "shape": {
+          "kind": "area",
+          "radius": 3.2,
+          "cap": 5
+        }
+      },
+      "techniques": [
+        {
+          "id": "tankman-counter-rebound",
+          "name": "Tankman Counter-Rebound",
+          "unlockTier": 3,
+          "damage": 120,
+          "windup": 0.8,
+          "recovery": 1,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 3,
+            "cap": 5
+          },
+          "control": {
+            "displacement": 5
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "gear-4-snakeman",
+      "name": "Gear 4: Snakeman",
+      "unlockTier": 3,
+      "drainPerSecond": 8,
+      "primary": {
+        "name": "Snakeman Changing-Angle Blows",
+        "delivery": "direct-contact",
+        "damage": 59,
+        "period": 0.82,
+        "windup": 0.2,
+        "reach": 11,
+        "shape": {
+          "kind": "sweep",
+          "width": 0.9,
+          "cap": 3
+        }
+      },
+      "techniques": [
+        {
+          "id": "snakeman-angle-barrage",
+          "name": "Snakeman Angle Barrage",
+          "unlockTier": 3,
+          "damage": 62,
+          "windup": 0.35,
+          "recovery": 0.7,
+          "hits": 2,
+          "hitSpan": 0.45,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "gear-5",
+      "name": "Gear 5",
+      "unlockTier": 5,
+      "drainPerSecond": 12,
+      "primary": {
+        "name": "Awakened Freedom Strikes",
+        "delivery": "direct-contact",
+        "damage": 105,
+        "period": 1.25,
+        "windup": 0.3,
+        "reach": 12,
+        "shape": {
+          "kind": "area",
+          "radius": 4.5,
+          "cap": 6
+        }
+      },
+      "techniques": [
+        {
+          "id": "awakened-freedom-strike",
+          "name": "Awakened Freedom Strike",
+          "unlockTier": 5,
+          "damage": 200,
+          "windup": 0.8,
+          "recovery": 1.1,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 4.5,
+            "cap": 6
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "elastic-combat",
+      "name": "Elastic Combat",
+      "description": "Stretch, recoil and inventive targeting. Gear reach and impact shapes are modeled directly; Mizu Luffy, Afro Luffy and Nightmare Luffy are omitted as situational or externally granted forms.",
+      "upgrades": [
+        {
+          "name": "Elastic Reach",
+          "description": "Extends Luffy's direct-contact reach for long-distance punches and kicks.",
+          "cost": 180,
+          "modifiers": {
+            "reachAdd": 2
+          }
+        },
+        {
+          "name": "Twisting Momentum",
+          "description": "Rotating and recoiling limbs hit harder without adding a new power.",
+          "cost": 260,
+          "modifiers": {
+            "damageMultiplier": 1.08
+          }
+        },
+        {
+          "name": "Instinctive Retargeting",
+          "description": "Luffy can replace a lost primary target when a stretched attack resolves.",
+          "cost": 340,
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Long-Arm Recoil",
+          "description": "Further extends elastic attacks, improving access to distant targets and collateral lines.",
+          "cost": 430,
+          "modifiers": {
+            "reachAdd": 2.5
+          }
+        },
+        {
+          "name": "Unorthodox Angles",
+          "description": "Improves elastic damage and enables primary acquisition against concealed targets.",
+          "cost": 560,
+          "modifiers": {
+            "damageMultiplier": 1.12,
+            "detectConcealed": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "armament-haki",
+      "name": "Armament Haki",
+      "description": "Armament adds force, armor bypass and internal damage. Contact stun is conditional on Manga eligibility and does not claim universal intangibility or seastone immunity.",
+      "upgrades": [
+        {
+          "name": "Hardening",
+          "description": "Armament-coated strikes add flat damage to every successful hit.",
+          "cost": 190,
+          "modifiers": {
+            "flatDamage": 6
+          }
+        },
+        {
+          "name": "Emission",
+          "description": "Emitted Armament partially ignores remaining armor.",
+          "cost": 280,
+          "modifiers": {
+            "armorIgnore": 0.2
+          }
+        },
+        {
+          "name": "Internal Destruction",
+          "description": "A portion of ordinary damage becomes internal and bypasses armor.",
+          "cost": 370,
+          "modifiers": {
+            "internalFraction": 0.2
+          }
+        },
+        {
+          "name": "Advanced Hardening",
+          "description": "More disciplined coating adds further flat damage to attacks and Techniques.",
+          "cost": 470,
+          "modifiers": {
+            "flatDamage": 10
+          }
+        },
+        {
+          "name": "Conqueror-Coated Impact",
+          "description": "Advanced Haki improves armor bypass and internal damage; eligible contacts can briefly stun.",
+          "cost": 600,
+          "modifiers": {
+            "armorIgnore": 0.35,
+            "internalFraction": 0.35,
+            "contactStun": 0.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "haki-sense-and-freedom",
+      "name": "Haki Sense and Freedom",
+      "description": "Observation and Supreme King control improve timing, awareness, pulses and emission. Pulse and emission are bounded gameplay adaptations, not elemental attacks or terrain creation.",
+      "upgrades": [
+        {
+          "name": "Observation Focus",
+          "description": "Sharper anticipation accelerates Luffy's primary attack cycle.",
+          "cost": 200,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.92
+          }
+        },
+        {
+          "name": "Future Glimpse",
+          "description": "Further short-term prediction accelerates primary timing again.",
+          "cost": 290,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.84
+          }
+        },
+        {
+          "name": "Selective Haki Sense",
+          "description": "Observation awareness reveals concealed targets to Luffy's primary acquisition.",
+          "cost": 380,
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Supreme King Pulse",
+          "description": "Periodic primary cycles emit a bounded eligible-target pulse that can stun weak-willed foes.",
+          "cost": 490,
+          "modifiers": {
+            "pulse": {
+              "cycles": 2,
+              "radius": 8,
+              "cap": 5,
+              "stun": 0.8,
+              "interval": 1.2
+            }
+          }
+        },
+        {
+          "name": "Conqueror Emission",
+          "description": "A contact-triggered Haki emission projects force beyond the primary reach without triggering other effects or counters.",
+          "cost": 620,
+          "modifiers": {
+            "emission": {
+              "cycles": 1,
+              "damage": 18,
+              "width": 1.5,
+              "length": 16,
+              "cap": 1
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

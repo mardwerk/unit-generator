@@ -1,0 +1,412 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "monkey-d-luffy",
+  "name": "Monkey D. Luffy",
+  "description": "Wano-era manga adaptation of Monkey D. Luffy, captain of the Straw Hat Pirates and a flexible direct-contact carry. The unit uses one active primary profile at a time: forms replace rather than add attacks. Elastic reach allows direct-contact strikes beyond ordinary melee range. Runtime targeting selects the nearest eligible visible and unobstructed enemy because this schema exposes no custom priority field. Gear 3 is a zero-drain alternate form; Gear 2, Gear 4 Boundman, Gear 4 Tankman, Gear 4 Snakeman and Gear 5 use authored stamina drains to adapt their documented resource limitations. Stamina unlocks at tier 2, is not refilled by purchases, drains in positive-drain forms, and recovers in base or zero-drain forms. Form changes, exhaustion, queued Techniques, recovery carryover and reset follow the common Manga Mayhem lifecycle. Techniques consume stamina and share one cooldown; multi-hit Techniques lock their selected target. Haki armor penetration, Supreme King pulses, and advanced Armament emission are game adaptations of supplied abilities, not canon measurements. Gear 5's area attack adapts environmental rubberization without creating persistent terrain. Lightning immunity, general seawater weakness, poison immunity, Voice of All Things communication, Grand Fleet summons, defensive combat, and enemy path following are omitted because they are unsupported by this executable profile or supplied evidence. No roster.json balance rules were supplied, so crew balance remains an authored adaptation.",
+  "cost": 950,
+  "baseForm": "base",
+  "stunProtectionSeconds": 2.5,
+  "stamina": {
+    "unlockTier": 2,
+    "maximum": 100,
+    "entryMinimum": 30,
+    "recoveryPerSecond": 5,
+    "reentrySeconds": 8,
+    "techniqueCost": 20,
+    "techniqueCooldown": 8
+  },
+  "forms": [
+    {
+      "id": "base",
+      "name": "Base Form",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Elastic Reach Punch",
+        "delivery": "direct-contact",
+        "damage": 24,
+        "period": 1.1,
+        "windup": 0.1,
+        "reach": 8,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "gomugomu-no-kane",
+          "name": "Gomu Gomu no Kane",
+          "unlockTier": 2,
+          "damage": 55,
+          "windup": 0.2,
+          "recovery": 0.7,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "gear-3",
+      "name": "Gear 3",
+      "unlockTier": 1,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Giant-Limb Strike",
+        "delivery": "direct-contact",
+        "damage": 46,
+        "period": 1.55,
+        "windup": 0.3,
+        "reach": 8.8,
+        "shape": {
+          "kind": "area",
+          "radius": 2.8,
+          "cap": 5
+        }
+      },
+      "techniques": [
+        {
+          "id": "gomugomu-no-red-roc",
+          "name": "Gomu Gomu no Red Roc",
+          "unlockTier": 2,
+          "damage": 110,
+          "windup": 0.35,
+          "recovery": 0.95,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 3.4,
+            "cap": 6
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "gear-2",
+      "name": "Gear 2",
+      "unlockTier": 2,
+      "drainPerSecond": 2.8,
+      "primary": {
+        "name": "Gear 2 Accelerated Punch",
+        "delivery": "direct-contact",
+        "damage": 34,
+        "period": 0.75,
+        "windup": 0.08,
+        "reach": 9.5,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "red-hawk",
+          "name": "Red Hawk",
+          "unlockTier": 2,
+          "damage": 78,
+          "windup": 0.18,
+          "recovery": 0.57,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "gear-4-boundman",
+      "name": "Gear 4: Boundman",
+      "unlockTier": 3,
+      "drainPerSecond": 3.6,
+      "primary": {
+        "name": "Boundman Rebounding Blow",
+        "delivery": "direct-contact",
+        "damage": 60,
+        "period": 1.15,
+        "windup": 0.18,
+        "reach": 10,
+        "shape": {
+          "kind": "area",
+          "radius": 2.6,
+          "cap": 5
+        }
+      },
+      "techniques": [
+        {
+          "id": "gomugomu-no-rifle",
+          "name": "Gomu Gomu no Rifle",
+          "unlockTier": 3,
+          "damage": 130,
+          "windup": 0.3,
+          "recovery": 0.85,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "gear-4-tankman",
+      "name": "Gear 4: Tankman",
+      "unlockTier": 3,
+      "drainPerSecond": 2.4,
+      "primary": {
+        "name": "Tankman Recoil Body",
+        "delivery": "direct-contact",
+        "damage": 68,
+        "period": 1.65,
+        "windup": 0.35,
+        "reach": 8.5,
+        "shape": {
+          "kind": "area",
+          "radius": 3.8,
+          "cap": 6
+        }
+      },
+      "techniques": []
+    },
+    {
+      "id": "gear-4-snakeman",
+      "name": "Gear 4: Snakeman",
+      "unlockTier": 4,
+      "drainPerSecond": 4,
+      "primary": {
+        "name": "Snakeman Redirecting Strike",
+        "delivery": "direct-contact",
+        "damage": 48,
+        "period": 0.85,
+        "windup": 0.1,
+        "reach": 11.5,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "gomugomu-no-ogon-rifle",
+          "name": "Gomu Gomu no Ogon Rifle",
+          "unlockTier": 4,
+          "damage": 52,
+          "windup": 0.12,
+          "recovery": 0.68,
+          "hits": 3,
+          "hitSpan": 0.45,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "gear-5",
+      "name": "Gear 5: Awakening",
+      "unlockTier": 5,
+      "drainPerSecond": 5,
+      "primary": {
+        "name": "Awakened Rubber Strike",
+        "delivery": "direct-contact",
+        "damage": 74,
+        "period": 1,
+        "windup": 0.18,
+        "reach": 12.5,
+        "shape": {
+          "kind": "area",
+          "radius": 3.6,
+          "cap": 8
+        }
+      },
+      "techniques": [
+        {
+          "id": "awakened-rubber-burst",
+          "name": "Awakened Rubber Burst",
+          "unlockTier": 5,
+          "damage": 180,
+          "windup": 0.35,
+          "recovery": 0.95,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 4.5,
+            "cap": 8
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "advanced-haki",
+      "name": "Advanced Haki",
+      "description": "Armament and Supreme King Haki adaptations for armored targets and heavy finishing damage. Emission travels away from Luffy from the contact point, stops at obstacles, and does not trigger other effects or counters.",
+      "upgrades": [
+        {
+          "name": "Armament Hardening",
+          "description": "Adds 4 flat damage to every primary attack and every Technique, including Techniques with zero base damage, before other damage modifiers.",
+          "cost": 180,
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Flowing Armament",
+          "description": "Makes 25% of damage from primary attacks and Techniques internal damage that bypasses remaining armor, while still respecting invulnerability.",
+          "cost": 260,
+          "modifiers": {
+            "internalFraction": 0.25
+          }
+        },
+        {
+          "name": "Internal Destruction",
+          "description": "Raises the internal-damage fraction to 55% for primary attacks and Techniques, adapting Luffy's Wano emission training.",
+          "cost": 420,
+          "modifiers": {
+            "internalFraction": 0.55
+          }
+        },
+        {
+          "name": "Haki Emission",
+          "description": "After every 6 successful primary contacts, emits a separate 35-damage line from the contact point, 1.5 wide and 14 long, capped at 3 targets. This effect excludes flat damage additions and stops at obstacles.",
+          "cost": 500,
+          "modifiers": {
+            "emission": {
+              "cycles": 6,
+              "damage": 35,
+              "width": 1.5,
+              "length": 14,
+              "cap": 3
+            }
+          }
+        },
+        {
+          "name": "Supreme King Infusion",
+          "description": "Multiplies primary and Technique damage by 1.35, adapting advanced Supreme King Haki coating as a damage modifier rather than unsupported sky-splitting terrain behavior.",
+          "cost": 700,
+          "modifiers": {
+            "damageMultiplier": 1.35
+          }
+        }
+      ]
+    },
+    {
+      "id": "elastic-gears",
+      "name": "Elastic Gears",
+      "description": "Improves Luffy's elastic reach, attack cadence, and form-specific carry potential. Gear 3, Boundman, Tankman, Snakeman and Gear 5 unlock from the highest purchased tier even though this path does not add parallel attacks.",
+      "upgrades": [
+        {
+          "name": "Gear 2 Blood Flow",
+          "description": "Multiplies primary timing by 0.85 across all forms; Techniques retain their authored timing.",
+          "cost": 150,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.85
+          }
+        },
+        {
+          "name": "Longer Stretch",
+          "description": "Adds 2.5 reach to every primary attack and Technique, improving performance against lanes where direct contact would otherwise be difficult.",
+          "cost": 240,
+          "modifiers": {
+            "reachAdd": 2.5
+          }
+        },
+        {
+          "name": "Boundman Compression",
+          "description": "Multiplies primary and Technique damage by 1.18, representing compressed muscle power and redirected elastic momentum.",
+          "cost": 380,
+          "modifiers": {
+            "damageMultiplier": 1.18
+          }
+        },
+        {
+          "name": "Snakeman Future Sight",
+          "description": "Multiplies primary timing by 0.78 and enables one primary retarget at resolution if the original target is lost. This never retargets Techniques or launched attacks.",
+          "cost": 550,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.78,
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Gear Mastery",
+          "description": "Multiplies primary and Technique damage by 1.3, rewarding high-tier flexible carry builds without adding a companion or unsupported weapon style.",
+          "cost": 780,
+          "modifiers": {
+            "damageMultiplier": 1.3
+          }
+        }
+      ]
+    },
+    {
+      "id": "captains-will",
+      "name": "Captain's Will",
+      "description": "Observation and Supreme King Haki adaptations for concealment and crowd control. Pulse stuns require weak-willed and stunnable targets; protected targets do not consume pulse caps, and pulse deals no damage.",
+      "upgrades": [
+        {
+          "name": "Observation Haki",
+          "description": "Enables detection of concealed enemies for Luffy's primary attacks and Techniques, adapting his documented presence-sensing ability.",
+          "cost": 170,
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Conqueror's Pressure",
+          "description": "After 8 successful primary contacts, emits one pulse within radius 5, stunning up to 5 eligible targets for 1 second, with an 8-second minimum interval.",
+          "cost": 320,
+          "modifiers": {
+            "pulse": {
+              "cycles": 8,
+              "radius": 5,
+              "cap": 5,
+              "stun": 1,
+              "interval": 8
+            }
+          }
+        },
+        {
+          "name": "Overwhelming Will",
+          "description": "Adds a 0.5-second direct-contact stun to eligible weak-willed, stunnable primary targets. Existing stuns and protection intervals follow the common runtime rules.",
+          "cost": 460,
+          "modifiers": {
+            "contactStun": 0.5
+          }
+        },
+        {
+          "name": "Wano Conqueror's Pulse",
+          "description": "Replaces the earlier pulse configuration with a pulse every 5 successful primary contacts, radius 7, cap 10, 1.5-second stun, and 6-second minimum interval.",
+          "cost": 620,
+          "modifiers": {
+            "pulse": {
+              "cycles": 5,
+              "radius": 7,
+              "cap": 10,
+              "stun": 1.5,
+              "interval": 6
+            }
+          }
+        },
+        {
+          "name": "Awakening Freedom",
+          "description": "Adds 3 reach and multiplies primary and Technique damage by 1.22. Gear 5's area impact represents rubberized surroundings without creating terrain or persistent environmental effects.",
+          "cost": 900,
+          "modifiers": {
+            "reachAdd": 3,
+            "damageMultiplier": 1.22
+          }
+        }
+      ]
+    }
+  ]
+}

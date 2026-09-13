@@ -1,0 +1,289 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "brook",
+  "name": "Brook",
+  "description": "Brook, the Soul King: a cheerful, gentlemanly skeleton musician and stationary Straw Hat swordsman adapted from the One Piece manga through Wano. Soul Solid fencing, soul-linked chill, Nemuriuta Flanc and Aubade Coup Droit are implemented as bounded combat adaptations. Chill is a conditional slow, not terrain freezing. Soul projection, wall traversal and reconnaissance, water running, bone repair, defensive resistances, Homie-specific soul domination, music illusions and emotional inspiration are omitted. His once-used resurrection is origin lore, never a repeatable revive. Numbers, stamina, unlock schedules, geometry and boss restrictions are game tuning, not canon measurements; prices are provisional and balance is unmeasured. The highest purchased tier on any path unlocks stamina and Nemuriuta Flanc at tier 2; at tier 4, Aubade Coup Droit replaces the sleep song on the single Technique button. Purchased flat damage also gives the zero-base-damage song damage, a disclosed combat abstraction. The air blast is an aimed, non-homing projectile restricted to current acquisition reach; its chill is a bounded combination of Brook's sword and soul abilities. Caller-supplied motion and eligibility facts govern encounters. Boss, sleep-immune and freeze-immune tags must be supplied by the caller. Three cumulative paths use the runtime's legal maximum 5-2-0.",
+  "cost": 1250,
+  "baseForm": "base",
+  "stunProtectionSeconds": 0.75,
+  "stamina": {
+    "unlockTier": 2,
+    "maximum": 100,
+    "entryMinimum": 35,
+    "recoveryPerSecond": 9,
+    "reentrySeconds": 3,
+    "techniqueCost": 30,
+    "techniqueCooldown": 8
+  },
+  "forms": [
+    {
+      "id": "base",
+      "name": "Brook",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Gentle Blade",
+        "delivery": "direct-contact",
+        "damage": 18,
+        "period": 1.25,
+        "windup": 0.18,
+        "reach": 14,
+        "shape": {
+          "kind": "sweep",
+          "width": 1.2,
+          "cap": 3
+        },
+        "onHit": [
+          {
+            "id": "underworld-chill",
+            "durationSeconds": 2.5,
+            "immuneTo": [
+              "freeze-immune"
+            ],
+            "stacking": {
+              "scope": "target",
+              "reapply": "refresh",
+              "maxStacks": 1
+            },
+            "requiresTags": [
+              "slowable"
+            ],
+            "requiresDamage": true,
+            "kind": "slow",
+            "speedMultiplier": 0.65,
+            "combine": "strongest"
+          }
+        ]
+      },
+      "techniques": [
+        {
+          "id": "nemuriuta-flanc",
+          "name": "Nemuriuta Flanc",
+          "unlockTier": 2,
+          "damage": 0,
+          "delivery": "direct-contact",
+          "windup": 0.7,
+          "recovery": 0.8,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 8,
+            "cap": 5
+          },
+          "onHit": [
+            {
+              "id": "sleeping-song",
+              "durationSeconds": 3,
+              "immuneTo": [
+                "sleep-immune",
+                "boss"
+              ],
+              "stacking": {
+                "scope": "target",
+                "reapply": "refresh",
+                "maxStacks": 1
+              },
+              "requiresTags": [
+                "weak-willed",
+                "stunnable"
+              ],
+              "requiresDamage": false,
+              "kind": "stun",
+              "speedMultiplier": 0,
+              "combine": "strongest"
+            }
+          ]
+        },
+        {
+          "id": "aubade-coup-droit",
+          "name": "Aubade Coup Droit",
+          "unlockTier": 4,
+          "damage": 32,
+          "windup": 0.35,
+          "recovery": 0.65,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "projectile",
+          "projectileSpeed": 55,
+          "projectileRadius": 0.8,
+          "onHit": [
+            {
+              "id": "aerial-underworld-chill",
+              "durationSeconds": 2,
+              "immuneTo": [
+                "freeze-immune"
+              ],
+              "stacking": {
+                "scope": "target",
+                "reapply": "refresh",
+                "maxStacks": 1
+              },
+              "requiresTags": [
+                "slowable"
+              ],
+              "requiresDamage": true,
+              "kind": "slow",
+              "speedMultiplier": 0.55,
+              "combine": "strongest"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "soul-solid",
+      "name": "Soul Solid",
+      "description": "Fast fencing with Soul Solid's existing soul-linked chill. Freezing is adapted as a conditional slow rather than generic frost magic. Purchases improve sword output, not the slow's magnitude or duration.",
+      "upgrades": [
+        {
+          "name": "Polished Shikomizue",
+          "cost": 220,
+          "description": "Adds 3 damage to primary attacks and every Technique, including the sleep song.",
+          "modifiers": {
+            "flatDamage": 3
+          }
+        },
+        {
+          "name": "Quick-Draw Fencing",
+          "cost": 340,
+          "description": "Multiplies primary windup and period by 0.88; Technique timing is unchanged.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.88
+          }
+        },
+        {
+          "name": "Soul Solid Precision",
+          "cost": 500,
+          "description": "Adds 2 damage to primary attacks and every Technique. Existing chill remains unchanged.",
+          "modifiers": {
+            "flatDamage": 2
+          }
+        },
+        {
+          "name": "Freezing Edge",
+          "cost": 700,
+          "description": "Raises armor ignore to 20% for primary attacks and Techniques, representing improved cutting effectiveness rather than stronger freezing.",
+          "modifiers": {
+            "armorIgnore": 0.2
+          }
+        },
+        {
+          "name": "Soul Solid Mastery",
+          "cost": 1100,
+          "description": "Multiplies primary and Technique damage by 1.35 and adds 3 reach. Extended contact geometry is a stationary fencing adaptation.",
+          "modifiers": {
+            "damageMultiplier": 1.35,
+            "reachAdd": 3
+          }
+        }
+      ]
+    },
+    {
+      "id": "soul-king",
+      "name": "Soul King",
+      "description": "Musical combat and fencing rhythm. Nemuriuta Flanc uses a bounded stun requiring weak-willed and stunnable tags and excluding boss and sleep-immune tags. It does not simulate hearing through walls, friendly fire, wake-on-damage, illusions or morale. Tier 4 replaces it with Aubade Coup Droit under the shared Technique lifecycle.",
+      "upgrades": [
+        {
+          "name": "Violin Virtuoso",
+          "cost": 240,
+          "description": "Adds 2 damage to primary attacks and every Technique, including the sleep song; this is combat tuning, not a claim that music inherently damages listeners.",
+          "modifiers": {
+            "flatDamage": 2
+          }
+        },
+        {
+          "name": "Captivating Performance",
+          "cost": 360,
+          "description": "Multiplies primary timing by 0.92 and enables concealed-target detection as a bounded sharp-hearing adaptation. Obstacles and invulnerability still block eligibility.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.92,
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Practiced Combat Rhythm",
+          "cost": 520,
+          "description": "Multiplies primary and Technique damage by 1.08. Does not change the shared Technique cooldown or sleep duration.",
+          "modifiers": {
+            "damageMultiplier": 1.08
+          }
+        },
+        {
+          "name": "Soul King Encore",
+          "cost": 760,
+          "description": "Adds 4 damage to primary attacks and every Technique. Enables one primary retarget when its selected target is lost before resolution; Techniques never retarget.",
+          "modifiers": {
+            "flatDamage": 4,
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "World Tour Finale",
+          "cost": 1200,
+          "description": "Multiplies primary and Technique damage by 1.3 and adds 4 acquisition reach. Grants no ally buffs or music illusions.",
+          "modifiers": {
+            "damageMultiplier": 1.3,
+            "reachAdd": 4
+          }
+        }
+      ]
+    },
+    {
+      "id": "underworld-soul",
+      "name": "Underworld Soul",
+      "description": "Fencing agility, sharp hearing and soul-linked sword combat. Soul projection reconnaissance and wall traversal are explicitly omitted, not represented by detection or reach bonuses. Chill is supplied by the authored attacks and is not upgraded by this path.",
+      "upgrades": [
+        {
+          "name": "Light as a Skeleton",
+          "cost": 210,
+          "description": "Multiplies primary timing by 0.9 as an adaptation of Brook's rapid fencing. Grants no free movement or defensive evasion.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Soul Perception",
+          "cost": 330,
+          "description": "Enables concealed-target detection through sharp hearing and multiplies primary timing by 0.96 through quicker fencing reactions. The timing benefit remains useful when another path already supplies detection; this is not soul reconnaissance.",
+          "modifiers": {
+            "detectConcealed": true,
+            "primaryTimingMultiplier": 0.96
+          }
+        },
+        {
+          "name": "Cold Soul",
+          "cost": 480,
+          "description": "Adds 3 damage to primary attacks and every Technique. Soul Solid's existing soul-linked chill is unchanged.",
+          "modifiers": {
+            "flatDamage": 3
+          }
+        },
+        {
+          "name": "Extended Fencing",
+          "cost": 680,
+          "description": "Adds 5 acquisition reach and enables one lost-primary-target replacement at resolution. This bounded contact extension grants neither movement nor reconnaissance and never retargets Techniques.",
+          "modifiers": {
+            "reachAdd": 5,
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Underworld Crescendo",
+          "cost": 1050,
+          "description": "Multiplies primary and Technique damage by 1.28 and raises armor ignore to 15%. Armor ignore uses the largest purchased value. Neither effect bypasses invulnerability or grants repeat resurrection.",
+          "modifiers": {
+            "damageMultiplier": 1.28,
+            "armorIgnore": 0.15
+          }
+        }
+      ]
+    }
+  ]
+}

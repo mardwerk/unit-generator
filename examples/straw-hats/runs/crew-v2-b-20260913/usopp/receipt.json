@@ -1,0 +1,4679 @@
+{
+  "id": "usopp",
+  "operation": "generation",
+  "status": "failed",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "cfca78ed653582554ea04a6f59da3a5ebfc604c3e8318037d4e15554db2e744f",
+  "unitSha256": "4bf311ed23fbfa44e4437f3f9dbfe0aea516ecf449b8760bcde14f73bc7f0654",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "600c00487b3edecefeba05e31f24f03f81948740f15dc3e223a85d126a7f82be",
+    "implementationVersion": "manga-mayhem/0.1.2",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "input": {
+    "subject": "Usopp",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Produce a faithful playable Straw Hat unit using the current Manga Mayhem contract. Exactly three paths of five concrete cumulative purchases, legal maximum 5-2-0. Every purchase must change executable behavior. Source facts must be established by fresh research. Disclose numerical tuning, unlock schedules and bounded interpretations as game adaptations; distinguish omitted powers from implemented powers. This is a stationary tower encounter with caller-supplied enemy motion and ally injuries, not tower defensive combat or free unit movement. Avoid unsupported air-only target classes, tower HP, shields, taunt, or invented powers. If a source trait has no runtime representation, preserve it in an explicit omission rather than a fake stat bonus. Use the supported schema exactly, including resources, projectile flight, target geometry, statuses, and shared technique lifecycle. Balance is a later measured pass; prices are provisional. World units are shared across the crew: ordinary close contact roughly 8-18, stretched or ranged profiles roughly 30-60; do not treat these as canon measurements. Keep signatures recognizable and source-backed. Kabuto/Black Kabuto sniper, multiple Pop Greens with distinct documented behavior, traps and Observation awakening. Long-range precision and plant lane control. No invented continuous Haki mastery, free flying, or magical damage aura. Named plants must correspond to implemented behavior. Sogeking is a persona, not a supernatural transformation.",
+    "context": {
+      "crew": {
+        "id": "straw-hats",
+        "name": "Straw Hat Pirates",
+        "members": [
+          "Monkey D. Luffy",
+          "Roronoa Zoro",
+          "Nami",
+          "Usopp",
+          "Sanji",
+          "Tony Tony Chopper",
+          "Nico Robin",
+          "Franky",
+          "Brook",
+          "Jinbe"
+        ]
+      },
+      "cutoff": "One Piece manga through the end of Wano Country arc",
+      "newRun": true,
+      "coverage": "Character-specific capabilities are requirements to verify, not evidence. Record unsupported facts as gaps. No old generated artifacts supplied."
+    },
+    "sources": [
+      "https://onepiece.fandom.com/wiki/Usopp/Abilities_and_Powers",
+      "https://one-piece.com/character/usopp/index.html",
+      "https://one-piece.com/story/land_of_wano2/index.html"
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Usopp",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "No fresh external research was performed. This record consolidates the supplied captures only; cited manga chapters were not independently retrieved or inspected.",
+        "All three supplied captures were reviewed through their ends and are marked acquisitionTruncated:false. Linked Usopp Tactics, Pop Green, weapon and Haki articles were not supplied; navigation links do not establish the contents of those articles.",
+        "The supplied schema is a character-evidence schema, not an executable game contract. No purchases, paths, prices, resources, projectile simulation, statuses or technique lifecycle have been implemented, and no implemented-versus-omitted gameplay inventory can be certified.",
+        "The requested three five-purchase paths, 5-2-0 limit, stationary encounter model and world-unit scale are caller guidance, not evidence about Usopp. Any eventual numerical tuning, unlocks, targeting geometry and bounded runtime interpretations would be adaptations.",
+        "Most Pop Green effects are described without their individual technique names. The supplies support distinct carnivorous, boulder-catching, malodorous, bamboo, explosive, wolf-shockwave, sleep and utility effects, but not a complete named manga technique catalogue.",
+        "Skull Bomb Grass is explicitly named in the supplied Film: Gold passage, which is outside the selected continuity. Its name has not been silently transferred to the unnamed manga-context exploding plant.",
+        "The abilities page includes later Elbaph Observation Haki material and a purported Chapter 1189 reference. These are outside the cutoff and have not been used to establish Wano-era sensing, injury detection or mastery.",
+        "Film: Red communication with Yasopp, Film: Gold tactics against Baccarat and anime-specific material are excluded. Their presence does not make Usopp's identity ambiguous.",
+        "Dressrosa supports an Observation awakening and aura-based localization, not continuous controlled mastery, future sight, universal obstacle-penetrating aim or communication. No in-cutoff repeatability schedule or activation cost is established.",
+        "The supplied pages do not establish Usopp having free flight, a magical damage aura, intrinsic shields, taunting powers or healing abilities. Neither Armament nor Supreme King Haki is established for him by the supplied character prose.",
+        "The wiki's Quick Answers states that Usopp has no Devil Fruit powers, but this is a generated-style summary rather than a separately demonstrated passage. The retained capabilities are grounded in the pages' detailed descriptions of skill, equipment, plants and Observation Haki.",
+        "The pages give no complete ammunition inventory, cultivation rate, reload timing, plant lifespan, trap trigger rules, target capacity, exact projectile speed or generalized status duration. The described three-meter shockwave and over-mile sniping feat are contextual source measurements, not game tuning.",
+        "Kabuto's full mechanism is explicitly unknown, and the smaller Kuro Kabuto description does not independently confirm that every original Kabuto Dial function transfers unchanged.",
+        "Current profile bounty figures and the abilities page's Chapter 1058 post-Wano bounty update were not incorporated into the cutoff-specific identity facts.",
+        "No substantive disagreement is apparent in the sources' overlapping descriptions of Usopp's identity and fighting style. Their different coverage and mixed temporal scope prevent treating the current pages as a clean Wano-era snapshot.",
+        "No supernatural bodily transformation is established. Sogeking is a disguise/persona; Grow Up and Super Grow Up are weapon forms. Details of Hana Arashi beyond its listing as an alias are absent.",
+        "Traits such as craftsmanship, art, hairdressing, spider handling, courage, durability, mobility and utility plants remain evidence even without a runtime representation; they should not be converted into unsupported generic combat bonuses."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "8113d798affcd38c5b3643ba",
+          "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+          "sourceCharacters": 62289,
+          "visibleCharacters": 62289,
+          "complete": true
+        },
+        {
+          "sourceId": "72f30fd57248332af12db874",
+          "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+          "sourceCharacters": 1806,
+          "visibleCharacters": 1806,
+          "complete": true
+        },
+        {
+          "sourceId": "600b250f9838e58b36ccca0c",
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+          "sourceCharacters": 1673,
+          "visibleCharacters": 1673,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "id": "8113d798affcd38c5b3643ba",
+          "url": "https://onepiece.fandom.com/wiki/Usopp/Abilities_and_Powers",
+          "title": "Usopp/Abilities and Powers | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 62289,
+          "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140"
+        },
+        {
+          "id": "72f30fd57248332af12db874",
+          "url": "https://one-piece.com/character/usopp/index.html",
+          "title": "ウソップ | キャラクター検索 | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1806,
+          "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246"
+        },
+        {
+          "id": "600b250f9838e58b36ccca0c",
+          "url": "https://one-piece.com/story/land_of_wano2/index.html",
+          "title": "ワノ国編 | これまでのストーリー | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1673,
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Usopp",
+        "identity": {
+          "status": "resolved",
+          "name": "Usopp",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The character profile identifies Usopp as the Straw Hat Pirates' sniper, and the abilities page supplies manga-referenced feats through Wano. These resolve the requested character rather than a namesake or disambiguation entry. The Wano story page supplies arc context, not independent verification of Usopp's abilities. The abilities page mixes manga, adaptations and later developments; only supported material within the requested cutoff is retained."
+        },
+        "claimCount": 39,
+        "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": []
+    },
+    "system": {
+      "status": "failed",
+      "checks": [
+        "manga-contract",
+        "legal-progression",
+        "reachable-resource-and-techniques",
+        "source-fidelity-review"
+      ],
+      "issues": [
+        {
+          "code": "source-unresolved",
+          "path": "/paths/0/upgrades/1/modifiers/detectConcealed",
+          "message": "The concealed-target detection modifier remains insufficiently established by the claimed eyesight basis.: The evidence documents noticing distant observers and lookouts, but does not establish generic concealment defeat through sharp eyesight. The separate aura-localization awakening is expressly excluded from this purchase, and retaining obstacle checks does not resolve the concealed-target scope. Use a supported implementation or clearly disclose a permitted game adaptation."
+        }
+      ]
+    },
+    "constraints": {
+      "status": "not-provided",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "review-required",
+    "findings": [
+      {
+        "code": "CONTACT_TRIGGER_EXECUTION_SEMANTICS",
+        "dimension": "claim-effect",
+        "severity": "info",
+        "message": "Pulse and emission cycles count successful primary attack cycles required for one trigger, not waves per trigger. A cycle counts once when at least one primary hit applies positive damage, regardless of collateral targets. Pulses apply stun without damage; their event amount counts affected targets. Emissions apply their declared damage. Pulse intervals can further limit trigger frequency."
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-plant-hold"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            1
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            2
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 55,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            4
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 67,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            5
+          ],
+          "distance": 19,
+          "durationSeconds": 2.4480000000000004,
+          "damage": 85.2,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            1
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            2
+          ],
+          "distance": 19,
+          "durationSeconds": 2.754,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            3
+          ],
+          "distance": 19,
+          "durationSeconds": 2.754,
+          "damage": 55,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            4
+          ],
+          "distance": 19,
+          "durationSeconds": 2.754,
+          "damage": 67,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            5
+          ],
+          "distance": 19,
+          "durationSeconds": 2.2032000000000003,
+          "damage": 85.2,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            1
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            2
+          ],
+          "distance": 19,
+          "durationSeconds": 2.754,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            3
+          ],
+          "distance": 19,
+          "durationSeconds": 2.754,
+          "damage": 55,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            4
+          ],
+          "distance": 19,
+          "durationSeconds": 2.754,
+          "damage": 67,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            5
+          ],
+          "distance": 19,
+          "durationSeconds": 2.2032000000000003,
+          "damage": 85.2,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            1
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            2
+          ],
+          "distance": 19,
+          "durationSeconds": 2.754,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            1
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            2
+          ],
+          "distance": 19,
+          "durationSeconds": 2.754,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            1
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            2
+          ],
+          "distance": 19,
+          "durationSeconds": 2.754,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            1
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            2
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            3
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 55,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            4
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 67,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            5
+          ],
+          "distance": 19,
+          "durationSeconds": 2.4480000000000004,
+          "damage": 85.2,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            1,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            2,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            3,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            4,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            5,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            1
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            2
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            3
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 55,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            4
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 67,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            5
+          ],
+          "distance": 19,
+          "durationSeconds": 2.4480000000000004,
+          "damage": 85.2,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            1,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            2,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            3,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            4,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            5,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            1
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            2
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            1,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            2,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-sleep"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            1
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            2
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 45,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            1,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            2,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 39,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 51,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            1
+          ],
+          "distance": 19,
+          "durationSeconds": 3.6,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            2
+          ],
+          "distance": 19,
+          "durationSeconds": 3.06,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            1,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 51,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            2,
+            0
+          ],
+          "distance": 19,
+          "durationSeconds": 3.24,
+          "damage": 51,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520/forms/black-kabuto",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "usopp-wolf-shock"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 15
+        }
+      },
+      {
+        "code": "ZERO_BASE_DAMAGE_RECEIVES_FLAT_BONUS",
+        "dimension": "claim-effect",
+        "severity": "warning",
+        "location": "/paths/2/upgrades/2",
+        "message": "Global flat damage also increases damage on attacks and Techniques with zero base damage. It is not restricted to profiles that already deal damage.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "zeroDamageProfiles": [
+            "black-kabuto/sleep-pop-green"
+          ],
+          "beforeFlatDamage": 3,
+          "afterFlatDamage": 8,
+          "occurrences": 5,
+          "additionalExamples": [
+            {
+              "tiers": [
+                0,
+                1,
+                3
+              ],
+              "zeroDamageProfiles": [
+                "black-kabuto/sleep-pop-green"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 8
+            },
+            {
+              "tiers": [
+                0,
+                2,
+                3
+              ],
+              "zeroDamageProfiles": [
+                "black-kabuto/sleep-pop-green"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 8
+            },
+            {
+              "tiers": [
+                1,
+                0,
+                3
+              ],
+              "zeroDamageProfiles": [
+                "black-kabuto/sleep-pop-green"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 8
+            }
+          ]
+        }
+      },
+      {
+        "code": "ZERO_BASE_DAMAGE_RECEIVES_FLAT_BONUS",
+        "dimension": "claim-effect",
+        "severity": "warning",
+        "location": "/paths/2/upgrades/4",
+        "message": "Global flat damage also increases damage on attacks and Techniques with zero base damage. It is not restricted to profiles that already deal damage.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            5
+          ],
+          "zeroDamageProfiles": [
+            "black-kabuto/sleep-pop-green"
+          ],
+          "beforeFlatDamage": 8,
+          "afterFlatDamage": 15,
+          "occurrences": 5,
+          "additionalExamples": [
+            {
+              "tiers": [
+                0,
+                1,
+                5
+              ],
+              "zeroDamageProfiles": [
+                "black-kabuto/sleep-pop-green"
+              ],
+              "beforeFlatDamage": 8,
+              "afterFlatDamage": 15
+            },
+            {
+              "tiers": [
+                0,
+                2,
+                5
+              ],
+              "zeroDamageProfiles": [
+                "black-kabuto/sleep-pop-green"
+              ],
+              "beforeFlatDamage": 8,
+              "afterFlatDamage": 15
+            },
+            {
+              "tiers": [
+                1,
+                0,
+                5
+              ],
+              "zeroDamageProfiles": [
+                "black-kabuto/sleep-pop-green"
+              ],
+              "beforeFlatDamage": 8,
+              "afterFlatDamage": 15
+            }
+          ]
+        }
+      },
+      {
+        "code": "ZERO_BASE_DAMAGE_RECEIVES_FLAT_BONUS",
+        "dimension": "claim-effect",
+        "severity": "warning",
+        "location": "/paths/2/upgrades/0",
+        "message": "Global flat damage also increases damage on attacks and Techniques with zero base damage. It is not restricted to profiles that already deal damage.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            1
+          ],
+          "zeroDamageProfiles": [
+            "black-kabuto/sleep-pop-green"
+          ],
+          "beforeFlatDamage": 0,
+          "afterFlatDamage": 3,
+          "occurrences": 10,
+          "additionalExamples": [
+            {
+              "tiers": [
+                0,
+                2,
+                1
+              ],
+              "zeroDamageProfiles": [
+                "black-kabuto/sleep-pop-green"
+              ],
+              "beforeFlatDamage": 0,
+              "afterFlatDamage": 3
+            },
+            {
+              "tiers": [
+                0,
+                3,
+                1
+              ],
+              "zeroDamageProfiles": [
+                "black-kabuto/sleep-pop-green"
+              ],
+              "beforeFlatDamage": 0,
+              "afterFlatDamage": 3
+            },
+            {
+              "tiers": [
+                0,
+                4,
+                1
+              ],
+              "zeroDamageProfiles": [
+                "black-kabuto/sleep-pop-green"
+              ],
+              "beforeFlatDamage": 0,
+              "afterFlatDamage": 3
+            }
+          ]
+        }
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 64,
+      "evaluatedBuilds": 64,
+      "purchaseEdges": 111,
+      "probes": 608,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Natural-language description agreement needs independent review; this report describes executable limits.",
+        "Stationary probes do not establish game balance or live-game parity.",
+        "Full encounter balance, all moving geometries, and all purchase/switch/cooldown sequences."
+      ]
+    }
+  },
+  "fidelity": {
+    "status": "checked",
+    "gaps": [
+      "The requested fresh research was not performed. This is a bounded review of the supplied captures, not independent manga verification.",
+      "Observation awakening is source-supported and explicitly requested, but only acknowledged in prose and omitted mechanically. The sharp-eyesight purchase does not implement it.",
+      "The executable concealed-target detection modifier remains unresolved on its stated sharp-eyesight basis.",
+      "Numerical damage, ranges, firing cadence, prices, resources, cooldowns, unlocks, status durations, eligibility categories, caps and bounded plant geometry are game adaptations rather than canon measurements; balance remains unmeasured.",
+      "Other disclosed omissions need not all be implemented. Source-supported generic plant effects cover the descriptive game labels without requiring those labels to be official technique names.",
+      "The supplied contract does not fully specify per-target hit-history behavior for stationary projectile children, so the description's exact once-per-distinct-collider promise is not independently certified here."
+    ],
+    "claims": [
+      {
+        "path": "/name",
+        "status": "supported",
+        "sourceMechanic": "Straw Hat sniper identity",
+        "relationship": "same-ability",
+        "sourceId": "72f30fd57248332af12db874",
+        "passageId": "p0",
+        "sourceSha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+        "sourceRange": {
+          "start": 0,
+          "end": 1197
+        },
+        "quoteSha256": "10fac1cdee1dda53d279f309c5c2e0c11adc3eb3ee694b1c7495e3e862248d76",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/description",
+        "status": "supported",
+        "sourceMechanic": "Dressrosa Observation awakening",
+        "relationship": "same-ability",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p14",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 15321,
+          "end": 16520
+        },
+        "quoteSha256": "c23df23254eb853cb30aab00208e61a7149c76b21dfc52537abd4b5ec6a8c18f",
+        "quoteCharacters": 1199
+      },
+      {
+        "path": "/description",
+        "status": "supported",
+        "sourceMechanic": "Sogeking alias",
+        "relationship": "same-ability",
+        "sourceId": "72f30fd57248332af12db874",
+        "passageId": "p0",
+        "sourceSha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+        "sourceRange": {
+          "start": 0,
+          "end": 1197
+        },
+        "quoteSha256": "10fac1cdee1dda53d279f309c5c2e0c11adc3eb3ee694b1c7495e3e862248d76",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/forms/0/name",
+        "status": "supported",
+        "sourceMechanic": "Kuro Kabuto",
+        "relationship": "same-ability",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p19",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 21077,
+          "end": 22199
+        },
+        "quoteSha256": "87f2b0e37d5fda832fa434a970c0f3f1bca0fd88cfb8252ae50550c6db31223f",
+        "quoteCharacters": 1122
+      },
+      {
+        "path": "/forms/0/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Carnivorous Pop Green",
+        "relationship": "delivery-abstraction",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p20",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 22199,
+          "end": 23237
+        },
+        "quoteSha256": "a2d2a3a89fd0e2378a0a9d8350c217abdc610c9d77fd5919fbb2b520fbf2ee09",
+        "quoteCharacters": 1038
+      },
+      {
+        "path": "/forms/0/primary/onHit/0/kind",
+        "status": "adapted",
+        "sourceMechanic": "Carnivorous Pop Green with tendrils",
+        "relationship": "delivery-abstraction",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p20",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 22199,
+          "end": 23237
+        },
+        "quoteSha256": "a2d2a3a89fd0e2378a0a9d8350c217abdc610c9d77fd5919fbb2b520fbf2ee09",
+        "quoteCharacters": 1038
+      },
+      {
+        "path": "/forms/0/techniques/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Sleep Pop Greens",
+        "relationship": "delivery-abstraction",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p6",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 6753,
+          "end": 7952
+        },
+        "quoteSha256": "bf7a774b6088ad4eade6a503b44297ce32806d699ab89a0a477d5192c3a245e6",
+        "quoteCharacters": 1199
+      },
+      {
+        "path": "/forms/0/techniques/1/name",
+        "status": "adapted",
+        "sourceMechanic": "Wolf Pop Green stunning shockwave",
+        "relationship": "delivery-abstraction",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p20",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 22199,
+          "end": 23237
+        },
+        "quoteSha256": "a2d2a3a89fd0e2378a0a9d8350c217abdc610c9d77fd5919fbb2b520fbf2ee09",
+        "quoteCharacters": 1038
+      },
+      {
+        "path": "/mechanics/attacks/0/projectile/children/0/projectile/flight/kind",
+        "status": "adapted",
+        "sourceMechanic": "Bamboo Pop Green eruption",
+        "relationship": "delivery-abstraction",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p20",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 22199,
+          "end": 23237
+        },
+        "quoteSha256": "a2d2a3a89fd0e2378a0a9d8350c217abdc610c9d77fd5919fbb2b520fbf2ee09",
+        "quoteCharacters": 1038
+      },
+      {
+        "path": "/paths/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Long-range slingshot marksmanship",
+        "relationship": "delivery-abstraction",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p6",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 6753,
+          "end": 7952
+        },
+        "quoteSha256": "bf7a774b6088ad4eade6a503b44297ce32806d699ab89a0a477d5192c3a245e6",
+        "quoteCharacters": 1199
+      },
+      {
+        "path": "/paths/0/upgrades/0/modifiers/reachAdd",
+        "status": "adapted",
+        "sourceMechanic": "Five-band slingshot stability and range",
+        "relationship": "numerical-tuning",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p18",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 19890,
+          "end": 21077
+        },
+        "quoteSha256": "fe9aa01cbdd33338ef17426a2b8f4ab57788c3f27efbaf80cce7ce658b5e818b",
+        "quoteCharacters": 1187
+      },
+      {
+        "path": "/paths/0/upgrades/1/modifiers/detectConcealed",
+        "status": "unresolved",
+        "sourceMechanic": "Claimed sharp-eyesight concealed targeting",
+        "relationship": "unsupported",
+        "sourceId": "",
+        "passageId": ""
+      },
+      {
+        "path": "/paths/0/upgrades/2/modifiers/retargetPrimary",
+        "status": "adapted",
+        "sourceMechanic": "Calculated slingshot aim",
+        "relationship": "game-rule",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p6",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 6753,
+          "end": 7952
+        },
+        "quoteSha256": "bf7a774b6088ad4eade6a503b44297ce32806d699ab89a0a477d5192c3a245e6",
+        "quoteCharacters": 1199
+      },
+      {
+        "path": "/paths/0/upgrades/3/modifiers/reachAdd",
+        "status": "adapted",
+        "sourceMechanic": "Super Grow Up Kuro Kabuto",
+        "relationship": "numerical-tuning",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p19",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 21077,
+          "end": 22199
+        },
+        "quoteSha256": "87f2b0e37d5fda832fa434a970c0f3f1bca0fd88cfb8252ae50550c6db31223f",
+        "quoteCharacters": 1122
+      },
+      {
+        "path": "/paths/0/upgrades/4/modifiers/damageMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Damaging special ammunition and marksmanship",
+        "relationship": "numerical-tuning",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p5",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 5630,
+          "end": 6753
+        },
+        "quoteSha256": "5d6a1403e96e1b8421759703e1f9025c532363e6bdae3f6cca1fa0f21b290ed1",
+        "quoteCharacters": 1123
+      },
+      {
+        "path": "/paths/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Prepared Pop Green traps",
+        "relationship": "delivery-abstraction",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p9",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 10085,
+          "end": 11247
+        },
+        "quoteSha256": "610d21e0d7dd33e4cddd24f0605cb93fd4a55479b112ac1501c8725c9296e0fe",
+        "quoteCharacters": 1162
+      },
+      {
+        "path": "/paths/1/upgrades/0/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Slingshot marksmanship",
+        "relationship": "numerical-tuning",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p5",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 5630,
+          "end": 6753
+        },
+        "quoteSha256": "5d6a1403e96e1b8421759703e1f9025c532363e6bdae3f6cca1fa0f21b290ed1",
+        "quoteCharacters": 1123
+      },
+      {
+        "path": "/paths/1/upgrades/1/modifiers/emission/damage",
+        "status": "adapted",
+        "sourceMechanic": "Bamboo Pop Green eruption",
+        "relationship": "delivery-abstraction",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p20",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 22199,
+          "end": 23237
+        },
+        "quoteSha256": "a2d2a3a89fd0e2378a0a9d8350c217abdc610c9d77fd5919fbb2b520fbf2ee09",
+        "quoteCharacters": 1038
+      },
+      {
+        "path": "/paths/1/upgrades/2/modifiers/emission/length",
+        "status": "adapted",
+        "sourceMechanic": "Bamboo Pop Green eruption",
+        "relationship": "numerical-tuning",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p20",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 22199,
+          "end": 23237
+        },
+        "quoteSha256": "a2d2a3a89fd0e2378a0a9d8350c217abdc610c9d77fd5919fbb2b520fbf2ee09",
+        "quoteCharacters": 1038
+      },
+      {
+        "path": "/paths/1/upgrades/3/modifiers/emission/cycles",
+        "status": "adapted",
+        "sourceMechanic": "Bamboo Pop Green eruption",
+        "relationship": "numerical-tuning",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p20",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 22199,
+          "end": 23237
+        },
+        "quoteSha256": "a2d2a3a89fd0e2378a0a9d8350c217abdc610c9d77fd5919fbb2b520fbf2ee09",
+        "quoteCharacters": 1038
+      },
+      {
+        "path": "/paths/1/upgrades/4/modifiers/emission/length",
+        "status": "adapted",
+        "sourceMechanic": "Bamboo Pop Green eruption",
+        "relationship": "numerical-tuning",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p20",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 22199,
+          "end": 23237
+        },
+        "quoteSha256": "a2d2a3a89fd0e2378a0a9d8350c217abdc610c9d77fd5919fbb2b520fbf2ee09",
+        "quoteCharacters": 1038
+      },
+      {
+        "path": "/paths/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Effect-bearing slingshot ammunition",
+        "relationship": "numerical-tuning",
+        "sourceId": "72f30fd57248332af12db874",
+        "passageId": "p0",
+        "sourceSha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+        "sourceRange": {
+          "start": 0,
+          "end": 1197
+        },
+        "quoteSha256": "10fac1cdee1dda53d279f309c5c2e0c11adc3eb3ee694b1c7495e3e862248d76",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/paths/2/upgrades/0/modifiers/flatDamage",
+        "status": "adapted",
+        "sourceMechanic": "Offensive slingshot ammunition",
+        "relationship": "numerical-tuning",
+        "sourceId": "72f30fd57248332af12db874",
+        "passageId": "p0",
+        "sourceSha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+        "sourceRange": {
+          "start": 0,
+          "end": 1197
+        },
+        "quoteSha256": "10fac1cdee1dda53d279f309c5c2e0c11adc3eb3ee694b1c7495e3e862248d76",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/paths/2/upgrades/1/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Slingshot firing skill",
+        "relationship": "numerical-tuning",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p5",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 5630,
+          "end": 6753
+        },
+        "quoteSha256": "5d6a1403e96e1b8421759703e1f9025c532363e6bdae3f6cca1fa0f21b290ed1",
+        "quoteCharacters": 1123
+      },
+      {
+        "path": "/paths/2/upgrades/2/modifiers/flatDamage",
+        "status": "adapted",
+        "sourceMechanic": "Damaging special ammunition",
+        "relationship": "numerical-tuning",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p5",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 5630,
+          "end": 6753
+        },
+        "quoteSha256": "5d6a1403e96e1b8421759703e1f9025c532363e6bdae3f6cca1fa0f21b290ed1",
+        "quoteCharacters": 1123
+      },
+      {
+        "path": "/paths/2/upgrades/3/modifiers/damageMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Damaging special ammunition",
+        "relationship": "numerical-tuning",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p5",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 5630,
+          "end": 6753
+        },
+        "quoteSha256": "5d6a1403e96e1b8421759703e1f9025c532363e6bdae3f6cca1fa0f21b290ed1",
+        "quoteCharacters": 1123
+      },
+      {
+        "path": "/paths/2/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Slingshot marksmanship and damaging ammunition",
+        "relationship": "numerical-tuning",
+        "sourceId": "8113d798affcd38c5b3643ba",
+        "passageId": "p5",
+        "sourceSha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+        "sourceRange": {
+          "start": 5630,
+          "end": 6753
+        },
+        "quoteSha256": "5d6a1403e96e1b8421759703e1f9025c532363e6bdae3f6cca1fa0f21b290ed1",
+        "quoteCharacters": 1123
+      }
+    ],
+    "representation": "Compact public receipt. Complete source passages and detailed model review remain in the private production result."
+  },
+  "fidelityAttempts": [
+    {
+      "reportValid": true
+    },
+    {
+      "reportValid": false,
+      "error": {
+        "code": "fidelity-review-incomplete",
+        "message": "Source review omitted these named mechanics: /paths/0/upgrades/0, /paths/0/upgrades/2, /paths/1/upgrades/0, /paths/1/upgrades/2, /paths/1/upgrades/3, /paths/2/upgrades/1, /paths/2/upgrades/2, /paths/2/upgrades/3. Add grounded claims inside each target."
+      }
+    },
+    {
+      "reportValid": true
+    }
+  ],
+  "metadata": {
+    "modelCalls": 6,
+    "repairs": 1,
+    "elapsedMs": 662994,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 21284,
+          "outputTokens": 3970,
+          "totalTokens": 25254
+        },
+        "outputSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b"
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+            "sources": [
+              {
+                "sourceId": "8113d798affcd38c5b3643ba",
+                "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                "sourceCharacters": 62289,
+                "visibleCharacters": 62289,
+                "complete": true
+              },
+              {
+                "sourceId": "72f30fd57248332af12db874",
+                "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                "sourceCharacters": 1806,
+                "visibleCharacters": 1806,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 51829,
+          "outputTokens": 3375,
+          "totalTokens": 55204
+        },
+        "outputSha256": "3c6e5bb459ba10167375631bc24cf04aaa52b800ecfbc399af10d991d0ebf815"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+            "sources": [
+              {
+                "sourceId": "8113d798affcd38c5b3643ba",
+                "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                "sourceCharacters": 62289,
+                "visibleCharacters": 62289,
+                "complete": true
+              },
+              {
+                "sourceId": "72f30fd57248332af12db874",
+                "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                "sourceCharacters": 1806,
+                "visibleCharacters": 1806,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 35298,
+          "outputTokens": 4484,
+          "totalTokens": 39782
+        },
+        "outputSha256": "79f84575f52a2df7629a7dbd0a485d4b9128029eb721f14b32f8f1c1aac1e0ec"
+      },
+      {
+        "stage": "repair",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+            "sources": [
+              {
+                "sourceId": "8113d798affcd38c5b3643ba",
+                "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                "sourceCharacters": 62289,
+                "visibleCharacters": 62289,
+                "complete": true
+              },
+              {
+                "sourceId": "72f30fd57248332af12db874",
+                "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                "sourceCharacters": 1806,
+                "visibleCharacters": 1806,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 54069,
+          "outputTokens": 3274,
+          "totalTokens": 57343
+        },
+        "outputSha256": "4bf311ed23fbfa44e4437f3f9dbfe0aea516ecf449b8760bcde14f73bc7f0654"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+            "sources": [
+              {
+                "sourceId": "8113d798affcd38c5b3643ba",
+                "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                "sourceCharacters": 62289,
+                "visibleCharacters": 62289,
+                "complete": true
+              },
+              {
+                "sourceId": "72f30fd57248332af12db874",
+                "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                "sourceCharacters": 1806,
+                "visibleCharacters": 1806,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 35369,
+          "outputTokens": 2440,
+          "totalTokens": 37809
+        },
+        "outputSha256": "1c84362dbb8b79d85f23336c1a4bfa9e440dc63a32bdfb88c1618902430c8b0d"
+      },
+      {
+        "stage": "fidelity-review-correction",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+            "sources": [
+              {
+                "sourceId": "8113d798affcd38c5b3643ba",
+                "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                "sourceCharacters": 62289,
+                "visibleCharacters": 62289,
+                "complete": true
+              },
+              {
+                "sourceId": "72f30fd57248332af12db874",
+                "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                "sourceCharacters": 1806,
+                "visibleCharacters": 1806,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 37909,
+          "outputTokens": 4016,
+          "totalTokens": 41925
+        },
+        "outputSha256": "a17272ef94cc4ada0e087a120d6f56fb3df429ed768e1a62b19fad3786d06257"
+      }
+    ]
+  },
+  "error": {
+    "stage": "validation",
+    "code": "validation-failed",
+    "message": "Required checks did not pass. The candidate and completed research are returned."
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-13T10:26:21.842Z",
+        "completed": true,
+        "inputTokenUpperBound": 82740,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:28:23.555Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 21284,
+          "outputTokens": 3970,
+          "totalTokens": 25254
+        },
+        "outputSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+        "knownInputTokens": 21284,
+        "knownOutputTokens": 3970,
+        "knownStandardApiEquivalentUsd": 0.41134,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "draft",
+        "startedAt": "2026-09-13T10:28:23.626Z",
+        "completed": true,
+        "inputTokenUpperBound": 209204,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:30:08.552Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 51829,
+          "outputTokens": 3375,
+          "totalTokens": 55204
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+            "sources": [
+              {
+                "sourceId": "8113d798affcd38c5b3643ba",
+                "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                "sourceCharacters": 62289,
+                "visibleCharacters": 62289,
+                "complete": true
+              },
+              {
+                "sourceId": "72f30fd57248332af12db874",
+                "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                "sourceCharacters": 1806,
+                "visibleCharacters": 1806,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "3c6e5bb459ba10167375631bc24cf04aaa52b800ecfbc399af10d991d0ebf815",
+        "knownInputTokens": 51829,
+        "knownOutputTokens": 3375,
+        "knownStandardApiEquivalentUsd": 0.68704,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 3,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-13T10:30:10.765Z",
+        "completed": true,
+        "inputTokenUpperBound": 141796,
+        "maxOutputTokens": 10140,
+        "endedAt": "2026-09-13T10:32:27.773Z",
+        "model": "gpt-6-astra",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 35298,
+          "outputTokens": 4484,
+          "totalTokens": 39782
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+            "sources": [
+              {
+                "sourceId": "8113d798affcd38c5b3643ba",
+                "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                "sourceCharacters": 62289,
+                "visibleCharacters": 62289,
+                "complete": true
+              },
+              {
+                "sourceId": "72f30fd57248332af12db874",
+                "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                "sourceCharacters": 1806,
+                "visibleCharacters": 1806,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "79f84575f52a2df7629a7dbd0a485d4b9128029eb721f14b32f8f1c1aac1e0ec",
+        "knownInputTokens": 35298,
+        "knownOutputTokens": 4484,
+        "knownStandardApiEquivalentUsd": 0.57718,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 4,
+        "stage": "repair",
+        "startedAt": "2026-09-13T10:32:27.851Z",
+        "completed": true,
+        "inputTokenUpperBound": 219186,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:34:09.811Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 54069,
+          "outputTokens": 3274,
+          "totalTokens": 57343
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+            "sources": [
+              {
+                "sourceId": "8113d798affcd38c5b3643ba",
+                "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                "sourceCharacters": 62289,
+                "visibleCharacters": 62289,
+                "complete": true
+              },
+              {
+                "sourceId": "72f30fd57248332af12db874",
+                "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                "sourceCharacters": 1806,
+                "visibleCharacters": 1806,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "4bf311ed23fbfa44e4437f3f9dbfe0aea516ecf449b8760bcde14f73bc7f0654",
+        "knownInputTokens": 54069,
+        "knownOutputTokens": 3274,
+        "knownStandardApiEquivalentUsd": 0.70439,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 5,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-13T10:34:11.437Z",
+        "completed": true,
+        "inputTokenUpperBound": 142271,
+        "maxOutputTokens": 10140,
+        "endedAt": "2026-09-13T10:35:11.926Z",
+        "model": "gpt-6-astra",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 35369,
+          "outputTokens": 2440,
+          "totalTokens": 37809
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+            "sources": [
+              {
+                "sourceId": "8113d798affcd38c5b3643ba",
+                "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                "sourceCharacters": 62289,
+                "visibleCharacters": 62289,
+                "complete": true
+              },
+              {
+                "sourceId": "72f30fd57248332af12db874",
+                "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                "sourceCharacters": 1806,
+                "visibleCharacters": 1806,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "1c84362dbb8b79d85f23336c1a4bfa9e440dc63a32bdfb88c1618902430c8b0d",
+        "knownInputTokens": 35369,
+        "knownOutputTokens": 2440,
+        "knownStandardApiEquivalentUsd": 0.47569,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 6,
+        "stage": "fidelity-review-correction",
+        "startedAt": "2026-09-13T10:35:11.998Z",
+        "completed": true,
+        "inputTokenUpperBound": 153759,
+        "maxOutputTokens": 10140,
+        "endedAt": "2026-09-13T10:37:17.854Z",
+        "model": "gpt-6-astra",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 37909,
+          "outputTokens": 4016,
+          "totalTokens": 41925
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+            "sources": [
+              {
+                "sourceId": "8113d798affcd38c5b3643ba",
+                "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                "sourceCharacters": 62289,
+                "visibleCharacters": 62289,
+                "complete": true
+              },
+              {
+                "sourceId": "72f30fd57248332af12db874",
+                "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                "sourceCharacters": 1806,
+                "visibleCharacters": 1806,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "a17272ef94cc4ada0e087a120d6f56fb3df429ed768e1a62b19fad3786d06257",
+        "knownInputTokens": 37909,
+        "knownOutputTokens": 4016,
+        "knownStandardApiEquivalentUsd": 0.57989,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 3.43553,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-v2-b-20260913/usopp"
+}

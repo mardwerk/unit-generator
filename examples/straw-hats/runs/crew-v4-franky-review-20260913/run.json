@@ -1,0 +1,126 @@
+{
+  "implementationHashes": {
+    "core": "02a2e6be83e294f12dbe13a1222093ca2e9fb8cc268cbcf28e671d253cafc303",
+    "definitions": "3e3cc8d61f8f4e2c80e3051f4c032f5f88e610e910181c0316a438fce102bc2b",
+    "providers": "7d72306e36fc59de218f1b1bb7f8d4b9f25d8ba2e665cdce461410bece730a26",
+    "unit-lab": "2c6605866420e2039a564548e414c92d1e7793ab14377db43ea90b4aa6a9aa34"
+  },
+  "runnerSha256": "b64448bc43bbf72bc76393d760b2322b8666939e2706d47bb13d049b55d6fa74",
+  "operation": "candidate-source-review",
+  "originalResult": ".scratch/straw-hats/runs/crew-v3-franky-20260913/franky/result.json",
+  "label": "crew-v4-franky-review-20260913",
+  "startedAt": "2026-09-13T10:52:21.018Z",
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "streaming": true,
+  "fallbackReason": null,
+  "requests": "examples/straw-hats/requests",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "fileDigest": "5def43dcd9ab3c26bd27df80085dc2f556255b6a3173fe0a67265d7faf346e23",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "limits": {
+    "maxRepairs": 0,
+    "maxModelCalls": 2,
+    "maxResearchCalls": 1,
+    "maxSources": 4,
+    "timeoutMs": 3600000,
+    "callTimeoutMs": 600000
+  },
+  "pricing": {
+    "rates": {
+      "gpt-5.6-luna": {
+        "input": 0.2,
+        "output": 1.2
+      },
+      "gpt-6-astra": {
+        "input": 10,
+        "output": 50
+      }
+    },
+    "currency": "USD",
+    "unit": "per million tokens",
+    "source": "https://developers.openai.com/api/docs/pricing",
+    "verifiedAt": "2026-09-09",
+    "scope": "Standard API-equivalent estimate using published rates captured earlier today. Not a provider invoice. Agent development and independent review usage excluded. Unknown usage is not zero."
+  },
+  "results": [
+    {
+      "id": "franky",
+      "status": "success",
+      "blockers": [],
+      "calls": 1,
+      "repairs": 0,
+      "accounting": {
+        "calls": [
+          {
+            "sequence": 1,
+            "stage": "fidelity-review",
+            "startedAt": "2026-09-13T10:52:22.007Z",
+            "completed": true,
+            "inputTokenUpperBound": 251557,
+            "maxOutputTokens": 11400,
+            "endedAt": "2026-09-13T10:54:45.786Z",
+            "model": "gpt-6-astra",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 65241,
+              "outputTokens": 4656,
+              "totalTokens": 69897
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "88d75e28d9b342ed346d32b81b3a8dd661c0c2cef13f361b36f1c4f6a5d950ae",
+                "sources": [
+                  {
+                    "sourceId": "d921edf272f2514ef66562a8",
+                    "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+                    "sourceCharacters": 77103,
+                    "visibleCharacters": 77103,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "ff475f3ecc151c64bd4c0cd0",
+                    "sha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b",
+                    "sourceCharacters": 1775,
+                    "visibleCharacters": 1775,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "37e3b778f2cb3e97b3fcdc5be7919ccbd958deaead8bc4268c59e321655d2ab6",
+            "knownInputTokens": 65241,
+            "knownOutputTokens": 4656,
+            "knownStandardApiEquivalentUsd": 0.88521,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          }
+        ],
+        "knownStandardApiEquivalentUsd": 0.88521,
+        "unknownUsageCalls": 0,
+        "unknownUsageConservativeAllowanceUsd": 0,
+        "failedCalls": 0
+      },
+      "publicArtifacts": "examples/straw-hats/runs/crew-v4-franky-review-20260913/franky",
+      "privateArtifacts": ".scratch/straw-hats/runs/crew-v4-franky-review-20260913/franky"
+    }
+  ],
+  "completedAt": "2026-09-13T10:54:45.898Z"
+}

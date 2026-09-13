@@ -1,6 +1,8 @@
+import { reviewFidelity } from './fidelity.js';
 import type { Definition, Execution, RunResult } from './contracts.js';
 import { abortable, createExecution, failure } from './execution.js';
 import { freeze, jsonCopy, RunError, schemaIssues } from './json.js';
+import { checkedQualification } from './qualification.js';
 import {
   accepted,
   emptyValidation,
@@ -85,12 +87,72 @@ export async function generate(
     if (!Number.isSafeInteger(repairLimit) || repairLimit < 0)
       throw new RunError('invalid-definition', 'Repair attempts must be a nonnegative integer.');
     for (let attempt = 0; ; attempt++) {
+      let repairable = true;
       stage = 'validation';
       context.progress(stage, 'Checking output structure and declared system rules.');
       result.validation = await abortable(
         validate(selected, result.candidate, request, context.signal),
         context.signal
       );
+      if (execution.evaluate && accepted(result.validation)) {
+        const qualification = checkedQualification(
+          await abortable(
+            Promise.resolve(
+              execution.evaluate({
+                definitionId: selected.id,
+                candidate: freeze(jsonCopy(result.candidate, runtime.limits.maxOutputBytes)),
+                research: freeze(jsonCopy(result.research, runtime.limits.maxResultBytes)),
+                signal: context.signal
+              })
+            ),
+            context.signal
+          ),
+          selected.id
+        );
+        result.qualification = qualification;
+        const blockers = qualification.findings.filter((finding) => finding.severity === 'blocker');
+        if (blockers.length || qualification.readiness === 'blocked') {
+          result.validation.system.status = 'failed';
+          result.validation.system.checks.push('unit-qualification');
+          result.validation.system.issues.push(
+            ...(blockers.length
+              ? blockers.slice(0, 32).map((finding) => ({
+                  code: finding.code,
+                  path: finding.location ?? '/',
+                  message: finding.message
+                }))
+              : [
+                  {
+                    code: 'qualification-blocked',
+                    path: '/',
+                    message: 'Unit qualification is blocked.'
+                  }
+                ])
+          );
+        }
+      }
+      if (execution.reviewFidelity && accepted(result.validation)) {
+        stage = 'fidelity-review';
+        const reviewed = await reviewFidelity(
+          result.candidate,
+          request,
+          result.research,
+          context,
+          selected.rules
+        );
+        result.fidelity = reviewed.report;
+        if (reviewed.attempts?.length)
+          result.fidelityAttempts = [...(result.fidelityAttempts ?? []), ...reviewed.attempts];
+        if (reviewed.issues.length) {
+          result.validation.system.status = 'failed';
+          result.validation.system.checks.push('source-fidelity-review');
+          result.validation.system.issues.push(...reviewed.issues.slice(0, 32));
+          // Rewriting a candidate cannot supply missing evidence or complete an assessment.
+          repairable = !reviewed.issues.some((issue) =>
+            ['fidelity-evidence-required', 'fidelity-evidence-incomplete'].includes(issue.code)
+          );
+        }
+      }
       if (accepted(result.validation)) {
         result.output = result.candidate;
         delete result.candidate;
@@ -98,6 +160,7 @@ export async function generate(
         break;
       }
       if (
+        !repairable ||
         attempt >= repairLimit ||
         (result.validation.system.status === 'not-completed' &&
           result.validation.structure.status === 'passed')
@@ -133,8 +196,23 @@ export async function generate(
             }
           });
       result.candidate = jsonCopy(repaired, runtime.limits.maxOutputBytes);
+      delete result.fidelity;
+      delete result.qualification;
     }
   } catch (error) {
+    if (
+      error &&
+      typeof error === 'object' &&
+      'fidelityAttempts' in error &&
+      Array.isArray(error.fidelityAttempts)
+    )
+      result.fidelityAttempts = [
+        ...(result.fidelityAttempts ?? []),
+        ...jsonCopy(
+          error.fidelityAttempts,
+          (runtime?.limits.maxOutputBytes ?? 2 * 1024 * 1024) * 2 + 16384
+        )
+      ];
     result.status = runtime?.context.signal.aborted ? 'cancelled' : 'failed';
     result.error = failure(error, runtime?.context.signal ?? new AbortController().signal, stage);
     if (stage === 'validation' && result.status === 'cancelled')

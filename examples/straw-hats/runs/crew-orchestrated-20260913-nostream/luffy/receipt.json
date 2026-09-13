@@ -1,0 +1,1663 @@
+{
+  "id": "luffy",
+  "operation": "generation",
+  "status": "failed",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "default",
+    "label": "Default",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "624266f0699288e67b7ddca781120d7edd1750d28e63d80cdc0c8cdd1f7c537e",
+  "unitSha256": "6ff18ec7907fa11abb8c2857ad47935339ee5593099087177bf34fc501030cef",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "600c00487b3edecefeba05e31f24f03f81948740f15dc3e223a85d126a7f82be",
+    "implementationVersion": "manga-mayhem/0.1.2",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "kind": "character",
+    "intent": "Generate a complete executable Manga Mayhem tower-defense unit for the Straw Hat roster. Role: captain and flexible carry. Preserve manga/anime traits, named techniques, personality and Wano-era continuity. Provide explicit base stats, targeting, attacks, abilities, resources, statuses, forms, lifecycle rules, and 15 concrete purchasable upgrades across 3 paths with exact costs and operations. Use game numbers only as declared adaptations. Do not invent powers to fill slots; deepen sourced abilities and disclose omissions. Respect the crew balance rules.",
+    "context": {
+      "roster": "straw-hats",
+      "rosterFile": "roster.json",
+      "researchRule": "Use only fresh research returned for this request; do not rely on prior generated candidates."
+    },
+    "sources": [
+      "https://one-piece.com/character/",
+      "https://onepiece.fandom.com/wiki/Monkey_D._Luffy/Abilities_and_Powers"
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Monkey D. Luffy",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The continuity field did not specify a named adaptation or exact endpoint, so the original published manga continuity was assumed and a Wano-era snapshot was used. This assumption is recorded rather than silently mixing versions.",
+        "The detailed abilities page aggregates manga, anime, anime-only or filler material, non-canon entries, and later Egghead and Elbaph material. Those later or separate-continuity claims were excluded from the selected record.",
+        "The official character directory verifies core identity and summary metadata but does not provide detailed personality, combat behavior, technique rules, or weaknesses.",
+        "No supplied source provides executable game statistics, targeting logic, attack timings, resource systems, status definitions, transformation lifecycle rules, or upgrade operations and costs.",
+        "No supplied roster.json or crew-balance rules were supplied, so roster balance and captain-unit constraints cannot be verified.",
+        "No supplied page establishes a complete exhaustive list of every named Luffy technique; only names explicitly present in the supplied text were retained.",
+        "The supplied pages do not provide a complete general weakness profile. In particular, they do not independently state a general seawater weakness, so none is asserted here.",
+        "The abilities page contains broad interpretive statements about Gear 5 and imagination that are not needed to establish the narrower, directly described awakening capabilities and were not treated as unrestricted power claims.",
+        "Afro Luffy and Nightmare Luffy are situational temporary forms and should not be treated as ordinary baseline transformations without additional continuity or implementation evidence."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "702afb5ce0c9f5f0763489b4",
+          "sha256": "4e2f60a2843705f67f39d10d0b76a97d802f1ffb80063ccc7388c86079ad9329",
+          "sourceCharacters": 684,
+          "visibleCharacters": 684,
+          "complete": true
+        },
+        {
+          "sourceId": "de42a262bddf7ce3606250d5",
+          "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+          "sourceCharacters": 129355,
+          "visibleCharacters": 129355,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "id": "702afb5ce0c9f5f0763489b4",
+          "url": "https://one-piece.com/character/",
+          "title": "キャラクター検索 | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 684,
+          "sha256": "4e2f60a2843705f67f39d10d0b76a97d802f1ffb80063ccc7388c86079ad9329"
+        },
+        {
+          "id": "de42a262bddf7ce3606250d5",
+          "url": "https://onepiece.fandom.com/wiki/Monkey_D._Luffy/Abilities_and_Powers",
+          "title": "Monkey D. Luffy/Abilities and Powers | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 129355,
+          "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Monkey D. Luffy",
+        "identity": {
+          "status": "resolved",
+          "name": "Monkey D. Luffy",
+          "continuity": "One Piece original published manga continuity, Wano-era snapshot (assumed; anime cross-references, anime-only material, and later-arc material are excluded)",
+          "explanation": "The character identity is resolved by the supplied official character directory and detailed abilities page. The continuity request did not name a distinct version, so the original published manga continuity was selected as the base record. The supplied abilities page also aggregates anime references, later Egghead and Elbaph material, and non-canon entries; those are kept separate or omitted."
+        },
+        "claimCount": 36,
+        "knowledgeSha256": "99af7b5c86c2c34f6bdde22679d218c8b56a0a91f9c2597846901d81e08cac6a"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "manga-contract",
+        "legal-progression",
+        "reachable-resource-and-techniques"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-provided",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "review-required",
+    "findings": [
+      {
+        "code": "CONTACT_TRIGGER_EXECUTION_SEMANTICS",
+        "dimension": "claim-effect",
+        "severity": "info",
+        "message": "Pulse and emission cycles count successful primary attack cycles required for one trigger, not waves per trigger. A cycle counts once when at least one primary hit applies positive damage, regardless of collateral targets. Pulses apply stun without damage; their event amount counts affected targets. Emissions apply their declared damage. Pulse intervals can further limit trigger frequency."
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.2,
+          "damage": 48,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            1
+          ],
+          "distance": 4,
+          "durationSeconds": 3.1,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            2
+          ],
+          "distance": 4,
+          "durationSeconds": 3.1,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            4
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            5
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 87.84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.635,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            1
+          ],
+          "distance": 4,
+          "durationSeconds": 2.635,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            2
+          ],
+          "distance": 4,
+          "durationSeconds": 2.635,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            3
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            4
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            5
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 87.84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.635,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            1
+          ],
+          "distance": 4,
+          "durationSeconds": 2.635,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            2
+          ],
+          "distance": 4,
+          "durationSeconds": 2.635,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            3
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            4
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 72,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            5
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 87.84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 84.96000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            1
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 84.96000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            2
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 84.96000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.1879,
+          "damage": 84.96000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            1
+          ],
+          "distance": 4,
+          "durationSeconds": 2.1879,
+          "damage": 84.96000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            2
+          ],
+          "distance": 4,
+          "durationSeconds": 2.1879,
+          "damage": 84.96000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.1879,
+          "damage": 110.44800000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            1
+          ],
+          "distance": 4,
+          "durationSeconds": 2.1879,
+          "damage": 110.44800000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            2
+          ],
+          "distance": 4,
+          "durationSeconds": 2.1879,
+          "damage": 110.44800000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 3.1,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            1
+          ],
+          "distance": 4,
+          "durationSeconds": 3.1,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            2
+          ],
+          "distance": 4,
+          "durationSeconds": 3.1,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            3
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            4
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            5
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 102.47999999999999,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            1,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.635,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            2,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.635,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            3,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 99.12,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            4,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.1879,
+          "damage": 99.12,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            5,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.1879,
+          "damage": 128.856,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 3.1,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            1
+          ],
+          "distance": 4,
+          "durationSeconds": 3.1,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            2
+          ],
+          "distance": 4,
+          "durationSeconds": 3.1,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            3
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            4
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            5
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 102.47999999999999,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            1,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.635,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            2,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.635,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            3,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 99.12,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            4,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.1879,
+          "damage": 99.12,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            5,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.1879,
+          "damage": 128.856,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            1
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            2
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            1,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            2,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            1
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            2
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            1,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            2,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 113.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            1
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 113.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            2
+          ],
+          "distance": 4,
+          "durationSeconds": 3.3,
+          "damage": 113.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            1,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 113.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            2,
+            0
+          ],
+          "distance": 4,
+          "durationSeconds": 2.8049999999999997,
+          "damage": 113.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 64,
+      "evaluatedBuilds": 64,
+      "purchaseEdges": 111,
+      "probes": 671,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Natural-language description agreement needs independent review; this report describes executable limits.",
+        "Stationary probes do not establish game balance or live-game parity.",
+        "Full encounter balance, all moving geometries, and all purchase/switch/cooldown sequences."
+      ]
+    }
+  },
+  "metadata": {
+    "modelCalls": 3,
+    "repairs": 0,
+    "elapsedMs": 713862,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 37016,
+          "outputTokens": 7490,
+          "totalTokens": 44506
+        },
+        "outputSha256": "99af7b5c86c2c34f6bdde22679d218c8b56a0a91f9c2597846901d81e08cac6a"
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "99af7b5c86c2c34f6bdde22679d218c8b56a0a91f9c2597846901d81e08cac6a",
+            "sources": [
+              {
+                "sourceId": "702afb5ce0c9f5f0763489b4",
+                "sha256": "4e2f60a2843705f67f39d10d0b76a97d802f1ffb80063ccc7388c86079ad9329",
+                "sourceCharacters": 684,
+                "visibleCharacters": 684,
+                "complete": true
+              },
+              {
+                "sourceId": "de42a262bddf7ce3606250d5",
+                "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                "sourceCharacters": 129355,
+                "visibleCharacters": 129355,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 66150,
+          "outputTokens": 9415,
+          "totalTokens": 75565
+        },
+        "outputSha256": "6ff18ec7907fa11abb8c2857ad47935339ee5593099087177bf34fc501030cef"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": false,
+        "evidence": [
+          {
+            "knowledgeSha256": "99af7b5c86c2c34f6bdde22679d218c8b56a0a91f9c2597846901d81e08cac6a",
+            "sources": [
+              {
+                "sourceId": "702afb5ce0c9f5f0763489b4",
+                "sha256": "4e2f60a2843705f67f39d10d0b76a97d802f1ffb80063ccc7388c86079ad9329",
+                "sourceCharacters": 684,
+                "visibleCharacters": 684,
+                "complete": true
+              },
+              {
+                "sourceId": "de42a262bddf7ce3606250d5",
+                "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                "sourceCharacters": 129355,
+                "visibleCharacters": 129355,
+                "complete": true
+              }
+            ]
+          }
+        ]
+      }
+    ]
+  },
+  "error": {
+    "stage": "fidelity-review",
+    "code": "timeout",
+    "message": "Model call timed out."
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-13T10:14:24.930Z",
+        "completed": true,
+        "inputTokenUpperBound": 141425,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:18:22.417Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 37016,
+          "outputTokens": 7490,
+          "totalTokens": 44506
+        },
+        "outputSha256": "99af7b5c86c2c34f6bdde22679d218c8b56a0a91f9c2597846901d81e08cac6a",
+        "knownInputTokens": 37016,
+        "knownOutputTokens": 7490,
+        "knownStandardApiEquivalentUsd": 0.0163912,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "draft",
+        "startedAt": "2026-09-13T10:18:22.512Z",
+        "completed": true,
+        "inputTokenUpperBound": 260968,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:21:14.672Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 66150,
+          "outputTokens": 9415,
+          "totalTokens": 75565
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "99af7b5c86c2c34f6bdde22679d218c8b56a0a91f9c2597846901d81e08cac6a",
+            "sources": [
+              {
+                "sourceId": "702afb5ce0c9f5f0763489b4",
+                "sha256": "4e2f60a2843705f67f39d10d0b76a97d802f1ffb80063ccc7388c86079ad9329",
+                "sourceCharacters": 684,
+                "visibleCharacters": 684,
+                "complete": true
+              },
+              {
+                "sourceId": "de42a262bddf7ce3606250d5",
+                "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                "sourceCharacters": 129355,
+                "visibleCharacters": 129355,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "6ff18ec7907fa11abb8c2857ad47935339ee5593099087177bf34fc501030cef",
+        "knownInputTokens": 66150,
+        "knownOutputTokens": 9415,
+        "knownStandardApiEquivalentUsd": 0.024528,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 3,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-13T10:21:16.167Z",
+        "completed": false,
+        "inputTokenUpperBound": 199800,
+        "maxOutputTokens": 13020,
+        "endedAt": "2026-09-13T10:26:16.174Z",
+        "errorCode": "timeout",
+        "evidence": [
+          {
+            "knowledgeSha256": "99af7b5c86c2c34f6bdde22679d218c8b56a0a91f9c2597846901d81e08cac6a",
+            "sources": [
+              {
+                "sourceId": "702afb5ce0c9f5f0763489b4",
+                "sha256": "4e2f60a2843705f67f39d10d0b76a97d802f1ffb80063ccc7388c86079ad9329",
+                "sourceCharacters": 684,
+                "visibleCharacters": 684,
+                "complete": true
+              },
+              {
+                "sourceId": "de42a262bddf7ce3606250d5",
+                "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                "sourceCharacters": 129355,
+                "visibleCharacters": 129355,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "knownInputTokens": null,
+        "knownOutputTokens": null,
+        "knownStandardApiEquivalentUsd": 0,
+        "usageComplete": false,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0.14426280000000002
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 0.0409192,
+    "unknownUsageCalls": 1,
+    "unknownUsageConservativeAllowanceUsd": 0.14426280000000002,
+    "failedCalls": 1
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-orchestrated-20260913-nostream/luffy"
+}

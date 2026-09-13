@@ -1,0 +1,4976 @@
+{
+  "id": "robin",
+  "operation": "generation",
+  "status": "success",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "ce8f846a8592c44abd426f7f48db751f6caa2d51e22650e67703330d02eaa721",
+  "unitSha256": "f702f363f39bc6f56b1a5056c74fb3ed795997bae86c6f75b3c60a587b7f3d70",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "5def43dcd9ab3c26bd27df80085dc2f556255b6a3173fe0a67265d7faf346e23",
+    "implementationVersion": "manga-mayhem/0.1.2",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "input": {
+    "subject": "Nico Robin",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Refine this campaign's newly generated candidate in context.candidateToRefine through the standard generator. Preserve every executable field, name, number, form, Technique and purchase exactly. Change only unit/path/purchase description strings needed to resolve this review. Return the entire valid executable unit, not a patch. Correct the prose contract for purchased contactStun: it applies to every damaging direct attack, including Techniques, not only primary contacts. A boss tag alone does not block this legacy modifier; bosses must have stunnable=false or weakWilled=false. Shared onHit immuneTo boss rules are separate. Describe that distinction consistently in the unit and path descriptions. Do not weaken boss immunity by silently changing enemy assumptions. Do not introduce additional scope or stat changes. Keep all source-supported traits and disclosed adaptation boundaries.",
+    "context": {
+      "campaign": "fresh Straw Hat orchestration 2026-09-13",
+      "candidateToRefine": {
+        "schema": "mardwerk.manga-mayhem.unit",
+        "version": "0.1",
+        "id": "nico-robin-wano",
+        "name": "Nico Robin",
+        "description": "Straw Hat archaeologist; One Piece manga through Wano. Hana Hana limbs blossom directly on targets or surfaces, never travel as bullets. Clutch uses replicated arms for joint locks; Gigante Fleur constructs a giant upper-body duplicate with serpentine grasping limbs; Demonio Fleur constructs a devil-like duplicate for a powerful finishing hold. Neither construction is a new Devil Fruit, awakening or asserted Haki; shaded skin does not establish Armament. All numbers, prices, tier unlocks, repeated attack cycles and bounded geometry are game adaptations, not canon measurements or measured balance. Highest purchased tier unlocks constructions at 3 and 5 on any path. Only one primary operates. Stamina abstracts giant-construction strain; ordinary limb replication is free. Area contacts represent simultaneous separate blossoms, not explosions, and obey reach, visibility, obstacle and cap checks. Holds respect authored eligibility; callers must mark immune bosses non-stunnable/non-slowable or supply the boss tag for shared statuses. Invulnerability remains separate from armor and control. Omitted: reflected limb injuries, defensive interception, disarming enemy weapons, surface space/fire simulation, seawater/seastone exposure, independent body-clone scouting, eyes/ears reconnaissance, flight, ally transport, archaeology and Poneglyph interactions. These omissions grant no substitute economy, ally buffs or detection magic. Giganteum's ceiling-breaking/fire-suppression tactic and Delphinium's rolling displacement are omitted, not renamed damage bonuses. Enemy motion and ally injuries remain caller-supplied.",
+        "cost": 650,
+        "baseForm": "hana-hana",
+        "stunProtectionSeconds": 2,
+        "stamina": {
+          "unlockTier": 3,
+          "maximum": 100,
+          "entryMinimum": 30,
+          "recoveryPerSecond": 10,
+          "reentrySeconds": 3,
+          "techniqueCost": 30,
+          "techniqueCooldown": 12
+        },
+        "forms": [
+          {
+            "id": "hana-hana",
+            "name": "Hana Hana no Mi",
+            "unlockTier": 0,
+            "drainPerSecond": 0,
+            "primary": {
+              "name": "Seis Fleur: Clutch",
+              "delivery": "direct-contact",
+              "damage": 18,
+              "period": 1.8,
+              "windup": 0.3,
+              "reach": 36,
+              "shape": {
+                "kind": "area",
+                "radius": 8,
+                "cap": 3
+              },
+              "onHit": [
+                {
+                  "id": "robin-grasp",
+                  "kind": "slow",
+                  "durationSeconds": 0.8,
+                  "speedMultiplier": 0.65,
+                  "combine": "strongest",
+                  "requiresTags": [
+                    "slowable"
+                  ],
+                  "immuneTo": [
+                    "boss"
+                  ],
+                  "requiresDamage": true,
+                  "stacking": {
+                    "scope": "target",
+                    "reapply": "refresh",
+                    "maxStacks": 1
+                  }
+                }
+              ]
+            },
+            "techniques": []
+          },
+          {
+            "id": "gigante-fleur",
+            "name": "Gigante Fleur",
+            "unlockTier": 3,
+            "drainPerSecond": 5,
+            "primary": {
+              "name": "Sea Serpent: Grasp",
+              "delivery": "direct-contact",
+              "damage": 30,
+              "period": 2.5,
+              "windup": 0.55,
+              "reach": 44,
+              "shape": {
+                "kind": "area",
+                "radius": 13,
+                "cap": 6
+              },
+              "onHit": [
+                {
+                  "id": "robin-grasp",
+                  "kind": "slow",
+                  "durationSeconds": 1.2,
+                  "speedMultiplier": 0.5,
+                  "combine": "strongest",
+                  "requiresTags": [
+                    "slowable"
+                  ],
+                  "immuneTo": [
+                    "boss"
+                  ],
+                  "requiresDamage": true,
+                  "stacking": {
+                    "scope": "target",
+                    "reapply": "refresh",
+                    "maxStacks": 1
+                  }
+                }
+              ]
+            },
+            "techniques": [
+              {
+                "id": "sea-serpent",
+                "name": "Gigante Fleur: Sea Serpent",
+                "unlockTier": 3,
+                "delivery": "direct-contact",
+                "damage": 0,
+                "windup": 0.6,
+                "recovery": 1.8,
+                "hits": 1,
+                "hitSpan": 0,
+                "shape": {
+                  "kind": "area",
+                  "radius": 15,
+                  "cap": 8
+                },
+                "onHit": [
+                  {
+                    "id": "robin-construction-hold",
+                    "kind": "stun",
+                    "durationSeconds": 2,
+                    "speedMultiplier": 0,
+                    "combine": "strongest",
+                    "requiresTags": [
+                      "weak-willed",
+                      "stunnable"
+                    ],
+                    "immuneTo": [
+                      "boss"
+                    ],
+                    "requiresDamage": false,
+                    "immunitySeconds": 2,
+                    "stacking": {
+                      "scope": "target",
+                      "reapply": "keep",
+                      "maxStacks": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          },
+          {
+            "id": "demonio-fleur",
+            "name": "Demonio Fleur",
+            "unlockTier": 5,
+            "drainPerSecond": 9,
+            "primary": {
+              "name": "Demonio: Constructed Clutch",
+              "delivery": "direct-contact",
+              "damage": 85,
+              "period": 2.8,
+              "windup": 0.7,
+              "reach": 40,
+              "shape": {
+                "kind": "single"
+              }
+            },
+            "techniques": [
+              {
+                "id": "gran-jacuzzi-clutch",
+                "name": "Demonio Fleur: Gran Jacuzzi Clutch",
+                "unlockTier": 5,
+                "delivery": "direct-contact",
+                "damage": 240,
+                "windup": 1.1,
+                "recovery": 2.1,
+                "hits": 1,
+                "hitSpan": 0,
+                "shape": {
+                  "kind": "single"
+                },
+                "onHit": [
+                  {
+                    "id": "robin-construction-hold",
+                    "kind": "stun",
+                    "durationSeconds": 3,
+                    "speedMultiplier": 0,
+                    "combine": "strongest",
+                    "requiresTags": [
+                      "weak-willed",
+                      "stunnable"
+                    ],
+                    "immuneTo": [
+                      "boss"
+                    ],
+                    "requiresDamage": true,
+                    "immunitySeconds": 2,
+                    "stacking": {
+                      "scope": "target",
+                      "reapply": "keep",
+                      "maxStacks": 1
+                    }
+                  }
+                ]
+              }
+            ]
+          }
+        ],
+        "paths": [
+          {
+            "id": "submission",
+            "name": "Submission Holds",
+            "description": "Strengthens the submission-oriented limb attacks. Contact stun is a bounded hold requiring both weakWilled and stunnable, with the runtime protection interval; it is not fear, Haki or guaranteed restraint of every enemy. Control-immune bosses retain their immunity. Each listed duration supersedes smaller purchased contact stuns rather than adding to them.",
+            "upgrades": [
+              {
+                "name": "Securing Arms",
+                "cost": 200,
+                "description": "Primary contacts gain a 0.4-second eligibility-limited hold.",
+                "modifiers": {
+                  "contactStun": 0.4
+                }
+              },
+              {
+                "name": "Tighter Joint Locks",
+                "cost": 350,
+                "description": "Add 4 damage to primary attacks and all Techniques, including zero-base-damage Sea Serpent.",
+                "modifiers": {
+                  "flatDamage": 4
+                }
+              },
+              {
+                "name": "Reinforced Holds",
+                "cost": 850,
+                "description": "Raise primary contact holds to 0.8 seconds. Tier 3 also makes Gigante Fleur and its Sea Serpent Technique available through the common unlock schedule.",
+                "modifiers": {
+                  "contactStun": 0.8
+                }
+              },
+              {
+                "name": "Submission Leverage",
+                "cost": 1500,
+                "description": "Multiply primary and Technique damage by 1.3; useful even when targets cannot be held.",
+                "modifiers": {
+                  "damageMultiplier": 1.3
+                }
+              },
+              {
+                "name": "Sustained Restraint",
+                "cost": 3000,
+                "description": "Raise primary contact holds to 1.4 seconds and multiply damage by another 1.2. Tier 5 also unlocks Demonio Fleur and Gran Jacuzzi Clutch.",
+                "modifiers": {
+                  "contactStun": 1.4,
+                  "damageMultiplier": 1.2
+                }
+              }
+            ]
+          },
+          {
+            "id": "limb-construction",
+            "name": "Limb Construction",
+            "description": "Improves the force of replicated and combined limbs, grounded in Robin's larger hands and giant constructions. Damage scaling is an authored abstraction of physical leverage, not internal damage, armor-bypassing Haki or the omitted Giganteum shockwave. Gigante Fleur emphasizes broad grasping; Demonio concentrates its construction into a single-target finishing hold. Gran Jacuzzi's pull toward the duplicate is visual only: this implementation does not displace the target.",
+            "upgrades": [
+              {
+                "name": "Additional Gripping Arms",
+                "cost": 225,
+                "description": "Add 5 damage to primary attacks and all Techniques, including zero-base-damage Sea Serpent.",
+                "modifiers": {
+                  "flatDamage": 5
+                }
+              },
+              {
+                "name": "Combined Limb Strength",
+                "cost": 400,
+                "description": "Multiply primary and Technique damage by 1.2.",
+                "modifiers": {
+                  "damageMultiplier": 1.2
+                }
+              },
+              {
+                "name": "Giant-Limb Leverage",
+                "cost": 1000,
+                "description": "Add another 10 damage to primary attacks and all Techniques, including zero-base-damage Sea Serpent. The shared tier-3 unlock supplies Gigante Fleur.",
+                "modifiers": {
+                  "flatDamage": 10
+                }
+              },
+              {
+                "name": "Massed Appendages",
+                "cost": 1800,
+                "description": "Multiply primary and Technique damage by another 1.4.",
+                "modifiers": {
+                  "damageMultiplier": 1.4
+                }
+              },
+              {
+                "name": "Finishing Construction",
+                "cost": 3600,
+                "description": "Multiply primary and Technique damage by another 1.6. The shared tier-5 unlock supplies Demonio Fleur; its appearance grants no Haki or fear aura.",
+                "modifiers": {
+                  "damageMultiplier": 1.6
+                }
+              }
+            ]
+          },
+          {
+            "id": "bloom-coordination",
+            "name": "Bloom Coordination",
+            "description": "Tunes the delivery reach and cadence of Robin's remotely manipulated limbs, not archaeology or scouting. Range additions extend personal attack eligibility only and never bypass obstacles or concealment. Timing modifiers shorten primary windup and recovery, not Technique timing, stamina costs or cooldown. Clustered area geometry is a bounded interpretation of simultaneous blossoms; caps count enemies, not anatomical limbs.",
+            "upgrades": [
+              {
+                "name": "Extended Blossoming",
+                "cost": 200,
+                "description": "Add 4 reach to the active primary profile and its contextual Technique targeting.",
+                "modifiers": {
+                  "reachAdd": 4
+                }
+              },
+              {
+                "name": "Coordinated Bloom",
+                "cost": 375,
+                "description": "Multiply primary timing by 0.9.",
+                "modifiers": {
+                  "primaryTimingMultiplier": 0.9
+                }
+              },
+              {
+                "name": "Wider Placement",
+                "cost": 900,
+                "description": "Add another 6 reach. The shared tier-3 unlock provides the broader Gigante Fleur profile without creating a parallel attacker.",
+                "modifiers": {
+                  "reachAdd": 6
+                }
+              },
+              {
+                "name": "Rapid Limb Sequences",
+                "cost": 1600,
+                "description": "Multiply primary timing by another 0.85.",
+                "modifiers": {
+                  "primaryTimingMultiplier": 0.85
+                }
+              },
+              {
+                "name": "Thousand-Limb Coordination",
+                "cost": 3200,
+                "description": "Multiply primary timing by another 0.8 and add 4 reach. The shared tier-5 unlock supplies Demonio Fleur; no autonomous clones or scouting bonuses are added.",
+                "modifiers": {
+                  "primaryTimingMultiplier": 0.8,
+                  "reachAdd": 4
+                }
+              }
+            ]
+          }
+        ]
+      },
+      "independentReview": "Correct the prose contract for purchased contactStun: it applies to every damaging direct attack, including Techniques, not only primary contacts. A boss tag alone does not block this legacy modifier; bosses must have stunnable=false or weakWilled=false. Shared onHit immuneTo boss rules are separate. Describe that distinction consistently in the unit and path descriptions. Do not weaken boss immunity by silently changing enemy assumptions.",
+      "originRun": "crew-v3-robin-20260913",
+      "notPriorCorpus": "This is a refinement of a unit newly generated for the current requested workflow; no pre-existing generation is provided."
+    },
+    "knowledge": {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Nico Robin",
+      "reused": true,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied official Wano story summary does not provide detailed Robin-specific battle evidence; the detailed ability claims rely primarily on the supplied wiki page and its cited manga references.",
+        "The supplied pages do not establish a separate Devil Fruit awakening for Robin by the end of Wano, so awakening is unresolved and not asserted.",
+        "The supplied pages do not establish Haki use by Robin by the end of Wano; any claim that she possesses or uses Haki is unsupported here.",
+        "The ability page includes anime-only, film-only, video-game, SBS, and post-Wano material. Those items were excluded from the selected manga-through-Wano record unless they were also supported as manga facts through the requested endpoint.",
+        "The supplied ability page contains some later references beyond Wano, including Egghead-era material; those later facts are outside the requested continuity and were not used.",
+        "No supplied page gives a complete exhaustive inventory of every technique Robin has used through Wano; the named techniques listed are those documented in the supplied material and relevant to the selected continuity."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "d98ced5d1611c50f0f8ca774",
+          "sha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+          "sourceCharacters": 72770,
+          "visibleCharacters": 72770,
+          "complete": true
+        },
+        {
+          "sourceId": "890039d47dda6f91251d5948",
+          "sha256": "e666ed6c1ab4047676340775521e325fac391dde5e59f4cad27c88161a4b6528",
+          "sourceCharacters": 1823,
+          "visibleCharacters": 1823,
+          "complete": true
+        },
+        {
+          "sourceId": "600b250f9838e58b36ccca0c",
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+          "sourceCharacters": 1673,
+          "visibleCharacters": 1673,
+          "complete": true
+        },
+        {
+          "sourceId": "a4dd5983f78c94b0c530f306",
+          "sha256": "027bf8189e48f624204037d645c7575b2f206605870a3a94f5bfcb31ead0b3a6",
+          "sourceCharacters": 62178,
+          "visibleCharacters": 62178,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "id": "d98ced5d1611c50f0f8ca774",
+          "url": "https://onepiece.fandom.com/wiki/Hana_Hana_no_Mi",
+          "title": "Hana Hana no Mi | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 72770,
+          "sha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa"
+        },
+        {
+          "id": "890039d47dda6f91251d5948",
+          "url": "https://one-piece.com/character/robin/index.html",
+          "title": "ニコ・ロビン | キャラクター検索 | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1823,
+          "sha256": "e666ed6c1ab4047676340775521e325fac391dde5e59f4cad27c88161a4b6528"
+        },
+        {
+          "id": "600b250f9838e58b36ccca0c",
+          "url": "https://one-piece.com/story/land_of_wano2/index.html",
+          "title": "ワノ国編 | これまでのストーリー | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1673,
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2"
+        },
+        {
+          "id": "a4dd5983f78c94b0c530f306",
+          "url": "https://onepiece.fandom.com/wiki/Nico_Robin",
+          "title": "Nico Robin | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 62178,
+          "sha256": "027bf8189e48f624204037d645c7575b2f206605870a3a94f5bfcb31ead0b3a6"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Nico Robin",
+        "identity": {
+          "status": "resolved",
+          "name": "Nico Robin",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied official character page identifies Nico Robin, and the supplied character and ability pages consistently describe the same One Piece character. The requested continuity is supported by manga references through the Wano Country arc; later Egghead and post-Wano material is excluded."
+        },
+        "claimCount": 26,
+        "knowledgeSha256": "76f115ee83e34f086dbb46eb84d1973f9e2c4604803f2ddad89111acfa70a074"
+      }
+    },
+    "sources": []
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Nico Robin",
+      "reused": true,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied official Wano story summary does not provide detailed Robin-specific battle evidence; the detailed ability claims rely primarily on the supplied wiki page and its cited manga references.",
+        "The supplied pages do not establish a separate Devil Fruit awakening for Robin by the end of Wano, so awakening is unresolved and not asserted.",
+        "The supplied pages do not establish Haki use by Robin by the end of Wano; any claim that she possesses or uses Haki is unsupported here.",
+        "The ability page includes anime-only, film-only, video-game, SBS, and post-Wano material. Those items were excluded from the selected manga-through-Wano record unless they were also supported as manga facts through the requested endpoint.",
+        "The supplied ability page contains some later references beyond Wano, including Egghead-era material; those later facts are outside the requested continuity and were not used.",
+        "No supplied page gives a complete exhaustive inventory of every technique Robin has used through Wano; the named techniques listed are those documented in the supplied material and relevant to the selected continuity."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "d98ced5d1611c50f0f8ca774",
+          "sha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+          "sourceCharacters": 72770,
+          "visibleCharacters": 72770,
+          "complete": true
+        },
+        {
+          "sourceId": "890039d47dda6f91251d5948",
+          "sha256": "e666ed6c1ab4047676340775521e325fac391dde5e59f4cad27c88161a4b6528",
+          "sourceCharacters": 1823,
+          "visibleCharacters": 1823,
+          "complete": true
+        },
+        {
+          "sourceId": "600b250f9838e58b36ccca0c",
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+          "sourceCharacters": 1673,
+          "visibleCharacters": 1673,
+          "complete": true
+        },
+        {
+          "sourceId": "a4dd5983f78c94b0c530f306",
+          "sha256": "027bf8189e48f624204037d645c7575b2f206605870a3a94f5bfcb31ead0b3a6",
+          "sourceCharacters": 62178,
+          "visibleCharacters": 62178,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "id": "d98ced5d1611c50f0f8ca774",
+          "url": "https://onepiece.fandom.com/wiki/Hana_Hana_no_Mi",
+          "title": "Hana Hana no Mi | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 72770,
+          "sha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa"
+        },
+        {
+          "id": "890039d47dda6f91251d5948",
+          "url": "https://one-piece.com/character/robin/index.html",
+          "title": "ニコ・ロビン | キャラクター検索 | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1823,
+          "sha256": "e666ed6c1ab4047676340775521e325fac391dde5e59f4cad27c88161a4b6528"
+        },
+        {
+          "id": "600b250f9838e58b36ccca0c",
+          "url": "https://one-piece.com/story/land_of_wano2/index.html",
+          "title": "ワノ国編 | これまでのストーリー | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1673,
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2"
+        },
+        {
+          "id": "a4dd5983f78c94b0c530f306",
+          "url": "https://onepiece.fandom.com/wiki/Nico_Robin",
+          "title": "Nico Robin | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 62178,
+          "sha256": "027bf8189e48f624204037d645c7575b2f206605870a3a94f5bfcb31ead0b3a6"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Nico Robin",
+        "identity": {
+          "status": "resolved",
+          "name": "Nico Robin",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied official character page identifies Nico Robin, and the supplied character and ability pages consistently describe the same One Piece character. The requested continuity is supported by manga references through the Wano Country arc; later Egghead and post-Wano material is excluded."
+        },
+        "claimCount": 26,
+        "knowledgeSha256": "76f115ee83e34f086dbb46eb84d1973f9e2c4604803f2ddad89111acfa70a074"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "manga-contract",
+        "legal-progression",
+        "reachable-resource-and-techniques"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-provided",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "review-required",
+    "findings": [
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 36,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            1
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 36,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            2
+          ],
+          "distance": 18,
+          "durationSeconds": 3.24,
+          "damage": 36,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "distance": 18,
+          "durationSeconds": 4.5,
+          "damage": 54,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            4
+          ],
+          "distance": 18,
+          "durationSeconds": 3.825,
+          "damage": 54,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            5
+          ],
+          "distance": 18,
+          "durationSeconds": 3.4272000000000005,
+          "damage": 54,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            1
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            2
+          ],
+          "distance": 18,
+          "durationSeconds": 3.24,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            3
+          ],
+          "distance": 18,
+          "durationSeconds": 4.5,
+          "damage": 69,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            4
+          ],
+          "distance": 18,
+          "durationSeconds": 3.825,
+          "damage": 69,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            5
+          ],
+          "distance": 18,
+          "durationSeconds": 3.4272000000000005,
+          "damage": 69,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 55.199999999999996,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            1
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 55.199999999999996,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            2
+          ],
+          "distance": 18,
+          "durationSeconds": 3.24,
+          "damage": 55.199999999999996,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            3
+          ],
+          "distance": 18,
+          "durationSeconds": 4.5,
+          "damage": 82.8,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            4
+          ],
+          "distance": 18,
+          "durationSeconds": 3.825,
+          "damage": 82.8,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            5
+          ],
+          "distance": 18,
+          "durationSeconds": 3.4272000000000005,
+          "damage": 82.8,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 118.80000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            1
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 118.80000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            2
+          ],
+          "distance": 18,
+          "durationSeconds": 4.5,
+          "damage": 118.80000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 166.32,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            1
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 166.32,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            2
+          ],
+          "distance": 18,
+          "durationSeconds": 4.5,
+          "damage": 166.32,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5.6,
+          "damage": 266.112,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            1
+          ],
+          "distance": 18,
+          "durationSeconds": 5.6,
+          "damage": 266.112,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            2
+          ],
+          "distance": 18,
+          "durationSeconds": 5.04,
+          "damage": 266.112,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 36,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            1
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 36,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            2
+          ],
+          "distance": 18,
+          "durationSeconds": 3.24,
+          "damage": 36,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            3
+          ],
+          "distance": 18,
+          "durationSeconds": 4.5,
+          "damage": 54,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            4
+          ],
+          "distance": 18,
+          "durationSeconds": 3.825,
+          "damage": 54,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            5
+          ],
+          "distance": 18,
+          "durationSeconds": 3.4272000000000005,
+          "damage": 54,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            1,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            2,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 55.199999999999996,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            3,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 118.80000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            4,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 166.32,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            5,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5.6,
+          "damage": 266.112,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 44,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            1
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 44,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            2
+          ],
+          "distance": 18,
+          "durationSeconds": 3.24,
+          "damage": 44,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            3
+          ],
+          "distance": 18,
+          "durationSeconds": 4.5,
+          "damage": 66,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            4
+          ],
+          "distance": 18,
+          "durationSeconds": 3.825,
+          "damage": 66,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            5
+          ],
+          "distance": 18,
+          "durationSeconds": 3.4272000000000005,
+          "damage": 66,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            1,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 54,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            2,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 3.6,
+          "damage": 64.8,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            3,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 133.2,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            4,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 186.48,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            5,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5.6,
+          "damage": 298.368,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 66,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            1
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 66,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            2
+          ],
+          "distance": 18,
+          "durationSeconds": 4.5,
+          "damage": 66,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            1,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 81,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            2,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 97.19999999999999,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 85.80000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            1
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 85.80000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            2
+          ],
+          "distance": 18,
+          "durationSeconds": 4.5,
+          "damage": 85.80000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            1,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 105.30000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            2,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5,
+          "damage": 126.36000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5.6,
+          "damage": 102.96000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            1
+          ],
+          "distance": 18,
+          "durationSeconds": 5.6,
+          "damage": 102.96000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            2
+          ],
+          "distance": 18,
+          "durationSeconds": 5.04,
+          "damage": 102.96000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            1,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5.6,
+          "damage": 126.36000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            2,
+            0
+          ],
+          "distance": 18,
+          "durationSeconds": 5.6,
+          "damage": 151.632,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520/forms/hana-hana",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-grasp"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520/forms/gigante-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520/forms/demonio-fleur",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "robin-construction-hold"
+          ]
+        }
+      },
+      {
+        "code": "ZERO_BASE_DAMAGE_RECEIVES_FLAT_BONUS",
+        "dimension": "claim-effect",
+        "severity": "warning",
+        "location": "/paths/1/upgrades/0",
+        "message": "Global flat damage also increases damage on attacks and Techniques with zero base damage. It is not restricted to profiles that already deal damage.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            3
+          ],
+          "zeroDamageProfiles": [
+            "gigante-fleur/sea-serpent"
+          ],
+          "beforeFlatDamage": 0,
+          "afterFlatDamage": 5,
+          "occurrences": 6,
+          "additionalExamples": [
+            {
+              "tiers": [
+                0,
+                1,
+                4
+              ],
+              "zeroDamageProfiles": [
+                "gigante-fleur/sea-serpent"
+              ],
+              "beforeFlatDamage": 0,
+              "afterFlatDamage": 5
+            },
+            {
+              "tiers": [
+                0,
+                1,
+                5
+              ],
+              "zeroDamageProfiles": [
+                "gigante-fleur/sea-serpent"
+              ],
+              "beforeFlatDamage": 0,
+              "afterFlatDamage": 5
+            },
+            {
+              "tiers": [
+                3,
+                1,
+                0
+              ],
+              "zeroDamageProfiles": [
+                "gigante-fleur/sea-serpent"
+              ],
+              "beforeFlatDamage": 4,
+              "afterFlatDamage": 9
+            }
+          ]
+        }
+      },
+      {
+        "code": "ZERO_BASE_DAMAGE_RECEIVES_FLAT_BONUS",
+        "dimension": "claim-effect",
+        "severity": "warning",
+        "location": "/paths/0/upgrades/1",
+        "message": "Global flat damage also increases damage on attacks and Techniques with zero base damage. It is not restricted to profiles that already deal damage.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            3
+          ],
+          "zeroDamageProfiles": [
+            "gigante-fleur/sea-serpent"
+          ],
+          "beforeFlatDamage": 0,
+          "afterFlatDamage": 4,
+          "occurrences": 6,
+          "additionalExamples": [
+            {
+              "tiers": [
+                2,
+                0,
+                4
+              ],
+              "zeroDamageProfiles": [
+                "gigante-fleur/sea-serpent"
+              ],
+              "beforeFlatDamage": 0,
+              "afterFlatDamage": 4
+            },
+            {
+              "tiers": [
+                2,
+                0,
+                5
+              ],
+              "zeroDamageProfiles": [
+                "gigante-fleur/sea-serpent"
+              ],
+              "beforeFlatDamage": 0,
+              "afterFlatDamage": 4
+            },
+            {
+              "tiers": [
+                2,
+                3,
+                0
+              ],
+              "zeroDamageProfiles": [
+                "gigante-fleur/sea-serpent"
+              ],
+              "beforeFlatDamage": 15,
+              "afterFlatDamage": 19
+            }
+          ]
+        }
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 64,
+      "evaluatedBuilds": 64,
+      "purchaseEdges": 111,
+      "probes": 734,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Natural-language description agreement needs independent review; this report describes executable limits.",
+        "Stationary probes do not establish game balance or live-game parity.",
+        "Full encounter balance, all moving geometries, and all purchase/switch/cooldown sequences."
+      ]
+    }
+  },
+  "fidelity": {
+    "status": "checked",
+    "gaps": [
+      "The candidate omits the sourced reflected-limb injury and strain weakness; this is an omission, not a contradiction, because the description does not promise immunity or replacement behavior.",
+      "The candidate omits Fish-Man Karate: Giganteum's shockwave and internal-damage effect, as explicitly disclosed. The omission is acceptable because not every sourced technique must be implemented.",
+      "The candidate omits Robin's sourced defensive interception, disarming, mobility, reconnaissance, archaeology and Poneglyph interactions, as explicitly disclosed. No unsupported substitute is added.",
+      "The exact numerical damage, reach, timing, stamina, cooldown, unlock, cap, status and purchase values are game adaptations and are not established as canon measurements.",
+      "The supplied evidence does not establish Robin using Haki or a separate Devil Fruit awakening by the end of Wano; the candidate correctly does not implement either as an executable effect.",
+      "The supplied evidence does not independently establish the runtime meaning of every custom field beyond the supplied gameRules; this review therefore treats the explicit executable fields as game adaptations rather than canon facts."
+    ],
+    "claims": [
+      {
+        "path": "/name",
+        "status": "supported",
+        "sourceMechanic": "Nico Robin identity and role",
+        "relationship": "same-ability",
+        "sourceId": "890039d47dda6f91251d5948",
+        "passageId": "p0",
+        "sourceSha256": "e666ed6c1ab4047676340775521e325fac391dde5e59f4cad27c88161a4b6528",
+        "sourceRange": {
+          "start": 0,
+          "end": 1199
+        },
+        "quoteSha256": "2eb508ba6964fa1ff7985bf05dd77535d5926309fad411ead2ad5e98d81809d9",
+        "quoteCharacters": 1199
+      },
+      {
+        "path": "/description",
+        "status": "supported",
+        "sourceMechanic": "Hana Hana no Mi body-part replication",
+        "relationship": "same-ability",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p6",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 6495,
+          "end": 7676
+        },
+        "quoteSha256": "bc8bbf9b90082643988d5f7a4b84959644272f85c69d49f6b02da007f53037a8",
+        "quoteCharacters": 1181
+      },
+      {
+        "path": "/description",
+        "status": "supported",
+        "sourceMechanic": "Gigante Fleur and Demonio Fleur",
+        "relationship": "same-ability",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p36",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 40336,
+          "end": 41511
+        },
+        "quoteSha256": "a5f732601dacc9a3218a57c133e5b2f9018bc9a40a6d7f19726dd1e8420801c7",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/description",
+        "status": "supported",
+        "sourceMechanic": "Hana Hana limitations and omitted abilities",
+        "relationship": "same-ability",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p5",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 5299,
+          "end": 6495
+        },
+        "quoteSha256": "a8f64dba4687142f9ea45759a2f2d1f07aa50b3a03de1773f961969517048b69",
+        "quoteCharacters": 1196
+      },
+      {
+        "path": "/forms/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Seis Fleur: Clutch",
+        "relationship": "same-ability",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p10",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 11112,
+          "end": 12285
+        },
+        "quoteSha256": "5e4eea1a8c79f4d4fa05fd194cc7e26cc099f645c256b3e8df94d7251e6477fe",
+        "quoteCharacters": 1173
+      },
+      {
+        "path": "/forms/0/primary/onHit/0/kind",
+        "status": "adapted",
+        "sourceMechanic": "Robin's grappling and restraint",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p6",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 6495,
+          "end": 7676
+        },
+        "quoteSha256": "bc8bbf9b90082643988d5f7a4b84959644272f85c69d49f6b02da007f53037a8",
+        "quoteCharacters": 1181
+      },
+      {
+        "path": "/forms/1/name",
+        "status": "supported",
+        "sourceMechanic": "Gigante Fleur",
+        "relationship": "same-ability",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p36",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 40336,
+          "end": 41511
+        },
+        "quoteSha256": "a5f732601dacc9a3218a57c133e5b2f9018bc9a40a6d7f19726dd1e8420801c7",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/forms/1/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Gigante Fleur: Sea Serpent",
+        "relationship": "same-ability",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p36",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 40336,
+          "end": 41511
+        },
+        "quoteSha256": "a5f732601dacc9a3218a57c133e5b2f9018bc9a40a6d7f19726dd1e8420801c7",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/forms/1/techniques/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Gigante Fleur: Sea Serpent",
+        "relationship": "same-ability",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p36",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 40336,
+          "end": 41511
+        },
+        "quoteSha256": "a5f732601dacc9a3218a57c133e5b2f9018bc9a40a6d7f19726dd1e8420801c7",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/forms/2/name",
+        "status": "supported",
+        "sourceMechanic": "Demonio Fleur",
+        "relationship": "same-ability",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p37",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 41511,
+          "end": 42655
+        },
+        "quoteSha256": "cb029e05f5942c1ec082ca26fb588e31ba4b68706af7727615f1015fa070bbb4",
+        "quoteCharacters": 1144
+      },
+      {
+        "path": "/forms/2/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Demonio Fleur grappling hold",
+        "relationship": "delivery-abstraction",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p37",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 41511,
+          "end": 42655
+        },
+        "quoteSha256": "cb029e05f5942c1ec082ca26fb588e31ba4b68706af7727615f1015fa070bbb4",
+        "quoteCharacters": 1144
+      },
+      {
+        "path": "/forms/2/techniques/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Gran Jacuzzi Clutch",
+        "relationship": "same-ability",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p37",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 41511,
+          "end": 42655
+        },
+        "quoteSha256": "cb029e05f5942c1ec082ca26fb588e31ba4b68706af7727615f1015fa070bbb4",
+        "quoteCharacters": 1144
+      },
+      {
+        "path": "/paths/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Robin's submission-oriented grappling",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p6",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 6495,
+          "end": 7676
+        },
+        "quoteSha256": "bc8bbf9b90082643988d5f7a4b84959644272f85c69d49f6b02da007f53037a8",
+        "quoteCharacters": 1181
+      },
+      {
+        "path": "/paths/0/upgrades/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Robin's submission holds",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p6",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 6495,
+          "end": 7676
+        },
+        "quoteSha256": "bc8bbf9b90082643988d5f7a4b84959644272f85c69d49f6b02da007f53037a8",
+        "quoteCharacters": 1181
+      },
+      {
+        "path": "/paths/0/upgrades/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Robin's joint-lock attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p6",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 6495,
+          "end": 7676
+        },
+        "quoteSha256": "bc8bbf9b90082643988d5f7a4b84959644272f85c69d49f6b02da007f53037a8",
+        "quoteCharacters": 1181
+      },
+      {
+        "path": "/paths/0/upgrades/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Robin's submission holds and giant constructs",
+        "relationship": "game-rule",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p36",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 40336,
+          "end": 41511
+        },
+        "quoteSha256": "a5f732601dacc9a3218a57c133e5b2f9018bc9a40a6d7f19726dd1e8420801c7",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/0/upgrades/3/description",
+        "status": "adapted",
+        "sourceMechanic": "Robin's grappling attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p6",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 6495,
+          "end": 7676
+        },
+        "quoteSha256": "bc8bbf9b90082643988d5f7a4b84959644272f85c69d49f6b02da007f53037a8",
+        "quoteCharacters": 1181
+      },
+      {
+        "path": "/paths/0/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Robin's submission holds and Demonio Fleur",
+        "relationship": "game-rule",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p37",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 41511,
+          "end": 42655
+        },
+        "quoteSha256": "cb029e05f5942c1ec082ca26fb588e31ba4b68706af7727615f1015fa070bbb4",
+        "quoteCharacters": 1144
+      },
+      {
+        "path": "/paths/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Giant limbs and combined constructs",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p29",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 32557,
+          "end": 33723
+        },
+        "quoteSha256": "74e03f328bbcc3edd231da3903480df9dc1eaf8fc3301c952085a1f1ee1d4009",
+        "quoteCharacters": 1166
+      },
+      {
+        "path": "/paths/1/upgrades/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Combined and giant limbs",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p29",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 32557,
+          "end": 33723
+        },
+        "quoteSha256": "74e03f328bbcc3edd231da3903480df9dc1eaf8fc3301c952085a1f1ee1d4009",
+        "quoteCharacters": 1166
+      },
+      {
+        "path": "/paths/1/upgrades/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Combined and giant limbs",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p29",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 32557,
+          "end": 33723
+        },
+        "quoteSha256": "74e03f328bbcc3edd231da3903480df9dc1eaf8fc3301c952085a1f1ee1d4009",
+        "quoteCharacters": 1166
+      },
+      {
+        "path": "/paths/1/upgrades/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Giant-limb constructs",
+        "relationship": "game-rule",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p36",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 40336,
+          "end": 41511
+        },
+        "quoteSha256": "a5f732601dacc9a3218a57c133e5b2f9018bc9a40a6d7f19726dd1e8420801c7",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/1/upgrades/3/description",
+        "status": "adapted",
+        "sourceMechanic": "Giant-limb constructs",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p29",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 32557,
+          "end": 33723
+        },
+        "quoteSha256": "74e03f328bbcc3edd231da3903480df9dc1eaf8fc3301c952085a1f1ee1d4009",
+        "quoteCharacters": 1166
+      },
+      {
+        "path": "/paths/1/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Demonio Fleur giant duplicate",
+        "relationship": "game-rule",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p37",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 41511,
+          "end": 42655
+        },
+        "quoteSha256": "cb029e05f5942c1ec082ca26fb588e31ba4b68706af7727615f1015fa070bbb4",
+        "quoteCharacters": 1144
+      },
+      {
+        "path": "/paths/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Remote sprouting and sight-limited manifestation",
+        "relationship": "delivery-abstraction",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p5",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 5299,
+          "end": 6495
+        },
+        "quoteSha256": "a8f64dba4687142f9ea45759a2f2d1f07aa50b3a03de1773f961969517048b69",
+        "quoteCharacters": 1196
+      },
+      {
+        "path": "/paths/2/upgrades/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Remote Hana Hana manifestation",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p2",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 2008,
+          "end": 3072
+        },
+        "quoteSha256": "431583eecdfc02bc1d8592fb57fb71488dee76cc413083baddf7c7ac6ef787fa",
+        "quoteCharacters": 1064
+      },
+      {
+        "path": "/paths/2/upgrades/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Rapid remote limb delivery",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p2",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 2008,
+          "end": 3072
+        },
+        "quoteSha256": "431583eecdfc02bc1d8592fb57fb71488dee76cc413083baddf7c7ac6ef787fa",
+        "quoteCharacters": 1064
+      },
+      {
+        "path": "/paths/2/upgrades/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Remote sprouting and Gigante Fleur",
+        "relationship": "game-rule",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p36",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 40336,
+          "end": 41511
+        },
+        "quoteSha256": "a5f732601dacc9a3218a57c133e5b2f9018bc9a40a6d7f19726dd1e8420801c7",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/2/upgrades/3/description",
+        "status": "adapted",
+        "sourceMechanic": "Remote limb delivery cadence",
+        "relationship": "numerical-tuning",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p2",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 2008,
+          "end": 3072
+        },
+        "quoteSha256": "431583eecdfc02bc1d8592fb57fb71488dee76cc413083baddf7c7ac6ef787fa",
+        "quoteCharacters": 1064
+      },
+      {
+        "path": "/paths/2/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Remote sprouting, giant constructs and Demonio Fleur",
+        "relationship": "game-rule",
+        "sourceId": "d98ced5d1611c50f0f8ca774",
+        "passageId": "p37",
+        "sourceSha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+        "sourceRange": {
+          "start": 41511,
+          "end": 42655
+        },
+        "quoteSha256": "cb029e05f5942c1ec082ca26fb588e31ba4b68706af7727615f1015fa070bbb4",
+        "quoteCharacters": 1144
+      }
+    ],
+    "representation": "Compact public receipt. Complete source passages and detailed model review remain in the private production result."
+  },
+  "fidelityAttempts": [
+    {
+      "reportValid": true
+    }
+  ],
+  "metadata": {
+    "modelCalls": 2,
+    "repairs": 0,
+    "elapsedMs": 173757,
+    "calls": [
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "76f115ee83e34f086dbb46eb84d1973f9e2c4604803f2ddad89111acfa70a074",
+            "sources": [
+              {
+                "sourceId": "d98ced5d1611c50f0f8ca774",
+                "sha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+                "sourceCharacters": 72770,
+                "visibleCharacters": 72770,
+                "complete": true
+              },
+              {
+                "sourceId": "890039d47dda6f91251d5948",
+                "sha256": "e666ed6c1ab4047676340775521e325fac391dde5e59f4cad27c88161a4b6528",
+                "sourceCharacters": 1823,
+                "visibleCharacters": 1823,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              },
+              {
+                "sourceId": "a4dd5983f78c94b0c530f306",
+                "sha256": "027bf8189e48f624204037d645c7575b2f206605870a3a94f5bfcb31ead0b3a6",
+                "sourceCharacters": 62178,
+                "visibleCharacters": 62178,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 71565,
+          "outputTokens": 3062,
+          "totalTokens": 74627
+        },
+        "outputSha256": "f702f363f39bc6f56b1a5056c74fb3ed795997bae86c6f75b3c60a587b7f3d70"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "76f115ee83e34f086dbb46eb84d1973f9e2c4604803f2ddad89111acfa70a074",
+            "sources": [
+              {
+                "sourceId": "d98ced5d1611c50f0f8ca774",
+                "sha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+                "sourceCharacters": 72770,
+                "visibleCharacters": 72770,
+                "complete": true
+              },
+              {
+                "sourceId": "890039d47dda6f91251d5948",
+                "sha256": "e666ed6c1ab4047676340775521e325fac391dde5e59f4cad27c88161a4b6528",
+                "sourceCharacters": 1823,
+                "visibleCharacters": 1823,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              },
+              {
+                "sourceId": "a4dd5983f78c94b0c530f306",
+                "sha256": "027bf8189e48f624204037d645c7575b2f206605870a3a94f5bfcb31ead0b3a6",
+                "sourceCharacters": 62178,
+                "visibleCharacters": 62178,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 99805,
+          "outputTokens": 3721,
+          "totalTokens": 103526
+        },
+        "outputSha256": "1f534e4829369dbd95dd0b4f503af758eb539b502ca1412427c5bd56f53812dd"
+      }
+    ]
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "draft",
+        "startedAt": "2026-09-13T10:45:59.960Z",
+        "completed": true,
+        "inputTokenUpperBound": 280397,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:47:35.563Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 71565,
+          "outputTokens": 3062,
+          "totalTokens": 74627
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "76f115ee83e34f086dbb46eb84d1973f9e2c4604803f2ddad89111acfa70a074",
+            "sources": [
+              {
+                "sourceId": "d98ced5d1611c50f0f8ca774",
+                "sha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+                "sourceCharacters": 72770,
+                "visibleCharacters": 72770,
+                "complete": true
+              },
+              {
+                "sourceId": "890039d47dda6f91251d5948",
+                "sha256": "e666ed6c1ab4047676340775521e325fac391dde5e59f4cad27c88161a4b6528",
+                "sourceCharacters": 1823,
+                "visibleCharacters": 1823,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              },
+              {
+                "sourceId": "a4dd5983f78c94b0c530f306",
+                "sha256": "027bf8189e48f624204037d645c7575b2f206605870a3a94f5bfcb31ead0b3a6",
+                "sourceCharacters": 62178,
+                "visibleCharacters": 62178,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "f702f363f39bc6f56b1a5056c74fb3ed795997bae86c6f75b3c60a587b7f3d70",
+        "knownInputTokens": 71565,
+        "knownOutputTokens": 3062,
+        "knownStandardApiEquivalentUsd": 0.86875,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-13T10:47:36.978Z",
+        "completed": true,
+        "inputTokenUpperBound": 381499,
+        "maxOutputTokens": 10860,
+        "endedAt": "2026-09-13T10:48:53.565Z",
+        "model": "gpt-6-astra",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 99805,
+          "outputTokens": 3721,
+          "totalTokens": 103526
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "76f115ee83e34f086dbb46eb84d1973f9e2c4604803f2ddad89111acfa70a074",
+            "sources": [
+              {
+                "sourceId": "d98ced5d1611c50f0f8ca774",
+                "sha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+                "sourceCharacters": 72770,
+                "visibleCharacters": 72770,
+                "complete": true
+              },
+              {
+                "sourceId": "890039d47dda6f91251d5948",
+                "sha256": "e666ed6c1ab4047676340775521e325fac391dde5e59f4cad27c88161a4b6528",
+                "sourceCharacters": 1823,
+                "visibleCharacters": 1823,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              },
+              {
+                "sourceId": "a4dd5983f78c94b0c530f306",
+                "sha256": "027bf8189e48f624204037d645c7575b2f206605870a3a94f5bfcb31ead0b3a6",
+                "sourceCharacters": 62178,
+                "visibleCharacters": 62178,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "1f534e4829369dbd95dd0b4f503af758eb539b502ca1412427c5bd56f53812dd",
+        "knownInputTokens": 99805,
+        "knownOutputTokens": 3721,
+        "knownStandardApiEquivalentUsd": 1.1841,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 2.05285,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-v4-prose-20260913/robin"
+}

@@ -1,0 +1,2231 @@
+{
+  "id": "brook",
+  "operation": "generation",
+  "status": "success",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "default",
+    "label": "Default",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "6bbef0622dc762ea0aab53eeea0ffd99eda39114e5174153aae128d4030dee14",
+  "unitSha256": "182570111870a865e50da184981ddfb44cdcab9b8f36aa1485be5133c8758931",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "109f06dccbf90375d4bcffcfbbeb868968dbf8468cbf00ccabc0a5117f9caf20",
+    "implementationVersion": "manga-mayhem/0.1.2"
+  },
+  "input": {
+    "subject": "Brook",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Preserve the skeleton musician and quick-draw cane swordsman, soul-based cold, music and soul scouting. Do not treat his return from death as unlimited resurrection. Build a playable kit with at least 15 meaningful purchasable upgrades that each change executable behavior. Select a coherent subset instead of claiming exhaustive coverage. Disclose omitted defining abilities and any source limits. Treat numerical damage, costs, cooldowns, range, targeting and unlock progression as explicit gameplay adaptations. Do not invent character powers to meet upgrade count; deepen sourced abilities where possible.",
+    "context": {
+      "evidencePurpose": "Curated development demonstration, available to generation and review; not an unseen benchmark.",
+      "reviewScope": "Selected manga continuity through end of Wano; exclude later manga, anime-only and game-only facts from this request."
+    },
+    "sources": [
+      {
+        "url": "https://onepiece.fandom.com/wiki/Brook/Abilities_and_Powers",
+        "title": "Brook/Abilities and Powers | One Piece Wiki | Fandom",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+          "Secondary fan-edited evidence captured 2026-09-09T17:43:14.410Z; may include later manga, anime, and game facts outside the requested continuity."
+        ],
+        "id": "brook-fan-abilities-1",
+        "origin": "retrieved",
+        "characters": 62192,
+        "sha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94"
+      },
+      {
+        "id": "brook-official-profile",
+        "title": "Brook | ONE PIECE.com official character profile",
+        "url": "https://one-piece.com/character/brook/index.html",
+        "origin": "retrieved",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+          "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+          "Retrieved 2026-09-09T17:42:05.776288+00:00."
+        ],
+        "characters": 937,
+        "sha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1"
+      }
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Brook",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied pages describe Brook's revival after one death but provide no evidence for repeated resurrection, extra lives, or unlimited resurrection. Any playable return-from-death feature should therefore be an explicit gameplay adaptation and not an unlimited passive.",
+        "No named transformation, Devil Fruit awakening, or alternate combat form for Brook is supported through the end of Wano in the supplied material. His skeleton state and temporary soul projection should be treated as body states or abilities, not as invented transformations.",
+        "The sources provide no numerical damage values, prices, cooldowns, ranges, durations, targeting rules, resource costs, or unlock progression. These must be labeled as gameplay adaptations rather than character evidence.",
+        "The pages do not establish a source-backed set of fifteen purchasable upgrades or any canonical upgrade economy. A kit may deepen the documented sword, music, cold, soul, mobility, scouting, and skeletal-survival abilities, but cannot present purchases as canon.",
+        "The detailed abilities source mixes manga, anime, profile material, later manga chapters, and non-canon navigation lists. Facts tied to material after Wano, including Egghead or Elbaph references, were not used.",
+        "The official profile summarizes Brook's identity and abilities but does not provide a complete named-technique list or a precise manga cutoff; detailed technique evidence therefore comes primarily from the supplied abilities page.",
+        "The sources do not specify how long Brook can remain separated from his body, how far his soul can travel, how many targets his soul pressure can affect, or the exact limits of his environmental freezing.",
+        "No supplied page establishes seawater, Seastone, or other generic Devil Fruit weaknesses for Brook, so they are not asserted here.",
+        "The sources show sleep, hypnosis, morale effects, and soul-based influence in particular situations but do not define universal success rates, resistances, or area-of-effect rules for those abilities."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "brook-fan-abilities-1",
+          "sha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+          "sourceCharacters": 62192,
+          "visibleCharacters": 62192,
+          "complete": true
+        },
+        {
+          "sourceId": "brook-official-profile",
+          "sha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+          "sourceCharacters": 937,
+          "visibleCharacters": 937,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://onepiece.fandom.com/wiki/Brook/Abilities_and_Powers",
+          "title": "Brook/Abilities and Powers | One Piece Wiki | Fandom",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+            "Secondary fan-edited evidence captured 2026-09-09T17:43:14.410Z; may include later manga, anime, and game facts outside the requested continuity."
+          ],
+          "id": "brook-fan-abilities-1",
+          "origin": "supplied",
+          "characters": 62192,
+          "sha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94"
+        },
+        {
+          "id": "brook-official-profile",
+          "title": "Brook | ONE PIECE.com official character profile",
+          "url": "https://one-piece.com/character/brook/index.html",
+          "origin": "supplied",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+            "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+            "Retrieved 2026-09-09T17:42:05.776288+00:00."
+          ],
+          "characters": 937,
+          "sha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Brook",
+        "identity": {
+          "status": "resolved",
+          "name": "Brook",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "Both supplied pages identify Brook as the skeleton musician and swordsman of the Straw Hat Pirates and describe the Yomi Yomi no Mi, his music, swordsmanship, and soul abilities. The detailed abilities page also contains later manga and mixed anime/non-canon material; those facts are excluded from this selected continuity."
+        },
+        "claimCount": 32,
+        "knowledgeSha256": "dade000d7df0f4843b08eb0106129fe55883e6ecd269d16cd701253771016fc9"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "manga-contract",
+        "legal-progression",
+        "reachable-resource-and-techniques"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-provided",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "review-required",
+    "findings": [
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            1
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            2
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 64,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            4
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 64,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            5
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 73.6,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            1
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            2
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            3
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            4
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            5
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 73.6,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            1
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            2
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            3
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            4
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            5
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 73.6,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            1
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            2
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 64,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 72,
+          "events": 9
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            1
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 72,
+          "events": 9
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            2
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 72,
+          "events": 9
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 80.64000000000001,
+          "events": 9
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            1
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 80.64000000000001,
+          "events": 9
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            2
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 80.64000000000001,
+          "events": 9
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            1
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            2
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            3
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            4
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            5
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3499999999999996,
+          "damage": 82.8,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            1,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 72,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            2,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 72,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            3,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 72,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            4,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 80,
+          "events": 9
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            5,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.5,
+          "damage": 89.60000000000002,
+          "events": 9
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            1
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            2
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            3
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.162,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            4
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.162,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            5
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.162,
+          "damage": 82.8,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            1,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            2,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            3,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            4,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 80,
+          "events": 9
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            5,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 89.60000000000002,
+          "events": 9
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            1
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            2
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            1,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            2,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            1
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            2
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            1,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            2,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 72,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 84.96,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            1
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 84.96,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            2
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 84.96,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            1,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 84.96,
+          "events": 8
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            2,
+            0
+          ],
+          "distance": 1.25,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 84.96,
+          "events": 8
+        }
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 64,
+      "evaluatedBuilds": 64,
+      "purchaseEdges": 111,
+      "probes": 404,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Description agreement is only checked for explicit executable contradictions.",
+        "Stationary probes do not establish game balance or live-game parity.",
+        "Full encounter balance, all moving geometries, and all purchase/switch/cooldown sequences."
+      ]
+    }
+  },
+  "fidelity": {
+    "status": "checked",
+    "gaps": [
+      "The requested soul scouting is not implemented literally: the source supports Brook temporarily separating his soul, moving through walls and reaching places inaccessible to his body, but the candidate explicitly omits detached-body scouting. Detection and retargeting are only bounded abstractions of that defining ability.",
+      "The kit omits other supported skeletal traits, including surviving decapitation, repairing bone damage with milk, resistance to temperature and lightning, and unusual endurance. These omissions are not contradictions because the request allowed a coherent subset, but they are not represented as passives.",
+      "The source does not provide numerical damage, reach, duration, cooldown, stamina, cost, cap, armor, stun or unlock values. All such values remain gameplay adaptations.",
+      "The source supports Brook's freezing aura and environmental freezing but does not establish the candidate's pulse cycles, frost-line geometry, non-chaining behavior, armor-ignore percentage or terrain-runtime semantics.",
+      "The source supports sleep, hypnosis and influence in particular situations but does not define universal target categories, immunity schemas or success rules. The candidate's weak-willed, stunnable, sleep-immune and cold-immune checks are game rules.",
+      "The detailed fan source mixes manga, anime, later manga and non-canon navigation material. The cited claims use the portions applicable through the end of Wano; later material in the same passages was not relied upon."
+    ],
+    "claims": [
+      {
+        "path": "/name",
+        "status": "supported",
+        "sourceMechanic": "Brook's identity as a skeleton musician and swordsman",
+        "relationship": "same-ability",
+        "sourceId": "brook-official-profile",
+        "passageId": "p0",
+        "sourceSha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+        "sourceRange": {
+          "start": 0,
+          "end": 937
+        },
+        "quoteSha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+        "quoteCharacters": 937
+      },
+      {
+        "path": "/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's single documented revival, soul projection, music, hearing and underworld cold",
+        "relationship": "game-rule",
+        "sourceId": "brook-official-profile",
+        "passageId": "p0",
+        "sourceSha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+        "sourceRange": {
+          "start": 0,
+          "end": 937
+        },
+        "quoteSha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+        "quoteCharacters": 937
+      },
+      {
+        "path": "/forms/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's revived skeletal body and musical identity",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-official-profile",
+        "passageId": "p0",
+        "sourceSha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+        "sourceRange": {
+          "start": 0,
+          "end": 937
+        },
+        "quoteSha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+        "quoteCharacters": 937
+      },
+      {
+        "path": "/forms/0/primary/name",
+        "status": "supported",
+        "sourceMechanic": "Brook's speed-focused fencing and iaido style",
+        "relationship": "same-ability",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/forms/0/techniques/0/name",
+        "status": "supported",
+        "sourceMechanic": "Nemuriuta Flanc's sleep-inducing musical technique",
+        "relationship": "same-ability",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 11693,
+          "end": 12887
+        },
+        "quoteSha256": "7311ae622cdc2a8548e3e3e9fe5c5b27b23109516c5594aea819f9a3a14d668c",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/forms/0/techniques/1/name",
+        "status": "adapted",
+        "sourceMechanic": "Aubade Coup Droit's compressed air blast",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p23",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 25530,
+          "end": 26721
+        },
+        "quoteSha256": "e11a53923293b37d8e481967146d864ac7369c458edcbd3eb71468e34016091f",
+        "quoteCharacters": 1191
+      },
+      {
+        "path": "/forms/0/techniques/2/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's soul-generated chills of the Underworld and freezing aura",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/0/name",
+        "status": "supported",
+        "sourceMechanic": "Brook's Gentle Blade fencing style",
+        "relationship": "same-ability",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Speed-focused fencing, iaido and rapid sword strikes",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 15223,
+          "end": 16394
+        },
+        "quoteSha256": "00b84c788b891461a1efef1be2f1b25cfd0d68e95b6172c33cb170b4a2f34784",
+        "quoteCharacters": 1171
+      },
+      {
+        "path": "/paths/0/upgrades/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's veteran swordsmanship",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 15223,
+          "end": 16394
+        },
+        "quoteSha256": "00b84c788b891461a1efef1be2f1b25cfd0d68e95b6172c33cb170b4a2f34784",
+        "quoteCharacters": 1171
+      },
+      {
+        "path": "/paths/0/upgrades/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's documented sword attacks and post-timeskip swordsmanship",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 16394,
+          "end": 17353
+        },
+        "quoteSha256": "40601569c6fe6aac0b31f3d35e0450ccdbca1619fde0ea69677db055a894ef64",
+        "quoteCharacters": 959
+      },
+      {
+        "path": "/paths/0/upgrades/1/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's high-speed quick-draw sword attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p8",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 8405,
+          "end": 9416
+        },
+        "quoteSha256": "580c545d3d118515a79cfe9e2bb35a1a9140751b2932caea2494c31f7c04bad9",
+        "quoteCharacters": 1011
+      },
+      {
+        "path": "/paths/0/upgrades/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's rapid iaido and imperceptibly fast sword strikes",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 15223,
+          "end": 16394
+        },
+        "quoteSha256": "00b84c788b891461a1efef1be2f1b25cfd0d68e95b6172c33cb170b4a2f34784",
+        "quoteCharacters": 1171
+      },
+      {
+        "path": "/paths/0/upgrades/2/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's shikomizue fencing weapon and precise sword lines",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 15223,
+          "end": 16394
+        },
+        "quoteSha256": "00b84c788b891461a1efef1be2f1b25cfd0d68e95b6172c33cb170b4a2f34784",
+        "quoteCharacters": 1171
+      },
+      {
+        "path": "/paths/0/upgrades/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's precise shikomizue fencing",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 15223,
+          "end": 16394
+        },
+        "quoteSha256": "00b84c788b891461a1efef1be2f1b25cfd0d68e95b6172c33cb170b4a2f34784",
+        "quoteCharacters": 1171
+      },
+      {
+        "path": "/paths/0/upgrades/3/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's rapid, precise sword impacts",
+        "relationship": "game-rule",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p8",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 8405,
+          "end": 9416
+        },
+        "quoteSha256": "580c545d3d118515a79cfe9e2bb35a1a9140751b2932caea2494c31f7c04bad9",
+        "quoteCharacters": 1011
+      },
+      {
+        "path": "/paths/0/upgrades/3/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's rapid swordsmanship and soul-based influence over weaker souls",
+        "relationship": "game-rule",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/0/upgrades/4/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's documented Gentle Blade swordsmanship",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/0/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's speed-and-precision sword attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/1/name",
+        "status": "supported",
+        "sourceMechanic": "Brook's soul-generated freezing aura",
+        "relationship": "same-ability",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Soul cold, freezing aura, environmental freezing and hard-material sword cutting",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/1/upgrades/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's chills of the Underworld freezing aura",
+        "relationship": "game-rule",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/1/upgrades/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's freezing aura transferred through Soul Solid",
+        "relationship": "game-rule",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 15223,
+          "end": 16394
+        },
+        "quoteSha256": "00b84c788b891461a1efef1be2f1b25cfd0d68e95b6172c33cb170b4a2f34784",
+        "quoteCharacters": 1171
+      },
+      {
+        "path": "/paths/1/upgrades/1/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's ability to spread soul cold into his surroundings",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/1/upgrades/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's environmental freezing and soul cold",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/1/upgrades/2/name",
+        "status": "adapted",
+        "sourceMechanic": "Soul Solid's soul coating and Brook's ability to cut hard materials",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 16394,
+          "end": 17353
+        },
+        "quoteSha256": "40601569c6fe6aac0b31f3d35e0450ccdbca1619fde0ea69677db055a894ef64",
+        "quoteCharacters": 959
+      },
+      {
+        "path": "/paths/1/upgrades/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's Soul Solid and hard-material cutting",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 16394,
+          "end": 17353
+        },
+        "quoteSha256": "40601569c6fe6aac0b31f3d35e0450ccdbca1619fde0ea69677db055a894ef64",
+        "quoteCharacters": 959
+      },
+      {
+        "path": "/paths/1/upgrades/3/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's ability to spread soul cold through the environment",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/1/upgrades/3/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's environmental soul freezing",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 14048,
+          "end": 15223
+        },
+        "quoteSha256": "1e5038b1d3e1b916d6d7f77217d8ab51fafebd96f6eaf853569af9f342ef104a",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/1/upgrades/4/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's chills of the Underworld and Soul Solid",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 15223,
+          "end": 16394
+        },
+        "quoteSha256": "00b84c788b891461a1efef1be2f1b25cfd0d68e95b6172c33cb170b4a2f34784",
+        "quoteCharacters": 1171
+      },
+      {
+        "path": "/paths/1/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's soul cold transferred to his sword",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 15223,
+          "end": 16394
+        },
+        "quoteSha256": "00b84c788b891461a1efef1be2f1b25cfd0d68e95b6172c33cb170b4a2f34784",
+        "quoteCharacters": 1171
+      },
+      {
+        "path": "/paths/2/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's Soul King musical performances and soul-based abilities",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-official-profile",
+        "passageId": "p0",
+        "sourceSha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+        "sourceRange": {
+          "start": 0,
+          "end": 937
+        },
+        "quoteSha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+        "quoteCharacters": 937
+      },
+      {
+        "path": "/paths/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's music, sharp hearing, soul projection and performance influence",
+        "relationship": "game-rule",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 11693,
+          "end": 12887
+        },
+        "quoteSha256": "7311ae622cdc2a8548e3e3e9fe5c5b27b23109516c5594aea819f9a3a14d668c",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/2/upgrades/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's exceptionally sharp hearing",
+        "relationship": "same-ability",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 11693,
+          "end": 12887
+        },
+        "quoteSha256": "7311ae622cdc2a8548e3e3e9fe5c5b27b23109516c5594aea819f9a3a14d668c",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/2/upgrades/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Sharp hearing locating an invisible opponent by movement sounds",
+        "relationship": "game-rule",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 11693,
+          "end": 12887
+        },
+        "quoteSha256": "7311ae622cdc2a8548e3e3e9fe5c5b27b23109516c5594aea819f9a3a14d668c",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/2/upgrades/1/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's auditory tracking and soul awareness",
+        "relationship": "game-rule",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 11693,
+          "end": 12887
+        },
+        "quoteSha256": "7311ae622cdc2a8548e3e3e9fe5c5b27b23109516c5594aea819f9a3a14d668c",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/2/upgrades/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's ability to locate unseen movement by sound",
+        "relationship": "game-rule",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 11693,
+          "end": 12887
+        },
+        "quoteSha256": "7311ae622cdc2a8548e3e3e9fe5c5b27b23109516c5594aea819f9a3a14d668c",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/2/upgrades/2/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's mastery of rhythm, beat and tempo",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 11693,
+          "end": 12887
+        },
+        "quoteSha256": "7311ae622cdc2a8548e3e3e9fe5c5b27b23109516c5594aea819f9a3a14d668c",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/2/upgrades/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's musical rhythm, beat and tempo mastery",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 11693,
+          "end": 12887
+        },
+        "quoteSha256": "7311ae622cdc2a8548e3e3e9fe5c5b27b23109516c5594aea819f9a3a14d668c",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/2/upgrades/3/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's soul projection and auditory detection",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 12887,
+          "end": 14048
+        },
+        "quoteSha256": "2d852545eb9b8fb0f42af71e81107b4fd807b0436f6aeab21bf4606f815ec85a",
+        "quoteCharacters": 1161
+      },
+      {
+        "path": "/paths/2/upgrades/3/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's temporarily separated soul and sharp hearing",
+        "relationship": "delivery-abstraction",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 12887,
+          "end": 14048
+        },
+        "quoteSha256": "2d852545eb9b8fb0f42af71e81107b4fd807b0436f6aeab21bf4606f815ec85a",
+        "quoteCharacters": 1161
+      },
+      {
+        "path": "/paths/2/upgrades/4/name",
+        "status": "adapted",
+        "sourceMechanic": "Brook's Soul King performance and music-based audience influence",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 11693,
+          "end": 12887
+        },
+        "quoteSha256": "7311ae622cdc2a8548e3e3e9fe5c5b27b23109516c5594aea819f9a3a14d668c",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/2/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Brook's music-based performance influence",
+        "relationship": "numerical-tuning",
+        "sourceId": "brook-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+        "sourceRange": {
+          "start": 11693,
+          "end": 12887
+        },
+        "quoteSha256": "7311ae622cdc2a8548e3e3e9fe5c5b27b23109516c5594aea819f9a3a14d668c",
+        "quoteCharacters": 1194
+      }
+    ],
+    "representation": "Compact public receipt. Complete source passages and detailed model review remain in the private production result."
+  },
+  "fidelityAttempts": [
+    {
+      "reportValid": true
+    }
+  ],
+  "metadata": {
+    "modelCalls": 3,
+    "repairs": 0,
+    "elapsedMs": 420349,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 19251,
+          "outputTokens": 4749,
+          "totalTokens": 24000
+        },
+        "outputSha256": "dade000d7df0f4843b08eb0106129fe55883e6ecd269d16cd701253771016fc9"
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "dade000d7df0f4843b08eb0106129fe55883e6ecd269d16cd701253771016fc9",
+            "sources": [
+              {
+                "sourceId": "brook-fan-abilities-1",
+                "sha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+                "sourceCharacters": 62192,
+                "visibleCharacters": 62192,
+                "complete": true
+              },
+              {
+                "sourceId": "brook-official-profile",
+                "sha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+                "sourceCharacters": 937,
+                "visibleCharacters": 937,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 40938,
+          "outputTokens": 5699,
+          "totalTokens": 46637
+        },
+        "outputSha256": "182570111870a865e50da184981ddfb44cdcab9b8f36aa1485be5133c8758931"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "dade000d7df0f4843b08eb0106129fe55883e6ecd269d16cd701253771016fc9",
+            "sources": [
+              {
+                "sourceId": "brook-fan-abilities-1",
+                "sha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+                "sourceCharacters": 62192,
+                "visibleCharacters": 62192,
+                "complete": true
+              },
+              {
+                "sourceId": "brook-official-profile",
+                "sha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+                "sourceCharacters": 937,
+                "visibleCharacters": 937,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 47872,
+          "outputTokens": 12483,
+          "totalTokens": 60355
+        },
+        "outputSha256": "d90baddfc22af072c46bd0cbf20d483569cb962040f7bc59535338c751d5186b"
+      }
+    ]
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-09T18:50:32.879Z",
+        "completed": true,
+        "inputTokenUpperBound": 74501,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T18:52:00.562Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 19251,
+          "outputTokens": 4749,
+          "totalTokens": 24000
+        },
+        "outputSha256": "dade000d7df0f4843b08eb0106129fe55883e6ecd269d16cd701253771016fc9",
+        "knownInputTokens": 19251,
+        "knownOutputTokens": 4749,
+        "knownStandardApiEquivalentUsd": 0.009549,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "draft",
+        "startedAt": "2026-09-09T18:52:00.596Z",
+        "completed": true,
+        "inputTokenUpperBound": 165040,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T18:53:45.042Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 40938,
+          "outputTokens": 5699,
+          "totalTokens": 46637
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "dade000d7df0f4843b08eb0106129fe55883e6ecd269d16cd701253771016fc9",
+            "sources": [
+              {
+                "sourceId": "brook-fan-abilities-1",
+                "sha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+                "sourceCharacters": 62192,
+                "visibleCharacters": 62192,
+                "complete": true
+              },
+              {
+                "sourceId": "brook-official-profile",
+                "sha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+                "sourceCharacters": 937,
+                "visibleCharacters": 937,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "182570111870a865e50da184981ddfb44cdcab9b8f36aa1485be5133c8758931",
+        "knownInputTokens": 40938,
+        "knownOutputTokens": 5699,
+        "knownStandardApiEquivalentUsd": 0.015026400000000002,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 3,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-09T18:53:46.458Z",
+        "completed": true,
+        "inputTokenUpperBound": 183326,
+        "maxOutputTokens": 10320,
+        "endedAt": "2026-09-09T18:57:33.044Z",
+        "model": "gpt-5.6-luna",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 47872,
+          "outputTokens": 12483,
+          "totalTokens": 60355
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "dade000d7df0f4843b08eb0106129fe55883e6ecd269d16cd701253771016fc9",
+            "sources": [
+              {
+                "sourceId": "brook-fan-abilities-1",
+                "sha256": "6f1b41bf22e3c13ff8f5eacf9aed00769dc0d678cf244ce201ebca5b22f41e94",
+                "sourceCharacters": 62192,
+                "visibleCharacters": 62192,
+                "complete": true
+              },
+              {
+                "sourceId": "brook-official-profile",
+                "sha256": "944e3ff44b42856f0ca764ed21657716ef9d12a1e92d30567ae64643036e81d1",
+                "sourceCharacters": 937,
+                "visibleCharacters": 937,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "d90baddfc22af072c46bd0cbf20d483569cb962040f7bc59535338c751d5186b",
+        "knownInputTokens": 47872,
+        "knownOutputTokens": 12483,
+        "knownStandardApiEquivalentUsd": 0.024554,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 0.049129400000000004,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-default-c01/brook"
+}

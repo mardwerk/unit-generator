@@ -1,0 +1,15 @@
+{
+  "subject": "Jinbe",
+  "kind": "character",
+  "continuity": "One Piece manga through the end of Wano Country arc",
+  "intent": "Preserve a whale-shark fish-man, helmsman and Fish-Man Karate/Jujutsu master, using water and martial arts. Distinguish his martial arts from a Devil Fruit. Build a playable kit with at least 15 meaningful purchasable upgrades that each change executable behavior. Select a coherent subset instead of claiming exhaustive coverage. Disclose omitted defining abilities and any source limits. Treat numerical damage, costs, cooldowns, range, targeting and unlock progression as explicit gameplay adaptations. Do not invent character powers to meet upgrade count; deepen sourced abilities where possible.",
+  "context": {
+    "evidencePurpose": "Curated development demonstration, available to generation and review; not an unseen benchmark.",
+    "reviewScope": "Selected manga continuity through end of Wano; exclude later manga, anime-only and game-only facts from this request."
+  },
+  "sources": [
+    "https://onepiece.fandom.com/wiki/Jinbe/Abilities_and_Powers",
+    "https://one-piece.com/character/Jinbe/index.html",
+    "https://one-piece.com/story/land_of_wano2/index.html"
+  ]
+}

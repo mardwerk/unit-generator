@@ -1,0 +1,227 @@
+{
+  "validation": [],
+  "selection": [
+    {
+      "tiers": [
+        0,
+        0,
+        0
+      ],
+      "technique": null
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        0
+      ],
+      "technique": "soshark"
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        0
+      ],
+      "technique": "uzushio-ipponzeoi"
+    },
+    {
+      "tiers": [
+        3,
+        0,
+        0
+      ],
+      "technique": "karakusagawara-seiken"
+    },
+    {
+      "tiers": [
+        4,
+        0,
+        0
+      ],
+      "technique": "karakusagawara-seiken"
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        0
+      ],
+      "technique": "buraikan"
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        0
+      ],
+      "technique": null
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        0
+      ],
+      "technique": "soshark"
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        0
+      ],
+      "technique": "uzushio-ipponzeoi"
+    },
+    {
+      "tiers": [
+        0,
+        3,
+        0
+      ],
+      "technique": "karakusagawara-seiken"
+    },
+    {
+      "tiers": [
+        0,
+        4,
+        0
+      ],
+      "technique": "karakusagawara-seiken"
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        0
+      ],
+      "technique": "buraikan"
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        0
+      ],
+      "technique": null
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        1
+      ],
+      "technique": "soshark"
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        2
+      ],
+      "technique": "uzushio-ipponzeoi"
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        3
+      ],
+      "technique": "karakusagawara-seiken"
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        4
+      ],
+      "technique": "karakusagawara-seiken"
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        5
+      ],
+      "technique": "buraikan"
+    }
+  ],
+  "controls": [
+    {
+      "action": "soshark",
+      "slowable": true,
+      "slow": 0.5,
+      "damage": 76,
+      "stamina": 61.75
+    },
+    {
+      "action": "soshark",
+      "slowable": false,
+      "slow": 0,
+      "damage": 76,
+      "stamina": 61.75
+    },
+    {
+      "action": "uzushio",
+      "displaceable": true,
+      "pathPosition": 0,
+      "damage": 88
+    },
+    {
+      "action": "uzushio",
+      "displaceable": false,
+      "pathPosition": 3,
+      "damage": 88
+    },
+    {
+      "action": "soshark-armor",
+      "build": "withoutBodyWater",
+      "damage": 7.600000000000364
+    },
+    {
+      "action": "soshark-armor",
+      "build": "withBodyWater",
+      "damage": 17.860000000000582
+    }
+  ],
+  "projectiles": [
+    {
+      "moving": false,
+      "impactAt": 1.0166666666666666,
+      "damage": [
+        {
+          "id": "enemy",
+          "damage": 68
+        },
+        {
+          "id": "collateral",
+          "damage": 68
+        }
+      ],
+      "collateralBeyondAcquisition": true
+    },
+    {
+      "moving": true,
+      "impactAt": 1.0166666666666666,
+      "damage": [
+        {
+          "id": "enemy",
+          "damage": 0
+        },
+        {
+          "id": "collateral",
+          "damage": 0
+        }
+      ],
+      "collateralBeyondAcquisition": true
+    }
+  ],
+  "lifecycle": {
+    "cost": 40,
+    "cooldown": 10,
+    "purchaseRefill": false,
+    "recoveryAfterOneSecond": 65,
+    "resetStamina": 100,
+    "cancelBeforeCommitSpendsNothing": true
+  }
+}

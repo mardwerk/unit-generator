@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="en">
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Throwaway prototype: editing a retained result</title>
+  <style>
+    body {
+      font:
+        16px/1.5 system-ui,
+        sans-serif;
+      max-width: 980px;
+      margin: 32px auto;
+      padding: 0 20px;
+      color: #203038;
+      background: #f5f7f8;
+    }
+    h1 {
+      font-size: 27px;
+    }
+    h2 {
+      font-size: 19px;
+    }
+    .panel {
+      background: white;
+      border: 1px solid #cad4d9;
+      border-radius: 8px;
+      padding: 20px;
+      margin: 18px 0;
+    }
+    button,
+    select {
+      font: inherit;
+      border: 1px solid #a8bcc8;
+      border-radius: 5px;
+      padding: 8px 12px;
+      background: white;
+      margin: 4px;
+      cursor: pointer;
+    }
+    button[aria-selected='true'] {
+      background: #d9edf9;
+      border-color: #317394;
+    }
+    button:disabled {
+      opacity: 0.5;
+      cursor: default;
+    }
+    dl {
+      display: grid;
+      grid-template-columns: 190px 1fr;
+      gap: 8px;
+      margin: 0;
+    }
+    dt {
+      font-weight: 600;
+    }
+    dd {
+      margin: 0;
+      overflow-wrap: anywhere;
+    }
+    .note {
+      color: #45616e;
+    }
+    pre {
+      white-space: pre-wrap;
+      overflow-wrap: anywhere;
+      font-size: 13px;
+    }
+    .tag {
+      color: #9b4222;
+      font-weight: 650;
+    }
+    #steps button {
+      display: block;
+      text-align: left;
+    }
+    .choice {
+      border-left: 4px solid #317394;
+      padding-left: 14px;
+    }
+  </style>
+  <h1>Can a generated result still be checked after editing?</h1>
+  <p class="tag">Throwaway logic prototype. In-memory only. Open this HTML file directly.</p>
+  <p>
+    A valid generation returned 4,240,558 bytes. Checking that result sent 4,250,118 bytes to a
+    route limited to 4 MiB and failed. This demo compares that route limit with a separate 40 MiB
+    edit limit. It also shows why an edit made during a check must remain unvalidated when the
+    earlier check finishes.
+  </p>
+  <div class="choice">
+    <label
+      >Request limit model
+      <select id="policy">
+        <option value="current">Current: 4 MiB for every request</option>
+        <option value="proposed">Proposed: 40 MiB for checking retained results</option>
+      </select></label
+    >
+    <p class="note">
+      The generation limit remains 4 MiB. The prototype keeps all source evidence; transport limits
+      do not change whether a unit passes its rules.
+    </p>
+  </div>
+  <section class="panel">
+    <h2>Current state</h2>
+    <dl id="state"></dl>
+    <details>
+      <summary>Full state</summary>
+      <pre id="raw"></pre>
+    </details>
+  </section>
+  <section class="panel">
+    <h2>Free play</h2>
+    <div id="free"></div>
+  </section>
+  <section class="panel">
+    <h2>Guided walkthroughs</h2>
+    <div id="tabs" role="tablist"></div>
+    <p id="scenario"></p>
+    <div id="steps"></div>
+  </section>
+  <script>
+    const initial = () => ({
+      candidateRevision: 0,
+      checkedRevision: null,
+      pendingRevision: null,
+      evidenceBytes: 0,
+      checkRequestBytes: 0,
+      validation: 'not checked',
+      sourceReview: 'not required for original concept',
+      error: '',
+      lastExport: null
+    });
+    function transition(previous, action, policy) {
+      const state = { ...previous };
+      if (action === 'reset') return initial();
+      if (action === 'small' || action === 'large')
+        return {
+          ...initial(),
+          candidateRevision: 1,
+          checkedRevision: 1,
+          validation: 'passed',
+          evidenceBytes: action === 'large' ? 4194304 : 2000,
+          checkRequestBytes: action === 'large' ? 4250118 : 12000
+        };
+      if (action === 'edit' && state.candidateRevision) {
+        state.candidateRevision++;
+        state.lastExport = null;
+        state.error = '';
+      }
+      if (action === 'check' && state.candidateRevision) {
+        state.error = '';
+        if (state.checkRequestBytes > (policy === 'proposed' ? 40 : 4) * 1024 * 1024) {
+          state.error = 'HTTP 413: checking this generated result exceeds the request limit.';
+          state.pendingRevision = null;
+        } else state.pendingRevision = state.candidateRevision;
+      }
+      if (action === 'complete' && state.pendingRevision !== null) {
+        state.checkedRevision = state.pendingRevision;
+        state.pendingRevision = null;
+        state.validation = 'passed';
+      }
+      if (action === 'fail' && state.pendingRevision !== null) {
+        state.checkedRevision = state.pendingRevision;
+        state.pendingRevision = null;
+        state.validation = 'failed';
+        state.error = 'A declared rule failed. The candidate and evidence remain available.';
+      }
+      if (action === 'export' && state.candidateRevision)
+        state.lastExport = {
+          kind:
+            state.candidateRevision === state.checkedRevision && state.validation === 'passed'
+              ? 'checked result'
+              : 'unvalidated or failed candidate',
+          candidateRevision: state.candidateRevision,
+          evidenceBytes: state.evidenceBytes,
+          hasCurrentValidation: state.candidateRevision === state.checkedRevision,
+          hasStaleQualification: false
+        };
+      return state;
+    }
+    const labels = {
+      small: 'Generate a small result',
+      large: 'Generate the large retained-source result',
+      edit: 'Edit the candidate',
+      check: 'Start checking this candidate',
+      complete: 'Finish pending check successfully',
+      fail: 'Finish pending check with a rule failure',
+      export: 'Export the current candidate',
+      reset: 'Reset'
+    };
+    const scenarios = [
+      {
+        title: 'Large result',
+        text: 'Generation succeeds, then checking an edit exceeds the current route limit. Select the proposed limit and repeat to see the same evidence survive a successful check.',
+        actions: ['large', 'edit', 'check', 'complete', 'export']
+      },
+      {
+        title: 'Edit during check',
+        text: 'Start checking revision 2, then create revision 3 before that check finishes. The completed report belongs to revision 2. Export revision 3 without carrying a stale passed report.',
+        actions: ['small', 'edit', 'check', 'edit', 'complete', 'export']
+      },
+      {
+        title: 'Failed rules',
+        text: 'A request can fit the transport limit and still fail a game rule. Keep the candidate and its evidence exportable, with failed checks visible.',
+        actions: ['small', 'edit', 'check', 'fail', 'export']
+      }
+    ];
+    let state = initial(),
+      selected = 0,
+      step = 0;
+    const policy = document.querySelector('#policy');
+    function act(action) {
+      state = transition(state, action, policy.value);
+      render();
+    }
+    function selectScenario(index) {
+      selected = index;
+      step = 0;
+      state = initial();
+      render();
+    }
+    function render() {
+      const current = state.candidateRevision === state.checkedRevision;
+      const fields = {
+        'Candidate revision': state.candidateRevision || 'No candidate',
+        'Checked revision': state.checkedRevision ?? 'None',
+        'Check in progress': state.pendingRevision ?? 'None',
+        'Current candidate checks': current ? state.validation : 'Unvalidated',
+        'Retained evidence': state.evidenceBytes.toLocaleString() + ' bytes',
+        'Check request size': state.checkRequestBytes.toLocaleString() + ' bytes',
+        'Source review': state.sourceReview,
+        'Last error': state.error || 'None',
+        'Last export': state.lastExport
+          ? state.lastExport.kind + ', revision ' + state.lastExport.candidateRevision
+          : 'None'
+      };
+      const panel = document.querySelector('#state');
+      panel.replaceChildren();
+      for (const [label, value] of Object.entries(fields)) {
+        const dt = document.createElement('dt'),
+          dd = document.createElement('dd');
+        dt.textContent = label;
+        dd.textContent = value;
+        panel.append(dt, dd);
+      }
+      document.querySelector('#raw').textContent = JSON.stringify(
+        { ...state, requestLimitMiB: policy.value === 'proposed' ? 40 : 4 },
+        null,
+        2
+      );
+      const tabs = document.querySelector('#tabs');
+      tabs.replaceChildren();
+      scenarios.forEach((s, i) => {
+        const b = document.createElement('button');
+        b.textContent = s.title;
+        b.role = 'tab';
+        b.setAttribute('aria-selected', i === selected);
+        b.onclick = () => selectScenario(i);
+        tabs.append(b);
+      });
+      document.querySelector('#scenario').textContent = scenarios[selected].text;
+      const steps = document.querySelector('#steps');
+      steps.replaceChildren();
+      scenarios[selected].actions.forEach((a, i) => {
+        const b = document.createElement('button');
+        b.textContent = i + 1 + '. ' + labels[a] + (i < step ? ' ✓' : '');
+        b.disabled = i !== step;
+        b.onclick = () => {
+          step++;
+          act(a);
+        };
+        steps.append(b);
+      });
+    }
+    for (const action of Object.keys(labels)) {
+      const b = document.createElement('button');
+      b.textContent = labels[action];
+      b.onclick = () => act(action);
+      document.querySelector('#free').append(b);
+    }
+    policy.onchange = render;
+    render();
+  </script>
+</html>

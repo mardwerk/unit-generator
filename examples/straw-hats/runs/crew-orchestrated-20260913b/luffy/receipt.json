@@ -1,0 +1,185 @@
+{
+  "id": "luffy",
+  "operation": "generation",
+  "status": "failed",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "1ee33fc7bc6ca979f9d20c32f9368dfd276d8f453ed8f0be15ed26d17f03dce9",
+  "unitSha256": null,
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "600c00487b3edecefeba05e31f24f03f81948740f15dc3e223a85d126a7f82be",
+    "implementationVersion": "manga-mayhem/0.1.2",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Generate a complete executable Manga Mayhem tower-defense unit for the Straw Hat roster. Role: captain and flexible carry. Preserve manga/anime traits, named techniques, personality and Wano-era continuity. Provide explicit base stats, targeting, attacks, abilities, resources, statuses, forms, lifecycle rules, and 15 concrete purchasable upgrades across 3 paths with exact costs and operations. Use game numbers only as declared adaptations. Do not invent powers to fill slots; deepen sourced abilities and disclose omissions. Respect the crew balance rules.",
+    "context": {
+      "roster": "straw-hats",
+      "rosterFile": "roster.json",
+      "researchRule": "Use only fresh research returned for this request; do not rely on prior generated candidates."
+    },
+    "sources": [
+      "https://one-piece.com/character/",
+      "https://onepiece.fandom.com/wiki/Monkey_D._Luffy/Abilities_and_Powers"
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "failed",
+      "subject": "Monkey D. Luffy",
+      "reused": false,
+      "grounding": "ungrounded",
+      "gaps": [
+        "Supplied knowledge uses a different continuity. Supply matching knowledge or research the requested version."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "702afb5ce0c9f5f0763489b4",
+          "sha256": "4e2f60a2843705f67f39d10d0b76a97d802f1ffb80063ccc7388c86079ad9329",
+          "sourceCharacters": 684,
+          "visibleCharacters": 684,
+          "complete": true
+        }
+      ],
+      "error": {
+        "stage": "research",
+        "code": "continuity-mismatch",
+        "message": "Supplied knowledge uses a different continuity. Supply matching knowledge or research the requested version."
+      },
+      "sources": [
+        {
+          "id": "702afb5ce0c9f5f0763489b4",
+          "url": "https://one-piece.com/character/",
+          "title": "キャラクター検索 | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 684,
+          "sha256": "4e2f60a2843705f67f39d10d0b76a97d802f1ffb80063ccc7388c86079ad9329"
+        },
+        {
+          "id": "de42a262bddf7ce3606250d5",
+          "url": "https://onepiece.fandom.com/wiki/Monkey_D._Luffy/Abilities_and_Powers",
+          "title": "https://onepiece.fandom.com/wiki/Monkey_D._Luffy/Abilities_and_Powers",
+          "origin": "retrieved",
+          "status": "failed",
+          "truncated": false,
+          "omissions": [],
+          "error": "Source reading timed out or was cancelled.",
+          "characters": 0,
+          "sha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Monkey D. Luffy",
+        "identity": {
+          "status": "unresolved",
+          "name": "Monkey D. Luffy",
+          "continuity": "unresolved",
+          "explanation": "The supplied source is a character-search listing, not a main character page. It includes an entry named モンキー・D・ルフィ, corresponding to the requested character, but a search hit does not verify identity and continuity. The listing does not establish the requested scope, One Piece manga through the end of Wano Country arc."
+        },
+        "claimCount": 4,
+        "knowledgeSha256": "6dc2024806360d20adecca81da9276932705cc46082e94b7d0a80f95be6cc429"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "system": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "metadata": {
+    "modelCalls": 1,
+    "repairs": 0,
+    "elapsedMs": 32929,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 1738,
+          "outputTokens": 733,
+          "totalTokens": 2471
+        },
+        "outputSha256": "6dc2024806360d20adecca81da9276932705cc46082e94b7d0a80f95be6cc429"
+      }
+    ]
+  },
+  "error": {
+    "stage": "research",
+    "code": "continuity-mismatch",
+    "message": "Supplied knowledge uses a different continuity. Supply matching knowledge or research the requested version."
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-13T09:47:51.745Z",
+        "completed": true,
+        "inputTokenUpperBound": 9671,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T09:48:16.132Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 1738,
+          "outputTokens": 733,
+          "totalTokens": 2471
+        },
+        "outputSha256": "6dc2024806360d20adecca81da9276932705cc46082e94b7d0a80f95be6cc429",
+        "knownInputTokens": 1738,
+        "knownOutputTokens": 733,
+        "knownStandardApiEquivalentUsd": 0.05403,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 0.05403,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-orchestrated-20260913b/luffy"
+}

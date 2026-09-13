@@ -1,0 +1,2060 @@
+{
+  "id": "luffy",
+  "status": "failed",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "default",
+    "label": "Default",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "4d7c80047abb497f6b36baab1ac5b1920ac080a0fb0953711816f0a1291c7171",
+  "unitSha256": "a2c8b84003562cae46e1710dec31cbe31a133f42529aee01f34f40b9a80a0f51",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "9eaf07d394032af0b2d71a8368c64132c76bf602ad6522ef5c7de132c3c716ae",
+    "implementationVersion": "manga-mayhem/0.1.2"
+  },
+  "input": {
+    "subject": "Monkey D. Luffy",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Preserve rubber-body stretching combat, Haki, and distinct Gear transformations, including Gear 5. Represent defining attacks and tradeoffs with source-supported differences. Build a playable kit with at least 15 meaningful purchasable upgrades that each change executable behavior. Select a coherent subset instead of claiming exhaustive coverage. Disclose omitted defining abilities and any source limits. Treat numerical damage, costs, cooldowns, range, targeting and unlock progression as explicit gameplay adaptations. Do not invent character powers to meet upgrade count; deepen sourced abilities where possible.",
+    "context": {
+      "evidencePurpose": "Curated development demonstration, available to generation and review; not an unseen benchmark.",
+      "reviewScope": "Selected manga continuity through end of Wano; exclude later manga, anime-only and game-only facts from this request."
+    },
+    "sources": [
+      {
+        "url": "https://onepiece.fandom.com/wiki/Monkey_D._Luffy/Abilities_and_Powers",
+        "title": "Monkey D. Luffy/Abilities and Powers | One Piece Wiki | Fandom",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+          "Secondary fan-edited evidence captured 2026-09-09T17:43:11.873Z; may include later manga, anime, and game facts outside the requested continuity."
+        ],
+        "id": "luffy-fan-abilities-1",
+        "origin": "retrieved",
+        "characters": 129355,
+        "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f"
+      },
+      {
+        "id": "luffy-official-profile",
+        "title": "Monkey D. Luffy | ONE PIECE.com official character profile",
+        "url": "https://one-piece.com/character/luffy/index.html",
+        "origin": "retrieved",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+          "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+          "Retrieved 2026-09-09T17:42:03.135616+00:00."
+        ],
+        "characters": 1122,
+        "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f"
+      },
+      {
+        "id": "luffy-official-wano",
+        "title": "ONE PIECE.com official Wano story synopsis",
+        "url": "https://one-piece.com/story/land_of_wano2/index.html",
+        "origin": "retrieved",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Navigation outside the story body omitted; images not acquired.",
+          "Official combined manga/anime synopsis, not manga panels directly inspected. Retrieved 2026-09-09."
+        ],
+        "characters": 1654,
+        "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9"
+      }
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Monkey D. Luffy",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The requested gameplay kit, including at least 15 purchasable upgrades, is not represented by the supplied output schema and is not character evidence. No upgrade tree is asserted here.",
+        "The supplied pages do not define gameplay damage, costs, cooldowns, ranges, targeting rules, resource systems, or unlock progression. Those would be explicit gameplay adaptations rather than source-backed facts.",
+        "The supplied pages do not provide a complete catalog of every named Luffy technique, and linked ability subpages are not supplied. The record therefore selects a coherent subset of techniques and forms.",
+        "The term “Gear 1” is not explicitly supported in the supplied content; the page labels the ordinary state only as Luffy's base form. It is excluded as an unsupported named ability.",
+        "The supplied ability page contains material from after Wano, including Egghead and Elbaph events, plus later supplementary claims. Those facts are excluded from the selected continuity.",
+        "The supplied ability page includes non-canon, filler, and game-related material. Non-canon archery and fireball demonstrations for Nightmare Luffy, the filler return of Afro Luffy, and other non-canon entries are excluded.",
+        "The supplied pages do not specify a complete Gear 5 stamina model, duration, or post-use weakness. No numerical Gear 5 tradeoff is inferred.",
+        "Seastone suppression is evidenced, but the supplied pages do not establish a complete general weakness profile such as every effect of seawater. Missing weaknesses remain unresolved rather than negated.",
+        "The official profile contains a body-text reference to a 1,500,000,000-beri bounty while its profile heading and the Wano synopsis support 3,000,000,000 at the selected endpoint. The end-of-Wano value is used, and the outdated body-text figure is not treated as current.",
+        "The supplied evidence does not establish that the broad statement that Luffy can bring anything he imagines into reality applies within the requested manga endpoint; that later supplementary claim is excluded."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "luffy-fan-abilities-1",
+          "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+          "sourceCharacters": 129355,
+          "visibleCharacters": 129355,
+          "complete": true
+        },
+        {
+          "sourceId": "luffy-official-profile",
+          "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f",
+          "sourceCharacters": 1122,
+          "visibleCharacters": 1122,
+          "complete": true
+        },
+        {
+          "sourceId": "luffy-official-wano",
+          "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+          "sourceCharacters": 1654,
+          "visibleCharacters": 1654,
+          "complete": true
+        }
+      ],
+      "knowledge": {
+        "subject": "Monkey D. Luffy",
+        "identity": {
+          "status": "resolved",
+          "name": "Monkey D. Luffy",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied character profile and Wano synopsis identify the requested Monkey D. Luffy and support the specified manga endpoint. Later Egghead and Elbaph material appearing in one supplied ability page is excluded from this record."
+        },
+        "claims": [
+          {
+            "text": "Monkey D. Luffy, also known as Straw Hat Luffy, is a 19-year-old pirate from Foosha Village in the East Blue, captain of the Straw Hat Pirates, and pursues the goal of becoming Pirate King.",
+            "sourceIds": [
+              "luffy-official-profile",
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "By the end of the Wano Country arc, Luffy defeats Kaidou, receives a 3,000,000,000-beri bounty, and is recognized as one of the Four Emperors.",
+            "sourceIds": [
+              "luffy-official-wano",
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy's defining combat style is an inventive elastic brawling style that combines stretching, bouncing, recoil, body inflation, acrobatics, and rapidly improvised tactics with Haki.",
+            "sourceIds": [
+              "luffy-official-profile",
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "The supplied pages identify Luffy's Devil Fruit first as the Gomu Gomu no Mi and reveal during Wano that it is actually the Hito Hito no Mi, Model: Nika, a Mythical Zoan with a rubber-bodied physiology.",
+            "sourceIds": [
+              "luffy-official-profile",
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy can stretch, bounce, bend, twist, and inflate any part of his body. He uses extended limbs for long-range punches and kicks, can grab distant locations to pull himself toward them, and can spin or twist body parts together to increase attack power.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "His rubber body is immune to lightning and to blunt attacks that are not imbued with Armament Haki. Blunt projectiles such as bullets and cannonballs can bounce back toward their source, and an inflated belly improves his defense and rebound capability.",
+            "sourceIds": [
+              "luffy-official-profile",
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy developed named Gear techniques by using his rubber anatomy to increase blood flow or enlarge bones and muscles, and later learned to combine the Gears with Haki.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Gear 2 increases Luffy's speed and physical performance by accelerating blood flow through his rubber vessels and organs. After the timeskip he can activate it in selected body parts rather than only across his whole body.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Red Hawk is a Gear 2 attack combining Haki and accelerated movement; the source describes the fist as igniting in a flame-like shroud and records it as strong enough in Wano to make Kaidou evade it.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Gear 3 inflates the bones of a selected body part by blowing air into them, producing gigantic limbs capable of large-scale destructive strikes. Its pre-timeskip shrinking drawback no longer occurs after Luffy's two years of training.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Gear 4 inflates Luffy's muscular structure and coats his body with Armament Haki. The supplied page identifies three forms: Boundman, Tankman, and Snakeman.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Boundman makes Luffy bounce like a rubber ball, increases offensive and defensive power, and allows him to retract his limbs into his body before firing them outward with altered attack directions.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Tankman makes Luffy much larger and more defensive. It sacrifices speed and lets him weaponize the recoil from attacks that strike his body to blast opponents away.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Snakeman is a slimmer Gear 4 form focused on speed rather than defense. It lets Luffy rapidly change the direction of his attacks and assault an opponent from multiple angles.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Gear 4 has explicit tradeoffs: after its Haki supply is exhausted, Luffy cannot use Haki for about ten minutes while it recharges, and repeated use in a short period strains his body.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Before the timeskip, Gear 2 rapidly depleted Luffy's energy and threatened his lifespan; the supplied page says these effects were substantially reduced in the present-day portion of the selected continuity.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Gear 5 is the awakened form of Luffy's Devil Fruit, first manifested during the climax of the Raid on Onigashima after his apparent death and third defeat by Kaidou.",
+            "sourceIds": [
+              "luffy-official-wano",
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Gear 5 grants Luffy increased physical power and exceptional freedom in how he shapes and uses his body. The supplied Wano synopsis characterizes the form as a new, freedom-based power.",
+            "sourceIds": [
+              "luffy-official-wano",
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "In Gear 5, Luffy can alter the properties of his surroundings by giving them rubber-like qualities. The supplied page describes him bouncing Kaidou's Bolo Breath back and stretching touched objects, living beings, and even lightning.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "The supplied ability page attributes Zoan-type enhancements to the awakened form, including greater strength, speed, and a faster recovery rate.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy can use all three types of Haki: Supreme King Haki, Observation Haki, and Armament Haki.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy's Supreme King Haki can knock out large groups of weaker opponents and can be directed at selected targets without affecting nearby civilians or allies.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "During the Wano arc, Luffy learns to infuse his arms, legs, and body with Supreme King Haki, dramatically increasing attack power. The source associates the advanced application with black lightning and initially describes his control as crude and clumsy.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy's advanced Supreme King Haki clashes with Kaidou eventually split the sky, an effect associated in the supplied page with clashes between exceptionally powerful Supreme King Haki users.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Observation Haki lets Luffy sense presence, emotion, and intent, improving his ability to evade attacks and anticipate hostile actions.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "After fighting Charlotte Katakuri, Luffy develops the advanced Observation Haki application that allows him to see a short distance into the future. By his imprisonment in Udon, the source describes this ability as fluid and usable several seconds before attacks occur.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Armament Haki increases Luffy's offense and defense and lets him touch and damage Logia or similarly intangible bodies. Gear 4 relies on Armament Haki as part of its coating.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "In Udon, Luffy advances Armament Haki into emission and Internal Destruction, channeling Haki into a target so that it can damage or destroy the target from the inside out.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy's advanced Armament Haki initially damaged Kaidou only superficially, but combining it with Supreme King Haki infusion made his attacks powerful enough to contribute to his final victory over Kaidou.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy has exceptional physical strength, speed, agility, durability, endurance, and vitality even without relying on his Devil Fruit or Haki.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy can remain conscious and continue fighting after extreme punishment, including prolonged battles, severe wounds, poison exposure, and attacks that previously defeated him instantly.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "After surviving Magellan's poison, Luffy developed resistance to most poisons and was unaffected by Caesar Clown's poisonous gases. This resistance is not absolute: armored stonefish poison put him into a coma and required treatment.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy can rapidly recover from wounds and exhaustion by eating very large quantities of food, sleeping, or both. The supplied page also records that he regrew a missing tooth by drinking milk.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Seastone substantially weakens Luffy and prevents him from using his Devil Fruit powers, as demonstrated by his imprisonment in Seastone handcuffs in Udon.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy's battle tactics rely heavily on instinct and creativity: supplied examples include using liquid against Crocodile, bouncing attacks off walls to defeat Enel's prediction, eating Cracker's biscuit creations, and using enemy-made wax as armor or weapons.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Atama Buso is a named Armament Hardening technique that coats Luffy's forehead, including when preparing a Gomu Gomu no Kane.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Gear 2 Buso is a named technique that coats Luffy's fist with Armament Haki while he is using Gear 2; the source associates it with Red Hawk.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Gomu Gomu no Red Roc is a named attack using Luffy's enhanced Gear 3 and advanced Haki, and the supplied page records it damaging Kaidou during the Raid on Onigashima.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Gomu Gomu no Ogon Rifle is a named elastic attack that Luffy used to defeat Enel and ring the Golden Bell.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Gomu Gomu no Rifle is a named rotating elastic punch; the supplied page records Luffy and Oars using attacks with that name and describes Luffy's versions as gaining range and momentum from his rubber body.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Mizu Luffy is a situational form in which Luffy consumes and carries large amounts of water to counter Crocodile's sand body. In a later confrontation he uses his own blood as liquid for the same general purpose.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Afro Luffy is a one-off situational appearance from the Long Ring Long Land arc. Usopp claims the afro increases Luffy's power, but the supplied page notes that other characters reject or may merely humor that claim.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Nightmare Luffy is a temporary form created when Luffy receives one hundred shadows. It greatly increases his size and strength, lets him use the combined skills of the shadows, and briefly gives him sword-fighting ability from a swordsman's shadow.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Nightmare Luffy lasts only about ten minutes before the shadows return to their original owners.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          },
+          {
+            "text": "Luffy can hear the Voice of All Things. He can hear the Sea Kings and Zunesha, but the supplied page states that he was overwhelmed by Zunesha's voice and could not communicate with Zunesha as Momonosuke could.",
+            "sourceIds": [
+              "luffy-fan-abilities-1"
+            ],
+            "kind": "evidence"
+          }
+        ],
+        "gaps": [
+          "The requested gameplay kit, including at least 15 purchasable upgrades, is not represented by the supplied output schema and is not character evidence. No upgrade tree is asserted here.",
+          "The supplied pages do not define gameplay damage, costs, cooldowns, ranges, targeting rules, resource systems, or unlock progression. Those would be explicit gameplay adaptations rather than source-backed facts.",
+          "The supplied pages do not provide a complete catalog of every named Luffy technique, and linked ability subpages are not supplied. The record therefore selects a coherent subset of techniques and forms.",
+          "The term “Gear 1” is not explicitly supported in the supplied content; the page labels the ordinary state only as Luffy's base form. It is excluded as an unsupported named ability.",
+          "The supplied ability page contains material from after Wano, including Egghead and Elbaph events, plus later supplementary claims. Those facts are excluded from the selected continuity.",
+          "The supplied ability page includes non-canon, filler, and game-related material. Non-canon archery and fireball demonstrations for Nightmare Luffy, the filler return of Afro Luffy, and other non-canon entries are excluded.",
+          "The supplied pages do not specify a complete Gear 5 stamina model, duration, or post-use weakness. No numerical Gear 5 tradeoff is inferred.",
+          "Seastone suppression is evidenced, but the supplied pages do not establish a complete general weakness profile such as every effect of seawater. Missing weaknesses remain unresolved rather than negated.",
+          "The official profile contains a body-text reference to a 1,500,000,000-beri bounty while its profile heading and the Wano synopsis support 3,000,000,000 at the selected endpoint. The end-of-Wano value is used, and the outdated body-text figure is not treated as current.",
+          "The supplied evidence does not establish that the broad statement that Luffy can bring anything he imagines into reality applies within the requested manga endpoint; that later supplementary claim is excluded."
+        ]
+      },
+      "sources": [
+        {
+          "url": "https://onepiece.fandom.com/wiki/Monkey_D._Luffy/Abilities_and_Powers",
+          "title": "Monkey D. Luffy/Abilities and Powers | One Piece Wiki | Fandom",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+            "Secondary fan-edited evidence captured 2026-09-09T17:43:11.873Z; may include later manga, anime, and game facts outside the requested continuity."
+          ],
+          "id": "luffy-fan-abilities-1",
+          "origin": "supplied",
+          "characters": 129355,
+          "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f"
+        },
+        {
+          "id": "luffy-official-profile",
+          "title": "Monkey D. Luffy | ONE PIECE.com official character profile",
+          "url": "https://one-piece.com/character/luffy/index.html",
+          "origin": "supplied",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+            "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+            "Retrieved 2026-09-09T17:42:03.135616+00:00."
+          ],
+          "characters": 1122,
+          "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f"
+        },
+        {
+          "id": "luffy-official-wano",
+          "title": "ONE PIECE.com official Wano story synopsis",
+          "url": "https://one-piece.com/story/land_of_wano2/index.html",
+          "origin": "supplied",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Navigation outside the story body omitted; images not acquired.",
+            "Official combined manga/anime synopsis, not manga panels directly inspected. Retrieved 2026-09-09."
+          ],
+          "characters": 1654,
+          "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9"
+        }
+      ]
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "manga-contract",
+        "legal-progression",
+        "reachable-resource-and-techniques"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-provided",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "review-required",
+    "findings": [
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.9,
+          "damage": 48,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            1
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.668,
+          "damage": 48,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            2
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.78208,
+          "damage": 72,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 72,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            4
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            5
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 126,
+          "events": 10
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.9,
+          "damage": 60,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            1
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.668,
+          "damage": 60,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            2
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.78208,
+          "damage": 90,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            3
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 90,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            4
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 90,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            5
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 144,
+          "events": 10
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.6,
+          "damage": 90,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            1
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.3120000000000003,
+          "damage": 90,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            2
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.78208,
+          "damage": 90,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            3
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 90,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            4
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 90,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            5
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 144,
+          "events": 10
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 90,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            1
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.496,
+          "damage": 90,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            2
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 90,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 120,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            1
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.496,
+          "damage": 120,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            2
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 120,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 120,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            1
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.496,
+          "damage": 120,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            2
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 120,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.9,
+          "damage": 48,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            1
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.668,
+          "damage": 48,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            2
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.78208,
+          "damage": 72,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            3
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 72,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            4
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 72,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            5
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 126,
+          "events": 10
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            1,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.9,
+          "damage": 60,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            2,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.6,
+          "damage": 90,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            3,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 90,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            4,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 120,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            5,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 120,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.6,
+          "damage": 77.76,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            1
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.3120000000000003,
+          "damage": 77.76,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            2
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.78208,
+          "damage": 77.76,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            3
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 77.76,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            4
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 77.76,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            5
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 136.08,
+          "events": 10
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            1,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.6,
+          "damage": 97.20000000000002,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            2,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.6,
+          "damage": 97.20000000000002,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            3,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 97.20000000000002,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            4,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 129.60000000000002,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            5,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 129.60000000000002,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 77.76,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            1
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.496,
+          "damage": 77.76,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            2
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 77.76,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            1,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 97.20000000000002,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            2,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 97.20000000000002,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 77.76,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            1
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.496,
+          "damage": 77.76,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            2
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 77.76,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            1,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 97.20000000000002,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            2,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 97.20000000000002,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 87.09120000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            1
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.496,
+          "damage": 87.09120000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            2
+          ],
+          "distance": 3.75,
+          "durationSeconds": 2.93664,
+          "damage": 87.09120000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            1,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 108.864,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            2,
+            0
+          ],
+          "distance": 3.75,
+          "durationSeconds": 3.8,
+          "damage": 108.864,
+          "events": 6
+        }
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 64,
+      "evaluatedBuilds": 64,
+      "purchaseEdges": 111,
+      "probes": 686,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Description agreement is only checked for explicit executable contradictions.",
+        "Stationary probes do not establish game balance or live-game parity.",
+        "Full encounter balance, all moving geometries, and all purchase/switch/cooldown sequences."
+      ]
+    }
+  },
+  "metadata": {
+    "modelCalls": 4,
+    "repairs": 0,
+    "elapsedMs": 639307,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 38994,
+          "outputTokens": 7546,
+          "totalTokens": 46540
+        },
+        "outputSha256": "a035da7fd2f520c244194d3bc921d2178ba14589971303e222ee117479c9807c"
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "a035da7fd2f520c244194d3bc921d2178ba14589971303e222ee117479c9807c",
+            "sources": [
+              {
+                "sourceId": "luffy-fan-abilities-1",
+                "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                "sourceCharacters": 129355,
+                "visibleCharacters": 129355,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-profile",
+                "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f",
+                "sourceCharacters": 1122,
+                "visibleCharacters": 1122,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 59561,
+          "outputTokens": 7027,
+          "totalTokens": 66588
+        },
+        "outputSha256": "a2c8b84003562cae46e1710dec31cbe31a133f42529aee01f34f40b9a80a0f51"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "a035da7fd2f520c244194d3bc921d2178ba14589971303e222ee117479c9807c",
+            "sources": [
+              {
+                "sourceId": "luffy-fan-abilities-1",
+                "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                "sourceCharacters": 129355,
+                "visibleCharacters": 129355,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-profile",
+                "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f",
+                "sourceCharacters": 1122,
+                "visibleCharacters": 1122,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 88847,
+          "outputTokens": 13277,
+          "totalTokens": 102124
+        },
+        "outputSha256": "0f6405d8cff138fbd6e74f3c29c809c0cdca801ad62c782b2b02daacbe928944"
+      },
+      {
+        "stage": "fidelity-review-correction",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "a035da7fd2f520c244194d3bc921d2178ba14589971303e222ee117479c9807c",
+            "sources": [
+              {
+                "sourceId": "luffy-fan-abilities-1",
+                "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                "sourceCharacters": 129355,
+                "visibleCharacters": 129355,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-profile",
+                "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f",
+                "sourceCharacters": 1122,
+                "visibleCharacters": 1122,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 95023,
+          "outputTokens": 6951,
+          "totalTokens": 101974
+        },
+        "outputSha256": "4ccfdc1c75ad019a585df2a20466073a0b075008a2ddde4d43a04fb8b11bb0a3"
+      }
+    ]
+  },
+  "error": {
+    "stage": "fidelity-review",
+    "code": "fidelity-citation-invalid",
+    "message": "Quote for /paths/0/upgrades/0 was not present in source luffy-fan-abilities-1. Copy a contiguous passage exactly, in its original language, or mark the claim unresolved without a citation."
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-09T18:10:21.961Z",
+        "completed": true,
+        "inputTokenUpperBound": 148242,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T18:12:40.804Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 38994,
+          "outputTokens": 7546,
+          "totalTokens": 46540
+        },
+        "outputSha256": "a035da7fd2f520c244194d3bc921d2178ba14589971303e222ee117479c9807c",
+        "knownInputTokens": 38994,
+        "knownOutputTokens": 7546,
+        "knownStandardApiEquivalentUsd": 0.016854,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "draft",
+        "startedAt": "2026-09-09T18:12:40.899Z",
+        "completed": true,
+        "inputTokenUpperBound": 234001,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T18:14:49.465Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 59561,
+          "outputTokens": 7027,
+          "totalTokens": 66588
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "a035da7fd2f520c244194d3bc921d2178ba14589971303e222ee117479c9807c",
+            "sources": [
+              {
+                "sourceId": "luffy-fan-abilities-1",
+                "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                "sourceCharacters": 129355,
+                "visibleCharacters": 129355,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-profile",
+                "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f",
+                "sourceCharacters": 1122,
+                "visibleCharacters": 1122,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "a2c8b84003562cae46e1710dec31cbe31a133f42529aee01f34f40b9a80a0f51",
+        "knownInputTokens": 59561,
+        "knownOutputTokens": 7027,
+        "knownStandardApiEquivalentUsd": 0.020344599999999997,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 3,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-09T18:14:50.539Z",
+        "completed": true,
+        "inputTokenUpperBound": 336235,
+        "maxOutputTokens": 6000,
+        "endedAt": "2026-09-09T18:18:52.454Z",
+        "model": "gpt-5.6-luna",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 88847,
+          "outputTokens": 13277,
+          "totalTokens": 102124
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "a035da7fd2f520c244194d3bc921d2178ba14589971303e222ee117479c9807c",
+            "sources": [
+              {
+                "sourceId": "luffy-fan-abilities-1",
+                "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                "sourceCharacters": 129355,
+                "visibleCharacters": 129355,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-profile",
+                "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f",
+                "sourceCharacters": 1122,
+                "visibleCharacters": 1122,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "0f6405d8cff138fbd6e74f3c29c809c0cdca801ad62c782b2b02daacbe928944",
+        "knownInputTokens": 88847,
+        "knownOutputTokens": 13277,
+        "knownStandardApiEquivalentUsd": 0.033701800000000004,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 4,
+        "stage": "fidelity-review-correction",
+        "startedAt": "2026-09-09T18:18:52.573Z",
+        "completed": true,
+        "inputTokenUpperBound": 365140,
+        "maxOutputTokens": 6000,
+        "endedAt": "2026-09-09T18:21:01.154Z",
+        "model": "gpt-5.6-luna",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 95023,
+          "outputTokens": 6951,
+          "totalTokens": 101974
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "a035da7fd2f520c244194d3bc921d2178ba14589971303e222ee117479c9807c",
+            "sources": [
+              {
+                "sourceId": "luffy-fan-abilities-1",
+                "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                "sourceCharacters": 129355,
+                "visibleCharacters": 129355,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-profile",
+                "sha256": "4a34cfe06e5e39ec237d941050d155d7d3ce3e2639ec3949b8161f04720b438f",
+                "sourceCharacters": 1122,
+                "visibleCharacters": 1122,
+                "complete": true
+              },
+              {
+                "sourceId": "luffy-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "4ccfdc1c75ad019a585df2a20466073a0b075008a2ddde4d43a04fb8b11bb0a3",
+        "knownInputTokens": 95023,
+        "knownOutputTokens": 6951,
+        "knownStandardApiEquivalentUsd": 0.027345800000000003,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 0.0982462,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/luffy-default-01/luffy"
+}

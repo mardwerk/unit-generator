@@ -1,0 +1,344 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "nico-robin-wano",
+  "name": "Nico Robin",
+  "description": "Straw Hat archaeologist; One Piece manga through Wano. Hana Hana limbs blossom directly on targets or surfaces, never travel as bullets. Clutch uses replicated arms for joint locks; Gigante Fleur constructs a giant upper-body duplicate with serpentine grasping limbs; Demonio Fleur constructs a devil-like duplicate for a powerful finishing hold. Neither construction is a new Devil Fruit, awakening or asserted Haki; shaded skin does not establish Armament. All numbers, prices, tier unlocks, repeated cycles and bounded geometry are game adaptations, not canon measurements or measured balance. Highest purchased tier unlocks constructions at 3 and 5 on any path. Only one primary operates. Stamina abstracts giant-construction strain; ordinary limb replication is free. Area contacts represent separate simultaneous blossoms, not explosions, and obey reach, visibility, obstacle and cap checks. Purchased contactStun applies to every damaging direct attack, including Techniques, requiring weakWilled and stunnable. Stun-immune bosses must have stunnable=false or weakWilled=false; a boss tag alone does not block this legacy modifier. Shared onHit immuneTo boss rules separately block the authored statuses; slows also require slowable. Preserve caller-authored boss control immunity, including slowable=false where applicable. Invulnerability remains separate from armor and control. Omitted: reflected limb injuries, defensive interception, disarming enemy weapons, surface space/fire simulation, seawater/seastone exposure, independent body-clone scouting, eyes/ears reconnaissance, flight, ally transport, archaeology and Poneglyph interactions. These omissions grant no substitute economy, ally buffs or detection magic. Giganteum's ceiling-breaking/fire-suppression tactic and Delphinium's rolling displacement are omitted, not renamed damage bonuses. Enemy motion and ally injuries remain caller-supplied.",
+  "cost": 650,
+  "baseForm": "hana-hana",
+  "stunProtectionSeconds": 2,
+  "stamina": {
+    "unlockTier": 3,
+    "maximum": 100,
+    "entryMinimum": 30,
+    "recoveryPerSecond": 10,
+    "reentrySeconds": 3,
+    "techniqueCost": 30,
+    "techniqueCooldown": 12
+  },
+  "forms": [
+    {
+      "id": "hana-hana",
+      "name": "Hana Hana no Mi",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Seis Fleur: Clutch",
+        "delivery": "direct-contact",
+        "damage": 18,
+        "period": 1.8,
+        "windup": 0.3,
+        "reach": 36,
+        "shape": {
+          "kind": "area",
+          "radius": 8,
+          "cap": 3
+        },
+        "onHit": [
+          {
+            "id": "robin-grasp",
+            "kind": "slow",
+            "durationSeconds": 0.8,
+            "speedMultiplier": 0.65,
+            "combine": "strongest",
+            "requiresTags": [
+              "slowable"
+            ],
+            "immuneTo": [
+              "boss"
+            ],
+            "requiresDamage": true,
+            "stacking": {
+              "scope": "target",
+              "reapply": "refresh",
+              "maxStacks": 1
+            }
+          }
+        ]
+      },
+      "techniques": []
+    },
+    {
+      "id": "gigante-fleur",
+      "name": "Gigante Fleur",
+      "unlockTier": 3,
+      "drainPerSecond": 5,
+      "primary": {
+        "name": "Sea Serpent: Grasp",
+        "delivery": "direct-contact",
+        "damage": 30,
+        "period": 2.5,
+        "windup": 0.55,
+        "reach": 44,
+        "shape": {
+          "kind": "area",
+          "radius": 13,
+          "cap": 6
+        },
+        "onHit": [
+          {
+            "id": "robin-grasp",
+            "kind": "slow",
+            "durationSeconds": 1.2,
+            "speedMultiplier": 0.5,
+            "combine": "strongest",
+            "requiresTags": [
+              "slowable"
+            ],
+            "immuneTo": [
+              "boss"
+            ],
+            "requiresDamage": true,
+            "stacking": {
+              "scope": "target",
+              "reapply": "refresh",
+              "maxStacks": 1
+            }
+          }
+        ]
+      },
+      "techniques": [
+        {
+          "id": "sea-serpent",
+          "name": "Gigante Fleur: Sea Serpent",
+          "unlockTier": 3,
+          "delivery": "direct-contact",
+          "damage": 0,
+          "windup": 0.6,
+          "recovery": 1.8,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 15,
+            "cap": 8
+          },
+          "onHit": [
+            {
+              "id": "robin-construction-hold",
+              "kind": "stun",
+              "durationSeconds": 2,
+              "speedMultiplier": 0,
+              "combine": "strongest",
+              "requiresTags": [
+                "weak-willed",
+                "stunnable"
+              ],
+              "immuneTo": [
+                "boss"
+              ],
+              "requiresDamage": false,
+              "immunitySeconds": 2,
+              "stacking": {
+                "scope": "target",
+                "reapply": "keep",
+                "maxStacks": 1
+              }
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "demonio-fleur",
+      "name": "Demonio Fleur",
+      "unlockTier": 5,
+      "drainPerSecond": 9,
+      "primary": {
+        "name": "Demonio: Constructed Clutch",
+        "delivery": "direct-contact",
+        "damage": 85,
+        "period": 2.8,
+        "windup": 0.7,
+        "reach": 40,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "gran-jacuzzi-clutch",
+          "name": "Demonio Fleur: Gran Jacuzzi Clutch",
+          "unlockTier": 5,
+          "delivery": "direct-contact",
+          "damage": 240,
+          "windup": 1.1,
+          "recovery": 2.1,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "onHit": [
+            {
+              "id": "robin-construction-hold",
+              "kind": "stun",
+              "durationSeconds": 3,
+              "speedMultiplier": 0,
+              "combine": "strongest",
+              "requiresTags": [
+                "weak-willed",
+                "stunnable"
+              ],
+              "immuneTo": [
+                "boss"
+              ],
+              "requiresDamage": true,
+              "immunitySeconds": 2,
+              "stacking": {
+                "scope": "target",
+                "reapply": "keep",
+                "maxStacks": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "submission",
+      "name": "Submission Holds",
+      "description": "Strengthens the submission-oriented limb attacks. Purchased contactStun applies to every damaging direct attack, including Techniques and Sea Serpent when flat additions make it damaging. This bounded hold requires both weakWilled and stunnable, with the runtime protection interval; it is not fear, Haki or guaranteed restraint of every enemy. Preserve stun-immune bosses with stunnable=false or weakWilled=false: a boss tag alone does not block this legacy modifier. Shared onHit immuneTo boss rules separately block the authored statuses and do not confer immunity to purchased contactStun. Preserve caller-authored slow immunity as well. Each listed duration supersedes smaller purchased contact stuns rather than adding to them.",
+      "upgrades": [
+        {
+          "name": "Securing Arms",
+          "cost": 200,
+          "description": "Every damaging direct attack, including Techniques, gains a 0.4-second eligibility-limited contact hold.",
+          "modifiers": {
+            "contactStun": 0.4
+          }
+        },
+        {
+          "name": "Tighter Joint Locks",
+          "cost": 350,
+          "description": "Add 4 damage to primary attacks and all Techniques, including zero-base-damage Sea Serpent.",
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Reinforced Holds",
+          "cost": 850,
+          "description": "Raise contact holds on every damaging direct attack, including Techniques, to 0.8 seconds. Tier 3 also makes Gigante Fleur and its Sea Serpent Technique available through the common unlock schedule.",
+          "modifiers": {
+            "contactStun": 0.8
+          }
+        },
+        {
+          "name": "Submission Leverage",
+          "cost": 1500,
+          "description": "Multiply primary and Technique damage by 1.3; useful even when targets cannot be held.",
+          "modifiers": {
+            "damageMultiplier": 1.3
+          }
+        },
+        {
+          "name": "Sustained Restraint",
+          "cost": 3000,
+          "description": "Raise contact holds on every damaging direct attack, including Techniques, to 1.4 seconds and multiply damage by another 1.2. Tier 5 also unlocks Demonio Fleur and Gran Jacuzzi Clutch.",
+          "modifiers": {
+            "contactStun": 1.4,
+            "damageMultiplier": 1.2
+          }
+        }
+      ]
+    },
+    {
+      "id": "limb-construction",
+      "name": "Limb Construction",
+      "description": "Improves the force of replicated and combined limbs, grounded in Robin's larger hands and giant constructions. Damage scaling is an authored abstraction of physical leverage, not internal damage, armor-bypassing Haki or the omitted Giganteum shockwave. Gigante Fleur emphasizes broad grasping; Demonio concentrates its construction into a single-target finishing hold. Gran Jacuzzi's pull toward the duplicate is visual only: this implementation does not displace the target.",
+      "upgrades": [
+        {
+          "name": "Additional Gripping Arms",
+          "cost": 225,
+          "description": "Add 5 damage to primary attacks and all Techniques, including zero-base-damage Sea Serpent.",
+          "modifiers": {
+            "flatDamage": 5
+          }
+        },
+        {
+          "name": "Combined Limb Strength",
+          "cost": 400,
+          "description": "Multiply primary and Technique damage by 1.2.",
+          "modifiers": {
+            "damageMultiplier": 1.2
+          }
+        },
+        {
+          "name": "Giant-Limb Leverage",
+          "cost": 1000,
+          "description": "Add another 10 damage to primary attacks and all Techniques, including zero-base-damage Sea Serpent. The shared tier-3 unlock supplies Gigante Fleur.",
+          "modifiers": {
+            "flatDamage": 10
+          }
+        },
+        {
+          "name": "Massed Appendages",
+          "cost": 1800,
+          "description": "Multiply primary and Technique damage by another 1.4.",
+          "modifiers": {
+            "damageMultiplier": 1.4
+          }
+        },
+        {
+          "name": "Finishing Construction",
+          "cost": 3600,
+          "description": "Multiply primary and Technique damage by another 1.6. The shared tier-5 unlock supplies Demonio Fleur; its appearance grants no Haki or fear aura.",
+          "modifiers": {
+            "damageMultiplier": 1.6
+          }
+        }
+      ]
+    },
+    {
+      "id": "bloom-coordination",
+      "name": "Bloom Coordination",
+      "description": "Tunes the delivery reach and cadence of Robin's remotely manipulated limbs, not archaeology or scouting. Range additions extend personal attack eligibility only and never bypass obstacles or concealment. Timing modifiers shorten primary windup and recovery, not Technique timing, stamina costs or cooldown. Clustered area geometry is a bounded interpretation of simultaneous blossoms; caps count enemies, not anatomical limbs.",
+      "upgrades": [
+        {
+          "name": "Extended Blossoming",
+          "cost": 200,
+          "description": "Add 4 reach to the active primary profile and its contextual Technique targeting.",
+          "modifiers": {
+            "reachAdd": 4
+          }
+        },
+        {
+          "name": "Coordinated Bloom",
+          "cost": 375,
+          "description": "Multiply primary timing by 0.9.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Wider Placement",
+          "cost": 900,
+          "description": "Add another 6 reach. The shared tier-3 unlock provides the broader Gigante Fleur profile without creating a parallel attacker.",
+          "modifiers": {
+            "reachAdd": 6
+          }
+        },
+        {
+          "name": "Rapid Limb Sequences",
+          "cost": 1600,
+          "description": "Multiply primary timing by another 0.85.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.85
+          }
+        },
+        {
+          "name": "Thousand-Limb Coordination",
+          "cost": 3200,
+          "description": "Multiply primary timing by another 0.8 and add 4 reach. The shared tier-5 unlock supplies Demonio Fleur; no autonomous clones or scouting bonuses are added.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.8,
+            "reachAdd": 4
+          }
+        }
+      ]
+    }
+  ]
+}

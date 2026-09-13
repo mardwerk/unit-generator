@@ -1,0 +1,1390 @@
+{
+  "legalBuilds": 64,
+  "formBuildCases": 124,
+  "nemuriCases": [
+    {
+      "tiers": [
+        0,
+        0,
+        1
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        2
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        3
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        1
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        2
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        3
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        1
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        2
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        3
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        3,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        3,
+        1
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        0,
+        3,
+        2
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        1
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        2
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        3
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        1,
+        1,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        1,
+        2,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        1,
+        3,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        1
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        2
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        3
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        2,
+        1,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        2,
+        2,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        2,
+        3,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        3,
+        0,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        3,
+        0,
+        1
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        3,
+        0,
+        2
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        3,
+        1,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    },
+    {
+      "tiers": [
+        3,
+        2,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "health": [
+        1000,
+        1000
+      ],
+      "sleepApplied": true
+    }
+  ],
+  "contextualReplacements": [
+    {
+      "tiers": [
+        0,
+        0,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        3
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        4
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        4
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        5
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        5
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        5
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        3
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        4
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        4
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        5
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        5
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        5
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        3
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        4
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        4
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        5
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        5
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        5
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        0,
+        3,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        3,
+        1
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        3,
+        2
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        4,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        4,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        4,
+        1
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        4,
+        1
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        4,
+        2
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        4,
+        2
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        0
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        1
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        1
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        1
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        2
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        2
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        2
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        3
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        4
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        4
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        5
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        5
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        5
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        1,
+        3,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        1,
+        4,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        1,
+        4,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        1,
+        5,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        1,
+        5,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        1,
+        5,
+        0
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        3
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        4
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        4
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        5
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        5
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        5
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        2,
+        3,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        2,
+        4,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        2,
+        4,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        2,
+        5,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        2,
+        5,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        2,
+        5,
+        0
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        3,
+        0,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        3,
+        0,
+        1
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        3,
+        0,
+        2
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        3,
+        1,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        3,
+        2,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        4,
+        0,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        4,
+        0,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        4,
+        0,
+        1
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        4,
+        0,
+        1
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        4,
+        0,
+        2
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        4,
+        0,
+        2
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        4,
+        1,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        4,
+        1,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        4,
+        2,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        4,
+        2,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        0
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        1
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        1
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        1
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        2
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        2
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        2
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        5,
+        1,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        5,
+        1,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        5,
+        1,
+        0
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    },
+    {
+      "tiers": [
+        5,
+        2,
+        0
+      ],
+      "form": "kuro-kabuto",
+      "technique": "impact-wolf"
+    },
+    {
+      "tiers": [
+        5,
+        2,
+        0
+      ],
+      "form": "grow-up-kuro-kabuto",
+      "technique": "totsugeki-ryuseigun"
+    },
+    {
+      "tiers": [
+        5,
+        2,
+        0
+      ],
+      "form": "great-kuro-kabuto",
+      "technique": null
+    }
+  ],
+  "purchaseChecks": [
+    {
+      "path": 0,
+      "tier": 1,
+      "modifiers": {
+        "reachAdd": 5
+      },
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 0,
+      "tier": 2,
+      "modifiers": {
+        "retargetPrimary": true
+      },
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 0,
+      "tier": 3,
+      "modifiers": {
+        "reachAdd": 5
+      },
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 0,
+      "tier": 4,
+      "modifiers": {
+        "detectConcealed": true
+      },
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 0,
+      "tier": 5,
+      "modifiers": {
+        "reachAdd": 8,
+        "primaryTimingMultiplier": 0.9
+      },
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 1,
+      "tier": 1,
+      "modifiers": {
+        "damageMultiplier": 1.08
+      },
+      "effectiveModifierChanged": true,
+      "primaryDamageBefore": 12,
+      "primaryDamageAfter": 12.96
+    },
+    {
+      "path": 1,
+      "tier": 2,
+      "modifiers": {
+        "damageMultiplier": 1.15
+      },
+      "effectiveModifierChanged": true,
+      "primaryDamageBefore": 12.96,
+      "primaryDamageAfter": 14.904
+    },
+    {
+      "path": 1,
+      "tier": 3,
+      "modifiers": {
+        "damageMultiplier": 1.08
+      },
+      "effectiveModifierChanged": true,
+      "primaryDamageBefore": 14.904,
+      "primaryDamageAfter": 16.096320000000002
+    },
+    {
+      "path": 1,
+      "tier": 4,
+      "modifiers": {
+        "damageMultiplier": 1.25
+      },
+      "effectiveModifierChanged": true,
+      "primaryDamageBefore": 16.096320000000002,
+      "primaryDamageAfter": 20.1204
+    },
+    {
+      "path": 1,
+      "tier": 5,
+      "modifiers": {
+        "damageMultiplier": 1.2
+      },
+      "effectiveModifierChanged": true,
+      "primaryDamageBefore": 20.1204,
+      "primaryDamageAfter": 24.144479999999998
+    },
+    {
+      "path": 2,
+      "tier": 1,
+      "modifiers": {
+        "primaryTimingMultiplier": 0.92
+      },
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 2,
+      "tier": 2,
+      "modifiers": {
+        "reachAdd": 4
+      },
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 2,
+      "tier": 3,
+      "modifiers": {
+        "primaryTimingMultiplier": 0.9
+      },
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 2,
+      "tier": 4,
+      "modifiers": {
+        "primaryTimingMultiplier": 0.88
+      },
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 2,
+      "tier": 5,
+      "modifiers": {
+        "reachAdd": 4,
+        "primaryTimingMultiplier": 0.85
+      },
+      "effectiveModifierChanged": true
+    }
+  ]
+}

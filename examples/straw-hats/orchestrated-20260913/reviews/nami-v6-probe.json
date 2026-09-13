@@ -1,0 +1,976 @@
+{
+  "builds": [
+    {
+      "tiers": [
+        0,
+        0,
+        0
+      ],
+      "technique": null
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        1
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        2
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        3
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        4
+      ],
+      "technique": "gust-sword",
+      "health": 999967,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        0,
+        5
+      ],
+      "technique": "raitei",
+      "health": 999840.25,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        1
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        2
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        3
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        4
+      ],
+      "technique": "gust-sword",
+      "health": 999967,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        1,
+        5
+      ],
+      "technique": "raitei",
+      "health": 999840.25,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        1
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        2
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        3
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        4
+      ],
+      "technique": "gust-sword",
+      "health": 999967,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        2,
+        5
+      ],
+      "technique": "raitei",
+      "health": 999840.25,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        3,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        3,
+        1
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        3,
+        2
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        4,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        4,
+        1
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        4,
+        2
+      ],
+      "technique": "gust-sword",
+      "health": 999972,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        0
+      ],
+      "technique": "raitei",
+      "health": 999874,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        1
+      ],
+      "technique": "raitei",
+      "health": 999874,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        0,
+        5,
+        2
+      ],
+      "technique": "raitei",
+      "health": 999874,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999968,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        1
+      ],
+      "technique": "gust-sword",
+      "health": 999968,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        2
+      ],
+      "technique": "gust-sword",
+      "health": 999968,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        3
+      ],
+      "technique": "gust-sword",
+      "health": 999968,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        4
+      ],
+      "technique": "gust-sword",
+      "health": 999963,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        1,
+        0,
+        5
+      ],
+      "technique": "raitei",
+      "health": 999835.25,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        1,
+        1,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999968,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        1,
+        2,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999968,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        1,
+        3,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999968,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        1,
+        4,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999968,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        1,
+        5,
+        0
+      ],
+      "technique": "raitei",
+      "health": 999870,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999964.8,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        1
+      ],
+      "technique": "gust-sword",
+      "health": 999964.8,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        2
+      ],
+      "technique": "gust-sword",
+      "health": 999964.8,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        3
+      ],
+      "technique": "gust-sword",
+      "health": 999964.8,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        4
+      ],
+      "technique": "gust-sword",
+      "health": 999958.8,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        2,
+        0,
+        5
+      ],
+      "technique": "raitei",
+      "health": 999805.5,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        2,
+        1,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999964.8,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        2,
+        2,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999964.8,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        2,
+        3,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999964.8,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        2,
+        4,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999964.8,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        2,
+        5,
+        0
+      ],
+      "technique": "raitei",
+      "health": 999847.2,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        3,
+        0,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999955.2,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        3,
+        0,
+        1
+      ],
+      "technique": "gust-sword",
+      "health": 999955.2,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        3,
+        0,
+        2
+      ],
+      "technique": "gust-sword",
+      "health": 999955.2,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        3,
+        1,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999955.2,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        3,
+        2,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999955.2,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        4,
+        0,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999946.56,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        4,
+        0,
+        1
+      ],
+      "technique": "gust-sword",
+      "health": 999946.56,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        4,
+        0,
+        2
+      ],
+      "technique": "gust-sword",
+      "health": 999946.56,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        4,
+        1,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999946.56,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        4,
+        2,
+        0
+      ],
+      "technique": "gust-sword",
+      "health": 999946.56,
+      "x": 14,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        0
+      ],
+      "technique": "raitei",
+      "health": 999708.036,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        1
+      ],
+      "technique": "raitei",
+      "health": 999708.036,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        5,
+        0,
+        2
+      ],
+      "technique": "raitei",
+      "health": 999708.036,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        5,
+        1,
+        0
+      ],
+      "technique": "raitei",
+      "health": 999708.036,
+      "x": 20,
+      "techniqueAt": 12
+    },
+    {
+      "tiers": [
+        5,
+        2,
+        0
+      ],
+      "technique": "raitei",
+      "health": 999708.036,
+      "x": 20,
+      "techniqueAt": 12
+    }
+  ],
+  "cadence": [
+    {
+      "tier": 0,
+      "period": 2.6,
+      "windup": 0.65,
+      "primaryHits": 8,
+      "techniqueTiming": [
+        {
+          "id": "gust-sword",
+          "windup": 0.4,
+          "recovery": 1.6
+        },
+        {
+          "id": "raitei",
+          "windup": 1,
+          "recovery": 2
+        }
+      ],
+      "heatEgg": {
+        "id": "heat-egg",
+        "damage": 16,
+        "shape": {
+          "kind": "single"
+        },
+        "range": 32,
+        "detectConcealed": false,
+        "delivery": "projectile",
+        "projectileSpeed": 45,
+        "projectileRadius": 2,
+        "intervalSeconds": 7,
+        "projectiles": 1
+      }
+    },
+    {
+      "tier": 1,
+      "period": 2.3400000000000003,
+      "windup": 0.5850000000000001,
+      "primaryHits": 9,
+      "techniqueTiming": [
+        {
+          "id": "gust-sword",
+          "windup": 0.4,
+          "recovery": 1.6
+        },
+        {
+          "id": "raitei",
+          "windup": 1,
+          "recovery": 2
+        }
+      ],
+      "heatEgg": {
+        "id": "heat-egg",
+        "damage": 16,
+        "shape": {
+          "kind": "single"
+        },
+        "range": 32,
+        "detectConcealed": false,
+        "delivery": "projectile",
+        "projectileSpeed": 45,
+        "projectileRadius": 2,
+        "intervalSeconds": 7,
+        "projectiles": 1
+      }
+    },
+    {
+      "tier": 2,
+      "period": 2.1060000000000003,
+      "windup": 0.5265000000000001,
+      "primaryHits": 10,
+      "techniqueTiming": [
+        {
+          "id": "gust-sword",
+          "windup": 0.4,
+          "recovery": 1.6
+        },
+        {
+          "id": "raitei",
+          "windup": 1,
+          "recovery": 2
+        }
+      ],
+      "heatEgg": {
+        "id": "heat-egg",
+        "damage": 16,
+        "shape": {
+          "kind": "single"
+        },
+        "range": 32,
+        "detectConcealed": false,
+        "delivery": "projectile",
+        "projectileSpeed": 45,
+        "projectileRadius": 2,
+        "intervalSeconds": 7,
+        "projectiles": 1
+      }
+    },
+    {
+      "tier": 3,
+      "period": 1.7901,
+      "windup": 0.447525,
+      "primaryHits": 11,
+      "techniqueTiming": [
+        {
+          "id": "gust-sword",
+          "windup": 0.4,
+          "recovery": 1.6
+        },
+        {
+          "id": "raitei",
+          "windup": 1,
+          "recovery": 2
+        }
+      ],
+      "heatEgg": {
+        "id": "heat-egg",
+        "damage": 16,
+        "shape": {
+          "kind": "single"
+        },
+        "range": 32,
+        "detectConcealed": false,
+        "delivery": "projectile",
+        "projectileSpeed": 45,
+        "projectileRadius": 2,
+        "intervalSeconds": 7,
+        "projectiles": 1
+      }
+    },
+    {
+      "tier": 4,
+      "period": 1.521585,
+      "windup": 0.38039625,
+      "primaryHits": 13,
+      "techniqueTiming": [
+        {
+          "id": "gust-sword",
+          "windup": 0.4,
+          "recovery": 1.6
+        },
+        {
+          "id": "raitei",
+          "windup": 1,
+          "recovery": 2
+        }
+      ],
+      "heatEgg": {
+        "id": "heat-egg",
+        "damage": 16,
+        "shape": {
+          "kind": "single"
+        },
+        "range": 32,
+        "detectConcealed": false,
+        "delivery": "projectile",
+        "projectileSpeed": 45,
+        "projectileRadius": 2,
+        "intervalSeconds": 7,
+        "projectiles": 1
+      }
+    },
+    {
+      "tier": 5,
+      "period": 1.2172680000000002,
+      "windup": 0.30431700000000006,
+      "primaryHits": 17,
+      "techniqueTiming": [
+        {
+          "id": "gust-sword",
+          "windup": 0.4,
+          "recovery": 1.6
+        },
+        {
+          "id": "raitei",
+          "windup": 1,
+          "recovery": 2
+        }
+      ],
+      "heatEgg": {
+        "id": "heat-egg",
+        "damage": 16,
+        "shape": {
+          "kind": "single"
+        },
+        "range": 32,
+        "detectConcealed": false,
+        "delivery": "projectile",
+        "projectileSpeed": 45,
+        "projectileRadius": 2,
+        "intervalSeconds": 7,
+        "projectiles": 1
+      }
+    }
+  ],
+  "purchases": [
+    {
+      "path": 0,
+      "tier": 1,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 0,
+      "tier": 2,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 0,
+      "tier": 3,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 0,
+      "tier": 4,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 0,
+      "tier": 5,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 1,
+      "tier": 1,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 1,
+      "tier": 2,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 1,
+      "tier": 3,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 1,
+      "tier": 4,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 1,
+      "tier": 5,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 2,
+      "tier": 1,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 2,
+      "tier": 2,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 2,
+      "tier": 3,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 2,
+      "tier": 4,
+      "effectiveModifierChanged": true
+    },
+    {
+      "path": 2,
+      "tier": 5,
+      "effectiveModifierChanged": true
+    }
+  ]
+}

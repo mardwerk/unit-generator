@@ -1,0 +1,593 @@
+{
+  "id": "jinbe",
+  "operation": "generation",
+  "status": "failed",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "default",
+    "label": "Default",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "8e51e887a22c31f74de58941423a3671b3030cdfdbfb40924ed27d019f4e65f7",
+  "unitSha256": "fae7e05a648830d34b29b2e9a13c1b5295802a2ef1a5abc0841f1c969b4e9298",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "109f06dccbf90375d4bcffcfbbeb868968dbf8468cbf00ccabc0a5117f9caf20",
+    "implementationVersion": "manga-mayhem/0.1.2"
+  },
+  "input": {
+    "subject": "Jinbe",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Preserve a whale-shark fish-man, helmsman and Fish-Man Karate/Jujutsu master, using water and martial arts. Distinguish his martial arts from a Devil Fruit. Build a playable kit with at least 15 meaningful purchasable upgrades that each change executable behavior. Select a coherent subset instead of claiming exhaustive coverage. Disclose omitted defining abilities and any source limits. Treat numerical damage, costs, cooldowns, range, targeting and unlock progression as explicit gameplay adaptations. Do not invent character powers to meet upgrade count; deepen sourced abilities where possible.",
+    "context": {
+      "evidencePurpose": "Curated development demonstration, available to generation and review; not an unseen benchmark.",
+      "reviewScope": "Selected manga continuity through end of Wano; exclude later manga, anime-only and game-only facts from this request."
+    },
+    "sources": [
+      {
+        "url": "https://onepiece.fandom.com/wiki/Jinbe/Abilities_and_Powers",
+        "title": "Jinbe/Abilities and Powers | One Piece Wiki | Fandom",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+          "Secondary fan-edited evidence captured 2026-09-09T17:43:15.611Z; may include later manga, anime, and game facts outside the requested continuity."
+        ],
+        "id": "jinbe-fan-abilities-1",
+        "origin": "retrieved",
+        "characters": 68534,
+        "sha256": "78dfe3eb5e94b9e4ac0474d8ee5ec57d12466a0e19f74ca578a03ebc49dc7172"
+      },
+      {
+        "id": "jinbe-official-profile",
+        "title": "Jinbe | ONE PIECE.com official character profile",
+        "url": "https://one-piece.com/character/Jinbe/index.html",
+        "origin": "retrieved",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+          "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+          "Retrieved 2026-09-09T17:42:06.692361+00:00."
+        ],
+        "characters": 525,
+        "sha256": "03f3da42c0fda3dcca5929fa8d528eeaa08d329c28ff948d3f450df04a73901b"
+      },
+      {
+        "id": "jinbe-official-wano",
+        "title": "ONE PIECE.com official Wano story synopsis",
+        "url": "https://one-piece.com/story/land_of_wano2/index.html",
+        "origin": "retrieved",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Navigation outside the story body omitted; images not acquired.",
+          "Official combined manga/anime synopsis, not manga panels directly inspected. Retrieved 2026-09-09."
+        ],
+        "characters": 1654,
+        "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9"
+      }
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Jinbe",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied abilities page mixes manga, anime, reference-book material, and post-Wano chapters. Claims from later material, including Egghead and later chapters, were excluded from the selected continuity.",
+        "No supplied page establishes a named transformation for Jinbe. His increased capability in water is described as a fish-man advantage, not as a transformation.",
+        "No supplied page identifies a formal combat weakness. The evidence only establishes that many water techniques use available water or liquid and that his physical capabilities improve underwater; it does not establish a hard inability to fight without water.",
+        "The supplied sources do not provide numerical damage, costs, cooldowns, ranges, targeting rules, unlock progression, or other gameplay parameters. Any such values would be gameplay adaptations rather than character evidence.",
+        "The requested playable kit with at least 15 purchasable upgrades is not itself evidence about Jinbe and cannot be derived canonically from the supplied pages without inventing unsupported mechanics.",
+        "The selected claims prioritize identity, combat style, powers, named techniques, Haki, water interaction, and relevant support abilities. The supplied pages also contain extensive information about diplomacy, biography, affiliations, and minor feats that is not reproduced exhaustively here.",
+        "The supplied official pages corroborate Jinbe's identity, Fish-Man Karate expertise, and Wano membership, while the detailed named-technique information comes primarily from the supplied secondary abilities page; no claim here should be treated as independently verified beyond those supplied sources."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "jinbe-fan-abilities-1",
+          "sha256": "78dfe3eb5e94b9e4ac0474d8ee5ec57d12466a0e19f74ca578a03ebc49dc7172",
+          "sourceCharacters": 68534,
+          "visibleCharacters": 68534,
+          "complete": true
+        },
+        {
+          "sourceId": "jinbe-official-profile",
+          "sha256": "03f3da42c0fda3dcca5929fa8d528eeaa08d329c28ff948d3f450df04a73901b",
+          "sourceCharacters": 525,
+          "visibleCharacters": 525,
+          "complete": true
+        },
+        {
+          "sourceId": "jinbe-official-wano",
+          "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+          "sourceCharacters": 1654,
+          "visibleCharacters": 1654,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://onepiece.fandom.com/wiki/Jinbe/Abilities_and_Powers",
+          "title": "Jinbe/Abilities and Powers | One Piece Wiki | Fandom",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+            "Secondary fan-edited evidence captured 2026-09-09T17:43:15.611Z; may include later manga, anime, and game facts outside the requested continuity."
+          ],
+          "id": "jinbe-fan-abilities-1",
+          "origin": "supplied",
+          "characters": 68534,
+          "sha256": "78dfe3eb5e94b9e4ac0474d8ee5ec57d12466a0e19f74ca578a03ebc49dc7172"
+        },
+        {
+          "id": "jinbe-official-profile",
+          "title": "Jinbe | ONE PIECE.com official character profile",
+          "url": "https://one-piece.com/character/Jinbe/index.html",
+          "origin": "supplied",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+            "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+            "Retrieved 2026-09-09T17:42:06.692361+00:00."
+          ],
+          "characters": 525,
+          "sha256": "03f3da42c0fda3dcca5929fa8d528eeaa08d329c28ff948d3f450df04a73901b"
+        },
+        {
+          "id": "jinbe-official-wano",
+          "title": "ONE PIECE.com official Wano story synopsis",
+          "url": "https://one-piece.com/story/land_of_wano2/index.html",
+          "origin": "supplied",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Navigation outside the story body omitted; images not acquired.",
+            "Official combined manga/anime synopsis, not manga panels directly inspected. Retrieved 2026-09-09."
+          ],
+          "characters": 1654,
+          "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Jinbe",
+        "identity": {
+          "status": "resolved",
+          "name": "Jinbe",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied official character profile identifies Jinbe as the whale-shark fish-man and Fish-Man Karate master, while the supplied Wano synopsis identifies his arrival at the Onigashima raid and formal joining of the Straw Hat Pirates. The requested continuity is explicitly specified and is retained exactly."
+        },
+        "claimCount": 26,
+        "knowledgeSha256": "cf0d7d049c44001469774a6ab04d0cb791ca561b8f3875357ff2f70962603404"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "failed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": [
+        {
+          "code": "schema-maxLength",
+          "path": "/description",
+          "message": "must NOT have more than 256 characters"
+        }
+      ]
+    },
+    "system": {
+      "status": "failed",
+      "checks": [
+        "unit-qualification"
+      ],
+      "issues": [
+        {
+          "code": "schema-maxLength",
+          "path": "/description",
+          "message": "must NOT have more than 256 characters"
+        }
+      ]
+    },
+    "constraints": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "blocked",
+    "findings": [
+      {
+        "code": "schema-maxLength",
+        "dimension": "validity",
+        "severity": "blocker",
+        "location": "/description",
+        "message": "must NOT have more than 256 characters"
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 0,
+      "evaluatedBuilds": 0,
+      "purchaseEdges": 0,
+      "probes": 0,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Description agreement is only checked for explicit executable contradictions.",
+        "Stationary probes do not establish game balance or live-game parity."
+      ]
+    }
+  },
+  "fidelityAttempts": [
+    {
+      "reportValid": true
+    }
+  ],
+  "metadata": {
+    "modelCalls": 4,
+    "repairs": 1,
+    "elapsedMs": 484668,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 22319,
+          "outputTokens": 4350,
+          "totalTokens": 26669
+        },
+        "outputSha256": "cf0d7d049c44001469774a6ab04d0cb791ca561b8f3875357ff2f70962603404"
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "cf0d7d049c44001469774a6ab04d0cb791ca561b8f3875357ff2f70962603404",
+            "sources": [
+              {
+                "sourceId": "jinbe-fan-abilities-1",
+                "sha256": "78dfe3eb5e94b9e4ac0474d8ee5ec57d12466a0e19f74ca578a03ebc49dc7172",
+                "sourceCharacters": 68534,
+                "visibleCharacters": 68534,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-profile",
+                "sha256": "03f3da42c0fda3dcca5929fa8d528eeaa08d329c28ff948d3f450df04a73901b",
+                "sourceCharacters": 525,
+                "visibleCharacters": 525,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 43986,
+          "outputTokens": 4724,
+          "totalTokens": 48710
+        },
+        "outputSha256": "df0a3b0136d8201f88424becc900835e3c2d25ee6f72f1cb26fbb563a236931b"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "cf0d7d049c44001469774a6ab04d0cb791ca561b8f3875357ff2f70962603404",
+            "sources": [
+              {
+                "sourceId": "jinbe-fan-abilities-1",
+                "sha256": "78dfe3eb5e94b9e4ac0474d8ee5ec57d12466a0e19f74ca578a03ebc49dc7172",
+                "sourceCharacters": 68534,
+                "visibleCharacters": 68534,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-profile",
+                "sha256": "03f3da42c0fda3dcca5929fa8d528eeaa08d329c28ff948d3f450df04a73901b",
+                "sourceCharacters": 525,
+                "visibleCharacters": 525,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 52430,
+          "outputTokens": 11004,
+          "totalTokens": 63434
+        },
+        "outputSha256": "15f6f7424e39ddf95c1015d162146b998446aae31d30f8491f1b93b327c6bed3"
+      },
+      {
+        "stage": "repair",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "cf0d7d049c44001469774a6ab04d0cb791ca561b8f3875357ff2f70962603404",
+            "sources": [
+              {
+                "sourceId": "jinbe-fan-abilities-1",
+                "sha256": "78dfe3eb5e94b9e4ac0474d8ee5ec57d12466a0e19f74ca578a03ebc49dc7172",
+                "sourceCharacters": 68534,
+                "visibleCharacters": 68534,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-profile",
+                "sha256": "03f3da42c0fda3dcca5929fa8d528eeaa08d329c28ff948d3f450df04a73901b",
+                "sourceCharacters": 525,
+                "visibleCharacters": 525,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 66420,
+          "outputTokens": 6039,
+          "totalTokens": 72459
+        },
+        "outputSha256": "fae7e05a648830d34b29b2e9a13c1b5295802a2ef1a5abc0841f1c969b4e9298"
+      }
+    ]
+  },
+  "error": {
+    "stage": "validation",
+    "code": "validation-failed",
+    "message": "Required checks did not pass. The candidate and completed research are returned."
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-09T18:57:33.275Z",
+        "completed": true,
+        "inputTokenUpperBound": 84866,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T18:58:53.458Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 22319,
+          "outputTokens": 4350,
+          "totalTokens": 26669
+        },
+        "outputSha256": "cf0d7d049c44001469774a6ab04d0cb791ca561b8f3875357ff2f70962603404",
+        "knownInputTokens": 22319,
+        "knownOutputTokens": 4350,
+        "knownStandardApiEquivalentUsd": 0.0096838,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "draft",
+        "startedAt": "2026-09-09T18:58:53.477Z",
+        "completed": true,
+        "inputTokenUpperBound": 174562,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T19:00:21.861Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 43986,
+          "outputTokens": 4724,
+          "totalTokens": 48710
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "cf0d7d049c44001469774a6ab04d0cb791ca561b8f3875357ff2f70962603404",
+            "sources": [
+              {
+                "sourceId": "jinbe-fan-abilities-1",
+                "sha256": "78dfe3eb5e94b9e4ac0474d8ee5ec57d12466a0e19f74ca578a03ebc49dc7172",
+                "sourceCharacters": 68534,
+                "visibleCharacters": 68534,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-profile",
+                "sha256": "03f3da42c0fda3dcca5929fa8d528eeaa08d329c28ff948d3f450df04a73901b",
+                "sourceCharacters": 525,
+                "visibleCharacters": 525,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "df0a3b0136d8201f88424becc900835e3c2d25ee6f72f1cb26fbb563a236931b",
+        "knownInputTokens": 43986,
+        "knownOutputTokens": 4724,
+        "knownStandardApiEquivalentUsd": 0.014466,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 3,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-09T19:00:22.597Z",
+        "completed": true,
+        "inputTokenUpperBound": 199480,
+        "maxOutputTokens": 9780,
+        "endedAt": "2026-09-09T19:03:45.567Z",
+        "model": "gpt-5.6-luna",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 52430,
+          "outputTokens": 11004,
+          "totalTokens": 63434
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "cf0d7d049c44001469774a6ab04d0cb791ca561b8f3875357ff2f70962603404",
+            "sources": [
+              {
+                "sourceId": "jinbe-fan-abilities-1",
+                "sha256": "78dfe3eb5e94b9e4ac0474d8ee5ec57d12466a0e19f74ca578a03ebc49dc7172",
+                "sourceCharacters": 68534,
+                "visibleCharacters": 68534,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-profile",
+                "sha256": "03f3da42c0fda3dcca5929fa8d528eeaa08d329c28ff948d3f450df04a73901b",
+                "sourceCharacters": 525,
+                "visibleCharacters": 525,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "15f6f7424e39ddf95c1015d162146b998446aae31d30f8491f1b93b327c6bed3",
+        "knownInputTokens": 52430,
+        "knownOutputTokens": 11004,
+        "knownStandardApiEquivalentUsd": 0.023690799999999998,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 4,
+        "stage": "repair",
+        "startedAt": "2026-09-09T19:03:45.683Z",
+        "completed": true,
+        "inputTokenUpperBound": 257436,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T19:05:37.881Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 66420,
+          "outputTokens": 6039,
+          "totalTokens": 72459
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "cf0d7d049c44001469774a6ab04d0cb791ca561b8f3875357ff2f70962603404",
+            "sources": [
+              {
+                "sourceId": "jinbe-fan-abilities-1",
+                "sha256": "78dfe3eb5e94b9e4ac0474d8ee5ec57d12466a0e19f74ca578a03ebc49dc7172",
+                "sourceCharacters": 68534,
+                "visibleCharacters": 68534,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-profile",
+                "sha256": "03f3da42c0fda3dcca5929fa8d528eeaa08d329c28ff948d3f450df04a73901b",
+                "sourceCharacters": 525,
+                "visibleCharacters": 525,
+                "complete": true
+              },
+              {
+                "sourceId": "jinbe-official-wano",
+                "sha256": "8c1bb656d96a14a95bd5ee49dde370ad9a8827737b14ed7a6f92295cfb7109e9",
+                "sourceCharacters": 1654,
+                "visibleCharacters": 1654,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "fae7e05a648830d34b29b2e9a13c1b5295802a2ef1a5abc0841f1c969b4e9298",
+        "knownInputTokens": 66420,
+        "knownOutputTokens": 6039,
+        "knownStandardApiEquivalentUsd": 0.0205308,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 0.0683714,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-default-c01/jinbe"
+}

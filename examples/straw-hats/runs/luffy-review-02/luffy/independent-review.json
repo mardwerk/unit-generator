@@ -1,0 +1,70 @@
+{
+  "character": "Monkey D. Luffy",
+  "continuity": "One Piece manga through the end of Wano Country arc",
+  "packetId": "2425641a-152f-42ec-b0d1-7367532dc97f",
+  "reviewedAt": "2026-09-09T18:45:47.473356+00:00",
+  "reviewMethod": "Initial judgment recorded before production results and without model/cost identity. Compared final unchanged candidate with source text, then ran targeted encounter probes.",
+  "verdict": "Recognizable source-supported Luffy subset, with the following explicit gameplay limits and an independently corrected citation. This is not an exhaustive canon implementation or a balance approval.",
+  "summary": "The kit represents elastic brawling, Gear 2 and 3, Boundman, Tankman, Snakeman, Gear 5, and Observation, Armament and Conqueror Haki. Damage, timing, range, target caps, stamina and unlocks are game design.",
+  "disclosures": [
+    "Gear 4 stamina exhaustion returns Luffy to Base without suspending Haki. The source's post-use Haki lockout is omitted.",
+    "Tankman uses active area damage and knockback. Incoming-hit defense and reactive counters are not simulated. Snakeman's changing angles are abstracted into reach, timing and hit profiles rather than a homing trajectory.",
+    "Red Hawk and Red Roc are contact-damage techniques. Fire is not a separate ignition, burn or elemental mechanic.",
+    "Gear 5 represents larger, stronger strikes. Environmental rubberization, manipulation of touched objects and enhanced recovery are not implemented.",
+    "Concealed-target acquisition on the elastic path draws on Luffy's Observation awareness. It is a path-allocation adaptation, not a new sensing property of rubber. Defensive lightning/blunt-impact resistance, seastone suppression, food recovery and situational externally granted forms are omitted."
+  ],
+  "sourceReviewCorrections": [
+    {
+      "path": "/forms/0/techniques/0",
+      "issue": "The automated report cited Luffy stopping Oars's Rifle attack as support for Luffy performing Rifle. Exact passage copying did not establish that attribution.",
+      "resolution": "Independent supplementary technique entry explicitly describes Luffy performing the rotating punch and cites manga chapter 281, pages 18–19. The generated unit is unchanged.",
+      "reference": {
+        "id": "luffy-rifle-independent-techniques",
+        "title": "Gomu Gomu no Mi/Techniques, Rifle entry",
+        "url": "https://onepiece.fandom.com/api.php?action=parse&page=Gomu_Gomu_no_Mi%2FTechniques&prop=wikitext&format=json",
+        "retrievedAt": "2026-09-09T18:43:35.500299+00:00",
+        "kind": "secondary fan wiki retrieved through public MediaWiki parse API",
+        "contentSha256": "6d435c573fda0dfdbd94c412cf9ee1d5f7b6e1802c839a4d729808d1422c8d20",
+        "contentCharacters": 77085,
+        "rangeEncoding": "UTF-16 code units in exact captured wikitext",
+        "sourceRange": {
+          "start": 14245,
+          "end": 14339
+        },
+        "chapterLocator": "Manga chapter 281, pages 18–19, as cited by the fan wiki; manga panels not independently read.",
+        "chapterReferenceRange": {
+          "start": 14586,
+          "end": 14665
+        },
+        "correctedAttribution": "This entry explicitly describes Luffy performing Rifle. The automated abilities-page p50 passage instead describes Luffy stopping an attack performed by Oars.",
+        "sourceLimitations": [
+          "Secondary editable source, not directly inspected primary manga.",
+          "Page also contains anime/game material; this correction uses its manga-located Rifle entry only."
+        ],
+        "excerptSha256": "63ddb68d621a4dcdab575f49a89cce7154e99724a757b4db411309a49f7cc267",
+        "excerptCharacters": 94
+      }
+    },
+    {
+      "path": "/forms/4",
+      "issue": "The automated report described greater Tankman defense as represented. The runtime has no incoming-defense model.",
+      "resolution": "Treat defense as a source trait omitted from this active-knockback adaptation, as disclosed above."
+    }
+  ],
+  "checks": {
+    "sameCandidateAsBlindInitial": true,
+    "sourceQuoteRangeHashMatches": {
+      "matched": 52,
+      "checked": 52,
+      "meaning": "Exact provenance only; not 52 independently proved entailments."
+    },
+    "mechanicalQualification": {
+      "legalBuilds": 64,
+      "purchaseEdges": 111,
+      "probes": 686,
+      "balance": "not tested"
+    },
+    "targetedRuntimeEvidence": "277b61e8.runtime-probes.json"
+  },
+  "history": "The initial production review failed exact quotation matching because it capitalized a real source passage. After source passage selection replaced quote retyping, the retained candidate passed production review unchanged. The independent attribution correction above is kept separate from the original automated report."
+}

@@ -47,6 +47,9 @@ importers:
       '@mardwerk/unit-definitions':
         specifier: workspace:*
         version: link:../../packages/definitions
+      '@mardwerk/unit-lab':
+        specifier: workspace:*
+        version: link:../../packages/unit-lab
       '@mardwerk/unit-providers':
         specifier: workspace:*
         version: link:../../packages/providers
@@ -75,6 +78,9 @@ importers:
       '@mardwerk/unit-definitions':
         specifier: workspace:*
         version: link:../../packages/definitions
+      '@mardwerk/unit-lab':
+        specifier: workspace:*
+        version: link:../../packages/unit-lab
       '@mardwerk/unit-providers':
         specifier: workspace:*
         version: link:../../packages/providers
@@ -172,6 +178,9 @@ importers:
       '@mardwerk/manifest':
         specifier: link:../../../foundation/packages/manifest
         version: link:../../../foundation/packages/manifest
+      '@mardwerk/unit-core':
+        specifier: workspace:*
+        version: link:../core
       '@mardwerk/unit-definitions':
         specifier: workspace:*
         version: link:../definitions

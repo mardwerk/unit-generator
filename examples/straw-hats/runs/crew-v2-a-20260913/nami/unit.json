@@ -1,0 +1,289 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "nami-wano",
+  "name": "Nami — Art of Weather",
+  "description": "Stationary Straw Hat weather controller, manga continuity through Wano. Implements Clima-Tact lightning, a bounded weather-induced slow, scheduled Heat Egg projectiles, Gust Sword displacement and Raitei. Zeus already resides in the Clima-Tact at placement: Hera seemingly consumes his former body, the weapon speaks, and his survival within it is explained during Wano. No former standalone Zeus body is summoned. A generous lightning collision radius and optional prelaunch retargeting approximate his assistance; true homing, weapon reshaping and consciousness transfer are omitted. Mirage Tempo and Fata Morgana are preserved as omitted optical deception: this encounter has no defensive targeting or evasion, so they grant no fake damage, concealment detection or taunt. Milky Road terrain/travel, showers, Impact Dial absorption/recoil, navigation, theft and financial management are also omitted. Heat/cool weather preparation is compressed into lightning's slowing impact; slowing is a game abstraction, not a claimed canonical debuff. No regeneration denial, healing, ally damage buffs or elemental immunity bypass. All numbers, prices, stamina costs, schedules and tier unlocks are provisional game adaptations, not canon measurements or measured balance. Stamina represents Technique preparation, not transformation exhaustion. Highest purchased tier unlocks Gust Sword at 1 and replaces its button with Raitei at 5 on every path. Purchases are cumulative under the host's maximum 5-2-0 rule. Enemy movement remains caller-supplied. Supplied reference text was reviewed; fresh external research was unavailable, so independent source verification remains outstanding.",
+  "cost": 750,
+  "baseForm": "clima-tact",
+  "stunProtectionSeconds": 3,
+  "stamina": {
+    "unlockTier": 1,
+    "maximum": 60,
+    "entryMinimum": 20,
+    "recoveryPerSecond": 4,
+    "reentrySeconds": 0,
+    "techniqueCost": 30,
+    "techniqueCooldown": 12
+  },
+  "forms": [
+    {
+      "id": "clima-tact",
+      "name": "Sorcery Clima-Tact — Zeus Within",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Thunderbolt Tempo",
+        "delivery": "projectile",
+        "projectileSpeed": 100,
+        "projectileRadius": 5,
+        "damage": 22,
+        "period": 2.6,
+        "windup": 0.65,
+        "reach": 40,
+        "shape": {
+          "kind": "area",
+          "radius": 7,
+          "cap": 4
+        },
+        "onHit": [
+          {
+            "id": "nami-weather-hindrance",
+            "kind": "slow",
+            "durationSeconds": 1.8,
+            "speedMultiplier": 0.8,
+            "combine": "strongest",
+            "immuneTo": [],
+            "requiresTags": [
+              "slowable"
+            ],
+            "requiresDamage": true,
+            "stacking": {
+              "scope": "target",
+              "reapply": "refresh",
+              "maxStacks": 1
+            }
+          }
+        ]
+      },
+      "techniques": [
+        {
+          "id": "gust-sword",
+          "name": "Gust Sword",
+          "unlockTier": 1,
+          "delivery": "projectile",
+          "projectileSpeed": 70,
+          "projectileRadius": 3,
+          "damage": 12,
+          "windup": 0.4,
+          "recovery": 1.6,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 6,
+            "cap": 4
+          },
+          "control": {
+            "displacement": 6
+          }
+        },
+        {
+          "id": "raitei",
+          "name": "Raitei",
+          "unlockTier": 5,
+          "delivery": "projectile",
+          "projectileSpeed": 140,
+          "projectileRadius": 8,
+          "damage": 110,
+          "windup": 1,
+          "recovery": 2,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 12,
+            "cap": 8
+          },
+          "onHit": [
+            {
+              "id": "nami-weather-hindrance",
+              "kind": "slow",
+              "durationSeconds": 3,
+              "speedMultiplier": 0.8,
+              "combine": "strongest",
+              "immuneTo": [],
+              "requiresTags": [
+                "slowable"
+              ],
+              "requiresDamage": true,
+              "stacking": {
+                "scope": "target",
+                "reapply": "refresh",
+                "maxStacks": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "mechanics": {
+    "attacks": [
+      {
+        "id": "heat-egg",
+        "damage": 16,
+        "shape": {
+          "kind": "single"
+        },
+        "range": 32,
+        "detectConcealed": false,
+        "delivery": "projectile",
+        "projectileSpeed": 45,
+        "projectileRadius": 2,
+        "intervalSeconds": 7,
+        "projectiles": 1
+      }
+    ],
+    "actors": [],
+    "passiveSummons": [],
+    "income": [],
+    "rangeSupport": []
+  },
+  "paths": [
+    {
+      "id": "thundercloud-output",
+      "name": "Thundercloud Output",
+      "description": "Personal lightning and Technique damage specialization. Heat Egg remains a separate, static scheduled attack and receives none of these purchases. Damage scaling is authored tuning, not new powers or a claim that Raitei defeats every opponent in one hit.",
+      "upgrades": [
+        {
+          "name": "Charged Weather Balls",
+          "cost": 250,
+          "description": "Adds 4 damage to the primary and all Techniques. Highest tier 1 also unlocks stamina and Gust Sword.",
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Denser Thundercloud",
+          "cost": 450,
+          "description": "Multiplies primary and all Technique damage by 1.2 after flat additions.",
+          "modifiers": {
+            "damageMultiplier": 1.2
+          }
+        },
+        {
+          "name": "Larger Charge Reserve",
+          "cost": 900,
+          "description": "Adds another 8 damage to the primary and all Techniques; does not change or refill stamina.",
+          "modifiers": {
+            "flatDamage": 8
+          }
+        },
+        {
+          "name": "Concentrated Discharge",
+          "cost": 1800,
+          "description": "Multiplies primary and all Technique damage by a further 1.3.",
+          "modifiers": {
+            "damageMultiplier": 1.3
+          }
+        },
+        {
+          "name": "Zeus-Amplified Thunder",
+          "cost": 3600,
+          "description": "Multiplies primary and all Technique damage by a further 1.45. Highest tier 5 replaces Gust Sword with Raitei; Zeus was already present in the weapon.",
+          "modifiers": {
+            "damageMultiplier": 1.45
+          }
+        }
+      ]
+    },
+    {
+      "id": "weather-preparation",
+      "name": "Weather Preparation",
+      "description": "Improves personal weather setup and lightning interruption. Timing reductions represent practiced Clima-Tact preparation, not navigation-based speed magic. Contact stuns are a bounded electrical-interruption abstraction and require both weakWilled and stunnable, respecting active stun and the following protection interval. No purchase improves scheduled Heat Egg.",
+      "upgrades": [
+        {
+          "name": "Prepared Heat and Cool Mix",
+          "cost": 250,
+          "description": "Multiplies primary windup and period by 0.9. Technique timing is unchanged.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Brief Electrical Interruption",
+          "cost": 450,
+          "description": "Eligible primary contacts stun for 0.35 seconds. This does not stun resistant or protected targets.",
+          "modifiers": {
+            "contactStun": 0.35
+          }
+        },
+        {
+          "name": "Efficient Cloud Assembly",
+          "cost": 950,
+          "description": "Multiplies primary windup and period by a further 0.85; does not accelerate Techniques or Heat Egg.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.85
+          }
+        },
+        {
+          "name": "Sustained Electrical Interruption",
+          "cost": 1850,
+          "description": "Raises eligible primary contact stun from 0.35 to 0.75 seconds, rather than adding durations.",
+          "modifiers": {
+            "contactStun": 0.75
+          }
+        },
+        {
+          "name": "Weatheria Setup Mastery",
+          "cost": 3400,
+          "description": "Multiplies primary timing by a further 0.8 and raises eligible contact stun to 1 second. Tier 5 supplies Raitei through the shared Technique button.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.8,
+            "contactStun": 1
+          }
+        }
+      ]
+    },
+    {
+      "id": "cloud-placement",
+      "name": "Cloud Placement",
+      "description": "Extends personal acquisition reach and improves prelaunch target handling. Reach is an abstract deployment limit for localized weather, not staff length. Zeus-assisted retargeting replaces one lost primary target only before launch; projectiles never home or retarget after launch, and Techniques never retarget. Mirage Tempo is deliberately not repurposed as detection.",
+      "upgrades": [
+        {
+          "name": "Extended Cloud Placement",
+          "cost": 225,
+          "description": "Adds 4 personal reach, taking the unmodified base reach from 40 to 44.",
+          "modifiers": {
+            "reachAdd": 4
+          }
+        },
+        {
+          "name": "Zeus Checks the Target",
+          "cost": 475,
+          "description": "Enables one replacement for a lost primary target before launch without restarting windup. No postlaunch steering or Technique retargeting.",
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Distant Cloud Positioning",
+          "cost": 850,
+          "description": "Adds another 6 personal reach, reaching 50 on this path. Does not change Heat Egg range or projectile speed.",
+          "modifiers": {
+            "reachAdd": 6
+          }
+        },
+        {
+          "name": "Stable Long-Range Discharge",
+          "cost": 1700,
+          "description": "Adds 5 personal reach and 5 damage to the primary and all Techniques.",
+          "modifiers": {
+            "reachAdd": 5,
+            "flatDamage": 5
+          }
+        },
+        {
+          "name": "Far-Reaching Thundercloud",
+          "cost": 3200,
+          "description": "Adds 5 personal reach, reaching 60 on this path, and multiplies primary and all Technique damage by 1.25. Tier 5 supplies Raitei; its larger collision tolerance remains an aimed-shot abstraction.",
+          "modifiers": {
+            "reachAdd": 5,
+            "damageMultiplier": 1.25
+          }
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,222 @@
+{
+  "method": "Recursively scan each exact final artifact for executable can-hear references, excluding names and descriptions. Every report hash is checked against current input bytes above. Only Brook depends on can-hear and was separately simulated with hearing enabled. The other nine are unchanged by adding this one arbitrary tag. Canonical eligibility tags are independently normalized from explicit host booleans. Protocols and per-row hearing flags preserve exact original inputs.",
+  "units": [
+    {
+      "slug": "luffy",
+      "id": "monkey-d-luffy-wano",
+      "path": "examples/straw-hats/runs/crew-v5-luffy-balance-20260913/luffy-balance/unit.json",
+      "sha256": "a2b295daacddd2e829e4be51e0dd0244e032e91f61a1a6d03ef522043223c5e3",
+      "executableCanHearReferences": [],
+      "tagDependencies": [
+        {
+          "path": "/forms/6/primary/onHit/0/immuneTo",
+          "value": []
+        },
+        {
+          "path": "/forms/6/primary/onHit/0/requiresTags",
+          "value": ["slowable"]
+        }
+      ],
+      "absentVsPresentHearingEquivalent": true,
+      "evaluatedAdditionalTags": []
+    },
+    {
+      "slug": "franky",
+      "id": "franky",
+      "path": "examples/straw-hats/runs/crew-v4-franky-review-20260913/franky/unit.json",
+      "sha256": "aec77981321a4cbf32fff0ebf05fc3242ff36d246ab0589221cfc0b30f0a4a06",
+      "executableCanHearReferences": [],
+      "tagDependencies": [],
+      "absentVsPresentHearingEquivalent": true,
+      "evaluatedAdditionalTags": []
+    },
+    {
+      "slug": "sanji",
+      "id": "sanji",
+      "path": "examples/straw-hats/runs/crew-v7-sanji-guarded-20260913/sanji-balance/unit.json",
+      "sha256": "a606b8d890c358c045dace9cb5a915d121157b635d62cabb911c20d3f801b5b2",
+      "executableCanHearReferences": [],
+      "tagDependencies": [
+        {
+          "path": "/forms/1/primary/onHit/0/immuneTo",
+          "value": ["fire-immune"]
+        },
+        {
+          "path": "/forms/1/primary/onHit/0/requiresTags",
+          "value": []
+        },
+        {
+          "path": "/forms/1/techniques/0/onHit/0/immuneTo",
+          "value": ["fire-immune"]
+        },
+        {
+          "path": "/forms/1/techniques/0/onHit/0/requiresTags",
+          "value": []
+        },
+        {
+          "path": "/forms/1/techniques/1/onHit/0/immuneTo",
+          "value": ["fire-immune"]
+        },
+        {
+          "path": "/forms/1/techniques/1/onHit/0/requiresTags",
+          "value": []
+        },
+        {
+          "path": "/forms/2/primary/onHit/0/immuneTo",
+          "value": ["fire-immune"]
+        },
+        {
+          "path": "/forms/2/primary/onHit/0/requiresTags",
+          "value": []
+        },
+        {
+          "path": "/forms/2/techniques/0/onHit/0/immuneTo",
+          "value": ["fire-immune"]
+        },
+        {
+          "path": "/forms/2/techniques/0/onHit/0/requiresTags",
+          "value": []
+        }
+      ],
+      "absentVsPresentHearingEquivalent": true,
+      "evaluatedAdditionalTags": []
+    },
+    {
+      "slug": "robin",
+      "id": "nico-robin-wano",
+      "path": "examples/straw-hats/runs/crew-v4-prose-20260913/robin/unit.json",
+      "sha256": "30b4fb4a92e0dfd0fd678c9b249dfe45746ed21d69aedd6be71b58eacffb37b9",
+      "executableCanHearReferences": [],
+      "tagDependencies": [
+        {
+          "path": "/forms/0/primary/onHit/0/requiresTags",
+          "value": ["slowable"]
+        },
+        {
+          "path": "/forms/0/primary/onHit/0/immuneTo",
+          "value": ["boss"]
+        },
+        {
+          "path": "/forms/1/primary/onHit/0/requiresTags",
+          "value": ["slowable"]
+        },
+        {
+          "path": "/forms/1/primary/onHit/0/immuneTo",
+          "value": ["boss"]
+        },
+        {
+          "path": "/forms/1/techniques/0/onHit/0/requiresTags",
+          "value": ["weak-willed", "stunnable"]
+        },
+        {
+          "path": "/forms/1/techniques/0/onHit/0/immuneTo",
+          "value": ["boss"]
+        },
+        {
+          "path": "/forms/2/techniques/0/onHit/0/requiresTags",
+          "value": ["weak-willed", "stunnable"]
+        },
+        {
+          "path": "/forms/2/techniques/0/onHit/0/immuneTo",
+          "value": ["boss"]
+        }
+      ],
+      "absentVsPresentHearingEquivalent": true,
+      "evaluatedAdditionalTags": []
+    },
+    {
+      "slug": "zoro",
+      "id": "roronoa-zoro-wano",
+      "path": "examples/straw-hats/runs/crew-v4-prose-20260913/zoro/unit.json",
+      "sha256": "9621f49b99ba2932f9c79bfec5c8bef98e0843cf4780a174a6a8459a8b0fc7c8",
+      "executableCanHearReferences": [],
+      "tagDependencies": [],
+      "absentVsPresentHearingEquivalent": true,
+      "evaluatedAdditionalTags": []
+    },
+    {
+      "slug": "brook",
+      "id": "brook",
+      "path": "examples/straw-hats/runs/crew-v5-brook-balance-20260913/brook-balance/unit.json",
+      "sha256": "14efbffa0b9ff1d6729189602d00d25019702bc1cb8271c18cc83dd4c98e1b8b",
+      "executableCanHearReferences": ["/forms/0/techniques/0/onHit/0/requiresTags/2"],
+      "tagDependencies": [
+        {
+          "path": "/forms/0/primary/onHit/0/requiresTags",
+          "value": ["slowable"]
+        },
+        {
+          "path": "/forms/0/primary/onHit/0/immuneTo",
+          "value": ["chill-immune"]
+        },
+        {
+          "path": "/forms/0/techniques/0/onHit/0/requiresTags",
+          "value": ["weak-willed", "stunnable", "can-hear"]
+        },
+        {
+          "path": "/forms/0/techniques/0/onHit/0/immuneTo",
+          "value": ["boss", "sleep-immune", "sound-immune"]
+        }
+      ],
+      "absentVsPresentHearingEquivalent": false,
+      "evaluatedAdditionalTags": ["can-hear"]
+    },
+    {
+      "slug": "chopper",
+      "id": "tony-tony-chopper",
+      "path": "examples/straw-hats/runs/crew-v3-chopper-20260913/chopper/unit.json",
+      "sha256": "6a1ca0c5f55bf4d35c8c0f9f457f2b873beee2702c696cb2ccb17e7a7a152b8e",
+      "executableCanHearReferences": [],
+      "tagDependencies": [],
+      "absentVsPresentHearingEquivalent": true,
+      "evaluatedAdditionalTags": []
+    },
+    {
+      "slug": "usopp",
+      "id": "usopp",
+      "path": "examples/straw-hats/runs/crew-v4-usopp-20260913/usopp/unit.json",
+      "sha256": "1391e527aa8e5a4577f0aba889f30eca0d0eddfd2ce391bf00596bb8114aba26",
+      "executableCanHearReferences": [],
+      "tagDependencies": [
+        {
+          "path": "/forms/0/techniques/0/onHit/0/immuneTo",
+          "value": []
+        },
+        {
+          "path": "/forms/0/techniques/0/onHit/0/requiresTags",
+          "value": ["weak-willed", "stunnable"]
+        },
+        {
+          "path": "/mechanics/attacks/0/projectile/children/0/projectile/onHit/0/immuneTo",
+          "value": []
+        },
+        {
+          "path": "/mechanics/attacks/0/projectile/children/0/projectile/onHit/0/requiresTags",
+          "value": ["slowable"]
+        }
+      ],
+      "absentVsPresentHearingEquivalent": true,
+      "evaluatedAdditionalTags": []
+    },
+    {
+      "slug": "jinbe",
+      "id": "jinbe-wano",
+      "path": "examples/straw-hats/runs/crew-v4-jinbe-balance-20260913/jinbe-balance/unit.json",
+      "sha256": "048e66409676b1d0ed992fb5b2d43c8e2fea979074e704792b4383ed92bbad56",
+      "executableCanHearReferences": [],
+      "tagDependencies": [],
+      "absentVsPresentHearingEquivalent": true,
+      "evaluatedAdditionalTags": []
+    },
+    {
+      "slug": "nami",
+      "id": "nami-wano",
+      "path": "examples/straw-hats/runs/crew-v6-nami-20260913/nami-faithful/unit.json",
+      "sha256": "d7fe1cba5f15cd84183c1d4d07c306a0065d74b9e8326de0b4c42daf78f52e36",
+      "executableCanHearReferences": [],
+      "tagDependencies": [],
+      "absentVsPresentHearingEquivalent": true,
+      "evaluatedAdditionalTags": ["can-hear"]
+    }
+  ]
+}

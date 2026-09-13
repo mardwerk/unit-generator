@@ -1,0 +1,277 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "brook",
+  "name": "Brook — Soul King",
+  "description": "The Straw Hats' gentleman skeleton musician, adapted from the One Piece manga through Wano. Brook fences with his cane sword Soul Solid, channels soul-linked Underworld chill through its blade, and plays Nemuriuta Flanc with his sword as the violin bow. His primary deals sword damage; the musical Technique deals zero damage at every legal build. No purchase adds flat damage. One stationary base profile and one contextual Technique avoid invented transformations or a parallel ghost attack. All numbers, prices, resource limits, unlock schedules and control bounds are provisional game tuning, not canon measurements or measured balance. Purchases are cumulative; at most two paths may be bought, the smaller no higher than tier two, for a maximum of 5-2-0. Highest purchased tier unlocks the Technique and its stamina at tier one, regardless of path. Stamina represents a bounded performance budget, not canonical transformation exhaustion. Target motion is caller-supplied; control reports do not move enemies automatically. Revive-Revive resurrection was Brook's once-used origin, not an available resurrection skill. Water running, jumps, free movement, defensive endurance, milk repair, skeletal resistances, skull storage, soul reassembly and special Homie interactions are omitted rather than converted into invented bonuses. Humor, gentlemanly manners and devotion to Laboon remain characterization.",
+  "cost": 650,
+  "baseForm": "skeleton",
+  "stunProtectionSeconds": 3,
+  "stamina": {
+    "unlockTier": 1,
+    "maximum": 60,
+    "entryMinimum": 20,
+    "recoveryPerSecond": 5,
+    "reentrySeconds": 0,
+    "techniqueCost": 20,
+    "techniqueCooldown": 12
+  },
+  "forms": [
+    {
+      "id": "skeleton",
+      "name": "Skeleton Musician",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Soul Solid — Chilled Fencing",
+        "delivery": "direct-contact",
+        "damage": 24,
+        "period": 1.1,
+        "windup": 0.18,
+        "reach": 12,
+        "shape": {
+          "kind": "single"
+        },
+        "onHit": [
+          {
+            "id": "brook-underworld-chill",
+            "kind": "slow",
+            "durationSeconds": 1.2,
+            "speedMultiplier": 0.85,
+            "combine": "strongest",
+            "requiresTags": [
+              "slowable"
+            ],
+            "immuneTo": [
+              "chill-immune"
+            ],
+            "requiresDamage": true,
+            "stacking": {
+              "scope": "target",
+              "reapply": "refresh",
+              "maxStacks": 1
+            }
+          }
+        ]
+      },
+      "techniques": [
+        {
+          "id": "nemuriuta-flanc",
+          "name": "Nemuriuta Flanc",
+          "unlockTier": 1,
+          "delivery": "direct-contact",
+          "damage": 0,
+          "windup": 0.65,
+          "recovery": 1.15,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 10,
+            "cap": 5
+          },
+          "onHit": [
+            {
+              "id": "brook-musical-sleep",
+              "kind": "stun",
+              "durationSeconds": 2.5,
+              "speedMultiplier": 0,
+              "combine": "strongest",
+              "requiresTags": [
+                "weak-willed",
+                "stunnable",
+                "can-hear"
+              ],
+              "immuneTo": [
+                "boss",
+                "sleep-immune",
+                "sound-immune"
+              ],
+              "requiresDamage": false,
+              "immunitySeconds": 3,
+              "stacking": {
+                "scope": "target",
+                "reapply": "keep",
+                "maxStacks": 1
+              }
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "gentle-blade",
+      "name": "Gentle Blade — Fencing Output",
+      "description": "Speed and precision represent Brook's fencing and iaido, not free dashes. Damage multipliers apply to primary and Technique damage, preserving Nemuriuta Flanc's zero. Timing purchases affect only primary windup and recovery. Reach is bounded contact geometry, never a flying slash. Aubade Coup Droit and other ranged slashes are omitted rather than mislabeled as instantaneous emissions. Sword damage remains subject to armor and invulnerability. Nemuriuta Flanc remains the sole Technique even at tier five.",
+      "upgrades": [
+        {
+          "name": "Swift Draw",
+          "cost": 200,
+          "description": "Multiply primary timing by 0.9. Also reaches the global tier-one stamina and Nemuriuta Flanc unlock if not already unlocked.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Longarm-Sharpened Edge",
+          "cost": 350,
+          "description": "Multiply primary and all Technique damage by 1.25; the sleep tune remains at zero.",
+          "modifiers": {
+            "damageMultiplier": 1.25
+          }
+        },
+        {
+          "name": "Precise Extension",
+          "cost": 650,
+          "description": "Add 2 reach for acquisition and direct contacts, including the musical Technique's bounded targeting.",
+          "modifiers": {
+            "reachAdd": 2
+          }
+        },
+        {
+          "name": "Unseen Blade Speed",
+          "cost": 1100,
+          "description": "Multiply primary timing by another 0.8, improving sword output without accelerating the Technique.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.8
+          }
+        },
+        {
+          "name": "Veteran's Decisive Cut",
+          "cost": 1900,
+          "description": "Multiply primary and all Technique damage by another 1.6. Damaging fencing improves; musical sleep still deals zero.",
+          "modifiers": {
+            "damageMultiplier": 1.6
+          }
+        }
+      ]
+    },
+    {
+      "id": "soul-king-music",
+      "name": "Soul King — Musical Control",
+      "description": "Nemuriuta Flanc is a soothing violin tune, not damaging sound. Sleep is represented by a 2.5-second movement stun: it requires caller-supplied can-hear plus weak-willed and stunnable; boss, sleep-immune and sound-immune tags block it. There is no wake-on-damage or ally sleep simulation. Contact geometry bounds listeners by reach, visibility, obstacles, impact radius and a cap including the selected target. No higher Technique replaces it. This path instead improves independent, zero-damage musical distraction pulses tied to successful sword cycles, preserving its usefulness with every crosspath. Pulses are a bounded adaptation of musical hypnosis, not additional Nemuriuta casts: they require weakWilled and stunnable and respect existing stun and its protection interval. Pulse eligibility has no hearing or boss-tag filter; callers must mark inaudible, music-immune and boss targets ineligible using those host flags. The encounter cannot independently distinguish that immunity from other original stun eligibility. Pulses do not reproduce festival illusions, forced actions or ally morale buffs. Each cycles value counts positive-damage primary cycles, not waves; the zero-damage Technique never advances it.",
+      "upgrades": [
+        {
+          "name": "Captivating Phrase",
+          "cost": 240,
+          "description": "After four successful primary cycles, trigger one zero-damage distraction pulse: radius 12, cap 2, stun 0.5 seconds, at least 6 seconds between pulses.",
+          "modifiers": {
+            "pulse": {
+              "cycles": 4,
+              "radius": 12,
+              "cap": 2,
+              "stun": 0.5,
+              "interval": 6
+            }
+          }
+        },
+        {
+          "name": "Wider Audience",
+          "cost": 400,
+          "description": "Replace the pulse with radius 16 and cap 3; retain four-cycle threshold, 0.5-second stun and 6-second minimum interval.",
+          "modifiers": {
+            "pulse": {
+              "cycles": 4,
+              "radius": 16,
+              "cap": 3,
+              "stun": 0.5,
+              "interval": 6
+            }
+          }
+        },
+        {
+          "name": "Hypnotic Rhythm",
+          "cost": 375,
+          "description": "Replace the pulse: trigger after three successful cycles, stun for 0.8 seconds, minimum interval 5 seconds; radius 16 and cap 3.",
+          "modifiers": {
+            "pulse": {
+              "cycles": 3,
+              "radius": 16,
+              "cap": 3,
+              "stun": 0.8,
+              "interval": 5
+            }
+          }
+        },
+        {
+          "name": "Festival Refrain",
+          "cost": 625,
+          "description": "Replace the pulse with radius 20, cap 5 and a 1-second stun; retain three-cycle threshold and 5-second minimum interval.",
+          "modifiers": {
+            "pulse": {
+              "cycles": 3,
+              "radius": 20,
+              "cap": 5,
+              "stun": 1,
+              "interval": 5
+            }
+          }
+        },
+        {
+          "name": "Soul King's Encore",
+          "cost": 1050,
+          "description": "Replace the pulse: two successful cycles, radius 24, cap 6, stun 1.25 seconds and minimum interval 4 seconds. Deals no pulse damage.",
+          "modifiers": {
+            "pulse": {
+              "cycles": 2,
+              "radius": 24,
+              "cap": 6,
+              "stun": 1.25,
+              "interval": 4
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "underworld-senses",
+      "name": "Underworld Chill and Keen Hearing",
+      "description": "Soul Solid's base slow represents soul-linked freezing after positive sword damage: 15% slower for 1.2 seconds, refreshed without stacking, requiring slowable and excluding caller-tagged chill-immune targets. Later contact stuns bound stronger freezing to weakWilled and stunnable with the shared protection interval; callers must disable those flags for freeze-immune targets. They are shared contact modifiers, not sword-only statuses, so eligible zero-damage Technique contacts can also receive that purchased stun, interpreted there as musical interruption rather than a chilling violin. No terrain ice, frost projectiles or generic elemental spellcasting is implemented. Hearing detected moving invisible Zeo but remained difficult; reliable concealed detection is an explicit stronger game abstraction, not proof of perfect hearing, and never bypasses obstacles or invulnerability. Retargeting is primary-only. Soul projection is omitted: Brook's separated ghost moves through walls and inaccessible spaces, cannot grasp objects, and leaves his body a lifeless husk. Free scouting, remote vision and that bodily state lack a faithful stationary runtime; no ghost form, scouting bonus or ghost damage is substituted.",
+      "upgrades": [
+        {
+          "name": "Listen for Movement",
+          "cost": 260,
+          "description": "Enable reliable concealed-target detection as the disclosed abstraction of Brook locating an invisible moving opponent by sound.",
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Follow the Footfall",
+          "cost": 420,
+          "description": "Enable one primary retarget at resolution if its target is lost, without restarting windup. Never retargets Nemuriuta Flanc.",
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Soul Solid's Freezing Contact",
+          "cost": 800,
+          "description": "Add a 0.4-second contact stun against weak-willed, stunnable targets outside stun protection. Sword contacts represent freezing; musical contacts remain zero-damage interruption.",
+          "modifiers": {
+            "contactStun": 0.4
+          }
+        },
+        {
+          "name": "Deeper Underworld Chill",
+          "cost": 1300,
+          "description": "Raise purchased contact stun to 0.7 seconds, retaining strict eligibility and protection. Does not stack stun durations.",
+          "modifiers": {
+            "contactStun": 0.7
+          }
+        },
+        {
+          "name": "Soul-Tempered Blade",
+          "cost": 2200,
+          "description": "Raise contact stun to 1 second and multiply primary and all Technique damage by 1.3. Strengthens soul-coated sword strikes while keeping Nemuriuta Flanc at zero damage.",
+          "modifiers": {
+            "contactStun": 1,
+            "damageMultiplier": 1.3
+          }
+        }
+      ]
+    }
+  ]
+}

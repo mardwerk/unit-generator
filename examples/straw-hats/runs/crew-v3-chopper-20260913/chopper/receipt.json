@@ -1,0 +1,2665 @@
+{
+  "id": "chopper",
+  "operation": "generation",
+  "status": "success",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "464b22f0734d51f3b9a55aa8fbb7f9314ab242d82348a97022a247777c82b0cc",
+  "unitSha256": "97122021a13b9dafff0be3175f71f1da2842220a4c9f4522a0738b7cfe1e3745",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "5def43dcd9ab3c26bd27df80085dc2f556255b6a3173fe0a67265d7faf346e23",
+    "implementationVersion": "manga-mayhem/0.1.2",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "input": {
+    "subject": "Tony Tony Chopper",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Produce a faithful playable Straw Hat unit using the current Manga Mayhem contract. Exactly three paths of five concrete cumulative purchases, legal maximum 5-2-0. Every purchase must change executable behavior. Source facts must be established by fresh research. Disclose numerical tuning, unlock schedules and bounded interpretations as game adaptations; distinguish omitted powers from implemented powers. This is a stationary tower encounter with caller-supplied enemy motion and ally injuries, not tower defensive combat or free unit movement. Avoid unsupported air-only target classes, tower HP, shields, taunt, or invented powers. If a source trait has no runtime representation, preserve it in an explicit omission rather than a fake stat bonus. Use the supported schema exactly, including resources, projectile flight, target geometry, statuses, and shared technique lifecycle. Balance is a later measured pass; prices are provisional. World units are shared across the crew: ordinary close contact roughly 8-18, stretched or ranged profiles roughly 30-60; do not treat these as canon measurements. Keep signatures recognizable and source-backed. Doctor, human-reindeer Zoan and distinct ordinary Points, Rumble Ball/Monster Point with Wano duration and aftereffects researched. Support must execute healing to injured living allies. Ordinary Points should use free zero-drain forms, Monster Point uses bounded resource/drain approximation with explicit recovery. Provide the defining form variety and meaningful medical purchases. Do not invent tower defensive combat to justify Guard Point; disclose unavailable defensive effect while preserving faithful visual/form differences. Required fidelity boundaries from source review: Chopperphage is an inhalable Ice Oni cure, NEVER an enemy slow, damage mist, or hostile debuff. Use executable ally support for medicine; if disease-specific cleansing is unsupported, omit that named cure as an action and disclose it, without inventing hostility. All five Doctor-path purchases should improve actual support rather than personal reach or attack damage dressed up as medicine. Flat-damage modifiers affect zero-base-damage Techniques too, so do not create a supposedly harmless medical Technique that becomes harmful with purchases. Monster strength does not justify internalFraction, armorIgnore or Haki. Keen smell, if used for detection, must be explicitly identified and its always-available game interpretation disclosed; medical analysis alone is not detection. Distinguish ordinary free Points and their profiles, including their physical appearances. Guard Point has no defensive runtime here: preserve its recognizable fur-ball appearance in explicit art notes, but do not invent armor, taunt or damaging fur to make it work. If not an active combat profile, say exactly how the visual appearance can be used without new mechanics. The Wano Rumble Ball upgrade gives 30 minutes with Baby Geezer aftereffects; chapter 1014 and 1017 are identified in the supplied Rumble Ball references. Short game stamina duration is an adaptation. Do not merge old 3-minute paralysis with this upgraded formulation. Disclose any unimplemented infant-like aftermath separately from the implemented reentry delay. Capture process claims do not belong in the gameplay description. Keep root description below 1900 characters, moving detailed tradeoffs to path descriptions as needed.",
+    "context": {
+      "crew": {
+        "id": "straw-hats",
+        "name": "Straw Hat Pirates",
+        "members": [
+          "Monkey D. Luffy",
+          "Roronoa Zoro",
+          "Nami",
+          "Usopp",
+          "Sanji",
+          "Tony Tony Chopper",
+          "Nico Robin",
+          "Franky",
+          "Brook",
+          "Jinbe"
+        ]
+      },
+      "cutoff": "One Piece manga through the end of Wano Country arc",
+      "newRun": true,
+      "coverage": "Character-specific capabilities are requirements to verify, not evidence. Record unsupported facts as gaps. No old generated artifacts supplied."
+    },
+    "knowledge": {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Tony Tony Chopper",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied evidence does not provide a complete manga-only inventory of every named Chopper attack through the end of Wano; several listed techniques are explicitly from films, anime-only material, or video games and were excluded from manga-continuity claims.",
+        "The supplied pages include post-Wano and later material, including Egghead-era claims about blocking Saturn and striking demons. Those facts were excluded because the requested continuity ends with Wano Country.",
+        "The supplied official character page confirms Chopper's identity and general forms but does not independently enumerate every form, limitation, or technique.",
+        "The pages do not establish that Chopper possesses Haki, awakening, or any other powers beyond those recorded here; such claims remain unsupported.",
+        "The supplied evidence describes some Rumble Ball details with differing wording about duration and aftereffects across sections. The selected record preserves the post-timeskip three-minute form, the later thirty-minute formula, and their stated exhaustion or Babyjiji consequences without resolving every chronology detail.",
+        "Game-only techniques and non-canon or adaptation-specific material were present in the supplied pages and were intentionally omitted from the selected manga-continuity record."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "b57fcf648ca6aec4b68d5d53",
+          "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+          "sourceCharacters": 68773,
+          "visibleCharacters": 68773,
+          "complete": true
+        },
+        {
+          "sourceId": "84ec39119a458fdea3432a75",
+          "sha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+          "sourceCharacters": 62699,
+          "visibleCharacters": 62699,
+          "complete": true
+        },
+        {
+          "sourceId": "0dadeab80e366157f91ddfcc",
+          "sha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+          "sourceCharacters": 21320,
+          "visibleCharacters": 21320,
+          "complete": true
+        },
+        {
+          "sourceId": "a1f90d32fba8478a8947a5a6",
+          "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+          "sourceCharacters": 1850,
+          "visibleCharacters": 1850,
+          "complete": true
+        },
+        {
+          "sourceId": "600b250f9838e58b36ccca0c",
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+          "sourceCharacters": 1673,
+          "visibleCharacters": 1673,
+          "complete": true
+        },
+        {
+          "sourceId": "dd6d1bdcff7bfe1a5fc7c7da",
+          "sha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90",
+          "sourceCharacters": 12992,
+          "visibleCharacters": 12992,
+          "complete": true
+        }
+      ],
+      "metadata": {
+        "modelCalls": 1,
+        "repairs": 0,
+        "elapsedMs": 61304,
+        "calls": [
+          {
+            "stage": "research",
+            "completed": true,
+            "mode": "json",
+            "model": "gpt-6-astra",
+            "usage": {
+              "inputTokens": 49034,
+              "outputTokens": 2537,
+              "totalTokens": 51571
+            },
+            "outputSha256": "7b04daddac7dbc47080cdee195c52254dab8e64a647d8ab079471f349275fb6d"
+          }
+        ]
+      },
+      "sources": [
+        {
+          "id": "b57fcf648ca6aec4b68d5d53",
+          "url": "https://onepiece.fandom.com/wiki/Tony_Tony_Chopper/Abilities_and_Powers",
+          "title": "Tony Tony Chopper/Abilities and Powers | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 68773,
+          "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b"
+        },
+        {
+          "id": "84ec39119a458fdea3432a75",
+          "url": "https://onepiece.fandom.com/wiki/Hito_Hito_no_Mi",
+          "title": "Hito Hito no Mi | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 62699,
+          "sha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a"
+        },
+        {
+          "id": "0dadeab80e366157f91ddfcc",
+          "url": "https://onepiece.fandom.com/wiki/Rumble_Ball",
+          "title": "Rumble Ball | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 21320,
+          "sha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0"
+        },
+        {
+          "id": "a1f90d32fba8478a8947a5a6",
+          "url": "https://one-piece.com/character/chopper/index.html",
+          "title": "トニートニー・チョッパー | キャラクター検索 | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1850,
+          "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf"
+        },
+        {
+          "id": "600b250f9838e58b36ccca0c",
+          "url": "https://one-piece.com/story/land_of_wano2/index.html",
+          "title": "ワノ国編 | これまでのストーリー | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1673,
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2"
+        },
+        {
+          "id": "dd6d1bdcff7bfe1a5fc7c7da",
+          "url": "https://onepiece.fandom.com/wiki/Ice_Oni",
+          "title": "Ice Oni | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 12992,
+          "sha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Tony Tony Chopper",
+        "identity": {
+          "status": "resolved",
+          "name": "Tony Tony Chopper",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied pages identify Tony Tony Chopper as the One Piece character, and the requested continuity is explicitly specified. The character page and official One Piece.com pages support the manga continuity through Wano Country; adaptation-specific and post-Wano material has been excluded."
+        },
+        "claimCount": 28,
+        "knowledgeSha256": "7b04daddac7dbc47080cdee195c52254dab8e64a647d8ab079471f349275fb6d"
+      }
+    },
+    "sources": []
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Tony Tony Chopper",
+      "reused": true,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied evidence does not provide a complete manga-only inventory of every named Chopper attack through the end of Wano; several listed techniques are explicitly from films, anime-only material, or video games and were excluded from manga-continuity claims.",
+        "The supplied pages include post-Wano and later material, including Egghead-era claims about blocking Saturn and striking demons. Those facts were excluded because the requested continuity ends with Wano Country.",
+        "The supplied official character page confirms Chopper's identity and general forms but does not independently enumerate every form, limitation, or technique.",
+        "The pages do not establish that Chopper possesses Haki, awakening, or any other powers beyond those recorded here; such claims remain unsupported.",
+        "The supplied evidence describes some Rumble Ball details with differing wording about duration and aftereffects across sections. The selected record preserves the post-timeskip three-minute form, the later thirty-minute formula, and their stated exhaustion or Babyjiji consequences without resolving every chronology detail.",
+        "Game-only techniques and non-canon or adaptation-specific material were present in the supplied pages and were intentionally omitted from the selected manga-continuity record."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "b57fcf648ca6aec4b68d5d53",
+          "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+          "sourceCharacters": 68773,
+          "visibleCharacters": 68773,
+          "complete": true
+        },
+        {
+          "sourceId": "84ec39119a458fdea3432a75",
+          "sha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+          "sourceCharacters": 62699,
+          "visibleCharacters": 62699,
+          "complete": true
+        },
+        {
+          "sourceId": "0dadeab80e366157f91ddfcc",
+          "sha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+          "sourceCharacters": 21320,
+          "visibleCharacters": 21320,
+          "complete": true
+        },
+        {
+          "sourceId": "a1f90d32fba8478a8947a5a6",
+          "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+          "sourceCharacters": 1850,
+          "visibleCharacters": 1850,
+          "complete": true
+        },
+        {
+          "sourceId": "600b250f9838e58b36ccca0c",
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+          "sourceCharacters": 1673,
+          "visibleCharacters": 1673,
+          "complete": true
+        },
+        {
+          "sourceId": "dd6d1bdcff7bfe1a5fc7c7da",
+          "sha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90",
+          "sourceCharacters": 12992,
+          "visibleCharacters": 12992,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "id": "b57fcf648ca6aec4b68d5d53",
+          "url": "https://onepiece.fandom.com/wiki/Tony_Tony_Chopper/Abilities_and_Powers",
+          "title": "Tony Tony Chopper/Abilities and Powers | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 68773,
+          "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b"
+        },
+        {
+          "id": "84ec39119a458fdea3432a75",
+          "url": "https://onepiece.fandom.com/wiki/Hito_Hito_no_Mi",
+          "title": "Hito Hito no Mi | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 62699,
+          "sha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a"
+        },
+        {
+          "id": "0dadeab80e366157f91ddfcc",
+          "url": "https://onepiece.fandom.com/wiki/Rumble_Ball",
+          "title": "Rumble Ball | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 21320,
+          "sha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0"
+        },
+        {
+          "id": "a1f90d32fba8478a8947a5a6",
+          "url": "https://one-piece.com/character/chopper/index.html",
+          "title": "トニートニー・チョッパー | キャラクター検索 | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1850,
+          "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf"
+        },
+        {
+          "id": "600b250f9838e58b36ccca0c",
+          "url": "https://one-piece.com/story/land_of_wano2/index.html",
+          "title": "ワノ国編 | これまでのストーリー | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1673,
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2"
+        },
+        {
+          "id": "dd6d1bdcff7bfe1a5fc7c7da",
+          "url": "https://onepiece.fandom.com/wiki/Ice_Oni",
+          "title": "Ice Oni | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 12992,
+          "sha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Tony Tony Chopper",
+        "identity": {
+          "status": "resolved",
+          "name": "Tony Tony Chopper",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied pages identify Tony Tony Chopper as the One Piece character, and the requested continuity is explicitly specified. The character page and official One Piece.com pages support the manga continuity through Wano Country; adaptation-specific and post-Wano material has been excluded."
+        },
+        "claimCount": 28,
+        "knowledgeSha256": "7b04daddac7dbc47080cdee195c52254dab8e64a647d8ab079471f349275fb6d"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "manga-contract",
+        "legal-progression",
+        "reachable-resource-and-techniques"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-provided",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "review-required",
+    "findings": [
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 4.4,
+          "damage": 10,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            1
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.6,
+          "damage": 18,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            2
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.6,
+          "damage": 20.160000000000004,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 30.240000000000006,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            4
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.848,
+          "damage": 30.240000000000006,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            5
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.848,
+          "damage": 55.9104,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.263999999999999,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            1
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.263999999999999,
+          "damage": 18,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            2
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.263999999999999,
+          "damage": 20.160000000000004,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            3
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 30.240000000000006,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            4
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.497119999999999,
+          "damage": 30.240000000000006,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            5
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.497119999999999,
+          "damage": 55.9104,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.263999999999999,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            1
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.263999999999999,
+          "damage": 18,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            2
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.263999999999999,
+          "damage": 20.160000000000004,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            3
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 30.240000000000006,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            4
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.497119999999999,
+          "damage": 30.240000000000006,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            5
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.497119999999999,
+          "damage": 55.9104,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            1
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 18,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            2
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 20.160000000000004,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.62496,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            1
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.62496,
+          "damage": 18,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            2
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.62496,
+          "damage": 20.160000000000004,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 4.612467199999999,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            1
+          ],
+          "distance": 5.5,
+          "durationSeconds": 4.612467199999999,
+          "damage": 18,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            2
+          ],
+          "distance": 5.5,
+          "durationSeconds": 4.612467199999999,
+          "damage": 20.160000000000004,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.6,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            1
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.6,
+          "damage": 18,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            2
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.6,
+          "damage": 20.160000000000004,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            3
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 30.240000000000006,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            4
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.848,
+          "damage": 30.240000000000006,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            5
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.848,
+          "damage": 55.9104,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            1,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.263999999999999,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            2,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.263999999999999,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            3,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            4,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.62496,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            5,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 4.612467199999999,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.6,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            1
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.6,
+          "damage": 18,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            2
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.6,
+          "damage": 20.160000000000004,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            3
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 30.240000000000006,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            4
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.848,
+          "damage": 30.240000000000006,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            5
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.848,
+          "damage": 55.9104,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            1,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.263999999999999,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            2,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.263999999999999,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            3,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            4,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 5.62496,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            5,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 4.612467199999999,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            1
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 18,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            2
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 20.160000000000004,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            1,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            2,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            1
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 18,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            2
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 20.160000000000004,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            1,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            2,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            1
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 18,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            2
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.8,
+          "damage": 20.160000000000004,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            1,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            2,
+            0
+          ],
+          "distance": 5.5,
+          "durationSeconds": 6.3919999999999995,
+          "damage": 15,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 64,
+      "evaluatedBuilds": 64,
+      "purchaseEdges": 111,
+      "probes": 745,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Natural-language description agreement needs independent review; this report describes executable limits.",
+        "Stationary probes do not establish game balance or live-game parity.",
+        "Full encounter balance, all moving geometries, and all purchase/switch/cooldown sequences."
+      ]
+    }
+  },
+  "fidelity": {
+    "status": "checked",
+    "gaps": [
+      "Walk Point's ordinary antler contact is an anatomical game interpretation, not an independently established named manga attack in that form. Brain Point's generic hoof strike likewise abstracts general hand-to-hand combat rather than reproducing a specifically cited named manga move.",
+      "The precise post-timeskip requirements for Scope remain unestablished in the supplied evidence; the candidate correctly omits its weakness-diagnosis action.",
+      "The supplied sources differ on Baby Geezer's precise duration and do not establish safe Wano-formula redosing intervals. The candidate discloses both the resource schedule's authored nature and the separate omission of the infant-like aftermath.",
+      "Guard Point defense, Jumping Point evasion, legacy Arm Point combat, disease-specific Chopperphage cleansing, movement and other listed utility traits are omissions, not executable benefits. The user expressly permits these bounded omissions.",
+      "This review uses only the attached passages. It does not certify fresh research, balance, visual implementation or a complete inventory of Chopper's manga abilities."
+    ],
+    "claims": [
+      {
+        "path": "/name",
+        "status": "supported",
+        "sourceMechanic": "Straw Hat ship's doctor and blue-nosed human-reindeer",
+        "relationship": "same-ability",
+        "sourceId": "a1f90d32fba8478a8947a5a6",
+        "passageId": "p0",
+        "sourceSha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+        "sourceRange": {
+          "start": 0,
+          "end": 1192
+        },
+        "quoteSha256": "7cf499b4f215e8817d318efd8231350187465755b5f17a5f7b7daf43938385d2",
+        "quoteCharacters": 1192
+      },
+      {
+        "path": "/description",
+        "status": "adapted",
+        "sourceMechanic": "Post-timeskip voluntary Point transformations",
+        "relationship": "game-rule",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p4",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 4374,
+          "end": 5540
+        },
+        "quoteSha256": "c063fdc4d068e813edc6f99b6efe635dee500a97f49f2e13b7cf22a4278a3c2b",
+        "quoteCharacters": 1166
+      },
+      {
+        "path": "/description",
+        "status": "supported",
+        "sourceMechanic": "Guard Point's protective fur",
+        "relationship": "same-ability",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p15",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 16712,
+          "end": 17873
+        },
+        "quoteSha256": "91f407e923e956d69748557e5d37fef0a1538cc7a8ddb9638c62a801dc1b82cd",
+        "quoteCharacters": 1161
+      },
+      {
+        "path": "/description",
+        "status": "supported",
+        "sourceMechanic": "Jumping Point evasion and Arm Point muscular specialization",
+        "relationship": "same-ability",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p24",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 27166,
+          "end": 28249
+        },
+        "quoteSha256": "5d1e8e1a1afa54a4cac423448d2ab682a8a3aa2d1f96e735ed34d9b93eabb4bb",
+        "quoteCharacters": 1083
+      },
+      {
+        "path": "/support/heal",
+        "status": "adapted",
+        "sourceMechanic": "Medical treatment of severe injuries",
+        "relationship": "delivery-abstraction",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/forms/0/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Chopper's self-taught hand-to-hand combat",
+        "relationship": "delivery-abstraction",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/forms/0/name",
+        "status": "supported",
+        "sourceMechanic": "Brain Point hybrid form",
+        "relationship": "same-ability",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p7",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 7790,
+          "end": 8917
+        },
+        "quoteSha256": "46aaad06034a8c32bda3efb29fc084c0f69fec15211a121a12cf64e46b31cc46",
+        "quoteCharacters": 1127
+      },
+      {
+        "path": "/forms/1/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Walk Point's natural reindeer body and branched antlers",
+        "relationship": "delivery-abstraction",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p6",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 6625,
+          "end": 7790
+        },
+        "quoteSha256": "34e3bf412f853ce86a6f0d64871bcbd976124d1a706a36bda015926b3ee67a72",
+        "quoteCharacters": 1165
+      },
+      {
+        "path": "/forms/2/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Heavy Point's Heavy Gong",
+        "relationship": "numerical-tuning",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p11",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 12208,
+          "end": 13286
+        },
+        "quoteSha256": "a44ab03a1d731f989c05db4f65758d4ca00728cafa34fe162125ef9dec6980f5",
+        "quoteCharacters": 1078
+      },
+      {
+        "path": "/forms/3/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Horn Point's horns-first Kakuho: Elf attack",
+        "relationship": "delivery-abstraction",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p20",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 22526,
+          "end": 23719
+        },
+        "quoteSha256": "ad7d40f9f67592b325caacf7d4c20619dac904833b65576cec75fd93d7dd02e4",
+        "quoteCharacters": 1193
+      },
+      {
+        "path": "/forms/4/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Kung Fu Point martial arts",
+        "relationship": "numerical-tuning",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p21",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 23719,
+          "end": 24859
+        },
+        "quoteSha256": "e4f276c67ae198a6065f72611369c1f5a2d4a86348159284ab5ee1e22f0d0e79",
+        "quoteCharacters": 1140
+      },
+      {
+        "path": "/forms/5/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Monster Point's Kokutei: Palme",
+        "relationship": "numerical-tuning",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p33",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 37059,
+          "end": 38157
+        },
+        "quoteSha256": "fff49856542bc07701d8ee90ed58ab6a40db3364c2997ffa8552e03ca3217415",
+        "quoteCharacters": 1098
+      },
+      {
+        "path": "/paths/0/description",
+        "status": "supported",
+        "sourceMechanic": "Chopperphage countervirus",
+        "relationship": "same-ability",
+        "sourceId": "dd6d1bdcff7bfe1a5fc7c7da",
+        "passageId": "p2",
+        "sourceSha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90",
+        "sourceRange": {
+          "start": 2235,
+          "end": 3410
+        },
+        "quoteSha256": "432ca649e632db7ecf0ba3c7ce29f8f058388e3ce551a118c9be93ed80707269",
+        "quoteCharacters": 1175
+      },
+      {
+        "path": "/paths/0/upgrades/0/modifiers/support/heal",
+        "status": "adapted",
+        "sourceMechanic": "Kureha-trained injury treatment",
+        "relationship": "numerical-tuning",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/1/modifiers/support/heal",
+        "status": "adapted",
+        "sourceMechanic": "Torino pharmacology and prepared remedies",
+        "relationship": "numerical-tuning",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p7",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 7712,
+          "end": 8851
+        },
+        "quoteSha256": "d22f390a68499ca514e1f3619ffea554ad973bd370eaa4884131f5160e1a0a3b",
+        "quoteCharacters": 1139
+      },
+      {
+        "path": "/paths/0/upgrades/2/modifiers/support/cap",
+        "status": "adapted",
+        "sourceMechanic": "Medical treatment of injured patients",
+        "relationship": "delivery-abstraction",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/3/modifiers/support/heal",
+        "status": "adapted",
+        "sourceMechanic": "Improved remedies and injury treatment",
+        "relationship": "numerical-tuning",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p7",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 7712,
+          "end": 8851
+        },
+        "quoteSha256": "d22f390a68499ca514e1f3619ffea554ad973bd370eaa4884131f5160e1a0a3b",
+        "quoteCharacters": 1139
+      },
+      {
+        "path": "/paths/0/upgrades/4/modifiers/support/heal",
+        "status": "adapted",
+        "sourceMechanic": "Chopper's medical injury treatment",
+        "relationship": "numerical-tuning",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/4/description",
+        "status": "supported",
+        "sourceMechanic": "Live Floor battlefield medicine",
+        "relationship": "same-ability",
+        "sourceId": "dd6d1bdcff7bfe1a5fc7c7da",
+        "passageId": "p4",
+        "sourceSha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90",
+        "sourceRange": {
+          "start": 4565,
+          "end": 5711
+        },
+        "quoteSha256": "ef76f76d54c4d934da904f008ddbcdb327e920e4719b9ca54e47eeaee92f5340",
+        "quoteCharacters": 1146
+      },
+      {
+        "path": "/paths/1/description",
+        "status": "supported",
+        "sourceMechanic": "Post-timeskip Horn Point morphology",
+        "relationship": "same-ability",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p18",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 20165,
+          "end": 21327
+        },
+        "quoteSha256": "5159190f5c7eb76e694ff3ffaa7f596a9ca429937ef5683e98da30a203686290",
+        "quoteCharacters": 1162
+      },
+      {
+        "path": "/paths/1/description",
+        "status": "supported",
+        "sourceMechanic": "Heavy Point human-form appearance",
+        "relationship": "same-ability",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p2",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 2151,
+          "end": 3286
+        },
+        "quoteSha256": "4e66f9e94a0dc8f742510031733c93be8bc69a0dd7e9f489643e9ad32cd01f11",
+        "quoteCharacters": 1135
+      },
+      {
+        "path": "/paths/1/upgrades/0/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Physical training improving Chopper's forms",
+        "relationship": "numerical-tuning",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/paths/1/upgrades/1/modifiers/detectConcealed",
+        "status": "adapted",
+        "sourceMechanic": "Keen reindeer sense of smell",
+        "relationship": "game-rule",
+        "sourceId": "a1f90d32fba8478a8947a5a6",
+        "passageId": "p0",
+        "sourceSha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+        "sourceRange": {
+          "start": 0,
+          "end": 1192
+        },
+        "quoteSha256": "7cf499b4f215e8817d318efd8231350187465755b5f17a5f7b7daf43938385d2",
+        "quoteCharacters": 1192
+      },
+      {
+        "path": "/paths/1/upgrades/2/modifiers/retargetPrimary",
+        "status": "adapted",
+        "sourceMechanic": "Battlefield analysis and tactical adjustment",
+        "relationship": "game-rule",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p4",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 4529,
+          "end": 5493
+        },
+        "quoteSha256": "522f8637e8784948eaa95cf2502887b066c3c5c8759ae282ee72bb82c8937633",
+        "quoteCharacters": 964
+      },
+      {
+        "path": "/paths/1/upgrades/3/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Self-taught martial fluency and kung fu",
+        "relationship": "numerical-tuning",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/paths/1/upgrades/4/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Training-enhanced physical abilities across Points",
+        "relationship": "numerical-tuning",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/paths/2/description",
+        "status": "supported",
+        "sourceMechanic": "Wano Rumble Ball duration and Baby Geezer aftermath",
+        "relationship": "same-ability",
+        "sourceId": "0dadeab80e366157f91ddfcc",
+        "passageId": "p3",
+        "sourceSha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+        "sourceRange": {
+          "start": 3278,
+          "end": 4449
+        },
+        "quoteSha256": "d17c3faa8376a9bae132b384ae731a0c4f152a2616307fb06e2db10474b8b091",
+        "quoteCharacters": 1171
+      },
+      {
+        "path": "/paths/2/description",
+        "status": "supported",
+        "sourceMechanic": "Monster Point gigantification and hoof-like fingers",
+        "relationship": "same-ability",
+        "sourceId": "84ec39119a458fdea3432a75",
+        "passageId": "p28",
+        "sourceSha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+        "sourceRange": {
+          "start": 31657,
+          "end": 32706
+        },
+        "quoteSha256": "c69847b4a6f7cd6e3f6263d60de86ad96284c641ba6d5844543f8fc5612a3946",
+        "quoteCharacters": 1049
+      },
+      {
+        "path": "/stamina/recoveryPerSecond",
+        "status": "adapted",
+        "sourceMechanic": "Limited-duration Rumble Ball use with an aftermath and redosing limitation",
+        "relationship": "game-rule",
+        "sourceId": "0dadeab80e366157f91ddfcc",
+        "passageId": "p3",
+        "sourceSha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+        "sourceRange": {
+          "start": 3278,
+          "end": 4449
+        },
+        "quoteSha256": "d17c3faa8376a9bae132b384ae731a0c4f152a2616307fb06e2db10474b8b091",
+        "quoteCharacters": 1171
+      },
+      {
+        "path": "/paths/2/upgrades/0/modifiers/flatDamage",
+        "status": "adapted",
+        "sourceMechanic": "Chopper's training-enhanced physical attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/paths/2/upgrades/1/modifiers/damageMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Improved Zoan physical capabilities",
+        "relationship": "numerical-tuning",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/paths/2/upgrades/2/modifiers/flatDamage",
+        "status": "adapted",
+        "sourceMechanic": "Zoan strength, including Monster Point's Wano physical offense",
+        "relationship": "numerical-tuning",
+        "sourceId": "b57fcf648ca6aec4b68d5d53",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/paths/2/upgrades/3/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Controlled post-timeskip Monster Point and trained form use",
+        "relationship": "numerical-tuning",
+        "sourceId": "0dadeab80e366157f91ddfcc",
+        "passageId": "p2",
+        "sourceSha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+        "sourceRange": {
+          "start": 2136,
+          "end": 3278
+        },
+        "quoteSha256": "1158d5b2d1e9a33f99dd1a7a51d18bbf03e12b2b44028737048a1e6dda74b82c",
+        "quoteCharacters": 1142
+      },
+      {
+        "path": "/paths/2/upgrades/4/modifiers/damageMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Rumble Ball-enhanced physical strength",
+        "relationship": "numerical-tuning",
+        "sourceId": "0dadeab80e366157f91ddfcc",
+        "passageId": "p3",
+        "sourceSha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+        "sourceRange": {
+          "start": 3278,
+          "end": 4449
+        },
+        "quoteSha256": "d17c3faa8376a9bae132b384ae731a0c4f152a2616307fb06e2db10474b8b091",
+        "quoteCharacters": 1171
+      }
+    ],
+    "representation": "Compact public receipt. Complete source passages and detailed model review remain in the private production result."
+  },
+  "fidelityAttempts": [
+    {
+      "reportValid": true
+    }
+  ],
+  "metadata": {
+    "modelCalls": 3,
+    "repairs": 1,
+    "elapsedMs": 320115,
+    "calls": [
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "7b04daddac7dbc47080cdee195c52254dab8e64a647d8ab079471f349275fb6d",
+            "sources": [
+              {
+                "sourceId": "b57fcf648ca6aec4b68d5d53",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "84ec39119a458fdea3432a75",
+                "sha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+                "sourceCharacters": 62699,
+                "visibleCharacters": 62699,
+                "complete": true
+              },
+              {
+                "sourceId": "0dadeab80e366157f91ddfcc",
+                "sha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+                "sourceCharacters": 21320,
+                "visibleCharacters": 21320,
+                "complete": true
+              },
+              {
+                "sourceId": "a1f90d32fba8478a8947a5a6",
+                "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+                "sourceCharacters": 1850,
+                "visibleCharacters": 1850,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              },
+              {
+                "sourceId": "dd6d1bdcff7bfe1a5fc7c7da",
+                "sha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90",
+                "sourceCharacters": 12992,
+                "visibleCharacters": 12992,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 78813,
+          "outputTokens": 1963,
+          "totalTokens": 80776
+        },
+        "outputSha256": "dbc5b228fdb3f2a0ae4128bdefc591906c8069f1e63004e77f0a460e8e4de720"
+      },
+      {
+        "stage": "repair",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "7b04daddac7dbc47080cdee195c52254dab8e64a647d8ab079471f349275fb6d",
+            "sources": [
+              {
+                "sourceId": "b57fcf648ca6aec4b68d5d53",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "84ec39119a458fdea3432a75",
+                "sha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+                "sourceCharacters": 62699,
+                "visibleCharacters": 62699,
+                "complete": true
+              },
+              {
+                "sourceId": "0dadeab80e366157f91ddfcc",
+                "sha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+                "sourceCharacters": 21320,
+                "visibleCharacters": 21320,
+                "complete": true
+              },
+              {
+                "sourceId": "a1f90d32fba8478a8947a5a6",
+                "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+                "sourceCharacters": 1850,
+                "visibleCharacters": 1850,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              },
+              {
+                "sourceId": "dd6d1bdcff7bfe1a5fc7c7da",
+                "sha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90",
+                "sourceCharacters": 12992,
+                "visibleCharacters": 12992,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 131845,
+          "outputTokens": 3340,
+          "totalTokens": 135185
+        },
+        "outputSha256": "97122021a13b9dafff0be3175f71f1da2842220a4c9f4522a0738b7cfe1e3745"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "7b04daddac7dbc47080cdee195c52254dab8e64a647d8ab079471f349275fb6d",
+            "sources": [
+              {
+                "sourceId": "b57fcf648ca6aec4b68d5d53",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "84ec39119a458fdea3432a75",
+                "sha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+                "sourceCharacters": 62699,
+                "visibleCharacters": 62699,
+                "complete": true
+              },
+              {
+                "sourceId": "0dadeab80e366157f91ddfcc",
+                "sha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+                "sourceCharacters": 21320,
+                "visibleCharacters": 21320,
+                "complete": true
+              },
+              {
+                "sourceId": "a1f90d32fba8478a8947a5a6",
+                "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+                "sourceCharacters": 1850,
+                "visibleCharacters": 1850,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              },
+              {
+                "sourceId": "dd6d1bdcff7bfe1a5fc7c7da",
+                "sha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90",
+                "sourceCharacters": 12992,
+                "visibleCharacters": 12992,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 116160,
+          "outputTokens": 5342,
+          "totalTokens": 121502
+        },
+        "outputSha256": "09634cdf7aff07488b164db0f6c1f8f852c3e177e3c848ea2ba677f11c78ebf8"
+      }
+    ]
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "draft",
+        "startedAt": "2026-09-13T10:54:35.234Z",
+        "completed": true,
+        "inputTokenUpperBound": 308994,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:55:22.364Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 78813,
+          "outputTokens": 1963,
+          "totalTokens": 80776
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "7b04daddac7dbc47080cdee195c52254dab8e64a647d8ab079471f349275fb6d",
+            "sources": [
+              {
+                "sourceId": "b57fcf648ca6aec4b68d5d53",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "84ec39119a458fdea3432a75",
+                "sha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+                "sourceCharacters": 62699,
+                "visibleCharacters": 62699,
+                "complete": true
+              },
+              {
+                "sourceId": "0dadeab80e366157f91ddfcc",
+                "sha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+                "sourceCharacters": 21320,
+                "visibleCharacters": 21320,
+                "complete": true
+              },
+              {
+                "sourceId": "a1f90d32fba8478a8947a5a6",
+                "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+                "sourceCharacters": 1850,
+                "visibleCharacters": 1850,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              },
+              {
+                "sourceId": "dd6d1bdcff7bfe1a5fc7c7da",
+                "sha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90",
+                "sourceCharacters": 12992,
+                "visibleCharacters": 12992,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "dbc5b228fdb3f2a0ae4128bdefc591906c8069f1e63004e77f0a460e8e4de720",
+        "knownInputTokens": 78813,
+        "knownOutputTokens": 1963,
+        "knownStandardApiEquivalentUsd": 0.88628,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "repair",
+        "startedAt": "2026-09-13T10:55:22.467Z",
+        "completed": true,
+        "inputTokenUpperBound": 510805,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:57:08.651Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 131845,
+          "outputTokens": 3340,
+          "totalTokens": 135185
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "7b04daddac7dbc47080cdee195c52254dab8e64a647d8ab079471f349275fb6d",
+            "sources": [
+              {
+                "sourceId": "b57fcf648ca6aec4b68d5d53",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "84ec39119a458fdea3432a75",
+                "sha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+                "sourceCharacters": 62699,
+                "visibleCharacters": 62699,
+                "complete": true
+              },
+              {
+                "sourceId": "0dadeab80e366157f91ddfcc",
+                "sha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+                "sourceCharacters": 21320,
+                "visibleCharacters": 21320,
+                "complete": true
+              },
+              {
+                "sourceId": "a1f90d32fba8478a8947a5a6",
+                "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+                "sourceCharacters": 1850,
+                "visibleCharacters": 1850,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              },
+              {
+                "sourceId": "dd6d1bdcff7bfe1a5fc7c7da",
+                "sha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90",
+                "sourceCharacters": 12992,
+                "visibleCharacters": 12992,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "97122021a13b9dafff0be3175f71f1da2842220a4c9f4522a0738b7cfe1e3745",
+        "knownInputTokens": 131845,
+        "knownOutputTokens": 3340,
+        "knownStandardApiEquivalentUsd": 1.48545,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 3,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-13T10:57:09.977Z",
+        "completed": true,
+        "inputTokenUpperBound": 447031,
+        "maxOutputTokens": 12660,
+        "endedAt": "2026-09-13T10:59:55.199Z",
+        "model": "gpt-6-astra",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 116160,
+          "outputTokens": 5342,
+          "totalTokens": 121502
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "7b04daddac7dbc47080cdee195c52254dab8e64a647d8ab079471f349275fb6d",
+            "sources": [
+              {
+                "sourceId": "b57fcf648ca6aec4b68d5d53",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "84ec39119a458fdea3432a75",
+                "sha256": "492bb86917d4c2e00baca7eee6656a55974f39f68501f80046f55f017cf5d75a",
+                "sourceCharacters": 62699,
+                "visibleCharacters": 62699,
+                "complete": true
+              },
+              {
+                "sourceId": "0dadeab80e366157f91ddfcc",
+                "sha256": "1a4e1d1917c42089862a2751860344b9edcea39b2fcfc865e466f5f26a2bd0f0",
+                "sourceCharacters": 21320,
+                "visibleCharacters": 21320,
+                "complete": true
+              },
+              {
+                "sourceId": "a1f90d32fba8478a8947a5a6",
+                "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+                "sourceCharacters": 1850,
+                "visibleCharacters": 1850,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              },
+              {
+                "sourceId": "dd6d1bdcff7bfe1a5fc7c7da",
+                "sha256": "0f46e8782f42ac808a0222a034f41ca1dfcb93fa4659a9f6aacc5eaf710dac90",
+                "sourceCharacters": 12992,
+                "visibleCharacters": 12992,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "09634cdf7aff07488b164db0f6c1f8f852c3e177e3c848ea2ba677f11c78ebf8",
+        "knownInputTokens": 116160,
+        "knownOutputTokens": 5342,
+        "knownStandardApiEquivalentUsd": 1.4287,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 3.80043,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-v3-chopper-20260913/chopper"
+}

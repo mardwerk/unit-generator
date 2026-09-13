@@ -1,0 +1,275 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "jinbe",
+  "name": "Jinbe",
+  "description": "Straw Hat helmsman; One Piece manga through Wano. Stationary Fish-Man Karate/Jujutsu specialist with no Devil Fruit mechanics or transformations. Dry-land karate uses ambient/body-water shock, represented by direct contact beyond touching distance and purchased internal damage. Armament supplies bounded armor pressure; Observation supplies detection and primary reacquisition, never future sight or guaranteed hits. All numbers, prices, stamina, unlock schedules and geometry are provisional game adaptations, not canon measurements or measured balance. Highest purchased tier unlocks the single contextual Technique: shoulder throw at 1, bounded water throw at 2, Buraikan at 3, stronger Buraikan at 5. Each replaces a primary cycle through the shared queue, funding and cooldown lifecycle. Water throw assumes a prepared external liquid supply; water volume, gathering and depletion are not simulated. It does not create a flood or terrain. Shoulder throw and Buraikan report bounded backward path displacement only for displaceable enemies, never past the entrance; caller supplies motion. Omitted: swimming enhancement, free movement, ship handling, fish communication and transport, defensive Kairagi, endurance, fear resistance, weapon history, seawater-specific zombie interactions and Raizo-assisted flooding. These grant no HP, shields, taunt, healing or ally range. Karakusagawara Seiken and Soshark are omitted because supplied evidence lacks distinct execution details. Fresh browsing was unavailable; supplied secondary captures were reviewed, not independently verified against manga. The requested whale-shark species identification remains unverified by their prose.",
+  "cost": 900,
+  "baseForm": "base",
+  "stunProtectionSeconds": 2,
+  "stamina": {
+    "unlockTier": 1,
+    "maximum": 100,
+    "entryMinimum": 25,
+    "recoveryPerSecond": 5,
+    "reentrySeconds": 0,
+    "techniqueCost": 25,
+    "techniqueCooldown": 10
+  },
+  "forms": [
+    {
+      "id": "base",
+      "name": "Fish-Man Martial Artist",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Fish-Man Karate — Water-Particle Strike",
+        "delivery": "direct-contact",
+        "damage": 28,
+        "period": 1.8,
+        "windup": 0.65,
+        "reach": 18,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "shoulder-throw",
+          "name": "Fish-Man Jujutsu — Shoulder Throw",
+          "unlockTier": 1,
+          "delivery": "direct-contact",
+          "damage": 45,
+          "windup": 0.5,
+          "recovery": 1.3,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "control": {
+            "displacement": 5
+          }
+        },
+        {
+          "id": "water-throw",
+          "name": "Fish-Man Jujutsu — Bounded Water Throw",
+          "unlockTier": 2,
+          "delivery": "projectile",
+          "projectileSpeed": 48,
+          "projectileRadius": 3,
+          "damage": 52,
+          "windup": 0.7,
+          "recovery": 1.4,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 6,
+            "cap": 3
+          }
+        },
+        {
+          "id": "buraikan",
+          "name": "Buraikan",
+          "unlockTier": 3,
+          "delivery": "direct-contact",
+          "damage": 85,
+          "windup": 0.85,
+          "recovery": 1.4,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "control": {
+            "displacement": 9
+          }
+        },
+        {
+          "id": "buraikan-mastery",
+          "name": "Buraikan — Mastered Execution",
+          "unlockTier": 5,
+          "delivery": "direct-contact",
+          "damage": 125,
+          "windup": 0.85,
+          "recovery": 1.4,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "control": {
+            "displacement": 12
+          }
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "body-water",
+      "name": "Body-Water Pressure",
+      "description": "Develops karate's body-water effect and offensive Armament. Internal fractions are bounded armor-bypassing adaptations, not universal penetration or invulnerability bypass. Damage additions affect primary attacks and all Techniques. No defensive hardening is simulated.",
+      "upgrades": [
+        {
+          "name": "Body-Water Transmission",
+          "description": "Sets internal damage fraction to 0.15. Immediately unlocks stamina and the tier-1 shoulder throw if this is the first purchase.",
+          "cost": 300,
+          "modifiers": {
+            "internalFraction": 0.15
+          }
+        },
+        {
+          "name": "Armament-Hardened Fist",
+          "description": "Ignores 20% of armor for ordinary damage; internal damage remains separate.",
+          "cost": 500,
+          "modifiers": {
+            "armorIgnore": 0.2
+          }
+        },
+        {
+          "name": "Deep Water Shock",
+          "description": "Raises internal fraction to 0.3 and adds 8 damage to primary attacks and all Techniques.",
+          "cost": 1100,
+          "modifiers": {
+            "internalFraction": 0.3,
+            "flatDamage": 8
+          }
+        },
+        {
+          "name": "Hardened Karate Mastery",
+          "description": "Raises armor ignore to 40% and multiplies primary and Technique damage by 1.2.",
+          "cost": 2200,
+          "modifiers": {
+            "armorIgnore": 0.4,
+            "damageMultiplier": 1.2
+          }
+        },
+        {
+          "name": "Piercing Body-Water Impact",
+          "description": "Raises internal fraction to 0.5 and adds 18 damage to primary attacks and all Techniques.",
+          "cost": 4500,
+          "modifiers": {
+            "internalFraction": 0.5,
+            "flatDamage": 18
+          }
+        }
+      ]
+    },
+    {
+      "id": "shock-propagation",
+      "name": "Shock Propagation",
+      "description": "Extends dry-land water-particle karate and adds a bounded follow-through shock. Emission is an instantaneous karate abstraction, not thrown water or a traveling projectile. It begins at primary contact, extends away from Jinbe and stops at obstacles. Only this path owns emission. The generic shoulder and water throws are descriptive labels, not claims of verified Japanese attack names; their shared primary reach is an authored abstraction of grappling and liquid manipulation. Water throw implements ranged liquid damage and bounded splash geometry only. Liquid-projectile knockback is omitted: the supplied liquid-manipulation passage does not establish backward displacement of its recipients.",
+      "upgrades": [
+        {
+          "name": "Extended Water-Particle Contact",
+          "description": "Adds 6 reach, bringing primary acquisition reach to 24.",
+          "cost": 280,
+          "modifiers": {
+            "reachAdd": 6
+          }
+        },
+        {
+          "name": "Passing Shock",
+          "description": "Every four successful primary cycles emits a 12-damage shock, width 4 and length 12, capped at two targets. Flat damage additions do not enter emission damage.",
+          "cost": 550,
+          "modifiers": {
+            "emission": {
+              "cycles": 4,
+              "damage": 12,
+              "width": 4,
+              "length": 12,
+              "cap": 2
+            }
+          }
+        },
+        {
+          "name": "Broad Follow-Through",
+          "description": "Replaces emission with a 20-damage shock every three successful primary cycles, width 6, length 18 and cap three.",
+          "cost": 1200,
+          "modifiers": {
+            "emission": {
+              "cycles": 3,
+              "damage": 20,
+              "width": 6,
+              "length": 18,
+              "cap": 3
+            }
+          }
+        },
+        {
+          "name": "Farther Shock Contact",
+          "description": "Adds another 6 reach, for 30 along this path, and multiplies primary timing by 0.9. Techniques keep their authored timing.",
+          "cost": 2100,
+          "modifiers": {
+            "reachAdd": 6,
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Master's Follow-Through",
+          "description": "Replaces emission with a 35-damage shock every two successful primary cycles, width 8, length 24 and cap five. Emission cannot trigger further effects or counters.",
+          "cost": 4300,
+          "modifiers": {
+            "emission": {
+              "cycles": 2,
+              "damage": 35,
+              "width": 8,
+              "length": 24,
+              "cap": 5
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "veteran-perception",
+      "name": "Veteran Perception",
+      "description": "Observation and experienced martial execution improve eligible contact and primary cadence. Detection does not remove obstacles or invulnerability. Retargeting replaces one lost primary target at resolution without restarting windup; it never changes a Technique's locked target. Speed represents attack execution, not swimming, movement or defensive evasion.",
+      "upgrades": [
+        {
+          "name": "Observation Haki",
+          "description": "Enables concealed-target detection as a bounded adaptation of sensing presence.",
+          "cost": 350,
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Experienced Reacquisition",
+          "description": "Enables one primary target replacement when the original target is lost, subject to normal eligibility.",
+          "cost": 450,
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Economical Execution",
+          "description": "Multiplies primary windup and recovery timing by 0.85; Technique timing and shared cooldown are unchanged.",
+          "cost": 1050,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.85
+          }
+        },
+        {
+          "name": "Decisive Opening",
+          "description": "Adds 10 damage to primary attacks and all Techniques.",
+          "cost": 1900,
+          "modifiers": {
+            "flatDamage": 10
+          }
+        },
+        {
+          "name": "Veteran Karate Rhythm",
+          "description": "Applies another 0.8 primary timing multiplier and multiplies primary and Technique damage by 1.15. Contact can still fail eligibility checks.",
+          "cost": 4100,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.8,
+            "damageMultiplier": 1.15
+          }
+        }
+      ]
+    }
+  ]
+}

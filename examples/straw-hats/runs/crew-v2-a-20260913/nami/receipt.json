@@ -1,0 +1,4051 @@
+{
+  "id": "nami",
+  "operation": "generation",
+  "status": "success",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "bd4a6855371fe112b69ef5e37d09e5df3c90bb9503ca1afeb0b65efedb81a5d6",
+  "unitSha256": "19bd9977ae7d079291ae7337d3c4d41acffe68161f1f863bf5e46d5b768b638c",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "600c00487b3edecefeba05e31f24f03f81948740f15dc3e223a85d126a7f82be",
+    "implementationVersion": "manga-mayhem/0.1.2",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "input": {
+    "subject": "Nami",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Produce a faithful playable Straw Hat unit using the current Manga Mayhem contract. Exactly three paths of five concrete cumulative purchases, legal maximum 5-2-0. Every purchase must change executable behavior. Source facts must be established by fresh research. Disclose numerical tuning, unlock schedules and bounded interpretations as game adaptations; distinguish omitted powers from implemented powers. This is a stationary tower encounter with caller-supplied enemy motion and ally injuries, not tower defensive combat or free unit movement. Avoid unsupported air-only target classes, tower HP, shields, taunt, or invented powers. If a source trait has no runtime representation, preserve it in an explicit omission rather than a fake stat bonus. Use the supported schema exactly, including resources, projectile flight, target geometry, statuses, and shared technique lifecycle. Balance is a later measured pass; prices are provisional. World units are shared across the crew: ordinary close contact roughly 8-18, stretched or ranged profiles roughly 30-60; do not treat these as canon measurements. Keep signatures recognizable and source-backed. Weather science and Clima-Tact, heat/cool manipulation, lightning and Mirage Tempo; Wano Zeus resides in the Clima-Tact after his previous cloud body is taken. Preserve a weather controller with real projectile/status or companion mechanics, not generic lightning reskin. Verify Zeus chronology. No pre-destruction standalone Zeus body claimed as current. Weather-created slowing must be disclosed as game abstraction; no arbitrary regeneration negation. Navigation and money-minded personality do not automatically imply attack-speed/healing magic.",
+    "context": {
+      "crew": {
+        "id": "straw-hats",
+        "name": "Straw Hat Pirates",
+        "members": [
+          "Monkey D. Luffy",
+          "Roronoa Zoro",
+          "Nami",
+          "Usopp",
+          "Sanji",
+          "Tony Tony Chopper",
+          "Nico Robin",
+          "Franky",
+          "Brook",
+          "Jinbe"
+        ]
+      },
+      "cutoff": "One Piece manga through the end of Wano Country arc",
+      "newRun": true,
+      "coverage": "Character-specific capabilities are requirements to verify, not evidence. Record unsupported facts as gaps. No old generated artifacts supplied."
+    },
+    "sources": [
+      "https://onepiece.fandom.com/wiki/Nami/Abilities_and_Powers",
+      "https://one-piece.com/character/nami/index.html",
+      "https://one-piece.com/story/land_of_wano2/index.html"
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Nami",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied pages do not provide the requested game's current contract, supported schema details beyond the output schema, legal path structure, purchase costs, unlock schedules, projectile-flight rules, target geometry, status definitions, or shared-technique lifecycle. A playable implementation cannot be verified against those rules from the supplied evidence.",
+        "Any numerical tuning, damage values, ranges, cooldowns, resource costs, status durations, companion behavior, and purchase sequencing would be game adaptations rather than canon facts and require separate disclosure and balancing evidence.",
+        "The pages support weather manipulation, lightning, heat, mirages, wind, cloud creation, and Zeus's sentient Clima-Tact integration, but do not establish arbitrary regeneration negation, generic slowing as a canon effect, shields, taunt, healing, or attack-speed magic.",
+        "The requested cutoff excludes material after Wano. Source 9523e2588612aa9f0bd5b51f contains later Egghead and Elbaf claims, including attacks against S-Snake, Saturn, and Road; those claims were not used.",
+        "The supplied evidence does not establish a complete list of every Nami technique or every limitation through the end of Wano, so unsupported requested features should remain omitted rather than inferred."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "9523e2588612aa9f0bd5b51f",
+          "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+          "sourceCharacters": 54437,
+          "visibleCharacters": 54437,
+          "complete": true
+        },
+        {
+          "sourceId": "8459780eb116ddb855178c7f",
+          "sha256": "3e5787897b7a02903545c2e0965dbaf80c96f721e7eaec2be486c40ea494c3e3",
+          "sourceCharacters": 1770,
+          "visibleCharacters": 1770,
+          "complete": true
+        },
+        {
+          "sourceId": "600b250f9838e58b36ccca0c",
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+          "sourceCharacters": 1673,
+          "visibleCharacters": 1673,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "id": "9523e2588612aa9f0bd5b51f",
+          "url": "https://onepiece.fandom.com/wiki/Nami/Abilities_and_Powers",
+          "title": "Nami/Abilities and Powers | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 54437,
+          "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf"
+        },
+        {
+          "id": "8459780eb116ddb855178c7f",
+          "url": "https://one-piece.com/character/nami/index.html",
+          "title": "ナミ | キャラクター検索 | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1770,
+          "sha256": "3e5787897b7a02903545c2e0965dbaf80c96f721e7eaec2be486c40ea494c3e3"
+        },
+        {
+          "id": "600b250f9838e58b36ccca0c",
+          "url": "https://one-piece.com/story/land_of_wano2/index.html",
+          "title": "ワノ国編 | これまでのストーリー | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1673,
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Nami",
+        "identity": {
+          "status": "resolved",
+          "name": "Nami",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied pages identify Nami as the navigator of the Straw Hat Pirates and provide manga-linked evidence for her abilities through the Wano Country arc. Later Egghead and Elbaf material in source 9523e2588612aa9f0bd5b51f is outside the requested cutoff and is excluded."
+        },
+        "claimCount": 16,
+        "knowledgeSha256": "4e3edbfd6a710bdbb7a3ebef926550272d7420e36fa7cd4af6ab9be9cde76af9"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "manga-contract",
+        "legal-progression",
+        "reachable-resource-and-techniques"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-provided",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "review-required",
+    "findings": [
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            1
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            2
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            4
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 70,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            5
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 83.5,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            1
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            2
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            3
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            4
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 70,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            5
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 83.5,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            1
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            2
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            3
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            4
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 70,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            5
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 83.5,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 3.978,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            1
+          ],
+          "distance": 16,
+          "durationSeconds": 3.978,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            2
+          ],
+          "distance": 16,
+          "durationSeconds": 3.978,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 3.978,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            1
+          ],
+          "distance": 16,
+          "durationSeconds": 3.978,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            2
+          ],
+          "distance": 16,
+          "durationSeconds": 3.978,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 3.182400000000001,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            1
+          ],
+          "distance": 16,
+          "durationSeconds": 3.182400000000001,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            2
+          ],
+          "distance": 16,
+          "durationSeconds": 3.182400000000001,
+          "damage": 60,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 68,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            1
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 68,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            2
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 68,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            3
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 68,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            4
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 78,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            5
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 93.5,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            1,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 68,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            2,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 68,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            3,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 3.978,
+          "damage": 68,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            4,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 3.978,
+          "damage": 68,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            5,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 3.182400000000001,
+          "damage": 68,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 78.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            1
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 78.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            2
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 78.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            3
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 78.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            4
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 90.39999999999999,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            5
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 109,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            1,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 78.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            2,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 78.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            3,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 3.978,
+          "damage": 78.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            4,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 3.978,
+          "damage": 78.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            5,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 3.182400000000001,
+          "damage": 78.4,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 97.6,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            1
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 97.6,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            2
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 97.6,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            1,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 97.6,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            2,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 97.6,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 122.07999999999998,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            1
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 122.07999999999998,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            2
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 122.07999999999998,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            1,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 122.07999999999998,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            2,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 122.07999999999998,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": []
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 169.816,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            1
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 169.816,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            2
+          ],
+          "distance": 16,
+          "durationSeconds": 5.2,
+          "damage": 169.816,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            1,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 169.816,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            2,
+            0
+          ],
+          "distance": 16,
+          "durationSeconds": 4.680000000000001,
+          "damage": 169.816,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 8
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520/forms/clima-tact",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "nami-weather-hindrance"
+          ]
+        }
+      },
+      {
+        "code": "SHARED_MECHANICS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520/mechanics",
+        "message": "Observed the shared model through the MangaMayhem adapter, including caller-started income and a range-support recipient.",
+        "evidence": {
+          "cash": 0,
+          "actors": 0,
+          "range": 10,
+          "damage": 16
+        }
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 64,
+      "evaluatedBuilds": 64,
+      "purchaseEdges": 111,
+      "probes": 628,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Natural-language description agreement needs independent review; this report describes executable limits.",
+        "Stationary probes do not establish game balance or live-game parity.",
+        "Full encounter balance, all moving geometries, and all purchase/switch/cooldown sequences."
+      ]
+    }
+  },
+  "fidelity": {
+    "status": "checked",
+    "gaps": [
+      "Fresh external research was requested but is not established by the attached material or this review. This report checks only the supplied passages and does not certify fresh retrieval or independent primary-manga verification.",
+      "Weather-induced slowing and brief electrical contact stuns are accepted only as disclosed bounded game abstractions, not as canonical debuff mechanics. The explicit later Seraphim stunning feat is outside the selected cutoff and was not used.",
+      "Heat Egg's damaging heated orb is sourced, but its traveling single-target delivery is an adaptation rather than an established trajectory in the supplied passage.",
+      "Heat/cool preparation is not independently simulated: the executable representation consists of a heat attack, weather-themed slowing and timing changes. Mirage Tempo and Fata Morgana likewise remain explicit omissions, not implemented deception.",
+      "Damage, range, projectile geometry, costs, stamina, tier schedules and status durations remain provisional tuning. Contract consistency does not establish measured balance or runtime test results."
+    ],
+    "claims": [
+      {
+        "path": "/name",
+        "status": "supported",
+        "sourceMechanic": "Nami's Art of Weather",
+        "relationship": "same-ability",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p11",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 12332,
+          "end": 13187
+        },
+        "quoteSha256": "a759abec7b485b5048687ca52dc304db871b90f4972821a8f58635cf2754352c",
+        "quoteCharacters": 855
+      },
+      {
+        "path": "/description",
+        "status": "supported",
+        "sourceMechanic": "Hera seemingly consuming Zeus's former body",
+        "relationship": "same-ability",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p15",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 16520,
+          "end": 17610
+        },
+        "quoteSha256": "75bd9268169c69c6da0219721fac6b5ecf4d1e5175c12cc7a742c38894914a64",
+        "quoteCharacters": 1090
+      },
+      {
+        "path": "/forms/0/name",
+        "status": "supported",
+        "sourceMechanic": "Zeus's soul residing in the Sorcery Clima-Tact",
+        "relationship": "same-ability",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p16",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 17610,
+          "end": 18700
+        },
+        "quoteSha256": "d812c9fdaad183bc8835ea527c94a47940cbcb2fed5b025bfb00a72f8a28aa36",
+        "quoteCharacters": 1090
+      },
+      {
+        "path": "/description",
+        "status": "supported",
+        "sourceMechanic": "Mirage Tempo and Fata Morgana optical deception",
+        "relationship": "same-ability",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p12",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 13187,
+          "end": 14307
+        },
+        "quoteSha256": "51586d589eec9b14c0169fe90069ea251fc137977ad82f9999164c547fb4a75e",
+        "quoteCharacters": 1120
+      },
+      {
+        "path": "/forms/0/primary/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Thunderbolt Tempo and directed Clima-Tact lightning",
+        "relationship": "delivery-abstraction",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/forms/0/primary/shape/cap",
+        "status": "adapted",
+        "sourceMechanic": "Thunderbolt Tempo striking groups",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p12",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 13187,
+          "end": 14307
+        },
+        "quoteSha256": "51586d589eec9b14c0169fe90069ea251fc137977ad82f9999164c547fb4a75e",
+        "quoteCharacters": 1120
+      },
+      {
+        "path": "/forms/0/primary/onHit/0/kind",
+        "status": "adapted",
+        "sourceMechanic": "Localized Clima-Tact weather manipulation",
+        "relationship": "game-rule",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p11",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 12332,
+          "end": 13187
+        },
+        "quoteSha256": "a759abec7b485b5048687ca52dc304db871b90f4972821a8f58635cf2754352c",
+        "quoteCharacters": 855
+      },
+      {
+        "path": "/forms/0/techniques/0/control/displacement",
+        "status": "adapted",
+        "sourceMechanic": "Gust Sword's powerful wind blast",
+        "relationship": "delivery-abstraction",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p13",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 14307,
+          "end": 15457
+        },
+        "quoteSha256": "9bca9c3d1b8c8b7dd30d4c1ac4131d3220d8b4e375db494b4400d33b92f0d342",
+        "quoteCharacters": 1150
+      },
+      {
+        "path": "/forms/0/techniques/1/damage",
+        "status": "adapted",
+        "sourceMechanic": "Zeus-assisted Raitei",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p16",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 17610,
+          "end": 18700
+        },
+        "quoteSha256": "d812c9fdaad183bc8835ea527c94a47940cbcb2fed5b025bfb00a72f8a28aa36",
+        "quoteCharacters": 1090
+      },
+      {
+        "path": "/forms/0/techniques/1/onHit/0/kind",
+        "status": "adapted",
+        "sourceMechanic": "Localized Clima-Tact weather manipulation",
+        "relationship": "game-rule",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p11",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 12332,
+          "end": 13187
+        },
+        "quoteSha256": "a759abec7b485b5048687ca52dc304db871b90f4972821a8f58635cf2754352c",
+        "quoteCharacters": 855
+      },
+      {
+        "path": "/mechanics/attacks/0/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Heat Egg's damaging heated orb",
+        "relationship": "delivery-abstraction",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p13",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 14307,
+          "end": 15457
+        },
+        "quoteSha256": "9bca9c3d1b8c8b7dd30d4c1ac4131d3220d8b4e375db494b4400d33b92f0d342",
+        "quoteCharacters": 1150
+      },
+      {
+        "path": "/mechanics/attacks/0/detectConcealed",
+        "status": "adapted",
+        "sourceMechanic": "Heat Egg's ordinary offensive heat effect",
+        "relationship": "game-rule",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p13",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 14307,
+          "end": 15457
+        },
+        "quoteSha256": "9bca9c3d1b8c8b7dd30d4c1ac4131d3220d8b4e375db494b4400d33b92f0d342",
+        "quoteCharacters": 1150
+      },
+      {
+        "path": "/stamina/techniqueCost",
+        "status": "adapted",
+        "sourceMechanic": "Clima-Tact weather techniques",
+        "relationship": "game-rule",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p13",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 14307,
+          "end": 15457
+        },
+        "quoteSha256": "9bca9c3d1b8c8b7dd30d4c1ac4131d3220d8b4e375db494b4400d33b92f0d342",
+        "quoteCharacters": 1150
+      },
+      {
+        "path": "/paths/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Damaging Sorcery Clima-Tact weather attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p13",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 14307,
+          "end": 15457
+        },
+        "quoteSha256": "9bca9c3d1b8c8b7dd30d4c1ac4131d3220d8b4e375db494b4400d33b92f0d342",
+        "quoteCharacters": 1150
+      },
+      {
+        "path": "/paths/0/upgrades/0/modifiers/flatDamage",
+        "status": "adapted",
+        "sourceMechanic": "Damaging Clima-Tact lightning and wind",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p13",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 14307,
+          "end": 15457
+        },
+        "quoteSha256": "9bca9c3d1b8c8b7dd30d4c1ac4131d3220d8b4e375db494b4400d33b92f0d342",
+        "quoteCharacters": 1150
+      },
+      {
+        "path": "/paths/0/upgrades/1/modifiers/damageMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Damaging Clima-Tact weather attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p13",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 14307,
+          "end": 15457
+        },
+        "quoteSha256": "9bca9c3d1b8c8b7dd30d4c1ac4131d3220d8b4e375db494b4400d33b92f0d342",
+        "quoteCharacters": 1150
+      },
+      {
+        "path": "/paths/0/upgrades/2/modifiers/flatDamage",
+        "status": "adapted",
+        "sourceMechanic": "Damaging Clima-Tact weather attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p13",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 14307,
+          "end": 15457
+        },
+        "quoteSha256": "9bca9c3d1b8c8b7dd30d4c1ac4131d3220d8b4e375db494b4400d33b92f0d342",
+        "quoteCharacters": 1150
+      },
+      {
+        "path": "/paths/0/upgrades/3/modifiers/damageMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Damaging Clima-Tact weather attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p13",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 14307,
+          "end": 15457
+        },
+        "quoteSha256": "9bca9c3d1b8c8b7dd30d4c1ac4131d3220d8b4e375db494b4400d33b92f0d342",
+        "quoteCharacters": 1150
+      },
+      {
+        "path": "/paths/0/upgrades/4/modifiers/damageMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Zeus enhancing the Clima-Tact and Raitei",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p16",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 17610,
+          "end": 18700
+        },
+        "quoteSha256": "d812c9fdaad183bc8835ea527c94a47940cbcb2fed5b025bfb00a72f8a28aa36",
+        "quoteCharacters": 1090
+      },
+      {
+        "path": "/paths/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Clima-Tact preparation and directed electrical attacks",
+        "relationship": "game-rule",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/paths/1/upgrades/0/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Efficient Sorcery Clima-Tact weather preparation",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/paths/1/upgrades/1/modifiers/contactStun",
+        "status": "adapted",
+        "sourceMechanic": "Clima-Tact electrocution",
+        "relationship": "game-rule",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/paths/1/upgrades/2/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Improved Clima-Tact weather production",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/paths/1/upgrades/3/modifiers/contactStun",
+        "status": "adapted",
+        "sourceMechanic": "Clima-Tact electrocution",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/paths/1/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Improved weather control and Clima-Tact electrocution",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/paths/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Directed lightning and repositioned thunderclouds",
+        "relationship": "delivery-abstraction",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/paths/2/upgrades/0/modifiers/reachAdd",
+        "status": "adapted",
+        "sourceMechanic": "Ranged Clima-Tact weather deployment",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/paths/2/upgrades/1/modifiers/retargetPrimary",
+        "status": "adapted",
+        "sourceMechanic": "Zeus assisting attacks to make them harder to evade",
+        "relationship": "delivery-abstraction",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p16",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 17610,
+          "end": 18700
+        },
+        "quoteSha256": "d812c9fdaad183bc8835ea527c94a47940cbcb2fed5b025bfb00a72f8a28aa36",
+        "quoteCharacters": 1090
+      },
+      {
+        "path": "/paths/2/upgrades/2/modifiers/reachAdd",
+        "status": "adapted",
+        "sourceMechanic": "Ranged Clima-Tact weather deployment",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/paths/2/upgrades/3/description",
+        "status": "adapted",
+        "sourceMechanic": "Directed damaging Clima-Tact weather attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/paths/2/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Directed Clima-Tact lightning",
+        "relationship": "numerical-tuning",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p14",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 15457,
+          "end": 16520
+        },
+        "quoteSha256": "a13e4b37718ac4d8373cd69929fb40f7cc36b21e3609f16ea1f5f7cb54b9ed0d",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/forms/0/techniques/1/projectileRadius",
+        "status": "adapted",
+        "sourceMechanic": "Zeus making Nami's attacks harder to avoid",
+        "relationship": "delivery-abstraction",
+        "sourceId": "9523e2588612aa9f0bd5b51f",
+        "passageId": "p16",
+        "sourceSha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+        "sourceRange": {
+          "start": 17610,
+          "end": 18700
+        },
+        "quoteSha256": "d812c9fdaad183bc8835ea527c94a47940cbcb2fed5b025bfb00a72f8a28aa36",
+        "quoteCharacters": 1090
+      }
+    ],
+    "representation": "Compact public receipt. Complete source passages and detailed model review remain in the private production result."
+  },
+  "fidelityAttempts": [
+    {
+      "reportValid": true
+    }
+  ],
+  "metadata": {
+    "modelCalls": 3,
+    "repairs": 0,
+    "elapsedMs": 284396,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 19478,
+          "outputTokens": 1593,
+          "totalTokens": 21071
+        },
+        "outputSha256": "4e3edbfd6a710bdbb7a3ebef926550272d7420e36fa7cd4af6ab9be9cde76af9"
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "4e3edbfd6a710bdbb7a3ebef926550272d7420e36fa7cd4af6ab9be9cde76af9",
+            "sources": [
+              {
+                "sourceId": "9523e2588612aa9f0bd5b51f",
+                "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+                "sourceCharacters": 54437,
+                "visibleCharacters": 54437,
+                "complete": true
+              },
+              {
+                "sourceId": "8459780eb116ddb855178c7f",
+                "sha256": "3e5787897b7a02903545c2e0965dbaf80c96f721e7eaec2be486c40ea494c3e3",
+                "sourceCharacters": 1770,
+                "visibleCharacters": 1770,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 46280,
+          "outputTokens": 2654,
+          "totalTokens": 48934
+        },
+        "outputSha256": "19bd9977ae7d079291ae7337d3c4d41acffe68161f1f863bf5e46d5b768b638c"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "4e3edbfd6a710bdbb7a3ebef926550272d7420e36fa7cd4af6ab9be9cde76af9",
+            "sources": [
+              {
+                "sourceId": "9523e2588612aa9f0bd5b51f",
+                "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+                "sourceCharacters": 54437,
+                "visibleCharacters": 54437,
+                "complete": true
+              },
+              {
+                "sourceId": "8459780eb116ddb855178c7f",
+                "sha256": "3e5787897b7a02903545c2e0965dbaf80c96f721e7eaec2be486c40ea494c3e3",
+                "sourceCharacters": 1770,
+                "visibleCharacters": 1770,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 30016,
+          "outputTokens": 4956,
+          "totalTokens": 34972
+        },
+        "outputSha256": "98b1b9f086db218dc65c6452784098f8d85e243a823d5f8623323fad872c1aee"
+      }
+    ]
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-13T10:38:56.909Z",
+        "completed": true,
+        "inputTokenUpperBound": 75101,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:39:37.654Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 19478,
+          "outputTokens": 1593,
+          "totalTokens": 21071
+        },
+        "outputSha256": "4e3edbfd6a710bdbb7a3ebef926550272d7420e36fa7cd4af6ab9be9cde76af9",
+        "knownInputTokens": 19478,
+        "knownOutputTokens": 1593,
+        "knownStandardApiEquivalentUsd": 0.27443,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "draft",
+        "startedAt": "2026-09-13T10:39:37.671Z",
+        "completed": true,
+        "inputTokenUpperBound": 184120,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:41:02.855Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 46280,
+          "outputTokens": 2654,
+          "totalTokens": 48934
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "4e3edbfd6a710bdbb7a3ebef926550272d7420e36fa7cd4af6ab9be9cde76af9",
+            "sources": [
+              {
+                "sourceId": "9523e2588612aa9f0bd5b51f",
+                "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+                "sourceCharacters": 54437,
+                "visibleCharacters": 54437,
+                "complete": true
+              },
+              {
+                "sourceId": "8459780eb116ddb855178c7f",
+                "sha256": "3e5787897b7a02903545c2e0965dbaf80c96f721e7eaec2be486c40ea494c3e3",
+                "sourceCharacters": 1770,
+                "visibleCharacters": 1770,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "19bd9977ae7d079291ae7337d3c4d41acffe68161f1f863bf5e46d5b768b638c",
+        "knownInputTokens": 46280,
+        "knownOutputTokens": 2654,
+        "knownStandardApiEquivalentUsd": 0.5955,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 3,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-13T10:41:04.742Z",
+        "completed": true,
+        "inputTokenUpperBound": 119789,
+        "maxOutputTokens": 10140,
+        "endedAt": "2026-09-13T10:43:37.488Z",
+        "model": "gpt-6-astra",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 30016,
+          "outputTokens": 4956,
+          "totalTokens": 34972
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "4e3edbfd6a710bdbb7a3ebef926550272d7420e36fa7cd4af6ab9be9cde76af9",
+            "sources": [
+              {
+                "sourceId": "9523e2588612aa9f0bd5b51f",
+                "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+                "sourceCharacters": 54437,
+                "visibleCharacters": 54437,
+                "complete": true
+              },
+              {
+                "sourceId": "8459780eb116ddb855178c7f",
+                "sha256": "3e5787897b7a02903545c2e0965dbaf80c96f721e7eaec2be486c40ea494c3e3",
+                "sourceCharacters": 1770,
+                "visibleCharacters": 1770,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "98b1b9f086db218dc65c6452784098f8d85e243a823d5f8623323fad872c1aee",
+        "knownInputTokens": 30016,
+        "knownOutputTokens": 4956,
+        "knownStandardApiEquivalentUsd": 0.54796,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 1.41789,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-v2-a-20260913/nami"
+}

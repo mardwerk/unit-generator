@@ -53,8 +53,12 @@ export function freeze<T>(value: T): T {
   }
   return value;
 }
+const schemaCache = new Map<string, ReturnType<Ajv2020['compile']>>();
 export function compileSchema(schema: JsonSchema) {
   const copy = jsonCopy(schema);
+  const key = JSON.stringify(copy);
+  const cached = schemaCache.get(key);
+  if (cached) return cached;
   // No remote schema loader, coercion, defaults, or removal of extra properties.
   const ajv = new Ajv2020({
     allErrors: true,
@@ -64,7 +68,10 @@ export function compileSchema(schema: JsonSchema) {
     allowUnionTypes: true
   });
   try {
-    return ajv.compile(copy);
+    const validate = ajv.compile(copy);
+    if (schemaCache.size >= 16) schemaCache.delete(schemaCache.keys().next().value!);
+    schemaCache.set(key, validate);
+    return validate;
   } catch {
     throw new RunError(
       'invalid-definition-schema',

@@ -1,0 +1,303 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "roronoa-zoro",
+  "name": "Roronoa Zoro",
+  "description": "Wano-end Zoro uses Three Sword Style flying cuts, Haki, Ashura, and King of Hell. Combat-style forms are adaptations, not biology; Ashura's anger gate is tiered activation. Observation is detection. Foxfire, No Sword Style, and many named cuts are omitted.",
+  "cost": 7200,
+  "baseForm": "three-sword-style",
+  "stunProtectionSeconds": 2,
+  "stamina": {
+    "unlockTier": 2,
+    "maximum": 100,
+    "entryMinimum": 35,
+    "recoveryPerSecond": 4.5,
+    "reentrySeconds": 3.5,
+    "techniqueCost": 25,
+    "techniqueCooldown": 4
+  },
+  "forms": [
+    {
+      "id": "three-sword-style",
+      "name": "Three Sword Style",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Three Sword Style: Flying Slash",
+        "delivery": "projectile",
+        "projectileSpeed": 24,
+        "projectileRadius": 0.45,
+        "damage": 32,
+        "period": 1.35,
+        "windup": 0.3,
+        "reach": 8,
+        "shape": {
+          "kind": "area",
+          "radius": 1.35,
+          "cap": 3
+        }
+      },
+      "techniques": [
+        {
+          "id": "shishi-sonson",
+          "name": "One Sword Style Iai: Shishi Sonson",
+          "unlockTier": 2,
+          "damage": 78,
+          "windup": 0.3,
+          "recovery": 0.75,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "sweep",
+            "width": 0.8,
+            "cap": 2
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "ashura",
+      "name": "Nine Sword Style: Ashura",
+      "unlockTier": 3,
+      "drainPerSecond": 5.5,
+      "primary": {
+        "name": "Ashura: Flying Demon Slash",
+        "delivery": "projectile",
+        "projectileSpeed": 26,
+        "projectileRadius": 0.5,
+        "damage": 46,
+        "period": 1.55,
+        "windup": 0.35,
+        "reach": 8.5,
+        "shape": {
+          "kind": "sweep",
+          "width": 1.1,
+          "cap": 4
+        }
+      },
+      "techniques": [
+        {
+          "id": "ashura-moja-no-tawamure",
+          "name": "Ashura: Bakkei Moja no Tawamure",
+          "unlockTier": 3,
+          "damage": 42,
+          "windup": 0.45,
+          "recovery": 0.9,
+          "hits": 3,
+          "hitSpan": 0.65,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    },
+    {
+      "id": "king-of-hell",
+      "name": "King of Hell Three Sword Style",
+      "unlockTier": 5,
+      "drainPerSecond": 9,
+      "primary": {
+        "name": "King of Hell: Flying Slash",
+        "delivery": "projectile",
+        "projectileSpeed": 29,
+        "projectileRadius": 0.55,
+        "damage": 64,
+        "period": 1.65,
+        "windup": 0.4,
+        "reach": 10,
+        "shape": {
+          "kind": "area",
+          "radius": 1.6,
+          "cap": 5
+        }
+      },
+      "techniques": [
+        {
+          "id": "king-of-hell-three-sword-style",
+          "name": "King of Hell Three Sword Style",
+          "unlockTier": 5,
+          "damage": 86,
+          "windup": 0.5,
+          "recovery": 1,
+          "hits": 2,
+          "hitSpan": 0.5,
+          "shape": {
+            "kind": "sweep",
+            "width": 1,
+            "cap": 3
+          },
+          "delivery": "direct-contact"
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "three-sword-mastery",
+      "name": "Three Sword Mastery",
+      "description": "A practical Three Sword Style route: stronger and faster flying cuts, longer reach, concealed-target detection, and primary retargeting. Timing and values are gameplay adaptations.",
+      "upgrades": [
+        {
+          "name": "Tempered Grips",
+          "cost": 350,
+          "description": "Adds flat cutting force to ordinary primary hits, providing a reliable early damage increase.",
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Rapid Crossing Cuts",
+          "cost": 500,
+          "description": "Reduces primary timing, representing faster transitions between Zoro's crossing slashes.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.92
+          }
+        },
+        {
+          "name": "Long-Range Flying Slash",
+          "cost": 650,
+          "description": "Extends primary acquisition reach for encounters where Zoro's cutting waves must cross open space.",
+          "modifiers": {
+            "reachAdd": 2
+          }
+        },
+        {
+          "name": "Presence Reading",
+          "cost": 800,
+          "description": "Enables primary detection of concealed targets, adapting Zoro's Observation Haki to executable targeting.",
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Follow-Through",
+          "cost": 1000,
+          "description": "Allows one lost primary target to be replaced at resolution without restarting its windup.",
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "haki-swordsmanship",
+      "name": "Haki Swordsmanship",
+      "description": "Armament and Supreme King Haki route. Armor ignore and damage model hardened defenses and Haki infusion; contact stun is conditional on the target's Manga eligibility flags.",
+      "upgrades": [
+        {
+          "name": "Armament Hardening",
+          "cost": 450,
+          "description": "Lets ordinary damage partially ignore armor, useful against armored or hardened opponents.",
+          "modifiers": {
+            "armorIgnore": 0.2
+          }
+        },
+        {
+          "name": "Blackened Blades",
+          "cost": 600,
+          "description": "Multiplies primary and Technique damage through stronger Armament Haki swordsmanship.",
+          "modifiers": {
+            "damageMultiplier": 1.12
+          }
+        },
+        {
+          "name": "Enma's Draw",
+          "cost": 850,
+          "description": "A gameplay adaptation of Enma drawing out more Haki: attacks bypass a larger portion of remaining armor.",
+          "modifiers": {
+            "armorIgnore": 0.4
+          }
+        },
+        {
+          "name": "Supreme King Infusion",
+          "cost": 1100,
+          "description": "Adds a stronger multiplicative damage factor for the conscious Haki infusion developed in Wano.",
+          "modifiers": {
+            "damageMultiplier": 1.22
+          }
+        },
+        {
+          "name": "Conqueror's Impact",
+          "cost": 1250,
+          "description": "Adds a short contact stun to eligible targets; weak-willed and stunnable checks remain mandatory.",
+          "modifiers": {
+            "contactStun": 0.5
+          }
+        }
+      ]
+    },
+    {
+      "id": "storm-of-blades",
+      "name": "Storm of Blades",
+      "description": "Area-control route for Zoro's whirlwind slashes and extended cutting waves. Pulse stuns remain conditional; emission is damage-only and never propagates other effects.",
+      "upgrades": [
+        {
+          "name": "Spinning Slashes",
+          "cost": 500,
+          "description": "Adds one periodic nearby pulse after primary contact, damaging eligible surrounding targets and attempting a conditional stun.",
+          "modifiers": {
+            "pulse": {
+              "cycles": 1,
+              "radius": 2,
+              "cap": 3,
+              "stun": 0.3,
+              "interval": 1
+            }
+          }
+        },
+        {
+          "name": "Crowd-Cutting Maelstrom",
+          "cost": 750,
+          "description": "Replaces the pulse with two wider, more frequent pulses for dense groups of weak-willed enemies.",
+          "modifiers": {
+            "pulse": {
+              "cycles": 2,
+              "radius": 2.5,
+              "cap": 4,
+              "stun": 0.4,
+              "interval": 0.8
+            }
+          }
+        },
+        {
+          "name": "Dragon's Reach",
+          "cost": 700,
+          "description": "Adds one damage-only emission from the contact point away from Zoro, useful against lines of enemies beyond primary reach.",
+          "modifiers": {
+            "emission": {
+              "cycles": 1,
+              "damage": 16,
+              "width": 1,
+              "length": 5,
+              "cap": 4
+            }
+          }
+        },
+        {
+          "name": "Great Dragon Sweep",
+          "cost": 1000,
+          "description": "Replaces the emission with two longer, wider cutting waves that stop at obstacles and trigger no other effects.",
+          "modifiers": {
+            "emission": {
+              "cycles": 2,
+              "damage": 22,
+              "width": 1.2,
+              "length": 7,
+              "cap": 5
+            }
+          }
+        },
+        {
+          "name": "Kingly Devastation",
+          "cost": 1300,
+          "description": "Further multiplies damage across Zoro's primary cutting attacks and supported emission damage.",
+          "modifiers": {
+            "damageMultiplier": 1.18
+          }
+        }
+      ]
+    }
+  ]
+}

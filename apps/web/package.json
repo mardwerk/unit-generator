@@ -8,7 +8,7 @@
     "node": ">=24"
   },
   "scripts": {
-    "build": "vite build",
+    "build": "svelte-kit sync && vite build",
     "dev": "vite dev --host 127.0.0.1",
     "preview": "vite preview",
     "test:e2e": "playwright test",
@@ -20,7 +20,8 @@
     "@mardwerk/unit-core": "workspace:*",
     "@mardwerk/unit-definitions": "workspace:*",
     "@mardwerk/unit-providers": "workspace:*",
-    "svelte": "catalog:"
+    "svelte": "catalog:",
+    "@mardwerk/unit-lab": "workspace:*"
   },
   "devDependencies": {
     "@playwright/test": "^1.56.1",

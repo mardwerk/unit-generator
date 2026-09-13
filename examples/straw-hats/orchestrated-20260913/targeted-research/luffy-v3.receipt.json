@@ -1,0 +1,573 @@
+{
+  "schemaVersion": "0.2",
+  "status": "success",
+  "subject": "Monkey D. Luffy",
+  "reused": false,
+  "grounding": "grounded",
+  "gaps": [
+    "All six supplied captures were considered through their endings, including later ability sections, references, situational techniques and navigation. Each reports acquisitionTruncated=false. Only supplied text was available: linked manga chapters, images, supplementary publications and other technique pages were not independently inspected.",
+    "The evidence is chiefly fan-wiki prose or wikitext, supplemented by the ONE PIECE.com Wano summary. Embedded chapter references support temporal filtering but are not separately acquired sources or independent verification of every interpretation.",
+    "The continuity is explicitly requested, so no default-continuity assumption is needed. General character facts were resolved from the character-specific abilities page rather than from the navigation lists or an unprovided standalone biography.",
+    "Post-Wano material is excluded, including Egghead and Elbaph battles, hearing Emet, later Haki interactions with immortality, Domi Reversi immunity claims, isolated Mini Gear Four, and the manga Elephant Whip introduced in Chapter 1127. Later navigation entries do not expand the selected record.",
+    "Gear 5's later named repertoire is excluded: Mole Pistol, Dawn Whip, Dawn Rocket, Dawn Stamp, the named Star Gun execution, Dawn Gatling, Dawn Cymbal, Dawn Balloon, Dawn Pistol, Tummy Cracker, Gear 5 Jet Gatling, Genie, Caught-You-Slipping Bullet, Dawn Kraken Gatling, Dawn Thor Rifle and Dawn Thor Bullet. The Wano precursor associated retrospectively with Star Gun is retained only as an unnamed attack.",
+    "Adaptation-only and game-only techniques and variants are not merged into manga evidence. This includes the anime Jet Lance naming, Jet Missile, Jet Rifle and Jet Axe uses; later anime-only Hawk attacks; game Red Hawk upgrades, Eagle Storm and Gigant Jet Gatling; Giant Fly Swatter, Grizzly Corkscrew Magnum, film Thor attacks, One Piece Party situational moves, Leo Rex Bazooka, King King King Kong Gun, King Kong Gatling, Rhino Stampede, Dragon Culverin, Counterblow and licensed-game Gear 5 finishers.",
+    "The pages' broad descriptions of Gear 5 turning anything imagined into reality rely partly on their interpretation of Road To Laugh Tale. They also qualify object creation as uncertain and the power as non-omnipotent. This record retains demonstrated Wano rubberization, shape changes and cartoonish physical effects, not unrestricted reality alteration or permanent object creation.",
+    "Some summaries reverse the fruit-name chronology or retain Paramecia labels in navigation. The character page's explicit Wano revelation supports Hito Hito no Mi, Model: Nika as the true Mythical Zoan identity and Gomu Gomu no Mi as the previously used name.",
+    "Gear 2 lifespan loss is presented more categorically in some summary wording than in the detailed page's attribution to Lucci's speculation. No quantified Gear 2 lifespan loss is established. Similarly, later improvements do not justify erasing Gear 4's explicitly retained Onigashima time limit and Haki exhaustion.",
+    "The detailed Gear 4 page distinguishes the demonstrated Tankman: Stuffed Version from an unknown ordinary Tankman. The main page's generic Tankman summary cannot establish an additional observed unstuffed form.",
+    "The Gear 5 page supports cutting vulnerability and taxing use, but several detailed claims about aged appearance, recovery after deactivation, food-based immediate restoration and awakened Zoan personality takeover cite post-Wano chapters. Those later explanations are not backdated as established Wano facts.",
+    "The supplied pages do not give a systematic account of swimming inability or water-submersion thresholds. Their mention of balloon buoyancy and navigation links to the Blue Sea is insufficient to reconstruct those mechanics. No unsupported memory-based water rules are added.",
+    "The Thor Elephant Gun page calls its sparks lightning enhancement but does not establish a general ability to generate or control electricity. Its film-only Thor Axe comparison is excluded.",
+    "The main page's Nightmare Luffy skin-color reference appears internally malformed, and the supplied text mixes manga and anime color evidence. The core borrowed-shadow transformation is retained without depending on that color citation.",
+    "A complete baseline Gomu Gomu technique page was not supplied. Numerous original attacks are identified indirectly through Gear variants, but unsupported detailed descriptions of every baseline move are not reconstructed. No user guidance requested additional features, and allowUnverified=false prevents adding memory-based claims."
+  ],
+  "sourceVisibility": [
+    {
+      "sourceId": "de42a262bddf7ce3606250d5",
+      "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+      "sourceCharacters": 129355,
+      "visibleCharacters": 129355,
+      "complete": true
+    },
+    {
+      "sourceId": "130da8a97048e424a3a243ee",
+      "sha256": "430b9b26d431aa8c9be26147dc190af1719efda750059154d39f65bcd662fe2c",
+      "sourceCharacters": 72130,
+      "visibleCharacters": 72130,
+      "complete": true
+    },
+    {
+      "sourceId": "b8a42cdcfd8569033a61d25f",
+      "sha256": "0fe8e93e5783be2bab9887ca75df6af5c998cbf194b40317348936fdb0b051fe",
+      "sourceCharacters": 35938,
+      "visibleCharacters": 35938,
+      "complete": true
+    },
+    {
+      "sourceId": "01da57b48482b495bf450824",
+      "sha256": "3ea22cfe4c11f3957f7c3e9a7080c1a7fbfa32336991ffd1a2a86581d29cb0a6",
+      "sourceCharacters": 46058,
+      "visibleCharacters": 46058,
+      "complete": true
+    },
+    {
+      "sourceId": "ff599472ecd690bb3366ddae",
+      "sha256": "58b73cccc7245eefef1e6d10b762a744a1e7bc123669878a735cbc9347054f3f",
+      "sourceCharacters": 71422,
+      "visibleCharacters": 71422,
+      "complete": true
+    },
+    {
+      "sourceId": "600b250f9838e58b36ccca0c",
+      "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+      "sourceCharacters": 1673,
+      "visibleCharacters": 1673,
+      "complete": true
+    }
+  ],
+  "knowledge": {
+    "subject": "Monkey D. Luffy",
+    "identity": {
+      "status": "resolved",
+      "name": "Monkey D. Luffy",
+      "continuity": "One Piece manga through the end of Wano Country arc",
+      "explanation": "The character abilities page explicitly identifies Monkey D. Luffy and connects his abilities to manga chapters, while the four Gear pages identify him as their user. The supplied Wano story summary independently supports his Gear 5 victory over Kaidou and subsequent Emperor status. The selected record excludes adaptation-only material and developments after Wano; their presence does not make this identity ambiguous."
+    },
+    "claims": [
+      {
+        "text": "Luffy is the Straw Hat Pirates' captain, known as Straw Hat Luffy, from Foosha Village in East Blue. His manga debut is Chapter 1. He is 19 after the timeskip, the son of Monkey D. Dragon and grandson of Monkey D. Garp, and seeks to become Pirate King. Supported aliases include Lucy, Luffy-tarou/Luffytaro and Luffy-no-Umi.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "By Wano's conclusion, Luffy defeats Kaidou using Gear 5, becomes one of the Four Emperors and receives a bounty of 3,000,000,000 berries. He is a member of the Worst Generation and the senior captain associated with the voluntarily pledged Straw Hat Grand Fleet: seven crews totaling 5,640 people.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5",
+          "600b250f9838e58b36ccca0c"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "His defining combat style is inventive, predominantly unarmed fighting with his rubber body: extended punches, kicks and headbutts, twisting strikes, inflation, rebounds and improvised weapons. He adapts during battle, exploits enemy properties and combines his Gears with Haki. Garp's harsh childhood training and Rayleigh's two-year training underpin his development.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Even apart from Devil Fruit powers and Haki, Luffy has exceptional strength, speed, agility, durability, endurance and vitality. Examples include pushing apart buildings, carrying enormous stone blocks while weakened by Seastone, fighting Cracker for 11 hours and enduring more than nine hours against Katakuri despite severe injuries. His instincts, situational awareness and willpower help him persist and rapidly improve.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Luffy ate the fruit called Gomu Gomu no Mi at age seven. Wano reveals its true identity as the Mythical Zoan Hito Hito no Mi, Model: Nika, rather than its previously presented Paramecia classification. It grants a rubber physiology; its awakened power is associated with Nika, the Sun God and Warrior of Liberation. Zunesha recognizes the return of Joy Boy through Luffy's awakening.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5",
+          "ff599472ecd690bb3366ddae"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "His rubber body stretches, bends, twists, bounces and inflates. Stretching also supplies traversal by grabbing distant objects and pulling himself toward them. It protects against ordinary blunt impacts, falls and projectiles, permits bullets and cannonballs to be returned, and makes him immune to lightning. These defenses are not universal invulnerability: Haki-enhanced attacks and cutting attacks can injure him.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5",
+          "01da57b48482b495bf450824",
+          "ff599472ecd690bb3366ddae"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 2/Gear Two accelerates blood flow through his rubber organs and vessels, supplying increased oxygen and nutrients for greater speed and power. Initially activated by pumping his legs, it produces steam as sweat vaporizes. After the timeskip he can activate it through individual limbs and use short, controlled bursts. His Gear 2 movement includes Soru/Shave, surpassing Blueno's proficiency.",
+        "sourceIds": [
+          "130da8a97048e424a3a243ee"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 2 consumes nutrients, oxygen and energy rapidly, causing hunger, panting and declining performance with prolonged use; early overuse can leave Luffy unable to move. Lucci interprets it as threatening a shortened lifespan, rather than establishing a measured lifespan loss. Food helps replenish him, and later control reduces the demonstrated strain.",
+        "sourceIds": [
+          "130da8a97048e424a3a243ee"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 2 striking techniques include Gomu Gomu no Jet Pistol, an extremely fast straight punch; Jet Stamp, a forward kick; Jet Bazooka, a charging double open-palm strike; Jet Whip, a sweeping kick; Jet Bullet, a close-range snapback punch; and Twin Jet Pistol, simultaneous clenched-fist punches. Jet Bazooka can also propel him in midair for repeated attacks.",
+        "sourceIds": [
+          "130da8a97048e424a3a243ee"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gomu Gomu no Jet Gatling is an energy-intensive barrage of nearly invisible punches, used to defeat Lucci; Luffy also uses an omnidirectional version while lying on his back against the Boa sisters. Jet Rocket rapidly pulls him toward an object held with stretched arms. Jet Migawari, called Human Shield Jet in the VIZ manga, rapidly pulls another person into an incoming attack's path, as with Buggy against Mihawk.",
+        "sourceIds": [
+          "130da8a97048e424a3a243ee"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Post-timeskip Gear 2 techniques include Gomu Gomu no Jet Hammer, wrapping his legs around an opponent and slamming them down without the original Hammer's twisting motion; Jet Mace, a fast falling, spinning kick; and Jet Spear, the Gear 2 version of Yari used during the Monet fight.",
+        "sourceIds": [
+          "130da8a97048e424a3a243ee"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gomu Gomu no Red Hawk combines Gear 2 with Armament hardening and a stretched-back arm to deliver a flaming punch and fiery impact, even underwater. It first appears in the selected manga continuity against Hody Jones and later prompts Kaidou to dodge. Gear 2 Buso/Gear Two Armament is the named hardening preparation used for this attack.",
+        "sourceIds": [
+          "130da8a97048e424a3a243ee",
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Other Haki-enhanced Gear 2 attacks are Gomu Gomu no Hawk Gatling, a hardened Jet Gatling previously called Buso Koka: Gomu Gomu no Jet Gatling; Hawk Rifle, a hardened twisting punch; Eagle Bazooka, a hardened two-arm forward strike; Hawk Whip, an elongated hardened sweeping kick; and Hawk Stamp, a hardened sole-first kick.",
+        "sourceIds": [
+          "130da8a97048e424a3a243ee"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 3/Gear Three uses Hone Fusen/Bone Balloon: Luffy bites his thumb and blows air into his bones, transferring it through his torso to enlarge selected limbs. Unlike the softer standard Gomu Gomu no Fusen/Balloon, inflated bones provide firm striking surfaces and sturdier defense, with bullets ricocheting off. Its giant-sized attacks trade mobility for mass, area and force.",
+        "sourceIds": [
+          "b8a42cdcfd8569033a61d25f"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Early Gear 3 has air-transfer delays and cumbersome movement, making fast opponents and enclosed spaces troublesome. Deactivation initially shrinks Luffy for roughly as long as he used the form, greatly reducing strength and stretching. After the timeskip this shrinkage is overcome; he controls size and concentrates air near the fist and wrist, leaving the upper arm mobile for faster attacks and withdrawal. An enlarged, hardened arm can also serve as a shield against slashes.",
+        "sourceIds": [
+          "b8a42cdcfd8569033a61d25f"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 3 attacks include Gomu Gomu no Gigant Pistol, a giant punch; Gigant Axe, a descending enlarged leg strike; Gigant Whip, an enlarged roundhouse kick; Gigant Bazooka, a giant two-arm strike used to defeat Oars; and Gigant Rifle, an enlarged drilling punch used to finish PX-4. Gigant is rendered Giant in the listed English names.",
+        "sourceIds": [
+          "b8a42cdcfd8569033a61d25f"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gomu Gomu no Gigant Stamp is a giant straight kick, used with Mr. 3's Giant Candle Wall against Magellan; an unnamed Armament- and Supreme King-enhanced version appears against Kaidou. Gigant Fusen/Giant Balloon enlarges the torso for defense, protecting Ace and Mr. 3 from Sengoku. A Gear 3 Gomu Gomu no Rocket uses an inflated chest for travel while repelling bullets.",
+        "sourceIds": [
+          "b8a42cdcfd8569033a61d25f"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gomu Gomu no Gigant Jet Shell/Giant Jet Shell combines Gear 2 speed with Gear 3 Bone Balloon, launching Luffy's inflated torso as a cannonball. Used to defeat Shadow's Asgard-enhanced Moria, the early combination compounds Gear 2's bodily strain and Gear 3's mobility problems. The Gear 2 and Gear 3 pages describe improved combined use after Udon training without the earlier repercussions.",
+        "sourceIds": [
+          "130da8a97048e424a3a243ee",
+          "b8a42cdcfd8569033a61d25f"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gomu Gomu no Elephant Gun is an Armament-hardened Gigant Pistol with air concentrated toward the fist and wrist, enabling stronger snapback and improved mobility. Elephant Gatling rapidly repeats enlarged, hardened punches, as against Noah. Grizzly Magnum combines enlarged hardened arms with a charging, airborne Bazooka-style double strike, defeating Caesar Clown.",
+        "sourceIds": [
+          "b8a42cdcfd8569033a61d25f"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gomu Gomu no Thor Elephant Gun is described by the source as an Elephant Gun surrounded by electric sparks, used to defeat Chinjao and restore his pointed head. Gomu Gomu no Gigant Tsuppari/Giant Sumo Slap stretches an arm backward and inflates it as it moves forward into a huge open-palm strike, defeating Urashima.",
+        "sourceIds": [
+          "b8a42cdcfd8569033a61d25f"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gomu Gomu no Red Roc combines Elephant Gun and Red Hawk: Gear 3 fist enlargement, Gear 2 and advanced Armament produce a huge flaming punch capable of knocking down and injuring Kaidou. Roc Gun adds Supreme King infusion to an Armament-hardened enlarged fist and delivers a running snapback strike. Roc Gatling combines enlarged hardened fists, Supreme King infusion and Gear 2 in a barrage able to clash with Kaidou's attacks.",
+        "sourceIds": [
+          "130da8a97048e424a3a243ee",
+          "b8a42cdcfd8569033a61d25f"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 4/Gear Four was developed on Rusukaina and first displayed against Doflamingo. Kin'niku Fusen/Muscle Balloon normally begins with hardening and biting the forearm, then inflating muscles. Extensive Armament coating preserves rubbery resilience while compressed limbs deliver explosive attacks. Compression favors close-range power, though stretched long-range attacks remain possible.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 4: Boundman/Bounce-Man has a rounded, inflated torso and combines strength, speed and defense. It normally bounces continuously, can have awkward landings and uses repeated kicks against the air for high-speed flight. Its hardened rubber body can bounce back Haki-enhanced blows and resist cuts, but stronger Haki, blades and overwhelming force can defeat those defenses, as demonstrated by Cracker, Katakuri and Kaidou.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 4: Snakeman/Snake-Man enlarges Luffy less and emphasizes attack speed over defense. Its redirected punches continuously accelerate as they extend, with Observation Haki helping target evasive opponents. It lacks Boundman and Tankman's inflated defensive cushioning. It can jump effectively but is less suitable for flight; against Kaidou, Luffy switches to Boundman to fly back up.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 4: Tankman/Tank-Man is demonstrated specifically as Tankman: Manpuku Version, or Stuffed Version, after Luffy eats vast quantities of Cracker's biscuits. Its enormous hardened torso emphasizes defense and recoil offense at the expense of speed, stopping Cracker's sword where Boundman's arm had been cut. A normal, unstuffed Tankman form is not demonstrated in the supplied evidence.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 4 has an unspecified active time limit and substantial Haki and stamina costs. Reaching its limit leaves Luffy exhausted and unable to use Haki for ten minutes; repeated use can produce prolonged collapse. Food, training and early manual deactivation reduce some drawbacks, but exhaustion at the limit persists during Onigashima. Activation can initially be interrupted mid-inflation; the page describes later Wano control allowing immediate activation and transitions between Boundman and Snakeman.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Python redirects Gear 4 punches without retracting them, allowing pursuit of moving targets. Boundman's attacks maintain momentum while changing course; Snakeman's keep accelerating until retracted. Kaidou remarks that this trajectory-changing behavior should not be possible for ordinary rubber.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Boundman techniques include Gomu Gomu no Kong Gun, firing a compressed fist from the forearm during a high-speed approach; Rhino Schneider, firing compressed legs into a flying dropkick; Culverin, a stretched punch that can use Python to pursue a target; Double Culverin, a two-fist counterpart; and Leo Bazooka, a close-range compressed double open-palm strike.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gomu Gomu no King Kong Gun enlarges an already compressed arm further before releasing a devastating punch; it defeats Doflamingo through his defenses and drives him into the city with ground-folding force. The Gear 4 page also describes a Wano training version that projects Armament Haki rather than further inflating the arm, striking without contact and shattering a steel block.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gomu Gomu no Kong Organ/Kong Organ Gun rapidly fires Kong Gun punches over a broad horizontal area, initially depicted with arm afterimages. Kong Rifle twists the compressed fist for a drilling strike. Kong Gatling is a more concentrated and stronger barrage than Kong Organ. Over Kong Gun/Over-Kong Gun enlarges and compresses the arm like King Kong Gun while adding advanced Supreme King Haki, without requiring a fresh breath of air into the arm.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Snakeman's Gomu Gomu no Jet Culverin is a faster, continually accelerating Culverin redirected with Python. Black Mamba is a rapid barrage of redirected punches, trading some individual targeting precision for coverage. King Cobra sends a compressed punch around a wide path to accelerate before enlarging the fist for a heavier final strike.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gomu Gomu no Hydra upgrades Snakeman's Black Mamba with Supreme King infusion and advanced Armament for noncontact strikes. The supplied page describes advanced Observation-guided, unpredictable attacks from the front, sides and rear, used against Kaidou and difficult to counter without future sight.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Tankman: Stuffed Version uses Gomu Gomu no Cannonball: Luffy traps an attacking opponent in his compressed stomach and then launches them outward with immense speed and force. He defeats Cracker by firing him through his own hard Biscuit Soldiers. This is a situational recoil technique, not a standard handheld projectile.",
+        "sourceIds": [
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 5/Gear Five is the awakened Nika fruit form, first reached during the final Onigashima battle after Luffy's apparent death or unconscious defeat. His heartbeat adopts the Drums of Liberation rhythm; his hair and clothing turn white, his eyebrows become swirled and a cloud-like collar surrounds him. He becomes conspicuously joyful, laughing and creatively playful; he can reactivate the form by bringing his heartbeat back to its rhythm.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5",
+          "ff599472ecd690bb3366ddae"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 5 increases physical power, recovery and bodily freedom. Luffy can change his size and musculature without first blowing air into his body, handle Kaidou's enormous dragon body, run through midair and deform cartoonishly around impacts. He can rubberize surrounding surfaces, cushion impacts and pull up terrain to bounce Kaidou's Bolo Breath back. He can also stretch an opponent's body and physically grasp rubberized lightning.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5",
+          "ff599472ecd690bb3366ddae"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 5 does not eliminate damage: impacts can still hurt him despite cartoonish deformation, and he remains vulnerable to cutting attacks. Maintaining or restarting it is taxing. The supplied account includes his Wano reactivation through willpower and heartbeat control; a precise safe duration or recovery interval is not established for the selected endpoint.",
+        "sourceIds": [
+          "ff599472ecd690bb3366ddae"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 5 Gomu Gomu no Fusen/Balloon makes Luffy buoyant while inflated, including inside Kaidou. Gomu Gomu no Gigant/Giant enlarges his entire body to giant scale. These are distinct from ordinary soft-body Balloon and Gear 3's selective bone inflation.",
+        "sourceIds": [
+          "ff599472ecd690bb3366ddae",
+          "b8a42cdcfd8569033a61d25f"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gomu Gomu no Bajrang Gun is the Gear 5 escalation of Over Kong Gun: Luffy enlarges his fist to nearly Onigashima's size and applies advanced Armament and Supreme King infusion, emitting Haki to strike without direct contact. It is the culminating blow that defeats Kaidou.",
+        "sourceIds": [
+          "ff599472ecd690bb3366ddae",
+          "600b250f9838e58b36ccca0c"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Gear 5 situational techniques include Gomu Gomu no Dasshutsu Rocket/Escape Rocket, stretching his arms through Kaidou's eyes to grab his nose and launch himself out of Kaidou's body; Nawatobi/Jump Rope, using Kaidou's dragon body as a skipping rope while giant-sized; and Kaminari/Lightning, grabbing a rubberized lightning bolt and throwing it at Kaidou.",
+        "sourceIds": [
+          "ff599472ecd690bb3366ddae"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "During Wano, Luffy also uses an unnamed Gear 5 spinning, enlarged hook against Kaidou, stretching the opponent's head around the impact. The supplied page retrospectively connects this to the technique later named Star Gun; the later name and Kizaru-specific execution are not treated as named Wano techniques.",
+        "sourceIds": [
+          "ff599472ecd690bb3366ddae"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Luffy learns the basic applications of all three Haki types from Rayleigh and has advanced applications of each by Wano's end. Armament hardening improves offense and defense and lets him hit Logia bodies and Katakuri's otherwise evasive body. Atama Buso/Head Armament hardens his forehead in preparation for Gomu Gomu no Kane.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Advanced Armament includes emission beyond the body and the higher-grade Internal Destruction application that damages a target from within. Under Hyougoro's instruction Luffy develops conscious control, removes explosive collars and Yamato's cuffs, and learns to injure Kaidou. He judges Armament-only damage against Kaidou too shallow and supplements it with Supreme King infusion.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Observation Haki senses presence, emotions and intent and assists evasion. Luffy is particularly attuned to emotions. Fighting Katakuri unlocks short-term future sight; by Udon he can guide Hyougoro around attacks seconds in advance and interrupt Babanuki's shot after seeing a terrible future. Future sight is not guaranteed evasion: he only partially avoids Kaidou's extremely fast Raimei Hakke.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Supreme King Haki can intimidate creatures or incapacitate weaker-willed targets. After Rayleigh's training Luffy can choose targets without harming nearby civilians and knocks out 50,000 Fish-Men at once. He also uses it while unconscious after defeat by Kaidou. During Onigashima he learns to infuse his body and attacks with it, greatly increasing power; initial control is crude, but a later clash with Kaidou splits the sky.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Seastone cuffs weaken Luffy and prevent his Devil Fruit use, although he retains enough strength for arduous prison labor. His endurance is finite: injury, hunger, exhaustion, overused Haki and repeated Gear use can leave him unable to fight. Powerful Haki and piercing or cutting weapons can bypass or overcome his rubber defenses.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5",
+          "01da57b48482b495bf450824"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Surviving Magellan's poison with Ivankov's hormone treatment gives Luffy substantial resistance to many poisons, including Caesar's poisonous gas, but not universal immunity. Armored Stonefish poison puts him in a coma rather than causing immediate death. Despite boasting otherwise, Queen's Mummy virus affects him and requires Chopper's treatment. Ivankov's life-saving treatment itself costs lifespan.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Luffy's enormous appetite and powerful jaws have combat utility: he bites through metal, eats Cracker's rain-softened biscuits with Nami's help and escapes Katakuri's mochi by eating it. Large amounts of food and sleep aid rapid recovery; drinking milk restores a missing tooth in the supplied account. He can eat and sleep simultaneously but is a poor cook, with only limited survival-food preparation skills.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "The Voice of All Things lets Luffy hear Sea Kings and Zunesha. Hearing does not establish unrestricted communication or command: Zunesha's voice overwhelms him and he cannot communicate with it as Momonosuke can.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Afro Luffy is a situational boxing outfit used against Foxy, including an afro, gloves and shorts. Usopp and others claim the afro increases his power, but the page explicitly allows that they may be joking or playing along; a genuine supernatural boost is not established.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Nightmare Luffy is an externally enabled, roughly ten-minute Thriller Bark form created by infusing 100 shadows separated by Moria's power. Luffy's will allows him to contain far more than the normal two or three. He becomes much larger, gains tremendous strength and speed, retains rubber attacks and acquires the shadows' skills, including swordsmanship from a swordsman's shadow. These are borrowed abilities rather than permanent proficiency.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Luffy rarely uses standard weapons effectively. He used a metal pipe as a child, unsuccessfully experimented with swords and Arlong's teeth, and borrowed Nidai Kitetsu mainly as a Wano disguise prop. Situational tools include Galdino's wax bindings, gloves and boots for striking or avoiding poison contact; Enel's attached golden ball, used in Gomu Gomu no Ogon Rifle; and water carried or drunk to make Crocodile tangible, including the Mizu Luffy setup. He later uses his own blood for the same counter.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      },
+      {
+        "text": "Luffy inspires loyalty and recruits allies through fearlessness, friendship and willingness to help, a quality Mihawk calls exceptionally dangerous. He can nevertheless be reckless, make poor ordinary decisions and be manipulated, including through Jango's hypnosis. The source characterizes several fortunate escapes as luck, not a controllable luck-manipulation technique, and describes his drawing skills as consistently poor.",
+        "sourceIds": [
+          "de42a262bddf7ce3606250d5"
+        ],
+        "kind": "evidence"
+      }
+    ],
+    "gaps": [
+      "All six supplied captures were considered through their endings, including later ability sections, references, situational techniques and navigation. Each reports acquisitionTruncated=false. Only supplied text was available: linked manga chapters, images, supplementary publications and other technique pages were not independently inspected.",
+      "The evidence is chiefly fan-wiki prose or wikitext, supplemented by the ONE PIECE.com Wano summary. Embedded chapter references support temporal filtering but are not separately acquired sources or independent verification of every interpretation.",
+      "The continuity is explicitly requested, so no default-continuity assumption is needed. General character facts were resolved from the character-specific abilities page rather than from the navigation lists or an unprovided standalone biography.",
+      "Post-Wano material is excluded, including Egghead and Elbaph battles, hearing Emet, later Haki interactions with immortality, Domi Reversi immunity claims, isolated Mini Gear Four, and the manga Elephant Whip introduced in Chapter 1127. Later navigation entries do not expand the selected record.",
+      "Gear 5's later named repertoire is excluded: Mole Pistol, Dawn Whip, Dawn Rocket, Dawn Stamp, the named Star Gun execution, Dawn Gatling, Dawn Cymbal, Dawn Balloon, Dawn Pistol, Tummy Cracker, Gear 5 Jet Gatling, Genie, Caught-You-Slipping Bullet, Dawn Kraken Gatling, Dawn Thor Rifle and Dawn Thor Bullet. The Wano precursor associated retrospectively with Star Gun is retained only as an unnamed attack.",
+      "Adaptation-only and game-only techniques and variants are not merged into manga evidence. This includes the anime Jet Lance naming, Jet Missile, Jet Rifle and Jet Axe uses; later anime-only Hawk attacks; game Red Hawk upgrades, Eagle Storm and Gigant Jet Gatling; Giant Fly Swatter, Grizzly Corkscrew Magnum, film Thor attacks, One Piece Party situational moves, Leo Rex Bazooka, King King King Kong Gun, King Kong Gatling, Rhino Stampede, Dragon Culverin, Counterblow and licensed-game Gear 5 finishers.",
+      "The pages' broad descriptions of Gear 5 turning anything imagined into reality rely partly on their interpretation of Road To Laugh Tale. They also qualify object creation as uncertain and the power as non-omnipotent. This record retains demonstrated Wano rubberization, shape changes and cartoonish physical effects, not unrestricted reality alteration or permanent object creation.",
+      "Some summaries reverse the fruit-name chronology or retain Paramecia labels in navigation. The character page's explicit Wano revelation supports Hito Hito no Mi, Model: Nika as the true Mythical Zoan identity and Gomu Gomu no Mi as the previously used name.",
+      "Gear 2 lifespan loss is presented more categorically in some summary wording than in the detailed page's attribution to Lucci's speculation. No quantified Gear 2 lifespan loss is established. Similarly, later improvements do not justify erasing Gear 4's explicitly retained Onigashima time limit and Haki exhaustion.",
+      "The detailed Gear 4 page distinguishes the demonstrated Tankman: Stuffed Version from an unknown ordinary Tankman. The main page's generic Tankman summary cannot establish an additional observed unstuffed form.",
+      "The Gear 5 page supports cutting vulnerability and taxing use, but several detailed claims about aged appearance, recovery after deactivation, food-based immediate restoration and awakened Zoan personality takeover cite post-Wano chapters. Those later explanations are not backdated as established Wano facts.",
+      "The supplied pages do not give a systematic account of swimming inability or water-submersion thresholds. Their mention of balloon buoyancy and navigation links to the Blue Sea is insufficient to reconstruct those mechanics. No unsupported memory-based water rules are added.",
+      "The Thor Elephant Gun page calls its sparks lightning enhancement but does not establish a general ability to generate or control electricity. Its film-only Thor Axe comparison is excluded.",
+      "The main page's Nightmare Luffy skin-color reference appears internally malformed, and the supplied text mixes manga and anime color evidence. The core borrowed-shadow transformation is retained without depending on that color citation.",
+      "A complete baseline Gomu Gomu technique page was not supplied. Numerous original attacks are identified indirectly through Gear variants, but unsupported detailed descriptions of every baseline move are not reconstructed. No user guidance requested additional features, and allowUnverified=false prevents adding memory-based claims."
+    ]
+  },
+  "metadata": {
+    "modelCalls": 1,
+    "repairs": 0,
+    "elapsedMs": 225115,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 101441,
+          "outputTokens": 7171,
+          "totalTokens": 108612
+        },
+        "outputSha256": "090cea1cec26949b7dab401ccad5d21468801a19fa7408712bb6b773f66e6618"
+      }
+    ]
+  },
+  "sources": [
+    {
+      "id": "de42a262bddf7ce3606250d5",
+      "url": "https://onepiece.fandom.com/wiki/Monkey_D._Luffy/Abilities_and_Powers",
+      "title": "Monkey D. Luffy/Abilities and Powers | One Piece Wiki | Fandom",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+      ]
+    },
+    {
+      "id": "130da8a97048e424a3a243ee",
+      "url": "https://onepiece.fandom.com/wiki/Gomu_Gomu_no_Mi/Gear_2_Techniques",
+      "title": "Gomu Gomu no Mi/Gear 2 Techniques | One Piece Wiki | Fandom",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+      ]
+    },
+    {
+      "id": "b8a42cdcfd8569033a61d25f",
+      "url": "https://onepiece.fandom.com/api.php?action=parse&page=Gomu+Gomu+no+Mi%2FGear+3+Techniques&prop=wikitext&format=json",
+      "title": "Gomu Gomu no Mi/Gear 3 Techniques",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Raw MediaWiki article source, including citation templates. Templates and images are not rendered."
+      ]
+    },
+    {
+      "id": "01da57b48482b495bf450824",
+      "url": "https://onepiece.fandom.com/api.php?action=parse&page=Gomu+Gomu+no+Mi%2FGear+4+Techniques&prop=wikitext&format=json",
+      "title": "Gomu Gomu no Mi/Gear 4 Techniques",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Raw MediaWiki article source, including citation templates. Templates and images are not rendered."
+      ]
+    },
+    {
+      "id": "ff599472ecd690bb3366ddae",
+      "url": "https://onepiece.fandom.com/wiki/Gomu_Gomu_no_Mi/Gear_5_Techniques",
+      "title": "Gomu Gomu no Mi/Gear 5 Techniques | One Piece Wiki | Fandom",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+      ]
+    },
+    {
+      "id": "600b250f9838e58b36ccca0c",
+      "url": "https://one-piece.com/story/land_of_wano2/index.html",
+      "title": "\u30ef\u30ce\u56fd\u7de8 | \u3053\u308c\u307e\u3067\u306e\u30b9\u30c8\u30fc\u30ea\u30fc | ONE PIECE.com\uff08\u30ef\u30f3\u30d4\u30fc\u30b9 \u30c9\u30c3\u30c8\u30b3\u30e0\uff09",
+      "origin": "retrieved",
+      "status": "read",
+      "truncated": false,
+      "omissions": [
+        "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+      ]
+    }
+  ],
+  "privateResultPath": ".scratch/straw-hats/orchestrated-20260913/targeted-research/luffy-v3.result.json",
+  "resultSha256": "ffd856e9a52a739338dea0179ef75fb15526b336a74a3cb112e9d10bcba88d62",
+  "review": {
+    "acceptedForGeneration": true,
+    "sourceBudget": 6,
+    "notes": [
+      "Six sources were explicitly authorized to remedy named Gear Third/Fourth gaps in the four-source run, while preserving Haki, combined II+III, and Wano Fifth evidence in one pipeline result.",
+      "Exact Wano identity resolved; all six sources read, all model visibility complete, all claim source IDs resolve.",
+      "Named Gear Fourth Kong Gun, King Kong Gun, Culverin, Black Mamba, King Cobra, Hydra, and Tankman Cannonball supported. Tankman is explicitly Stuffed Version with feeding circumstances, so free selection is adaptation.",
+      "Bajrang Gun and Gigant Jet Shell supported. Dawn Whip, Dawn Gatling and later Star Gun name explicitly excluded.",
+      "Baseline technique page was not supplied; baseline move details remain indirect through Gear variant comparisons. No complete baseline catalog claimed.",
+      "No game unlock schedule, cooldown, reach, stamina cost, price, or numerical tuning is supported by these canon facts."
+    ]
+  }
+}

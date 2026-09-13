@@ -1,0 +1,317 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "roronoa-zoro-wano",
+  "name": "Roronoa Zoro",
+  "description": "Straw Hat swordsman from the One Piece manga through the end of Wano Country. Wields Wado Ichimonji, Sandai Kitetsu and Enma; no Devil Fruit. Implements Three Sword Style sweeps, contextual One- and Two-Sword attacks, aimed flying slashes, Observation detection, Armament armor penetration, bounded Asura and taxing King of Hell. All numbers, prices, geometry, stamina costs and unlock schedules are provisional game adaptations, not canon measurements or measured balance. The highest purchased tier unlocks the shared repertoire: One Sword at tier 1, Two Sword and flying-slash stance at tier 2, Asura at tier 4, and King of Hell at tier 5. Stances replace the primary; flying-slash stance is not a transformation. The runtime exposes only the highest unlocked contextual Technique within the active form: Nigiri replaces Shishi Sonson in Three Sword Style, then Asura replaces Nigiri. These are progression replacements, not independently selectable buttons. Asura is one attack, not extra actors or perpetual bodies. King of Hell's drain abstracts Enma's taxing Haki draw. Armor ignore does not bypass invulnerability and does not assert internal-destruction Haki. Foxfire flame interception, projectile parries, defensive Haki, durability, pain transfer/endurance feats, free movement, terrain cutting, No Sword Style and permanent scarring are omitted. Loyalty, discipline and terrible direction sense remain personality, without buffs or penalties. Enemy movement is caller-supplied. Source grounding uses the supplied evidence and source captures acquired by the orchestration pipeline; acquisition provenance is not a gameplay mechanic.",
+  "cost": 650,
+  "baseForm": "three-sword-style",
+  "stunProtectionSeconds": 3,
+  "stamina": {
+    "unlockTier": 1,
+    "maximum": 100,
+    "entryMinimum": 30,
+    "recoveryPerSecond": 8,
+    "reentrySeconds": 4,
+    "techniqueCost": 30,
+    "techniqueCooldown": 12
+  },
+  "forms": [
+    {
+      "id": "three-sword-style",
+      "name": "Three Sword Style",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Three-Sword Sweep",
+        "delivery": "direct-contact",
+        "damage": 24,
+        "period": 1.5,
+        "windup": 0.35,
+        "reach": 12,
+        "shape": {
+          "kind": "sweep",
+          "width": 5,
+          "cap": 3
+        }
+      },
+      "techniques": [
+        {
+          "id": "shishi-sonson",
+          "name": "One Sword Style Iai: Shishi Sonson",
+          "unlockTier": 1,
+          "delivery": "direct-contact",
+          "damage": 100,
+          "windup": 0.25,
+          "recovery": 1.25,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          }
+        },
+        {
+          "id": "two-sword-nigiri",
+          "name": "Two Sword Style: Nigiri",
+          "unlockTier": 2,
+          "delivery": "direct-contact",
+          "damage": 120,
+          "windup": 0.4,
+          "recovery": 1.2,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "sweep",
+            "width": 7,
+            "cap": 4
+          }
+        },
+        {
+          "id": "asura-bakkei",
+          "name": "Asura: Bakkei Moja no Tawamure",
+          "unlockTier": 4,
+          "delivery": "direct-contact",
+          "damage": 230,
+          "windup": 0.65,
+          "recovery": 1.85,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          }
+        }
+      ]
+    },
+    {
+      "id": "flying-slash-stance",
+      "name": "Flying-Slash Stance",
+      "unlockTier": 2,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Three Sword Style Flying Slash",
+        "delivery": "projectile",
+        "projectileSpeed": 75,
+        "projectileRadius": 2,
+        "damage": 21,
+        "period": 1.9,
+        "windup": 0.5,
+        "reach": 42,
+        "shape": {
+          "kind": "area",
+          "radius": 4,
+          "cap": 3
+        }
+      },
+      "techniques": [
+        {
+          "id": "concentrated-flying-cut",
+          "name": "Concentrated Flying Cut",
+          "unlockTier": 2,
+          "delivery": "projectile",
+          "projectileSpeed": 90,
+          "projectileRadius": 3,
+          "damage": 115,
+          "windup": 0.6,
+          "recovery": 1.4,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 6,
+            "cap": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "king-of-hell",
+      "name": "King of Hell Three Sword Style",
+      "unlockTier": 5,
+      "drainPerSecond": 10,
+      "primary": {
+        "name": "King of Hell Sword Sweep",
+        "delivery": "direct-contact",
+        "damage": 75,
+        "period": 1.35,
+        "windup": 0.3,
+        "reach": 18,
+        "shape": {
+          "kind": "sweep",
+          "width": 8,
+          "cap": 5
+        }
+      },
+      "techniques": [
+        {
+          "id": "king-of-hell-oni-giri",
+          "name": "King of Hell Three Sword Style: Oni Giri",
+          "unlockTier": 5,
+          "delivery": "direct-contact",
+          "damage": 270,
+          "windup": 0.55,
+          "recovery": 1.65,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "sweep",
+            "width": 10,
+            "cap": 6
+          }
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "sword-mastery",
+      "name": "Sword Mastery",
+      "description": "Cumulative personal cutting power and primary execution speed. One- and Two-Sword Techniques are bounded finishing attacks, not parallel weapons. Sweeps follow only the segment to the selected contact, with unobstructed eligibility for every victim; no dash or movement is simulated. Shared Technique unlocks depend on highest purchased tier, not this path alone.",
+      "upgrades": [
+        {
+          "name": "Three-Blade Coordination",
+          "cost": 250,
+          "description": "Adds 5 damage to primary attacks and all Techniques.",
+          "modifiers": {
+            "flatDamage": 5
+          }
+        },
+        {
+          "name": "Clean Draw",
+          "cost": 450,
+          "description": "Multiplies primary windup and cycle timing by 0.9. Technique timing is unchanged.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Heavy Cutting Practice",
+          "cost": 1000,
+          "description": "Multiplies primary and Technique damage by 1.25 after flat additions.",
+          "modifiers": {
+            "damageMultiplier": 1.25
+          }
+        },
+        {
+          "name": "Decisive Finishing Edge",
+          "cost": 2400,
+          "description": "Adds another 14 damage to primary attacks and all Techniques, including the now-unlocked Asura.",
+          "modifiers": {
+            "flatDamage": 14
+          }
+        },
+        {
+          "name": "Master Swordsman's Execution",
+          "cost": 5200,
+          "description": "Further multiplies primary timing by 0.8 and primary and Technique damage by 1.35.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.8,
+            "damageMultiplier": 1.35
+          }
+        }
+      ]
+    },
+    {
+      "id": "perception-and-reach",
+      "name": "Perception and Reach",
+      "description": "Observation is bounded as concealment detection, not future sight or sight through obstacles. Reach purchases affect every active profile, including close-contact geometry; they abstract effective cutting reach, not longer physical swords. Flying slashes are aimed projectiles, not homing attacks. Their circular impact areas approximate slash breadth; no tornado, terrain or air-only class is created.",
+      "upgrades": [
+        {
+          "name": "Sense Living Presences",
+          "cost": 300,
+          "description": "Enables concealed-target detection. Obstacles and invulnerability remain separate checks.",
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Adjust the Cut",
+          "cost": 450,
+          "description": "Allows one lost primary target to be replaced at resolution or before projectile launch, without restarting windup. Never retargets Techniques or launched shots.",
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Extended Cutting Reach",
+          "cost": 1100,
+          "description": "Adds 2 reach to every active primary profile and its contextual target acquisition.",
+          "modifiers": {
+            "reachAdd": 2
+          }
+        },
+        {
+          "name": "Swift Follow-Through",
+          "cost": 2300,
+          "description": "Multiplies primary timing by 0.82, increasing attack frequency without changing projectile speed or Technique timing.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.82
+          }
+        },
+        {
+          "name": "Far-Reaching Swordsmanship",
+          "cost": 4900,
+          "description": "Adds another 4 reach and multiplies primary and Technique damage by 1.3. Flying-slash base acquisition reaches 48 before any other path additions.",
+          "modifiers": {
+            "reachAdd": 4,
+            "damageMultiplier": 1.3
+          }
+        }
+      ]
+    },
+    {
+      "id": "haki-mastery",
+      "name": "Haki Mastery",
+      "description": "Armament and advanced infusion are bounded as armor ignore and cutting power, never invulnerability removal. No internal-destruction ability is claimed. The final purchase adds a periodic stun-only interpretation of Supreme King pressure; its cadence, radius and temporary stun are game adaptations rather than canonical knockout measurements. It operates in any stance, not only King of Hell.",
+      "upgrades": [
+        {
+          "name": "Armament-Coated Swords",
+          "cost": 300,
+          "description": "Ignores 20% of armor reduction for ordinary primary and Technique damage; also applies to flying slashes.",
+          "modifiers": {
+            "armorIgnore": 0.2
+          }
+        },
+        {
+          "name": "Hardened Edge",
+          "cost": 550,
+          "description": "Adds 6 damage to primary attacks and all Techniques.",
+          "modifiers": {
+            "flatDamage": 6
+          }
+        },
+        {
+          "name": "Superior Armament",
+          "cost": 1400,
+          "description": "Raises armor ignore to 45%, replacing the smaller value rather than adding to it.",
+          "modifiers": {
+            "armorIgnore": 0.45
+          }
+        },
+        {
+          "name": "Enma Control",
+          "cost": 2800,
+          "description": "Raises armor ignore to 65% and multiplies primary and Technique damage by 1.2. Does not refill stamina.",
+          "modifiers": {
+            "armorIgnore": 0.65,
+            "damageMultiplier": 1.2
+          }
+        },
+        {
+          "name": "Supreme King Infusion",
+          "cost": 5800,
+          "description": "Multiplies primary and Technique damage by 1.25. Every 4 successful primary cycles can trigger one damage-free pressure pulse, at least 8 seconds apart: radius 16, cap 6, stun 1.2 seconds. Only weak-willed, stunnable, unprotected targets qualify; Techniques do not advance the counter.",
+          "modifiers": {
+            "damageMultiplier": 1.25,
+            "pulse": {
+              "cycles": 4,
+              "radius": 16,
+              "cap": 6,
+              "stun": 1.2,
+              "interval": 8
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

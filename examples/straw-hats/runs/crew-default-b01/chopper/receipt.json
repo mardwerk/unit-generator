@@ -1,0 +1,2890 @@
+{
+  "id": "chopper",
+  "operation": "generation",
+  "status": "success",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "default",
+    "label": "Default",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "fbc335e2a3dee52a02bb896e8ec91eff08c7596f19db969928cf56b1b6bf8fa4",
+  "unitSha256": "b2d7814138b1c54e9d60e9340bc15a9465b56e4fb9607007aebaf4686636d782",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "109f06dccbf90375d4bcffcfbbeb868968dbf8468cbf00ccabc0a5117f9caf20",
+    "implementationVersion": "manga-mayhem/0.1.2"
+  },
+  "input": {
+    "subject": "Tony Tony Chopper",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Preserve the doctor and reindeer Human-Human Fruit user, specialized Points, medical support and Rumble Ball Monster Point. Keep the selected continuity clear when representing control, duration and aftermath. Build a playable kit with at least 15 meaningful purchasable upgrades that each change executable behavior. Select a coherent subset instead of claiming exhaustive coverage. Disclose omitted defining abilities and any source limits. Treat numerical damage, costs, cooldowns, range, targeting and unlock progression as explicit gameplay adaptations. Do not invent character powers to meet upgrade count; deepen sourced abilities where possible.",
+    "context": {
+      "evidencePurpose": "Curated development demonstration, available to generation and review; not an unseen benchmark.",
+      "reviewScope": "Selected manga continuity through end of Wano; exclude later manga, anime-only and game-only facts from this request."
+    },
+    "sources": [
+      {
+        "url": "https://onepiece.fandom.com/wiki/Tony_Tony_Chopper/Abilities_and_Powers",
+        "title": "Tony Tony Chopper/Abilities and Powers | One Piece Wiki | Fandom",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+          "Secondary fan-edited evidence captured 2026-09-09T17:43:12.718Z; may include later manga, anime, and game facts outside the requested continuity."
+        ],
+        "id": "chopper-fan-abilities-1",
+        "origin": "retrieved",
+        "characters": 68773,
+        "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b"
+      },
+      {
+        "id": "chopper-official-profile",
+        "title": "Tony Tony Chopper | ONE PIECE.com official character profile",
+        "url": "https://one-piece.com/character/chopper/index.html",
+        "origin": "retrieved",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+          "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+          "Retrieved 2026-09-09T17:42:05.397980+00:00."
+        ],
+        "characters": 1049,
+        "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9"
+      }
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Tony Tony Chopper",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied evidence does not provide a playable game ruleset, so numerical damage, healing, costs, cooldowns, ranges, targeting rules, resource systems, or unlock progression would be gameplay adaptations rather than character evidence.",
+        "The supplied pages do not support the requested requirement for at least 15 purchasable upgrades; an upgrade kit would require explicit design decisions and should not be presented as canon.",
+        "The selected record omits later manga material appearing in the abilities page, including references to volumes and chapters after the end of Wano, such as chapter 1081 and volume 115.",
+        "The abilities page mixes manga, anime, non-canon, and video-game material. Video-game-only techniques such as Medicine, Strong Medicine, Absolute Rest, Cure, Operation, Emergency Case, and Keep Out are excluded from the selected manga record.",
+        "The official character profile is a general current profile rather than a chapter-bounded source; it supports identity and broad abilities but does not independently establish every detail of the requested end-of-Wano cutoff.",
+        "The selected evidence does not establish an exhaustive list of every named attack Chopper used through Wano, so the record preserves the supported forms, Rumble Ball mechanics, Monster Point, and Chopperphage Nebulizer without claiming completeness.",
+        "The supplied pages do not provide a complete, continuity-specific catalogue of all medical techniques, Point-specific attacks, or Monster Point maneuvers through the end of Wano."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "chopper-fan-abilities-1",
+          "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+          "sourceCharacters": 68773,
+          "visibleCharacters": 68773,
+          "complete": true
+        },
+        {
+          "sourceId": "chopper-official-profile",
+          "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+          "sourceCharacters": 1049,
+          "visibleCharacters": 1049,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://onepiece.fandom.com/wiki/Tony_Tony_Chopper/Abilities_and_Powers",
+          "title": "Tony Tony Chopper/Abilities and Powers | One Piece Wiki | Fandom",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+            "Secondary fan-edited evidence captured 2026-09-09T17:43:12.718Z; may include later manga, anime, and game facts outside the requested continuity."
+          ],
+          "id": "chopper-fan-abilities-1",
+          "origin": "supplied",
+          "characters": 68773,
+          "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b"
+        },
+        {
+          "id": "chopper-official-profile",
+          "title": "Tony Tony Chopper | ONE PIECE.com official character profile",
+          "url": "https://one-piece.com/character/chopper/index.html",
+          "origin": "supplied",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+            "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+            "Retrieved 2026-09-09T17:42:05.397980+00:00."
+          ],
+          "characters": 1049,
+          "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Tony Tony Chopper",
+        "identity": {
+          "status": "resolved",
+          "name": "Tony Tony Chopper",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "Both supplied pages describe the same fictional character: Tony Tony Chopper, the Straw Hat Pirates' doctor and a reindeer who ate the Human-Human Fruit. The requested manga continuity is selected explicitly; material identified as later manga, anime-only, non-canon, or game-only is excluded."
+        },
+        "claimCount": 28,
+        "knowledgeSha256": "754b8827f970a9b2aaf1b2622f0206c7252941f5bb5400e4c6d9e9c4ab530939"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "manga-contract",
+        "legal-progression",
+        "reachable-resource-and-techniques"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-provided",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "review-required",
+    "findings": [
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.1,
+          "damage": 36,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            1
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            2
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            4
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.496,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            5
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.496,
+          "damage": 75,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 66,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            1
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 66,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            2
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 66,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            3
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 66,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            4
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.496,
+          "damage": 66,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            5
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.496,
+          "damage": 87,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            1
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            2
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            3
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            4
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.496,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            5
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.496,
+          "damage": 95.7,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            1
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            2
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            1
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            2
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 81.31200000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            1
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 81.31200000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            2
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 81.31200000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            1
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            2
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            3
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            4
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.496,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            5
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.496,
+          "damage": 75,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            1,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 66,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            2,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            3,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            4,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            5,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 81.31200000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            1
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            2
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            3
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            4
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.496,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            5
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.496,
+          "damage": 75,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            1,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 66,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            2,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            3,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            4,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            5,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.42,
+          "damage": 81.31200000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            1
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            2
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            1,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 66,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            2,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            1
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            2
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            1,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 66,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            2,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            1
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            2
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 54,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            1,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 66,
+          "events": 6
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            2,
+            0
+          ],
+          "distance": 0.85,
+          "durationSeconds": 3.8,
+          "damage": 72.60000000000001,
+          "events": 6
+        }
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 64,
+      "evaluatedBuilds": 64,
+      "purchaseEdges": 111,
+      "probes": 761,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Description agreement is only checked for explicit executable contradictions.",
+        "Stationary probes do not establish game balance or live-game parity.",
+        "Full encounter balance, all moving geometries, and all purchase/switch/cooldown sequences."
+      ]
+    }
+  },
+  "fidelity": {
+    "status": "checked",
+    "gaps": [
+      "The exact attack labels, damage values, timings, reaches, caps, single-target profiles, area radius and multi-hit counts are not established by the character evidence; they are disclosed game adaptations.",
+      "The periodic healing pulse, patient caps, healing amounts, detection modifier, retargeting, stun, armor interaction, displacement and damage multipliers are executable adaptations rather than canon mechanics with matching numerical specifications.",
+      "The evidence supports Chopperphage, Guard Point, Walk Point, animal translation and the infant-like Monster Point aftermath, but the candidate omits them as explicitly disclosed rather than implementing them.",
+      "The supplied fan-edited page mixes continuity material beyond the requested cutoff; later or mixed-continuity material should not be used to expand this kit beyond the selected end-of-Wano scope.",
+      "The evidence does not establish an exhaustive catalogue of Chopper's named attacks or a canon upgrade tree, so the candidate's purchasable paths should remain understood as game design built on sourced abilities."
+    ],
+    "claims": [
+      {
+        "path": "/",
+        "status": "supported",
+        "sourceMechanic": "Tony Tony Chopper's identity as the Straw Hat doctor and Human-Human Fruit user",
+        "relationship": "same-ability",
+        "sourceId": "chopper-official-profile",
+        "passageId": "p0",
+        "sourceSha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+        "sourceRange": {
+          "start": 0,
+          "end": 1049
+        },
+        "quoteSha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+        "quoteCharacters": 1049
+      },
+      {
+        "path": "/",
+        "status": "adapted",
+        "sourceMechanic": "Post-timeskip specialized Points and controlled Monster Point",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/",
+        "status": "adapted",
+        "sourceMechanic": "Medical expertise and battlefield treatment",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/",
+        "status": "supported",
+        "sourceMechanic": "Guard Point and Walk Point",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 12120,
+          "end": 13317
+        },
+        "quoteSha256": "a5c7bb91d0a30834b5c439fd52d4223250b7758d079c0cf3131be34238bea0e3",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/",
+        "status": "supported",
+        "sourceMechanic": "Animal translation",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/",
+        "status": "supported",
+        "sourceMechanic": "Chopperphage Nebulizer",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p9",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 9986,
+          "end": 11030
+        },
+        "quoteSha256": "c98d52f23f4f92186a393c393bb310345da3903331c9b4a288f8433031454d58",
+        "quoteCharacters": 1044
+      },
+      {
+        "path": "/",
+        "status": "supported",
+        "sourceMechanic": "Monster Point's post-use infant-like aftermath",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p13",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 14511,
+          "end": 15456
+        },
+        "quoteSha256": "0936c8d0be92edc67596bcdc3d3b204c670ae729c73db0faff49aee93331ea03",
+        "quoteCharacters": 945
+      },
+      {
+        "path": "/baseForm",
+        "status": "supported",
+        "sourceMechanic": "Brain Point",
+        "relationship": "same-ability",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/support/name",
+        "status": "adapted",
+        "sourceMechanic": "Medical expertise, remedies and treatment of injuries",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/forms/0/name",
+        "status": "supported",
+        "sourceMechanic": "Brain Point's analytical and tactical role",
+        "relationship": "same-ability",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p4",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 4529,
+          "end": 5493
+        },
+        "quoteSha256": "522f8637e8784948eaa95cf2502887b066c3c5c8759ae282ee72bb82c8937633",
+        "quoteCharacters": 964
+      },
+      {
+        "path": "/forms/0/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Brain Point analysis combined with Chopper's hand-to-hand combat",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/forms/0/primary/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Chopper's physical melee combat",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/forms/0/primary/shape/kind",
+        "status": "adapted",
+        "sourceMechanic": "Single-target melee representation of Brain Point combat",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/forms/1/name",
+        "status": "supported",
+        "sourceMechanic": "Heavy Point's bulky humanoid combat form",
+        "relationship": "same-ability",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/forms/1/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Heavy Point boxing and wrestling",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/forms/1/primary/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Heavy Point physical melee combat",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/forms/1/primary/shape/kind",
+        "status": "adapted",
+        "sourceMechanic": "Heavy Point physical attack",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/forms/2/name",
+        "status": "supported",
+        "sourceMechanic": "Jumping Point's lengthened legs, agility and jumping",
+        "relationship": "same-ability",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 12120,
+          "end": 13317
+        },
+        "quoteSha256": "a5c7bb91d0a30834b5c439fd52d4223250b7758d079c0cf3131be34238bea0e3",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/forms/2/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Jumping Point agility and jumping",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 12120,
+          "end": 13317
+        },
+        "quoteSha256": "a5c7bb91d0a30834b5c439fd52d4223250b7758d079c0cf3131be34238bea0e3",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/forms/2/primary/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Jumping Point physical attack",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 12120,
+          "end": 13317
+        },
+        "quoteSha256": "a5c7bb91d0a30834b5c439fd52d4223250b7758d079c0cf3131be34238bea0e3",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/forms/2/primary/shape/kind",
+        "status": "adapted",
+        "sourceMechanic": "Jumping Point physical attack",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 12120,
+          "end": 13317
+        },
+        "quoteSha256": "a5c7bb91d0a30834b5c439fd52d4223250b7758d079c0cf3131be34238bea0e3",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/forms/3/name",
+        "status": "supported",
+        "sourceMechanic": "Arm Point's enlarged, powerful arms",
+        "relationship": "same-ability",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 12120,
+          "end": 13317
+        },
+        "quoteSha256": "a5c7bb91d0a30834b5c439fd52d4223250b7758d079c0cf3131be34238bea0e3",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/forms/3/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Arm Point powerful arm strikes",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 12120,
+          "end": 13317
+        },
+        "quoteSha256": "a5c7bb91d0a30834b5c439fd52d4223250b7758d079c0cf3131be34238bea0e3",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/forms/3/primary/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Arm Point physical melee attack",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 12120,
+          "end": 13317
+        },
+        "quoteSha256": "a5c7bb91d0a30834b5c439fd52d4223250b7758d079c0cf3131be34238bea0e3",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/forms/3/primary/shape/kind",
+        "status": "adapted",
+        "sourceMechanic": "Arm Point physical attack",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 12120,
+          "end": 13317
+        },
+        "quoteSha256": "a5c7bb91d0a30834b5c439fd52d4223250b7758d079c0cf3131be34238bea0e3",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/forms/4/name",
+        "status": "supported",
+        "sourceMechanic": "Horn Point's enlarged antlers and bulkier arms",
+        "relationship": "same-ability",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p2",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 2401,
+          "end": 3464
+        },
+        "quoteSha256": "a8676f7e76fba0e4afbde07e8f9114cc1653eda823bf3c34092d97222109dea2",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/forms/4/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Horn Point antlers used as weapons",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p2",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 2401,
+          "end": 3464
+        },
+        "quoteSha256": "a8676f7e76fba0e4afbde07e8f9114cc1653eda823bf3c34092d97222109dea2",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/forms/4/primary/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Horn Point antler attack",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p2",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 2401,
+          "end": 3464
+        },
+        "quoteSha256": "a8676f7e76fba0e4afbde07e8f9114cc1653eda823bf3c34092d97222109dea2",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/forms/4/primary/shape/kind",
+        "status": "adapted",
+        "sourceMechanic": "Horn Point antler attack",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p2",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 2401,
+          "end": 3464
+        },
+        "quoteSha256": "a8676f7e76fba0e4afbde07e8f9114cc1653eda823bf3c34092d97222109dea2",
+        "quoteCharacters": 1063
+      },
+      {
+        "path": "/forms/5/name",
+        "status": "supported",
+        "sourceMechanic": "Kung Fu Point's combination of Arm Point strength and Jumping Point agility",
+        "relationship": "same-ability",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/forms/5/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Kung Fu Point martial-arts maneuvers",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/forms/5/primary/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Kung Fu Point physical martial arts",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/forms/5/primary/shape/kind",
+        "status": "adapted",
+        "sourceMechanic": "Kung Fu Point martial-arts attack",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/forms/6/name",
+        "status": "supported",
+        "sourceMechanic": "Monster Point's massive power and controlled post-timeskip use",
+        "relationship": "same-ability",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/forms/6/drainPerSecond",
+        "status": "adapted",
+        "sourceMechanic": "Monster Point's severe energy cost and limited duration",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/forms/6/primary/name",
+        "status": "adapted",
+        "sourceMechanic": "Monster Point's extreme physical strength",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/forms/6/primary/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Monster Point physical melee combat",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/forms/6/primary/shape/kind",
+        "status": "adapted",
+        "sourceMechanic": "Monster Point's powerful physical strikes affecting nearby allies and enemies in battle",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/forms/6/techniques/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Monster Point hand-to-hand combat and physical assault",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/forms/6/techniques/0/shape/kind",
+        "status": "adapted",
+        "sourceMechanic": "Monster Point focused physical assault",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/forms/6/techniques/0/control/displacement",
+        "status": "adapted",
+        "sourceMechanic": "Monster Point's forceful physical attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/paths/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Chopper's medical expertise and remedies",
+        "relationship": "delivery-abstraction",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Medical support, diagnosis and tactical observation",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Battlefield treatment of injuries",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Medical treatment and ally recovery",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/0/modifiers/support/name",
+        "status": "adapted",
+        "sourceMechanic": "Medical treatment",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/1/name",
+        "status": "adapted",
+        "sourceMechanic": "Diagnosis and tactical observation",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p4",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 4529,
+          "end": 5493
+        },
+        "quoteSha256": "522f8637e8784948eaa95cf2502887b066c3c5c8759ae282ee72bb82c8937633",
+        "quoteCharacters": 964
+      },
+      {
+        "path": "/paths/0/upgrades/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Analytical observation and diagnosis",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p4",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 4529,
+          "end": 5493
+        },
+        "quoteSha256": "522f8637e8784948eaa95cf2502887b066c3c5c8759ae282ee72bb82c8937633",
+        "quoteCharacters": 964
+      },
+      {
+        "path": "/paths/0/upgrades/2/name",
+        "status": "adapted",
+        "sourceMechanic": "Medical treatment of injured people",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Medical treatment",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/2/modifiers/support/name",
+        "status": "adapted",
+        "sourceMechanic": "Medical treatment",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/3/name",
+        "status": "adapted",
+        "sourceMechanic": "Emergency medical care and treatment of severe injuries",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/3/description",
+        "status": "adapted",
+        "sourceMechanic": "Medical treatment and battlefield support",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/3/modifiers/support/name",
+        "status": "adapted",
+        "sourceMechanic": "Emergency medical care",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/4/name",
+        "status": "adapted",
+        "sourceMechanic": "Chopper's extensive medical expertise",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Medical treatment of injured allies",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/0/upgrades/4/modifiers/support/name",
+        "status": "adapted",
+        "sourceMechanic": "Medical treatment",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p6",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 6661,
+          "end": 7712
+        },
+        "quoteSha256": "8f75a2011c24df1cc9353938c9d5fcdea57957bcf41ed586af29b857e246f0d3",
+        "quoteCharacters": 1051
+      },
+      {
+        "path": "/paths/1/name",
+        "status": "supported",
+        "sourceMechanic": "Chopper's five-year Rumble Ball research",
+        "relationship": "same-ability",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p7",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 7712,
+          "end": 8851
+        },
+        "quoteSha256": "d22f390a68499ca514e1f3619ffea554ad973bd370eaa4884131f5160e1a0a3b",
+        "quoteCharacters": 1139
+      },
+      {
+        "path": "/paths/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Rumble Ball combat enhancement and specialized Points",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p7",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 7712,
+          "end": 8851
+        },
+        "quoteSha256": "d22f390a68499ca514e1f3619ffea554ad973bd370eaa4884131f5160e1a0a3b",
+        "quoteCharacters": 1139
+      },
+      {
+        "path": "/paths/1/upgrades/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Heavy Point physical strength",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/paths/1/upgrades/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Enhanced physical strength across Chopper's Points",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/paths/1/upgrades/1/name",
+        "status": "adapted",
+        "sourceMechanic": "Arm Point's powerful arms",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 12120,
+          "end": 13317
+        },
+        "quoteSha256": "a5c7bb91d0a30834b5c439fd52d4223250b7758d079c0cf3131be34238bea0e3",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/paths/1/upgrades/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Arm Point strength and Chopper's physical combat",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p11",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 12120,
+          "end": 13317
+        },
+        "quoteSha256": "a5c7bb91d0a30834b5c439fd52d4223250b7758d079c0cf3131be34238bea0e3",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/paths/1/upgrades/2/name",
+        "status": "adapted",
+        "sourceMechanic": "Kung Fu Point agility and martial-arts combat",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/1/upgrades/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Kung Fu Point agility and movement",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/1/upgrades/3/name",
+        "status": "adapted",
+        "sourceMechanic": "Specialized Point combat",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/1/upgrades/3/description",
+        "status": "adapted",
+        "sourceMechanic": "Close-quarters combat across specialized Points",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/paths/1/upgrades/4/name",
+        "status": "adapted",
+        "sourceMechanic": "Monster Point's exceptional physical power",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/paths/1/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Monster Point physical power and Rumble Ball research",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p14",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 15456,
+          "end": 16625
+        },
+        "quoteSha256": "adbb4ce2b124735f3b203b58ff866962eaea82909c1d55ecbe835d2e2606d645",
+        "quoteCharacters": 1169
+      },
+      {
+        "path": "/paths/2/name",
+        "status": "supported",
+        "sourceMechanic": "Chopper's analysis and deduction in combat",
+        "relationship": "same-ability",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p4",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 4529,
+          "end": 5493
+        },
+        "quoteSha256": "522f8637e8784948eaa95cf2502887b066c3c5c8759ae282ee72bb82c8937633",
+        "quoteCharacters": 964
+      },
+      {
+        "path": "/paths/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Tactical analysis, weak-point targeting and physical restraint",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/paths/2/upgrades/0/name",
+        "status": "adapted",
+        "sourceMechanic": "Chopper's tactical deduction",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p4",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 4529,
+          "end": 5493
+        },
+        "quoteSha256": "522f8637e8784948eaa95cf2502887b066c3c5c8759ae282ee72bb82c8937633",
+        "quoteCharacters": 964
+      },
+      {
+        "path": "/paths/2/upgrades/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Tactical observation and deduction",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p5",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 5493,
+          "end": 6661
+        },
+        "quoteSha256": "2b10757f8f8d349c70a95834d71a50311ef074de2ae2c43c2ed75479cf63fb92",
+        "quoteCharacters": 1168
+      },
+      {
+        "path": "/paths/2/upgrades/1/name",
+        "status": "adapted",
+        "sourceMechanic": "Physical restraint and anatomical combat knowledge",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/paths/2/upgrades/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Physical restraint and tactical weak-point targeting",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/paths/2/upgrades/2/name",
+        "status": "adapted",
+        "sourceMechanic": "Horn Point antlers and anatomical targeting",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/paths/2/upgrades/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Horn Point antler attacks and medical anatomical knowledge",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/paths/2/upgrades/3/name",
+        "status": "adapted",
+        "sourceMechanic": "Kung Fu Point agility and Chopper's physical combat",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/2/upgrades/3/description",
+        "status": "adapted",
+        "sourceMechanic": "Agile transitions among specialized Point forms",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      },
+      {
+        "path": "/paths/2/upgrades/4/name",
+        "status": "adapted",
+        "sourceMechanic": "Anatomical targeting and weak-point analysis",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/paths/2/upgrades/4/description",
+        "status": "adapted",
+        "sourceMechanic": "Anatomical targeting of an opponent's weak spot",
+        "relationship": "numerical-tuning",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p15",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 16625,
+          "end": 17815
+        },
+        "quoteSha256": "f418e63b85dfc99da2984ae40e751159f7b67e7550458a47c74c8ddf05762aec",
+        "quoteCharacters": 1190
+      },
+      {
+        "path": "/stamina/maximum",
+        "status": "adapted",
+        "sourceMechanic": "Monster Point's energy cost and limited duration",
+        "relationship": "game-rule",
+        "sourceId": "chopper-fan-abilities-1",
+        "passageId": "p12",
+        "sourceSha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+        "sourceRange": {
+          "start": 13317,
+          "end": 14511
+        },
+        "quoteSha256": "35428b6f1337d1c81f983251422e6928efacb0f4eecd411054c85488a474ccc8",
+        "quoteCharacters": 1194
+      }
+    ],
+    "representation": "Compact public receipt. Complete source passages and detailed model review remain in the private production result."
+  },
+  "fidelityAttempts": [
+    {
+      "reportValid": true
+    }
+  ],
+  "metadata": {
+    "modelCalls": 4,
+    "repairs": 1,
+    "elapsedMs": 554154,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 21057,
+          "outputTokens": 2903,
+          "totalTokens": 23960
+        },
+        "outputSha256": "754b8827f970a9b2aaf1b2622f0206c7252941f5bb5400e4c6d9e9c4ab530939"
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "754b8827f970a9b2aaf1b2622f0206c7252941f5bb5400e4c6d9e9c4ab530939",
+            "sources": [
+              {
+                "sourceId": "chopper-fan-abilities-1",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "chopper-official-profile",
+                "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+                "sourceCharacters": 1049,
+                "visibleCharacters": 1049,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 42560,
+          "outputTokens": 8215,
+          "totalTokens": 50775
+        },
+        "outputSha256": "eefcac10a369d561daf82207c6d409cfc6235c5908effeb943de50318dd6ffb4"
+      },
+      {
+        "stage": "repair",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "754b8827f970a9b2aaf1b2622f0206c7252941f5bb5400e4c6d9e9c4ab530939",
+            "sources": [
+              {
+                "sourceId": "chopper-fan-abilities-1",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "chopper-official-profile",
+                "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+                "sourceCharacters": 1049,
+                "visibleCharacters": 1049,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 64100,
+          "outputTokens": 3253,
+          "totalTokens": 67353
+        },
+        "outputSha256": "b2d7814138b1c54e9d60e9340bc15a9465b56e4fb9607007aebaf4686636d782"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "754b8827f970a9b2aaf1b2622f0206c7252941f5bb5400e4c6d9e9c4ab530939",
+            "sources": [
+              {
+                "sourceId": "chopper-fan-abilities-1",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "chopper-official-profile",
+                "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+                "sourceCharacters": 1049,
+                "visibleCharacters": 1049,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 51620,
+          "outputTokens": 15847,
+          "totalTokens": 67467
+        },
+        "outputSha256": "27d76ae92d5507a47fb297c0b455e69cb1c9ff13b3323c05db46e1e92438ffab"
+      }
+    ]
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-09T18:47:08.701Z",
+        "completed": true,
+        "inputTokenUpperBound": 81596,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T18:48:02.393Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 21057,
+          "outputTokens": 2903,
+          "totalTokens": 23960
+        },
+        "outputSha256": "754b8827f970a9b2aaf1b2622f0206c7252941f5bb5400e4c6d9e9c4ab530939",
+        "knownInputTokens": 21057,
+        "knownOutputTokens": 2903,
+        "knownStandardApiEquivalentUsd": 0.007695,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "draft",
+        "startedAt": "2026-09-09T18:48:02.414Z",
+        "completed": true,
+        "inputTokenUpperBound": 170959,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T18:50:32.803Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 42560,
+          "outputTokens": 8215,
+          "totalTokens": 50775
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "754b8827f970a9b2aaf1b2622f0206c7252941f5bb5400e4c6d9e9c4ab530939",
+            "sources": [
+              {
+                "sourceId": "chopper-fan-abilities-1",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "chopper-official-profile",
+                "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+                "sourceCharacters": 1049,
+                "visibleCharacters": 1049,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "eefcac10a369d561daf82207c6d409cfc6235c5908effeb943de50318dd6ffb4",
+        "knownInputTokens": 42560,
+        "knownOutputTokens": 8215,
+        "knownStandardApiEquivalentUsd": 0.01837,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 3,
+        "stage": "repair",
+        "startedAt": "2026-09-09T18:50:32.900Z",
+        "completed": true,
+        "inputTokenUpperBound": 251282,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T18:51:34.232Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 64100,
+          "outputTokens": 3253,
+          "totalTokens": 67353
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "754b8827f970a9b2aaf1b2622f0206c7252941f5bb5400e4c6d9e9c4ab530939",
+            "sources": [
+              {
+                "sourceId": "chopper-fan-abilities-1",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "chopper-official-profile",
+                "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+                "sourceCharacters": 1049,
+                "visibleCharacters": 1049,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "b2d7814138b1c54e9d60e9340bc15a9465b56e4fb9607007aebaf4686636d782",
+        "knownInputTokens": 64100,
+        "knownOutputTokens": 3253,
+        "knownStandardApiEquivalentUsd": 0.016723599999999998,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 4,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-09T18:51:35.479Z",
+        "completed": true,
+        "inputTokenUpperBound": 198494,
+        "maxOutputTokens": 13020,
+        "endedAt": "2026-09-09T18:56:22.528Z",
+        "model": "gpt-5.6-luna",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 51620,
+          "outputTokens": 15847,
+          "totalTokens": 67467
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "754b8827f970a9b2aaf1b2622f0206c7252941f5bb5400e4c6d9e9c4ab530939",
+            "sources": [
+              {
+                "sourceId": "chopper-fan-abilities-1",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "chopper-official-profile",
+                "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+                "sourceCharacters": 1049,
+                "visibleCharacters": 1049,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "27d76ae92d5507a47fb297c0b455e69cb1c9ff13b3323c05db46e1e92438ffab",
+        "knownInputTokens": 51620,
+        "knownOutputTokens": 15847,
+        "knownStandardApiEquivalentUsd": 0.0293404,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 0.072129,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-default-b01/chopper"
+}

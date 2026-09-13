@@ -21,7 +21,8 @@
   "dependencies": {
     "@mardwerk/unit-core": "workspace:*",
     "@mardwerk/unit-providers": "workspace:*",
-    "@mardwerk/unit-definitions": "workspace:*"
+    "@mardwerk/unit-definitions": "workspace:*",
+    "@mardwerk/unit-lab": "workspace:*"
   },
   "devDependencies": {
     "@types/node": "catalog:",

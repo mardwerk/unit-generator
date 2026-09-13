@@ -1,0 +1,14 @@
+{
+  "subject": "Brook",
+  "kind": "character",
+  "continuity": "One Piece manga through the end of Wano Country arc",
+  "intent": "Preserve the skeleton musician and quick-draw cane swordsman, soul-based cold, music and soul scouting. Do not treat his return from death as unlimited resurrection. Build a playable kit with at least 15 meaningful purchasable upgrades that each change executable behavior. Select a coherent subset instead of claiming exhaustive coverage. Disclose omitted defining abilities and any source limits. Treat numerical damage, costs, cooldowns, range, targeting and unlock progression as explicit gameplay adaptations. Do not invent character powers to meet upgrade count; deepen sourced abilities where possible.",
+  "context": {
+    "evidencePurpose": "Curated development demonstration, available to generation and review; not an unseen benchmark.",
+    "reviewScope": "Selected manga continuity through end of Wano; exclude later manga, anime-only and game-only facts from this request."
+  },
+  "sources": [
+    "https://onepiece.fandom.com/wiki/Brook/Abilities_and_Powers",
+    "https://one-piece.com/character/brook/index.html"
+  ]
+}

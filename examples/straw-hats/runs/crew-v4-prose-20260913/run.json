@@ -1,0 +1,310 @@
+{
+  "implementationHashes": {
+    "core": "c47b4e8c80b36c3ef92f42d982233a5df3b742bc6140458025f19cc743cd9e5d",
+    "definitions": "3e3cc8d61f8f4e2c80e3051f4c032f5f88e610e910181c0316a438fce102bc2b",
+    "providers": "7d72306e36fc59de218f1b1bb7f8d4b9f25d8ba2e665cdce461410bece730a26",
+    "unit-lab": "2c6605866420e2039a564548e414c92d1e7793ab14377db43ea90b4aa6a9aa34"
+  },
+  "runnerSha256": "b64448bc43bbf72bc76393d760b2322b8666939e2706d47bb13d049b55d6fa74",
+  "operation": "generation",
+  "originalResult": null,
+  "label": "crew-v4-prose-20260913",
+  "startedAt": "2026-09-13T10:45:59.893Z",
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "streaming": true,
+  "fallbackReason": null,
+  "requests": ".scratch/straw-hats/orchestrated-20260913/requests-refinement",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "fileDigest": "5def43dcd9ab3c26bd27df80085dc2f556255b6a3173fe0a67265d7faf346e23",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "limits": {
+    "maxRepairs": 1,
+    "maxModelCalls": 6,
+    "maxResearchCalls": 1,
+    "maxSources": 4,
+    "timeoutMs": 3600000,
+    "callTimeoutMs": 600000
+  },
+  "pricing": {
+    "rates": {
+      "gpt-5.6-luna": {
+        "input": 0.2,
+        "output": 1.2
+      },
+      "gpt-6-astra": {
+        "input": 10,
+        "output": 50
+      }
+    },
+    "currency": "USD",
+    "unit": "per million tokens",
+    "source": "https://developers.openai.com/api/docs/pricing",
+    "verifiedAt": "2026-09-09",
+    "scope": "Standard API-equivalent estimate using published rates captured earlier today. Not a provider invoice. Agent development and independent review usage excluded. Unknown usage is not zero."
+  },
+  "results": [
+    {
+      "id": "robin",
+      "status": "success",
+      "blockers": [],
+      "calls": 2,
+      "repairs": 0,
+      "accounting": {
+        "calls": [
+          {
+            "sequence": 1,
+            "stage": "draft",
+            "startedAt": "2026-09-13T10:45:59.960Z",
+            "completed": true,
+            "inputTokenUpperBound": 280397,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T10:47:35.563Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 71565,
+              "outputTokens": 3062,
+              "totalTokens": 74627
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "76f115ee83e34f086dbb46eb84d1973f9e2c4604803f2ddad89111acfa70a074",
+                "sources": [
+                  {
+                    "sourceId": "d98ced5d1611c50f0f8ca774",
+                    "sha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+                    "sourceCharacters": 72770,
+                    "visibleCharacters": 72770,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "890039d47dda6f91251d5948",
+                    "sha256": "e666ed6c1ab4047676340775521e325fac391dde5e59f4cad27c88161a4b6528",
+                    "sourceCharacters": 1823,
+                    "visibleCharacters": 1823,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "a4dd5983f78c94b0c530f306",
+                    "sha256": "027bf8189e48f624204037d645c7575b2f206605870a3a94f5bfcb31ead0b3a6",
+                    "sourceCharacters": 62178,
+                    "visibleCharacters": 62178,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "f702f363f39bc6f56b1a5056c74fb3ed795997bae86c6f75b3c60a587b7f3d70",
+            "knownInputTokens": 71565,
+            "knownOutputTokens": 3062,
+            "knownStandardApiEquivalentUsd": 0.86875,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 2,
+            "stage": "fidelity-review",
+            "startedAt": "2026-09-13T10:47:36.978Z",
+            "completed": true,
+            "inputTokenUpperBound": 381499,
+            "maxOutputTokens": 10860,
+            "endedAt": "2026-09-13T10:48:53.565Z",
+            "model": "gpt-6-astra",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 99805,
+              "outputTokens": 3721,
+              "totalTokens": 103526
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "76f115ee83e34f086dbb46eb84d1973f9e2c4604803f2ddad89111acfa70a074",
+                "sources": [
+                  {
+                    "sourceId": "d98ced5d1611c50f0f8ca774",
+                    "sha256": "541aeabb1abbe250ca5b1236db01a2c5da9031d131cf37fc0a6e8ebdb2cf96fa",
+                    "sourceCharacters": 72770,
+                    "visibleCharacters": 72770,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "890039d47dda6f91251d5948",
+                    "sha256": "e666ed6c1ab4047676340775521e325fac391dde5e59f4cad27c88161a4b6528",
+                    "sourceCharacters": 1823,
+                    "visibleCharacters": 1823,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "a4dd5983f78c94b0c530f306",
+                    "sha256": "027bf8189e48f624204037d645c7575b2f206605870a3a94f5bfcb31ead0b3a6",
+                    "sourceCharacters": 62178,
+                    "visibleCharacters": 62178,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "1f534e4829369dbd95dd0b4f503af758eb539b502ca1412427c5bd56f53812dd",
+            "knownInputTokens": 99805,
+            "knownOutputTokens": 3721,
+            "knownStandardApiEquivalentUsd": 1.1841,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          }
+        ],
+        "knownStandardApiEquivalentUsd": 2.05285,
+        "unknownUsageCalls": 0,
+        "unknownUsageConservativeAllowanceUsd": 0,
+        "failedCalls": 0
+      },
+      "publicArtifacts": "examples/straw-hats/runs/crew-v4-prose-20260913/robin",
+      "privateArtifacts": ".scratch/straw-hats/runs/crew-v4-prose-20260913/robin"
+    },
+    {
+      "id": "zoro",
+      "status": "success",
+      "blockers": [],
+      "calls": 2,
+      "repairs": 0,
+      "accounting": {
+        "calls": [
+          {
+            "sequence": 1,
+            "stage": "draft",
+            "startedAt": "2026-09-13T10:48:53.726Z",
+            "completed": true,
+            "inputTokenUpperBound": 248732,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T10:49:39.192Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 63433,
+              "outputTokens": 2129,
+              "totalTokens": 65562
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "437dfb4d58a735e48d5057a97d40d9a675a88f4dcda0885166f00a58997d918b",
+                "sources": [
+                  {
+                    "sourceId": "8f32c48669b43815340a017a",
+                    "sha256": "cd0b01a1ad85973c5bf82cf84b4a150da66fc6f18f80e401cab94ca634512840",
+                    "sourceCharacters": 105999,
+                    "visibleCharacters": 105999,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "7c707eda1d2664de52570171",
+                    "sha256": "c8ca3c1492ba9cde5b02f9e0b93e17218af2621937e7847cd635586dce81c35d",
+                    "sourceCharacters": 2543,
+                    "visibleCharacters": 2543,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "22e3daeef1e4b7c663a79aae33e35c6cc34707739ae1455cd32742d9e46ace6c",
+            "knownInputTokens": 63433,
+            "knownOutputTokens": 2129,
+            "knownStandardApiEquivalentUsd": 0.74078,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 2,
+            "stage": "fidelity-review",
+            "startedAt": "2026-09-13T10:49:40.082Z",
+            "completed": true,
+            "inputTokenUpperBound": 317499,
+            "maxOutputTokens": 11400,
+            "endedAt": "2026-09-13T10:51:04.357Z",
+            "model": "gpt-6-astra",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 83481,
+              "outputTokens": 4494,
+              "totalTokens": 87975
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "437dfb4d58a735e48d5057a97d40d9a675a88f4dcda0885166f00a58997d918b",
+                "sources": [
+                  {
+                    "sourceId": "8f32c48669b43815340a017a",
+                    "sha256": "cd0b01a1ad85973c5bf82cf84b4a150da66fc6f18f80e401cab94ca634512840",
+                    "sourceCharacters": 105999,
+                    "visibleCharacters": 105999,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "7c707eda1d2664de52570171",
+                    "sha256": "c8ca3c1492ba9cde5b02f9e0b93e17218af2621937e7847cd635586dce81c35d",
+                    "sourceCharacters": 2543,
+                    "visibleCharacters": 2543,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "719522cb88272b5d6bad11ac409b124547a0c0f887dd8376e2ed0d6c12974ea8",
+            "knownInputTokens": 83481,
+            "knownOutputTokens": 4494,
+            "knownStandardApiEquivalentUsd": 1.05951,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          }
+        ],
+        "knownStandardApiEquivalentUsd": 1.80029,
+        "unknownUsageCalls": 0,
+        "unknownUsageConservativeAllowanceUsd": 0,
+        "failedCalls": 0
+      },
+      "publicArtifacts": "examples/straw-hats/runs/crew-v4-prose-20260913/zoro",
+      "privateArtifacts": ".scratch/straw-hats/runs/crew-v4-prose-20260913/zoro"
+    }
+  ],
+  "completedAt": "2026-09-13T10:51:04.493Z"
+}

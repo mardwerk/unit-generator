@@ -1,0 +1,211 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "clockwork-sentry",
+  "name": "Clockwork sentry",
+  "description": "An original stationary sentry with a contact hammer and a short stamina-powered overdrive.",
+  "cost": 400,
+  "baseForm": "watch",
+  "stunProtectionSeconds": 2,
+  "stamina": {
+    "unlockTier": 1,
+    "maximum": 60,
+    "entryMinimum": 15,
+    "recoveryPerSecond": 4,
+    "reentrySeconds": 3,
+    "techniqueCost": 10,
+    "techniqueCooldown": 12
+  },
+  "forms": [
+    {
+      "id": "watch",
+      "name": "Watch",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Watch",
+        "delivery": "direct-contact",
+        "damage": 10,
+        "period": 1.2,
+        "windup": 0.2,
+        "reach": 20,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": []
+    },
+    {
+      "id": "overdrive",
+      "name": "Overdrive",
+      "unlockTier": 1,
+      "drainPerSecond": 5,
+      "primary": {
+        "name": "Overdrive",
+        "delivery": "direct-contact",
+        "damage": 14,
+        "period": 0.8,
+        "windup": 0.1,
+        "reach": 22,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "hammer",
+          "name": "Hammer strike",
+          "unlockTier": 1,
+          "damage": 50,
+          "windup": 0.3,
+          "recovery": 0.7,
+          "shape": {
+            "kind": "single"
+          },
+          "hits": 1,
+          "hitSpan": 0
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "hammer",
+      "name": "Hammer",
+      "upgrades": [
+        {
+          "name": "Hammer 1",
+          "cost": 100,
+          "modifiers": {
+            "flatDamage": 2
+          },
+          "description": "Add 2 damage to each contact."
+        },
+        {
+          "name": "Hammer 2",
+          "cost": 200,
+          "modifiers": {
+            "flatDamage": 2
+          },
+          "description": "Add 2 damage to each contact."
+        },
+        {
+          "name": "Hammer 3",
+          "cost": 300,
+          "modifiers": {
+            "flatDamage": 2
+          },
+          "description": "Add 2 damage to each contact."
+        },
+        {
+          "name": "Hammer 4",
+          "cost": 400,
+          "modifiers": {
+            "flatDamage": 2
+          },
+          "description": "Add 2 damage to each contact."
+        },
+        {
+          "name": "Hammer 5",
+          "cost": 500,
+          "modifiers": {
+            "flatDamage": 2
+          },
+          "description": "Add 2 damage to each contact."
+        }
+      ]
+    },
+    {
+      "id": "sensor",
+      "name": "Sensor",
+      "upgrades": [
+        {
+          "name": "Sensor 1",
+          "cost": 100,
+          "modifiers": {
+            "reachAdd": 2
+          },
+          "description": "Add 2 reach."
+        },
+        {
+          "name": "Sensor 2",
+          "cost": 200,
+          "modifiers": {
+            "reachAdd": 2
+          },
+          "description": "Add 2 reach."
+        },
+        {
+          "name": "Sensor 3",
+          "cost": 300,
+          "modifiers": {
+            "reachAdd": 2
+          },
+          "description": "Add 2 reach."
+        },
+        {
+          "name": "Sensor 4",
+          "cost": 400,
+          "modifiers": {
+            "reachAdd": 2
+          },
+          "description": "Add 2 reach."
+        },
+        {
+          "name": "Sensor 5",
+          "cost": 500,
+          "modifiers": {
+            "reachAdd": 2
+          },
+          "description": "Add 2 reach."
+        }
+      ]
+    },
+    {
+      "id": "motor",
+      "name": "Motor",
+      "upgrades": [
+        {
+          "name": "Motor 1",
+          "cost": 100,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.95
+          },
+          "description": "Multiply primary timing by 0.95."
+        },
+        {
+          "name": "Motor 2",
+          "cost": 200,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.95
+          },
+          "description": "Multiply primary timing by 0.95."
+        },
+        {
+          "name": "Motor 3",
+          "cost": 300,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.95
+          },
+          "description": "Multiply primary timing by 0.95."
+        },
+        {
+          "name": "Motor 4",
+          "cost": 400,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.95
+          },
+          "description": "Multiply primary timing by 0.95."
+        },
+        {
+          "name": "Motor 5",
+          "cost": 500,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.95
+          },
+          "description": "Multiply primary timing by 0.95."
+        }
+      ]
+    }
+  ]
+}

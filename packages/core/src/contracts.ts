@@ -43,10 +43,18 @@ export interface Knowledge {
   }[];
   gaps: string[];
 }
+export interface SourceVisibility {
+  sourceId: string;
+  sha256: string;
+  sourceCharacters: number;
+  visibleCharacters: number;
+  complete: boolean;
+}
 export interface ResearchInput {
   subject: string;
   continuity?: string;
   kind?: 'character' | 'original';
+  guidance?: string;
   knowledge?: ResearchResult;
   sources?: (Source | string)[];
 }
@@ -55,6 +63,7 @@ export interface ResearchResult {
   status: 'success' | 'failed' | 'cancelled';
   subject: string;
   sources: Source[];
+  sourceVisibility?: SourceVisibility[];
   knowledge?: Knowledge;
   reused: boolean;
   grounding: 'grounded' | 'ungrounded' | 'original-concept';
@@ -97,12 +106,13 @@ export interface ModelCall {
   input: unknown;
   schema: JsonSchema;
   requireStructured?: boolean;
+  maxOutputTokens?: number;
 }
 export interface ModelReply {
   value: unknown;
   mode: 'structured' | 'json' | 'fixture';
   model?: string;
-  usage?: { inputTokens?: number; outputTokens?: number };
+  usage?: { inputTokens?: number; outputTokens?: number; totalTokens?: number };
 }
 export interface ModelAdapter {
   generate(
@@ -129,6 +139,56 @@ export interface SourceAdapter {
 export type ProgressEvent =
   | { type: 'progress'; stage: string; message: string }
   | { type: 'research'; result: ResearchResult };
+export interface FidelityAttempt {
+  review: unknown;
+  reportValid: boolean;
+  error?: { code: string; message: string };
+}
+export interface FidelityReport {
+  status: 'checked' | 'insufficient-evidence' | 'original-concept';
+  claims: {
+    path: string;
+    candidateQuote: string;
+    sourceMechanic: string;
+    relationship:
+      'same-ability' | 'numerical-tuning' | 'delivery-abstraction' | 'game-rule' | 'unsupported';
+    claim: string;
+    status: 'supported' | 'adapted' | 'contradicted' | 'unresolved';
+    sourceId: string;
+    quote: string;
+    passageId?: string;
+    sourceSha256?: string;
+    sourceRange?: { start: number; end: number };
+    explanation: string;
+  }[];
+  gaps: string[];
+}
+export interface QualificationReport {
+  schemaVersion: 'unit-qualification/0.1';
+  definitionId: string;
+  readiness: 'blocked' | 'review-required';
+  findings: {
+    code: string;
+    dimension:
+      | 'validity'
+      | 'purchase-usefulness'
+      | 'claim-effect'
+      | 'source-fidelity'
+      | 'coverage'
+      | 'balance';
+    severity: 'blocker' | 'warning' | 'info';
+    message: string;
+    location?: string;
+    evidence?: Record<string, unknown>;
+  }[];
+  coverage: {
+    legalBuilds: number;
+    evaluatedBuilds: number;
+    purchaseEdges: number;
+    probes: number;
+    unassessed: string[];
+  };
+}
 export interface Execution {
   model?: ModelAdapter;
   sources?: SourceAdapter;
@@ -136,6 +196,14 @@ export interface Execution {
   limits?: Partial<Limits>;
   signal?: AbortSignal;
   onProgress?: (event: ProgressEvent) => void;
+  reviewFidelity?: boolean;
+  /** Called after deterministic validation with frozen, isolated candidate and evidence snapshots. */
+  evaluate?: (context: {
+    definitionId: string;
+    candidate: unknown;
+    research: ResearchResult[];
+    signal: AbortSignal;
+  }) => QualificationReport | Promise<QualificationReport>;
 }
 export interface Context {
   readonly signal: AbortSignal;
@@ -182,6 +250,8 @@ export interface Definition {
 export interface Metadata {
   modelCalls: number;
   repairs: number;
+  /** One execution-wide retry for a malformed draft or repair response, when needed. */
+  formatRetries?: number;
   elapsedMs: number;
   calls: {
     stage: string;
@@ -189,6 +259,9 @@ export interface Metadata {
     model?: string;
     usage?: ModelReply['usage'];
     completed: boolean;
+    errorCode?: string;
+    outputSha256?: string;
+    evidence?: { knowledgeSha256: string; sources: SourceVisibility[] }[];
   }[];
 }
 export interface RunResult {
@@ -209,6 +282,9 @@ export interface RunResult {
   design?: unknown;
   research: ResearchResult[];
   validation: ValidationReport;
+  qualification?: QualificationReport;
+  fidelity?: FidelityReport;
+  fidelityAttempts?: FidelityAttempt[];
   metadata: Metadata;
   error?: Failure;
 }

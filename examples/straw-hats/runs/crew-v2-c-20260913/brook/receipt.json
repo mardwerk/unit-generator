@@ -1,0 +1,3486 @@
+{
+  "id": "brook",
+  "operation": "generation",
+  "status": "failed",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "ed7613dac5fc40157cdc0077969af470fd3fbe03241cab8719f0c9c6189fd5b4",
+  "unitSha256": "1b67fccb5ea7addeb8adf4f4497405eba59d1c35d214293c387c1b1574ec0d07",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "600c00487b3edecefeba05e31f24f03f81948740f15dc3e223a85d126a7f82be",
+    "implementationVersion": "manga-mayhem/0.1.2",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "input": {
+    "subject": "Brook",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Produce a faithful playable Straw Hat unit using the current Manga Mayhem contract. Exactly three paths of five concrete cumulative purchases, legal maximum 5-2-0. Every purchase must change executable behavior. Source facts must be established by fresh research. Disclose numerical tuning, unlock schedules and bounded interpretations as game adaptations; distinguish omitted powers from implemented powers. This is a stationary tower encounter with caller-supplied enemy motion and ally injuries, not tower defensive combat or free unit movement. Avoid unsupported air-only target classes, tower HP, shields, taunt, or invented powers. If a source trait has no runtime representation, preserve it in an explicit omission rather than a fake stat bonus. Use the supported schema exactly, including resources, projectile flight, target geometry, statuses, and shared technique lifecycle. Balance is a later measured pass; prices are provisional. World units are shared across the crew: ordinary close contact roughly 8-18, stretched or ranged profiles roughly 30-60; do not treat these as canon measurements. Keep signatures recognizable and source-backed. Soul Solid fencing, music including sleep-inducing Nemuriuta Flanc, underworld chill and soul projection through Wano. Revive-Revive fruit is a once-used resurrection, not repeat resurrection skill. Music control has explicit eligibility and boss limits. Soul projection reconnaissance requires honest limitation if unsupported. Chill is soul-linked, not a generic frost mage. Preserve gentleman musician/skeleton traits.",
+    "context": {
+      "crew": {
+        "id": "straw-hats",
+        "name": "Straw Hat Pirates",
+        "members": [
+          "Monkey D. Luffy",
+          "Roronoa Zoro",
+          "Nami",
+          "Usopp",
+          "Sanji",
+          "Tony Tony Chopper",
+          "Nico Robin",
+          "Franky",
+          "Brook",
+          "Jinbe"
+        ]
+      },
+      "cutoff": "One Piece manga through the end of Wano Country arc",
+      "newRun": true,
+      "coverage": "Character-specific capabilities are requirements to verify, not evidence. Record unsupported facts as gaps. No old generated artifacts supplied."
+    },
+    "sources": [
+      "https://onepiece.fandom.com/wiki/Brook/Abilities_and_Powers",
+      "https://one-piece.com/character/brook/index.html",
+      "https://one-piece.com/story/land_of_wano2/index.html"
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Brook",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied pages establish Brook's abilities and Wano continuity but do not provide the requested game's current Manga Mayhem contract, schema for resources, projectile flight, target geometry, statuses, or shared technique lifecycle.",
+        "No supplied source establishes exact numerical damage, range, attack speed, cooldowns, prices, unlock schedules, legal maximum interactions, or the precise three-path structure. Any such values would be game adaptations and must be disclosed as tuning rather than canon.",
+        "No supplied source establishes a playable stationary tower-encounter implementation, caller-supplied enemy motion, ally-injury handling, or the exact meaning of the legal maximum 5-2-0.",
+        "Nemuriuta Flanc is supported as a sleep-inducing technique, but the supplied pages do not define eligibility rules, duration, resistance rules, boss limits, or how music control should operate against bosses.",
+        "Brook's soul projection is supported for movement through walls and inaccessible areas, but the supplied pages do not support unrestricted reconnaissance, map-wide detection, target acquisition, or interaction with objects. A playable implementation needs an explicit limitation.",
+        "The supplied pages support soul-linked Underworld chill and freezing through Soul Solid, but do not support treating Brook as a generic frost mage or define a complete status model for freezing, slowing, or resistance.",
+        "The supplied pages establish the Revive-Revive Fruit resurrection origin, but do not support repeat resurrection as an executable skill. A playable unit should preserve the once-used resurrection as lore or an explicitly limited mechanic, not a repeatable revive.",
+        "The supplied sources do not establish unsupported game traits such as tower HP, shields, taunt, free unit movement, air-only target classes, or other requested mechanics not represented in the pages.",
+        "The supplied pages establish Brook's gentleman musician and skeleton traits, but do not specify runtime representations for humor, gentlemanly conduct, bone storage, pain, fear, world-star status, or resistance to every disease. These should be preserved as omissions or bounded adaptations rather than invented stat bonuses.",
+        "The abilities page contains material beyond the specified cutoff, including references from later chapters. Those post-Wano facts were not used as selected continuity evidence."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "976a7ef53a9007ed42ced5af",
+          "sha256": "539aba2d79ddb76ce1ae22411ee5d2b395a467f948eabe528cd13966b72e841c",
+          "sourceCharacters": 18723,
+          "visibleCharacters": 18723,
+          "complete": true
+        },
+        {
+          "sourceId": "e72cbbc0aaeb85ebc5f42817",
+          "sha256": "2188ecfbc6dd6ffa0fa51c7f72362b066445ac02bcbd9e14807b8f88aa9c1086",
+          "sourceCharacters": 1779,
+          "visibleCharacters": 1779,
+          "complete": true
+        },
+        {
+          "sourceId": "600b250f9838e58b36ccca0c",
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+          "sourceCharacters": 1673,
+          "visibleCharacters": 1673,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "id": "976a7ef53a9007ed42ced5af",
+          "url": "https://onepiece.fandom.com/api.php?action=parse&page=Brook%2FAbilities+and+Powers&prop=wikitext&format=json",
+          "title": "Brook/Abilities and Powers",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Raw MediaWiki article source, including citation templates. Templates and images are not rendered."
+          ],
+          "characters": 18723,
+          "sha256": "539aba2d79ddb76ce1ae22411ee5d2b395a467f948eabe528cd13966b72e841c"
+        },
+        {
+          "id": "e72cbbc0aaeb85ebc5f42817",
+          "url": "https://one-piece.com/character/brook/index.html",
+          "title": "ブルック | キャラクター検索 | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1779,
+          "sha256": "2188ecfbc6dd6ffa0fa51c7f72362b066445ac02bcbd9e14807b8f88aa9c1086"
+        },
+        {
+          "id": "600b250f9838e58b36ccca0c",
+          "url": "https://one-piece.com/story/land_of_wano2/index.html",
+          "title": "ワノ国編 | これまでのストーリー | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1673,
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Brook",
+        "identity": {
+          "status": "resolved",
+          "name": "Brook",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied character pages identify Brook as the skeleton musician and swordsman of the Straw Hat Pirates, and the supplied Wano Country page establishes the requested story cutoff. Facts from later material beyond that cutoff are excluded from the selected record."
+        },
+        "claimCount": 19,
+        "knowledgeSha256": "c947089d2e7be34b2f176c09aebf8dc11ccecc40826f7890bc224809c18873c8"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "manga-contract",
+        "legal-progression",
+        "reachable-resource-and-techniques"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-provided",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "review-required",
+    "findings": [
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.5,
+          "damage": 36,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            1
+          ],
+          "distance": 7,
+          "durationSeconds": 2.25,
+          "damage": 36,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            2
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 36,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 42,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            4
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 42,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            5
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 53.76,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.5,
+          "damage": 40,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            1
+          ],
+          "distance": 7,
+          "durationSeconds": 2.25,
+          "damage": 40,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            2
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 40,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            3
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            4
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            5
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 58.88,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 40,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            1
+          ],
+          "distance": 7,
+          "durationSeconds": 2.0700000000000003,
+          "damage": 40,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            2
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 40,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            3
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            4
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            5
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 58.88,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 43.2,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            1
+          ],
+          "distance": 7,
+          "durationSeconds": 2.0700000000000003,
+          "damage": 43.2,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            2
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 43.2,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 51.84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            1
+          ],
+          "distance": 7,
+          "durationSeconds": 2.0700000000000003,
+          "damage": 51.84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            2
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 51.84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 67.39200000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            1
+          ],
+          "distance": 7,
+          "durationSeconds": 2.0700000000000003,
+          "damage": 67.39200000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            2
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 67.39200000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.5,
+          "damage": 42,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            1
+          ],
+          "distance": 7,
+          "durationSeconds": 2.25,
+          "damage": 42,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            2
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 42,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            3
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 48,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            4
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 48,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            5
+          ],
+          "distance": 7,
+          "durationSeconds": 2.16,
+          "damage": 61.44,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            1,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.5,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            2,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            3,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 49.68000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            4,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 58.32000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            5,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.3000000000000003,
+          "damage": 75.816,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.2,
+          "damage": 42,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            1
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 42,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            2
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 42,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            3
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 48,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            4
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 48,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            5
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 61.44,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            1,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.2,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            2,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.024,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            3,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.024,
+          "damage": 49.68000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            4,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.024,
+          "damage": 58.32000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            5,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.024,
+          "damage": 75.816,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.2,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            1
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            2
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            1,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.2,
+          "damage": 50,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            2,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.024,
+          "damage": 50,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "sleeping-song",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.2,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            1
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            2
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 46,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            1,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.2,
+          "damage": 50,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            2,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.024,
+          "damage": 50,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.2,
+          "damage": 62.1,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            1
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 62.1,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            2
+          ],
+          "distance": 7,
+          "durationSeconds": 2,
+          "damage": 62.1,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            1,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.2,
+          "damage": 67.5,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            2,
+            0
+          ],
+          "distance": 7,
+          "durationSeconds": 2.024,
+          "damage": 67.5,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "CONDITIONAL_STATUS_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520/forms/base",
+        "message": "Compared on-hit status application with explicit required target tags. Eligibility uses the adapter-normalized target facts; arbitrary tags remain caller supplied. This observation does not certify the prose or every eligibility combination.",
+        "evidence": {
+          "requiredTags": [
+            "slowable",
+            "weak-willed",
+            "stunnable"
+          ],
+          "untaggedApplications": [],
+          "missingRequiredFactApplications": [],
+          "taggedApplications": [
+            "aerial-underworld-chill",
+            "underworld-chill"
+          ]
+        }
+      },
+      {
+        "code": "ZERO_BASE_DAMAGE_RECEIVES_FLAT_BONUS",
+        "dimension": "claim-effect",
+        "severity": "warning",
+        "location": "/paths/0/upgrades/0",
+        "message": "Global flat damage also increases damage on attacks and Techniques with zero base damage. It is not restricted to profiles that already deal damage.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            2
+          ],
+          "zeroDamageProfiles": [
+            "base/nemuriuta-flanc"
+          ],
+          "beforeFlatDamage": 0,
+          "afterFlatDamage": 3,
+          "occurrences": 8,
+          "additionalExamples": [
+            {
+              "tiers": [
+                1,
+                0,
+                3
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 6
+            },
+            {
+              "tiers": [
+                1,
+                0,
+                4
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 6
+            },
+            {
+              "tiers": [
+                1,
+                0,
+                5
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 6
+            }
+          ]
+        }
+      },
+      {
+        "code": "ZERO_BASE_DAMAGE_RECEIVES_FLAT_BONUS",
+        "dimension": "claim-effect",
+        "severity": "warning",
+        "location": "/paths/1/upgrades/0",
+        "message": "Global flat damage also increases damage on attacks and Techniques with zero base damage. It is not restricted to profiles that already deal damage.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            2
+          ],
+          "zeroDamageProfiles": [
+            "base/nemuriuta-flanc"
+          ],
+          "beforeFlatDamage": 0,
+          "afterFlatDamage": 2,
+          "occurrences": 8,
+          "additionalExamples": [
+            {
+              "tiers": [
+                0,
+                1,
+                3
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 5
+            },
+            {
+              "tiers": [
+                0,
+                1,
+                4
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 5
+            },
+            {
+              "tiers": [
+                0,
+                1,
+                5
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 5
+            }
+          ]
+        }
+      },
+      {
+        "code": "ZERO_BASE_DAMAGE_RECEIVES_FLAT_BONUS",
+        "dimension": "claim-effect",
+        "severity": "warning",
+        "location": "/paths/2/upgrades/2",
+        "message": "Global flat damage also increases damage on attacks and Techniques with zero base damage. It is not restricted to profiles that already deal damage.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "zeroDamageProfiles": [
+            "base/nemuriuta-flanc"
+          ],
+          "beforeFlatDamage": 0,
+          "afterFlatDamage": 3,
+          "occurrences": 5,
+          "additionalExamples": [
+            {
+              "tiers": [
+                0,
+                1,
+                3
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 2,
+              "afterFlatDamage": 5
+            },
+            {
+              "tiers": [
+                0,
+                2,
+                3
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 2,
+              "afterFlatDamage": 5
+            },
+            {
+              "tiers": [
+                1,
+                0,
+                3
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 6
+            }
+          ]
+        }
+      },
+      {
+        "code": "ZERO_BASE_DAMAGE_RECEIVES_FLAT_BONUS",
+        "dimension": "claim-effect",
+        "severity": "warning",
+        "location": "/paths/1/upgrades/3",
+        "message": "Global flat damage also increases damage on attacks and Techniques with zero base damage. It is not restricted to profiles that already deal damage.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            0
+          ],
+          "zeroDamageProfiles": [
+            "base/nemuriuta-flanc"
+          ],
+          "beforeFlatDamage": 2,
+          "afterFlatDamage": 6,
+          "occurrences": 5,
+          "additionalExamples": [
+            {
+              "tiers": [
+                0,
+                4,
+                1
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 2,
+              "afterFlatDamage": 6
+            },
+            {
+              "tiers": [
+                0,
+                4,
+                2
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 2,
+              "afterFlatDamage": 6
+            },
+            {
+              "tiers": [
+                1,
+                4,
+                0
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 5,
+              "afterFlatDamage": 9
+            }
+          ]
+        }
+      },
+      {
+        "code": "ZERO_BASE_DAMAGE_RECEIVES_FLAT_BONUS",
+        "dimension": "claim-effect",
+        "severity": "warning",
+        "location": "/paths/0/upgrades/2",
+        "message": "Global flat damage also increases damage on attacks and Techniques with zero base damage. It is not restricted to profiles that already deal damage.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            0
+          ],
+          "zeroDamageProfiles": [
+            "base/nemuriuta-flanc"
+          ],
+          "beforeFlatDamage": 3,
+          "afterFlatDamage": 5,
+          "occurrences": 5,
+          "additionalExamples": [
+            {
+              "tiers": [
+                3,
+                0,
+                1
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 5
+            },
+            {
+              "tiers": [
+                3,
+                0,
+                2
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 3,
+              "afterFlatDamage": 5
+            },
+            {
+              "tiers": [
+                3,
+                1,
+                0
+              ],
+              "zeroDamageProfiles": [
+                "base/nemuriuta-flanc"
+              ],
+              "beforeFlatDamage": 5,
+              "afterFlatDamage": 7
+            }
+          ]
+        }
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 64,
+      "evaluatedBuilds": 64,
+      "purchaseEdges": 111,
+      "probes": 542,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Natural-language description agreement needs independent review; this report describes executable limits.",
+        "Stationary probes do not establish game balance or live-game parity.",
+        "Full encounter balance, all moving geometries, and all purchase/switch/cooldown sequences."
+      ]
+    }
+  },
+  "fidelityAttempts": [
+    {
+      "reportValid": false,
+      "error": {
+        "code": "fidelity-citation-invalid",
+        "message": "Select an existing passageId from source  for /schema, or mark the claim unresolved without a citation."
+      }
+    },
+    {
+      "reportValid": false,
+      "error": {
+        "code": "fidelity-citation-invalid",
+        "message": "Select an existing passageId from source  for /schema, or mark the claim unresolved without a citation."
+      }
+    }
+  ],
+  "metadata": {
+    "modelCalls": 5,
+    "repairs": 1,
+    "elapsedMs": 371625,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 9622,
+          "outputTokens": 1828,
+          "totalTokens": 11450
+        },
+        "outputSha256": "c947089d2e7be34b2f176c09aebf8dc11ccecc40826f7890bc224809c18873c8"
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "c947089d2e7be34b2f176c09aebf8dc11ccecc40826f7890bc224809c18873c8",
+            "sources": [
+              {
+                "sourceId": "976a7ef53a9007ed42ced5af",
+                "sha256": "539aba2d79ddb76ce1ae22411ee5d2b395a467f948eabe528cd13966b72e841c",
+                "sourceCharacters": 18723,
+                "visibleCharacters": 18723,
+                "complete": true
+              },
+              {
+                "sourceId": "e72cbbc0aaeb85ebc5f42817",
+                "sha256": "2188ecfbc6dd6ffa0fa51c7f72362b066445ac02bcbd9e14807b8f88aa9c1086",
+                "sourceCharacters": 1779,
+                "visibleCharacters": 1779,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 36922,
+          "outputTokens": 1563,
+          "totalTokens": 38485
+        },
+        "outputSha256": "d15e969ed2295fae09f4ba05cd9e973f01c774baa752e24244cd66c9efec3aaa"
+      },
+      {
+        "stage": "repair",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "c947089d2e7be34b2f176c09aebf8dc11ccecc40826f7890bc224809c18873c8",
+            "sources": [
+              {
+                "sourceId": "976a7ef53a9007ed42ced5af",
+                "sha256": "539aba2d79ddb76ce1ae22411ee5d2b395a467f948eabe528cd13966b72e841c",
+                "sourceCharacters": 18723,
+                "visibleCharacters": 18723,
+                "complete": true
+              },
+              {
+                "sourceId": "e72cbbc0aaeb85ebc5f42817",
+                "sha256": "2188ecfbc6dd6ffa0fa51c7f72362b066445ac02bcbd9e14807b8f88aa9c1086",
+                "sourceCharacters": 1779,
+                "visibleCharacters": 1779,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 38269,
+          "outputTokens": 2578,
+          "totalTokens": 40847
+        },
+        "outputSha256": "1b67fccb5ea7addeb8adf4f4497405eba59d1c35d214293c387c1b1574ec0d07"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "c947089d2e7be34b2f176c09aebf8dc11ccecc40826f7890bc224809c18873c8",
+            "sources": [
+              {
+                "sourceId": "976a7ef53a9007ed42ced5af",
+                "sha256": "539aba2d79ddb76ce1ae22411ee5d2b395a467f948eabe528cd13966b72e841c",
+                "sourceCharacters": 18723,
+                "visibleCharacters": 18723,
+                "complete": true
+              },
+              {
+                "sourceId": "e72cbbc0aaeb85ebc5f42817",
+                "sha256": "2188ecfbc6dd6ffa0fa51c7f72362b066445ac02bcbd9e14807b8f88aa9c1086",
+                "sourceCharacters": 1779,
+                "visibleCharacters": 1779,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 19824,
+          "outputTokens": 6927,
+          "totalTokens": 26751
+        },
+        "outputSha256": "3cf8ff8897e570763ae8da6f36473d58bbd16d99c30a9d9f52550c23a457b142"
+      },
+      {
+        "stage": "fidelity-review-correction",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "c947089d2e7be34b2f176c09aebf8dc11ccecc40826f7890bc224809c18873c8",
+            "sources": [
+              {
+                "sourceId": "976a7ef53a9007ed42ced5af",
+                "sha256": "539aba2d79ddb76ce1ae22411ee5d2b395a467f948eabe528cd13966b72e841c",
+                "sourceCharacters": 18723,
+                "visibleCharacters": 18723,
+                "complete": true
+              },
+              {
+                "sourceId": "e72cbbc0aaeb85ebc5f42817",
+                "sha256": "2188ecfbc6dd6ffa0fa51c7f72362b066445ac02bcbd9e14807b8f88aa9c1086",
+                "sourceCharacters": 1779,
+                "visibleCharacters": 1779,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 26772,
+          "outputTokens": 3634,
+          "totalTokens": 30406
+        },
+        "outputSha256": "46963c6bf80a9a0a90ad9a7796bd2b19d6466177ac4d55b5787e69adc4cc5f47"
+      }
+    ]
+  },
+  "error": {
+    "stage": "fidelity-review",
+    "code": "fidelity-citation-invalid",
+    "message": "Select an existing passageId from source  for /schema, or mark the claim unresolved without a citation."
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-13T10:36:30.524Z",
+        "completed": true,
+        "inputTokenUpperBound": 38295,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:37:13.053Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 9622,
+          "outputTokens": 1828,
+          "totalTokens": 11450
+        },
+        "outputSha256": "c947089d2e7be34b2f176c09aebf8dc11ccecc40826f7890bc224809c18873c8",
+        "knownInputTokens": 9622,
+        "knownOutputTokens": 1828,
+        "knownStandardApiEquivalentUsd": 0.18762,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "draft",
+        "startedAt": "2026-09-13T10:37:13.069Z",
+        "completed": true,
+        "inputTokenUpperBound": 150123,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:37:52.191Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 36922,
+          "outputTokens": 1563,
+          "totalTokens": 38485
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "c947089d2e7be34b2f176c09aebf8dc11ccecc40826f7890bc224809c18873c8",
+            "sources": [
+              {
+                "sourceId": "976a7ef53a9007ed42ced5af",
+                "sha256": "539aba2d79ddb76ce1ae22411ee5d2b395a467f948eabe528cd13966b72e841c",
+                "sourceCharacters": 18723,
+                "visibleCharacters": 18723,
+                "complete": true
+              },
+              {
+                "sourceId": "e72cbbc0aaeb85ebc5f42817",
+                "sha256": "2188ecfbc6dd6ffa0fa51c7f72362b066445ac02bcbd9e14807b8f88aa9c1086",
+                "sourceCharacters": 1779,
+                "visibleCharacters": 1779,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "d15e969ed2295fae09f4ba05cd9e973f01c774baa752e24244cd66c9efec3aaa",
+        "knownInputTokens": 36922,
+        "knownOutputTokens": 1563,
+        "knownStandardApiEquivalentUsd": 0.44737,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 3,
+        "stage": "repair",
+        "startedAt": "2026-09-13T10:37:53.249Z",
+        "completed": true,
+        "inputTokenUpperBound": 156191,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-13T10:39:13.715Z",
+        "model": "gpt-6-astra",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 38269,
+          "outputTokens": 2578,
+          "totalTokens": 40847
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "c947089d2e7be34b2f176c09aebf8dc11ccecc40826f7890bc224809c18873c8",
+            "sources": [
+              {
+                "sourceId": "976a7ef53a9007ed42ced5af",
+                "sha256": "539aba2d79ddb76ce1ae22411ee5d2b395a467f948eabe528cd13966b72e841c",
+                "sourceCharacters": 18723,
+                "visibleCharacters": 18723,
+                "complete": true
+              },
+              {
+                "sourceId": "e72cbbc0aaeb85ebc5f42817",
+                "sha256": "2188ecfbc6dd6ffa0fa51c7f72362b066445ac02bcbd9e14807b8f88aa9c1086",
+                "sourceCharacters": 1779,
+                "visibleCharacters": 1779,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "1b67fccb5ea7addeb8adf4f4497405eba59d1c35d214293c387c1b1574ec0d07",
+        "knownInputTokens": 38269,
+        "knownOutputTokens": 2578,
+        "knownStandardApiEquivalentUsd": 0.51159,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 4,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-13T10:39:14.771Z",
+        "completed": true,
+        "inputTokenUpperBound": 82662,
+        "maxOutputTokens": 10140,
+        "endedAt": "2026-09-13T10:41:21.759Z",
+        "model": "gpt-6-astra",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 19824,
+          "outputTokens": 6927,
+          "totalTokens": 26751
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "c947089d2e7be34b2f176c09aebf8dc11ccecc40826f7890bc224809c18873c8",
+            "sources": [
+              {
+                "sourceId": "976a7ef53a9007ed42ced5af",
+                "sha256": "539aba2d79ddb76ce1ae22411ee5d2b395a467f948eabe528cd13966b72e841c",
+                "sourceCharacters": 18723,
+                "visibleCharacters": 18723,
+                "complete": true
+              },
+              {
+                "sourceId": "e72cbbc0aaeb85ebc5f42817",
+                "sha256": "2188ecfbc6dd6ffa0fa51c7f72362b066445ac02bcbd9e14807b8f88aa9c1086",
+                "sourceCharacters": 1779,
+                "visibleCharacters": 1779,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "3cf8ff8897e570763ae8da6f36473d58bbd16d99c30a9d9f52550c23a457b142",
+        "knownInputTokens": 19824,
+        "knownOutputTokens": 6927,
+        "knownStandardApiEquivalentUsd": 0.54459,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 5,
+        "stage": "fidelity-review-correction",
+        "startedAt": "2026-09-13T10:41:21.824Z",
+        "completed": true,
+        "inputTokenUpperBound": 112086,
+        "maxOutputTokens": 10140,
+        "endedAt": "2026-09-13T10:42:37.954Z",
+        "model": "gpt-6-astra",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 26772,
+          "outputTokens": 3634,
+          "totalTokens": 30406
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "c947089d2e7be34b2f176c09aebf8dc11ccecc40826f7890bc224809c18873c8",
+            "sources": [
+              {
+                "sourceId": "976a7ef53a9007ed42ced5af",
+                "sha256": "539aba2d79ddb76ce1ae22411ee5d2b395a467f948eabe528cd13966b72e841c",
+                "sourceCharacters": 18723,
+                "visibleCharacters": 18723,
+                "complete": true
+              },
+              {
+                "sourceId": "e72cbbc0aaeb85ebc5f42817",
+                "sha256": "2188ecfbc6dd6ffa0fa51c7f72362b066445ac02bcbd9e14807b8f88aa9c1086",
+                "sourceCharacters": 1779,
+                "visibleCharacters": 1779,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "46963c6bf80a9a0a90ad9a7796bd2b19d6466177ac4d55b5787e69adc4cc5f47",
+        "knownInputTokens": 26772,
+        "knownOutputTokens": 3634,
+        "knownStandardApiEquivalentUsd": 0.44942,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 2.14059,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-v2-c-20260913/brook"
+}

@@ -1,0 +1,290 @@
+{
+  "implementationHashes": {
+    "core": "02a2e6be83e294f12dbe13a1222093ca2e9fb8cc268cbcf28e671d253cafc303",
+    "definitions": "3e3cc8d61f8f4e2c80e3051f4c032f5f88e610e910181c0316a438fce102bc2b",
+    "providers": "7d72306e36fc59de218f1b1bb7f8d4b9f25d8ba2e665cdce461410bece730a26",
+    "unit-lab": "2c6605866420e2039a564548e414c92d1e7793ab14377db43ea90b4aa6a9aa34"
+  },
+  "runnerSha256": "b64448bc43bbf72bc76393d760b2322b8666939e2706d47bb13d049b55d6fa74",
+  "operation": "generation",
+  "originalResult": null,
+  "label": "crew-v4-luffy-prose-20260913",
+  "startedAt": "2026-09-13T11:01:53.324Z",
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "streaming": true,
+  "fallbackReason": null,
+  "requests": ".scratch/straw-hats/orchestrated-20260913/requests-refinement",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "fileDigest": "5def43dcd9ab3c26bd27df80085dc2f556255b6a3173fe0a67265d7faf346e23",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "limits": {
+    "maxRepairs": 1,
+    "maxModelCalls": 6,
+    "maxResearchCalls": 1,
+    "maxSources": 6,
+    "timeoutMs": 3600000,
+    "callTimeoutMs": 600000
+  },
+  "pricing": {
+    "rates": {
+      "gpt-5.6-luna": {
+        "input": 0.2,
+        "output": 1.2
+      },
+      "gpt-6-astra": {
+        "input": 10,
+        "output": 50
+      }
+    },
+    "currency": "USD",
+    "unit": "per million tokens",
+    "source": "https://developers.openai.com/api/docs/pricing",
+    "verifiedAt": "2026-09-09",
+    "scope": "Standard API-equivalent estimate using published rates captured earlier today. Not a provider invoice. Agent development and independent review usage excluded. Unknown usage is not zero."
+  },
+  "results": [
+    {
+      "id": "luffy",
+      "status": "success",
+      "blockers": [],
+      "calls": 3,
+      "repairs": 0,
+      "accounting": {
+        "calls": [
+          {
+            "sequence": 1,
+            "stage": "draft",
+            "startedAt": "2026-09-13T11:01:53.447Z",
+            "completed": false,
+            "inputTokenUpperBound": 543538,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T11:02:51.539Z",
+            "errorCode": "invalid-json",
+            "evidence": [
+              {
+                "knowledgeSha256": "090cea1cec26949b7dab401ccad5d21468801a19fa7408712bb6b773f66e6618",
+                "sources": [
+                  {
+                    "sourceId": "de42a262bddf7ce3606250d5",
+                    "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                    "sourceCharacters": 129355,
+                    "visibleCharacters": 129355,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "130da8a97048e424a3a243ee",
+                    "sha256": "430b9b26d431aa8c9be26147dc190af1719efda750059154d39f65bcd662fe2c",
+                    "sourceCharacters": 72130,
+                    "visibleCharacters": 72130,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "b8a42cdcfd8569033a61d25f",
+                    "sha256": "0fe8e93e5783be2bab9887ca75df6af5c998cbf194b40317348936fdb0b051fe",
+                    "sourceCharacters": 35938,
+                    "visibleCharacters": 35938,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "01da57b48482b495bf450824",
+                    "sha256": "3ea22cfe4c11f3957f7c3e9a7080c1a7fbfa32336991ffd1a2a86581d29cb0a6",
+                    "sourceCharacters": 46058,
+                    "visibleCharacters": 46058,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "ff599472ecd690bb3366ddae",
+                    "sha256": "58b73cccc7245eefef1e6d10b762a744a1e7bc123669878a735cbc9347054f3f",
+                    "sourceCharacters": 71422,
+                    "visibleCharacters": 71422,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "usage": {
+              "inputTokens": 141395,
+              "outputTokens": 2970,
+              "totalTokens": 144365
+            },
+            "model": "gpt-6-astra",
+            "knownInputTokens": 141395,
+            "knownOutputTokens": 2970,
+            "knownStandardApiEquivalentUsd": 1.56245,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 2,
+            "stage": "draft",
+            "startedAt": "2026-09-13T11:02:51.564Z",
+            "completed": true,
+            "inputTokenUpperBound": 543789,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T11:04:56.261Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 141438,
+              "outputTokens": 3901,
+              "totalTokens": 145339
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "090cea1cec26949b7dab401ccad5d21468801a19fa7408712bb6b773f66e6618",
+                "sources": [
+                  {
+                    "sourceId": "de42a262bddf7ce3606250d5",
+                    "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                    "sourceCharacters": 129355,
+                    "visibleCharacters": 129355,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "130da8a97048e424a3a243ee",
+                    "sha256": "430b9b26d431aa8c9be26147dc190af1719efda750059154d39f65bcd662fe2c",
+                    "sourceCharacters": 72130,
+                    "visibleCharacters": 72130,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "b8a42cdcfd8569033a61d25f",
+                    "sha256": "0fe8e93e5783be2bab9887ca75df6af5c998cbf194b40317348936fdb0b051fe",
+                    "sourceCharacters": 35938,
+                    "visibleCharacters": 35938,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "01da57b48482b495bf450824",
+                    "sha256": "3ea22cfe4c11f3957f7c3e9a7080c1a7fbfa32336991ffd1a2a86581d29cb0a6",
+                    "sourceCharacters": 46058,
+                    "visibleCharacters": 46058,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "ff599472ecd690bb3366ddae",
+                    "sha256": "58b73cccc7245eefef1e6d10b762a744a1e7bc123669878a735cbc9347054f3f",
+                    "sourceCharacters": 71422,
+                    "visibleCharacters": 71422,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "f5a513787c51b75b3bcf64dc67c94492bd0e77598795dde1cc65fe32010a8d92",
+            "knownInputTokens": 141438,
+            "knownOutputTokens": 3901,
+            "knownStandardApiEquivalentUsd": 1.60943,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 3,
+            "stage": "fidelity-review",
+            "startedAt": "2026-09-13T11:04:57.866Z",
+            "completed": true,
+            "inputTokenUpperBound": 885763,
+            "maxOutputTokens": 13200,
+            "endedAt": "2026-09-13T11:08:32.657Z",
+            "model": "gpt-6-astra",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 236540,
+              "outputTokens": 6863,
+              "totalTokens": 243403
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "090cea1cec26949b7dab401ccad5d21468801a19fa7408712bb6b773f66e6618",
+                "sources": [
+                  {
+                    "sourceId": "de42a262bddf7ce3606250d5",
+                    "sha256": "c0b2f99787f4f3d86161de725cfd34277fb19d4427a07974b2155f33dbbc984f",
+                    "sourceCharacters": 129355,
+                    "visibleCharacters": 129355,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "130da8a97048e424a3a243ee",
+                    "sha256": "430b9b26d431aa8c9be26147dc190af1719efda750059154d39f65bcd662fe2c",
+                    "sourceCharacters": 72130,
+                    "visibleCharacters": 72130,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "b8a42cdcfd8569033a61d25f",
+                    "sha256": "0fe8e93e5783be2bab9887ca75df6af5c998cbf194b40317348936fdb0b051fe",
+                    "sourceCharacters": 35938,
+                    "visibleCharacters": 35938,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "01da57b48482b495bf450824",
+                    "sha256": "3ea22cfe4c11f3957f7c3e9a7080c1a7fbfa32336991ffd1a2a86581d29cb0a6",
+                    "sourceCharacters": 46058,
+                    "visibleCharacters": 46058,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "ff599472ecd690bb3366ddae",
+                    "sha256": "58b73cccc7245eefef1e6d10b762a744a1e7bc123669878a735cbc9347054f3f",
+                    "sourceCharacters": 71422,
+                    "visibleCharacters": 71422,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "65d1b03a85b338466e74415ef905188591725baebc48c6032d24c02417309f23",
+            "knownInputTokens": 236540,
+            "knownOutputTokens": 6863,
+            "knownStandardApiEquivalentUsd": 2.70855,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          }
+        ],
+        "knownStandardApiEquivalentUsd": 5.88043,
+        "unknownUsageCalls": 0,
+        "unknownUsageConservativeAllowanceUsd": 0,
+        "failedCalls": 1
+      },
+      "publicArtifacts": "examples/straw-hats/runs/crew-v4-luffy-prose-20260913/luffy",
+      "privateArtifacts": ".scratch/straw-hats/runs/crew-v4-luffy-prose-20260913/luffy"
+    }
+  ],
+  "completedAt": "2026-09-13T11:08:32.831Z"
+}

@@ -1,0 +1,341 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "tony-tony-chopper",
+  "name": "Tony Tony Chopper",
+  "description": "End-of-Wano adaptation: selected Points, controlled Monster Point and healing support. Numbers, upgrades and duration are gameplay tuning; healing is not a damage buff. Guard, Walk, animal translation, Chopperphage curing and infant aftermath are omitted.",
+  "cost": 700,
+  "baseForm": "brain-point",
+  "stunProtectionSeconds": 1.25,
+  "support": {
+    "name": "Doctor's Field Care",
+    "interval": 7,
+    "radius": 4,
+    "cap": 1,
+    "heal": 14
+  },
+  "stamina": {
+    "unlockTier": 4,
+    "maximum": 100,
+    "entryMinimum": 30,
+    "recoveryPerSecond": 1.2,
+    "reentrySeconds": 6,
+    "techniqueCost": 22,
+    "techniqueCooldown": 9
+  },
+  "forms": [
+    {
+      "id": "brain-point",
+      "name": "Brain Point",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Analytical Hoof Strike",
+        "delivery": "direct-contact",
+        "damage": 18,
+        "period": 1.55,
+        "windup": 0.45,
+        "reach": 1.7,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": []
+    },
+    {
+      "id": "heavy-point",
+      "name": "Heavy Point",
+      "unlockTier": 1,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Heavy Point Boxing",
+        "delivery": "direct-contact",
+        "damage": 32,
+        "period": 1.9,
+        "windup": 0.65,
+        "reach": 2,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": []
+    },
+    {
+      "id": "jumping-point",
+      "name": "Jumping Point",
+      "unlockTier": 1,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Jumping Point Leaping Strike",
+        "delivery": "direct-contact",
+        "damage": 25,
+        "period": 1.45,
+        "windup": 0.5,
+        "reach": 2.2,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": []
+    },
+    {
+      "id": "arm-point",
+      "name": "Arm Point",
+      "unlockTier": 2,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Arm Point Hammerfist",
+        "delivery": "direct-contact",
+        "damage": 38,
+        "period": 1.8,
+        "windup": 0.6,
+        "reach": 2.1,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": []
+    },
+    {
+      "id": "horn-point",
+      "name": "Horn Point",
+      "unlockTier": 3,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Horn Point Antler Drive",
+        "delivery": "direct-contact",
+        "damage": 34,
+        "period": 1.85,
+        "windup": 0.65,
+        "reach": 2.5,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": []
+    },
+    {
+      "id": "kung-fu-point",
+      "name": "Kung Fu Point",
+      "unlockTier": 3,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Kung Fu Point Combination",
+        "delivery": "direct-contact",
+        "damage": 31,
+        "period": 1.2,
+        "windup": 0.35,
+        "reach": 2,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": []
+    },
+    {
+      "id": "monster-point",
+      "name": "Monster Point",
+      "unlockTier": 4,
+      "drainPerSecond": 2,
+      "primary": {
+        "name": "Monster Point Crushing Blow",
+        "delivery": "direct-contact",
+        "damage": 72,
+        "period": 1.65,
+        "windup": 0.55,
+        "reach": 2.7,
+        "shape": {
+          "kind": "area",
+          "radius": 0.9,
+          "cap": 3
+        }
+      },
+      "techniques": [
+        {
+          "id": "monster-assault",
+          "name": "Monster Point: Full-Body Assault",
+          "unlockTier": 4,
+          "damage": 40,
+          "windup": 0.7,
+          "recovery": 1.4,
+          "hits": 3,
+          "hitSpan": 0.8,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "direct-contact",
+          "control": {
+            "displacement": 1
+          }
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "physicians-kit",
+      "name": "Physician's Kit",
+      "description": "Medical support and diagnosis path. Purchases replace its support pulse or improve detection; healing never cures statuses or grants ally damage buffs.",
+      "upgrades": [
+        {
+          "name": "Field Triage",
+          "description": "Adds a faster, two-patient field-care pulse for sustained ally recovery.",
+          "cost": 90,
+          "modifiers": {
+            "support": {
+              "name": "Field Triage",
+              "interval": 5.5,
+              "radius": 4.5,
+              "cap": 2,
+              "heal": 18
+            }
+          }
+        },
+        {
+          "name": "Rapid Diagnosis",
+          "description": "Improves encounter detection, conditionally helping against concealed enemies.",
+          "cost": 120,
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Multi-Patient Care",
+          "description": "Expands Chopper's treatment routine to three injured allies at once.",
+          "cost": 150,
+          "modifiers": {
+            "support": {
+              "name": "Multi-Patient Care",
+              "interval": 5,
+              "radius": 4.5,
+              "cap": 3,
+              "heal": 22
+            }
+          }
+        },
+        {
+          "name": "Emergency Medicine",
+          "description": "Shortens the treatment interval and reaches allies across a wider treatment area.",
+          "cost": 190,
+          "modifiers": {
+            "support": {
+              "name": "Emergency Medicine",
+              "interval": 4.2,
+              "radius": 5.5,
+              "cap": 3,
+              "heal": 28
+            }
+          }
+        },
+        {
+          "name": "Universal Doctor",
+          "description": "Maximizes routine field healing for crowded encounters with several injured allies.",
+          "cost": 250,
+          "modifiers": {
+            "support": {
+              "name": "Universal Doctor",
+              "interval": 3.5,
+              "radius": 6.5,
+              "cap": 4,
+              "heal": 34
+            }
+          }
+        }
+      ]
+    },
+    {
+      "id": "rumble-research",
+      "name": "Rumble Ball Research",
+      "description": "Point-specialization path for stronger, faster personal combat. Damage, timing and reach values are explicit gameplay adaptations, not canon measurements.",
+      "upgrades": [
+        {
+          "name": "Heavy Point Formula",
+          "description": "Adds force to every primary impact across Chopper's selected Points.",
+          "cost": 100,
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Arm Point Formula",
+          "description": "Multiplies the practical damage of Chopper's physical primary attacks.",
+          "cost": 130,
+          "modifiers": {
+            "damageMultiplier": 1.1
+          }
+        },
+        {
+          "name": "Kung Fu Formula",
+          "description": "Refines transitions and footwork so primary cycles complete more quickly.",
+          "cost": 170,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Point Specialization",
+          "description": "Extends the effective reach of Chopper's close-quarters forms.",
+          "cost": 220,
+          "modifiers": {
+            "reachAdd": 0.4
+          }
+        },
+        {
+          "name": "Monster Point Formula",
+          "description": "Further multiplies personal primary damage after the full Point research path is developed.",
+          "cost": 300,
+          "modifiers": {
+            "damageMultiplier": 1.12
+          }
+        }
+      ]
+    },
+    {
+      "id": "battlefield-analysis",
+      "name": "Battlefield Analysis",
+      "description": "Tactical combat path based on Chopper's observation, deduction and physical restraint. Armor interaction and impact control are gameplay adaptations.",
+      "upgrades": [
+        {
+          "name": "Tactical Deduction",
+          "description": "Allows a lost primary target to be replaced at resolution without restarting its windup.",
+          "cost": 100,
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Restraint Anatomy",
+          "description": "Adds a conditional contact stun against eligible weak-willed, stunnable targets.",
+          "cost": 150,
+          "modifiers": {
+            "contactStun": 0.35
+          }
+        },
+        {
+          "name": "Horn Leverage",
+          "description": "Uses antler angles and anatomical targeting to partially ignore armor.",
+          "cost": 200,
+          "modifiers": {
+            "armorIgnore": 0.2
+          }
+        },
+        {
+          "name": "Combat Footwork",
+          "description": "Improves primary timing when switching between close-range Point techniques.",
+          "cost": 260,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.92
+          }
+        },
+        {
+          "name": "Critical Anatomy",
+          "description": "Adds another flat damage increment to carefully selected primary impacts.",
+          "cost": 340,
+          "modifiers": {
+            "flatDamage": 7
+          }
+        }
+      ]
+    }
+  ]
+}

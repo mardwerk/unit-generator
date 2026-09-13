@@ -1,0 +1,189 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "nami",
+  "name": "Nami",
+  "description": "Wano-era Nami uses the Zeus-imbued Sorcery Clima-Tact. Lightning is modeled as aimed projectiles; numbers and upgrades are gameplay adaptations. Forms, stamina, healing, actors, Impact Dial, Milky Road and Shower Tempo are omitted.",
+  "cost": 700,
+  "baseForm": "sorcery-clima-tact",
+  "stunProtectionSeconds": 1.2,
+  "forms": [
+    {
+      "id": "sorcery-clima-tact",
+      "name": "Sorcery Clima-Tact — Zeus Model",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Thunder Breed Tempo",
+        "delivery": "projectile",
+        "projectileSpeed": 26,
+        "projectileRadius": 0.9,
+        "damage": 24,
+        "period": 2.6,
+        "windup": 0.55,
+        "reach": 32,
+        "shape": {
+          "kind": "area",
+          "radius": 2.5,
+          "cap": 4
+        }
+      },
+      "techniques": []
+    }
+  ],
+  "paths": [
+    {
+      "id": "weatheria-forecasting",
+      "name": "Weatheria Forecasting",
+      "description": "Weather reading, positioning and mirage-aware targeting; stealth detection and retargeting are gameplay translations, not claims of omniscience.",
+      "upgrades": [
+        {
+          "name": "Charged Weather Balls",
+          "description": "Adds a denser weather-ball charge to every primary lightning impact.",
+          "cost": 100,
+          "modifiers": {
+            "flatDamage": 3
+          }
+        },
+        {
+          "name": "Rapid Pressure Cycling",
+          "description": "Shortens primary preparation through faster pressure changes in the Clima-Tact.",
+          "cost": 120,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.92
+          }
+        },
+        {
+          "name": "Grand Line Rangefinding",
+          "description": "Extends aimed weather attacks for open-field and long-lane encounters.",
+          "cost": 130,
+          "modifiers": {
+            "reachAdd": 5
+          }
+        },
+        {
+          "name": "Mirage Tempo Reading",
+          "description": "Converts Nami's mirage awareness into detection against concealed targets.",
+          "cost": 150,
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Calculated Retargeting",
+          "description": "Allows one lost primary target to be replaced at resolution without restarting windup.",
+          "cost": 170,
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "clima-tact-mastery",
+      "name": "Clima-Tact Mastery",
+      "description": "Develops the Perfect and Sorcery Clima-Tact's wind, mist and lightning-control applications.",
+      "upgrades": [
+        {
+          "name": "Perfect Clima-Tact Dials",
+          "description": "Dials and Weatheria refinement increase the force of each primary impact.",
+          "cost": 110,
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Gust Sword Venting",
+          "description": "Adds stronger wind projection, extending the effective weather attack reach.",
+          "cost": 125,
+          "modifiers": {
+            "reachAdd": 4
+          }
+        },
+        {
+          "name": "Thunder Breed Cloud",
+          "description": "A summoned thundercloud pulses around the primary impact and can briefly stun eligible targets.",
+          "cost": 160,
+          "modifiers": {
+            "pulse": {
+              "cycles": 2,
+              "radius": 3.5,
+              "cap": 3,
+              "stun": 0.45,
+              "interval": 0.8
+            }
+          }
+        },
+        {
+          "name": "Thunder Lance Capacitors",
+          "description": "Stores a heavier lightning charge for stronger primary damage against durable targets.",
+          "cost": 180,
+          "modifiers": {
+            "damageMultiplier": 1.1
+          }
+        },
+        {
+          "name": "Thunder Lance Tempo",
+          "description": "A concentrated lightning contact can stun eligible weak-willed, stunnable targets.",
+          "cost": 210,
+          "modifiers": {
+            "contactStun": 0.55
+          }
+        }
+      ]
+    },
+    {
+      "id": "zeus-model",
+      "name": "Zeus Model Conduction",
+      "description": "Uses Zeus's Wano-era presence in the Clima-Tact to intensify and guide destructive lightning.",
+      "upgrades": [
+        {
+          "name": "Zeus's Cloud Appetite",
+          "description": "Feeds Zeus larger lightning clouds, increasing primary damage; no separate hunger meter is modeled.",
+          "cost": 120,
+          "modifiers": {
+            "flatDamage": 5
+          }
+        },
+        {
+          "name": "Sentient Cloud Guidance",
+          "description": "Zeus helps steer summoned clouds into more reliable and forceful primary impacts.",
+          "cost": 150,
+          "modifiers": {
+            "damageMultiplier": 1.08
+          }
+        },
+        {
+          "name": "Raitei Conduction",
+          "description": "Adapts Raitei's overwhelming strike into a further multiplier against the locked primary target.",
+          "cost": 200,
+          "modifiers": {
+            "damageMultiplier": 1.15
+          }
+        },
+        {
+          "name": "Zeus Combat Shaping",
+          "description": "Zeus reshapes the weapon for faster combat handling, improving primary timing only.",
+          "cost": 190,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Raitei Discharge Line",
+          "description": "A successful lightning contact emits a separate line discharge away from Nami; it does not chain or trigger other effects.",
+          "cost": 240,
+          "modifiers": {
+            "emission": {
+              "cycles": 1,
+              "damage": 14,
+              "width": 1.5,
+              "length": 14,
+              "cap": 3
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

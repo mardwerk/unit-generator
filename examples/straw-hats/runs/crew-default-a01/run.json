@@ -1,0 +1,539 @@
+{
+  "implementationHashes": {
+    "core": "ce76bee058ebbfdd0c5a5ca78d8b626293daa67eb2f1c0c0d26e9bc930444705",
+    "definitions": "a94ccaa412d11f7a687c08ec17d6187b65cfd23b98c6033f0af5759dfba5fd23",
+    "providers": "e851841e02466a29c4956ad0116992d4ba84579591b88a1bc9949b4d664d2375",
+    "unit-lab": "a50b8409fb81ed4a5f26c5282b2e01ab6b55018fee782dfdfe08470e5ce514e4"
+  },
+  "runnerSha256": "b995d8381042511f3f59c3d3bcafd350e4428d041255447068edb253c26c63d4",
+  "operation": "generation",
+  "originalResult": null,
+  "label": "crew-default-a01",
+  "startedAt": "2026-09-09T18:42:51.709Z",
+  "mode": {
+    "id": "default",
+    "label": "Default",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requests": ".scratch/straw-hats/requests",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "fileDigest": "109f06dccbf90375d4bcffcfbbeb868968dbf8468cbf00ccabc0a5117f9caf20"
+  },
+  "limits": {
+    "maxRepairs": 1,
+    "maxModelCalls": 6,
+    "maxResearchCalls": 1,
+    "timeoutMs": 1800000,
+    "callTimeoutMs": 300000
+  },
+  "pricing": {
+    "rates": {
+      "gpt-5.6-luna": {
+        "input": 0.2,
+        "output": 1.2
+      },
+      "gpt-6-astra": {
+        "input": 10,
+        "output": 50
+      }
+    },
+    "currency": "USD",
+    "unit": "per million tokens",
+    "source": "https://developers.openai.com/api/docs/pricing",
+    "verifiedAt": "2026-09-09",
+    "scope": "Standard API-equivalent estimate using published rates captured earlier today. Not a provider invoice. Agent development and independent review usage excluded. Unknown usage is not zero."
+  },
+  "results": [
+    {
+      "id": "zoro",
+      "status": "failed",
+      "error": {
+        "stage": "fidelity-review",
+        "code": "fidelity-candidate-quote-invalid",
+        "message": "candidateQuote must be copied exactly from /forms/2/techniques/0/hits. Its current quote is not present."
+      },
+      "blockers": [
+        "MANGA_CONTRACT",
+        "MANGA_CONTRACT"
+      ],
+      "calls": 4,
+      "repairs": 0,
+      "accounting": {
+        "calls": [
+          {
+            "sequence": 1,
+            "stage": "research",
+            "startedAt": "2026-09-09T18:42:51.780Z",
+            "completed": true,
+            "inputTokenUpperBound": 118886,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-09T18:44:31.595Z",
+            "model": "gpt-5.6-luna",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 30737,
+              "outputTokens": 5419,
+              "totalTokens": 36156
+            },
+            "outputSha256": "ea4a2a5ec9b1219fdb624e3e2b7d6403f02296da82a15655e674b77f0a5cd801",
+            "knownInputTokens": 30737,
+            "knownOutputTokens": 5419,
+            "knownStandardApiEquivalentUsd": 0.0126502,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 2,
+            "stage": "draft",
+            "startedAt": "2026-09-09T18:44:31.700Z",
+            "completed": true,
+            "inputTokenUpperBound": 211718,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-09T18:46:52.257Z",
+            "model": "gpt-5.6-luna",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 53259,
+              "outputTokens": 7702,
+              "totalTokens": 60961
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "ea4a2a5ec9b1219fdb624e3e2b7d6403f02296da82a15655e674b77f0a5cd801",
+                "sources": [
+                  {
+                    "sourceId": "zoro-fan-abilities-1",
+                    "sha256": "cd0b01a1ad85973c5bf82cf84b4a150da66fc6f18f80e401cab94ca634512840",
+                    "sourceCharacters": 105999,
+                    "visibleCharacters": 105999,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "zoro-official-profile",
+                    "sha256": "4ebdb7d9175a12d06930be04db7e505ddfd231a8e99f9a61ace76421260c00df",
+                    "sourceCharacters": 953,
+                    "visibleCharacters": 953,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "ad6e0020c3f793bb849556e065c029fc7696e22ab47809e04ae7fee931a6e600",
+            "knownInputTokens": 53259,
+            "knownOutputTokens": 7702,
+            "knownStandardApiEquivalentUsd": 0.0198942,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 3,
+            "stage": "fidelity-review",
+            "startedAt": "2026-09-09T18:46:52.355Z",
+            "completed": true,
+            "inputTokenUpperBound": 276092,
+            "maxOutputTokens": 11040,
+            "endedAt": "2026-09-09T18:50:44.661Z",
+            "model": "gpt-5.6-luna",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 72139,
+              "outputTokens": 12715,
+              "totalTokens": 84854
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "ea4a2a5ec9b1219fdb624e3e2b7d6403f02296da82a15655e674b77f0a5cd801",
+                "sources": [
+                  {
+                    "sourceId": "zoro-fan-abilities-1",
+                    "sha256": "cd0b01a1ad85973c5bf82cf84b4a150da66fc6f18f80e401cab94ca634512840",
+                    "sourceCharacters": 105999,
+                    "visibleCharacters": 105999,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "zoro-official-profile",
+                    "sha256": "4ebdb7d9175a12d06930be04db7e505ddfd231a8e99f9a61ace76421260c00df",
+                    "sourceCharacters": 953,
+                    "visibleCharacters": 953,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "e50bebd4c28b5a90e96afe818ef619cf9b0def0aa6e74b486e5f89494227dac0",
+            "knownInputTokens": 72139,
+            "knownOutputTokens": 12715,
+            "knownStandardApiEquivalentUsd": 0.029685800000000002,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 4,
+            "stage": "fidelity-review-correction",
+            "startedAt": "2026-09-09T18:50:44.746Z",
+            "completed": true,
+            "inputTokenUpperBound": 307547,
+            "maxOutputTokens": 11040,
+            "endedAt": "2026-09-09T18:52:57.100Z",
+            "model": "gpt-5.6-luna",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 79059,
+              "outputTokens": 7204,
+              "totalTokens": 86263
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "ea4a2a5ec9b1219fdb624e3e2b7d6403f02296da82a15655e674b77f0a5cd801",
+                "sources": [
+                  {
+                    "sourceId": "zoro-fan-abilities-1",
+                    "sha256": "cd0b01a1ad85973c5bf82cf84b4a150da66fc6f18f80e401cab94ca634512840",
+                    "sourceCharacters": 105999,
+                    "visibleCharacters": 105999,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "zoro-official-profile",
+                    "sha256": "4ebdb7d9175a12d06930be04db7e505ddfd231a8e99f9a61ace76421260c00df",
+                    "sourceCharacters": 953,
+                    "visibleCharacters": 953,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "b7e428a0aa253fa16c8d9b1adaad5833f6f95389a3e42346479f3bb8485e4d4b",
+            "knownInputTokens": 79059,
+            "knownOutputTokens": 7204,
+            "knownStandardApiEquivalentUsd": 0.0244566,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          }
+        ],
+        "knownStandardApiEquivalentUsd": 0.0866868,
+        "unknownUsageCalls": 0,
+        "unknownUsageConservativeAllowanceUsd": 0,
+        "failedCalls": 0
+      },
+      "publicArtifacts": "examples/straw-hats/runs/crew-default-a01/zoro",
+      "privateArtifacts": ".scratch/straw-hats/runs/crew-default-a01/zoro"
+    },
+    {
+      "id": "nami",
+      "status": "failed",
+      "error": {
+        "stage": "fidelity-review",
+        "code": "timeout",
+        "message": "Model call timed out."
+      },
+      "blockers": [],
+      "calls": 4,
+      "repairs": 1,
+      "accounting": {
+        "calls": [
+          {
+            "sequence": 1,
+            "stage": "research",
+            "startedAt": "2026-09-09T18:52:57.236Z",
+            "completed": true,
+            "inputTokenUpperBound": 66757,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-09T18:54:06.610Z",
+            "model": "gpt-5.6-luna",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 16950,
+              "outputTokens": 3656,
+              "totalTokens": 20606
+            },
+            "outputSha256": "4cfc61f3564d4afccca89d80f6e1f56436c334dcfdc6220c815f24bb1aca89f2",
+            "knownInputTokens": 16950,
+            "knownOutputTokens": 3656,
+            "knownStandardApiEquivalentUsd": 0.0077772,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 2,
+            "stage": "draft",
+            "startedAt": "2026-09-09T18:54:06.639Z",
+            "completed": true,
+            "inputTokenUpperBound": 159299,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-09T18:55:32.800Z",
+            "model": "gpt-5.6-luna",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 39322,
+              "outputTokens": 4701,
+              "totalTokens": 44023
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "4cfc61f3564d4afccca89d80f6e1f56436c334dcfdc6220c815f24bb1aca89f2",
+                "sources": [
+                  {
+                    "sourceId": "nami-fan-abilities-1",
+                    "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+                    "sourceCharacters": 54437,
+                    "visibleCharacters": 54437,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "nami-official-profile",
+                    "sha256": "0ad4b28c952bc17b4ea053bf282f332f147b6e8a9afec611a52ea91dd6fe7936",
+                    "sourceCharacters": 973,
+                    "visibleCharacters": 973,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "006a8065ebd9cd1a589426ff3691133002e5c73916d2e18cd4122c6ea44fbb97",
+            "knownInputTokens": 39322,
+            "knownOutputTokens": 4701,
+            "knownStandardApiEquivalentUsd": 0.0135056,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 3,
+            "stage": "repair",
+            "startedAt": "2026-09-09T18:55:32.864Z",
+            "completed": true,
+            "inputTokenUpperBound": 222867,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-09T18:56:26.367Z",
+            "model": "gpt-5.6-luna",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 56214,
+              "outputTokens": 2645,
+              "totalTokens": 58859
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "4cfc61f3564d4afccca89d80f6e1f56436c334dcfdc6220c815f24bb1aca89f2",
+                "sources": [
+                  {
+                    "sourceId": "nami-fan-abilities-1",
+                    "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+                    "sourceCharacters": 54437,
+                    "visibleCharacters": 54437,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "nami-official-profile",
+                    "sha256": "0ad4b28c952bc17b4ea053bf282f332f147b6e8a9afec611a52ea91dd6fe7936",
+                    "sourceCharacters": 973,
+                    "visibleCharacters": 973,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "dc8ac7624dacab2df2eeea39c53d5af12389b27364ad5c8cda4baf853e60191f",
+            "knownInputTokens": 56214,
+            "knownOutputTokens": 2645,
+            "knownStandardApiEquivalentUsd": 0.0144168,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 4,
+            "stage": "fidelity-review",
+            "startedAt": "2026-09-09T18:56:27.645Z",
+            "completed": false,
+            "inputTokenUpperBound": 163381,
+            "maxOutputTokens": 9780,
+            "endedAt": "2026-09-09T19:01:27.650Z",
+            "errorCode": "timeout",
+            "evidence": [
+              {
+                "knowledgeSha256": "4cfc61f3564d4afccca89d80f6e1f56436c334dcfdc6220c815f24bb1aca89f2",
+                "sources": [
+                  {
+                    "sourceId": "nami-fan-abilities-1",
+                    "sha256": "0cc975bba6e6e59b484b60d08110ea37535f8c942d77f4ea07bb38315006aaaf",
+                    "sourceCharacters": 54437,
+                    "visibleCharacters": 54437,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "nami-official-profile",
+                    "sha256": "0ad4b28c952bc17b4ea053bf282f332f147b6e8a9afec611a52ea91dd6fe7936",
+                    "sourceCharacters": 973,
+                    "visibleCharacters": 973,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "knownInputTokens": null,
+            "knownOutputTokens": null,
+            "knownStandardApiEquivalentUsd": 0,
+            "usageComplete": false,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0.11567875
+          }
+        ],
+        "knownStandardApiEquivalentUsd": 0.0356996,
+        "unknownUsageCalls": 1,
+        "unknownUsageConservativeAllowanceUsd": 0.11567875,
+        "failedCalls": 1
+      },
+      "publicArtifacts": "examples/straw-hats/runs/crew-default-a01/nami",
+      "privateArtifacts": ".scratch/straw-hats/runs/crew-default-a01/nami"
+    },
+    {
+      "id": "usopp",
+      "status": "failed",
+      "error": {
+        "stage": "validation",
+        "code": "validation-failed",
+        "message": "Required checks did not pass. The candidate and completed research are returned."
+      },
+      "blockers": [
+        "schema-maxLength"
+      ],
+      "calls": 3,
+      "repairs": 1,
+      "accounting": {
+        "calls": [
+          {
+            "sequence": 1,
+            "stage": "research",
+            "startedAt": "2026-09-09T19:01:27.693Z",
+            "completed": true,
+            "inputTokenUpperBound": 74396,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-09T19:02:56.964Z",
+            "model": "gpt-5.6-luna",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 18747,
+              "outputTokens": 4752,
+              "totalTokens": 23499
+            },
+            "outputSha256": "b286f05204e0af1414e2ffc5971ac5863dc74810dc4eec13cf976bbe246636d0",
+            "knownInputTokens": 18747,
+            "knownOutputTokens": 4752,
+            "knownStandardApiEquivalentUsd": 0.0094518,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 2,
+            "stage": "draft",
+            "startedAt": "2026-09-09T19:02:56.984Z",
+            "completed": true,
+            "inputTokenUpperBound": 167897,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-09T19:04:25.599Z",
+            "model": "gpt-5.6-luna",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 41204,
+              "outputTokens": 4450,
+              "totalTokens": 45654
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "b286f05204e0af1414e2ffc5971ac5863dc74810dc4eec13cf976bbe246636d0",
+                "sources": [
+                  {
+                    "sourceId": "usopp-fan-abilities-1",
+                    "sha256": "290901cffa3970f78f493c7d332f36a7d84d6488521d11388e9c4c49e50a56fe",
+                    "sourceCharacters": 62189,
+                    "visibleCharacters": 62189,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "usopp-official-profile",
+                    "sha256": "2e29e5bafccbd828547fbd0beaca3a534bb5587d31081283ef7abfb6e61bab9c",
+                    "sourceCharacters": 967,
+                    "visibleCharacters": 967,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "509d4ceb3e4ccbaed868780212dfdd7edadafe71631fc31235b5e9dc94d20454",
+            "knownInputTokens": 41204,
+            "knownOutputTokens": 4450,
+            "knownStandardApiEquivalentUsd": 0.0135808,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 3,
+            "stage": "repair",
+            "startedAt": "2026-09-09T19:04:25.633Z",
+            "completed": true,
+            "inputTokenUpperBound": 239415,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-09T19:05:01.765Z",
+            "model": "gpt-5.6-luna",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 59932,
+              "outputTokens": 1837,
+              "totalTokens": 61769
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "b286f05204e0af1414e2ffc5971ac5863dc74810dc4eec13cf976bbe246636d0",
+                "sources": [
+                  {
+                    "sourceId": "usopp-fan-abilities-1",
+                    "sha256": "290901cffa3970f78f493c7d332f36a7d84d6488521d11388e9c4c49e50a56fe",
+                    "sourceCharacters": 62189,
+                    "visibleCharacters": 62189,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "usopp-official-profile",
+                    "sha256": "2e29e5bafccbd828547fbd0beaca3a534bb5587d31081283ef7abfb6e61bab9c",
+                    "sourceCharacters": 967,
+                    "visibleCharacters": 967,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "5bb9608040b13094dd0d1e1995d094416834ea9cab65d53ba7285333e9ce3dc5",
+            "knownInputTokens": 59932,
+            "knownOutputTokens": 1837,
+            "knownStandardApiEquivalentUsd": 0.014190800000000002,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          }
+        ],
+        "knownStandardApiEquivalentUsd": 0.037223400000000004,
+        "unknownUsageCalls": 0,
+        "unknownUsageConservativeAllowanceUsd": 0,
+        "failedCalls": 0
+      },
+      "publicArtifacts": "examples/straw-hats/runs/crew-default-a01/usopp",
+      "privateArtifacts": ".scratch/straw-hats/runs/crew-default-a01/usopp"
+    }
+  ],
+  "completedAt": "2026-09-09T19:05:01.797Z"
+}

@@ -1,6 +1,7 @@
 import { createHash } from 'node:crypto';
 import { RunError, type SourceAdapter, type DiscoveryCandidate } from '@mardwerk/unit-core';
 import { readSources } from './sources.js';
+import { createCharacterDiscovery } from './web-discovery.js';
 
 /** Fixed public search endpoint. Search hits are candidates, not accepted identity evidence. */
 export function createWikipediaDiscovery(fetcher: typeof fetch = fetch) {
@@ -93,7 +94,7 @@ export function createSourceAdapter(
   options: { discover?: SourceAdapter['discover']; read?: typeof readSources } = {}
 ): SourceAdapter {
   return {
-    discover: options.discover ?? createWikipediaDiscovery(),
+    discover: options.discover ?? createCharacterDiscovery(),
     async acquire(urls, settings) {
       if (settings.maxSources <= 0) return;
       await (options.read ?? readSources)({

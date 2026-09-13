@@ -1,0 +1,316 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "franky",
+  "name": "Franky",
+  "description": "Straw Hat shipwright; One Piece manga through Wano. BF-37 is Franky's cyborg body; General Franky is a separate piloted Wapometal robot, not the Thousand Sunny. Implements Strong Right, Weapons Left, Coup de Vent, Radical Beam, giant mecha fists and General Cannon. All numbers, prices, upgrade labels, unlock schedules and geometry are provisional game adaptations, not canon measurements or measured balance. Highest purchased tier on any path unlocks the listed modes and Techniques. Modes replace the primary, never attack in parallel. Weapons Left is a weapon stance, not a bodily transformation. Strong Right abstracts its chained extension and retraction as delayed direct contact; chain collision and grappling are omitted. Cola stamina funds Techniques only: automatic encounter-time recovery and a shared cost/cooldown are bounded abstractions, not canonical automatic refueling or exact cola consumption. Ordinary attacks and piloting consume no stamina here. General Cannon is the robot's compressed-air weapon; comparison with Sunny's Gaon Cannon does not grant Sunny weapons. Omitted: defensive armor, back vulnerability, gas protection, sword play, swimming, centaur restraint, movement, ejection evasion, construction, repairs, flames and shoulder missiles. No tower HP, shields, taunt, healing, concealed-target detection or lost-target retargeting. Enemy motion and injuries remain caller supplied. Purchases are cumulative under the runtime's two-path restriction, with the smaller path at most tier two; maximum 5-2-0.",
+  "cost": 750,
+  "baseForm": "bf-37",
+  "stunProtectionSeconds": 2,
+  "stamina": {
+    "unlockTier": 1,
+    "maximum": 100,
+    "entryMinimum": 30,
+    "recoveryPerSecond": 4,
+    "reentrySeconds": 0,
+    "techniqueCost": 40,
+    "techniqueCooldown": 12
+  },
+  "forms": [
+    {
+      "id": "bf-37",
+      "name": "BF-37 — Strong Right",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Strong Right",
+        "delivery": "direct-contact",
+        "damage": 28,
+        "period": 1.6,
+        "windup": 0.45,
+        "reach": 30,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "coup-de-vent",
+          "name": "Coup de Vent",
+          "unlockTier": 1,
+          "delivery": "projectile",
+          "projectileSpeed": 90,
+          "projectileRadius": 5,
+          "damage": 85,
+          "windup": 0.9,
+          "recovery": 1.5,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 10,
+            "cap": 6
+          }
+        },
+        {
+          "id": "radical-beam",
+          "name": "Franky Radical Beam",
+          "unlockTier": 5,
+          "delivery": "projectile",
+          "projectileSpeed": 500,
+          "projectileRadius": 3,
+          "damage": 185,
+          "windup": 1.1,
+          "recovery": 1.7,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 8,
+            "cap": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "weapons-left",
+      "name": "BF-37 — Weapons Left",
+      "unlockTier": 1,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Weapons Left — Wrist Gun",
+        "delivery": "projectile",
+        "projectileSpeed": 140,
+        "projectileRadius": 2,
+        "damage": 12,
+        "period": 0.7,
+        "windup": 0.15,
+        "reach": 45,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "weapons-left-coup-de-vent",
+          "name": "Coup de Vent",
+          "unlockTier": 1,
+          "delivery": "projectile",
+          "projectileSpeed": 90,
+          "projectileRadius": 5,
+          "damage": 85,
+          "windup": 0.9,
+          "recovery": 1.5,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 10,
+            "cap": 6
+          }
+        },
+        {
+          "id": "weapons-left-radical-beam",
+          "name": "Franky Radical Beam",
+          "unlockTier": 5,
+          "delivery": "projectile",
+          "projectileSpeed": 500,
+          "projectileRadius": 3,
+          "damage": 185,
+          "windup": 1.1,
+          "recovery": 1.7,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 8,
+            "cap": 5
+          }
+        }
+      ]
+    },
+    {
+      "id": "general-franky",
+      "name": "General Franky — Franky Shogun",
+      "unlockTier": 3,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "General Franky — Giant Fist",
+        "delivery": "direct-contact",
+        "damage": 65,
+        "period": 2.4,
+        "windup": 0.7,
+        "reach": 18,
+        "shape": {
+          "kind": "area",
+          "radius": 7,
+          "cap": 4
+        }
+      },
+      "techniques": [
+        {
+          "id": "general-cannon",
+          "name": "General Cannon",
+          "unlockTier": 3,
+          "delivery": "projectile",
+          "projectileSpeed": 100,
+          "projectileRadius": 6,
+          "damage": 150,
+          "windup": 1.2,
+          "recovery": 1.8,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 14,
+            "cap": 8
+          }
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "cyborg-force",
+      "name": "Cyborg Force",
+      "description": "Develops the destructive strength of Franky's integrated weapons and mecha fists. These are authored output increments, not new canonical powers. All modifiers apply across active profiles; flat additions affect every Technique. Any path reaching tier 1 unlocks cola, Weapons Left and Coup de Vent; tier 3 unlocks General Franky with General Cannon; tier 5 replaces Coup de Vent with Radical Beam in both BF-37 stances.",
+      "upgrades": [
+        {
+          "name": "Iron Fist Output",
+          "cost": 250,
+          "description": "Adds 4 damage to primary attacks and all Techniques.",
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Cyborg Power",
+          "cost": 400,
+          "description": "Multiplies primary and Technique damage by 1.15.",
+          "modifiers": {
+            "damageMultiplier": 1.15
+          }
+        },
+        {
+          "name": "Heavy Impact",
+          "cost": 900,
+          "description": "Adds another 8 damage to primary attacks and all Techniques. Tier three also makes the piloted mecha available.",
+          "modifiers": {
+            "flatDamage": 8
+          }
+        },
+        {
+          "name": "Full-Force Weapons",
+          "cost": 1600,
+          "description": "Multiplies primary and Technique damage by another 1.25.",
+          "modifiers": {
+            "damageMultiplier": 1.25
+          }
+        },
+        {
+          "name": "Super Destructive Output",
+          "cost": 3000,
+          "description": "Adds another 18 damage to primary attacks and all Techniques. Tier five also makes Radical Beam the BF-37 Technique.",
+          "modifiers": {
+            "flatDamage": 18
+          }
+        }
+      ]
+    },
+    {
+      "id": "weapon-cycling",
+      "name": "Weapon Cycling",
+      "description": "Develops Franky's fast punches and integrated gun cadence. Timing multipliers affect primary windup and recovery only, including mecha fists; they never accelerate Techniques or projectile flight. Shared improvement across weapons is a tuning abstraction, not an invented targeting system.",
+      "upgrades": [
+        {
+          "name": "Quick Punch Cycle",
+          "cost": 225,
+          "description": "Multiplies primary timing by 0.92.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.92
+          }
+        },
+        {
+          "name": "Wrist-Gun Cadence",
+          "cost": 425,
+          "description": "Multiplies primary timing by another 0.9.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Coordinated Weapon Operation",
+          "cost": 850,
+          "description": "Multiplies primary timing by another 0.88. Applies to the newly available mecha primary as well.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.88
+          }
+        },
+        {
+          "name": "Rapid Artillery Cycling",
+          "cost": 1550,
+          "description": "Multiplies primary timing by another 0.85.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.85
+          }
+        },
+        {
+          "name": "Sustained Cyborg Barrage",
+          "cost": 2900,
+          "description": "Multiplies primary timing by another 0.8. Radical Beam retains its authored windup and recovery.",
+          "modifiers": {
+            "primaryTimingMultiplier": 0.8
+          }
+        }
+      ]
+    },
+    {
+      "id": "weapon-reach",
+      "name": "Weapon Reach",
+      "description": "Develops usable weapon reach rather than concealed-target sensing or retargeting. Additions affect every profile and its contextual Technique acquisition. Mecha fists receive a bounded reach abstraction, not an extendable chain or free movement. General Cannon shares the active mecha's acquisition reach; its blast collateral may extend beyond it. Beams and air blasts are aimed projectiles with finite authored speed and capped impact areas, not homing shots, infinite piercing rays or terrain destruction.",
+      "upgrades": [
+        {
+          "name": "Extended Strong Right",
+          "cost": 250,
+          "description": "Adds 3 reach to every primary profile and contextual Technique acquisition.",
+          "modifiers": {
+            "reachAdd": 3
+          }
+        },
+        {
+          "name": "Midrange Weapons Left",
+          "cost": 450,
+          "description": "Adds another 3 reach without detection or retargeting.",
+          "modifiers": {
+            "reachAdd": 3
+          }
+        },
+        {
+          "name": "Shogun Engagement Reach",
+          "cost": 950,
+          "description": "Adds another 4 reach. General Franky and General Cannon unlock through the shared tier-three schedule.",
+          "modifiers": {
+            "reachAdd": 4
+          }
+        },
+        {
+          "name": "Longer Artillery Engagement",
+          "cost": 1650,
+          "description": "Adds another 3 reach; projectiles retain their existing speed and impact tolerance.",
+          "modifiers": {
+            "reachAdd": 3
+          }
+        },
+        {
+          "name": "Maximum Weapon Coverage",
+          "cost": 3100,
+          "description": "Adds another 2 reach and multiplies primary and Technique damage by 1.2. This path totals +15 reach: Strong Right 45, Weapons Left 60 and General Franky 33 before crosspath effects.",
+          "modifiers": {
+            "reachAdd": 2,
+            "damageMultiplier": 1.2
+          }
+        }
+      ]
+    }
+  ]
+}

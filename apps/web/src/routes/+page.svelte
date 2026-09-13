@@ -21,9 +21,40 @@
   let { data }: { data: PageData } = $props();
   let subject = $state('');
   let intent = $state('');
-  let definition = $state('classic-three-path');
-  let provider = $state(untrack(() => data.defaultProvider));
-  let original = $state(untrack(() => data.defaultProvider === 'fixture'));
+  let definition = $state<string>(untrack(() => data.defaultDefinitionId));
+  let usesSubject = $derived(
+    ['classic-three-path', 'manga-mayhem', 'btd6-derived', 'tower-defense'].includes(definition)
+  );
+  let mode = $state('default');
+  let provider = $state('');
+  let original = $state(true);
+  let conceptKind = $state('original');
+  let sourcesOpen = $state(false);
+  let setupOpen = $state(false);
+  let selectedMode = $derived(data.modes.find((item) => item.id === mode));
+  let connectionAvailable = $derived(
+    provider === 'fixture' || !!provider || !!selectedMode?.configured
+  );
+  let currentOperation = $state<'generate' | 'research'>('generate');
+  let startedAt = $state(0);
+  let elapsedSeconds = $state(0);
+  const definitionLabels: Record<string, string> = {
+    'classic-three-path': 'Classic three-path',
+    'manga-mayhem': 'MangaMayhem',
+    'btd6-derived': 'BTD6-derived',
+    'tower-defense': 'Tower defense',
+    'merge-family-example': 'Merge unit family'
+  };
+  const definitionHints: Record<string, string> = {
+    'tower-defense':
+      'Three upgrade paths, crosspaths and abilities on the shared mechanics engine. Review coverage for each result.',
+    'classic-three-path': 'Three upgrade paths with five tiers. Uses the classic game rules.',
+    'manga-mayhem':
+      'Combat forms, Techniques and stamina. Prototype rules; review mechanic coverage.',
+    'btd6-derived':
+      'Tower attacks, crosspaths and abilities. Prototype rules; some game behavior is unassessed.',
+    'merge-family-example': 'An example contract for a family of mergeable units.'
+  };
   let permitResearch = $state(false);
   let allowUngrounded = $state(false);
   let sourceText = $state('');
@@ -59,6 +90,7 @@
     subject = example.name;
     intent = example.intent;
     original = true;
+    conceptKind = 'original';
     document.getElementById('subject')?.focus();
   }
   let busy = $state(false);
@@ -73,7 +105,58 @@
   let controller: AbortController | undefined;
   let outputHeading = $state<HTMLHeadingElement>();
   let dirty = $derived(editor !== checkedEditor);
+  let characterResult = $derived(
+    !!result &&
+      (record(result.input).kind === 'character' ||
+        result.research.some((item) => item.grounding !== 'original-concept'))
+  );
+  let sourceReviewRequired = $derived(
+    characterResult &&
+      (dirty ||
+        result?.fidelity?.status !== 'checked' ||
+        result?.fidelity?.claims.some(
+          (claim) => claim.status === 'contradicted' || claim.status === 'unresolved'
+        ) ||
+        record(result).sourceReviewRequired === true)
+  );
+  let exportKind = $derived(
+    !editor
+      ? 'result'
+      : dirty || result?.status !== 'success'
+        ? 'candidate'
+        : sourceReviewRequired
+          ? 'draft'
+          : 'result'
+  );
   let report = $derived(dirty ? undefined : result?.validation);
+  let qualification = $derived(dirty ? undefined : result?.qualification);
+  const findingLabels: Record<string, string> = {
+    validity: 'Mechanic validity',
+    'purchase-usefulness': 'Upgrade usefulness',
+    'claim-effect': 'Claim and effect',
+    'source-fidelity': 'Character source review',
+    coverage: 'Mechanic coverage',
+    balance: 'Balance'
+  };
+  const sourceClaimLabels: Record<string, string> = {
+    supported: 'Supported by sources',
+    adapted: 'Adapted for gameplay',
+    contradicted: 'Contradicted by sources',
+    unresolved: 'Needs evidence'
+  };
+  const sourceRelationshipLabels: Record<string, string> = {
+    'same-ability': 'Same ability',
+    'numerical-tuning': 'Numbers adapted for gameplay',
+    'delivery-abstraction': 'Attack behavior adapted for gameplay',
+    'game-rule': 'Gameplay rule',
+    unsupported: 'Not supported by sources'
+  };
+  const checkStatusLabels: Record<string, string> = {
+    passed: 'Passed',
+    failed: 'Needs changes',
+    'not-completed': 'Not completed',
+    'not-provided': 'Not provided'
+  };
   let content = $derived.by(() => {
     try {
       return JSON.parse(editor) as Record<string, unknown>;
@@ -82,27 +165,53 @@
     }
   });
   const pretty = (value: unknown) => JSON.stringify(value, null, 2);
-  const record = (value: unknown): Record<string, unknown> =>
-    value && typeof value === 'object' && !Array.isArray(value)
+  function record(value: unknown): Record<string, unknown> {
+    return value && typeof value === 'object' && !Array.isArray(value)
       ? (value as Record<string, unknown>)
       : {};
+  }
+  const strings = (value: unknown): string[] =>
+    Array.isArray(value) ? value.filter((item): item is string => typeof item === 'string') : [];
   const records = (value: unknown): Record<string, unknown>[] =>
     Array.isArray(value)
       ? value.filter((item) => item && typeof item === 'object' && !Array.isArray(item))
       : [];
+  const effectSummary = (effect: Record<string, unknown>): string => {
+    const duration =
+      typeof effect.durationSeconds === 'number' ? ` for ${effect.durationSeconds}s` : '';
+    if (effect.kind === 'stun') return `Stuns the target${duration}.`;
+    if (effect.kind === 'slow')
+      return `Reduces movement to ${Math.round(Number(effect.speedMultiplier) * 100)}%${duration}.`;
+    if (effect.kind === 'damage-over-time')
+      return `${effect.damage} damage every ${effect.intervalSeconds}s${duration}.`;
+    if (effect.kind === 'damage-taken')
+      return `Changes incoming damage by +${effect.additive} and ×${effect.multiplier}${duration}.`;
+    if (effect.kind === 'property')
+      return `Changes target properties${duration || ' permanently'}${strings(effect.addTags).length ? `; adds ${strings(effect.addTags).join(', ')}` : ''}${strings(effect.removeTags).length ? `; removes ${strings(effect.removeTags).join(', ')}` : ''}.`;
+    return String(effect.kind ?? effect.id ?? 'Effect');
+  };
+  let unitPaths = $derived(
+    records(content?.paths).length
+      ? records(content?.paths)
+      : records(record(content?.upgradeGraph).paths)
+  );
   const message = (cause: unknown) =>
     cause instanceof Error ? cause.message : 'The request failed.';
   onMount(() => {
     const cancel = () => controller?.abort();
+    const timer = window.setInterval(() => {
+      if (busy || validating) elapsedSeconds = Math.floor((Date.now() - startedAt) / 1000);
+    }, 1000);
     window.addEventListener('pagehide', cancel);
     return () => {
       cancel();
+      window.clearInterval(timer);
       window.removeEventListener('pagehide', cancel);
     };
   });
   function requestInput(): unknown {
     if (customInput.trim()) return JSON.parse(customInput);
-    if (definition !== 'classic-three-path') throw new Error('Enter a complete request as JSON.');
+    if (!usesSubject) throw new Error('Enter a complete request as JSON.');
     const sources: unknown[] = sourceUrls
       .split('\n')
       .map((s) => s.trim())
@@ -132,7 +241,21 @@
     if (busy || validating) return;
     error = '';
     try {
+      if (!connectionAvailable) {
+        setupOpen = true;
+        throw new Error(
+          'Connect a model to generate a unit, or choose Demo fixture to explore the editor.'
+        );
+      }
+      if (provider === 'fixture' && !original && usesSubject && !customInput.trim()) {
+        throw new Error(
+          'Demo fixtures support original concepts only. Choose a configured generation mode for an existing character.'
+        );
+      }
       const input = requestInput();
+      currentOperation = operation;
+      startedAt = Date.now();
+      elapsedSeconds = 0;
       busy = true;
       outputView = operation === 'research' ? 'research' : 'design';
       result = undefined;
@@ -149,7 +272,7 @@
         body: JSON.stringify({
           operation,
           definition,
-          provider,
+          ...(provider ? { provider } : { mode }),
           input,
           research: permitResearch,
           allowUngrounded
@@ -225,13 +348,19 @@
     if (!result || busy || validating) return;
     error = '';
     validating = true;
+    startedAt = Date.now();
+    elapsedSeconds = 0;
+    controller = new AbortController();
     const snapshot = editor;
     try {
       const response = await fetch('/api/validate', {
         method: 'POST',
         headers: { 'content-type': 'application/json' },
+        signal: controller.signal,
         body: JSON.stringify({
           definition: runDefinition,
+          reviewSources: characterResult && connectionAvailable && provider !== 'fixture',
+          ...(provider ? { provider } : { mode }),
           candidate: JSON.parse(snapshot),
           original: result
         })
@@ -240,10 +369,15 @@
       if (!response.ok) throw new Error(next.message ?? 'Validation failed.');
       result = next;
       checkedEditor = snapshot;
+      if (next.sourceReviewError) error = next.sourceReviewError.message;
     } catch (cause) {
-      error = message(cause);
+      error =
+        cause instanceof DOMException && cause.name === 'AbortError'
+          ? 'Check cancelled. Your edited draft is still available.'
+          : message(cause);
     } finally {
       validating = false;
+      controller = undefined;
     }
   }
   function download(value: unknown, filename: string) {
@@ -258,7 +392,7 @@
     if (!result) return;
     try {
       if (!dirty) {
-        download(result, 'unit-result.json');
+        download(result, `unit-${exportKind}.json`);
         return;
       }
       const pendingReport: ValidationReport = {
@@ -275,6 +409,12 @@
           output: undefined,
           candidate: JSON.parse(editor),
           validation: pendingReport,
+          qualification: undefined,
+          fidelity: undefined,
+          fidelityAttempts: undefined,
+          sourceReview: undefined,
+          sourceReviewRequired: characterResult,
+          sourceReviewError: undefined,
           error: {
             code: 'unvalidated-edit',
             stage: 'validation',
@@ -304,26 +444,26 @@
 />
 
 <svelte:head>
-  <title>Unit playground | Mardwerk</title>
+  <title>Unit Lab | Mardwerk</title>
   <link rel="icon" type="image/png" href="/brand/mardwerk.png" />
   <meta
     name="description"
-    content="A local playground for generating, editing, and checking game units."
+    content="Create game units from characters or original concepts, review their mechanics and sources, and export editable results."
   />
 </svelte:head>
 
 <header class="masthead">
-  <a href="/" class="brand" aria-label="Mardwerk unit generator"
+  <a href="/" class="brand" aria-label="Mardwerk Unit Lab"
     ><img src="/brand/mardwerk.png" alt="" /><span>Mardwerk</span><span class="brand-divider"
       >/</span
-    ><span class="product-name">Unit generator</span></a
+    ><span class="product-name">Unit Lab</span></a
   >
   <ThemeToggle />
 </header>
 <main>
   <section class="compose-section" aria-label="Generation request">
     <div class="introduction">
-      <h1>Unit playground</h1>
+      <h1>Unit Lab</h1>
       <p>Turn a character or an idea into a game unit.</p>
     </div>
     <form
@@ -335,7 +475,7 @@
     >
       <Composer disabled={busy || validating} expanded={advancedOpen}>
         {#snippet children()}
-          {#if definition === 'classic-three-path'}
+          {#if usesSubject}
             <label class="mw-label" for="subject">Subject</label>
             <input
               id="subject"
@@ -344,7 +484,7 @@
               maxlength="512"
               required={!customInput.trim()}
               autocomplete="off"
-              placeholder="e.g. Clockwork heron"
+              placeholder={original ? 'e.g. Clockwork heron' : 'e.g. Monkey D. Luffy'}
             />
             <label for="intent" class="mw-label notes-label"
               >Adaptation notes <span>Optional</span></label
@@ -357,6 +497,28 @@
               maxlength="8000"
               placeholder="How should it play? Give it a strength, a weakness, or a role."
             ></textarea>
+            {#if !original}
+              <div class="character-source-prompt">
+                <BookOpen size={16} aria-hidden="true" />
+                <p>
+                  Keep the adaptation tied to the character. Add source passages or allow research,
+                  and specify the story period if it matters.
+                </p>
+                <button
+                  type="button"
+                  class="mw-button secondary"
+                  aria-expanded={sourcesOpen}
+                  aria-controls="character-sources"
+                  onclick={() => (sourcesOpen = !sourcesOpen)}
+                  >Sources {sourceText.trim() || sourceUrls.trim() || permitResearch
+                    ? 'added'
+                    : '& continuity'}</button
+                >
+              </div>
+              {#if sourcesOpen}<div class="character-sources" id="character-sources">
+                  {@render sourceFields()}
+                </div>{/if}
+            {/if}
           {:else}
             <label class="mw-label" for="custom-input">Complete request JSON</label>
             <textarea
@@ -378,12 +540,7 @@
               disabled={busy || validating}
               options={data.definitions.map((item) => ({
                 value: item.id,
-                label:
-                  item.id === 'classic-three-path'
-                    ? 'Classic three-path'
-                    : item.id === 'merge-family-example'
-                      ? 'Merge unit family'
-                      : item.title
+                label: definitionLabels[item.id] ?? item.title
               }))}
               onchange={() => {
                 customInput =
@@ -396,19 +553,39 @@
             />
           </div>
           <div class="model-choice">
-            <label class="sr-only" for="provider">Model connection</label>
+            <label class="sr-only" for="mode">Generation quality</label>
             <Select
-              id="provider"
-              bind:value={provider}
+              id="mode"
+              bind:value={mode}
               disabled={busy || validating}
-              options={data.providers.map((item) => ({
-                value: item.id,
-                label: item.id === 'fixture' ? 'Demo fixture' : (item.model ?? item.id)
-              }))}
+              options={[
+                ...data.modes.map((item) => ({
+                  value: item.id,
+                  label: `${item.label}${item.configured ? '' : ' · setup needed'}`
+                })),
+                { value: 'fixture', label: 'Demo fixture' },
+                ...(provider && provider !== 'fixture'
+                  ? [{ value: 'custom', label: 'Custom connection' }]
+                  : [])
+              ]}
+              onchange={() => {
+                provider = mode === 'fixture' ? 'fixture' : mode === 'custom' ? provider : '';
+              }}
             />
           </div>
-          {#if definition === 'classic-three-path'}<div class="concept-check">
-              <Checkbox bind:checked={original}>Original concept</Checkbox>
+          {#if usesSubject}<div class="concept-choice">
+              <label class="sr-only" for="concept-kind">Subject type</label>
+              <Select
+                id="concept-kind"
+                bind:value={conceptKind}
+                options={[
+                  { value: 'original', label: 'Original concept' },
+                  { value: 'character', label: 'Existing character' }
+                ]}
+                onchange={() => {
+                  original = conceptKind === 'original';
+                }}
+              />
             </div>{/if}
         {/snippet}
         {#snippet footer()}
@@ -428,7 +605,7 @@
                 !!constraints.trim() ||
                 !!context.trim() ||
                 !!continuity.trim() ||
-                (definition === 'classic-three-path' && !!customInput.trim())}
+                (usesSubject && !!customInput.trim())}
             ></span></button
           >
           <button
@@ -436,11 +613,11 @@
             class="mw-button generate"
             data-variant="primary"
             disabled={busy || validating}
-            >{busy ? 'Generating…' : 'Generate'}<ArrowUp
-              size={17}
-              strokeWidth={1.6}
-              aria-hidden="true"
-            /></button
+            >{busy
+              ? currentOperation === 'research'
+                ? 'Researching…'
+                : 'Generating…'
+              : 'Generate'}<ArrowUp size={17} strokeWidth={1.6} aria-hidden="true" /></button
           >
         {/snippet}
         {#snippet settings()}
@@ -455,43 +632,34 @@
                 ><X size={16} strokeWidth={1.6} aria-hidden="true" /></button
               >
             </div>
-            {#if definition === 'classic-three-path'}
-              <div class="source-settings">
-                <div>
-                  <label class="mw-label" for="continuity">Continuity or story period</label><input
-                    class="mw-control"
-                    id="continuity"
-                    bind:value={continuity}
-                    maxlength="8000"
-                    placeholder="e.g. Before the time skip"
-                  />
-                </div>
-                <div class="research-options">
-                  <Checkbox bind:checked={permitResearch}
-                    >Allow source discovery and public page reads</Checkbox
-                  ><Checkbox bind:checked={allowUngrounded}
-                    >Allow generation without source grounding</Checkbox
-                  >
-                </div>
-                <div>
-                  <label class="mw-label" for="sources">Source material</label><textarea
-                    class="mw-control"
-                    id="sources"
-                    bind:value={sourceText}
-                    rows="4"
-                    maxlength="262144"
-                    placeholder="Paste character details or source passages."
-                  ></textarea>
-                </div>
-                <div>
-                  <label class="mw-label" for="urls">Source URLs, one per line</label><textarea
-                    class="mw-control"
-                    id="urls"
-                    bind:value={sourceUrls}
-                    rows="4"
-                    placeholder="https://…"
-                  ></textarea>
-                </div>
+            {#if data.providers.length}<div class="custom-connection">
+                <label class="mw-label" for="provider">Model connection override</label>
+                <Select
+                  id="provider"
+                  bind:value={provider}
+                  options={[
+                    { value: '', label: 'Use selected generation mode' },
+                    ...data.providers.map((item) => ({
+                      value: item.id,
+                      label: item.model ?? item.id
+                    }))
+                  ]}
+                  onchange={() => {
+                    mode = provider ? 'custom' : 'default';
+                  }}
+                />
+                <p class="field-hint">
+                  For a local command or a custom model. Default and Quality use the configured
+                  shared endpoint.
+                </p>
+              </div>{/if}
+            {#if usesSubject}
+              {#if original}{@render sourceFields()}{/if}
+              <div class="grounding-option">
+                <Checkbox bind:checked={allowUngrounded}>Allow an ungrounded draft</Checkbox>
+                <p class="field-hint">
+                  Character source review still requires evidence before acceptance.
+                </p>
               </div>
               <details bind:open={jsonOpen}>
                 <summary
@@ -545,7 +713,7 @@
                 type="button"
                 class="mw-button secondary"
                 onclick={() => submit('research')}
-                disabled={busy || validating || provider === 'fixture'}
+                disabled={busy || validating || provider === 'fixture' || !connectionAvailable}
                 ><BookOpen size={16} strokeWidth={1.6} aria-hidden="true" />Research only</button
               >
             {/if}
@@ -568,22 +736,78 @@
       <p>
         {provider === 'fixture'
           ? 'Demo fixture returns a synthetic example.'
-          : 'Generated content needs review and playtesting.'}
+          : provider
+            ? 'Using a custom model connection.'
+            : `${selectedMode?.model ?? mode} · ${selectedMode?.reasoningEffort ?? ''} reasoning`}
       </p>
-      {#if busy}<button
+      {#if busy || validating}<button
           type="button"
           class="mw-button cancel-button"
           onclick={() => controller?.abort()}>Cancel</button
         >{:else}<span>⌘ / Ctrl + Enter</span>{/if}
     </div>
-    {#if definition === 'classic-three-path' && customInput.trim()}<p class="notice">
+    <p class="definition-hint">
+      {definitionHints[definition] ?? 'Custom definition. Review its input schema in Advanced.'}
+    </p>
+    {#if !connectionAvailable || data.setupError}
+      <div class="setup-notice">
+        <p>
+          {data.setupError ||
+            'Connect a model for creative generation. You can explore the editor with a synthetic demo now.'}
+        </p>
+        <div class="setup-actions">
+          <button
+            type="button"
+            class="mw-button secondary"
+            onclick={() => (setupOpen = !setupOpen)}
+            aria-expanded={setupOpen}
+            aria-controls="model-setup">Model setup</button
+          >
+          <button
+            type="button"
+            class="mw-button secondary"
+            onclick={() => {
+              mode = 'fixture';
+              provider = 'fixture';
+              original = true;
+              conceptKind = 'original';
+            }}>Try demo</button
+          >
+        </div>
+        {#if setupOpen}<div id="model-setup">
+            <p>
+              Add your model endpoint and credentials to <code>.env</code> in the project root, then restart
+              Unit Lab. Default uses Luna with high reasoning; Quality uses Astra with low reasoning.
+              Model names can be changed to match your endpoint.
+            </p>
+            <pre>UNIT_OPENAI_ENDPOINT=https://your-provider.example/v1/chat/completions
+UNIT_OPENAI_API_KEY=your-key
+UNIT_DEFAULT_MODEL=gpt-5.6-luna
+UNIT_QUALITY_MODEL=gpt-6-astra</pre>
+            <p>
+              For setup steps and local command connections, see <a
+                href="https://github.com/mardwerk/unit-generator/blob/main/docs/getting-started.md"
+                target="_blank"
+                rel="noreferrer">getting started</a
+              >.
+            </p>
+          </div>{/if}
+      </div>
+    {/if}
+    {#if usesSubject && customInput.trim()}<p class="notice">
         Using the complete request from JSON input instead of the fields above.
-      </p>{:else if definition === 'classic-three-path' && !original && !permitResearch && !knowledge.trim() && !sourceText.trim() && !sourceUrls.trim()}<p
+      </p>
+    {:else if usesSubject && !original && provider === 'fixture'}<p class="notice">
+        Demo fixtures support original concepts only. Choose Default or Quality with a configured
+        model for a character adaptation.
+      </p>
+    {:else if usesSubject && !original && !permitResearch && !knowledge.trim() && !sourceText.trim() && !sourceUrls.trim()}<p
         class="notice"
       >
-        For an existing character, add source material or enable research in Advanced.
+        Add source material with Sources & continuity before generating, or allow source research
+        there.
       </p>{/if}
-    {#if !result && !busy && definition === 'classic-three-path' && !customInput.trim()}
+    {#if !result && !busy && usesSubject && original && !customInput.trim()}
       <div class="suggestions">
         <span>Try an idea</span>{#each examples as example}<button
             class="mw-button"
@@ -600,15 +824,24 @@
     <section class="results" aria-label="Current result">
       <div class="output-heading">
         <h2 bind:this={outputHeading} tabindex="-1">
-          {result ? 'Unit output' : busy ? 'Generating unit' : 'Run output'}
+          {result
+            ? 'Unit output'
+            : busy
+              ? currentOperation === 'research'
+                ? 'Researching character'
+                : 'Generating unit'
+              : 'Run output'}
         </h2>
         <span>Current session</span>
       </div>
       {#if error}<div class="error" role="alert">{error}</div>{/if}
-      {#if progress.length && !result}<div class="progress" aria-live="polite">
+      {#if (busy || progress.length) && !result}<div class="progress" aria-live="polite">
           {#if busy}<div class="busy-line">
               <span class="activity-dot"></span>
-              <p>{progress.at(-1)}</p>
+              <p>
+                {progress.at(-1) ?? 'Connecting to the model…'}
+                <span class="elapsed">{elapsedSeconds}s</span>
+              </p>
             </div>{/if}
           {@render runLog()}
         </div>{/if}
@@ -618,7 +851,7 @@
             <div class="unit-name">
               <div class="unit-symbol"><Box size={23} strokeWidth={1.6} aria-hidden="true" /></div>
               <div>
-                <h3>{typeof content?.name === 'string' ? content.name : 'Generated unit'}</h3>
+                <h3>{typeof content?.name === 'string' ? content.name : 'Generation result'}</h3>
                 <span
                   class="acceptance"
                   class:needs-attention={dirty || result.status !== 'success'}
@@ -626,15 +859,17 @@
                   >{dirty
                     ? 'Unvalidated edit'
                     : result.status === 'success'
-                      ? 'Checks passed'
-                      : 'Candidate failed'}</span
+                      ? sourceReviewRequired
+                        ? 'Valid draft · source review needed'
+                        : 'Checks passed · review required'
+                      : editor
+                        ? 'Candidate needs changes'
+                        : 'No unit produced'}</span
                 >
               </div>
             </div>
             <button type="button" class="mw-button secondary export-button" onclick={exportResult}
-              ><Download size={16} strokeWidth={1.6} aria-hidden="true" />Export {dirty
-                ? 'candidate'
-                : 'result'}</button
+              ><Download size={16} strokeWidth={1.6} aria-hidden="true" />Export {exportKind}</button
             >
           </div>
           <ViewSwitcher
@@ -653,12 +888,63 @@
           />
           <div class="result-body">
             {#if outputView === 'design'}
+              <p class="result-context">
+                {definitionLabels[runDefinition] ?? runDefinition} · {result.metadata.calls.some(
+                  (call) => call.mode === 'fixture'
+                )
+                  ? 'Synthetic demo'
+                  : 'Generated draft'} · {Math.round(result.metadata.elapsedMs / 1000)}s
+              </p>
+              {#if !editor}<p class="notice">
+                  No editable unit was produced. Review the error and captured research, then adjust
+                  the request and generate again.
+                </p>{/if}
               {#if typeof content?.summary === 'string'}<p class="unit-summary">
                   {content.summary}
+                </p>{/if}
+              {#if typeof content?.description === 'string'}<p class="unit-summary">
+                  {content.description}
                 </p>{/if}
               {#if typeof content?.brief === 'string'}<p class="unit-summary">
                   {content.brief}
                 </p>{/if}
+              {#if typeof content?.placementCost === 'number' || typeof content?.cost === 'number'}<p
+                  class="unit-summary"
+                >
+                  Placement cost: {content.placementCost ?? content.cost} credits.
+                </p>{/if}
+              {#if content?.base}{@render modelMechanics(
+                  record(content.base),
+                  'Base mechanics'
+                )}{:else if content?.resolution === 'captured-endpoints'}<p class="notice">
+                  The captured base model is unresolved. Review the missing references in Checks
+                  before using this candidate.
+                </p>{/if}
+              {#if content?.mechanics}{@render modelMechanics(
+                  record(content.mechanics),
+                  'Additional mechanics'
+                )}{/if}
+              {#if content?.heroProgression}{@render exactMechanic(
+                  content.heroProgression,
+                  'Hero progression and unlocks'
+                )}{/if}
+              {#if content?.fusionPolicy}{@render exactMechanic(
+                  { policy: content.fusionPolicy, models: content.fusionModels },
+                  'Fusion policy and resulting models'
+                )}{/if}
+              {#if content?.support}<h3 class="section-title">Support</h3>
+                <p class="unit-summary">
+                  {record(content.support).name}: restores {record(content.support).heal} health to up
+                  to {record(content.support).cap} allies within {record(content.support).radius} range
+                  every {record(content.support).interval}s.
+                </p>{/if}
+              {#if content?.stamina}<details class="mechanics-detail">
+                  <summary
+                    ><ChevronRight class="disclosure-icon" size={14} aria-hidden="true" />Stamina
+                    and Technique costs</summary
+                  >
+                  <pre>{pretty(content.stamina)}</pre>
+                </details>{/if}
               {#if records(content?.actions).length}<h3 class="section-title">Actions</h3>
                 <div class="actions">
                   {#each records(content?.actions) as action}<article>
@@ -674,13 +960,62 @@
                       <p>{unit.role ?? ''}</p>
                     </article>{/each}
                 </div>{/if}
-              {#if records(record(content?.upgradeGraph).paths).length}<section
-                  class="upgrade-section"
-                  aria-label="Upgrade paths"
-                >
+              {#if records(content?.forms).length}<h3 class="section-title">Combat forms</h3>
+                <div class="actions">
+                  {#each records(content?.forms) as combatForm}<article>
+                      {#if combatForm.id === content?.baseForm || typeof combatForm.unlockTier === 'number'}<span
+                          class="rank"
+                          >{combatForm.id === content?.baseForm
+                            ? 'Base form'
+                            : `Unlock tier ${combatForm.unlockTier}`}</span
+                        >{/if}
+                      <h4>{combatForm.name}</h4>
+                      {#if typeof combatForm.summary === 'string'}<p>{combatForm.summary}</p>{/if}
+                      {#if combatForm.primary}<p>
+                          {record(combatForm.primary).name}: {record(combatForm.primary).damage} damage
+                          every {record(combatForm.primary).period}s. Reach {record(
+                            combatForm.primary
+                          ).reach}.
+                        </p>
+                        <p>
+                          {record(combatForm.primary).delivery === 'projectile'
+                            ? 'Projectile attack'
+                            : 'Direct contact'}{typeof combatForm.drainPerSecond === 'number' &&
+                          combatForm.drainPerSecond > 0
+                            ? ` · ${combatForm.drainPerSecond} stamina/s`
+                            : ''}
+                        </p>
+                      {/if}
+                      {#if records(record(combatForm.primary).onHit).length}<ul
+                          class="mechanic-notes"
+                        >
+                          {#each records(record(combatForm.primary).onHit) as effect}<li>
+                              {effectSummary(effect)}
+                            </li>{/each}
+                        </ul>{/if}
+                      {#if records(combatForm.techniques).length}<details>
+                          <summary
+                            ><ChevronRight
+                              class="disclosure-icon"
+                              size={14}
+                              aria-hidden="true"
+                            />Techniques · {records(combatForm.techniques).length}</summary
+                          >
+                          {#each records(combatForm.techniques) as technique}<div class="technique">
+                              <h5>{technique.name}</h5>
+                              <p>
+                                {technique.hits} hit(s) × {technique.damage} damage. Windup {technique.windup}s,
+                                recovery {technique.recovery}s.
+                              </p>
+                            </div>{/each}
+                          <pre>{pretty(combatForm.techniques)}</pre>
+                        </details>{/if}
+                    </article>{/each}
+                </div>{/if}
+              {#if unitPaths.length}<section class="upgrade-section" aria-label="Upgrade paths">
                   <h3 class="section-title">Upgrade paths</h3>
                   <div class="upgrade-paths">
-                    {#each records(record(content?.upgradeGraph).paths) as path, i}<article
+                    {#each unitPaths as path, i}<article
                         class="upgrade-path"
                         style={`--path-color: ${['var(--mw-color-series-1)', 'var(--mw-color-series-2)', 'var(--mw-color-series-3)'][i % 3]}`}
                       >
@@ -688,9 +1023,11 @@
                           <span class="path-dot"></span>
                           <h4>{path.name}</h4>
                         </div>
-                        <p>{path.summary}</p>
+                        {#if path.summary || path.description}<p>
+                            {path.summary ?? path.description}
+                          </p>{/if}
                         <ol>
-                          {#each records(record(content?.upgradeGraph).nodes).filter((node) => node.path === path.id) as node, tier}<li
+                          {#each records(path.upgrades).length ? records(path.upgrades) : records(record(content?.upgradeGraph).nodes).filter((node) => node.path === path.id) as node, tier}<li
                             >
                               <details>
                                 <summary
@@ -700,28 +1037,99 @@
                                     strokeWidth={1.6}
                                     aria-hidden="true"
                                   /><span class="tier">{tier + 1}</span><span
-                                    >{node.name}<small>{node.costCredits} credits</small></span
+                                    >{node.name}<small
+                                      >{node.costCredits ?? node.cost} credits</small
+                                    ></span
                                   ><Plus class="expand-icon" size={14} aria-hidden="true" /><Minus
                                     class="collapse-icon"
                                     size={14}
                                     aria-hidden="true"
                                   /></summary
                                 >
-                                <p>{node.summary}</p>
+                                <p>
+                                  {node.summary ??
+                                    node.description ??
+                                    'Inspect the complete effect in JSON.'}
+                                </p>
+                                {#if node.operations || node.modifiers || node.effects}<pre
+                                    class="upgrade-mechanics">{pretty(
+                                      node.operations ?? node.modifiers ?? node.effects
+                                    )}</pre>{/if}
                               </details>
                             </li>{/each}
                         </ol>
                       </article>{/each}
                   </div>
                 </section>{/if}
-              {#if !content}<p class="notice">
+              {#if records(content?.endpoints).length}<section class="captured-builds">
+                  <h3 class="section-title">Captured builds</h3>
+                  <p class="field-hint">
+                    Each build contains the mechanics available for its captured upgrade
+                    combination.
+                  </p>
+                  {#each records(content?.endpoints) as endpoint}<details>
+                      <summary
+                        ><ChevronRight class="disclosure-icon" size={14} aria-hidden="true" />Build {Array.isArray(
+                          endpoint.tiers
+                        )
+                          ? endpoint.tiers.join(' / ')
+                          : 'unknown'}{!endpoint.model ? ' · unresolved' : ''}</summary
+                      >{#if endpoint.model}{@render modelMechanics(
+                          record(endpoint.model),
+                          'Build mechanics'
+                        )}{:else}<p class="notice">
+                          This captured build has unresolved references. It cannot be treated as an
+                          accepted playable unit.
+                        </p>{/if}{#if strings(endpoint.unsupported).length}<ul
+                          class="mechanic-notes"
+                        >
+                          {#each strings(endpoint.unsupported) as gap}<li>{gap}</li>{/each}
+                        </ul>{/if}
+                    </details>{/each}
+                </section>{/if}
+              {#if strings(content?.adaptations).length}<section class="adaptation-review">
+                  <h3 class="section-title">Adaptation choices</h3>
+                  <ul>
+                    {#each strings(content?.adaptations) as adaptation}<li>{adaptation}</li>{/each}
+                  </ul>
+                  <p>
+                    These are the generated design's own explanations. Compare them with the
+                    captured sources in Research.
+                  </p>
+                </section>{/if}
+              {#if strings(content?.unsupported).length}<section class="adaptation-review">
+                  <h3 class="section-title">Declared mechanic gaps</h3>
+                  <ul>
+                    {#each strings(content?.unsupported) as gap}<li>{gap}</li>{/each}
+                  </ul>
+                </section>{/if}
+              {#if result.design}<details>
+                  <summary
+                    ><ChevronRight class="disclosure-icon" size={14} aria-hidden="true" />{record(
+                      result
+                    ).edited
+                      ? 'Original design plan'
+                      : 'Design plan and adaptation rationale'}</summary
+                  >
+                  <pre>{pretty(result.design)}</pre>
+                </details>{/if}
+              {#if !content && editor}<p class="notice">
                   The edited JSON cannot be displayed. Open JSON to correct it.
                 </p>{/if}
             {:else if outputView === 'json'}
               <div class="editor-heading">
                 <div>
                   <h3>Content JSON</h3>
-                  <p>Edit the unit, then validate your changes.</p>
+                  <p>
+                    {characterResult
+                      ? 'Check rules and source fidelity using retained evidence. The edited unit stays exactly as written.'
+                      : 'Edit the unit, then check its mechanics.'}
+                  </p>
+                  {#if characterResult}<p>
+                      {connectionAvailable && provider !== 'fixture'
+                        ? `Source review uses ${provider || selectedMode?.label || 'the selected model'} and may incur model charges.`
+                        : 'Connect a model for source review. You can still check rules and export a draft.'}
+                    </p>{/if}
                 </div>
                 <button
                   type="button"
@@ -729,10 +1137,20 @@
                   onclick={validateEdit}
                   disabled={busy || validating}
                   ><Check size={16} strokeWidth={1.6} aria-hidden="true" />{validating
-                    ? 'Validating…'
-                    : 'Validate edit'}</button
+                    ? 'Checking…'
+                    : 'Check changes'}</button
                 >
               </div>
+              {#if validating}<button
+                  type="button"
+                  class="mw-button secondary"
+                  onclick={() => controller?.abort()}>Cancel check</button
+                >
+                <p class="field-hint" role="status">
+                  Checking rules{characterResult && connectionAvailable && provider !== 'fixture'
+                    ? ' and retained source evidence'
+                    : ''} · {elapsedSeconds}s
+                </p>{/if}
               <label class="sr-only" for="editor">Content JSON</label><textarea
                 class="mw-control code editor"
                 id="editor"
@@ -741,19 +1159,44 @@
                 spellcheck="false"
               ></textarea>
             {:else if outputView === 'checks'}
-              <h3 class="validation-title">Validation</h3>
+              <h3 class="validation-title">Validation and review</h3>
+              <p class="field-hint">
+                Passing checks establish the implemented rules only. Review character fidelity and
+                playtest the unit before using it in a game.
+              </p>
               {#if report}<dl class="validation-list">
                   <div>
-                    <dt>Structure</dt>
-                    <dd>{report.structure.status}</dd>
+                    <dt>Unit format</dt>
+                    <dd
+                      class:check-failed={report.structure.status === 'failed'}
+                      class:unchecked={report.structure.status !== 'passed' &&
+                        report.structure.status !== 'failed'}
+                    >
+                      {checkStatusLabels[report.structure.status] ?? report.structure.status}
+                    </dd>
                   </div>
                   <div>
-                    <dt>Implemented system checks</dt>
-                    <dd>{report.system.status}</dd>
+                    <dt>Game rules</dt>
+                    <dd
+                      class:check-failed={report.system.status === 'failed'}
+                      class:unchecked={report.system.status !== 'passed' &&
+                        report.system.status !== 'failed'}
+                    >
+                      {checkStatusLabels[report.system.status] ?? report.system.status}
+                    </dd>
                   </div>
                   <div>
                     <dt>Request constraints</dt>
-                    <dd>{report.constraints.status}</dd>
+                    <dd
+                      class:check-failed={report.constraints.status === 'failed'}
+                      class:unchecked={report.constraints.status !== 'passed' &&
+                        report.constraints.status !== 'failed'}
+                    >
+                      {report.constraints.status === 'not-provided'
+                        ? 'No extra constraints'
+                        : (checkStatusLabels[report.constraints.status] ??
+                          report.constraints.status)}
+                    </dd>
                   </div>
                   <div>
                     <dt>Gameplay balance</dt>
@@ -765,6 +1208,12 @@
                   >
                     {issue.path}: {issue.message}
                   </p>{/each}
+                {#if report.uncheckedRules.length}<div class="adaptation-review">
+                    <h4>Unchecked rules</h4>
+                    <ul>
+                      {#each report.uncheckedRules as rule}<li>{rule}</li>{/each}
+                    </ul>
+                  </div>{/if}
                 <details>
                   <summary
                     ><ChevronRight
@@ -772,13 +1221,74 @@
                       size={14}
                       strokeWidth={1.6}
                       aria-hidden="true"
-                    />Coverage and unchecked rules</summary
+                    />Complete validation report</summary
                   >
                   <pre>{pretty(report)}</pre>
                 </details>
               {:else}<p class="notice">
-                  Edited content needs validation. Open JSON and select Validate edit.
+                  Edited content needs validation. Open JSON and select Check changes.
                 </p>{/if}
+              {#if qualification}
+                <section class="qualification" aria-label="Gameplay checks">
+                  <h3 class="validation-title">
+                    {qualification.readiness === 'blocked'
+                      ? 'Mechanic changes required'
+                      : 'Review required'}
+                  </h3>
+                  <p class="field-hint">
+                    {#if qualification.coverage.legalBuilds > 0}
+                      {qualification.coverage.evaluatedBuilds} of {qualification.coverage
+                        .legalBuilds} upgrade combinations checked · {qualification.coverage
+                        .purchaseEdges} upgrade comparisons · {qualification.coverage.probes} mechanic
+                      checks
+                    {:else}
+                      No upgrade combinations were evaluated. See the limits below.
+                    {/if}
+                  </p>
+                  {#each qualification.findings
+                    .filter((finding) => finding.severity !== 'info')
+                    .sort((a, b) => Number(b.severity === 'blocker') - Number(a.severity === 'blocker')) as finding}<article
+                      class="finding"
+                      class:blocker={finding.severity === 'blocker'}
+                    >
+                      <div class="finding-heading">
+                        <h4>{findingLabels[finding.dimension] ?? finding.dimension}</h4>
+                        <span
+                          >{finding.severity === 'blocker'
+                            ? 'Needs changes'
+                            : finding.severity === 'warning'
+                              ? 'Needs review'
+                              : 'Information'}</span
+                        >
+                      </div>
+                      <p>{finding.message}</p>
+                      {#if finding.location}<code>{finding.location}</code
+                        >{/if}{#if finding.evidence}<details>
+                          <summary>Check evidence</summary>
+                          <pre>{pretty(finding.evidence)}</pre>
+                        </details>{/if}
+                    </article>{/each}
+                  {#if qualification.findings.some((finding) => finding.severity === 'info')}<details
+                    >
+                      <summary
+                        ><ChevronRight
+                          class="disclosure-icon"
+                          size={14}
+                          aria-hidden="true"
+                        />Detailed check results</summary
+                      >
+                      <pre>{pretty(
+                          qualification.findings.filter((finding) => finding.severity === 'info')
+                        )}</pre>
+                    </details>{/if}
+                  {#if qualification.coverage.unassessed.length}<div class="adaptation-review">
+                      <h4>Not checked</h4>
+                      <ul>
+                        {#each qualification.coverage.unassessed as gap}<li>{gap}</li>{/each}
+                      </ul>
+                    </div>{/if}
+                </section>
+              {/if}
               {#if progress.length}<div class="progress completed-log">{@render runLog()}</div>{/if}
             {:else}{@render researchContent()}{/if}
           </div>
@@ -792,6 +1302,216 @@
     <span>Your session stays in this tab.</span><span>Export a result before refreshing.</span>
   </footer>
 </main>
+
+{#snippet exactMechanic(value: unknown, title: string)}
+  <details class="mechanics-detail">
+    <summary><ChevronRight class="disclosure-icon" size={14} aria-hidden="true" />{title}</summary>
+    <pre>{pretty(value)}</pre>
+  </details>
+{/snippet}
+
+{#snippet modelMechanics(model: Record<string, unknown>, title: string)}
+  {#if records(model.attacks).length || records(model.abilities).length || records(model.actors).length || records(model.income).length || records(model.support ?? model.rangeSupport).length || records(model.triggers).length || records(model.zones).length || records(model.modifiers).length}
+    <section class="model-mechanics" aria-label={title}>
+      <h3 class="section-title">{title}</h3>
+      {#if records(model.attacks).length}<div class="mechanic-group">
+          <h4 class="section-title">Attacks</h4>
+          <div class="actions">
+            {#each records(model.attacks) as attack}<article>
+                {@render attackMechanics(attack)}
+              </article>{/each}
+          </div>
+        </div>{/if}
+      {#if records(model.abilities).length}<div class="mechanic-group">
+          <h4 class="section-title">Activated abilities</h4>
+          <div class="actions">
+            {#each records(model.abilities) as ability}<article>
+                <h4>{ability.name ?? ability.id}</h4>
+                <p>
+                  Cooldown {ability.cooldownSeconds}s{typeof ability.durationSeconds === 'number'
+                    ? ` · active for ${ability.durationSeconds}s`
+                    : ''}.
+                </p>
+                {#if record(ability.effect).kind === 'summon'}<p>
+                    Summons {record(ability.effect).actorId}{record(ability.effect)
+                      .suppressParentAttacks
+                      ? ' and pauses the parent unit’s attacks'
+                      : ''}.
+                  </p>{:else if record(ability.effect).kind === 'transform'}<p>
+                    Temporarily replaces the unit's attacks.
+                  </p>{:else}<p>
+                    Releases {records(record(ability.effect).attacks).length} attack pattern(s).
+                  </p>{/if}
+                <details>
+                  <summary
+                    ><ChevronRight class="disclosure-icon" size={14} aria-hidden="true" />Ability
+                    mechanics</summary
+                  >{#each records(record(ability.effect).attacks) as attack}<div
+                      class="nested-mechanic"
+                    >
+                      {@render attackMechanics(attack)}
+                    </div>{/each}
+                  <pre>{pretty(ability)}</pre>
+                </details>
+              </article>{/each}
+          </div>
+        </div>{/if}
+      {#if records(model.actors).length}<div class="mechanic-group">
+          <h4 class="section-title">Summoned units</h4>
+          <div class="actions">
+            {#each records(model.actors) as actor}<article>
+                <h4>{actor.id}</h4>
+                <p>{records(actor.attacks).length} attack pattern(s).</p>
+                {#if actor.motion}<p>Movement: {record(actor.motion).kind}.</p>
+                  {@render exactMechanic(actor.motion, 'Movement rules')}{/if}
+                {#each records(model.passiveSummons).filter((summon) => summon.actorId === actor.id) as summon}<p
+                  >
+                    Appears after {summon.startDelaySeconds}s{Number(summon.lifetimeSeconds) > 0
+                      ? ` for ${summon.lifetimeSeconds}s`
+                      : ''}.
+                  </p>{/each}
+                <details>
+                  <summary
+                    ><ChevronRight class="disclosure-icon" size={14} aria-hidden="true" />Summon
+                    attacks</summary
+                  >{#each records(actor.attacks) as attack}<div class="nested-mechanic">
+                      {@render attackMechanics(attack)}
+                    </div>{/each}
+                </details>
+              </article>{/each}
+          </div>
+        </div>{/if}
+      {#if records(model.income).length}<div class="mechanic-group">
+          <h4 class="section-title">Income</h4>
+          <div class="actions">
+            {#each records(model.income) as income}<article>
+                <h4>{income.id}</h4>
+                <p>
+                  {income.amount} credits every {income.intervalSeconds}s, up to {income.emissionsPerRound}
+                  time(s) each round.
+                </p>
+                <p>
+                  {income.autoCollect
+                    ? 'Collected automatically.'
+                    : `Collect pickups within ${income.pickupLifetimeSeconds}s.`}
+                </p>
+              </article>{/each}
+          </div>
+        </div>{/if}
+      {#if records(model.support ?? model.rangeSupport).length}<div class="mechanic-group">
+          <h4 class="section-title">Range support</h4>
+          <div class="actions">
+            {#each records(model.support ?? model.rangeSupport) as support}<article>
+                <h4>{support.id}</h4>
+                <p>
+                  {support.global
+                    ? 'Global range'
+                    : `Within ${support.radius} range`}{support.includesOwner
+                    ? ', including this unit'
+                    : ', other units only'}. Adds {support.rangeAdditive} range and {Math.round(
+                    Number(support.rangeMultiplier) * 100
+                  )}%.
+                </p>
+                <p>Does not stack within group {support.stackGroup}.</p>
+              </article>{/each}
+          </div>
+        </div>{/if}
+      {#if records(model.triggers).length}{@render exactMechanic(
+          model.triggers,
+          `Event triggers · ${records(model.triggers).length}`
+        )}{/if}
+      {#if records(model.zones).length}{@render exactMechanic(
+          model.zones,
+          `Persistent zones · ${records(model.zones).length}`
+        )}{/if}
+      {#if records(model.modifiers).length}{@render exactMechanic(
+          model.modifiers,
+          `Stat modifiers · ${records(model.modifiers).length}`
+        )}{/if}
+    </section>
+  {/if}
+{/snippet}
+
+{#snippet attackMechanics(attack: Record<string, unknown>)}
+  <h4>{attack.name ?? attack.id}</h4>
+  <p>
+    {attack.damage} damage every {attack.intervalSeconds ?? attack.period}s. {attack.projectiles ??
+      1} projectile(s){typeof attack.pierce === 'number' ? `, ${attack.pierce} pierce` : ''}.
+  </p>
+  <p>
+    {attack.delivery === 'direct-contact'
+      ? 'Direct contact'
+      : (attack.delivery ?? 'Attack')}{typeof attack.range === 'number'
+      ? ` · range ${attack.range}`
+      : typeof record(attack.reach).radius === 'number'
+        ? ` · range ${record(attack.reach).radius}`
+        : ''} · {attack.detectsCamo || attack.detectConcealed
+      ? 'Detects concealed targets'
+      : 'Cannot detect concealed targets'}
+  </p>
+  {#if strings(attack.immuneTo).length}<p>
+      Cannot damage {strings(attack.immuneTo).join(', ')} targets.
+    </p>{/if}
+  {#if record(attack.shape).kind === 'area'}<p>
+      Area impact: radius {record(attack.shape).radius}, up to {record(attack.shape).cap} targets.
+    </p>{:else if record(attack.shape).kind === 'sweep'}<p>
+      Sweep: width {record(attack.shape).width}, up to {record(attack.shape).cap} targets.
+    </p>{/if}
+  {#if [...records(attack.statuses), ...records(attack.onHit)].length}<ul class="mechanic-notes">
+      {#each [...records(attack.statuses), ...records(attack.onHit)] as effect}<li>
+          {effectSummary(effect)}
+        </li>{/each}
+    </ul>{/if}
+  {#if attack.projectile}<p>
+      Projectile behavior: {record(record(attack.projectile).flight).kind ?? 'unspecified'}{records(
+        record(attack.projectile).children
+      ).length
+        ? `, ${records(record(attack.projectile).children).length} follow-up pattern(s)`
+        : ''}.
+    </p>{/if}
+  <details>
+    <summary
+      ><ChevronRight class="disclosure-icon" size={14} aria-hidden="true" />Exact attack rules</summary
+    >
+    <pre>{pretty(attack)}</pre>
+  </details>
+{/snippet}
+
+{#snippet sourceFields()}
+  <div class="source-settings">
+    <div>
+      <label class="mw-label" for="continuity">Continuity or story period</label><input
+        class="mw-control"
+        id="continuity"
+        bind:value={continuity}
+        maxlength="8000"
+        placeholder="e.g. Before the time skip"
+      />
+    </div>
+    <div class="research-options">
+      <Checkbox bind:checked={permitResearch}>Allow web research and source page reads</Checkbox>
+    </div>
+    <div>
+      <label class="mw-label" for="sources">Source material</label><textarea
+        class="mw-control"
+        id="sources"
+        bind:value={sourceText}
+        rows="4"
+        maxlength="262144"
+        placeholder="Paste character details or source passages."
+      ></textarea>
+    </div>
+    <div>
+      <label class="mw-label" for="urls">Source URLs, one per line</label><textarea
+        class="mw-control"
+        id="urls"
+        bind:value={sourceUrls}
+        rows="4"
+        placeholder="https://…"
+      ></textarea>
+    </div>
+  </div>
+{/snippet}
 
 {#snippet runLog()}
   <details>
@@ -807,15 +1527,89 @@
 {/snippet}
 
 {#snippet researchContent()}
+  {#if sourceReviewRequired}<p class="notice">
+      Edited content needs a new source review. Open JSON and select Check changes with a configured
+      model. Until then, export it as a draft.
+    </p>
+  {/if}
+  {#if !dirty && result?.fidelity}<section
+      class="fidelity-review"
+      aria-label="Source fidelity review"
+    >
+      <h3>
+        {result.fidelity.status === 'checked'
+          ? 'Source review completed'
+          : result.fidelity.status === 'original-concept'
+            ? 'Original concept'
+            : 'More source evidence needed'}
+      </h3>
+      <p class="field-hint">
+        {result.fidelity.status === 'original-concept'
+          ? 'This unit is an original concept. No external character claims were checked.'
+          : 'This model review compares the draft with captured passages. It is not independent canon verification.'}
+      </p>
+      {#if result.fidelity.claims.some((claim) => claim.status === 'adapted')}
+        <p class="field-hint">
+          Gameplay adaptations change how a sourced ability works in the game. Review the
+          explanation and source passage for each change.
+        </p>
+      {/if}
+      {#each result.fidelity.claims as claim}<details
+          class="finding fidelity-claim"
+          open={claim.status === 'contradicted' || claim.status === 'unresolved'}
+          class:blocker={claim.status === 'contradicted' || claim.status === 'unresolved'}
+        >
+          <summary class="finding-heading"
+            ><ChevronRight class="disclosure-icon" size={14} aria-hidden="true" /><span
+              class="claim-title">{claim.claim}</span
+            ><span>{sourceClaimLabels[claim.status] ?? claim.status}</span></summary
+          >
+          <p>{claim.explanation}</p>
+          {#if claim.sourceMechanic}<p class="field-hint">
+              Source ability: {claim.sourceMechanic} · {sourceRelationshipLabels[
+                claim.relationship
+              ] ?? claim.relationship}
+            </p>{/if}
+          {#if claim.candidateQuote}<p class="candidate-quote">
+              In the draft: {claim.candidateQuote}
+            </p>{/if}
+          <code>{claim.path}</code>{#if claim.quote}<blockquote>{claim.quote}</blockquote>
+            <p class="field-hint">
+              {researchResults
+                .flatMap((item) => item.sources)
+                .find((source) => source.id === claim.sourceId)?.title ?? claim.sourceId}
+            </p>{/if}
+        </details>{/each}{#if result.fidelity.gaps.length}<ul>
+          {#each result.fidelity.gaps as gap}<li>{gap}</li>{/each}
+        </ul>{/if}
+    </section>{/if}
   {#if !researchResults.length}<p class="notice">This run has no captured research.</p>{/if}
   {#each researchResults as research, i}<article class="research-item">
       <div class="research-heading">
         <h3>{research.subject}</h3>
-        <span class="grounding">{research.grounding}</span>
+        <span class="grounding"
+          >{research.grounding === 'grounded'
+            ? 'Sources captured · review fidelity'
+            : research.grounding === 'original-concept'
+              ? 'Original concept'
+              : 'Ungrounded'}</span
+        >
       </div>
       <p>{research.knowledge?.identity.continuity ?? 'Continuity unresolved'}</p>
+      {#if research.knowledge}<p>{research.knowledge.identity.explanation}</p>{/if}
+      {#if research.error}<p class="notice">{research.error.message}</p>{/if}
       {#if research.knowledge}<ul>
-          {#each research.knowledge.claims as claim}<li>{claim.text}</li>{/each}
+          {#each research.knowledge.claims as claim}<li>
+              {claim.text}<small class="claim-evidence"
+                >{claim.kind === 'evidence'
+                  ? 'Source reference'
+                  : claim.kind === 'original-concept'
+                    ? 'Original concept'
+                    : 'Unverified claim'}{claim.sourceIds.length
+                  ? `: ${claim.sourceIds.map((id) => research.sources.find((source) => source.id === id)?.title ?? id).join(', ')}`
+                  : ''}</small
+              >
+            </li>{/each}
         </ul>{/if}
       {#if research.gaps.length}<h4>Coverage gaps</h4>
         <ul>
@@ -833,6 +1627,14 @@
             ></summary
           >
           <p>{source.url ?? 'Supplied document'}</p>
+          {#if source.error}<p>{source.error}</p>{/if}
+          {#each research.sourceVisibility?.filter((item) => item.sourceId === source.id) ?? [] as visibility}<p
+            >
+              The research model received {visibility.visibleCharacters.toLocaleString()} of {visibility.sourceCharacters.toLocaleString()}
+              captured characters{visibility.complete
+                ? '.'
+                : '. Some captured text was outside the model context.'}
+            </p>{/each}
           {#each source.omissions as omission}<p>{omission}</p>{/each}
           <pre>{source.content}</pre>
         </details>{/each}
@@ -988,9 +1790,6 @@
   }
   .model-choice {
     width: 165px;
-  }
-  .concept-check {
-    margin-left: auto;
   }
   .settings-button {
     border-color: transparent;
@@ -1532,7 +2331,227 @@
     font-size: 10px;
     padding-top: 65px;
   }
+
+  .concept-choice {
+    width: 175px;
+    margin-left: auto;
+  }
+  .definition-hint,
+  .field-hint,
+  .result-context {
+    color: var(--mw-color-text-muted);
+    font-size: 11px;
+    line-height: 1.6;
+  }
+  .definition-hint {
+    margin: 12px 4px 0;
+  }
+  .result-context {
+    margin: 0 0 18px;
+  }
+  .character-source-prompt {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    border-top: 1px solid var(--mw-color-border);
+    padding-top: 18px;
+    margin-top: 20px;
+  }
+  .character-source-prompt :global(svg) {
+    flex-shrink: 0;
+    color: var(--mw-color-text-muted);
+  }
+  .character-source-prompt p {
+    margin: 0;
+    color: var(--mw-color-text-muted);
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .character-source-prompt button {
+    flex-shrink: 0;
+  }
+  .character-sources {
+    margin-top: 22px;
+  }
+  .setup-notice {
+    padding: 16px 18px;
+    margin-top: 20px;
+    border: 1px solid var(--mw-color-border);
+    border-radius: 10px;
+    background: var(--mw-color-surface);
+  }
+  .setup-notice p {
+    margin: 0 0 12px;
+    color: var(--mw-color-text-muted);
+    font-size: 12px;
+    line-height: 1.7;
+  }
+  .setup-notice a {
+    color: var(--mw-color-text);
+  }
+  .setup-actions {
+    display: flex;
+    gap: 8px;
+  }
+  #model-setup {
+    margin-top: 18px;
+  }
+  .grounding-option {
+    margin-top: 22px;
+  }
+  .custom-connection {
+    margin-bottom: 24px;
+  }
+  .elapsed {
+    color: var(--mw-color-text-subtle);
+    white-space: nowrap;
+  }
+  .mechanics-detail {
+    margin: 0 0 28px;
+  }
+  .technique {
+    margin-top: 14px;
+  }
+  .technique h5 {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0 0 5px;
+  }
+  .adaptation-review {
+    margin-top: 28px;
+    color: var(--mw-color-text-muted);
+    font-size: 12px;
+    line-height: 1.8;
+  }
+  .adaptation-review ul {
+    padding-left: 20px;
+  }
+  .claim-evidence {
+    display: block;
+    color: var(--mw-color-text-muted);
+    font-size: 11px;
+  }
+  .validation-list .check-failed {
+    color: var(--mw-color-error);
+  }
+  .upgrade-mechanics {
+    font-size: 10px;
+    padding: 10px;
+  }
+
+  .fidelity-claim {
+    margin-top: 0;
+    border-top: 0;
+  }
+  .fidelity-claim .claim-title {
+    flex: 1;
+    color: var(--mw-color-text);
+    font-size: 12px;
+  }
+  .fidelity-review {
+    margin-bottom: 30px;
+  }
+  .fidelity-review h3 {
+    font-size: 14px;
+    font-weight: 500;
+  }
+  .fidelity-review blockquote {
+    border-left: 2px solid var(--mw-color-border-strong);
+    margin: 15px 0;
+    padding-left: 14px;
+    font-size: 12px;
+    line-height: 1.8;
+    color: var(--mw-color-text-muted);
+  }
+  .model-mechanics {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 24px;
+    margin-bottom: 28px;
+  }
+  .model-mechanics > h3,
+  .model-mechanics > .mechanics-detail {
+    grid-column: 1 / -1;
+    margin: 0;
+  }
+  .mechanic-group {
+    min-width: 0;
+  }
+  .mechanic-group .actions {
+    grid-template-columns: 1fr;
+    margin-bottom: 0;
+  }
+  .nested-mechanic {
+    margin-top: 18px;
+  }
+  .mechanic-notes {
+    color: var(--mw-color-text-muted);
+    font-size: 12px;
+    line-height: 1.8;
+    padding-left: 18px;
+  }
+  .captured-builds {
+    margin-top: 28px;
+  }
+  .captured-builds .model-mechanics {
+    margin-top: 20px;
+  }
+  .qualification {
+    margin-top: 28px;
+  }
+  .finding {
+    padding: 16px 0;
+    border-bottom: 1px solid var(--mw-color-border-subtle);
+  }
+  .finding-heading {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    align-items: center;
+  }
+  .finding h4 {
+    font-size: 12px;
+    font-weight: 500;
+    margin: 0;
+  }
+  .finding-heading span {
+    font-size: 10px;
+    color: var(--mw-color-text-muted);
+  }
+  .finding.blocker .finding-heading span {
+    color: var(--mw-color-error);
+  }
+  .finding p {
+    font-size: 12px;
+    line-height: 1.7;
+    color: var(--mw-color-text-muted);
+  }
+  .finding code {
+    font-size: 11px;
+    overflow-wrap: anywhere;
+  }
+  .finding details {
+    margin-top: 8px;
+    padding-top: 0;
+    border: 0;
+  }
+
   @media (max-width: 760px) {
+    .concept-choice {
+      width: 100%;
+      margin: 0;
+    }
+    .character-source-prompt {
+      flex-wrap: wrap;
+    }
+    .character-source-prompt p {
+      flex: 1;
+      min-width: 160px;
+    }
+    .character-source-prompt button {
+      margin-left: 28px;
+    }
+
     .masthead {
       width: calc(100% - 36px);
       height: 65px;
@@ -1566,10 +2585,6 @@
     .definition-choice,
     .model-choice {
       width: calc(50% - 4px);
-    }
-    .concept-check {
-      margin: 2px 0 0;
-      min-height: 34px;
     }
     .icon-button,
     .secondary,
@@ -1620,6 +2635,7 @@
       padding: 23px 20px;
     }
     .actions,
+    .model-mechanics,
     .upgrade-paths {
       grid-template-columns: 1fr;
       gap: 24px;

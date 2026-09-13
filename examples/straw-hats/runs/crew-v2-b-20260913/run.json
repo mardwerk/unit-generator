@@ -1,0 +1,746 @@
+{
+  "implementationHashes": {
+    "core": "996709573e678f51e4a7c78560087da4021fdb0123eec7e8b325d14b569befd5",
+    "definitions": "3e3cc8d61f8f4e2c80e3051f4c032f5f88e610e910181c0316a438fce102bc2b",
+    "providers": "7d72306e36fc59de218f1b1bb7f8d4b9f25d8ba2e665cdce461410bece730a26",
+    "unit-lab": "2c6605866420e2039a564548e414c92d1e7793ab14377db43ea90b4aa6a9aa34"
+  },
+  "runnerSha256": "b6c501f6d5c792bc89f22fd3b07d283d1411123c9c44339754402ce6b5cb5eff",
+  "operation": "generation",
+  "originalResult": null,
+  "label": "crew-v2-b-20260913",
+  "startedAt": "2026-09-13T10:26:14.892Z",
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requests": "examples/straw-hats/orchestrated-20260913/requests-v2",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "fileDigest": "600c00487b3edecefeba05e31f24f03f81948740f15dc3e223a85d126a7f82be",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "limits": {
+    "maxRepairs": 1,
+    "maxModelCalls": 6,
+    "maxResearchCalls": 1,
+    "timeoutMs": 1800000,
+    "callTimeoutMs": 300000
+  },
+  "pricing": {
+    "rates": {
+      "gpt-5.6-luna": {
+        "input": 0.2,
+        "output": 1.2
+      },
+      "gpt-6-astra": {
+        "input": 10,
+        "output": 50
+      }
+    },
+    "currency": "USD",
+    "unit": "per million tokens",
+    "source": "https://developers.openai.com/api/docs/pricing",
+    "verifiedAt": "2026-09-09",
+    "scope": "Standard API-equivalent estimate using published rates captured earlier today. Not a provider invoice. Agent development and independent review usage excluded. Unknown usage is not zero."
+  },
+  "results": [
+    {
+      "id": "usopp",
+      "status": "failed",
+      "error": {
+        "stage": "validation",
+        "code": "validation-failed",
+        "message": "Required checks did not pass. The candidate and completed research are returned."
+      },
+      "blockers": [],
+      "calls": 6,
+      "repairs": 1,
+      "accounting": {
+        "calls": [
+          {
+            "sequence": 1,
+            "stage": "research",
+            "startedAt": "2026-09-13T10:26:21.842Z",
+            "completed": true,
+            "inputTokenUpperBound": 82740,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T10:28:23.555Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 21284,
+              "outputTokens": 3970,
+              "totalTokens": 25254
+            },
+            "outputSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+            "knownInputTokens": 21284,
+            "knownOutputTokens": 3970,
+            "knownStandardApiEquivalentUsd": 0.41134,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 2,
+            "stage": "draft",
+            "startedAt": "2026-09-13T10:28:23.626Z",
+            "completed": true,
+            "inputTokenUpperBound": 209204,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T10:30:08.552Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 51829,
+              "outputTokens": 3375,
+              "totalTokens": 55204
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+                "sources": [
+                  {
+                    "sourceId": "8113d798affcd38c5b3643ba",
+                    "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                    "sourceCharacters": 62289,
+                    "visibleCharacters": 62289,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "72f30fd57248332af12db874",
+                    "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                    "sourceCharacters": 1806,
+                    "visibleCharacters": 1806,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "3c6e5bb459ba10167375631bc24cf04aaa52b800ecfbc399af10d991d0ebf815",
+            "knownInputTokens": 51829,
+            "knownOutputTokens": 3375,
+            "knownStandardApiEquivalentUsd": 0.68704,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 3,
+            "stage": "fidelity-review",
+            "startedAt": "2026-09-13T10:30:10.765Z",
+            "completed": true,
+            "inputTokenUpperBound": 141796,
+            "maxOutputTokens": 10140,
+            "endedAt": "2026-09-13T10:32:27.773Z",
+            "model": "gpt-6-astra",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 35298,
+              "outputTokens": 4484,
+              "totalTokens": 39782
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+                "sources": [
+                  {
+                    "sourceId": "8113d798affcd38c5b3643ba",
+                    "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                    "sourceCharacters": 62289,
+                    "visibleCharacters": 62289,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "72f30fd57248332af12db874",
+                    "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                    "sourceCharacters": 1806,
+                    "visibleCharacters": 1806,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "79f84575f52a2df7629a7dbd0a485d4b9128029eb721f14b32f8f1c1aac1e0ec",
+            "knownInputTokens": 35298,
+            "knownOutputTokens": 4484,
+            "knownStandardApiEquivalentUsd": 0.57718,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 4,
+            "stage": "repair",
+            "startedAt": "2026-09-13T10:32:27.851Z",
+            "completed": true,
+            "inputTokenUpperBound": 219186,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T10:34:09.811Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 54069,
+              "outputTokens": 3274,
+              "totalTokens": 57343
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+                "sources": [
+                  {
+                    "sourceId": "8113d798affcd38c5b3643ba",
+                    "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                    "sourceCharacters": 62289,
+                    "visibleCharacters": 62289,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "72f30fd57248332af12db874",
+                    "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                    "sourceCharacters": 1806,
+                    "visibleCharacters": 1806,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "4bf311ed23fbfa44e4437f3f9dbfe0aea516ecf449b8760bcde14f73bc7f0654",
+            "knownInputTokens": 54069,
+            "knownOutputTokens": 3274,
+            "knownStandardApiEquivalentUsd": 0.70439,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 5,
+            "stage": "fidelity-review",
+            "startedAt": "2026-09-13T10:34:11.437Z",
+            "completed": true,
+            "inputTokenUpperBound": 142271,
+            "maxOutputTokens": 10140,
+            "endedAt": "2026-09-13T10:35:11.926Z",
+            "model": "gpt-6-astra",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 35369,
+              "outputTokens": 2440,
+              "totalTokens": 37809
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+                "sources": [
+                  {
+                    "sourceId": "8113d798affcd38c5b3643ba",
+                    "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                    "sourceCharacters": 62289,
+                    "visibleCharacters": 62289,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "72f30fd57248332af12db874",
+                    "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                    "sourceCharacters": 1806,
+                    "visibleCharacters": 1806,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "1c84362dbb8b79d85f23336c1a4bfa9e440dc63a32bdfb88c1618902430c8b0d",
+            "knownInputTokens": 35369,
+            "knownOutputTokens": 2440,
+            "knownStandardApiEquivalentUsd": 0.47569,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 6,
+            "stage": "fidelity-review-correction",
+            "startedAt": "2026-09-13T10:35:11.998Z",
+            "completed": true,
+            "inputTokenUpperBound": 153759,
+            "maxOutputTokens": 10140,
+            "endedAt": "2026-09-13T10:37:17.854Z",
+            "model": "gpt-6-astra",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 37909,
+              "outputTokens": 4016,
+              "totalTokens": 41925
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "4030e54536b8d5ab7887260f56c0a86f0b925bfc6447b7d9e58b83e2e407826b",
+                "sources": [
+                  {
+                    "sourceId": "8113d798affcd38c5b3643ba",
+                    "sha256": "12b298733c80069cb4dc2fc9e821ed0a50acd55d675ff8fe02055dd8ef981140",
+                    "sourceCharacters": 62289,
+                    "visibleCharacters": 62289,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "72f30fd57248332af12db874",
+                    "sha256": "2be877fc2c2c590bd6e0f8cdffe30ed0487b78be67106f455f7dfdf163e65246",
+                    "sourceCharacters": 1806,
+                    "visibleCharacters": 1806,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "a17272ef94cc4ada0e087a120d6f56fb3df429ed768e1a62b19fad3786d06257",
+            "knownInputTokens": 37909,
+            "knownOutputTokens": 4016,
+            "knownStandardApiEquivalentUsd": 0.57989,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          }
+        ],
+        "knownStandardApiEquivalentUsd": 3.43553,
+        "unknownUsageCalls": 0,
+        "unknownUsageConservativeAllowanceUsd": 0,
+        "failedCalls": 0
+      },
+      "publicArtifacts": "examples/straw-hats/runs/crew-v2-b-20260913/usopp",
+      "privateArtifacts": ".scratch/straw-hats/runs/crew-v2-b-20260913/usopp"
+    },
+    {
+      "id": "sanji",
+      "status": "success",
+      "blockers": [],
+      "calls": 3,
+      "repairs": 0,
+      "accounting": {
+        "calls": [
+          {
+            "sequence": 1,
+            "stage": "research",
+            "startedAt": "2026-09-13T10:37:20.080Z",
+            "completed": true,
+            "inputTokenUpperBound": 120617,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T10:39:25.952Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 30896,
+              "outputTokens": 4101,
+              "totalTokens": 34997
+            },
+            "outputSha256": "92366fb41b4efef94d1753a0b625c63dad1ec70e2bfde997a637a0dfa9d28023",
+            "knownInputTokens": 30896,
+            "knownOutputTokens": 4101,
+            "knownStandardApiEquivalentUsd": 0.51401,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 2,
+            "stage": "draft",
+            "startedAt": "2026-09-13T10:39:25.977Z",
+            "completed": true,
+            "inputTokenUpperBound": 249201,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T10:41:24.261Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 61874,
+              "outputTokens": 3813,
+              "totalTokens": 65687
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "92366fb41b4efef94d1753a0b625c63dad1ec70e2bfde997a637a0dfa9d28023",
+                "sources": [
+                  {
+                    "sourceId": "2d10442022f22c07db59bc56",
+                    "sha256": "5cee454c532f18fec33eb136f71692c59b4617dee0eff3fa2886706d91abdd41",
+                    "sourceCharacters": 99170,
+                    "visibleCharacters": 99170,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "2463329ee7f7810cb0c347c0",
+                    "sha256": "37f8229da4481317b213c00ce046dc95943d3f169ebfc4b0a8530d7bbe8ee265",
+                    "sourceCharacters": 1881,
+                    "visibleCharacters": 1881,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "9c3f3f31da4cbfc43dc5ac0f381fbb116197b2066d6678e06f6094ccca746835",
+            "knownInputTokens": 61874,
+            "knownOutputTokens": 3813,
+            "knownStandardApiEquivalentUsd": 0.80939,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 3,
+            "stage": "fidelity-review",
+            "startedAt": "2026-09-13T10:41:25.253Z",
+            "completed": true,
+            "inputTokenUpperBound": 185558,
+            "maxOutputTokens": 12300,
+            "endedAt": "2026-09-13T10:43:50.855Z",
+            "model": "gpt-6-astra",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 46957,
+              "outputTokens": 4760,
+              "totalTokens": 51717
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "92366fb41b4efef94d1753a0b625c63dad1ec70e2bfde997a637a0dfa9d28023",
+                "sources": [
+                  {
+                    "sourceId": "2d10442022f22c07db59bc56",
+                    "sha256": "5cee454c532f18fec33eb136f71692c59b4617dee0eff3fa2886706d91abdd41",
+                    "sourceCharacters": 99170,
+                    "visibleCharacters": 99170,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "2463329ee7f7810cb0c347c0",
+                    "sha256": "37f8229da4481317b213c00ce046dc95943d3f169ebfc4b0a8530d7bbe8ee265",
+                    "sourceCharacters": 1881,
+                    "visibleCharacters": 1881,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "c0524fa1feeccf8392d5dbb197b5aabbf9a4444e99fa45720a5308d7f21e88da",
+            "knownInputTokens": 46957,
+            "knownOutputTokens": 4760,
+            "knownStandardApiEquivalentUsd": 0.70757,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          }
+        ],
+        "knownStandardApiEquivalentUsd": 2.03097,
+        "unknownUsageCalls": 0,
+        "unknownUsageConservativeAllowanceUsd": 0,
+        "failedCalls": 0
+      },
+      "publicArtifacts": "examples/straw-hats/runs/crew-v2-b-20260913/sanji",
+      "privateArtifacts": ".scratch/straw-hats/runs/crew-v2-b-20260913/sanji"
+    },
+    {
+      "id": "chopper",
+      "status": "failed",
+      "error": {
+        "stage": "validation",
+        "code": "validation-failed",
+        "message": "Required checks did not pass. The candidate and completed research are returned."
+      },
+      "blockers": [],
+      "calls": 5,
+      "repairs": 1,
+      "accounting": {
+        "calls": [
+          {
+            "sequence": 1,
+            "stage": "research",
+            "startedAt": "2026-09-13T10:43:55.720Z",
+            "completed": true,
+            "inputTokenUpperBound": 89992,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T10:44:40.660Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 23606,
+              "outputTokens": 2078,
+              "totalTokens": 25684
+            },
+            "outputSha256": "3795c2d9230834d28bad210421972785da8e2a25fa71f5e8545979ff330acc98",
+            "knownInputTokens": 23606,
+            "knownOutputTokens": 2078,
+            "knownStandardApiEquivalentUsd": 0.33996,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 2,
+            "stage": "draft",
+            "startedAt": "2026-09-13T10:44:40.677Z",
+            "completed": false,
+            "inputTokenUpperBound": 203246,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T10:45:24.153Z",
+            "errorCode": "invalid-json",
+            "evidence": [
+              {
+                "knowledgeSha256": "3795c2d9230834d28bad210421972785da8e2a25fa71f5e8545979ff330acc98",
+                "sources": [
+                  {
+                    "sourceId": "b57fcf648ca6aec4b68d5d53",
+                    "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                    "sourceCharacters": 68773,
+                    "visibleCharacters": 68773,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "a1f90d32fba8478a8947a5a6",
+                    "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+                    "sourceCharacters": 1850,
+                    "visibleCharacters": 1850,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "usage": {
+              "inputTokens": 51292,
+              "outputTokens": 1860,
+              "totalTokens": 53152
+            },
+            "model": "gpt-6-astra",
+            "knownInputTokens": 51292,
+            "knownOutputTokens": 1860,
+            "knownStandardApiEquivalentUsd": 0.60592,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 3,
+            "stage": "draft",
+            "startedAt": "2026-09-13T10:45:24.165Z",
+            "completed": true,
+            "inputTokenUpperBound": 203497,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T10:45:56.856Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 51335,
+              "outputTokens": 1380,
+              "totalTokens": 52715
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "3795c2d9230834d28bad210421972785da8e2a25fa71f5e8545979ff330acc98",
+                "sources": [
+                  {
+                    "sourceId": "b57fcf648ca6aec4b68d5d53",
+                    "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                    "sourceCharacters": 68773,
+                    "visibleCharacters": 68773,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "a1f90d32fba8478a8947a5a6",
+                    "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+                    "sourceCharacters": 1850,
+                    "visibleCharacters": 1850,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "a28b1b3f30a776b7432b1d179ea9e97c7cbdceab094754891e9cd2635d0d4794",
+            "knownInputTokens": 51335,
+            "knownOutputTokens": 1380,
+            "knownStandardApiEquivalentUsd": 0.58235,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 4,
+            "stage": "repair",
+            "startedAt": "2026-09-13T10:45:56.894Z",
+            "completed": true,
+            "inputTokenUpperBound": 208097,
+            "maxOutputTokens": 24000,
+            "endedAt": "2026-09-13T10:46:26.656Z",
+            "model": "gpt-6-astra",
+            "mode": "json",
+            "usage": {
+              "inputTokens": 52476,
+              "outputTokens": 1524,
+              "totalTokens": 54000
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "3795c2d9230834d28bad210421972785da8e2a25fa71f5e8545979ff330acc98",
+                "sources": [
+                  {
+                    "sourceId": "b57fcf648ca6aec4b68d5d53",
+                    "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                    "sourceCharacters": 68773,
+                    "visibleCharacters": 68773,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "a1f90d32fba8478a8947a5a6",
+                    "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+                    "sourceCharacters": 1850,
+                    "visibleCharacters": 1850,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "6b425a3e8040df4c3f915c6bde53bc95c177cf4d133038c1d0ee585e0ca325f4",
+            "knownInputTokens": 52476,
+            "knownOutputTokens": 1524,
+            "knownStandardApiEquivalentUsd": 0.60096,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          },
+          {
+            "sequence": 5,
+            "stage": "fidelity-review",
+            "startedAt": "2026-09-13T10:46:27.727Z",
+            "completed": true,
+            "inputTokenUpperBound": 133435,
+            "maxOutputTokens": 12660,
+            "endedAt": "2026-09-13T10:49:13.658Z",
+            "model": "gpt-6-astra",
+            "mode": "structured",
+            "usage": {
+              "inputTokens": 34164,
+              "outputTokens": 5356,
+              "totalTokens": 39520
+            },
+            "evidence": [
+              {
+                "knowledgeSha256": "3795c2d9230834d28bad210421972785da8e2a25fa71f5e8545979ff330acc98",
+                "sources": [
+                  {
+                    "sourceId": "b57fcf648ca6aec4b68d5d53",
+                    "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                    "sourceCharacters": 68773,
+                    "visibleCharacters": 68773,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "a1f90d32fba8478a8947a5a6",
+                    "sha256": "a2990f1e03869d27dbb43a9d226010460c657c4e065d005aa83c8379156c4dbf",
+                    "sourceCharacters": 1850,
+                    "visibleCharacters": 1850,
+                    "complete": true
+                  },
+                  {
+                    "sourceId": "600b250f9838e58b36ccca0c",
+                    "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                    "sourceCharacters": 1673,
+                    "visibleCharacters": 1673,
+                    "complete": true
+                  }
+                ]
+              }
+            ],
+            "outputSha256": "0fb50400295766cbec32d8982a30b8e74d9b11c9bf65bd4e7dc8132d86c80606",
+            "knownInputTokens": 34164,
+            "knownOutputTokens": 5356,
+            "knownStandardApiEquivalentUsd": 0.60944,
+            "usageComplete": true,
+            "costRateKnown": true,
+            "unknownUsageConservativeAllowanceUsd": 0
+          }
+        ],
+        "knownStandardApiEquivalentUsd": 2.7386300000000006,
+        "unknownUsageCalls": 0,
+        "unknownUsageConservativeAllowanceUsd": 0,
+        "failedCalls": 1
+      },
+      "publicArtifacts": "examples/straw-hats/runs/crew-v2-b-20260913/chopper",
+      "privateArtifacts": ".scratch/straw-hats/runs/crew-v2-b-20260913/chopper"
+    }
+  ],
+  "completedAt": "2026-09-13T10:49:13.749Z"
+}

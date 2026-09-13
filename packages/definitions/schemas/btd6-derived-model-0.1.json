@@ -1,0 +1,641 @@
+{
+  "additionalProperties": false,
+  "type": "object",
+  "required": [
+    "displayRange",
+    "targeting",
+    "attacks",
+    "abilities"
+  ],
+  "properties": {
+    "displayRange": {
+      "minimum": 0,
+      "maximum": 1000000000,
+      "type": "number"
+    },
+    "targeting": {
+      "additionalProperties": false,
+      "type": "object",
+      "required": [
+        "modes",
+        "default"
+      ],
+      "properties": {
+        "modes": {
+          "minItems": 1,
+          "maxItems": 4,
+          "uniqueItems": true,
+          "type": "array",
+          "items": {
+            "anyOf": [
+              {
+                "const": "first",
+                "type": "string"
+              },
+              {
+                "const": "last",
+                "type": "string"
+              },
+              {
+                "const": "close",
+                "type": "string"
+              },
+              {
+                "const": "strong",
+                "type": "string"
+              }
+            ]
+          }
+        },
+        "default": {
+          "anyOf": [
+            {
+              "const": "first",
+              "type": "string"
+            },
+            {
+              "const": "last",
+              "type": "string"
+            },
+            {
+              "const": "close",
+              "type": "string"
+            },
+            {
+              "const": "strong",
+              "type": "string"
+            }
+          ]
+        }
+      }
+    },
+    "attacks": {
+      "minItems": 1,
+      "maxItems": 32,
+      "type": "array",
+      "items": {
+        "additionalProperties": false,
+        "type": "object",
+        "required": [
+          "id",
+          "delivery",
+          "intervalSeconds",
+          "reach",
+          "detectsCamo",
+          "damage",
+          "pierce",
+          "projectiles",
+          "immuneTo"
+        ],
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "maxLength": 128,
+            "type": "string"
+          },
+          "delivery": {
+            "anyOf": [
+              {
+                "const": "projectile",
+                "type": "string"
+              },
+              {
+                "const": "contact",
+                "type": "string"
+              },
+              {
+                "const": "instant",
+                "type": "string"
+              }
+            ]
+          },
+          "intervalSeconds": {
+            "minimum": 0.001,
+            "maximum": 1000000000,
+            "type": "number"
+          },
+          "reach": {
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "kind",
+              "radius",
+              "throughWalls"
+            ],
+            "properties": {
+              "kind": {
+                "anyOf": [
+                  {
+                    "const": "radius",
+                    "type": "string"
+                  },
+                  {
+                    "const": "global",
+                    "type": "string"
+                  }
+                ]
+              },
+              "radius": {
+                "minimum": 0,
+                "maximum": 1000000000,
+                "type": "number"
+              },
+              "throughWalls": {
+                "type": "boolean"
+              }
+            }
+          },
+          "detectsCamo": {
+            "type": "boolean"
+          },
+          "damage": {
+            "minimum": 0,
+            "maximum": 1000000000,
+            "type": "number"
+          },
+          "pierce": {
+            "minimum": 1,
+            "maximum": 10000,
+            "type": "integer"
+          },
+          "projectiles": {
+            "minimum": 1,
+            "maximum": 1000,
+            "type": "integer"
+          },
+          "immuneTo": {
+            "maxItems": 32,
+            "uniqueItems": true,
+            "type": "array",
+            "items": {
+              "minLength": 1,
+              "maxLength": 128,
+              "type": "string"
+            }
+          },
+          "onHit": {
+            "maxItems": 8,
+            "type": "array",
+            "items": {
+              "additionalProperties": false,
+              "type": "object",
+              "required": [
+                "kind",
+                "durationSeconds",
+                "speedMultiplier",
+                "immuneTo"
+              ],
+              "properties": {
+                "kind": {
+                  "anyOf": [
+                    {
+                      "const": "stun",
+                      "type": "string"
+                    },
+                    {
+                      "const": "slow",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "durationSeconds": {
+                  "minimum": 0.001,
+                  "maximum": 1000000000,
+                  "type": "number"
+                },
+                "speedMultiplier": {
+                  "minimum": 0,
+                  "maximum": 1,
+                  "type": "number"
+                },
+                "immuneTo": {
+                  "maxItems": 32,
+                  "uniqueItems": true,
+                  "type": "array",
+                  "items": {
+                    "minLength": 1,
+                    "maxLength": 128,
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    },
+    "abilities": {
+      "maxItems": 32,
+      "type": "array",
+      "items": {
+        "anyOf": [
+          {
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "cooldownSeconds",
+              "durationSeconds",
+              "effect"
+            ],
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "maxLength": 128,
+                "type": "string"
+              },
+              "name": {
+                "minLength": 1,
+                "maxLength": 8000,
+                "type": "string"
+              },
+              "cooldownSeconds": {
+                "minimum": 0.001,
+                "maximum": 1000000000,
+                "type": "number"
+              },
+              "durationSeconds": {
+                "minimum": 0.001,
+                "maximum": 1000000000,
+                "type": "number"
+              },
+              "effect": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "kind",
+                  "attacks"
+                ],
+                "properties": {
+                  "kind": {
+                    "const": "transform",
+                    "type": "string"
+                  },
+                  "attacks": {
+                    "minItems": 1,
+                    "maxItems": 32,
+                    "type": "array",
+                    "items": {
+                      "additionalProperties": false,
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "delivery",
+                        "intervalSeconds",
+                        "reach",
+                        "detectsCamo",
+                        "damage",
+                        "pierce",
+                        "projectiles",
+                        "immuneTo"
+                      ],
+                      "properties": {
+                        "id": {
+                          "minLength": 1,
+                          "maxLength": 128,
+                          "type": "string"
+                        },
+                        "delivery": {
+                          "anyOf": [
+                            {
+                              "const": "projectile",
+                              "type": "string"
+                            },
+                            {
+                              "const": "contact",
+                              "type": "string"
+                            },
+                            {
+                              "const": "instant",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "intervalSeconds": {
+                          "minimum": 0.001,
+                          "maximum": 1000000000,
+                          "type": "number"
+                        },
+                        "reach": {
+                          "additionalProperties": false,
+                          "type": "object",
+                          "required": [
+                            "kind",
+                            "radius",
+                            "throughWalls"
+                          ],
+                          "properties": {
+                            "kind": {
+                              "anyOf": [
+                                {
+                                  "const": "radius",
+                                  "type": "string"
+                                },
+                                {
+                                  "const": "global",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "radius": {
+                              "minimum": 0,
+                              "maximum": 1000000000,
+                              "type": "number"
+                            },
+                            "throughWalls": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "detectsCamo": {
+                          "type": "boolean"
+                        },
+                        "damage": {
+                          "minimum": 0,
+                          "maximum": 1000000000,
+                          "type": "number"
+                        },
+                        "pierce": {
+                          "minimum": 1,
+                          "maximum": 10000,
+                          "type": "integer"
+                        },
+                        "projectiles": {
+                          "minimum": 1,
+                          "maximum": 1000,
+                          "type": "integer"
+                        },
+                        "immuneTo": {
+                          "maxItems": 32,
+                          "uniqueItems": true,
+                          "type": "array",
+                          "items": {
+                            "minLength": 1,
+                            "maxLength": 128,
+                            "type": "string"
+                          }
+                        },
+                        "onHit": {
+                          "maxItems": 8,
+                          "type": "array",
+                          "items": {
+                            "additionalProperties": false,
+                            "type": "object",
+                            "required": [
+                              "kind",
+                              "durationSeconds",
+                              "speedMultiplier",
+                              "immuneTo"
+                            ],
+                            "properties": {
+                              "kind": {
+                                "anyOf": [
+                                  {
+                                    "const": "stun",
+                                    "type": "string"
+                                  },
+                                  {
+                                    "const": "slow",
+                                    "type": "string"
+                                  }
+                                ]
+                              },
+                              "durationSeconds": {
+                                "minimum": 0.001,
+                                "maximum": 1000000000,
+                                "type": "number"
+                              },
+                              "speedMultiplier": {
+                                "minimum": 0,
+                                "maximum": 1,
+                                "type": "number"
+                              },
+                              "immuneTo": {
+                                "maxItems": 32,
+                                "uniqueItems": true,
+                                "type": "array",
+                                "items": {
+                                  "minLength": 1,
+                                  "maxLength": 128,
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  },
+                  "displayRange": {
+                    "minimum": 0,
+                    "maximum": 1000000000,
+                    "type": "number"
+                  }
+                }
+              }
+            }
+          },
+          {
+            "additionalProperties": false,
+            "type": "object",
+            "required": [
+              "id",
+              "name",
+              "cooldownSeconds",
+              "effect"
+            ],
+            "properties": {
+              "id": {
+                "minLength": 1,
+                "maxLength": 128,
+                "type": "string"
+              },
+              "name": {
+                "minLength": 1,
+                "maxLength": 8000,
+                "type": "string"
+              },
+              "cooldownSeconds": {
+                "minimum": 0.001,
+                "maximum": 1000000000,
+                "type": "number"
+              },
+              "effect": {
+                "additionalProperties": false,
+                "type": "object",
+                "required": [
+                  "kind",
+                  "attacks"
+                ],
+                "properties": {
+                  "kind": {
+                    "const": "attack",
+                    "type": "string"
+                  },
+                  "attacks": {
+                    "minItems": 1,
+                    "maxItems": 32,
+                    "type": "array",
+                    "items": {
+                      "additionalProperties": false,
+                      "type": "object",
+                      "required": [
+                        "id",
+                        "delivery",
+                        "intervalSeconds",
+                        "reach",
+                        "detectsCamo",
+                        "damage",
+                        "pierce",
+                        "projectiles",
+                        "immuneTo"
+                      ],
+                      "properties": {
+                        "id": {
+                          "minLength": 1,
+                          "maxLength": 128,
+                          "type": "string"
+                        },
+                        "delivery": {
+                          "anyOf": [
+                            {
+                              "const": "projectile",
+                              "type": "string"
+                            },
+                            {
+                              "const": "contact",
+                              "type": "string"
+                            },
+                            {
+                              "const": "instant",
+                              "type": "string"
+                            }
+                          ]
+                        },
+                        "intervalSeconds": {
+                          "minimum": 0.001,
+                          "maximum": 1000000000,
+                          "type": "number"
+                        },
+                        "reach": {
+                          "additionalProperties": false,
+                          "type": "object",
+                          "required": [
+                            "kind",
+                            "radius",
+                            "throughWalls"
+                          ],
+                          "properties": {
+                            "kind": {
+                              "anyOf": [
+                                {
+                                  "const": "radius",
+                                  "type": "string"
+                                },
+                                {
+                                  "const": "global",
+                                  "type": "string"
+                                }
+                              ]
+                            },
+                            "radius": {
+                              "minimum": 0,
+                              "maximum": 1000000000,
+                              "type": "number"
+                            },
+                            "throughWalls": {
+                              "type": "boolean"
+                            }
+                          }
+                        },
+                        "detectsCamo": {
+                          "type": "boolean"
+                        },
+                        "damage": {
+                          "minimum": 0,
+                          "maximum": 1000000000,
+                          "type": "number"
+                        },
+                        "pierce": {
+                          "minimum": 1,
+                          "maximum": 10000,
+                          "type": "integer"
+                        },
+                        "projectiles": {
+                          "minimum": 1,
+                          "maximum": 1000,
+                          "type": "integer"
+                        },
+                        "immuneTo": {
+                          "maxItems": 32,
+                          "uniqueItems": true,
+                          "type": "array",
+                          "items": {
+                            "minLength": 1,
+                            "maxLength": 128,
+                            "type": "string"
+                          }
+                        },
+                        "onHit": {
+                          "maxItems": 8,
+                          "type": "array",
+                          "items": {
+                            "additionalProperties": false,
+                            "type": "object",
+                            "required": [
+                              "kind",
+                              "durationSeconds",
+                              "speedMultiplier",
+                              "immuneTo"
+                            ],
+                            "properties": {
+                              "kind": {
+                                "anyOf": [
+                                  {
+                                    "const": "stun",
+                                    "type": "string"
+                                  },
+                                  {
+                                    "const": "slow",
+                                    "type": "string"
+                                  }
+                                ]
+                              },
+                              "durationSeconds": {
+                                "minimum": 0.001,
+                                "maximum": 1000000000,
+                                "type": "number"
+                              },
+                              "speedMultiplier": {
+                                "minimum": 0,
+                                "maximum": 1,
+                                "type": "number"
+                              },
+                              "immuneTo": {
+                                "maxItems": 32,
+                                "uniqueItems": true,
+                                "type": "array",
+                                "items": {
+                                  "minLength": 1,
+                                  "maxLength": 128,
+                                  "type": "string"
+                                }
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        ]
+      }
+    }
+  },
+  "$id": "https://mardwerk.org/schemas/btd6-derived-model/0.1.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema"
+}

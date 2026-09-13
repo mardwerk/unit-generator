@@ -1,5 +1,4 @@
 import { defineConfig } from '@playwright/test';
-import { fileURLToPath } from 'node:url';
 const port = process.env.PLAYWRIGHT_PORT ?? '4173';
 const baseURL = `http://127.0.0.1:${port}`;
 export default defineConfig({
@@ -8,13 +7,8 @@ export default defineConfig({
   expect: { timeout: 12_000 },
   use: { baseURL },
   webServer: {
-    command: `pnpm --dir ../.. build:packages && pnpm build && HOST=127.0.0.1 PORT=${port} ORIGIN=${baseURL} UNIT_PROVIDER=fixture BODY_SIZE_LIMIT=4194304 node build/index.js`,
-    env: {
-      UNIT_COMMAND_EXECUTABLE: process.execPath,
-      UNIT_COMMAND_ARGS: JSON.stringify([
-        fileURLToPath(new URL('./tests/slow-model.mjs', import.meta.url))
-      ])
-    },
+    command: 'pnpm --dir ../.. build:packages && pnpm build && node tests/serve.mjs',
+    env: { PLAYWRIGHT_PORT: port },
     url: baseURL,
     reuseExistingServer: false,
     timeout: 120_000,

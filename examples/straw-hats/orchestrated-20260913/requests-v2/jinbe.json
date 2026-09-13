@@ -1,0 +1,32 @@
+{
+  "subject": "Jinbe",
+  "kind": "character",
+  "continuity": "One Piece manga through the end of Wano Country arc",
+  "intent": "Produce a faithful playable Straw Hat unit using the current Manga Mayhem contract. Exactly three paths of five concrete cumulative purchases, legal maximum 5-2-0. Every purchase must change executable behavior. Source facts must be established by fresh research. Disclose numerical tuning, unlock schedules and bounded interpretations as game adaptations; distinguish omitted powers from implemented powers. This is a stationary tower encounter with caller-supplied enemy motion and ally injuries, not tower defensive combat or free unit movement. Avoid unsupported air-only target classes, tower HP, shields, taunt, or invented powers. If a source trait has no runtime representation, preserve it in an explicit omission rather than a fake stat bonus. Use the supported schema exactly, including resources, projectile flight, target geometry, statuses, and shared technique lifecycle. Balance is a later measured pass; prices are provisional. World units are shared across the crew: ordinary close contact roughly 8-18, stretched or ranged profiles roughly 30-60; do not treat these as canon measurements. Keep signatures recognizable and source-backed. Whale-shark fish-man, Fish-Man Karate/Jujutsu, water-particle shock and water throws, Armament and Observation. No Devil Fruit or invented transformation. Karate works on dry land through ambient/body water; Jujutsu water movement needs a bounded authored representation, no arbitrary target teleport. Helmsmanship alone is not magical ally range. Preserve measured displacement, armor pressure and reliable contact with actual named attacks.",
+  "context": {
+    "crew": {
+      "id": "straw-hats",
+      "name": "Straw Hat Pirates",
+      "members": [
+        "Monkey D. Luffy",
+        "Roronoa Zoro",
+        "Nami",
+        "Usopp",
+        "Sanji",
+        "Tony Tony Chopper",
+        "Nico Robin",
+        "Franky",
+        "Brook",
+        "Jinbe"
+      ]
+    },
+    "cutoff": "One Piece manga through the end of Wano Country arc",
+    "newRun": true,
+    "coverage": "Character-specific capabilities are requirements to verify, not evidence. Record unsupported facts as gaps. No old generated artifacts supplied."
+  },
+  "sources": [
+    "https://onepiece.fandom.com/wiki/Jinbe/Abilities_and_Powers",
+    "https://one-piece.com/character/jinbe/index.html",
+    "https://one-piece.com/story/land_of_wano2/index.html"
+  ]
+}

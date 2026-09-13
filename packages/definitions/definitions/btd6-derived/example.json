@@ -1,0 +1,333 @@
+{
+  "schemaVersion": "btd6-derived/0.1",
+  "id": "clockwork-sentry",
+  "name": "Clockwork sentry",
+  "description": "An original sentry with power, overdrive and detection upgrades.",
+  "placementCost": 300,
+  "resolution": "upgrades",
+  "base": {
+    "displayRange": 40,
+    "targeting": {
+      "modes": [
+        "first",
+        "last",
+        "close",
+        "strong"
+      ],
+      "default": "first"
+    },
+    "attacks": [
+      {
+        "id": "bolt",
+        "delivery": "projectile",
+        "intervalSeconds": 1,
+        "reach": {
+          "kind": "radius",
+          "radius": 40,
+          "throughWalls": false
+        },
+        "detectsCamo": false,
+        "damage": 2,
+        "pierce": 1,
+        "projectiles": 1,
+        "immuneTo": [
+          "lead"
+        ]
+      }
+    ],
+    "abilities": []
+  },
+  "paths": [
+    {
+      "id": "path-0",
+      "name": "Power",
+      "upgrades": [
+        {
+          "id": "upgrade-0-1",
+          "name": "Power 1",
+          "description": "Raises bolt damage.",
+          "cost": 100,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "damage",
+              "operator": "add",
+              "value": 1
+            }
+          ]
+        },
+        {
+          "id": "upgrade-0-2",
+          "name": "Power 2",
+          "description": "Raises bolt damage.",
+          "cost": 200,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "damage",
+              "operator": "add",
+              "value": 2
+            }
+          ]
+        },
+        {
+          "id": "upgrade-0-3",
+          "name": "Power 3",
+          "description": "Raises bolt damage.",
+          "cost": 300,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "damage",
+              "operator": "add",
+              "value": 3
+            }
+          ]
+        },
+        {
+          "id": "upgrade-0-4",
+          "name": "Power 4",
+          "description": "Raises bolt damage.",
+          "cost": 400,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "damage",
+              "operator": "add",
+              "value": 4
+            }
+          ]
+        },
+        {
+          "id": "upgrade-0-5",
+          "name": "Power 5",
+          "description": "Raises bolt damage.",
+          "cost": 500,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "damage",
+              "operator": "add",
+              "value": 5
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-1",
+      "name": "Overdrive",
+      "upgrades": [
+        {
+          "id": "upgrade-1-1",
+          "name": "Overdrive 1",
+          "description": "Shortens the bolt attack cycle.",
+          "cost": 100,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "intervalSeconds",
+              "operator": "multiply",
+              "value": 0.85
+            }
+          ]
+        },
+        {
+          "id": "upgrade-1-2",
+          "name": "Overdrive 2",
+          "description": "Shortens the bolt attack cycle.",
+          "cost": 200,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "intervalSeconds",
+              "operator": "multiply",
+              "value": 0.85
+            }
+          ]
+        },
+        {
+          "id": "upgrade-1-3",
+          "name": "Overdrive 3",
+          "description": "Shortens the bolt attack cycle.",
+          "cost": 300,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "intervalSeconds",
+              "operator": "multiply",
+              "value": 0.85
+            }
+          ]
+        },
+        {
+          "id": "upgrade-1-4",
+          "name": "Overdrive 4",
+          "description": "Unlocks a temporary overdrive attack.",
+          "cost": 400,
+          "operations": [
+            {
+              "kind": "grant-ability",
+              "ability": {
+                "id": "overdrive",
+                "name": "Overdrive",
+                "cooldownSeconds": 20,
+                "durationSeconds": 4,
+                "effect": {
+                  "kind": "transform",
+                  "attacks": [
+                    {
+                      "id": "overdrive-bolt",
+                      "delivery": "projectile",
+                      "intervalSeconds": 0.25,
+                      "reach": {
+                        "kind": "radius",
+                        "radius": 40,
+                        "throughWalls": false
+                      },
+                      "detectsCamo": false,
+                      "damage": 12,
+                      "pierce": 1,
+                      "projectiles": 1,
+                      "immuneTo": [
+                        "lead"
+                      ]
+                    }
+                  ]
+                }
+              }
+            }
+          ]
+        },
+        {
+          "id": "upgrade-1-5",
+          "name": "Overdrive 5",
+          "description": "Shortens the bolt attack cycle.",
+          "cost": 500,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "intervalSeconds",
+              "operator": "multiply",
+              "value": 0.85
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "path-2",
+      "name": "Detection",
+      "upgrades": [
+        {
+          "id": "upgrade-2-1",
+          "name": "Detection 1",
+          "description": "Detects camouflaged targets.",
+          "cost": 100,
+          "operations": [
+            {
+              "kind": "detect-camo",
+              "attackId": "bolt"
+            }
+          ]
+        },
+        {
+          "id": "upgrade-2-2",
+          "name": "Detection 2",
+          "description": "Extends attack reach.",
+          "cost": 200,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "radius",
+              "operator": "add",
+              "value": 10
+            },
+            {
+              "kind": "display-range",
+              "operator": "add",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "id": "upgrade-2-3",
+          "name": "Detection 3",
+          "description": "Extends attack reach.",
+          "cost": 300,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "radius",
+              "operator": "add",
+              "value": 10
+            },
+            {
+              "kind": "display-range",
+              "operator": "add",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "id": "upgrade-2-4",
+          "name": "Detection 4",
+          "description": "Extends attack reach.",
+          "cost": 400,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "radius",
+              "operator": "add",
+              "value": 10
+            },
+            {
+              "kind": "display-range",
+              "operator": "add",
+              "value": 10
+            }
+          ]
+        },
+        {
+          "id": "upgrade-2-5",
+          "name": "Detection 5",
+          "description": "Extends attack reach.",
+          "cost": 500,
+          "operations": [
+            {
+              "kind": "attack-stat",
+              "attackId": "bolt",
+              "stat": "radius",
+              "operator": "add",
+              "value": 10
+            },
+            {
+              "kind": "display-range",
+              "operator": "add",
+              "value": 10
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "endpoints": [],
+  "adaptations": [
+    "Original fixture authored for the candidate BTD6-derived contract."
+  ],
+  "unsupported": [
+    "Projectile flight and collision require a game runtime."
+  ]
+}

@@ -1,0 +1,187 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "usopp",
+  "name": "Usopp",
+  "description": "Through-Wano Usopp sniper with Kuro Kabuto, specialized ammunition and Pop Greens. Observation Haki grants purchased concealment detection, not future sight. Traps are adapted as pulses/lines; no transformation, healing or persistent trap placement is claimed. Numbers are gameplay tuning.",
+  "cost": 900,
+  "baseForm": "base",
+  "stunProtectionSeconds": 1.25,
+  "forms": [
+    {
+      "id": "base",
+      "name": "Kuro Kabuto Sniper",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Specialized Star Shot",
+        "delivery": "projectile",
+        "projectileSpeed": 42,
+        "projectileRadius": 0.65,
+        "damage": 24,
+        "period": 2.4,
+        "windup": 0.55,
+        "reach": 32,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": []
+    }
+  ],
+  "paths": [
+    {
+      "id": "kabuto-marksmanship",
+      "name": "Kabuto Marksmanship",
+      "description": "Kuro Kabuto craftsmanship: greater shot power, range, timing, and sight. Range and damage are gameplay adaptations of specialized ammunition and long-distance marksmanship.",
+      "upgrades": [
+        {
+          "name": "Reinforced Star Payload",
+          "description": "Adds flat damage to every ordinary Kuro Kabuto shot, adapting Usopp's specialized ammunition.",
+          "cost": 300,
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Long-Range Band Tension",
+          "description": "Extends primary acquisition reach for extreme-distance sniping.",
+          "cost": 500,
+          "modifiers": {
+            "reachAdd": 6
+          }
+        },
+        {
+          "name": "Dial-Stabilized Release",
+          "description": "Reduces primary timing through improved stability and projectile spin.",
+          "cost": 750,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.92
+          }
+        },
+        {
+          "name": "Sharp-Eyed Lookout",
+          "description": "Purchased Observation Haki detection reveals concealed eligible targets; this is an imperfect sense, not future sight.",
+          "cost": 1100,
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Kabuto Power Tuning",
+          "description": "Multiplies ordinary primary damage to represent a stronger Kuro Kabuto shot.",
+          "cost": 1600,
+          "modifiers": {
+            "damageMultiplier": 1.12
+          }
+        }
+      ]
+    },
+    {
+      "id": "pop-green-arsenal",
+      "name": "Pop Green Arsenal",
+      "description": "Pop Green ammunition adapts documented plants, tunnel traps, wolf shockwaves and bamboo growth into contact pulse/line effects; exact plant strength is gameplay tuning.",
+      "upgrades": [
+        {
+          "name": "Aggressive Seed Mix",
+          "description": "Adds flat damage to ordinary shots by incorporating more forceful Pop Green payloads.",
+          "cost": 350,
+          "modifiers": {
+            "flatDamage": 3
+          }
+        },
+        {
+          "name": "Wolf-Bulb Shock Trap",
+          "description": "Every second successful primary cycle emits a short-area Pop Green shockwave that can stun eligible weak-willed targets.",
+          "cost": 850,
+          "modifiers": {
+            "pulse": {
+              "cycles": 2,
+              "radius": 3,
+              "cap": 3,
+              "stun": 1.2,
+              "interval": 1.5
+            }
+          }
+        },
+        {
+          "name": "Bamboo Tunnel Burst",
+          "description": "Every third successful primary cycle emits a damaging line from the contact point, adapting erupting bamboo and prepared tunnel traps.",
+          "cost": 1050,
+          "modifiers": {
+            "emission": {
+              "cycles": 3,
+              "damage": 8,
+              "width": 2,
+              "length": 8,
+              "cap": 4
+            }
+          }
+        },
+        {
+          "name": "Super Grow Up Shot",
+          "description": "Extends primary reach through the larger Kuro Kabuto configuration used for particularly long-range attacks.",
+          "cost": 1350,
+          "modifiers": {
+            "reachAdd": 8
+          }
+        },
+        {
+          "name": "Predatory Pop Green",
+          "description": "Multiplies ordinary projectile and Pop Green damage for more dangerous carnivorous and explosive growths.",
+          "cost": 1800,
+          "modifiers": {
+            "damageMultiplier": 1.15
+          }
+        }
+      ]
+    },
+    {
+      "id": "deception-and-dials",
+      "name": "Deception and Dials",
+      "description": "Deception, Dials and observation provide faster corrections, retargeting, a limited Impact Dial armor adaptation, and Firebird-style power. No future sight is implied.",
+      "upgrades": [
+        {
+          "name": "Quick Bluff Draw",
+          "description": "Reduces primary timing through a faster deceptive setup and release.",
+          "cost": 325,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.94
+          }
+        },
+        {
+          "name": "Calculated Correction",
+          "description": "Allows one lost primary target to be replaced at resolution without restarting its windup.",
+          "cost": 700,
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Impact Dial Counterforce",
+          "description": "Adds limited armor ignore as a gameplay adaptation of Impact Dial force return; it is not Armament Haki.",
+          "cost": 1000,
+          "modifiers": {
+            "armorIgnore": 0.2
+          }
+        },
+        {
+          "name": "Firebird Star",
+          "description": "Adds flat damage to ordinary shots, adapting the named long-range Firebird Star as a stronger ammunition choice.",
+          "cost": 1250,
+          "modifiers": {
+            "flatDamage": 5
+          }
+        },
+        {
+          "name": "Fear and Misdirection",
+          "description": "Multiplies primary damage after deceptive openings and psychological pressure create a cleaner shot.",
+          "cost": 1700,
+          "modifiers": {
+            "damageMultiplier": 1.1
+          }
+        }
+      ]
+    }
+  ]
+}

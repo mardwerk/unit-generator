@@ -1,0 +1,241 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "franky",
+  "name": "Franky",
+  "description": "A ranged cyborg shipwright using BF-37-inspired built-in guns, shoulder missiles and Radical Beam, with BF-36-era Strong Right and Coup de Vent represented as retained Techniques. Combining historical BF-36 and BF-37 weapons in one playable kit is an explicit adaptation, not a claim that both configurations were simultaneous canon loadouts. Cola is represented by stamina used for Techniques. General Franky and the Thousand Sunny are separate machines and are omitted rather than treated as Franky's body or parallel attacks. Swimming, Skywalk, deception, recoil, fire status, back-weakness targeting and ship functions are omitted. No concealed-enemy sensing is provided. Damage, costs, timing, range, targeting and progression are gameplay tuning.",
+  "cost": 700,
+  "baseForm": "base",
+  "stunProtectionSeconds": 2,
+  "stamina": {
+    "unlockTier": 1,
+    "maximum": 100,
+    "entryMinimum": 20,
+    "recoveryPerSecond": 6,
+    "reentrySeconds": 1,
+    "techniqueCost": 20,
+    "techniqueCooldown": 4.5
+  },
+  "forms": [
+    {
+      "id": "base",
+      "name": "BF-37 Armored Me",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Built-In Machine Gun",
+        "delivery": "projectile",
+        "projectileSpeed": 34,
+        "projectileRadius": 0.35,
+        "damage": 11,
+        "period": 1.4,
+        "windup": 0.25,
+        "reach": 8,
+        "shape": {
+          "kind": "single"
+        }
+      },
+      "techniques": [
+        {
+          "id": "strong-right",
+          "name": "Strong Right",
+          "unlockTier": 1,
+          "damage": 18,
+          "windup": 0.35,
+          "recovery": 0.7,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "projectile",
+          "projectileSpeed": 30,
+          "projectileRadius": 0.45
+        },
+        {
+          "id": "coup-de-vent",
+          "name": "Coup de Vent",
+          "unlockTier": 3,
+          "damage": 38,
+          "windup": 0.7,
+          "recovery": 0.9,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 2.5,
+            "cap": 5
+          },
+          "delivery": "projectile",
+          "projectileSpeed": 26,
+          "projectileRadius": 0.65
+        },
+        {
+          "id": "radical-beam",
+          "name": "Franky Radical Beam",
+          "unlockTier": 5,
+          "damage": 48,
+          "windup": 0.45,
+          "recovery": 1,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "projectile",
+          "projectileSpeed": 75,
+          "projectileRadius": 0.2
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "iron-fist-cola",
+      "name": "Iron Fist and Cola Pressure",
+      "description": "Strengthens Franky's cyborg body and cola-driven output. Every listed damage purchase affects the primary attack and every Technique; it does not create separate attacks or claim armor bypass.",
+      "upgrades": [
+        {
+          "name": "Reinforced Iron Fist",
+          "description": "Adds 3 flat damage to the primary attack and every Technique, representing a gameplay adaptation of Franky's reinforced cybernetic striking power without adding a separate melee attack.",
+          "cost": 120,
+          "modifiers": {
+            "flatDamage": 3
+          }
+        },
+        {
+          "name": "Cola-Fed Actuators",
+          "description": "Multiplies primary and Technique damage by 1.08 through better cola-powered actuation. This is gameplay tuning, not a canon numeric fuel conversion.",
+          "cost": 180,
+          "modifiers": {
+            "damageMultiplier": 1.08
+          }
+        },
+        {
+          "name": "Hardened Striking Plates",
+          "description": "Adds 4 flat damage to the primary attack and every Technique as gameplay tuning for reinforced striking plates. It does not grant armor, armor ignore or invulnerability.",
+          "cost": 240,
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Burst-Cycling Servos",
+          "description": "Multiplies primary timing by 0.9. Techniques retain their authored timing because purchased speed modifiers affect primary timing only.",
+          "cost": 300,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Full-Tank Output",
+          "description": "Multiplies primary and Technique damage by a further 1.12 while cola reserve is represented by stamina. Purchases do not refill stamina.",
+          "cost": 420,
+          "modifiers": {
+            "damageMultiplier": 1.12
+          }
+        }
+      ]
+    },
+    {
+      "id": "armored-me-arsenal",
+      "name": "Armored Me Arsenal",
+      "description": "Represents BF-37's post-timeskip artillery, missile integration and laser engineering through global executable attack modifiers. These purchases do not launch independent missile attacks or provide concealed-enemy sensing.",
+      "upgrades": [
+        {
+          "name": "Shoulder Missile Racks",
+          "description": "Adds 5 flat damage to the primary attack and every Technique, adapting BF-37 shoulder ordnance as integrated ammunition rather than a separate missile attack.",
+          "cost": 130,
+          "modifiers": {
+            "flatDamage": 5
+          }
+        },
+        {
+          "name": "Laser-Focusing Lens",
+          "description": "Multiplies primary and Technique damage by 1.1, representing improved alignment of Franky's artillery and Radical Beam. This is damage tuning, not armor bypass.",
+          "cost": 210,
+          "modifiers": {
+            "damageMultiplier": 1.1
+          }
+        },
+        {
+          "name": "Piercing Emitter Core",
+          "description": "Multiplies primary and Technique damage by 1.08 as gameplay tuning for a more powerful advanced emitter. The source does not establish armor penetration, so no armor ignore is granted.",
+          "cost": 280,
+          "modifiers": {
+            "damageMultiplier": 1.08
+          }
+        },
+        {
+          "name": "Long-Range Cannon Sighting",
+          "description": "Adds 2 reach to the primary attack and every Technique as gameplay tuning for improved artillery sighting. It does not detect concealed enemies or establish supernatural sensing.",
+          "cost": 320,
+          "modifiers": {
+            "reachAdd": 2
+          }
+        },
+        {
+          "name": "Quick-Locking Optics",
+          "description": "Enables one primary retarget at resolution if the original target is lost. It never retargets Techniques or changes a projectile after launch.",
+          "cost": 400,
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "shipwright-combat-engineering",
+      "name": "Shipwright Combat Engineering",
+      "description": "Improves reach and represents compressed-air engineering through bounded damage and emission effects. These are combat adaptations; no terrain, flight, ship or General Franky system is created.",
+      "upgrades": [
+        {
+          "name": "Chain-Fist Spool",
+          "description": "Adds 2 reach to Franky's primary attack and Techniques, adapting Strong Right's chain extension without making the projectile homing or adding restraint.",
+          "cost": 110,
+          "modifiers": {
+            "reachAdd": 2
+          }
+        },
+        {
+          "name": "Extended Armature",
+          "description": "Adds a further 3 reach to the primary attack and Techniques as gameplay tuning for Franky's extended mechanical reach. No grappling or movement control is declared.",
+          "cost": 190,
+          "modifiers": {
+            "reachAdd": 3
+          }
+        },
+        {
+          "name": "Pressure Chamber Reinforcement",
+          "description": "Adds 5 flat damage to the primary attack and every Technique as a gameplay adaptation of Franky's compressed-air output. Coup de Boo's deception and restraint escape are omitted.",
+          "cost": 260,
+          "modifiers": {
+            "flatDamage": 5
+          }
+        },
+        {
+          "name": "Compressed-Air Channel",
+          "description": "Gameplay adaptation: after 6 successful primary contacts, emits a 12-damage pressure line 10 units away from the contact, 1.5 units wide, capped at 4 targets. The emission does not trigger other effects or counters.",
+          "cost": 340,
+          "modifiers": {
+            "emission": {
+              "cycles": 6,
+              "damage": 12,
+              "width": 1.5,
+              "length": 10,
+              "cap": 4
+            }
+          }
+        },
+        {
+          "name": "Battlefield Rigging",
+          "description": "Multiplies primary timing by 0.92 through better cycling and shipwright maintenance. This affects primary timing only, not Technique windup or recovery.",
+          "cost": 430,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.92
+          }
+        }
+      ]
+    }
+  ]
+}

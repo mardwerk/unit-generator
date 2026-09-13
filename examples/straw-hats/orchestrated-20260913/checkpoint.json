@@ -1,0 +1,19 @@
+{
+  "status": "complete",
+  "manifest": "manifest.json",
+  "audit": "manifest-audit.json",
+  "roster": "../../../docs/straw-hats-roster.md",
+  "unitIndex": "../../../docs/straw-hats-units/README.md",
+  "acceptance": "reviews/final-acceptance.md",
+  "balance": "balance/comparison.json",
+  "units": 10,
+  "concretePurchases": 150,
+  "legalUnitBuildCombinations": 640,
+  "movingEncounterProbes": 18487,
+  "placementTotalCredits": 6823,
+  "manualUnitEdits": false,
+  "preCampaignGenerationsUsed": false,
+  "activeRuns": [],
+  "remaining": [],
+  "scope": "Fresh researched, generated, reviewed and encounter-balanced executable prototype; shared-team gameplay and wave-income payback were not simulated."
+}

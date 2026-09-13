@@ -1,0 +1,32 @@
+{
+  "subject": "Monkey D. Luffy",
+  "kind": "character",
+  "continuity": "One Piece manga through the end of Wano Country arc",
+  "intent": "Produce a faithful playable Straw Hat unit using the current Manga Mayhem contract. Exactly three paths of five concrete cumulative purchases, legal maximum 5-2-0. Every purchase must change executable behavior. Source facts must be established by fresh research. Disclose numerical tuning, unlock schedules and bounded interpretations as game adaptations; distinguish omitted powers from implemented powers. This is a stationary tower encounter with caller-supplied enemy motion and ally injuries, not tower defensive combat or free unit movement. Avoid unsupported air-only target classes, tower HP, shields, taunt, or invented powers. If a source trait has no runtime representation, preserve it in an explicit omission rather than a fake stat bonus. Use the supported schema exactly, including resources, projectile flight, target geometry, statuses, and shared technique lifecycle. Balance is a later measured pass; prices are provisional. World units are shared across the crew: ordinary close contact roughly 8-18, stretched or ranged profiles roughly 30-60; do not treat these as canon measurements. Keep signatures recognizable and source-backed. Approved design direction: long-range direct melee contact using stretched fists, not traveling ammunition. Base Gum-Gum Pistol roughly 45 reach. The ONLY three upgrade paths are Conqueror Haki, Observation Haki, Armament Haki. Shared form access based on highest tier on ANY path: Gear Second at 1, Gear Third at 2, Gear Fourth variants Boundman/Snakeman/Tankman at 3, Gear Fifth at 5. Base is not Gear First. Provide different replacement attack profiles and a contextual Technique for these forms; research named moves. Gear II+III is a contextual Technique replacement after tier 2, not simultaneous forms. One shared bounded stamina resource, recovery in base, positive drain in Gears, reentry delay and shared Technique cooldown. Conqueror controls weak-willed stunnable enemies then coating; Observation detects concealed enemies and improves reach/targeting/cadence; Armament hardening, armor penetration, emission/internal damage. Explicitly disclose selectable Tankman without a feeding prerequisite as game adaptation, and bounded Fifth rubberization rather than unrestricted reality alteration. Preserve all these design decisions, research whether individual move names are supported.",
+  "context": {
+    "crew": {
+      "id": "straw-hats",
+      "name": "Straw Hat Pirates",
+      "members": [
+        "Monkey D. Luffy",
+        "Roronoa Zoro",
+        "Nami",
+        "Usopp",
+        "Sanji",
+        "Tony Tony Chopper",
+        "Nico Robin",
+        "Franky",
+        "Brook",
+        "Jinbe"
+      ]
+    },
+    "cutoff": "One Piece manga through the end of Wano Country arc",
+    "newRun": true,
+    "coverage": "Character-specific capabilities are requirements to verify, not evidence. Record unsupported facts as gaps. No old generated artifacts supplied."
+  },
+  "sources": [
+    "https://onepiece.fandom.com/wiki/Monkey_D._Luffy/Abilities_and_Powers",
+    "https://one-piece.com/character/luffy/index.html",
+    "https://one-piece.com/story/land_of_wano2/index.html"
+  ]
+}

@@ -1,0 +1,309 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "brook-soul-king",
+  "name": "Brook",
+  "description": "Wano-cutoff adaptation: no repeat resurrection, transformation, healing, or literal detached-body scouting; sleep, cold and detection are bounded gameplay abstractions.",
+  "cost": 700,
+  "baseForm": "skeleton-musician",
+  "stunProtectionSeconds": 1.2,
+  "stamina": {
+    "unlockTier": 1,
+    "maximum": 100,
+    "entryMinimum": 1,
+    "recoveryPerSecond": 8,
+    "reentrySeconds": 0,
+    "techniqueCost": 28,
+    "techniqueCooldown": 7
+  },
+  "forms": [
+    {
+      "id": "skeleton-musician",
+      "name": "Skeleton Musician",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Gentle Blade",
+        "delivery": "direct-contact",
+        "damage": 32,
+        "period": 1.25,
+        "windup": 0.3,
+        "reach": 2.5,
+        "shape": {
+          "kind": "sweep",
+          "width": 0.9,
+          "cap": 4
+        },
+        "onHit": [
+          {
+            "id": "underworld-chill",
+            "durationSeconds": 2.2,
+            "immuneTo": [
+              "cold-immune"
+            ],
+            "requiresDamage": true,
+            "stacking": {
+              "scope": "target",
+              "reapply": "refresh",
+              "maxStacks": 1
+            },
+            "kind": "slow",
+            "speedMultiplier": 0.65,
+            "combine": "strongest"
+          }
+        ]
+      },
+      "techniques": [
+        {
+          "id": "nemuriuta-flanc",
+          "name": "Nemuriuta Flanc",
+          "unlockTier": 1,
+          "damage": 0,
+          "windup": 0.8,
+          "recovery": 1,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 3.5,
+            "cap": 5
+          },
+          "onHit": [
+            {
+              "id": "nemuriuta-sleep",
+              "durationSeconds": 1.8,
+              "immuneTo": [
+                "sleep-immune"
+              ],
+              "requiresTags": [
+                "weak-willed",
+                "stunnable"
+              ],
+              "requiresDamage": false,
+              "stacking": {
+                "scope": "target",
+                "reapply": "refresh",
+                "maxStacks": 1
+              },
+              "kind": "stun",
+              "speedMultiplier": 0,
+              "combine": "strongest"
+            }
+          ],
+          "delivery": "direct-contact"
+        },
+        {
+          "id": "aubade-coup-droit",
+          "name": "Aubade Coup Droit",
+          "unlockTier": 3,
+          "damage": 58,
+          "windup": 0.45,
+          "recovery": 0.85,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          },
+          "delivery": "projectile",
+          "projectileSpeed": 30,
+          "projectileRadius": 0.35
+        },
+        {
+          "id": "chills-of-the-underworld",
+          "name": "Chills of the Underworld",
+          "unlockTier": 5,
+          "damage": 48,
+          "windup": 0.5,
+          "recovery": 0.9,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "area",
+            "radius": 2.2,
+            "cap": 4
+          },
+          "onHit": [
+            {
+              "id": "deep-underworld-frost",
+              "durationSeconds": 3,
+              "immuneTo": [
+                "cold-immune"
+              ],
+              "requiresDamage": true,
+              "stacking": {
+                "scope": "target",
+                "reapply": "refresh",
+                "maxStacks": 1
+              },
+              "kind": "slow",
+              "speedMultiplier": 0.45,
+              "combine": "strongest"
+            }
+          ],
+          "delivery": "direct-contact"
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "gentle-blade",
+      "name": "Gentle Blade",
+      "description": "Quick-draw fencing upgrades improve Brook's timing, precision and interruption potential; numerical values are gameplay adaptations, not manga measurements.",
+      "upgrades": [
+        {
+          "name": "Veteran's Edge",
+          "description": "Adds a small flat damage bonus to Brook's primary and damaging Techniques.",
+          "cost": 100,
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Blinking Draw",
+          "description": "Shortens primary timing to reflect Brook's exceptionally rapid iaido attacks.",
+          "cost": 140,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.92
+          }
+        },
+        {
+          "name": "Long Cane Reach",
+          "description": "Extends primary contact reach as a gameplay abstraction of Brook's long, precise fencing lines.",
+          "cost": 170,
+          "modifiers": {
+            "reachAdd": 0.5
+          }
+        },
+        {
+          "name": "Interrupting Flourish",
+          "description": "Quick-draw impacts can briefly stun eligible weak-willed, stunnable targets.",
+          "cost": 220,
+          "modifiers": {
+            "contactStun": 0.35
+          }
+        },
+        {
+          "name": "Gentle Blade Mastery",
+          "description": "Multiplies Brook's outgoing damage after flat additions.",
+          "cost": 300,
+          "modifiers": {
+            "damageMultiplier": 1.18
+          }
+        }
+      ]
+    },
+    {
+      "id": "underworld-cold",
+      "name": "Chills of the Underworld",
+      "description": "Soul cold becomes bounded pulse control, armor penetration and a non-chaining frost emission; it does not create terrain.",
+      "upgrades": [
+        {
+          "name": "Cold Awakening",
+          "description": "Primary contacts begin pulsing a short cold stun around the impact.",
+          "cost": 110,
+          "modifiers": {
+            "pulse": {
+              "cycles": 1,
+              "radius": 2,
+              "cap": 3,
+              "stun": 0.4,
+              "interval": 2.5
+            }
+          }
+        },
+        {
+          "name": "Widened Chills",
+          "description": "Replaces the cold pulse with a wider, repeated pulse for clustered eligible targets.",
+          "cost": 160,
+          "modifiers": {
+            "pulse": {
+              "cycles": 2,
+              "radius": 2.4,
+              "cap": 4,
+              "stun": 0.45,
+              "interval": 2.2
+            }
+          }
+        },
+        {
+          "name": "Soul Solid Edge",
+          "description": "Adds armor ignore to represent Soul Solid cutting unusually hard materials.",
+          "cost": 210,
+          "modifiers": {
+            "armorIgnore": 0.2
+          }
+        },
+        {
+          "name": "Frozen Ground Line",
+          "description": "Primary contacts emit a bounded frost line away from Brook; it does not trigger other effects or counters.",
+          "cost": 260,
+          "modifiers": {
+            "emission": {
+              "cycles": 2,
+              "damage": 8,
+              "width": 0.7,
+              "length": 4,
+              "cap": 3
+            }
+          }
+        },
+        {
+          "name": "Underworld Mastery",
+          "description": "Multiplies Brook's cold-infused outgoing damage after flat additions.",
+          "cost": 330,
+          "modifiers": {
+            "damageMultiplier": 1.12
+          }
+        }
+      ]
+    },
+    {
+      "id": "soul-king-performance",
+      "name": "Soul King Performance",
+      "description": "Music, sharp hearing and soul awareness grant detection and retargeting; tempo and damage bonuses abstract performance pressure.",
+      "upgrades": [
+        {
+          "name": "Resonant Hearing",
+          "description": "Brook detects concealed targets, adapting his documented ability to locate unseen movement by sound.",
+          "cost": 120,
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Soul-Led Pursuit",
+          "description": "Brook can retarget one lost primary target at resolution instead of restarting the windup.",
+          "cost": 180,
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        },
+        {
+          "name": "Festival Tempo",
+          "description": "Musical tempo improves primary timing only; it does not accelerate Techniques.",
+          "cost": 200,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.94
+          }
+        },
+        {
+          "name": "Ghostly Awareness",
+          "description": "Soul-assisted awareness extends primary acquisition reach as a bounded gameplay adaptation.",
+          "cost": 240,
+          "modifiers": {
+            "reachAdd": 1
+          }
+        },
+        {
+          "name": "Soul King Finale",
+          "description": "A performance-pressure multiplier improves outgoing damage; it is not a new canon attack.",
+          "cost": 320,
+          "modifiers": {
+            "damageMultiplier": 1.15
+          }
+        }
+      ]
+    }
+  ]
+}

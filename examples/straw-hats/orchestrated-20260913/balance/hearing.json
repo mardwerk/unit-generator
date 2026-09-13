@@ -1,0 +1,37 @@
+{
+  "path": "examples/straw-hats/runs/crew-v4-brook-20260913/brook/unit.json",
+  "sha256": "10a7593223d7e44899d37cc04d750c9352fc78a9a88fff8ae75e2b32e16ef61a",
+  "tiers": [1, 0, 0],
+  "durationSeconds": 30,
+  "requestIntervalSeconds": 0.25,
+  "results": [
+    {
+      "tags": [],
+      "techniques": false,
+      "damage": 744,
+      "techniqueDamage": 0,
+      "controlSeconds": 4.475699999999998
+    },
+    {
+      "tags": [],
+      "techniques": true,
+      "damage": 600,
+      "techniqueDamage": 0,
+      "controlSeconds": 3.7287000000000012
+    },
+    {
+      "tags": ["can-hear"],
+      "techniques": false,
+      "damage": 744,
+      "techniqueDamage": 0,
+      "controlSeconds": 4.475699999999998
+    },
+    {
+      "tags": ["can-hear"],
+      "techniques": true,
+      "damage": 600,
+      "techniqueDamage": 0,
+      "controlSeconds": 40.69409999999999
+    }
+  ]
+}

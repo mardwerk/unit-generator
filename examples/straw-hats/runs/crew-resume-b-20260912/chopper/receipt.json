@@ -1,0 +1,294 @@
+{
+  "id": "chopper",
+  "operation": "generation",
+  "status": "failed",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "default",
+    "label": "Default",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "fb1e8b5cc0ed8b0fb0fc5229fa9d0a1dd2e6c51ac71216607ce3ca8cad6c37f1",
+  "unitSha256": null,
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "600c00487b3edecefeba05e31f24f03f81948740f15dc3e223a85d126a7f82be",
+    "implementationVersion": "manga-mayhem/0.1.2",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "input": {
+    "subject": "Tony Tony Chopper",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Preserve the doctor and reindeer Human-Human Fruit user, specialized Points, medical support and Rumble Ball Monster Point. Keep the selected continuity clear when representing control, duration and aftermath. Build a playable kit with at least 15 meaningful purchasable upgrades that each change executable behavior. Select a coherent subset instead of claiming exhaustive coverage. Disclose omitted defining abilities and any source limits. Treat numerical damage, costs, cooldowns, range, targeting and unlock progression as explicit gameplay adaptations. Do not invent character powers to meet upgrade count; deepen sourced abilities where possible.",
+    "context": {
+      "evidencePurpose": "Curated development demonstration, available to generation and review; not an unseen benchmark.",
+      "reviewScope": "Selected manga continuity through end of Wano; exclude later manga, anime-only and game-only facts from this request.",
+      "priorReviewCorrections": "Diagnosis and tactical analysis do not establish sensing concealed enemies. Do not grant hidden-target detection from medical knowledge. Describe global armor-ignore and unconditional footwork bonuses as applying to every affected form, not conditional form switches.",
+      "descriptionAgreement": "Descriptions must state the scope of the actual executable modifiers. Unsupported history dependence, target senses, recoil, movement and elemental status must remain explicit omissions."
+    },
+    "sources": [
+      {
+        "url": "https://onepiece.fandom.com/wiki/Tony_Tony_Chopper/Abilities_and_Powers",
+        "title": "Tony Tony Chopper/Abilities and Powers | One Piece Wiki | Fandom",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+          "Secondary fan-edited evidence captured 2026-09-09T17:43:12.718Z; may include later manga, anime, and game facts outside the requested continuity."
+        ],
+        "id": "chopper-fan-abilities-1",
+        "origin": "retrieved",
+        "characters": 68773,
+        "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b"
+      },
+      {
+        "id": "chopper-official-profile",
+        "title": "Tony Tony Chopper | ONE PIECE.com official character profile",
+        "url": "https://one-piece.com/character/chopper/index.html",
+        "origin": "retrieved",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+          "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+          "Retrieved 2026-09-09T17:42:05.397980+00:00."
+        ],
+        "characters": 1049,
+        "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9"
+      }
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Tony Tony Chopper",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The abilities page mixes manga, anime, post-Wano material, non-canon material, and video-game material rather than presenting a clean source limited to the requested continuity. Later material and explicitly non-canon or game-only entries were excluded.",
+        "The official profile describes an 'astonishing seven-stage transformation,' while the detailed page separately lists Brain, Heavy, Walk, Jumping, Guard, Arm, Horn, Kung Fu, and Monster Point. The exact counting convention for the forms is unresolved.",
+        "No complete list of named manga combat attacks is supplied. Chopperphage Nebulizer is supported, but the pages do not establish names for his boxing, wrestling, kung fu, antler, defensive, or Monster Point attacks.",
+        "The supplied pages do not establish numerical damage, health, costs, cooldowns, range, targeting rules, unlock progression, or other game-balance values.",
+        "A playable kit with at least 15 purchasable upgrades is a game-design request rather than character evidence, and the selected output schema has no upgrade field. No such upgrades are recorded as canon facts.",
+        "Medical knowledge, diagnosis, tactical analysis, or battlefield observation do not establish the ability to sense concealed or hidden enemies.",
+        "No evidence supports granting global armor-ignore effects, unconditional footwork bonuses, or other modifiers that apply across every affected form.",
+        "No evidence supports elemental attacks, elemental status effects, recoil mechanics beyond the specifically described Monster Point aftermath, or unsupported movement modifiers.",
+        "The pages do not provide a character-specific account of the standard Devil Fruit weaknesses involving water or seastone, so those weaknesses are not recorded as sourced Chopper-specific claims.",
+        "The pages do not establish exact per-form duration, resource cost, range, targeting, or control rules beyond the stated Rumble Ball restrictions and Monster Point durations.",
+        "The detailed page contains post-Wano references and claims that are outside the selected endpoint; those claims, including later demon-related material, were omitted."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "chopper-fan-abilities-1",
+          "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+          "sourceCharacters": 68773,
+          "visibleCharacters": 68773,
+          "complete": true
+        },
+        {
+          "sourceId": "chopper-official-profile",
+          "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+          "sourceCharacters": 1049,
+          "visibleCharacters": 1049,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://onepiece.fandom.com/wiki/Tony_Tony_Chopper/Abilities_and_Powers",
+          "title": "Tony Tony Chopper/Abilities and Powers | One Piece Wiki | Fandom",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+            "Secondary fan-edited evidence captured 2026-09-09T17:43:12.718Z; may include later manga, anime, and game facts outside the requested continuity."
+          ],
+          "id": "chopper-fan-abilities-1",
+          "origin": "supplied",
+          "characters": 68773,
+          "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b"
+        },
+        {
+          "id": "chopper-official-profile",
+          "title": "Tony Tony Chopper | ONE PIECE.com official character profile",
+          "url": "https://one-piece.com/character/chopper/index.html",
+          "origin": "supplied",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+            "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+            "Retrieved 2026-09-09T17:42:05.397980+00:00."
+          ],
+          "characters": 1049,
+          "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Tony Tony Chopper",
+        "identity": {
+          "status": "resolved",
+          "name": "Tony Tony Chopper",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied pages clearly identify Tony Tony Chopper as the One Piece character and distinguish him from other people, forms, adaptations, and game-only material. The requested manga continuity is used exactly as specified. Facts explicitly originating after Wano, anime-only material, non-canon material, and video-game-only techniques are excluded."
+        },
+        "claimCount": 29,
+        "knowledgeSha256": "48e71125b465ebd893ea2dc6142ed07e5135db565d9f73c5105d27c1ba75850c"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "system": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "metadata": {
+    "modelCalls": 2,
+    "repairs": 0,
+    "elapsedMs": 29692046,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 21140,
+          "outputTokens": 5027,
+          "totalTokens": 26167
+        },
+        "outputSha256": "48e71125b465ebd893ea2dc6142ed07e5135db565d9f73c5105d27c1ba75850c"
+      },
+      {
+        "stage": "draft",
+        "completed": false,
+        "evidence": [
+          {
+            "knowledgeSha256": "48e71125b465ebd893ea2dc6142ed07e5135db565d9f73c5105d27c1ba75850c",
+            "sources": [
+              {
+                "sourceId": "chopper-fan-abilities-1",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "chopper-official-profile",
+                "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+                "sourceCharacters": 1049,
+                "visibleCharacters": 1049,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "model": "gpt-5.6-luna",
+        "errorCode": "provider-failed"
+      }
+    ]
+  },
+  "error": {
+    "stage": "generation",
+    "code": "provider-failed",
+    "message": "The configured model could not complete the request."
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-12T10:39:12.456Z",
+        "completed": true,
+        "inputTokenUpperBound": 82111,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-12T10:40:44.844Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 21140,
+          "outputTokens": 5027,
+          "totalTokens": 26167
+        },
+        "outputSha256": "48e71125b465ebd893ea2dc6142ed07e5135db565d9f73c5105d27c1ba75850c",
+        "knownInputTokens": 21140,
+        "knownOutputTokens": 5027,
+        "knownStandardApiEquivalentUsd": 0.0102604,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "draft",
+        "startedAt": "2026-09-12T10:40:44.861Z",
+        "completed": false,
+        "inputTokenUpperBound": 196490,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-12T18:54:04.474Z",
+        "errorCode": "provider-failed",
+        "evidence": [
+          {
+            "knowledgeSha256": "48e71125b465ebd893ea2dc6142ed07e5135db565d9f73c5105d27c1ba75850c",
+            "sources": [
+              {
+                "sourceId": "chopper-fan-abilities-1",
+                "sha256": "95700fff5ccb9128491ab73088c9abee1ded66adb5dacc77a2aa6a31ba966a1b",
+                "sourceCharacters": 68773,
+                "visibleCharacters": 68773,
+                "complete": true
+              },
+              {
+                "sourceId": "chopper-official-profile",
+                "sha256": "394fce5622e6fc49c93156b9944d7928d363dbed63f265381f4056a4b5c831d9",
+                "sourceCharacters": 1049,
+                "visibleCharacters": 1049,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "model": "gpt-5.6-luna",
+        "knownInputTokens": null,
+        "knownOutputTokens": null,
+        "knownStandardApiEquivalentUsd": 0,
+        "usageComplete": false,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0.17142950000000004
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 0.0102604,
+    "unknownUsageCalls": 1,
+    "unknownUsageConservativeAllowanceUsd": 0.17142950000000004,
+    "failedCalls": 1
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-resume-b-20260912/chopper"
+}

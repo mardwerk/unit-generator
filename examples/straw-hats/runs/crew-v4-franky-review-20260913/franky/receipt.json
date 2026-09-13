@@ -1,0 +1,2196 @@
+{
+  "id": "franky",
+  "operation": "candidate-source-review",
+  "originalGeneration": {
+    "path": ".scratch/straw-hats/runs/crew-v3-franky-20260913/franky/result.json",
+    "status": "failed",
+    "candidateSha256": "be3229aec736441a9c8449c83e65b9ed4ae4f3c3dfc1cc27c1d86feca010ad4a"
+  },
+  "status": "success",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "quality",
+    "label": "Quality",
+    "model": "gpt-6-astra",
+    "reasoningEffort": "low",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "2ae724f7023669e5ef8dc05050d93ab841172d7acb5506169d6aa2a27486b2df",
+  "unitSha256": "be3229aec736441a9c8449c83e65b9ed4ae4f3c3dfc1cc27c1d86feca010ad4a",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "fileDigest": "5def43dcd9ab3c26bd27df80085dc2f556255b6a3173fe0a67265d7faf346e23",
+    "implementationVersion": "manga-mayhem/0.1.2",
+    "inputSchemaSha256": "f39e426a56297537b73bcedf4e8d1275de036a7a6ee091d9e5c84b15c98dd889",
+    "outputSchemaSha256": "7beeecfb890d388bd4f5ac35dfd9a5dc5c39f010002f940756517514fd712166"
+  },
+  "input": {
+    "subject": "Franky",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Produce a faithful playable Straw Hat unit using the current Manga Mayhem contract. Exactly three paths of five concrete cumulative purchases, legal maximum 5-2-0. Every purchase must change executable behavior. Source facts must be established by fresh research. Disclose numerical tuning, unlock schedules and bounded interpretations as game adaptations; distinguish omitted powers from implemented powers. This is a stationary tower encounter with caller-supplied enemy motion and ally injuries, not tower defensive combat or free unit movement. Avoid unsupported air-only target classes, tower HP, shields, taunt, or invented powers. If a source trait has no runtime representation, preserve it in an explicit omission rather than a fake stat bonus. Use the supported schema exactly, including resources, projectile flight, target geometry, statuses, and shared technique lifecycle. Balance is a later measured pass; prices are provisional. World units are shared across the crew: ordinary close contact roughly 8-18, stretched or ranged profiles roughly 30-60; do not treat these as canon measurements. Keep signatures recognizable and source-backed. Cola-powered cyborg, Strong Right, Weapons Left, Coup de Vent and Radical Beam, plus General Franky/Franky Shogun as actual mecha alternate profile. BF-37 is the post-timeskip cyborg body, not synonymous with the General Franky robot. Combat modes must reflect cyborg vs piloted mech weapons. Cola stamina is an explicit bounded adaptation, not a claim of canonical automatic refueling. Research General Cannon and distinguish General Franky from Thousand Sunny. Use only Franky-supported cyborg and mecha capabilities. Do not grant Observation-like concealed-target detection or lost-target retargetPrimary through ordinary aim correction; supplied evidence does not establish those abilities. Every purchase may instead develop sourced weapon reach, timing, damage, projectile speed, shape, stamina or named advanced profiles in ways supported by the actual modifier schema. Preserve strong identity of General Franky; do not pad 15 purchases with invented senses. Captures were freshly acquired by this campaign, so do not claim fresh evidence was unavailable.",
+    "context": {
+      "crew": {
+        "id": "straw-hats",
+        "name": "Straw Hat Pirates",
+        "members": [
+          "Monkey D. Luffy",
+          "Roronoa Zoro",
+          "Nami",
+          "Usopp",
+          "Sanji",
+          "Tony Tony Chopper",
+          "Nico Robin",
+          "Franky",
+          "Brook",
+          "Jinbe"
+        ]
+      },
+      "cutoff": "One Piece manga through the end of Wano Country arc",
+      "newRun": true,
+      "coverage": "Character-specific capabilities are requirements to verify, not evidence. Record unsupported facts as gaps. No old generated artifacts supplied."
+    },
+    "knowledge": {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Franky",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied evidence does not include the requested Current Manga Mayhem contract or its exact output schema for resources, projectile flight, target geometry, statuses, shared technique lifecycle, prices, or upgrade paths; no playable unit build can be verified from these pages alone.",
+        "The requested values for damage, range, attack speed, cooldowns, projectile speed, costs, unlock timing, and legal 5-2-0 implementation are unsupported numerical adaptations and must be labeled as tuning rather than canon.",
+        "The pages establish cola consumption and finite storage, but do not establish an automatic refueling rule, exact regeneration rule, or a universal cola stamina formula.",
+        "The supplied evidence supports BF-37 as Franky's post-timeskip cyborg body and General Franky as a piloted robot, but does not provide a complete list of every BF-37 weapon or every General Franky weapon usable specifically through the end of Wano.",
+        "The supplied evidence names Strong Right, Coup de Vent, Radical Beam, General Cannon, Franky Butterfly, and the centaur-like form, but does not establish a complete canonical list of all named techniques through the requested cutoff.",
+        "The supplied pages do not establish exact implementation rules for how Franky's unmodified back weakness, cola depletion, swimming ability, centaur form, or General Franky's sword ineptitude should function in the game.",
+        "The supplied evidence discusses the Thousand Sunny's weapons and capabilities, but does not support treating the Thousand Sunny itself as Franky's General Franky transformation or as an additional combat profile.",
+        "The first source contains material from beyond the requested cutoff, including Egghead and Elbaph information. Those later claims were excluded from the selected continuity.",
+        "The source pages are secondary or summary material except for the supplied official ONE PIECE.com pages; source text alone verifies the claims listed here but does not establish additional game-canon or adaptation-canon rules."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "d921edf272f2514ef66562a8",
+          "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+          "sourceCharacters": 77103,
+          "visibleCharacters": 77103,
+          "complete": true
+        },
+        {
+          "sourceId": "ff475f3ecc151c64bd4c0cd0",
+          "sha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b",
+          "sourceCharacters": 1775,
+          "visibleCharacters": 1775,
+          "complete": true
+        },
+        {
+          "sourceId": "600b250f9838e58b36ccca0c",
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+          "sourceCharacters": 1673,
+          "visibleCharacters": 1673,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "id": "d921edf272f2514ef66562a8",
+          "url": "https://onepiece.fandom.com/wiki/Franky/Abilities_and_Powers",
+          "title": "Franky/Abilities and Powers | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 77103,
+          "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5"
+        },
+        {
+          "id": "ff475f3ecc151c64bd4c0cd0",
+          "url": "https://one-piece.com/character/franky/index.html",
+          "title": "フランキー | キャラクター検索 | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1775,
+          "sha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b"
+        },
+        {
+          "id": "600b250f9838e58b36ccca0c",
+          "url": "https://one-piece.com/story/land_of_wano2/index.html",
+          "title": "ワノ国編 | これまでのストーリー | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1673,
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Franky",
+        "identity": {
+          "status": "resolved",
+          "name": "Franky",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied pages identify Franky as the Straw Hat Pirates' shipwright and cyborg, and the requested continuity is explicitly specified. The main character evidence supports Franky's post-timeskip BF-37 body and General Franky as a separate piloted mecha profile. Facts from later Egghead or Elbaph material are excluded from the selected continuity."
+        },
+        "claimCount": 27,
+        "knowledgeSha256": "88d75e28d9b342ed346d32b81b3a8dd661c0c2cef13f361b36f1c4f6a5d950ae"
+      }
+    },
+    "sources": []
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Franky",
+      "reused": true,
+      "grounding": "grounded",
+      "gaps": [
+        "The supplied evidence does not include the requested Current Manga Mayhem contract or its exact output schema for resources, projectile flight, target geometry, statuses, shared technique lifecycle, prices, or upgrade paths; no playable unit build can be verified from these pages alone.",
+        "The requested values for damage, range, attack speed, cooldowns, projectile speed, costs, unlock timing, and legal 5-2-0 implementation are unsupported numerical adaptations and must be labeled as tuning rather than canon.",
+        "The pages establish cola consumption and finite storage, but do not establish an automatic refueling rule, exact regeneration rule, or a universal cola stamina formula.",
+        "The supplied evidence supports BF-37 as Franky's post-timeskip cyborg body and General Franky as a piloted robot, but does not provide a complete list of every BF-37 weapon or every General Franky weapon usable specifically through the end of Wano.",
+        "The supplied evidence names Strong Right, Coup de Vent, Radical Beam, General Cannon, Franky Butterfly, and the centaur-like form, but does not establish a complete canonical list of all named techniques through the requested cutoff.",
+        "The supplied pages do not establish exact implementation rules for how Franky's unmodified back weakness, cola depletion, swimming ability, centaur form, or General Franky's sword ineptitude should function in the game.",
+        "The supplied evidence discusses the Thousand Sunny's weapons and capabilities, but does not support treating the Thousand Sunny itself as Franky's General Franky transformation or as an additional combat profile.",
+        "The first source contains material from beyond the requested cutoff, including Egghead and Elbaph information. Those later claims were excluded from the selected continuity.",
+        "The source pages are secondary or summary material except for the supplied official ONE PIECE.com pages; source text alone verifies the claims listed here but does not establish additional game-canon or adaptation-canon rules."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "d921edf272f2514ef66562a8",
+          "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+          "sourceCharacters": 77103,
+          "visibleCharacters": 77103,
+          "complete": true
+        },
+        {
+          "sourceId": "ff475f3ecc151c64bd4c0cd0",
+          "sha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b",
+          "sourceCharacters": 1775,
+          "visibleCharacters": 1775,
+          "complete": true
+        },
+        {
+          "sourceId": "600b250f9838e58b36ccca0c",
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+          "sourceCharacters": 1673,
+          "visibleCharacters": 1673,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "id": "d921edf272f2514ef66562a8",
+          "url": "https://onepiece.fandom.com/wiki/Franky/Abilities_and_Powers",
+          "title": "Franky/Abilities and Powers | One Piece Wiki | Fandom",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 77103,
+          "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5"
+        },
+        {
+          "id": "ff475f3ecc151c64bd4c0cd0",
+          "url": "https://one-piece.com/character/franky/index.html",
+          "title": "フランキー | キャラクター検索 | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1775,
+          "sha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b"
+        },
+        {
+          "id": "600b250f9838e58b36ccca0c",
+          "url": "https://one-piece.com/story/land_of_wano2/index.html",
+          "title": "ワノ国編 | これまでのストーリー | ONE PIECE.com（ワンピース ドットコム）",
+          "origin": "retrieved",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired."
+          ],
+          "characters": 1673,
+          "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Franky",
+        "identity": {
+          "status": "resolved",
+          "name": "Franky",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied pages identify Franky as the Straw Hat Pirates' shipwright and cyborg, and the requested continuity is explicitly specified. The main character evidence supports Franky's post-timeskip BF-37 body and General Franky as a separate piloted mecha profile. Facts from later Egghead or Elbaph material are excluded from the selected continuity."
+        },
+        "claimCount": 27,
+        "knowledgeSha256": "88d75e28d9b342ed346d32b81b3a8dd661c0c2cef13f361b36f1c4f6a5d950ae"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "passed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": []
+    },
+    "system": {
+      "status": "passed",
+      "checks": [
+        "manga-contract",
+        "legal-progression",
+        "reachable-resource-and-techniques"
+      ],
+      "issues": []
+    },
+    "constraints": {
+      "status": "not-provided",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "review-required",
+    "findings": [
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/000",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 3.2,
+          "damage": 56,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/001",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            1
+          ],
+          "distance": 9,
+          "durationSeconds": 3.2,
+          "damage": 56,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/002",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            2
+          ],
+          "distance": 9,
+          "durationSeconds": 3.2,
+          "damage": 56,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/003",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            3
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/004",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            4
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/005",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            0,
+            5
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 100.80000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/010",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.9440000000000004,
+          "damage": 56,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/011",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            1
+          ],
+          "distance": 9,
+          "durationSeconds": 2.9440000000000004,
+          "damage": 56,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/012",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            2
+          ],
+          "distance": 9,
+          "durationSeconds": 2.9440000000000004,
+          "damage": 56,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/013",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            3
+          ],
+          "distance": 9,
+          "durationSeconds": 4.416,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/014",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            4
+          ],
+          "distance": 9,
+          "durationSeconds": 4.416,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/015",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            1,
+            5
+          ],
+          "distance": 9,
+          "durationSeconds": 4.416,
+          "damage": 100.80000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/020",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.6496000000000004,
+          "damage": 56,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/021",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            1
+          ],
+          "distance": 9,
+          "durationSeconds": 2.6496000000000004,
+          "damage": 56,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/022",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            2
+          ],
+          "distance": 9,
+          "durationSeconds": 2.6496000000000004,
+          "damage": 56,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/023",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            3
+          ],
+          "distance": 9,
+          "durationSeconds": 3.9744,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/024",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            4
+          ],
+          "distance": 9,
+          "durationSeconds": 3.9744,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/025",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            2,
+            5
+          ],
+          "distance": 9,
+          "durationSeconds": 3.9744,
+          "damage": 100.80000000000001,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/030",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 3.497472,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/031",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            1
+          ],
+          "distance": 9,
+          "durationSeconds": 3.497472,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/032",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            3,
+            2
+          ],
+          "distance": 9,
+          "durationSeconds": 3.497472,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/040",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.9728512,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/041",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            1
+          ],
+          "distance": 9,
+          "durationSeconds": 2.9728512,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/042",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            4,
+            2
+          ],
+          "distance": 9,
+          "durationSeconds": 2.9728512,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/050",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.37828096,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/051",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            1
+          ],
+          "distance": 9,
+          "durationSeconds": 2.37828096,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/052",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            0,
+            5,
+            2
+          ],
+          "distance": 9,
+          "durationSeconds": 2.37828096,
+          "damage": 84,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/100",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 3.2,
+          "damage": 64,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/101",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            1
+          ],
+          "distance": 9,
+          "durationSeconds": 3.2,
+          "damage": 64,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/102",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            2
+          ],
+          "distance": 9,
+          "durationSeconds": 3.2,
+          "damage": 64,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/103",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            3
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 96,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/104",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            4
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 96,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/105",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            0,
+            5
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 115.19999999999999,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/110",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            1,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.9440000000000004,
+          "damage": 64,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/120",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            2,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.6496000000000004,
+          "damage": 64,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/130",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            3,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 3.497472,
+          "damage": 96,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/140",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            4,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.9728512,
+          "damage": 96,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/150",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            1,
+            5,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.37828096,
+          "damage": 96,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/200",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 3.2,
+          "damage": 73.6,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/201",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            1
+          ],
+          "distance": 9,
+          "durationSeconds": 3.2,
+          "damage": 73.6,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/202",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            2
+          ],
+          "distance": 9,
+          "durationSeconds": 3.2,
+          "damage": 73.6,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/203",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            3
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 110.39999999999999,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/204",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            4
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 110.39999999999999,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/205",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            0,
+            5
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 132.48,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/210",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            1,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.9440000000000004,
+          "damage": 73.6,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/220",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            2,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.6496000000000004,
+          "damage": 73.6,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 5
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/230",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            3,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 3.497472,
+          "damage": 110.39999999999999,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/240",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            4,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.9728512,
+          "damage": 110.39999999999999,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/250",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            2,
+            5,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 2.37828096,
+          "damage": 110.39999999999999,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/300",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 138,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/301",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            1
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 138,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/302",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            0,
+            2
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 138,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/310",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            1,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 4.416,
+          "damage": 138,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/320",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            3,
+            2,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 3.9744,
+          "damage": 138,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/400",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 172.5,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/401",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            1
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 172.5,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/402",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            0,
+            2
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 172.5,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/410",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            1,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 4.416,
+          "damage": 172.5,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/420",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            4,
+            2,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 3.9744,
+          "damage": 172.5,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/500",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 250.125,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/501",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            1
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 250.125,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/502",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            0,
+            2
+          ],
+          "distance": 9,
+          "durationSeconds": 4.8,
+          "damage": 250.125,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/510",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            1,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 4.416,
+          "damage": 250.125,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "AUTOMATIC_CONTACT_OBSERVATION",
+        "dimension": "coverage",
+        "severity": "info",
+        "location": "/builds/520",
+        "message": "Observed automatic hits on one eligible stationary target.",
+        "evidence": {
+          "tiers": [
+            5,
+            2,
+            0
+          ],
+          "distance": 9,
+          "durationSeconds": 3.9744,
+          "damage": 250.125,
+          "pulseTriggers": 0,
+          "emissionDamage": 0,
+          "events": 7
+        }
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 64,
+      "evaluatedBuilds": 64,
+      "purchaseEdges": 111,
+      "probes": 566,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Natural-language description agreement needs independent review; this report describes executable limits.",
+        "Stationary probes do not establish game balance or live-game parity.",
+        "Full encounter balance, all moving geometries, and all purchase/switch/cooldown sequences."
+      ]
+    }
+  },
+  "fidelity": {
+    "status": "checked",
+    "gaps": [
+      "The supplied passages establish General Franky's use through the Wano battle, but do not explicitly document its post-battle repair or condition at departure. The account describes an impending destructive attack during the Sasaki fight; this review does not infer either permanent loss or confirmed restoration from that wording.",
+      "Exact damage, timing, range, geometry, resource schedules and purchase progression remain disclosed game adaptations, not source measurements or verified balance.",
+      "Defensive armor, back vulnerability, gas protection, sword play, swimming, centaur restraint, movement, ejection evasion, construction, repairs, flames and shoulder missiles are explicitly omitted rather than implemented. No concealed-target detection or lost-target retargeting is granted."
+    ],
+    "claims": [
+      {
+        "path": "/description",
+        "status": "supported",
+        "sourceMechanic": "Straw Hat shipwright and weapon-equipped cyborg",
+        "relationship": "same-ability",
+        "sourceId": "ff475f3ecc151c64bd4c0cd0",
+        "passageId": "p0",
+        "sourceSha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b",
+        "sourceRange": {
+          "start": 0,
+          "end": 1197
+        },
+        "quoteSha256": "f4c4508baf45b09fe551fc77975474e91c0d31fcd8f769356943b8b814f3f152",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/forms/0/name",
+        "status": "supported",
+        "sourceMechanic": "BF-37 post-timeskip cyborg body",
+        "relationship": "same-ability",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p17",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 18506,
+          "end": 19666
+        },
+        "quoteSha256": "bde0016babb0b945ead5162738baac3b541b87e1b19492ca3378bb393463423d",
+        "quoteCharacters": 1160
+      },
+      {
+        "path": "/forms/0/primary/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Strong Right chained fist extension and retraction",
+        "relationship": "delivery-abstraction",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p16",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 17365,
+          "end": 18506
+        },
+        "quoteSha256": "cf40722331030f4ed837d80b572ed77dde657ac0a65afd75b702f5002ae27386",
+        "quoteCharacters": 1141
+      },
+      {
+        "path": "/forms/0/techniques/0/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Coup de Vent compressed-air blast",
+        "relationship": "delivery-abstraction",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p16",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 17365,
+          "end": 18506
+        },
+        "quoteSha256": "cf40722331030f4ed837d80b572ed77dde657ac0a65afd75b702f5002ae27386",
+        "quoteCharacters": 1141
+      },
+      {
+        "path": "/forms/0/techniques/1/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Franky Radical Beam explosive laser",
+        "relationship": "delivery-abstraction",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p19",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 20816,
+          "end": 21946
+        },
+        "quoteSha256": "a54d427d9b48e319d4b35beea6d9e4ffce5b2af084781594eda17a79646b5b24",
+        "quoteCharacters": 1130
+      },
+      {
+        "path": "/forms/1/name",
+        "status": "adapted",
+        "sourceMechanic": "BF-37 integrated machine guns",
+        "relationship": "game-rule",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p19",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 20816,
+          "end": 21946
+        },
+        "quoteSha256": "a54d427d9b48e319d4b35beea6d9e4ffce5b2af084781594eda17a79646b5b24",
+        "quoteCharacters": 1130
+      },
+      {
+        "path": "/forms/1/primary/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Left-arm wrist machine gun",
+        "relationship": "delivery-abstraction",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p16",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 17365,
+          "end": 18506
+        },
+        "quoteSha256": "cf40722331030f4ed837d80b572ed77dde657ac0a65afd75b702f5002ae27386",
+        "quoteCharacters": 1141
+      },
+      {
+        "path": "/forms/1/techniques/0/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Coup de Vent compressed-air blast",
+        "relationship": "delivery-abstraction",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p16",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 17365,
+          "end": 18506
+        },
+        "quoteSha256": "cf40722331030f4ed837d80b572ed77dde657ac0a65afd75b702f5002ae27386",
+        "quoteCharacters": 1141
+      },
+      {
+        "path": "/forms/1/techniques/1/delivery",
+        "status": "adapted",
+        "sourceMechanic": "Franky Radical Beam explosive laser",
+        "relationship": "delivery-abstraction",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p19",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 20816,
+          "end": 21946
+        },
+        "quoteSha256": "a54d427d9b48e319d4b35beea6d9e4ffce5b2af084781594eda17a79646b5b24",
+        "quoteCharacters": 1130
+      },
+      {
+        "path": "/forms/2/name",
+        "status": "adapted",
+        "sourceMechanic": "Piloted Wapometal General Franky robot",
+        "relationship": "game-rule",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p20",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 21946,
+          "end": 23028
+        },
+        "quoteSha256": "743f51dd87e603ffd5795aa1267a97ab9bf599e55c509394e70e5bf142836c0d",
+        "quoteCharacters": 1082
+      },
+      {
+        "path": "/forms/2/primary/shape/kind",
+        "status": "adapted",
+        "sourceMechanic": "General Franky's giant fist punches",
+        "relationship": "delivery-abstraction",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p21",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 23028,
+          "end": 24040
+        },
+        "quoteSha256": "460b8d8c3e478453bb0840be6e54beb47b00534dbe3d7515a0d10a08cce2be59",
+        "quoteCharacters": 1012
+      },
+      {
+        "path": "/forms/2/techniques/0/delivery",
+        "status": "adapted",
+        "sourceMechanic": "General Cannon compressed-air blast",
+        "relationship": "delivery-abstraction",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p21",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 23028,
+          "end": 24040
+        },
+        "quoteSha256": "460b8d8c3e478453bb0840be6e54beb47b00534dbe3d7515a0d10a08cce2be59",
+        "quoteCharacters": 1012
+      },
+      {
+        "path": "/stamina/recoveryPerSecond",
+        "status": "adapted",
+        "sourceMechanic": "Cola fuel and reserve limitation",
+        "relationship": "game-rule",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p19",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 20816,
+          "end": 21946
+        },
+        "quoteSha256": "a54d427d9b48e319d4b35beea6d9e4ffce5b2af084781594eda17a79646b5b24",
+        "quoteCharacters": 1130
+      },
+      {
+        "path": "/paths/0/description",
+        "status": "adapted",
+        "sourceMechanic": "Franky's integrated weapons and giant robot power",
+        "relationship": "numerical-tuning",
+        "sourceId": "ff475f3ecc151c64bd4c0cd0",
+        "passageId": "p0",
+        "sourceSha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b",
+        "sourceRange": {
+          "start": 0,
+          "end": 1197
+        },
+        "quoteSha256": "f4c4508baf45b09fe551fc77975474e91c0d31fcd8f769356943b8b814f3f152",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/paths/0/upgrades/0/modifiers/flatDamage",
+        "status": "adapted",
+        "sourceMechanic": "Cyborg weapons and robot offensive power",
+        "relationship": "numerical-tuning",
+        "sourceId": "ff475f3ecc151c64bd4c0cd0",
+        "passageId": "p0",
+        "sourceSha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b",
+        "sourceRange": {
+          "start": 0,
+          "end": 1197
+        },
+        "quoteSha256": "f4c4508baf45b09fe551fc77975474e91c0d31fcd8f769356943b8b814f3f152",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/paths/0/upgrades/1/modifiers/damageMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Cyborg weapons and robot offensive power",
+        "relationship": "numerical-tuning",
+        "sourceId": "ff475f3ecc151c64bd4c0cd0",
+        "passageId": "p0",
+        "sourceSha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b",
+        "sourceRange": {
+          "start": 0,
+          "end": 1197
+        },
+        "quoteSha256": "f4c4508baf45b09fe551fc77975474e91c0d31fcd8f769356943b8b814f3f152",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/paths/0/upgrades/2/modifiers/flatDamage",
+        "status": "adapted",
+        "sourceMechanic": "General Franky's powerful fists and weapons",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p21",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 23028,
+          "end": 24040
+        },
+        "quoteSha256": "460b8d8c3e478453bb0840be6e54beb47b00534dbe3d7515a0d10a08cce2be59",
+        "quoteCharacters": 1012
+      },
+      {
+        "path": "/paths/0/upgrades/3/modifiers/damageMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Cyborg weapons and robot offensive power",
+        "relationship": "numerical-tuning",
+        "sourceId": "ff475f3ecc151c64bd4c0cd0",
+        "passageId": "p0",
+        "sourceSha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b",
+        "sourceRange": {
+          "start": 0,
+          "end": 1197
+        },
+        "quoteSha256": "f4c4508baf45b09fe551fc77975474e91c0d31fcd8f769356943b8b814f3f152",
+        "quoteCharacters": 1197
+      },
+      {
+        "path": "/paths/0/upgrades/4/modifiers/flatDamage",
+        "status": "adapted",
+        "sourceMechanic": "Advanced BF-37 artillery and Radical Beam",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p19",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 20816,
+          "end": 21946
+        },
+        "quoteSha256": "a54d427d9b48e319d4b35beea6d9e4ffce5b2af084781594eda17a79646b5b24",
+        "quoteCharacters": 1130
+      },
+      {
+        "path": "/paths/1/description",
+        "status": "adapted",
+        "sourceMechanic": "Fast cyborg punches",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p5",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 5425,
+          "end": 6545
+        },
+        "quoteSha256": "acb394004d72782a9a9ee3ddd351935d1fb4984d00e3d0e199889ff9d9d26d5a",
+        "quoteCharacters": 1120
+      },
+      {
+        "path": "/paths/1/upgrades/0/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Fast cyborg punches",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p5",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 5425,
+          "end": 6545
+        },
+        "quoteSha256": "acb394004d72782a9a9ee3ddd351935d1fb4984d00e3d0e199889ff9d9d26d5a",
+        "quoteCharacters": 1120
+      },
+      {
+        "path": "/paths/1/upgrades/1/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Rapid integrated machine-gun fire",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p19",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 20816,
+          "end": 21946
+        },
+        "quoteSha256": "a54d427d9b48e319d4b35beea6d9e4ffce5b2af084781594eda17a79646b5b24",
+        "quoteCharacters": 1130
+      },
+      {
+        "path": "/paths/1/upgrades/2/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "General Franky's giant fist attacks",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p21",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 23028,
+          "end": 24040
+        },
+        "quoteSha256": "460b8d8c3e478453bb0840be6e54beb47b00534dbe3d7515a0d10a08cce2be59",
+        "quoteCharacters": 1012
+      },
+      {
+        "path": "/paths/1/upgrades/3/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Rapid integrated machine-gun fire",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p19",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 20816,
+          "end": 21946
+        },
+        "quoteSha256": "a54d427d9b48e319d4b35beea6d9e4ffce5b2af084781594eda17a79646b5b24",
+        "quoteCharacters": 1130
+      },
+      {
+        "path": "/paths/1/upgrades/4/modifiers/primaryTimingMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Rapid integrated machine-gun fire",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p19",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 20816,
+          "end": 21946
+        },
+        "quoteSha256": "a54d427d9b48e319d4b35beea6d9e4ffce5b2af084781594eda17a79646b5b24",
+        "quoteCharacters": 1130
+      },
+      {
+        "path": "/paths/2/description",
+        "status": "adapted",
+        "sourceMechanic": "Built-in mid-range and long-range artillery",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p22",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 24040,
+          "end": 25232
+        },
+        "quoteSha256": "201f5907a0dc3faabdba08806789b586126109299f1c718622678cee04141912",
+        "quoteCharacters": 1192
+      },
+      {
+        "path": "/paths/2/upgrades/0/modifiers/reachAdd",
+        "status": "adapted",
+        "sourceMechanic": "Strong Right's chained ranged fist",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p16",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 17365,
+          "end": 18506
+        },
+        "quoteSha256": "cf40722331030f4ed837d80b572ed77dde657ac0a65afd75b702f5002ae27386",
+        "quoteCharacters": 1141
+      },
+      {
+        "path": "/paths/2/upgrades/1/modifiers/reachAdd",
+        "status": "adapted",
+        "sourceMechanic": "Integrated ranged gunfire",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p22",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 24040,
+          "end": 25232
+        },
+        "quoteSha256": "201f5907a0dc3faabdba08806789b586126109299f1c718622678cee04141912",
+        "quoteCharacters": 1192
+      },
+      {
+        "path": "/paths/2/upgrades/2/modifiers/reachAdd",
+        "status": "adapted",
+        "sourceMechanic": "General Franky's fists and General Cannon",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p21",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 23028,
+          "end": 24040
+        },
+        "quoteSha256": "460b8d8c3e478453bb0840be6e54beb47b00534dbe3d7515a0d10a08cce2be59",
+        "quoteCharacters": 1012
+      },
+      {
+        "path": "/paths/2/upgrades/3/modifiers/reachAdd",
+        "status": "adapted",
+        "sourceMechanic": "Built-in ranged artillery",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p22",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 24040,
+          "end": 25232
+        },
+        "quoteSha256": "201f5907a0dc3faabdba08806789b586126109299f1c718622678cee04141912",
+        "quoteCharacters": 1192
+      },
+      {
+        "path": "/paths/2/upgrades/4/modifiers/reachAdd",
+        "status": "adapted",
+        "sourceMechanic": "Ranged cyborg weapons",
+        "relationship": "numerical-tuning",
+        "sourceId": "d921edf272f2514ef66562a8",
+        "passageId": "p22",
+        "sourceSha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+        "sourceRange": {
+          "start": 24040,
+          "end": 25232
+        },
+        "quoteSha256": "201f5907a0dc3faabdba08806789b586126109299f1c718622678cee04141912",
+        "quoteCharacters": 1192
+      },
+      {
+        "path": "/paths/2/upgrades/4/modifiers/damageMultiplier",
+        "status": "adapted",
+        "sourceMechanic": "Cyborg weapons and robot offensive power",
+        "relationship": "numerical-tuning",
+        "sourceId": "ff475f3ecc151c64bd4c0cd0",
+        "passageId": "p0",
+        "sourceSha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b",
+        "sourceRange": {
+          "start": 0,
+          "end": 1197
+        },
+        "quoteSha256": "f4c4508baf45b09fe551fc77975474e91c0d31fcd8f769356943b8b814f3f152",
+        "quoteCharacters": 1197
+      }
+    ],
+    "representation": "Compact public receipt. Complete source passages and detailed model review remain in the private production result."
+  },
+  "fidelityAttempts": [
+    {
+      "reportValid": true
+    }
+  ],
+  "sourceReviewIssues": [],
+  "metadata": {
+    "modelCalls": 1,
+    "repairs": 0,
+    "elapsedMs": 143914,
+    "calls": [
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "88d75e28d9b342ed346d32b81b3a8dd661c0c2cef13f361b36f1c4f6a5d950ae",
+            "sources": [
+              {
+                "sourceId": "d921edf272f2514ef66562a8",
+                "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+                "sourceCharacters": 77103,
+                "visibleCharacters": 77103,
+                "complete": true
+              },
+              {
+                "sourceId": "ff475f3ecc151c64bd4c0cd0",
+                "sha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b",
+                "sourceCharacters": 1775,
+                "visibleCharacters": 1775,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-6-astra",
+        "usage": {
+          "inputTokens": 65241,
+          "outputTokens": 4656,
+          "totalTokens": 69897
+        },
+        "outputSha256": "37e3b778f2cb3e97b3fcdc5be7919ccbd958deaead8bc4268c59e321655d2ab6"
+      }
+    ]
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-13T10:52:22.007Z",
+        "completed": true,
+        "inputTokenUpperBound": 251557,
+        "maxOutputTokens": 11400,
+        "endedAt": "2026-09-13T10:54:45.786Z",
+        "model": "gpt-6-astra",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 65241,
+          "outputTokens": 4656,
+          "totalTokens": 69897
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "88d75e28d9b342ed346d32b81b3a8dd661c0c2cef13f361b36f1c4f6a5d950ae",
+            "sources": [
+              {
+                "sourceId": "d921edf272f2514ef66562a8",
+                "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+                "sourceCharacters": 77103,
+                "visibleCharacters": 77103,
+                "complete": true
+              },
+              {
+                "sourceId": "ff475f3ecc151c64bd4c0cd0",
+                "sha256": "7c5df3107a65c8e0c92e2529b94f0bae4a3845a2ad0abc2682ccd6d3cf69b59b",
+                "sourceCharacters": 1775,
+                "visibleCharacters": 1775,
+                "complete": true
+              },
+              {
+                "sourceId": "600b250f9838e58b36ccca0c",
+                "sha256": "c8254d3daeb9c6e963a8ab0fcdf311eb5e57e3911fcdd9daf6d9c7d0514ab0a2",
+                "sourceCharacters": 1673,
+                "visibleCharacters": 1673,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "37e3b778f2cb3e97b3fcdc5be7919ccbd958deaead8bc4268c59e321655d2ab6",
+        "knownInputTokens": 65241,
+        "knownOutputTokens": 4656,
+        "knownStandardApiEquivalentUsd": 0.88521,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 0.88521,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-v4-franky-review-20260913/franky"
+}

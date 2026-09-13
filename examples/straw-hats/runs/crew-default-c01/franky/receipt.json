@@ -1,0 +1,516 @@
+{
+  "id": "franky",
+  "operation": "generation",
+  "status": "failed",
+  "manualUnitEdits": false,
+  "mode": {
+    "id": "default",
+    "label": "Default",
+    "model": "gpt-5.6-luna",
+    "reasoningEffort": "high",
+    "configured": true
+  },
+  "fallbackReason": null,
+  "requestSha256": "2361f3cde9a0a3e352f74032e28cefa4f6b5ae1ced07d94edfdc8d39780d65e7",
+  "unitSha256": "9416cf02f0a2d9ba955bf546d32fc3fa84902471db398cf3258a47cc6d900a70",
+  "definition": {
+    "id": "manga-mayhem",
+    "version": "0.1.0",
+    "inputSchemaId": "mardwerk.manga-mayhem.input/0.1",
+    "outputSchemaId": "mardwerk.manga-mayhem.unit/0.1",
+    "fileDigest": "109f06dccbf90375d4bcffcfbbeb868968dbf8468cbf00ccabc0a5117f9caf20",
+    "implementationVersion": "manga-mayhem/0.1.2"
+  },
+  "input": {
+    "subject": "Franky",
+    "kind": "character",
+    "continuity": "One Piece manga through the end of Wano Country arc",
+    "intent": "Preserve a cyborg shipwright with built-in weapons, compressed-air attacks, beams and cola fuel. Distinguish his own body from General Franky machinery and the Sunny. Build a playable kit with at least 15 meaningful purchasable upgrades that each change executable behavior. Select a coherent subset instead of claiming exhaustive coverage. Disclose omitted defining abilities and any source limits. Treat numerical damage, costs, cooldowns, range, targeting and unlock progression as explicit gameplay adaptations. Do not invent character powers to meet upgrade count; deepen sourced abilities where possible.",
+    "context": {
+      "evidencePurpose": "Curated development demonstration, available to generation and review; not an unseen benchmark.",
+      "reviewScope": "Selected manga continuity through end of Wano; exclude later manga, anime-only and game-only facts from this request."
+    },
+    "sources": [
+      {
+        "url": "https://onepiece.fandom.com/wiki/Franky/Abilities_and_Powers",
+        "title": "Franky/Abilities and Powers | One Piece Wiki | Fandom",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+          "Secondary fan-edited evidence captured 2026-09-09T17:43:14.121Z; may include later manga, anime, and game facts outside the requested continuity."
+        ],
+        "id": "franky-fan-abilities-1",
+        "origin": "retrieved",
+        "characters": 77103,
+        "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5"
+      },
+      {
+        "id": "franky-official-profile",
+        "title": "Franky | ONE PIECE.com official character profile",
+        "url": "https://one-piece.com/character/franky/index.html",
+        "origin": "retrieved",
+        "status": "read",
+        "truncated": false,
+        "omissions": [
+          "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+          "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+          "Retrieved 2026-09-09T17:42:06.284056+00:00."
+        ],
+        "characters": 954,
+        "sha256": "bd8de8d6b37ba977ca5433dd7b0d1e18a226b7698e298f01297e2f0788b74188"
+      }
+    ]
+  },
+  "research": [
+    {
+      "schemaVersion": "0.2",
+      "status": "success",
+      "subject": "Franky",
+      "reused": false,
+      "grounding": "grounded",
+      "gaps": [
+        "The requested playable kit with at least 15 purchasable upgrades cannot be represented by the supplied output schema, which has no abilities, upgrades, costs, or progression fields.",
+        "No supplied page provides gameplay values for damage, currency costs, cooldowns, exact ranges, target rules, ammunition counts, or unlock progression. Any such values would be explicit gameplay adaptations rather than sourced character facts.",
+        "The supplied evidence does not provide a complete catalog of every named or unnamed Franky attack, body weapon, conventional weapon, Battle Frankie, General Franky subsystem, or Thousand Sunny function. A coherent subset is recorded instead of claiming exhaustive coverage.",
+        "The supplied abilities page contains material from after Wano, including Egghead-era events and equipment developments. Those later facts are excluded from the selected continuity record.",
+        "The supplied material does not establish Haki, Devil Fruit powers, or other abilities not specifically attributed to Franky; none are added to meet the requested upgrade count.",
+        "The supplied pages describe cola dependence and the unmodified back as limitations, but do not provide enough evidence to define a complete resource-depletion model, repair system, or precise penalties for body damage.",
+        "Franky's own body, General Franky, Battle Frankies, and the Thousand Sunny are distinct assets in the evidence. The sources do not establish that every weapon or technique listed for one asset can be used by another."
+      ],
+      "sourceVisibility": [
+        {
+          "sourceId": "franky-fan-abilities-1",
+          "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+          "sourceCharacters": 77103,
+          "visibleCharacters": 77103,
+          "complete": true
+        },
+        {
+          "sourceId": "franky-official-profile",
+          "sha256": "bd8de8d6b37ba977ca5433dd7b0d1e18a226b7698e298f01297e2f0788b74188",
+          "sourceCharacters": 954,
+          "visibleCharacters": 954,
+          "complete": true
+        }
+      ],
+      "sources": [
+        {
+          "url": "https://onepiece.fandom.com/wiki/Franky/Abilities_and_Powers",
+          "title": "Franky/Abilities and Powers | One Piece Wiki | Fandom",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.",
+            "Secondary fan-edited evidence captured 2026-09-09T17:43:14.121Z; may include later manga, anime, and game facts outside the requested continuity."
+          ],
+          "id": "franky-fan-abilities-1",
+          "origin": "supplied",
+          "characters": 77103,
+          "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5"
+        },
+        {
+          "id": "franky-official-profile",
+          "title": "Franky | ONE PIECE.com official character profile",
+          "url": "https://one-piece.com/character/franky/index.html",
+          "origin": "supplied",
+          "status": "read",
+          "truncated": false,
+          "omissions": [
+            "Profile body extracted from character overview through final biography section; site navigation, profile role header, related-character and merchandise sections omitted.",
+            "Official combined manga/anime portal, not manga panels directly inspected. Some profile narrative is older than updated header facts.",
+            "Retrieved 2026-09-09T17:42:06.284056+00:00."
+          ],
+          "characters": 954,
+          "sha256": "bd8de8d6b37ba977ca5433dd7b0d1e18a226b7698e298f01297e2f0788b74188"
+        }
+      ],
+      "knowledgeSummary": {
+        "subject": "Franky",
+        "identity": {
+          "status": "resolved",
+          "name": "Franky",
+          "continuity": "One Piece manga through the end of Wano Country arc",
+          "explanation": "The supplied pages identify the requested fictional character as Franky, the Straw Hat Pirates' cyborg shipwright, and distinguish him from the Thousand Sunny and General Franky. The requested continuity is explicit and is copied exactly. Later material present in the abilities page, including Egghead-era developments, is excluded."
+        },
+        "claimCount": 30,
+        "knowledgeSha256": "9c0eba92aac620862b9dd86416989d179d55439da6c01d6a10e44d698b84d86c"
+      }
+    }
+  ],
+  "validation": {
+    "structure": {
+      "status": "failed",
+      "checks": [
+        "output-schema"
+      ],
+      "issues": [
+        {
+          "code": "schema-maxLength",
+          "path": "/description",
+          "message": "must NOT have more than 256 characters"
+        }
+      ]
+    },
+    "system": {
+      "status": "failed",
+      "checks": [
+        "unit-qualification"
+      ],
+      "issues": [
+        {
+          "code": "schema-maxLength",
+          "path": "/description",
+          "message": "must NOT have more than 256 characters"
+        }
+      ]
+    },
+    "constraints": {
+      "status": "not-completed",
+      "checks": [],
+      "issues": []
+    },
+    "uncheckedRules": [
+      "Numerical tuning, source fidelity and enjoyable play require review.",
+      "The runtime executes stationary direct contact, traveling projectiles and ally healing with caller-supplied motion and injury. The optional canonical mechanics block executes actors, projectile graphs, statuses, income and range support. Defensive combat and automatic moving-path simulation remain outside the adapter."
+    ],
+    "balance": {
+      "status": "not-tested"
+    }
+  },
+  "qualification": {
+    "schemaVersion": "unit-qualification/0.1",
+    "definitionId": "manga-mayhem",
+    "readiness": "blocked",
+    "findings": [
+      {
+        "code": "schema-maxLength",
+        "dimension": "validity",
+        "severity": "blocker",
+        "location": "/description",
+        "message": "must NOT have more than 256 characters"
+      },
+      {
+        "code": "SOURCE_FIDELITY_UNASSESSED",
+        "dimension": "source-fidelity",
+        "severity": "warning",
+        "message": "Mechanical checks do not establish canon fidelity. Independent evidence review is required.",
+        "evidence": {
+          "researchResults": 1,
+          "grounding": [
+            "grounded"
+          ]
+        }
+      },
+      {
+        "code": "BALANCE_UNASSESSED",
+        "dimension": "balance",
+        "severity": "info",
+        "message": "No balance score is assigned. These encounters only exercise declared capabilities."
+      }
+    ],
+    "coverage": {
+      "legalBuilds": 0,
+      "evaluatedBuilds": 0,
+      "purchaseEdges": 0,
+      "probes": 0,
+      "unassessed": [
+        "Source fidelity requires evidence and independent review.",
+        "Description agreement is only checked for explicit executable contradictions.",
+        "Stationary probes do not establish game balance or live-game parity."
+      ]
+    }
+  },
+  "fidelityAttempts": [
+    {
+      "reportValid": true
+    }
+  ],
+  "metadata": {
+    "modelCalls": 4,
+    "repairs": 1,
+    "elapsedMs": 461074,
+    "calls": [
+      {
+        "stage": "research",
+        "completed": true,
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 23110,
+          "outputTokens": 4609,
+          "totalTokens": 27719
+        },
+        "outputSha256": "9c0eba92aac620862b9dd86416989d179d55439da6c01d6a10e44d698b84d86c"
+      },
+      {
+        "stage": "draft",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "9c0eba92aac620862b9dd86416989d179d55439da6c01d6a10e44d698b84d86c",
+            "sources": [
+              {
+                "sourceId": "franky-fan-abilities-1",
+                "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+                "sourceCharacters": 77103,
+                "visibleCharacters": 77103,
+                "complete": true
+              },
+              {
+                "sourceId": "franky-official-profile",
+                "sha256": "bd8de8d6b37ba977ca5433dd7b0d1e18a226b7698e298f01297e2f0788b74188",
+                "sourceCharacters": 954,
+                "visibleCharacters": 954,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 45370,
+          "outputTokens": 5911,
+          "totalTokens": 51281
+        },
+        "outputSha256": "1bda7cc49787fda3901cbf0735388357ef03dc0b77f536096e6a5b9bcd682e76"
+      },
+      {
+        "stage": "fidelity-review",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "9c0eba92aac620862b9dd86416989d179d55439da6c01d6a10e44d698b84d86c",
+            "sources": [
+              {
+                "sourceId": "franky-fan-abilities-1",
+                "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+                "sourceCharacters": 77103,
+                "visibleCharacters": 77103,
+                "complete": true
+              },
+              {
+                "sourceId": "franky-official-profile",
+                "sha256": "bd8de8d6b37ba977ca5433dd7b0d1e18a226b7698e298f01297e2f0788b74188",
+                "sourceCharacters": 954,
+                "visibleCharacters": 954,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "structured",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 55778,
+          "outputTokens": 11228,
+          "totalTokens": 67006
+        },
+        "outputSha256": "e58f960f2493e495e1891c2933910ce142674286896c8d6904961f7785a453ff"
+      },
+      {
+        "stage": "repair",
+        "completed": true,
+        "evidence": [
+          {
+            "knowledgeSha256": "9c0eba92aac620862b9dd86416989d179d55439da6c01d6a10e44d698b84d86c",
+            "sources": [
+              {
+                "sourceId": "franky-fan-abilities-1",
+                "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+                "sourceCharacters": 77103,
+                "visibleCharacters": 77103,
+                "complete": true
+              },
+              {
+                "sourceId": "franky-official-profile",
+                "sha256": "bd8de8d6b37ba977ca5433dd7b0d1e18a226b7698e298f01297e2f0788b74188",
+                "sourceCharacters": 954,
+                "visibleCharacters": 954,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "mode": "json",
+        "model": "gpt-5.6-luna",
+        "usage": {
+          "inputTokens": 69051,
+          "outputTokens": 3350,
+          "totalTokens": 72401
+        },
+        "outputSha256": "9416cf02f0a2d9ba955bf546d32fc3fa84902471db398cf3258a47cc6d900a70"
+      }
+    ]
+  },
+  "error": {
+    "stage": "validation",
+    "code": "validation-failed",
+    "message": "Required checks did not pass. The candidate and completed research are returned."
+  },
+  "accounting": {
+    "calls": [
+      {
+        "sequence": 1,
+        "stage": "research",
+        "startedAt": "2026-09-09T18:42:51.807Z",
+        "completed": true,
+        "inputTokenUpperBound": 89701,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T18:44:17.364Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 23110,
+          "outputTokens": 4609,
+          "totalTokens": 27719
+        },
+        "outputSha256": "9c0eba92aac620862b9dd86416989d179d55439da6c01d6a10e44d698b84d86c",
+        "knownInputTokens": 23110,
+        "knownOutputTokens": 4609,
+        "knownStandardApiEquivalentUsd": 0.0101528,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 2,
+        "stage": "draft",
+        "startedAt": "2026-09-09T18:44:17.445Z",
+        "completed": true,
+        "inputTokenUpperBound": 182893,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T18:46:05.962Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 45370,
+          "outputTokens": 5911,
+          "totalTokens": 51281
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "9c0eba92aac620862b9dd86416989d179d55439da6c01d6a10e44d698b84d86c",
+            "sources": [
+              {
+                "sourceId": "franky-fan-abilities-1",
+                "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+                "sourceCharacters": 77103,
+                "visibleCharacters": 77103,
+                "complete": true
+              },
+              {
+                "sourceId": "franky-official-profile",
+                "sha256": "bd8de8d6b37ba977ca5433dd7b0d1e18a226b7698e298f01297e2f0788b74188",
+                "sourceCharacters": 954,
+                "visibleCharacters": 954,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "1bda7cc49787fda3901cbf0735388357ef03dc0b77f536096e6a5b9bcd682e76",
+        "knownInputTokens": 45370,
+        "knownOutputTokens": 5911,
+        "knownStandardApiEquivalentUsd": 0.0161672,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 3,
+        "stage": "fidelity-review",
+        "startedAt": "2026-09-09T18:46:06.062Z",
+        "completed": true,
+        "inputTokenUpperBound": 214997,
+        "maxOutputTokens": 10860,
+        "endedAt": "2026-09-09T18:49:30.263Z",
+        "model": "gpt-5.6-luna",
+        "mode": "structured",
+        "usage": {
+          "inputTokens": 55778,
+          "outputTokens": 11228,
+          "totalTokens": 67006
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "9c0eba92aac620862b9dd86416989d179d55439da6c01d6a10e44d698b84d86c",
+            "sources": [
+              {
+                "sourceId": "franky-fan-abilities-1",
+                "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+                "sourceCharacters": 77103,
+                "visibleCharacters": 77103,
+                "complete": true
+              },
+              {
+                "sourceId": "franky-official-profile",
+                "sha256": "bd8de8d6b37ba977ca5433dd7b0d1e18a226b7698e298f01297e2f0788b74188",
+                "sourceCharacters": 954,
+                "visibleCharacters": 954,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "e58f960f2493e495e1891c2933910ce142674286896c8d6904961f7785a453ff",
+        "knownInputTokens": 55778,
+        "knownOutputTokens": 11228,
+        "knownStandardApiEquivalentUsd": 0.0246292,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      },
+      {
+        "sequence": 4,
+        "stage": "repair",
+        "startedAt": "2026-09-09T18:49:30.368Z",
+        "completed": true,
+        "inputTokenUpperBound": 271886,
+        "maxOutputTokens": 24000,
+        "endedAt": "2026-09-09T18:50:32.797Z",
+        "model": "gpt-5.6-luna",
+        "mode": "json",
+        "usage": {
+          "inputTokens": 69051,
+          "outputTokens": 3350,
+          "totalTokens": 72401
+        },
+        "evidence": [
+          {
+            "knowledgeSha256": "9c0eba92aac620862b9dd86416989d179d55439da6c01d6a10e44d698b84d86c",
+            "sources": [
+              {
+                "sourceId": "franky-fan-abilities-1",
+                "sha256": "cb19837a040c5e59d3c11db719581c3c720d3a0be02c567a69dcd4036a13c3f5",
+                "sourceCharacters": 77103,
+                "visibleCharacters": 77103,
+                "complete": true
+              },
+              {
+                "sourceId": "franky-official-profile",
+                "sha256": "bd8de8d6b37ba977ca5433dd7b0d1e18a226b7698e298f01297e2f0788b74188",
+                "sourceCharacters": 954,
+                "visibleCharacters": 954,
+                "complete": true
+              }
+            ]
+          }
+        ],
+        "outputSha256": "9416cf02f0a2d9ba955bf546d32fc3fa84902471db398cf3258a47cc6d900a70",
+        "knownInputTokens": 69051,
+        "knownOutputTokens": 3350,
+        "knownStandardApiEquivalentUsd": 0.0178302,
+        "usageComplete": true,
+        "costRateKnown": true,
+        "unknownUsageConservativeAllowanceUsd": 0
+      }
+    ],
+    "knownStandardApiEquivalentUsd": 0.0687794,
+    "unknownUsageCalls": 0,
+    "unknownUsageConservativeAllowanceUsd": 0,
+    "failedCalls": 0
+  },
+  "privateArtifacts": ".scratch/straw-hats/runs/crew-default-c01/franky"
+}

@@ -1,0 +1,276 @@
+{
+  "schema": "mardwerk.manga-mayhem.unit",
+  "version": "0.1",
+  "id": "roronoa-zoro",
+  "name": "Roronoa Zoro",
+  "description": "A Wano-era Three Sword Style swordsman using Wado Ichimonji, Sandai Kitetsu and Enma. His primary is an aimed flying slash with limited collateral, while purchases develop Haki hardening, precise steel-cutting, ranged reach, retargeting and Supreme King pressure. Ashura and King of Hell Three Sword Style are modeled as stamina-draining alternate combat forms, not biological or Devil Fruit transformations. Numerical damage, timing, range, costs and stamina are gameplay adaptations. Foxfire is omitted as fire creation or elemental status: this kit only represents Zoro's swordsmanship and cutting of resistant targets. Observation Haki is represented by purchased detection and reacquisition, not future sight or exact sensory targeting. Movement, recoil, defensive blocking, history-based bonuses and No Sword Style are omitted.",
+  "cost": 650,
+  "baseForm": "base",
+  "stunProtectionSeconds": 1.25,
+  "stamina": {
+    "unlockTier": 4,
+    "maximum": 100,
+    "entryMinimum": 25,
+    "recoveryPerSecond": 9,
+    "reentrySeconds": 2.5,
+    "techniqueCost": 30,
+    "techniqueCooldown": 8
+  },
+  "forms": [
+    {
+      "id": "base",
+      "name": "Three Sword Style",
+      "unlockTier": 0,
+      "drainPerSecond": 0,
+      "primary": {
+        "name": "Three Sword Flying Slash",
+        "delivery": "projectile",
+        "projectileSpeed": 70,
+        "projectileRadius": 0.3,
+        "damage": 34,
+        "period": 1.15,
+        "windup": 0.35,
+        "reach": 9,
+        "shape": {
+          "kind": "area",
+          "radius": 0.8,
+          "cap": 3
+        }
+      },
+      "techniques": []
+    },
+    {
+      "id": "ashura",
+      "name": "Nine Sword Style: Ashura",
+      "unlockTier": 4,
+      "drainPerSecond": 8,
+      "primary": {
+        "name": "Ashura Flying Slash",
+        "delivery": "projectile",
+        "projectileSpeed": 68,
+        "projectileRadius": 0.35,
+        "damage": 50,
+        "period": 1.05,
+        "windup": 0.4,
+        "reach": 11,
+        "shape": {
+          "kind": "area",
+          "radius": 1,
+          "cap": 3
+        }
+      },
+      "techniques": [
+        {
+          "id": "ashura-bakkei",
+          "name": "Ashura: Bakkei Moja no Tawamure",
+          "unlockTier": 4,
+          "delivery": "projectile",
+          "projectileSpeed": 72,
+          "projectileRadius": 0.35,
+          "damage": 105,
+          "windup": 0.55,
+          "recovery": 0.7,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          }
+        }
+      ]
+    },
+    {
+      "id": "king-of-hell",
+      "name": "King of Hell Three Sword Style",
+      "unlockTier": 5,
+      "drainPerSecond": 14,
+      "primary": {
+        "name": "King of Hell Flying Slash",
+        "delivery": "projectile",
+        "projectileSpeed": 82,
+        "projectileRadius": 0.4,
+        "damage": 70,
+        "period": 0.95,
+        "windup": 0.32,
+        "reach": 14,
+        "shape": {
+          "kind": "area",
+          "radius": 1.2,
+          "cap": 4
+        }
+      },
+      "techniques": [
+        {
+          "id": "king-of-hell-cut",
+          "name": "King of Hell Three Sword Cut",
+          "unlockTier": 5,
+          "delivery": "projectile",
+          "projectileSpeed": 88,
+          "projectileRadius": 0.4,
+          "damage": 145,
+          "windup": 0.5,
+          "recovery": 0.85,
+          "hits": 1,
+          "hitSpan": 0,
+          "shape": {
+            "kind": "single"
+          }
+        }
+      ]
+    }
+  ],
+  "paths": [
+    {
+      "id": "haki-enma",
+      "name": "Haki and Enma",
+      "description": "Develops the Armament and Supreme King Haki emphasis shown in Wano, with Enma represented by stronger armor bypass and the stamina burden of the two advanced forms. Damage values and the internal damage fraction are gameplay adaptations; they do not establish a separate damage type or guaranteed penetration of invulnerability.",
+      "upgrades": [
+        {
+          "name": "Armament Haki Hardening",
+          "description": "Adds 6 flat damage to every primary attack and every Technique, including Techniques with zero base damage. This represents hardened sword imbuement as a gameplay bonus.",
+          "cost": 180,
+          "modifiers": {
+            "flatDamage": 6
+          }
+        },
+        {
+          "name": "Enma's Draw",
+          "description": "Adds a 0.18 internal damage fraction to primary attacks and every Technique. The fraction bypasses armor but not invulnerability, modeling Enma drawing out unusually strong Haki rather than granting a new element.",
+          "cost": 240,
+          "modifiers": {
+            "internalFraction": 0.18
+          }
+        },
+        {
+          "name": "Supreme King Infusion",
+          "description": "Multiplies damage by 1.18 for primary attacks and every Technique, representing conscious Supreme King Haki infusion into the swords as an explicit adaptation.",
+          "cost": 300,
+          "modifiers": {
+            "damageMultiplier": 1.18
+          }
+        },
+        {
+          "name": "King of Hell Control",
+          "description": "Multiplies primary timing by 0.88. This improves ordinary primary timing only; it does not shorten Technique windup or recovery. The stamina drain of King of Hell remains separate and active.",
+          "cost": 330,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.88
+          }
+        },
+        {
+          "name": "Enma Release",
+          "description": "Sets the purchased armor-ignore contribution to 0.55, applying to ordinary outgoing damage after flat additions and damage multipliers. Internal damage remains armor-bypassing and all damage still respects invulnerability.",
+          "cost": 420,
+          "modifiers": {
+            "armorIgnore": 0.55
+          }
+        }
+      ]
+    },
+    {
+      "id": "three-sword-reach",
+      "name": "Three Sword Reach",
+      "description": "Expands the practical battlefield role of Three Sword Style through longer flying slashes, target awareness, reacquisition and a limited Supreme King pressure pulse. The pulse deals no damage and only affects targets that are both weak-willed and stunnable; it does not represent a universal knockout.",
+      "upgrades": [
+        {
+          "name": "Three Sword Fundamentals",
+          "description": "Adds 1.5 reach to primary acquisition and primary flying slashes, representing stronger three-blade coverage without adding movement.",
+          "cost": 160,
+          "modifiers": {
+            "reachAdd": 1.5
+          }
+        },
+        {
+          "name": "Oni Giri Force",
+          "description": "Adds 4 flat damage to every primary attack and every Technique, including the Ashura and King of Hell Techniques. This is a numerical adaptation of Zoro's signature finishing force.",
+          "cost": 220,
+          "modifiers": {
+            "flatDamage": 4
+          }
+        },
+        {
+          "name": "Observation Awareness",
+          "description": "Enables detection of concealed targets for primary acquisition. It represents presence sensing only; it does not grant future sight or exact predictive targeting.",
+          "cost": 260,
+          "modifiers": {
+            "detectConcealed": true
+          }
+        },
+        {
+          "name": "Conqueror's Pressure",
+          "description": "After 4 successful primary contacts, triggers a pulse within radius 5 against up to 3 eligible targets, stunning them for 0.9 seconds. The pulse deals no damage, requires weak-willed and stunnable targets, and has a 3-second minimum interval.",
+          "cost": 360,
+          "modifiers": {
+            "pulse": {
+              "cycles": 4,
+              "radius": 5,
+              "cap": 3,
+              "stun": 0.9,
+              "interval": 3
+            }
+          }
+        },
+        {
+          "name": "Combat Reacquisition",
+          "description": "Enables one lost-primary-target retarget at resolution without restarting windup. It never retargets Techniques or a projectile after launch.",
+          "cost": 300,
+          "modifiers": {
+            "retargetPrimary": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "precision-severing",
+      "name": "Precision Severing",
+      "description": "Builds on Zoro's precise cuts, iai attacks and ability to sever large or resistant objects. The long emission is a bounded ranged-cut adaptation: it is not fire, elemental damage, terrain creation or a second independent attack profile.",
+      "upgrades": [
+        {
+          "name": "Iai Rhythm",
+          "description": "Multiplies primary timing by 0.9, improving draw-and-release cadence for primary attacks only. Technique windup and recovery are unchanged.",
+          "cost": 170,
+          "modifiers": {
+            "primaryTimingMultiplier": 0.9
+          }
+        },
+        {
+          "name": "Steel-Severing Precision",
+          "description": "Sets a 0.25 armor-ignore contribution for primary attacks and every Technique, useful against armored targets. The largest purchased armor-ignore value applies.",
+          "cost": 230,
+          "modifiers": {
+            "armorIgnore": 0.25
+          }
+        },
+        {
+          "name": "Shishi Sonson",
+          "description": "Multiplies damage by 1.1 for primary attacks and every Technique, representing decisive one-sword-style precision as a gameplay adaptation rather than adding a separate attack.",
+          "cost": 290,
+          "modifiers": {
+            "damageMultiplier": 1.1
+          }
+        },
+        {
+          "name": "Dragon's Reach",
+          "description": "After 3 successful primary contacts, emits one 38-damage cutting line from the contact away from Zoro, up to 12 length, 0.35 width and 2 targets. It starts at contact, can exceed primary reach, stops at obstacles and never triggers other effects or counters.",
+          "cost": 350,
+          "modifiers": {
+            "emission": {
+              "cycles": 3,
+              "damage": 38,
+              "width": 0.35,
+              "length": 12,
+              "cap": 2
+            }
+          }
+        },
+        {
+          "name": "Nine Mountains Endurance",
+          "description": "Adds 8 flat damage to every primary attack and every Technique. This adapts Zoro's exceptional strength and endurance into a direct executable damage increase without encoding pain immunity or healing.",
+          "cost": 410,
+          "modifiers": {
+            "flatDamage": 8
+          }
+        }
+      ]
+    }
+  ]
+}

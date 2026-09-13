@@ -1,0 +1,160 @@
+{
+  "reviewDate": "2026-09-13",
+  "units": {
+    "brook": {
+      "unit": "examples/straw-hats/runs/crew-v4-brook-20260913/brook/unit.json",
+      "sha256": "10a7593223d7e44899d37cc04d750c9352fc78a9a88fff8ae75e2b32e16ef61a",
+      "receipt": "examples/straw-hats/runs/crew-v4-brook-20260913/brook/receipt.json"
+    },
+    "chopper": {
+      "unit": "examples/straw-hats/runs/crew-v3-chopper-20260913/chopper/unit.json",
+      "sha256": "6a1ca0c5f55bf4d35c8c0f9f457f2b873beee2702c696cb2ccb17e7a7a152b8e",
+      "receipt": "examples/straw-hats/runs/crew-v3-chopper-20260913/chopper/receipt.json"
+    }
+  },
+  "runtime": "packages/definitions/dist/manga-mayhem/index.js",
+  "legalBuildsPerUnit": 64,
+  "brook": {
+    "nonDamagingUnlockedSongCasts": 63,
+    "baseTechniqueLocked": true,
+    "flatDamageZeroAllBuilds": true,
+    "sleepEligibility": [
+      {
+        "label": "hearing",
+        "expected": true
+      },
+      {
+        "label": "no-hearing",
+        "expected": false
+      },
+      {
+        "label": "boss",
+        "expected": false
+      },
+      {
+        "label": "sleep-immune",
+        "expected": false
+      },
+      {
+        "label": "sound-immune",
+        "expected": false
+      },
+      {
+        "label": "not-weak",
+        "expected": false
+      }
+    ],
+    "sharedCooldownResetAndPulses": true,
+    "genericControlLimitation": "Purchased contactStun and pulse rely on caller weakWilled/stunnable eligibility; dedicated sleep status immunity tags do not govern them.",
+    "contactStunHostProbe": [
+      {
+        "tiers": [
+          0,
+          0,
+          3
+        ],
+        "targetTags": [
+          "sound-immune"
+        ],
+        "weakWilled": true,
+        "stunnable": true,
+        "health": 10000,
+        "stunUntil": 0
+      },
+      {
+        "tiers": [
+          0,
+          0,
+          5
+        ],
+        "targetTags": [
+          "sound-immune"
+        ],
+        "weakWilled": true,
+        "stunnable": true,
+        "health": 10000,
+        "stunUntil": 0
+      }
+    ]
+  },
+  "chopper": {
+    "supportConfigurations": [
+      {
+        "tier": 0,
+        "interval": 5.5,
+        "radius": 30,
+        "cap": 3,
+        "heal": 7,
+        "actualFirstPulseCount": 3
+      },
+      {
+        "tier": 1,
+        "interval": 5.2,
+        "radius": 30,
+        "cap": 3,
+        "heal": 9,
+        "actualFirstPulseCount": 3
+      },
+      {
+        "tier": 2,
+        "interval": 5.2,
+        "radius": 32,
+        "cap": 3,
+        "heal": 12,
+        "actualFirstPulseCount": 3
+      },
+      {
+        "tier": 3,
+        "interval": 5,
+        "radius": 32,
+        "cap": 4,
+        "heal": 12,
+        "actualFirstPulseCount": 4
+      },
+      {
+        "tier": 4,
+        "interval": 4.8,
+        "radius": 34,
+        "cap": 4,
+        "heal": 15,
+        "actualFirstPulseCount": 4
+      },
+      {
+        "tier": 5,
+        "interval": 4.4,
+        "radius": 36,
+        "cap": 5,
+        "heal": 18,
+        "actualFirstPulseCount": 5
+      }
+    ],
+    "noEnemyHealingLivingOnlyAndRangeChecks": true,
+    "purchasePreservesHealingProgress": true,
+    "freeOrdinaryPoints": true,
+    "noArmorBypassNoHostileCureAllBuilds": true,
+    "monster": {
+      "exhausted": {
+        "time": 56,
+        "form": "brain-point",
+        "stamina": 0.2444444444444436,
+        "reentryAt": 73.55555555555556,
+        "events": [
+          {
+            "time": 0,
+            "type": "form",
+            "detail": "monster-point"
+          }
+        ]
+      },
+      "recovered": {
+        "time": 111,
+        "stamina": 30.494444444444444
+      },
+      "healingContinues": true
+    }
+  },
+  "privateAuditBacking": ".scratch/straw-hats/reviews/current-brook-chopper-20260913",
+  "unitChanges": false,
+  "paidCalls": 0,
+  "balanceQualified": false
+}

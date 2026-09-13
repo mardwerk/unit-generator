@@ -72,7 +72,7 @@ const request: Dependencies['request'] = (url, address, signal) =>
         family: address.family,
         headers: {
           'User-Agent': 'UnitGenerator/0.1 (public source reader)',
-          Accept: 'text/html, text/plain;q=0.8',
+          Accept: 'text/html, application/json;q=0.9, text/plain;q=0.8',
           'Accept-Encoding': 'identity'
         },
         // Connecting to this checked address prevents a second DNS lookup/rebinding.
@@ -262,10 +262,30 @@ export function createSourceReader(deps: Dependencies) {
             raw = new URL(response.headers.location, url).href;
             continue;
           }
+          if (
+            [403, 406].includes(response.status) &&
+            url.hostname.endsWith('.fandom.com') &&
+            url.pathname.startsWith('/wiki/')
+          ) {
+            const api = new URL('/api.php', url);
+            api.search = new URLSearchParams({
+              action: 'parse',
+              page: decodeURIComponent(url.pathname.slice(6)).replaceAll('_', ' '),
+              prop: 'wikitext',
+              format: 'json'
+            }).toString();
+            emit({ url: raw, status: 'read', title: 'Redirect', characters: 0 });
+            raw = api.href;
+            continue;
+          }
           if (response.status < 200 || response.status >= 300)
             throw new Error('Source website denied or failed the request.');
           const type = response.headers['content-type']?.split(';')[0]?.trim();
-          if (!['text/html', 'application/xhtml+xml', 'text/plain'].includes(type ?? ''))
+          if (
+            !['text/html', 'application/xhtml+xml', 'text/plain', 'application/json'].includes(
+              type ?? ''
+            )
+          )
             throw new Error('Source is not a supported text page.');
           if (
             response.headers['content-encoding'] &&
@@ -274,10 +294,22 @@ export function createSourceReader(deps: Dependencies) {
             throw new Error('Source returned unsupported compressed content.');
           if (Buffer.byteLength(response.body) > MAX_BYTES)
             throw new Error('Source exceeds the download limit.');
+          let wiki: { title: string; text: string; links: string[] } | undefined;
+          if (type === 'application/json') {
+            if (!url.pathname.endsWith('/api.php') || url.searchParams.get('action') !== 'parse')
+              throw new Error('Source is not a supported text page.');
+            const data = JSON.parse(response.body) as {
+              parse?: { title?: string; wikitext?: { '*': string } };
+            };
+            if (typeof data.parse?.wikitext?.['*'] !== 'string')
+              throw new Error('Source contained no readable text.');
+            wiki = { title: data.parse.title ?? '', text: data.parse.wikitext['*'], links: [] };
+          }
           const parsed =
-            type === 'text/plain'
+            wiki ??
+            (type === 'text/plain'
               ? { title: '', text: response.body, links: [] }
-              : extract(response.body, url, concept);
+              : extract(response.body, url, concept));
           if (!parsed.text) throw new Error('Source contained no readable text.');
           const bytes = Buffer.from(parsed.text);
           const captured =
@@ -292,7 +324,9 @@ export function createSourceReader(deps: Dependencies) {
             content: captured,
             truncated: bytes.length > maxSourceBytes,
             omissions: [
-              'Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.'
+              wiki
+                ? 'Raw MediaWiki article source, including citation templates. Templates and images are not rendered.'
+                : 'Non-article navigation, scripts, styles and markup omitted; whitespace normalized; images are not acquired.'
             ],
             ...(parsed.title ? { title: parsed.title } : {}),
             status: 'read',
