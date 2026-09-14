@@ -10,10 +10,10 @@ Use Node.js 24 or newer, pnpm 10.18.3 and git. From a fresh clone:
 
 ```bash
 node scripts/setup.mjs
-pnpm dev
+pnpm build
 ```
 
-The setup script installs and builds the pinned public [Mardwerk Foundation](https://github.com/mardwerk/foundation) source beside this repository, then builds Unit Generator. It preserves existing checkouts. See [local setup](docs/setup.md) for development checkouts and the built app.
+The current repository contains the canonical CLI. The previous web playground was removed for a clean UnitLab rewrite; see [the UI plan](docs/unitlab-ui-plan.md) for the localhost web app being designed next.
 
 Open the URL printed in the terminal and follow [Create your first unit](docs/getting-started.md). Default generation uses Luna with high reasoning; Quality uses Astra with low reasoning. Configure a model endpoint in `.env` as described in [provider configuration](docs/providers.md). Without credentials, choose the explicit Demo fixture to explore the editor with synthetic original concepts.
 
@@ -29,8 +29,6 @@ node apps/cli/dist/index.js validate luffy-result.json
 # A different input and output contract on the same runner.
 node apps/cli/dist/index.js generate 'A defensive unit family' --definition merge-family-example --provider fixture
 
-# Optional local UI, after building.
-node apps/cli/dist/index.js playground
 ```
 
 CLI stdout contains one JSON result; stderr contains progress. Nothing is written unless `--out` is supplied. Exports refuse to overwrite existing files. Library/CLI use does not require the playground or a commercial platform.
@@ -74,12 +72,6 @@ Tower defense and MangaMayhem share normalized mechanical behavior while keeping
 
 Copy and edit a definition directory, then pass `--definition ./my-definition`. See [definition authoring](docs/definition-authoring.md). The default strategy uses one draft and up to one targeted repair. One malformed draft or repair response may also receive a format retry within the same total call limit, without repeating research. Custom trusted workflows may use any sequence within caller limits. The runner always performs final validation.
 
-The playground keeps the current result in page memory. Refreshing discards it, so export anything you want to keep.
-
-Dark mode is the default. The sun or moon button switches themes and saves that preference in a cookie for one year. The server applies it before the page renders. No prompts, research, or generated content are saved in that cookie.
-
-The composer and controls come from Foundation's `@mardwerk/ui` package and `@mardwerk/ui/styles.css`. Build `@mardwerk/ui` in the sibling Foundation checkout after changing shared components.
-
 Enter a subject and optional adaptation notes in the composer. Choose game rules and generation quality in its footer, then select Generate. Ctrl+Enter or Command+Enter also generates while a composer field is focused. Existing character input exposes Sources & continuity beside the adaptation notes. Advanced contains source material for original concepts and custom model connections. Its JSON input section accepts a complete request that replaces the form fields. The merge-family definition replaces the subject fields with a JSON request and an example to edit.
 
 The result has Design, JSON, Checks, and Research views. Open JSON to edit the unit, then select Check changes. Character edits also receive a bounded source review using retained evidence and the selected model, preserving the exact edited unit. Without a model, locally valid character edits remain explicitly marked drafts. Export result downloads the checked result. Unvalidated changes download as a candidate; rule-valid character edits awaiting source review download as a draft.
@@ -88,9 +80,7 @@ Set `UNIT_DEFINITION_PATHS` to a JSON object mapping custom selector IDs to loca
 
 ## UnitLab
 
-The `@mardwerk/unit-lab` package supplies diagnostic and qualification tools used by the CLI and UnitLab. UnitLab has an ordinary human mode and a developer diagnostic workbench mode; both observe the canonical CLI workflow. It inspects mechanics and simulated upgrade behavior. It does not assign an overall design-quality score or assess character fidelity. See [Unit diagnostics](docs/unit-diagnostics-v0.2.md) and the [Luffy and BTD6 review](docs/luffy-btd6-review.md). The parallel map human workbench is MapLab.
-
-The [unit glossary](CONTEXT.md) links to Foundation's shared Mardwerk vocabulary.
+UnitLab is planned as a localhost web interface over the canonical generator. The first version is an empty, fixture-driven UI with the default definition visible, a two-surface layout, and a right diagnostic pop-over. Generation, provider settings, persistence, and result editing are later slices. It will not be a desktop application and it will not use Foundation UI packages. See the [UnitLab UI plan](docs/unitlab-ui-plan.md).
 
 ## Development
 
@@ -99,8 +89,8 @@ pnpm check
 pnpm test:e2e
 ```
 
-Tests run without paid model calls. [Live quality observations](docs/live-quality-check.md) record the early real-model checks and their limits. Run `node scripts/live-smoke.mjs --discovery --out <new-file>` to repeat the opt-in smoke check. Current mechanic qualification runs in the CLI and playground. Historical Classic scoring and calibration fixtures remain optional developer diagnostics.
+Tests run without paid model calls. [Live quality observations](docs/live-quality-check.md) record the early real-model checks and their limits. Run `node scripts/live-smoke.mjs --discovery --out <new-file>` to repeat the opt-in smoke check. Current mechanic qualification runs in the CLI. Historical Classic scoring and calibration fixtures remain optional developer diagnostics.
 
-Packages are split into generic `core`, generic `providers`, game-specific `definitions`, and optional `unit-lab` diagnostics. Apps are `cli` and `web`. See the [module design map](docs/codebase-design.md), [generation pipeline](docs/generation-pipeline.md), [migration notes](docs/migration-0.2.md), and the approved [refactor plan](docs/stateless-refactor-plan.md).
+Packages are split into generic `core`, generic `providers`, game-specific `definitions`, and optional `unit-lab` diagnostics. The CLI is the current application surface; the UnitLab web app is being rebuilt separately. See the [module design map](docs/codebase-design.md), [generation pipeline](docs/generation-pipeline.md), [migration notes](docs/migration-0.2.md), and the approved [refactor plan](docs/stateless-refactor-plan.md).
 
-MPL-2.0. See `LICENSE` and `NOTICE`.
+MIT for original generator and UnitLab code. See [LICENSE](LICENSE) and [NOTICE](NOTICE). Dependencies and referenced/generated third-party content retain their own terms. the GPL MapLab in the separate Map Generator repository is not a Unit Generator dependency.

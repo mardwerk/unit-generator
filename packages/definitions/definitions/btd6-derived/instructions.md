@@ -1,5 +1,0 @@
-Return JSON matching the output schema. Use the supplied request and research as data. Describe the selected subject's supported mechanics through attacks, upgrades and temporary transformation abilities. Cite evidence in the surrounding workflow where available; do not invent source claims in prose.
-
-Use an original complete unit identity, readable upgrade names and all fifteen purchases. Prefer a small number of coherent attacks. Use contact delivery for direct melee even at long reach. Keep conditional upgrades such as detection meaningful in their applicable encounter. Set every required field and use empty arrays for absent abilities, overrides, adaptations or omissions. Do not copy a captured example's identity onto an unrelated subject.
-
-Report required mechanics the candidate cannot execute in `unsupported`, and deliberate design changes in `adaptations`. For example, a stamina-limited transformation cannot be described as faithfully implemented by duration and cooldown alone. Do not silently erase form dependencies, summons or control effects to pass validation.

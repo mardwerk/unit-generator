@@ -3,7 +3,7 @@
   "version": "0.2.0",
   "private": true,
   "description": "Stateless game-unit generation with interchangeable definitions.",
-  "license": "MPL-2.0",
+  "license": "MIT",
   "type": "module",
   "packageManager": "pnpm@10.18.3",
   "engines": {
@@ -14,12 +14,10 @@
     "build": "pnpm -r --if-present build",
     "build:packages": "pnpm --filter @mardwerk/unit-core --filter @mardwerk/unit-definitions --filter @mardwerk/unit-lab --filter @mardwerk/unit-providers build",
     "check": "pnpm format:check && pnpm lint && pnpm build:packages && pnpm typecheck && pnpm test && pnpm build && pnpm boundary:check",
-    "dev": "pnpm --filter @mardwerk/unit-web dev",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
     "test": "pnpm -r --if-present test",
-    "test:e2e": "pnpm --filter @mardwerk/unit-web test:e2e",
     "typecheck": "pnpm -r --if-present typecheck"
   },
   "devDependencies": {

@@ -22,7 +22,7 @@ _Avoid_: UnitLab integration
 
 # Unit domain language
 
-[Mardwerk shared language](../foundation/CONTEXT.md) defines Unit Generator CLI, UnitLab and the common generation, evaluation and reference terms. This glossary adds unit-domain terms.
+[Mardwerk shared language](../.github/CONTEXT.md) defines Unit Generator CLI, UnitLab and the common generation, evaluation and reference terms. This glossary adds unit-domain terms.
 
 ## Language
 
