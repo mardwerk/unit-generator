@@ -11,4 +11,4 @@ Unit Generator is an independently useful Tower Defense unit-content Tool.
 
 Each operation accepts explicit inputs and returns an inspectable Result. The Tool runs without Towerright.
 
-[Towerright](https://github.com/mardwerk/towerright) may provide curated Profiles, orchestrate Requests and retain accepted Revisions. Shared terms live in [Foundation](https://github.com/mardwerk/foundation).
+Towerright may provide curated Profiles, orchestrate Requests and retain accepted Revisions. The contributor contract is in [CONTEXT.md](CONTEXT.md) and does not require access to private Mardwerk repositories.
