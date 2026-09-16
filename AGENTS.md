@@ -4,6 +4,7 @@ Read [README.md](README.md) and [CONTEXT.md](CONTEXT.md) before changing this re
 
 ## Rules
 
+- Build from scratch; use historical work for design context only, without reusing old code.
 - Keep the Tool runnable from explicit inputs without Towerright state.
 - Name files and modules after the responsibility or domain object they own.
 - Keep each module focused on one concern and expose explicit interfaces.
