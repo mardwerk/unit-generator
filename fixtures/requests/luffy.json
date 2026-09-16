@@ -1,8 +1,0 @@
-{
-  "schemaVersion": "0.1",
-  "concept": "Monkey D. Luffy",
-  "sourceUrls": ["https://en.wikipedia.org/wiki/Monkey_D._Luffy"],
-  "designNotes": "Design a compact tower-defense adaptation. Base attacks use elastic punches. Three independent cumulative paths: Gear Second attack speed, Gear Third reach and impact, Haki burst damage. Keep only one simple active ability. Omit resource meters, summons and forms unless needed for the core identity. Prefer a small valid unit to a literal recreation of every power. Source facts and game-design adaptations must remain distinct.",
-  "seed": 42,
-  "options": { "provider": "openai-compatible", "repairAttempts": 2, "includePreview": true }
-}

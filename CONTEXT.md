@@ -7,11 +7,16 @@ This file is the contributor contract for Unit Generator. Foundation is private 
 | Term | Definition |
 | --- | --- |
 | Tool | An independently useful capability with a defined input, result and owner. |
-| Engine | The domain computation owned by a Tool. |
+| Engine | The domain computation behind a Tool or platform capability. |
 | CLI | A supported command-line entry point. |
 | Lab | A human application that prepares Requests, inspects Results and retains local work and generation history. |
+| Definition | An explicit contract for a game system or content domain. |
+| Game Definition | An explicit description of one game's rules, supported mechanics and content constraints. |
+| Profile | A tunable configuration of a Definition. |
 | Request | The complete explicit input for one operation. |
+| Run | One execution of a Request. |
 | Result | The recorded outcome of a Run, including content, evidence or failure. |
+| Artifact | A concrete file or payload produced or supplied by a Run. |
 | Revision | An addressable version of an Artifact or specification. |
 
 ## Unit terms

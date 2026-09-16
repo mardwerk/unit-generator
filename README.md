@@ -1,10 +1,10 @@
 # Unit Generator
 
-Unit Generator is an independently useful Tower Defense unit-content Tool.
+Unit Generator is a planned standalone Tower Defense unit-content Tool.
 
 ## Owns
 
-- unit Definitions and mechanic interpretation;
+- unit computation and supported mechanic interpretation;
 - source evidence and scoped unit validation;
 - an Engine and CLI;
 - an optional UnitLab human application in this repository.
@@ -12,3 +12,5 @@ Unit Generator is an independently useful Tower Defense unit-content Tool.
 Each operation accepts explicit inputs and returns an inspectable Result. The CLI must run without Towerright or hidden state from earlier calls. UnitLab may retain local work and generation history.
 
 Towerright may provide curated Profiles, orchestrate Requests and retain accepted Revisions. The contributor contract is in [CONTEXT.md](CONTEXT.md) and does not require access to private Mardwerk repositories.
+
+This Greenfield repository currently contains documentation only. Read [docs/Produkt.md](docs/Produkt.md) for the product goal and [AGENTS.md](AGENTS.md) before making changes.
