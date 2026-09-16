@@ -13,4 +13,4 @@ Each operation accepts explicit inputs and returns an inspectable Result. The CL
 
 Towerright may provide curated Profiles, orchestrate Requests and retain accepted Revisions. The contributor contract is in [CONTEXT.md](CONTEXT.md) and does not require access to private Mardwerk repositories.
 
-This Greenfield repository currently contains documentation only. Read [docs/Produkt.md](docs/Produkt.md) for the product goal and [AGENTS.md](AGENTS.md) before making changes.
+This Greenfield repository currently contains documentation only. Read [docs/PRODUCT.md](docs/PRODUCT.md) for the product goal and [AGENTS.md](AGENTS.md) before making changes.
