@@ -1,4 +1,5 @@
 /** The core's only model dependency. Adapters own transport and credentials. */
+
 export interface ModelRequest {
   system: string;
   prompt: string;

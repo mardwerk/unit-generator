@@ -31,6 +31,8 @@
     "build": "tsc -p tsconfig.json",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
     "test": "tsc -p tsconfig.test.json && node --test .test-build/tests/*.test.js",
+    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"*.json\"",
+    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\" \"*.json\"",
     "cli": "node dist/cli.js"
   },
   "dependencies": {
@@ -40,6 +42,7 @@
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
+    "prettier": "^3.9.8",
     "typescript": "^5.9.0"
   }
 }

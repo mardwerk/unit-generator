@@ -28,7 +28,10 @@ Read [CLI usage](docs/CLI.md) for independently runnable stages, source files, U
 
 ## Development
 
+Use `pnpm format` after editing TypeScript or package configuration.
+
 ```sh
+pnpm format:check
 pnpm typecheck
 pnpm test
 pnpm build
