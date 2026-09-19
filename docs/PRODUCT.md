@@ -1,6 +1,6 @@
 # Unit Generator
 
-Unit Generator is a planned standalone Tool for adapting requested characters into Tower Defense units within an explicit Game Definition and Profile. Its Engine owns unit generation, source evidence, mechanic interpretation and scoped validation. Unsupported abilities must be reported; extending a game's mechanics requires an explicit Definition change.
+Unit Generator is a planned standalone Tool for adapting requested characters into Tower Defense units. Authoring can begin with explicit game scope and a partial Game Definition, then propose missing mechanics. Generation and validation against those mechanics require sufficiently specified rules and applicable Profile values. Its Engine owns unit generation, source evidence, mechanic interpretation and scoped validation. Unsupported abilities must be reported; extending a game's mechanics requires an explicit Definition change.
 
 The Tool provides an adjustable default Profile and returns inspectable content, evidence and findings. Its CLI has no hidden state between calls. The optional UnitLab uses the same Engine and retains local settings, work and generation history; earlier Results become explicit inputs when reused.
 
@@ -10,24 +10,25 @@ Engine, CLI and UnitLab remain in this repository. Implementation starts from sc
 
 ## Next scope
 
-Choose one useful standalone unit-generation task. Decide:
+The first implementation candidate is one standalone character-authoring operation. It helps a caller turn evidence and partial game rules into a reviewable Unit design with explicit mechanic requirements.
 
-- what the caller supplies about the character, Definition and Profile, and what optional research or AI may add;
-- which mechanics and unit properties the first scope supports, what the default Profile contains and what users can adjust;
-- the returned unit content, source evidence and validation findings, including how unsupported abilities are reported;
-- which checks the Engine guarantees, which evaluations belong to the caller, and which CLI and optional UnitLab operations are needed first.
+- Input: character and source scope, supplied evidence or research permissions, relevant game rules and Profile values, confirmed choices, requested outcome and input Revisions. Missing rules remain visible.
+- Output: a connected Unit candidate, supporting evidence, required mechanics, proposed Definition extensions and findings that identify affected behavior and the next correction or decision.
+- Completion: preserve confirmed choices, check sufficiently specified constraints, and distinguish contradictions, missing specifications and unsupported capabilities. A useful authoring result can retain open details; those details cannot receive a successful mechanics check.
 
-Describe one successful Request and Result and one unsupported-mechanic case, with explicit quality requirements. Keep Manga Mayhem's rules in its Definition or Profile. The examples must establish standalone value without Towerright or access to private documentation.
+A self-contained example should supply a game's upgrade rules, an attack and a wall-perception upgrade. It should return a candidate satisfying the stated progression rules while reporting unspecified attack delivery through walls. A legal combination alone cannot approve that delivery. Keep example rules in caller-supplied inputs; public examples must require neither Towerright nor private documentation.
+
+Record one corrected candidate and its review findings before fixing the CLI format or default Profile. Keep generation, retrieval, deterministic checks and human decisions separate enough to use different executors with the same inputs and expected outcomes. No specific AI model or Provider is required. Complete DSL execution, game-wide balancing, UnitLab and runtime implementation are outside this first candidate scope.
 
 ## Requirements from character design
 
 Status: September 19, 2026. These candidate requirements come from the Luffy, Alucard, Tatsuya, Gojo, Rimuru and Goku design passes. They describe standalone value and evidence needs, not implemented operations, a fixed schema or a selected release scope.
 
-Explicit inputs need the character identity, source work and story period, source material or permission and limits for further research, and the applicable Definition and Profile with their Revisions. Include confirmed adaptation decisions, the intended role if already chosen, and relevant earlier Results when continuing work. Missing choices remain visible; a character name alone does not establish a version or a kit. A standalone caller must be able to provide this context without Towerright or private documents.
+Explicit inputs need the character identity, source work and any selected story period, source material or permission and limits for further research, and the available Definition and Profile with their Revisions. Coarse game scope suffices for exploration; missing progression or behavior rules limit the claims that can be checked. Include confirmed adaptation decisions, the intended role if already chosen, and relevant earlier Results when continuing work. Missing choices remain visible; a character name alone does not establish a version or a kit. A standalone caller must be able to provide this context without Towerright or private documents.
 
 Supplied reference links are research entry points, not an exhaustive source boundary or automatic proof of their claims. Within the caller's research permissions, follow up on specific techniques, limits and story periods as needed. There is no fixed search count. Expose unresolved claims when evidence is unavailable rather than inventing their behavior or asking the user to establish canon.
 
-The explicit progression input must resolve the permitted branches or other upgrade structure, depth, shared unlocks, prerequisites and legal combinations. The Result should connect a researched ability repertoire to one recommended arrangement and, where useful, a small set of alternatives for user selection. Show which techniques are innate, assigned to upgrades, reserved or omitted, with reasons where the choice matters. Do not assume every source ability needs a slot or that all games use the same path model.
+Before validating progression, its explicit input must resolve the permitted branches or other upgrade structure, depth, shared unlocks, prerequisites and legal combinations. Exploratory arrangements remain provisional while these rules are missing. The Result should connect a researched ability repertoire to one recommended arrangement and, where useful, a small set of alternatives for user selection. Show which techniques are innate, assigned to upgrades, reserved or omitted, with reasons where the choice matters. Do not assume every source ability needs a slot or that all games use the same path model.
 
 Assignment checks should preserve confirmed choices, respect supplied progression constraints and reveal the consequences of moving an ability between tiers or paths. An alternative must remain coherent across its legal builds, not merely fit each ability into an empty slot. The Result needs to identify changed roles, lost combinations and dependent mechanics without presenting untested balance as established quality.
 
