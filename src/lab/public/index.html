@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>UnitLab</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/client/app.js"></script>
+  </head>
+  <body>
+    <header class="topbar">
+      <div>
+        <h1>UnitLab</h1>
+        <p>Character evidence into a reviewable Unit.</p>
+      </div>
+      <div class="button-row">
+        <button id="load-example" type="button">Load Mira example</button>
+        <button id="import-file" type="button">Import Request / Result</button>
+        <button id="save-session" type="button">Save session</button>
+        <input id="file-input" type="file" accept=".json,application/json" hidden />
+      </div>
+    </header>
+    <main class="workspace">
+      <aside class="input-panel" aria-label="Authoring inputs">
+        <div class="panel-heading">
+          <span class="eyebrow">Inputs</span
+          ><button id="new-inputs" type="button" class="text-button">Start fresh</button>
+        </div>
+        <div id="request-editor"></div>
+      </aside>
+      <div class="result-panel">
+        <section class="run-panel" aria-label="Authoring stages">
+          <ol class="stages">
+            <li id="stage-prepare"><span>1. Prepare</span><small>not run</small></li>
+            <li id="stage-draft"><span>2. Draft</span><small>not run</small></li>
+            <li id="stage-check"><span>3. Check</span><small>not run</small></li>
+            <li id="stage-review"><span>4. Review</span><small>not run</small></li>
+          </ol>
+          <div class="button-row">
+            <button id="run-next" type="button" class="primary">Run Prepare</button
+            ><button id="run-remaining" type="button">Run remaining stages</button
+            ><button id="stop" type="button" hidden>Stop</button>
+          </div>
+          <p id="operation-status" class="muted" role="status">
+            Ready. Load an example, import a Result, or supply your own brief.
+          </p>
+          <p id="dirty-notice" class="notice" hidden>
+            Inputs have changed. The next run will prepare a new revision.
+          </p>
+          <p id="error" class="error" role="alert" hidden></p>
+        </section>
+        <section class="revision-toolbar" aria-label="Revisions">
+          <label class="field"
+            ><span>Current revision</span
+            ><select id="revision-select"></select
+          ></label>
+          <label class="field"
+            ><span>Compare with</span
+            ><select id="compare-select"></select
+          ></label>
+          <div class="button-row">
+            <button id="download-json" type="button">Download JSON</button
+            ><button id="download-markdown" type="button">Download Markdown</button>
+          </div>
+        </section>
+        <p class="session-note">
+          Revisions live in this tab until you save a session. Import a saved session to restore it.
+        </p>
+        <section id="comparison-panel" class="comparison-panel" hidden>
+          <h2>What changed</h2>
+          <div id="comparison"></div>
+        </section>
+        <div id="output"></div>
+        <section id="feedback-panel" class="feedback-panel" hidden>
+          <h2>Revise this Unit</h2>
+          <p class="muted">
+            Describe what should change. The previous Result and its original confirmed constraints
+            become explicit inputs to the next revision.
+          </p>
+          <label class="field"
+            ><span>Revision feedback</span
+            ><textarea
+              id="feedback"
+              rows="4"
+              placeholder="Give the support path a clearer team role..."
+            ></textarea>
+          </label>
+          <button id="revise" type="button" class="primary">Use feedback for a new revision</button>
+        </section>
+      </div>
+    </main>
+  </body>
+</html>

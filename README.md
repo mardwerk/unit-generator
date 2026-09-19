@@ -2,7 +2,7 @@
 
 Unit Generator turns supplied character evidence and Tower Defense game rules into a connected Unit draft. It proposes a role, basic attack, upgrade paths, abilities and required mechanics, then returns deterministic checks and a separate model review. Confirmed choices, proposals and open specifications remain distinct.
 
-The CLI and future UnitLab share a [typed generator core](docs/API.md). Applications call it directly with structured inputs and Results. The core has no console, filesystem, subprocess or hidden project history.
+The CLI and local [UnitLab](docs/LAB.md) share a [typed generator core](docs/API.md). Applications call it directly with structured inputs and Results. The core has no console, filesystem, subprocess or hidden project history.
 
 ## Try it
 
@@ -12,6 +12,14 @@ Requires Node.js 24 or newer, pnpm, and an installed, configured Codex CLI. Gene
 pnpm install
 pnpm build
 codex login status
+pnpm lab
+```
+
+Open the local session link printed in the terminal. UnitLab lets you edit inputs, run the stages, inspect a Unit and compare revisions. Import an existing Result to inspect it without a model call. Save a session file to retain your work after closing the tab.
+
+For the CLI:
+
+```sh
 pnpm cli author examples/mira.request.json --output .runs/mira-v1.json
 pnpm cli render .runs/mira-v1.json --output .runs/mira-v1.md
 ```
@@ -24,7 +32,7 @@ To revise a candidate, supply its Result and explicit feedback:
 pnpm cli author examples/mira.request.json --previous .runs/mira-v1.json --feedback "Give the support path a clearer team role while preserving personal wall detection." --output .runs/mira-v2.json
 ```
 
-Read [CLI usage](docs/CLI.md) for independently runnable stages, source files, URLs and Luffy inputs. Local generated content belongs in ignored `.runs/`. The optional UnitLab will retain local work; Towerright owns project history and wider evaluation. No UI is implemented yet.
+Read [CLI usage](docs/CLI.md) for independently runnable stages, source files, URLs and Luffy inputs. Local generated content belongs in ignored `.runs/`. UnitLab retains work in its browser session with explicit save/import; Towerright owns project history and wider evaluation.
 
 ## Development
 

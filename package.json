@@ -28,12 +28,13 @@
     "CONTEXT.md"
   ],
   "scripts": {
-    "build": "tsc -p tsconfig.json",
+    "build": "tsc -p tsconfig.json && node scripts/copy-lab-assets.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
     "test": "tsc -p tsconfig.test.json && node --test .test-build/tests/*.test.js",
-    "format": "prettier --write \"src/**/*.ts\" \"tests/**/*.ts\" \"*.json\"",
-    "format:check": "prettier --check \"src/**/*.ts\" \"tests/**/*.ts\" \"*.json\"",
-    "cli": "node dist/cli.js"
+    "format": "prettier --write \"src/**/*.{ts,html,css}\" \"tests/**/*.ts\" \"scripts/*.mjs\" \"*.json\"",
+    "format:check": "prettier --check \"src/**/*.{ts,html,css}\" \"tests/**/*.ts\" \"scripts/*.mjs\" \"*.json\"",
+    "cli": "node dist/cli.js",
+    "lab": "node dist/lab/main.js"
   },
   "dependencies": {
     "cheerio": "^1.1.2",

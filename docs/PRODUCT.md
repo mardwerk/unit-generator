@@ -6,7 +6,7 @@ The Tool provides an adjustable default Profile and returns inspectable content,
 
 Units must satisfy their declared requirements. Scoped checks alone do not establish balance across a game or player appeal. Towerright or another caller supplies wider evaluation and feedback; Towerright also retains project context and can provide curated Profiles.
 
-Engine, CLI and future UnitLab remain in this repository. The Greenfield implementation now supports structured authoring and scoped checks. Mechanics execution and UnitLab remain outside the current implementation.
+Engine, CLI and UnitLab remain in this repository. The Greenfield implementation supports structured authoring, scoped checks and a [minimal local UnitLab](LAB.md) for trying the stages and comparing revisions. Mechanics execution remains outside the current implementation.
 
 ## Next scope
 
@@ -20,7 +20,7 @@ The [authoring workflow](AUTHORING-WORKFLOW.md) records the agreed direction for
 
 The [standalone authoring example](AUTHORING-EXAMPLE.md) supplies a fictional character, upgrade rules, an attack and a wall-perception upgrade. Its corrected candidate preserves the ordinary clear-path rule and leaves through-wall delivery as an unapproved extension. A legal combination alone cannot approve that delivery. All necessary context is public and supplied within the example.
 
-The [CLI](CLI.md) provides combined authoring and independently runnable preparation, drafting, checking and review stages. The [shared API](API.md) exposes the same core directly to applications. Keep generation, retrieval, deterministic checks and human decisions separate enough to use different executors with the same inputs and expected outcomes. No specific AI model or Provider is required by the product contract. Complete DSL execution, game-wide balancing, UnitLab and game-runtime implementation are outside this first candidate scope.
+The [CLI](CLI.md) provides combined authoring and independently runnable preparation, drafting, checking and review stages. The [shared API](API.md) exposes the same core directly to applications, including UnitLab's local HTTP adapter. Keep generation, retrieval, deterministic checks and human decisions separate enough to use different executors with the same inputs and expected outcomes. No specific AI model or Provider is required by the product contract. Complete DSL execution, game-wide balancing and game-runtime implementation are outside this first candidate scope.
 
 ## Requirements from character design
 

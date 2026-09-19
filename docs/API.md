@@ -1,6 +1,6 @@
 # Generator API
 
-The package root exports the shared TypeScript core, runtime schemas and artifact types. It depends on Zod and Web Crypto, with no Node imports, console output, file access or subprocesses. UnitLab can call it directly. Node-specific source loading and the current Codex model adapter are separate exports under `@mardwerk/unit-generator/node`.
+The package root exports the shared TypeScript core, runtime schemas and artifact types. It depends on Zod and Web Crypto, with no Node imports, console output, file access or subprocesses. UnitLab calls it through a small local HTTP adapter. Node-specific source loading and the current Codex model adapter are separate exports under `@mardwerk/unit-generator/node`.
 
 ```ts
 import { authorUnit } from '@mardwerk/unit-generator';
@@ -12,6 +12,8 @@ const result = await authorUnit(request, new CodexModelClient());
 ```
 
 A browser caller supplies an `AuthorRequest` with already resolved document text and a `ModelClient` connected through its backend. Authentication and local Codex execution stay on that backend. It does not invoke the Unit Generator CLI.
+
+The [local Lab](LAB.md) sends explicit requests and artifacts through `/api/prepare`, `/api/draft`, `/api/check` and `/api/review`. It also supports schema-checked import and Markdown export. These are local browser adapter endpoints, not a versioned public service API. The browser owns revision selection and history; disconnecting an active request cancels its foreground operation.
 
 | Operation | Structured interface |
 | --- | --- |
