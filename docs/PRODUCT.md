@@ -16,9 +16,9 @@ The first implementation candidate is one standalone character-authoring operati
 - Output: a connected Unit candidate, supporting evidence, required mechanics, proposed Definition extensions and findings that identify affected behavior and the next correction or decision.
 - Completion: preserve confirmed choices, check sufficiently specified constraints, and distinguish contradictions, missing specifications and unsupported capabilities. A useful authoring result can retain open details; those details cannot receive a successful mechanics check.
 
-A self-contained example should supply a game's upgrade rules, an attack and a wall-perception upgrade. It should return a candidate satisfying the stated progression rules while reporting unspecified attack delivery through walls. A legal combination alone cannot approve that delivery. Keep example rules in caller-supplied inputs; public examples must require neither Towerright nor private documentation.
+The [standalone authoring example](AUTHORING-EXAMPLE.md) supplies a fictional character, upgrade rules, an attack and a wall-perception upgrade. Its corrected candidate preserves the ordinary clear-path rule and leaves through-wall delivery as an unapproved extension. A legal combination alone cannot approve that delivery. All necessary context is public and supplied within the example.
 
-Record one corrected candidate and its review findings before fixing the CLI format or default Profile. Keep generation, retrieval, deterministic checks and human decisions separate enough to use different executors with the same inputs and expected outcomes. No specific AI model or Provider is required. Complete DSL execution, game-wide balancing, UnitLab and runtime implementation are outside this first candidate scope.
+The [CLI plan](CLI.md) starts with one authoring command using supplied evidence. Keep generation, retrieval, deterministic checks and human decisions separate enough to use different executors with the same inputs and expected outcomes. No specific AI model or Provider is required by the product contract. Complete DSL execution, game-wide balancing, UnitLab and game-runtime implementation are outside this first candidate scope.
 
 ## Requirements from character design
 
