@@ -16,7 +16,7 @@ pnpm cli author examples/mira.request.json --output .runs/mira-v1.json
 pnpm cli render .runs/mira-v1.json --output .runs/mira-v1.md
 ```
 
-Mira is an original public example and needs no private repositories. The result JSON retains inputs, evidence and findings; Markdown provides a readable view. Output files are never overwritten. Inspect the findings before accepting content. A completed authoring run does not certify runtime behavior or game balance.
+Mira is an original public example and needs no private repositories. The result JSON retains inputs, evidence and findings. The default Markdown view shows the Unit kit, restrictions and open decisions; add `render --details` for the expanded evidence and check report. Output files are never overwritten. Inspect the findings before accepting content. A completed authoring run does not certify runtime behavior or game balance.
 
 To revise a candidate, supply its Result and explicit feedback:
 

@@ -131,9 +131,17 @@ test('CLI stages serialize and reload; combined authoring and explicit revisions
     const rendered = await run(['render', 'result.json'], directory);
     assert.equal(rendered.code, 0, rendered.stderr);
     assert.match(rendered.stdout, /# Mira/);
-    assert.match(rendered.stdout, /Deterministic checks:/);
-    assert.match(rendered.stdout, /Model review:/);
-    assert.match(rendered.stdout, /perception, tier 2/);
+    assert.match(rendered.stdout, /Proposed Unit design/);
+    assert.match(rendered.stdout, /Structural checks and model review complete/);
+    assert.match(rendered.stdout, /\| 2 \| Wall perception/);
+    assert.doesNotMatch(rendered.stdout, /mira-brief-v1/);
+    const detailed = await run(['render', 'result.json', '--details'], directory);
+    assert.equal(detailed.code, 0, detailed.stderr);
+    assert.match(detailed.stdout, /Deterministic checks:/);
+    assert.match(detailed.stdout, /Model review:/);
+    assert.match(detailed.stdout, /perception, tier 2/);
+    assert.match(detailed.stdout, /## Evidence/);
+    assert.match(detailed.stdout, /\| E1 \| source/);
   });
 });
 test('fake CLI model calls use fixture configuration even when the caller configuration is malformed', async () => {
@@ -169,6 +177,7 @@ test('CLI failures leave stdout and intended output empty and never overwrite ex
       ['check', request, '--feedback', 'invalid here'],
       ['author', request, '--codex', '/does-not-exist'],
       ['prepare', request, '--timeout', '-1'],
+      ['prepare', request, '--details'],
     ]) {
       const response = await run(args, directory);
       assert.equal(response.code, 1, response.stderr);
@@ -207,7 +216,7 @@ test('Markdown escapes embedded HTML and table separators while retaining meanin
   const candidate = miraCandidate();
   candidate.basicAttack.name = '<script>alert(1)</script>|Spark';
   const result = await authorUnit(miraRequest(), new FakeModel([candidate, miraReview()]));
-  const rendered = renderArtifact(result);
+  const rendered = renderArtifact(result, { details: true });
   assert.doesNotMatch(rendered, /<script>/);
   assert.match(rendered, /&lt;script&gt;/);
   assert.ok(rendered.includes('\\|Spark'));

@@ -38,6 +38,7 @@ Options:
   --reasoning LEVEL      Override reasoning: low, medium or high
   --timeout SECONDS      Timeout per model call (default: 600)
   --codex FILE           Codex executable (default: codex on PATH)
+  --details              Include evidence and technical details with render
   -h, --help             Show this help
 
 Without --output, the complete artifact is written to stdout.
@@ -101,6 +102,7 @@ function parseInvocation() {
       reasoning: { type: 'string' },
       timeout: { type: 'string' },
       codex: { type: 'string' },
+      details: { type: 'boolean' },
       help: {
         type: 'boolean',
         short: 'h',
@@ -116,6 +118,9 @@ function parseInvocation() {
   }
   if ((values.previous || values.feedback) && !['prepare', 'author'].includes(command)) {
     throw new Error('--previous and --feedback apply only to prepare or author.');
+  }
+  if (values.details && command !== 'render') {
+    throw new Error('--details applies only to render.');
   }
   return {
     command,
@@ -176,7 +181,7 @@ async function executeCommand(
       process.stderr.write('Reviewing with Codex...\n');
       return reviewDraft(input as CheckedArtifact, model, options);
     case 'render':
-      return renderArtifact(input);
+      return renderArtifact(input, { details: values.details });
   }
 }
 

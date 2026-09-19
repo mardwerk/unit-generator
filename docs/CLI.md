@@ -7,10 +7,13 @@ Run `pnpm install` and `pnpm build` with Node.js 24 or newer. `pnpm cli --help` 
 ```sh
 pnpm cli author examples/mira.request.json -o .runs/mira-v1.json
 pnpm cli render .runs/mira-v1.json -o .runs/mira-v1.md
+pnpm cli render .runs/mira-v1.json --details -o .runs/mira-v1.details.md
 pnpm cli author examples/mira.request.json --previous .runs/mira-v1.json --feedback "Strengthen the support role." -o .runs/mira-v2.json
 ```
 
 `author` resolves inputs, generates one candidate, checks structural constraints and makes a fresh model call for semantic review. It returns one revision; it does not run an automatic correction loop. Revisions receive the full current Request, previous candidate and findings, and explicit feedback. No command looks up a previous run implicitly.
+
+`render` defaults to the Unit's role, basic attack, every upgrade, forms and other abilities, shared gameplay rules, corrections and open decisions. Upgrade abilities appear with their tier. `--details` adds the expanded evidence, reference IDs, example builds and check report. Both views use the same artifact without model calls; JSON retains the complete structured record. Long gameplay descriptions remain intact, so an existing verbose draft can still produce a long kit.
 
 Use `--output` or `-o` to create a new file. Existing files are refused before generation and protected against replacement during writing. Without that option, stdout contains the complete JSON artifact, or Markdown for `render`. Diagnostics use stderr. If using shell redirection, choose a new filename that is not also an input.
 
@@ -32,7 +35,7 @@ pnpm cli render .runs/result.json -o .runs/result.md
 | `draft` | Read a prepared Request and return a structured candidate with evidence and open details. | One Codex call. |
 | `check` | Read a draft and return reference, assignment, dependency and supplied progression findings. | None. |
 | `review` | Verify the checked artifact, then review the candidate against the original evidence and decisions. | One fresh Codex call. |
-| `render` | Turn a draft, checked artifact or Result into a readable Markdown view. | None. |
+| `render` | Show a draft, checked artifact or Result as a compact Markdown kit. Use `--details` for the expanded report. | None. |
 
 Each artifact is schema-versioned JSON and can be inspected or saved between steps. Input edits invalidate the retained hash; prepare a new Request after changing inputs. A reviewer cannot replace the deterministic findings with fabricated passes. Model findings remain explicitly labeled as model judgments.
 

@@ -12,6 +12,8 @@ Engine, CLI and future UnitLab remain in this repository. The Greenfield impleme
 
 The first implemented operation is standalone character authoring. It helps a caller turn evidence and partial game rules into a reviewable Unit design with explicit mechanic requirements.
 
+The [authoring workflow](AUTHORING-WORKFLOW.md) records the agreed direction for adaptive human involvement and useful Unit drafts. It distinguishes planned interaction from the current noninteractive CLI.
+
 - Input: character and source scope, supplied evidence or research permissions, relevant game rules and Profile values, confirmed choices, requested outcome and input Revisions. Missing rules remain visible.
 - Output: a connected Unit candidate, supporting evidence, required mechanics, proposed Definition extensions and findings that identify affected behavior and the next correction or decision.
 - Completion: preserve confirmed choices, check sufficiently specified constraints, and distinguish contradictions, missing specifications and unsupported capabilities. A useful authoring result can retain open details; those details cannot receive a successful mechanics check.

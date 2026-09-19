@@ -24,7 +24,9 @@ This file is the contributor contract for Unit Generator. Foundation is private 
 | Term | Definition |
 | --- | --- |
 | Unit | Content describing a game actor or deployable combat element. |
+| Unit draft | A proposed Unit design connecting its role, attacks, progression and abilities. It includes proposed values when supplied game rules provide enough reference values, and exposes the missing basis otherwise. |
 | Mechanic | A declared behavior exposed by a Unit or related system. |
+| Mechanic proposal | A suggested addition to a Game Definition, reviewed alongside a Unit draft. It is not an approved rule or proof of Engine support. |
 | Unit Profile | A tunable configuration of supported unit Definitions. |
 | Unit result | Generated or reviewed unit content with evidence, findings and outcome. |
 
