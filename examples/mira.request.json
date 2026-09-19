@@ -1,0 +1,44 @@
+{
+  "schemaVersion": "1",
+  "task": "Design a connected Unit for Mira with a basic attack, all three upgrade paths, abilities, mechanics requirements and representative legal builds. Preserve confirmed choices. Explain the difference between detection and projectile delivery. Propose unspecified upgrades without inventing confirmed decisions or balance values.",
+  "character": {
+    "name": "Mira",
+    "work": "Original standalone example",
+    "scope": "Use only this fictional brief. No external canon or research."
+  },
+  "documents": [
+    {
+      "id": "mira-brief",
+      "kind": "source",
+      "text": "Mira senses presences behind walls and fires a magical Spark at one target. Her source brief does not say that Spark can pass through obstacles. She is an original character invented for this public example."
+    },
+    {
+      "id": "example-rules",
+      "kind": "rules",
+      "text": "A Tower Defense Unit has three upgrade paths: offense, perception and support. Each has five sequential tiers. A placed Unit may purchase at most two paths; at most one path may exceed tier 2. Attacks require a detected target within attack range. Spark is an ordinary projectile requiring a clear attack path. Detection range and attack range are separate. Detection through a wall does not grant projectile travel through it. Numerical ranges, damage, cooldowns and costs are intentionally unspecified. Propose roles and behaviors without claiming combat validation."
+    }
+  ],
+  "constraints": [
+    {
+      "id": "personal-perception",
+      "text": "Perception tier 2 permanently grants personal detection through walls within detection range. There is no activation window and no allied revealing."
+    },
+    {
+      "id": "spark-delivery",
+      "text": "Ordinary Spark requires a clear projectile path. A through-wall variant is an unapproved extension, not a benefit automatically granted by perception."
+    }
+  ],
+  "progression": {
+    "paths": [
+      { "id": "offense", "tiers": [1, 2, 3, 4, 5] },
+      { "id": "perception", "tiers": [1, 2, 3, 4, 5] },
+      { "id": "support", "tiers": [1, 2, 3, 4, 5] }
+    ],
+    "maxActivePaths": 2,
+    "maxPathsAboveTier": { "tier": 2, "count": 1 },
+    "maxTotalTiers": null,
+    "allowedTierCombinations": null
+  },
+  "previous": null,
+  "feedback": null
+}

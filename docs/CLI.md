@@ -1,44 +1,67 @@
-# CLI plan
+# CLI usage
 
-Start with one authoring command based on the [standalone example](AUTHORING-EXAMPLE.md). It proposes or revises one Unit candidate and returns scoped findings. This is a plan; the executable, file schema, runtime and model connection are not implemented or selected.
+Run `pnpm install` and `pnpm build` with Node.js 24 or newer. `pnpm cli --help` lists options. Generation uses the existing Codex configuration and login; `--model`, `--reasoning` and `--timeout` override execution settings for that call. The default timeout is 600 seconds per model call. Large source and rules documents can take several minutes to process.
+
+## Author and revise
 
 ```sh
-unit-generator author request-v1.json > result-v1.json
+pnpm cli author examples/mira.request.json -o .runs/mira-v1.json
+pnpm cli render .runs/mira-v1.json -o .runs/mira-v1.md
+pnpm cli author examples/mira.request.json --previous .runs/mira-v1.json --feedback "Strengthen the support role." -o .runs/mira-v2.json
 ```
 
-Use JSON for the small request and result envelopes. Evidence, game rules and proposals may initially contain plain text; this does not require a complete mechanics DSL. Finalize field names against the example before implementation.
+`author` resolves inputs, generates one candidate, checks structural constraints and makes a fresh model call for semantic review. It returns one revision; it does not run an automatic correction loop. Revisions receive the full current Request, previous candidate and findings, and explicit feedback. No command looks up a previous run implicitly.
 
-## One explicit operation
+Use `--output` or `-o` to create a new file. Existing files are refused before generation and protected against replacement during writing. Without that option, stdout contains the complete JSON artifact, or Markdown for `render`. Diagnostics use stderr. If using shell redirection, choose a new filename that is not also an input.
 
-The Request states the task and stopping point, character evidence, applicable game rules and Profile values, confirmed choices, unknowns and input Revisions. It may include an existing draft to review and revise. Continuing work supplies the previous Result and requested changes. It never means "use the last generation."
+Exit `0` means the operation completed. Findings may still contain failed or unresolved checks. A nonzero exit means execution failed; stdout stays empty and no completed output file is created. Errors include missing files, invalid artifacts, inaccessible sources and failed model calls. Ctrl+C cancels ongoing work. A failed semantic review can be retried from a saved checked artifact when using stages.
 
-Context may be embedded or supplied through explicit file references, resolved relative to the request file. Read only those inputs. Retain the content used or its retrievable revision, plus a content hash, so a later file edit cannot silently change the recorded basis of a Result.
+## Run each step separately
 
-The first implementation uses supplied evidence only. Research can happen before the call and arrive as explicit input. A character name by itself does not provide sufficient evidence for this operation.
+```sh
+pnpm cli prepare examples/mira.request.json -o .runs/prepared.json
+pnpm cli draft .runs/prepared.json -o .runs/draft.json
+pnpm cli check .runs/draft.json -o .runs/checked.json
+pnpm cli review .runs/checked.json -o .runs/result.json
+pnpm cli render .runs/result.json -o .runs/result.md
+```
 
-Each call performs four steps:
+| Step | Input and outcome | Model use |
+| --- | --- | --- |
+| `prepare` | Resolve named text, files or URLs. Retain exact text and an input hash. | None. URLs may use the network. |
+| `draft` | Read a prepared Request and return a structured candidate with evidence and open details. | One Codex call. |
+| `check` | Read a draft and return reference, assignment, dependency and supplied progression findings. | None. |
+| `review` | Verify the checked artifact, then review the candidate against the original evidence and decisions. | One fresh Codex call. |
+| `render` | Turn a draft, checked artifact or Result into a readable Markdown view. | None. |
 
-1. Load the Request and referenced inputs. Check whether they support the stated task; preserve nonblocking gaps.
-2. Propose or revise the candidate from the evidence and binding decisions. Identify required mechanics and proposed extensions.
-3. Check supported explicit constraints and review the candidate against its sources. Record contradictions, missing rules and unsupported checks separately.
-4. Return one Result with the actual input references, candidate, evidence, findings and unresolved work.
+Each artifact is schema-versioned JSON and can be inspected or saved between steps. Input edits invalidate the retained hash; prepare a new Request after changing inputs. A reviewer cannot replace the deterministic findings with fabricated passes. Model findings remain explicitly labeled as model judgments.
 
-One call produces one candidate revision and its review. A caller starts a correction pass by submitting another complete Request with the prior Result and feedback. Use a new output file for each revision; shell redirection must not overwrite a referenced input. Research, drafting, checking and revision do not need separate public commands initially.
+## Supply a character and game rules
 
-## Results and failures
+The [Mira Request](../examples/mira.request.json) is complete and public. The [source-file template](../examples/source-file.request.json) shows how to supply your own Luffy text, game rules and character decisions. Copy it into a working directory and supply the named files. File references resolve relative to the Request file, not the terminal's current directory.
 
-Standard output contains one complete JSON Result. Diagnostics go to standard error. Exit code `0` means the requested authoring operation completed, even if its Result contains failed checks or open specifications. It does not mean that the candidate is valid, balanced or accepted.
+Each document has `id`, `kind` (`source`, `rules` or `decisions`) and exactly one of `text`, `file` or `url`. `sourceUrl` can attribute pasted or saved text without claiming that the URL was retrieved. Local text and saved HTML are supported.
 
-Use a nonzero exit code when the operation cannot complete, for example because the request is unreadable, a referenced file is missing or the configured model call fails. Explain the failure on standard error and leave standard output empty. Do not emit a partial Result as completed output.
+For the live Luffy article, replace the source document with:
 
-Each check identifies its rule, affected content, method and outcome. Distinguish deterministic checks, model-assisted review and checks that could not run. A model's assertion that behavior is valid is not an executable mechanics check. Incomplete rules can still produce a useful authoring Result when the requested task allows that incompleteness.
+```json
+{
+  "id": "character-source",
+  "kind": "source",
+  "url": "https://onepiece.fandom.com/wiki/Monkey_D._Luffy"
+}
+```
 
-## Implementation boundary
+If a Fandom article returns HTTP 403, the source adapter tries that site's public MediaWiki API and records this access method. A denied page or challenge never becomes evidence. If both routes fail, save the article text yourself and use `file` with `sourceUrl`. No broader web research occurs during generation.
 
-Keep argument parsing, file handling and output in the CLI. One authoring operation owns candidate construction and domain checks so that UnitLab can later call the same logic. Add internal modules only when their responsibilities become concrete.
+For Manga Mayhem, supply the relevant product, ability, combat and progression documents, plus the existing Luffy decisions. Keep them in local Requests and Results. The generator does not require or automatically read that private repository. Pass explicit `progression` fields to enable deterministic path and build checks; prose rules alone receive model review. `null` means those structural checks are unavailable, not that Manga Mayhem defaults apply.
 
-Select one working model connection for the first implementation. Keep its API details outside game rules, Requests and Results; run configuration supplies the provider, model and credentials. Check the response structure before constructing a Result. Record executor identity in run metadata without retaining credentials. No provider registry or common SDK is needed now. Another model must satisfy the same task and evidence requirements, but identical generated text is not expected.
+`constraints` lists confirmed choices by ID. The candidate records how each was preserved. This checks coverage, while semantic preservation still needs review. Proposed upgrades must remain proposals. Missing behavior, balance values and unsupported mechanics remain findings rather than invented approvals.
 
-The minimum verification should cover the example's preserved decisions, legal and illegal upgrade combinations, and separation of wall detection from attack delivery. Also check that a missing input produces a clear execution failure, while an unresolved mechanic remains a finding in a completed authoring Result. Repeated calls with explicit prior Results must work without saved process state.
+## Model connection and limits
 
-The next implementation step is to turn the example into request/result fixtures, choose the runtime and first model connection, and implement this command. Measure corrections and unresolved findings before adding automatic revision loops, integrated research or more commands.
+Only the Node Codex adapter invokes the installed Codex CLI. It uses a fresh temporary workspace, existing model/auth settings, a structured final-response file and restricted tools. It does not resume sessions or parse human console output. Requests are sent to the provider configured in Codex. Provider credentials are neither copied into Results nor printed by this tool. The integration was tested with Codex CLI 0.155.1.
+
+Generation and semantic review are model-assisted. Deterministic checks cover explicit structure and relationships, not combat simulation, all possible builds, player appeal or runtime implementation. Shared purchase-based unlocks are represented as `conditional` availability and are not forced into one upgrade path. Numerical balancing and general mechanics execution remain future work.
+
+The [API](API.md) exposes the same stages directly for UnitLab or another caller. A UI does not need to run these commands or parse their output.

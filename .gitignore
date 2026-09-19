@@ -1,0 +1,9 @@
+node_modules/
+dist/
+.test-build/
+.scratch/
+.runs/
+.env
+.env.*
+!.env.example
+coverage/

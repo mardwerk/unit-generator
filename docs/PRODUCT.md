@@ -1,16 +1,16 @@
 # Unit Generator
 
-Unit Generator is a planned standalone Tool for adapting requested characters into Tower Defense units. Authoring can begin with explicit game scope and a partial Game Definition, then propose missing mechanics. Generation and validation against those mechanics require sufficiently specified rules and applicable Profile values. Its Engine owns unit generation, source evidence, mechanic interpretation and scoped validation. Unsupported abilities must be reported; extending a game's mechanics requires an explicit Definition change.
+Unit Generator is a standalone Tool for adapting requested characters into Tower Defense units. Authoring can begin with explicit game scope and a partial Game Definition, then propose missing mechanics. Generation and validation against those mechanics require sufficiently specified rules and applicable Profile values. Its Engine owns unit generation, source evidence, mechanic interpretation and scoped validation. Unsupported abilities must be reported; extending a game's mechanics requires an explicit Definition change.
 
 The Tool provides an adjustable default Profile and returns inspectable content, evidence and findings. Its CLI has no hidden state between calls. The optional UnitLab uses the same Engine and retains local settings, work and generation history; earlier Results become explicit inputs when reused.
 
 Units must satisfy their declared requirements. Scoped checks alone do not establish balance across a game or player appeal. Towerright or another caller supplies wider evaluation and feedback; Towerright also retains project context and can provide curated Profiles.
 
-Engine, CLI and UnitLab remain in this repository. Implementation starts from scratch; supported mechanics and generation features still need scoping.
+Engine, CLI and future UnitLab remain in this repository. The Greenfield implementation now supports structured authoring and scoped checks. Mechanics execution and UnitLab remain outside the current implementation.
 
 ## Next scope
 
-The first implementation candidate is one standalone character-authoring operation. It helps a caller turn evidence and partial game rules into a reviewable Unit design with explicit mechanic requirements.
+The first implemented operation is standalone character authoring. It helps a caller turn evidence and partial game rules into a reviewable Unit design with explicit mechanic requirements.
 
 - Input: character and source scope, supplied evidence or research permissions, relevant game rules and Profile values, confirmed choices, requested outcome and input Revisions. Missing rules remain visible.
 - Output: a connected Unit candidate, supporting evidence, required mechanics, proposed Definition extensions and findings that identify affected behavior and the next correction or decision.
@@ -18,11 +18,11 @@ The first implementation candidate is one standalone character-authoring operati
 
 The [standalone authoring example](AUTHORING-EXAMPLE.md) supplies a fictional character, upgrade rules, an attack and a wall-perception upgrade. Its corrected candidate preserves the ordinary clear-path rule and leaves through-wall delivery as an unapproved extension. A legal combination alone cannot approve that delivery. All necessary context is public and supplied within the example.
 
-The [CLI plan](CLI.md) starts with one authoring command using supplied evidence. Keep generation, retrieval, deterministic checks and human decisions separate enough to use different executors with the same inputs and expected outcomes. No specific AI model or Provider is required by the product contract. Complete DSL execution, game-wide balancing, UnitLab and game-runtime implementation are outside this first candidate scope.
+The [CLI](CLI.md) provides combined authoring and independently runnable preparation, drafting, checking and review stages. The [shared API](API.md) exposes the same core directly to applications. Keep generation, retrieval, deterministic checks and human decisions separate enough to use different executors with the same inputs and expected outcomes. No specific AI model or Provider is required by the product contract. Complete DSL execution, game-wide balancing, UnitLab and game-runtime implementation are outside this first candidate scope.
 
 ## Requirements from character design
 
-Status: September 19, 2026. These candidate requirements come from the Luffy, Alucard, Tatsuya, Gojo, Rimuru and Goku design passes. They describe standalone value and evidence needs, not implemented operations, a fixed schema or a selected release scope.
+Status: September 19, 2026. These candidate requirements come from the Luffy, Alucard, Tatsuya, Gojo, Rimuru and Goku design passes. They describe standalone value and evidence needs. The [CLI documentation](CLI.md) identifies the implemented subset; the remaining requirements are still proposals.
 
 Explicit inputs need the character identity, source work and any selected story period, source material or permission and limits for further research, and the available Definition and Profile with their Revisions. Coarse game scope suffices for exploration; missing progression or behavior rules limit the claims that can be checked. Include confirmed adaptation decisions, the intended role if already chosen, and relevant earlier Results when continuing work. Missing choices remain visible; a character name alone does not establish a version or a kit. A standalone caller must be able to provide this context without Towerright or private documents.
 
@@ -54,7 +54,7 @@ Red Sea's Tier-5 global attack adds a composite-ability check: attack scope, sum
 
 The anchored manifestation case distinguishes a placed source from an alternate attack origin. A candidate must declare the source of perception, valid origin selection, attack delivery and attribution of upgrades and disabling effects. Rendering multiple appearances must not silently create independent attackers or bypass source restrictions. Compare this explicitly with autonomous summons and with relocation, which have different actor and spatial rules.
 
-Successful later evidence should show a fully supplied candidate satisfying its declared rules and an unsupported candidate producing an actionable finding. This first pass has established neither a complete successful kit nor executable checks. Game-wide balance, usefulness across maps, player appeal and Acceptance remain with the caller; the Engine must state the scope and limits of its own findings.
+Successful later evidence should show a fully supplied candidate satisfying its declared rules and an unsupported candidate producing an actionable finding. The original character-design pass established no complete validated kit. The current CLI adds structural checks and model review, not executable gameplay checks. Game-wide balance, usefulness across maps, player appeal and Acceptance remain with the caller; the Engine must state the scope and limits of its own findings.
 
 The initial Tatsuya case requires independently declared detection and attack-obstruction exceptions, together with their unlock and availability conditions. Through-wall perception alone must not authorize delivery through the same wall, or imply camo detection or unlimited range. Triggered restoration also needs scoped exceptions: permission to start and complete restoration under a disabling effect must not leak into ordinary attacks or unrelated abilities. Preserve supplied removable-effect exclusions when evaluating a cleanse. These remain proposed validation requirements, not implemented guarantees.
 

@@ -1,6 +1,6 @@
 # Standalone authoring example
 
-This manual example uses an invented character and explicit game rules. It requires no private documents, external research or previous conversation. The input and output are prose examples, not a finished file format or an implemented operation.
+This manual example uses an invented character and explicit game rules. It requires no private documents, external research or previous conversation. It records the original prose exercise. The [runnable Request](../examples/mira.request.json) now uses the implemented authoring format.
 
 ## Request
 
@@ -47,4 +47,4 @@ The manual result `mira-result-v1` uses `mira-request-v1` and E1. It retains the
 
 The tier counts were checked with a local calculation. Other findings are manual comparisons with the supplied rules. No generator, combat simulation or model-provider comparison ran. Retain this as a completed authoring example with open specifications, not accepted playable content.
 
-A later implementation should preserve these meanings and findings, without requiring identical wording. The [CLI plan](CLI.md) describes how to submit a request and return such a Result.
+The implementation preserves these distinctions without requiring identical wording. [CLI usage](CLI.md) describes how to submit a Request and inspect its Result.

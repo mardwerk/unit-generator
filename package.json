@@ -1,0 +1,45 @@
+{
+  "name": "@mardwerk/unit-generator",
+  "version": "0.1.0",
+  "private": true,
+  "type": "module",
+  "description": "Structured Tower Defense unit authoring for humans and applications",
+  "engines": {
+    "node": ">=24"
+  },
+  "bin": {
+    "unit-generator": "./dist/cli.js"
+  },
+  "exports": {
+    ".": {
+      "types": "./dist/core/index.d.ts",
+      "import": "./dist/core/index.js"
+    },
+    "./node": {
+      "types": "./dist/node/index.d.ts",
+      "import": "./dist/node/index.js"
+    }
+  },
+  "files": [
+    "dist",
+    "examples",
+    "docs",
+    "README.md",
+    "CONTEXT.md"
+  ],
+  "scripts": {
+    "build": "tsc -p tsconfig.json",
+    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
+    "test": "tsc -p tsconfig.test.json && node --test .test-build/tests/*.test.js",
+    "cli": "node dist/cli.js"
+  },
+  "dependencies": {
+    "cheerio": "^1.1.2",
+    "smol-toml": "^1.8.0",
+    "zod": "^4.3.6"
+  },
+  "devDependencies": {
+    "@types/node": "^24.0.0",
+    "typescript": "^5.9.0"
+  }
+}

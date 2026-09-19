@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1",
+  "task": "Create a connected Unit from the supplied character text and game rules. Preserve confirmed decisions, distinguish proposed adaptations and expose missing mechanics. Do not invent a progression structure when the rules do not define one.",
+  "character": {
+    "name": "Monkey D. Luffy",
+    "work": "One Piece",
+    "scope": "Use the supplied game decisions. Any unselected story cutoff remains open."
+  },
+  "documents": [
+    {
+      "id": "character-source",
+      "kind": "source",
+      "file": "luffy.txt",
+      "sourceUrl": "https://onepiece.fandom.com/wiki/Monkey_D._Luffy"
+    },
+    { "id": "game-rules", "kind": "rules", "file": "game-rules.md" },
+    { "id": "character-decisions", "kind": "decisions", "file": "character-decisions.md" }
+  ],
+  "constraints": [],
+  "progression": null,
+  "previous": null,
+  "feedback": null
+}
