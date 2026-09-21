@@ -25,6 +25,7 @@ import { checkDraft } from '../check.js';
 import type { OperationOptions } from '../draft.js';
 import { targetedTierRepair } from './repair.js';
 import { designGuidance } from './design-guidance.js';
+import { draftUniversal } from '../universal.js';
 import { designPlanRequest, decodeDesignPlan, bindDesignPlan } from './plan.js';
 import type { UnitDesignPlan } from './plan-schema.js';
 import { planIntentIssues } from './plan-intent.js';
@@ -173,6 +174,9 @@ export async function draftBlueprint(
     throw new Error('maxRepairAttempts must be 0, 1 or 2.');
   const startedAt = new Date().toISOString();
   const attempts: NonNullable<DraftArtifact['run']['attempts']> = [];
+  if (prepared.request.mechanicsDefinition?.profile.authoringMode === 'universal-v1') {
+    return draftUniversal(prepared, { signal: options.signal });
+  }
   let previous: unknown = null;
   let issues: string[] = [];
   const referenceAuthoring = isReferenceAuthoring(prepared.request);

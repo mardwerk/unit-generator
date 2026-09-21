@@ -17,7 +17,7 @@ pnpm dev
 
 Open `http://127.0.0.1:4317`, enter a character name and select Generate. The app retrieves text and visual references, supplies editable Tower Defense rules, and drafts three upgrade paths. Ambiguous names get a chooser. The workspace supports individual stages, Stop, Continue, revisions and exports; see [UnitLab](docs/LAB.md) for controls and storage.
 
-The default connection uses the OpenRouter SDK and `openrouter/free`. Free models require an OpenRouter API key. Add it in Settings or put `OPENROUTER_API_KEY` in a local `.env` file using [.env.example](.env.example). Both entry points load `.env` from the working directory; existing environment variables take precedence. `OPENROUTER_MODEL` optionally selects a model, and an explicit Settings or command-line selection overrides it. There is no automatic paid fallback. Availability and rate limits depend on OpenRouter. To use an existing Codex login instead:
+The default connection uses the OpenRouter SDK and `openrouter/free`. Model review and the `planned-v1` route need an OpenRouter API key. Add it in Settings or put `OPENROUTER_API_KEY` in a local `.env` file using [.env.example](.env.example). Both entry points load `.env` from the working directory; existing environment variables take precedence. `OPENROUTER_MODEL` optionally selects a model, and an explicit Settings or command-line selection overrides it. There is no automatic paid fallback. Availability and rate limits depend on OpenRouter. To use an existing Codex login instead:
 
 ```sh
 pnpm start --provider codex
@@ -38,7 +38,7 @@ pnpm cli render .runs/luffy.json -o .runs/luffy.md
 pnpm cli build .runs/luffy.json --tiers 5,2,0
 ```
 
-`generate` retrieves character evidence, then uses the default `planned-v1` route. One model stage designs the source-backed repertoire, base attack and three purchasing decisions; a second implements that plan as numerical mechanics. Code resolves arithmetic and checks every legal build. Each stage allows one repair by default. The artifact retains `run.designPlan` and all stage attempts and reported usage. Edited requirements and revisions use the same planning route. `review .runs/luffy.json` adds an independent model review. The [mechanics definition](docs/MECHANICS.md) keeps prices, upgrades, crosspaths and boosts explicit. Fixed recipes remain an optional reference benchmark. [Earlier evaluations](docs/PIPELINE-EVALUATION.md) do not establish the new route's live reliability.
+`generate` retrieves character evidence, then uses the default `universal-v1` route. It derives traits from the evidence, builds the best-fit tested recipe, runs a bounded code-only search, and resolves and checks all 64 legal builds. No model call runs and no key is needed. Use `--authoring planned-v1` for the model-planned route, which needs `OPENROUTER_API_KEY`. `review .runs/luffy.json` adds an independent model review. The [mechanics definition](docs/MECHANICS.md) keeps prices, upgrades, crosspaths and boosts explicit. [Earlier evaluations](docs/PIPELINE-EVALUATION.md) do not establish live reliability for the model routes.
 
 For explicit source text and custom rules:
 

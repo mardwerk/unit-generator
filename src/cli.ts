@@ -63,6 +63,7 @@ Options:
   --roles MODE           Optional ranking: auto (default), typesafe, openrouter or off
   --repairs COUNT        Design repair attempts: 0, 1 (default), or 2
   --details              Include evidence and technical details with render
+  --authoring MODE       Draft route: universal-v1 (default), planned-v1, direct or reference-patterns-v1
   -h, --help             Show this help
 
 Without --output, the complete artifact is written to stdout.
@@ -147,6 +148,7 @@ function parseInvocation() {
       tiers: { type: 'string' },
       repairs: { type: 'string' },
       roles: { type: 'string' },
+      authoring: { type: 'string' },
       help: {
         type: 'boolean',
         short: 'h',
@@ -197,6 +199,17 @@ function parseInvocation() {
   if (values.details && command !== 'render') {
     throw new Error('--details applies only to render.');
   }
+  if (
+    values.authoring !== undefined &&
+    (!['universal-v1', 'planned-v1', 'direct', 'reference-patterns-v1'].includes(
+      values.authoring,
+    ) ||
+      !['character', 'generate', 'prepare', 'author', 'draft'].includes(command))
+  ) {
+    throw new Error(
+      '--authoring needs universal-v1, planned-v1, direct or reference-patterns-v1 with character, generate, prepare, author or draft.',
+    );
+  }
   return {
     command,
     file: file ?? '',
@@ -245,6 +258,23 @@ function createModel(values: Invocation['values']): ModelClient {
   });
 }
 
+function withAuthoringMode<T extends { mechanicsDefinition?: unknown }>(
+  request: T,
+  mode: string,
+): T {
+  const definition = (request.mechanicsDefinition ?? defaultAuthoringDefinition) as Record<
+    string,
+    Record<string, unknown>
+  >;
+  return {
+    ...request,
+    mechanicsDefinition: {
+      ...structuredClone(definition),
+      profile: { ...structuredClone(definition.profile), authoringMode: mode },
+    },
+  };
+}
+
 async function executeCommand(
   invocation: Invocation,
   model: () => ModelClient,
@@ -261,7 +291,7 @@ async function executeCommand(
   if (command === 'definition') return defaultAuthoringDefinition;
   if (command === 'character' || command === 'generate') {
     process.stderr.write('Finding character evidence...\n');
-    const prepared = await prepareCharacter(file, {
+    let prepared = await prepareCharacter(file, {
       signal,
       ...(values.choice ? { choice: Number(values.choice) } : {}),
     });
@@ -271,6 +301,8 @@ async function executeCommand(
           prepared.choices.map((choice) => `${choice.id}: ${choice.name}`).join('; '),
       );
     }
+    if (values.authoring)
+      prepared = await prepareRequest(withAuthoringMode(prepared.request, values.authoring));
     if (command === 'character') return prepared;
     process.stderr.write('Designing and checking the Unit...\n');
     return checkDraft(await draftUnit(prepared, model(), options));
@@ -283,6 +315,7 @@ async function executeCommand(
       ...(values.feedback !== undefined ? { feedback: values.feedback } : {}),
     });
     if (values.preset === 'btd6') request = applyDefaultProfile(request);
+    if (values.authoring) request = withAuthoringMode(request, values.authoring);
     if (command === 'prepare') {
       return prepareRequest(request);
     }
@@ -316,9 +349,15 @@ async function executeCommand(
         view.prepared.request.mechanicsDefinition,
       );
     }
-    case 'draft':
+    case 'draft': {
       process.stderr.write('Drafting...\n');
-      return draftUnit(input as PreparedRequest, model(), options);
+      const prepared = input as PreparedRequest;
+      const routed =
+        values.authoring && prepared.kind === 'prepared'
+          ? await prepareRequest(withAuthoringMode(prepared.request, values.authoring))
+          : prepared;
+      return draftUnit(routed, model(), options);
+    }
     case 'check':
       return checkDraft(input as DraftArtifact);
     case 'review':

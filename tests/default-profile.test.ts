@@ -16,7 +16,7 @@ test('the default profile supplies a consistent Gold and Health scale with sourc
   const definition = prepared.request.mechanicsDefinition!;
   assert.equal(definition.id, 'btd6-combat-v1');
   assert.equal(definition.profile.currency, 'Gold');
-  assert.equal(definition.profile.authoringMode, 'planned-v1');
+  assert.equal(definition.profile.authoringMode, 'universal-v1');
   assert.ok(Object.isFrozen(defaultProfile.origin));
   assert.throws(() => {
     defaultProfile.text = 'mutated rules';

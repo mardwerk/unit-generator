@@ -6,7 +6,7 @@ Enter a character name and select Generate to open its run immediately. Ctrl-cli
 
 Source images remain linked to their pages with captions and attribution. Where available, Wikidata identifies a character's Fandom page for further images. Pose and form labels come from filenames and captions, not pixel analysis. These are reference images, not generated assets. The gallery stays empty until retrieval finishes. If no images are found, it shows a short message. Retrieval diagnostics remain in the artifact. URLs and metadata survive session and Result exports; images are loaded from their source rather than bundled for offline use.
 
-Settings contains provider selection and the local library folder. OpenRouter is the default, uses its official SDK and requests `openrouter/free` with zero-price routing. An API key is required even for free models. Enter it there or set `OPENROUTER_API_KEY` in the local `.env` file before launch. Existing environment variables override `.env`; an explicit Settings or command-line model overrides `OPENROUTER_MODEL`. A Settings key remains in server memory and never enters an artifact or session export. An explicit model override may select a paid model. No automatic paid fallback occurs. `pnpm start --provider codex` uses the installed Codex CLI's existing configuration and login.
+Settings contains provider selection and the local library folder. Drafting with the default route needs no provider and makes no model calls. Model review, role ranking through OpenRouter, and image generation need keys. OpenRouter is the default model connection, uses its official SDK and requests `openrouter/free` with zero-price routing. An API key is required even for free models. Enter it there or set `OPENROUTER_API_KEY` in the local `.env` file before launch. Existing environment variables override `.env`; an explicit Settings or command-line model overrides `OPENROUTER_MODEL`. A Settings key remains in server memory and never enters an artifact or session export. An explicit model override may select a paid model. No automatic paid fallback occurs. `pnpm start --provider codex` uses the installed Codex CLI's existing configuration and login.
 
 Role ranking reads server-side environment settings: `UNIT_ROLE_PROVIDER=auto|typesafe|openrouter|off`, `TYPESAFE_API_KEY`, optional `TYPESAFE_MODEL` (default `jev-1.13.0`), and `OPENROUTER_JEV_MODEL`. Auto prefers available TypeSafe credentials, otherwise it uses an explicitly configured OpenRouter Jev model and key. A failure does not trigger another provider. OpenRouter uses its separate Decisions API with `~typesafe/jev-latest` or a supported pinned TypeSafe model ID. One minimal live request verified this route on September 20, 2026. This connection is separate from the draft model. TypeSafe estimates remain separate from reported generation costs; ranking confidence does not measure accuracy.
 
@@ -23,7 +23,7 @@ The v5 default rejects identical T1 purchases, requires three declared path spec
 | Stage | Outcome | Model calls |
 | --- | --- | --- |
 | Prepare | Resolved sources, rules and input hash. | None |
-| Draft | One connected Unit candidate, then optional advisory role ranking. | Draft call, bounded design repair and optional ranking |
+| Draft | One connected Unit candidate, then optional advisory role ranking. | Deterministic build and search, no model call; optional ranking |
 | Check | Deterministic structural findings. | None |
 | Review | Separate semantic review against the evidence. | One |
 

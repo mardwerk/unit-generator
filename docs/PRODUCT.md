@@ -14,7 +14,7 @@ Engine, CLI and UnitLab remain in this repository. The Greenfield implementation
 
 Authoring accepts character identity and source scope, supplied evidence or research permissions, game rules and Profile values, confirmed choices, the requested outcome and relevant earlier Results. Partial rules permit exploration; missing behavior remains visible and cannot receive a successful mechanics check.
 
-The default first plans a sourced character repertoire and three purchasing reasons, then compiles their progression into numerical mechanics. The retained plan states branch destinations, weaknesses, capstone value and crosspath contributions. Revisions use the same process. Generic attack compatibility alone must not choose the entire Unit.
+The default builds the Unit deterministically: it derives traits from the evidence, uses the best-fit tested recipe, and runs a bounded code-only search before compiling numerical mechanics. Revisions use the same process. Generic attack compatibility alone must not choose the entire Unit. A model-planned route with a retained repertoire plan remains available behind an explicit authoring selection.
 
 The Result connects role, attacks, progression and abilities with source evidence, mechanic requirements, proposed Definition extensions and actionable findings. Confirmed choices remain distinct from adaptations and unresolved questions. The [standalone example](AUTHORING-EXAMPLE.md) shows this with wall perception: legal upgrade combinations do not authorize through-wall delivery.
 

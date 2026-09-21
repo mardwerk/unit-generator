@@ -102,9 +102,13 @@ async function main() {
     maxTokens,
     ...(flags.sampling === 'provider-default' ? { temperature: null, topP: null } : {}),
   };
-  if (!['default', 'direct', 'reference-patterns-v1', 'planned-v1'].includes(flags.authoring))
+  if (
+    !['default', 'direct', 'reference-patterns-v1', 'planned-v1', 'universal-v1'].includes(
+      flags.authoring,
+    )
+  )
     throw new EvaluationError(
-      'Authoring must be default, direct, planned-v1 or reference-patterns-v1.',
+      'Authoring must be default, direct, planned-v1, reference-patterns-v1 or universal-v1.',
     );
   if (flags['legacy-snapshot-definition'] && !flags.snapshot)
     throw new EvaluationError('Legacy definition compatibility requires an explicit snapshot.');
@@ -309,7 +313,12 @@ async function main() {
   const definition = structuredClone(suppliedDefinition);
   if (flags.authoring !== 'default') definition.profile.authoringMode = flags.authoring;
   const primaryDrafts = selected.length * repetitions;
-  const maxDraftCallsPerSample = definition.profile.authoringMode === 'planned-v1' ? 4 : 2;
+  const maxDraftCallsPerSample =
+    definition.profile.authoringMode === 'planned-v1'
+      ? 4
+      : definition.profile.authoringMode === 'universal-v1'
+        ? 1
+        : 2;
   const reviewEnabled = !flags.smoke && !flags['skip-review'];
   const plan = {
     mode: flags.smoke ? 'development-smoke' : 'final-benchmark',

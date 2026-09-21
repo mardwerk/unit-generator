@@ -3,7 +3,7 @@ import { readFile } from 'node:fs/promises';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { z } from 'zod';
 import type { ModelClient } from '../core/index.js';
-import { ModelExecutionError } from '../core/index.js';
+import { deterministicModel, ModelExecutionError } from '../core/index.js';
 import { executeLabOperation } from './operations.js';
 import type { LabRequest } from './contracts.js';
 import { prepareCharacter } from '../node/character-source.js';
@@ -257,13 +257,14 @@ export async function startLab(options: LabServerOptions) {
           signal: controller.signal,
         });
       } else {
-        if (usesModel && !options.model && !provider.state.ready) {
+        const deterministic = isDeterministicDraft(operation, payload);
+        if (usesModel && !deterministic && !options.model && !provider.state.ready) {
           throw new HttpError(400, 'PROVIDER_REQUIRED', provider.state.message);
         }
         artifact = await executeLabOperation(
           operation,
           payload,
-          options.model ?? provider.client,
+          options.model ?? (provider.state.ready ? provider.client : deterministicModel),
           controller.signal,
           provider.roleClient,
         );
@@ -290,6 +291,20 @@ export async function startLab(options: LabServerOptions) {
       });
     },
   };
+}
+
+// Deterministic drafts need no provider. Anything else still does.
+function isDeterministicDraft(operation: string, payload: unknown): boolean {
+  if (operation !== 'draft' || typeof payload !== 'object' || payload === null) return false;
+  const prepared = (payload as Record<string, unknown>).prepared;
+  if (typeof prepared !== 'object' || prepared === null) return false;
+  const request = (prepared as Record<string, unknown>).request;
+  if (typeof request !== 'object' || request === null) return false;
+  const definition = (request as Record<string, unknown>).mechanicsDefinition;
+  if (typeof definition !== 'object' || definition === null) return false;
+  const profile = (definition as Record<string, unknown>).profile;
+  if (typeof profile !== 'object' || profile === null) return false;
+  return (profile as Record<string, unknown>).authoringMode === 'universal-v1';
 }
 
 function matchesToken(header: string | undefined, token: string): boolean {
