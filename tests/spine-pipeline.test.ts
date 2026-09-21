@@ -177,6 +177,9 @@ describe('trope intake', () => {
     assert.equal(pickSpine(tropePacketForName('Deadeye Dan')).id, 'deadeye');
     assert.equal(pickSpine(tropePacketForName('Storm Witch')).id, 'chain');
     assert.equal(pickSpine(tropePacketForName('Monkey D. Luffy')).id, 'aimed');
+    assert.equal(pickSpine(tropePacketForName('Natsu Dragneel (fairytale)')).id, 'element');
+    assert.equal(pickSpine(tropePacketForName('Roronoa Zoro (one piece)')).id, 'chain');
+    assert.equal(pickSpine(tropePacketForName('Goku (dragon ball)')).id, 'element');
   });
 
   it('keeps trope quotes verbatim in the source document', async () => {

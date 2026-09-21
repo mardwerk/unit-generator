@@ -304,7 +304,7 @@ interface KeywordRule {
 
 const rules: KeywordRule[] = [
   {
-    match: /flam|fire|pyro|blaze|inferno|torch|ember|magma|lava/,
+    match: /flam|fire|pyro|blaze|inferno|torch|ember|magma|lava|natsu|dragneel|ifrit/,
     archetype: 'fire wielder',
     attackShape: 'energy bolt with lingering burn',
     quirk: 'burn keeps hurting after the hit',
@@ -350,7 +350,8 @@ const rules: KeywordRule[] = [
     spine: 'heavy',
   },
   {
-    match: /wind|blade|dancer|boomerang|ricochet|chain|whip|stretch|elastic|dance/,
+    match:
+      /wind|blade|dancer|boomerang|ricochet|chain|whip|stretch|elastic|dance|sword|katana|zoro|slash/,
     archetype: 'skirmisher',
     attackShape: 'curved projectile that chains between targets',
     quirk: 'shots bend toward the next target',
