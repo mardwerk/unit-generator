@@ -6,7 +6,6 @@ import {
 } from './schemas.js';
 import { compileBlueprint } from './blueprint/compile.js';
 import { validateBlueprintRequest } from './blueprint/validate.js';
-import { planIntentIssues } from './blueprint/plan-intent.js';
 import { allLegalBuilds } from './mechanics/index.js';
 import { candidateSchema } from './schemas.js';
 import { freeze, verifyPrepared } from './prepare.js';
@@ -70,21 +69,6 @@ export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact>
         rule: 'typed-mechanics',
         message: `All ${allLegalBuilds(request.mechanicsDefinition).length} legal builds resolve with valid stats, purchase gates, scoped boosts and matching compiled output. This does not simulate combat or certify balance.`,
       });
-    if (issues.length === 0 && candidate.blueprint && draft.run.designPlan?.upgradeIntents)
-      for (const issue of planIntentIssues(
-        candidate.blueprint,
-        draft.run.designPlan,
-        request.mechanicsDefinition,
-      ))
-        report({
-          category: 'conflict',
-          outcome: 'fail',
-          subject: issue.path,
-          rule: 'planned-upgrade-intent',
-          message: issue.message,
-          action:
-            'Implement the retained typed upgrade promise and compile again. This check does not assess prose, source interpretation or tactical value.',
-        });
   }
   checkEvidence(candidate, request, report);
   checkDependencies(candidate, request, report);

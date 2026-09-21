@@ -199,7 +199,7 @@ export const mechanicsDefinitionSchema = z.strictObject({
   profile: z.strictObject({
     currency: text,
     /** Explicit construction strategy, including edited requests and revisions. */
-    authoringMode: z.enum(['direct', 'reference-patterns-v1', 'planned-v1']).optional(),
+    authoringMode: z.enum(['direct', 'reference-patterns-v1', 'planned-v1', 'spine-v1']).optional(),
     /** Opt-in authoring policy. Existing explicit definitions retain their original checks. */
     designPolicy: z
       .strictObject({

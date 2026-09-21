@@ -21,7 +21,7 @@ export const defaultAuthoringDefinition: MechanicsDefinition = {
   },
   profile: {
     ...structuredClone(defaultMechanicsDefinition.profile),
-    authoringMode: 'planned-v1',
+    authoringMode: 'spine-v1',
     earlyTierThrough: 2,
     designPolicy: {
       version: '1',

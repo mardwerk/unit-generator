@@ -12,6 +12,7 @@ import {
   checkDraft,
   reviewDraft,
   authorUnit,
+  generateUnit,
   ModelExecutionError,
   resolveBuild,
   type BuildSelection,
@@ -37,7 +38,7 @@ Usage: unit-generator <command> [input.json | "Character name"] [options]
 
 Commands:
   character Resolve a character name to cited source text and the default definition
-  generate  Resolve a name, draft and check a Unit with the default definition
+  generate  Build a trope packet offline, draft and check a Unit (no network)
   rank      Classify a saved Unit base and completed paths without regenerating
   definition Print the default BTD6-inspired mechanics definition (no input)
   build     Resolve a saved Unit at --tiers 5,2,0 without a model call
@@ -167,11 +168,8 @@ function parseInvocation() {
   }
   if (values.preset && (values.preset !== 'btd6' || !['prepare', 'author'].includes(command)))
     throw new Error('--preset btd6 applies only to prepare or author.');
-  if (
-    values.choice &&
-    (!['character', 'generate'].includes(command) || !/^[1-9][0-9]*$/.test(values.choice))
-  )
-    throw new Error('--choice requires a positive character ID with character or generate.');
+  if (values.choice && (command !== 'character' || !/^[1-9][0-9]*$/.test(values.choice)))
+    throw new Error('--choice requires a positive character ID with character.');
   if (
     command === 'build'
       ? !/^[0-5],[0-5],[0-5]$/.test(values.tiers ?? '')
@@ -260,6 +258,12 @@ async function executeCommand(
   };
   if (command === 'definition') return defaultAuthoringDefinition;
   if (command === 'character' || command === 'generate') {
+    if (command === 'generate') {
+      if (values.choice !== undefined)
+        throw new Error('Generate builds its trope packet offline and takes no --choice.');
+      process.stderr.write('Designing and checking the Unit...\n');
+      return generateUnit(file, model(), options);
+    }
     process.stderr.write('Finding character evidence...\n');
     const prepared = await prepareCharacter(file, {
       signal,
@@ -272,8 +276,6 @@ async function executeCommand(
       );
     }
     if (command === 'character') return prepared;
-    process.stderr.write('Designing and checking the Unit...\n');
-    return checkDraft(await draftUnit(prepared, model(), options));
   }
   if (command === 'prepare' || command === 'author') {
     process.stderr.write('Loading explicit inputs...\n');

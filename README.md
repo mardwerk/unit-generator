@@ -38,7 +38,7 @@ pnpm cli render .runs/luffy.json -o .runs/luffy.md
 pnpm cli build .runs/luffy.json --tiers 5,2,0
 ```
 
-`generate` retrieves character evidence, then uses the default `planned-v1` route. One model stage designs the source-backed repertoire, base attack and three purchasing decisions; a second implements that plan as numerical mechanics. Code resolves arithmetic and checks every legal build. Each stage allows one repair by default. The artifact retains `run.designPlan` and all stage attempts and reported usage. Edited requirements and revisions use the same planning route. `review .runs/luffy.json` adds an independent model review. The [mechanics definition](docs/MECHANICS.md) keeps prices, upgrades, crosspaths and boosts explicit. Fixed recipes remain an optional reference benchmark. [Earlier evaluations](docs/PIPELINE-EVALUATION.md) do not establish the new route's live reliability.
+`generate` builds a five-line trope packet from the name offline, picks one of six BTD6 spine skeletons in code, and fills it with one compact model call. Code resolves arithmetic and checks every legal build, then gates on distinct tier starts, earned capstones and a single manual path. Each generation allows one repair by default. The artifact retains all stage attempts and reported usage. Edited requirements and revisions use the same spine route. `review .runs/luffy.json` adds an independent model review. The [mechanics definition](docs/MECHANICS.md) keeps prices, upgrades, crosspaths and boosts explicit. Fixed recipes remain an optional reference benchmark. [Earlier evaluations](docs/PIPELINE-EVALUATION.md) do not establish the new route's live reliability.
 
 For explicit source text and custom rules:
 

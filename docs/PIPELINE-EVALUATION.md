@@ -1,8 +1,23 @@
 # Unit pipeline evaluation
 
-The current [v8 starter profile](../src/core/default-profile.ts) uses `planned-v1`: a source-backed repertoire and branch plan, followed by numerical mechanics authoring. Edited requirements and revisions use this route too. The plan is retained in `run.designPlan`, and planning calls use attempt purpose `plan`. With one repair per stage, the runner budgets at most four draft calls per sample, plus an optional review call. The default preserves early attack identity and legal crosspaths without demanding unique role labels, a new T3 operator or a universal 3x capstone gain.
+## Spine route (current default)
 
-Fixed recipe selection remains available through `--authoring reference-patterns-v1`; use `--authoring planned-v1` for the current route. Keep the runtime, sources and rubric fixed when comparing them. A structural pass does not establish a coherent design.
+The v8 starter preset now uses `spine-v1`: offline trope intake from the name, a code-picked BTD6 spine skeleton, one compact model call, code-owned compilation, and one bounded full-output repair. New fun gates hold for any definition: distinct resolved tier 1 and tier 5 behavior across paths, an earned capstone specialty metric per path, and at most one manual path. The old plan route, its benchmark script and its tests were removed. Live results below are retained under ignored `.runs/spine/`; each sample resolved all 64 legal builds with no failures.
+
+| Sample | Observed outcome |
+| --- | --- |
+| Monkey D. Luffy, Codex provider | Passed first call, no repair. Aimed spine with Gum-Gum Gatling, Gear Second and Observation Haki paths. Its base carried a near-zero follow-up that read as noise; see below. |
+| Flame Alchemist, Codex provider | Passed first call, no repair. Element spine with Spreading Flames, Unleashed Channel and Crippling Heat paths. |
+| Glacier Knight, Codex provider | Passed first call, no repair. Ward spine with Deepwinter Ward, Winter's Command and Shattered Glacier paths. |
+| Monkey D. Luffy regeneration, Codex provider | Passed first call, no repair, after the base grammar fix. Clean aimed base with Gum-Gum Gatling, Gear Overdrive and Observation Pistol paths. |
+
+The provider grammar patch (`providerJsonSchema`) was re-added for the compact schema after Codex rejected the raw zod output: every object requires all its properties, and the change union ships as `anyOf` instead of `oneOf`. A regression test pins both rules.
+
+Independent reading of the first three sheets caught near-zero base follow-ups (count 1, radius 0.01 to 0.1, multiplier 0.03 to 0.1) that passed mechanics but read as noise. A fun gate rejected them, but the next Luffy run exhausted its single repair by repeating the same defect. The compact grammar now omits volley and follow-up fields from the base attack entirely, so the model cannot emit them; specialization starts at tier 3 by construction. A Luffy regeneration is retained under the same directory as proof. Reproduction is `pnpm cli generate "<name>" --provider codex -o .runs/spine/<name>.json`, followed by `render` and `build --tiers 5,2,0`. Offline coverage without a model lives in `tests/spine-pipeline.test.ts` with a deterministic stub. Structural passes and analytic capacity checks are not proof of enjoyable or balanced play.
+
+## Historical planned-v1 evidence
+
+The plan route and its benchmark script were removed with the spine rewrite. The batches below stay as historical evidence. A structural pass does not establish a coherent design.
 
 ## Planning-route development results
 
@@ -90,12 +105,12 @@ The historical CLI run `cli-pipeline/default-free-2026-09-20T08-12-15Z/` complet
 Run from the unit-generator directory with Node.js 24 or newer and installed dependencies:
 
 ```sh
-node scripts/evaluate-unit-pipeline.mjs --corpus .runs/logic-tuning/corpus-five.json --authoring planned-v1 --repetitions 3 --skip-review
-node scripts/evaluate-unit-pipeline.mjs --corpus .runs/logic-tuning/corpus-five.json --authoring planned-v1 --repetitions 3 --skip-review --run
+pnpm build
+pnpm cli generate "Monkey D. Luffy" --provider codex -o .runs/spine/luffy.json
+pnpm cli render .runs/spine/luffy.json -o .runs/spine/luffy.md
+pnpm cli build .runs/spine/luffy.json --tiers 5,2,0
 ```
 
-The first command prints a plan without provider calls. The second executes it using the configured explicit free model. `--model <provider/model:free>` changes that model, `--authoring direct` selects single-stage authoring, `--authoring reference-patterns-v1` selects the optional legacy benchmark, `--snapshot <run-directory>` reuses a frozen runtime, and `--characters` selects corpus IDs. Keep model, runtime, sources and rubric fixed within a comparison. The runner records sampling settings, source and runtime hashes, bounded attempts, usage, checks and rendered outputs. Current defaults are reasoning none, temperature 0.7, top-p 0.95, 16000 output tokens and a 120-second request timeout. There is no fixed seed, automatic transport retry or paid fallback.
+The old batch script is gone. Offline coverage without a model lives in `tests/spine-pipeline.test.ts` with a deterministic stub; run it with `pnpm test`. Keep model, runtime and rubric fixed within a comparison. The runner records bounded attempts, usage, checks and rendered outputs. There is no fixed seed, automatic transport retry or paid fallback.
 
-Another checkout needs the ignored corpus artifacts or an equivalent version-1 manifest. Fresh retrieval is a new input corpus. Credentials load locally and are excluded from reports. Keep live generation, deterministic replay, model critique and human reading separate. Generalization, source-period ambiguity, unsupported mechanics and balance remain unresolved by these small development samples; expanding one demonstrated gap is more useful than claiming broad reliability from structural pass counts.
-
-For an explicitly authorized paid benchmark, pass `--model provider/model --max-cost-usd 0.20`. The runner checks endpoint support and prices before generation, caps provider rates, and reserves a conservative cost before each call. Missing usage does not release a reservation. `--provider` can pin an endpoint tag. Ordinary requests exclude flex, priority and batch service endpoints; routing uses the selected exact tag. `--sampling provider-default` omits temperature and top-p, matching production behavior and supporting reasoning models that reject those parameters. Record this difference when comparing batches. `--max-tokens` controls the output bound. Free-only routing remains the default; no paid fallback is automatic.
+Another checkout needs no corpus artifacts for the spine route; generation starts from the name alone. Credentials load locally and are excluded from reports. Keep live generation, deterministic replay, model critique and human reading separate. Generalization, source-period ambiguity, unsupported mechanics and balance remain unresolved by these small development samples; expanding one demonstrated gap is more useful than claiming broad reliability from structural pass counts.

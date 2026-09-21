@@ -11,7 +11,7 @@ pnpm cli build .runs/luffy.json --tiers 5,2,0
 pnpm cli review .runs/luffy.json -o .runs/luffy-reviewed.json
 ```
 
-`generate` returns a checked artifact using the explicit [BTD6-inspired mechanics definition](MECHANICS.md). The first call authors a compact blueprint. The model selects source passage IDs; code copies their exact text, verifies the references, resolves all 64 legal builds and compiles the readable kit. On invalid design output, one repair receives the failed checks. `--repairs 0` disables this; `--repairs 2` permits two repairs. Authentication, rate limits and timeouts stop immediately. Invalid blueprints never become published candidates. This is mechanics validation, not combat simulation or balance approval. Independent semantic `review` remains a separate call so a failed review cannot discard the saved Unit.
+`generate` returns a checked artifact using the explicit [BTD6-inspired mechanics definition](MECHANICS.md). It builds a five-line trope packet from the name offline, picks one of six BTD6 spine skeletons in code, and makes one compact model call that fills tier names and numbers into that skeleton. Code compiles the readable kit, resolves all 64 legal builds, and gates on distinct starts, earned capstones and a single manual path. On invalid design output, one repair receives the failed checks. `--repairs 0` disables this; `--repairs 2` permits two repairs. Authentication, rate limits and timeouts stop immediately. Invalid blueprints never become published candidates. This is mechanics validation, not combat simulation or balance approval. Independent semantic `review` remains a separate call so a failed review cannot discard the saved Unit.
 
 The default is `default-td-profile-v4` with definition `btd6-combat-v1`: Gold currency, a 1-health enemy layer and Dart-based references of 200 Gold, 1 damage, 0.95-second interval, 32 range and 2 pierce. Health means shared player lives, with a 150-Health starter reference. Units have no HP. Explicit older artifacts and custom definitions keep their supplied scale. See [mechanics](MECHANICS.md) for provenance and scope.
 
@@ -29,11 +29,9 @@ pnpm cli rank .runs/luffy.json --roles typesafe -o .runs/luffy-roles.json
 
 `build` returns resolved attack stats, cumulative investment, available boosts and upgrade deltas for the three purchased tiers. It uses no model. Invalid combinations such as `5,3,0` are rejected.
 
-Repairs replace only failing tiers when the previous response is structurally valid and every issue identifies a tier. Code preserves all unaffected fields and repeats the full checks. Other design errors require a full-output repair within the same attempt limit. Tier 1 and Tier 2 can add only one new capability. Tiers 1 through 3 allow at most three typed changes; advanced tiers allow four changes. A slow or burn includes both magnitude and duration.
+Tier 1 and Tier 2 improve existing stats, range, pierce, cadence or personal camo only. Tiers 1 and 2 allow at most three typed changes; advanced tiers allow four changes. A slow or burn includes both magnitude and duration. Pierce and projectile counts must stay whole numbers in every legal build.
 
-An overfilled tier can receive a small choice of existing effects to keep. The model selects a combination; code preserves its numbers and checks the whole Unit again. This avoids asking the model to rewrite the same overloaded tier without constraining the correction.
-
-For separate stages, `character` saves the retrieved inputs before any generation:
+For separate stages, `character` saves the retrieved inputs before any generation. `draft` on that input uses the same spine route as `generate`, with code-selected verbatim source anchors:
 
 ```sh
 pnpm cli character "Monkey D. Luffy" -o .runs/luffy-input.json
@@ -41,9 +39,9 @@ pnpm cli draft .runs/luffy-input.json -o .runs/luffy-draft.json
 pnpm cli check .runs/luffy-draft.json -o .runs/luffy-checked.json
 ```
 
-If a name is ambiguous, repeat `character` or `generate` with `--choice ID` from the listed choices. Lookup and image retrieval use network requests; models receive retained source text rather than browsing tools.
+If a name is ambiguous, repeat `character` with `--choice ID` from the listed choices. `generate` builds its trope packet offline and takes no `--choice`. Lookup and image retrieval use network requests; models receive retained source text rather than browsing tools.
 
-Long character articles use a bounded authoring selection of up to 6,000 source characters. The full article remains in the saved input; source notes report how many exact passages reached the model. Selection favors identity, combat abilities and limitations, but does not establish complete canon coverage. Supply focused source documents when a particular period or technique matters. Confirmed constraints and game rules remain unabridged.
+Long character articles contribute bounded verbatim anchor lines selected in code; the full article remains in the saved input. Supply focused source documents when a particular period or technique matters. Confirmed constraints and game rules remain unabridged.
 
 `definition` exports the default JSON definition without a model or input file. To use this preset with your own source documents, add `--preset btd6` to `prepare` or `author`. An explicitly conflicting progression is rejected. Existing custom requests without `mechanicsDefinition` keep the earlier prose authoring contract and do not receive typed build guarantees.
 
