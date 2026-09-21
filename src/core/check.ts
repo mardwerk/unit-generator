@@ -7,6 +7,7 @@ import {
 import { compileBlueprint } from './blueprint/compile.js';
 import { validateBlueprintRequest } from './blueprint/validate.js';
 import { planIntentIssues } from './blueprint/plan-intent.js';
+import { evaluateUnitDesign } from './blueprint/design-evaluation.js';
 import { allLegalBuilds } from './mechanics/index.js';
 import { candidateSchema } from './schemas.js';
 import { freeze, verifyPrepared } from './prepare.js';
@@ -14,6 +15,20 @@ import { checkEvidence } from './check-evidence.js';
 import { checkDependencies } from './check-dependencies.js';
 import { checkProgression } from './check-progression.js';
 import { findingSeverity, type ReportFinding } from './findings.js';
+
+/** JSON object key order is not part of derived purchase evidence. Array order is. */
+function orderedJson(value: unknown): string {
+  return JSON.stringify(value, (_key, entry) =>
+    entry && typeof entry === 'object' && !Array.isArray(entry)
+      ? Object.fromEntries(
+          Object.keys(entry)
+            .sort()
+            .map((key) => [key, entry[key]]),
+        )
+      : entry,
+  );
+}
+
 /** Structural checks only. Natural-language semantics require separate review. */
 export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact> {
   const draft = draftArtifactSchema.parse(input);
@@ -51,6 +66,24 @@ export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact>
         path: 'candidate',
         message:
           'The readable candidate differs from its compiled blueprint. Recompile it instead of editing derived fields.',
+      });
+    if (
+      candidate.blueprint &&
+      issues.length === 0 &&
+      draft.run.designEvaluation &&
+      orderedJson(draft.run.designEvaluation) !==
+        orderedJson(
+          evaluateUnitDesign(
+            candidate.blueprint,
+            draft.run.designPlan,
+            request.mechanicsDefinition,
+          ),
+        )
+    )
+      issues.push({
+        path: 'run.designEvaluation',
+        message:
+          'The retained purchase evidence differs from the blueprint and plan. Recompute it instead of editing derived comparisons.',
       });
     if (issues.length)
       for (const issue of issues)

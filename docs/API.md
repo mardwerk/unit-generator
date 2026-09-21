@@ -2,6 +2,8 @@
 
 The package root exports the shared TypeScript core, runtime schemas and artifact types. It depends on Zod and Web Crypto, with no Node imports, console output, file access or subprocesses. UnitLab calls it through a small local HTTP adapter. Node-specific source lookup, loading, OpenRouter and Codex adapters are separate exports under `@mardwerk/unit-generator/node`.
 
+The [generation foundation](GENERATION-FOUNDATION.md) describes the compact purchase-plan contract used by `planned-v1`. New typed drafts retain optional `run.designEvaluation` beside `run.designPlan`. `evaluateUnitDesign(blueprint, plan, definition)` accepts already-valid mechanics and returns independently calculated milestone, crosspath and capstone purchase evidence without network access. `designEvaluationSchema` and `DesignEvaluation` are public. Values are analytical capacities; unavailable nonfinite estimates are `null`. Earlier artifacts without this field remain readable. `checkDraft` verifies retained comparisons against the current blueprint and plan.
+
 ```ts
 import { authorUnit } from '@mardwerk/unit-generator';
 import { CodexModelClient, loadRequestFile } from '@mardwerk/unit-generator/node';

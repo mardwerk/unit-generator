@@ -12,6 +12,8 @@ Engine, CLI and UnitLab remain in this repository. The Greenfield implementation
 
 ## Authoring contract
 
+The [generation foundation](GENERATION-FOUNDATION.md) defines construction and evaluation responsibilities. A compact purchase plan records player situations, promised changes and retained weaknesses. Deterministic comparisons support review; they do not establish tactical value or balance.
+
 Authoring accepts character identity and source scope, supplied evidence or research permissions, game rules and Profile values, confirmed choices, the requested outcome and relevant earlier Results. Partial rules permit exploration; missing behavior remains visible and cannot receive a successful mechanics check.
 
 The default first plans a sourced character repertoire and three purchasing reasons, then compiles their progression into numerical mechanics. The retained plan states branch destinations, weaknesses, capstone value and crosspath contributions. Revisions use the same process. Generic attack compatibility alone must not choose the entire Unit.

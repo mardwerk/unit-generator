@@ -1,8 +1,42 @@
 # Unit pipeline evaluation
 
-The current [v8 starter profile](../src/core/default-profile.ts) uses `planned-v1`: a source-backed repertoire and branch plan, followed by numerical mechanics authoring. Edited requirements and revisions use this route too. The plan is retained in `run.designPlan`, and planning calls use attempt purpose `plan`. With one repair per stage, the runner budgets at most four draft calls per sample, plus an optional review call. The default preserves early attack identity and legal crosspaths without demanding unique role labels, a new T3 operator or a universal 3x capstone gain.
+Historical local batch paths may need restoring from the [verified local archive](LOCAL-ARTIFACTS.md). The latest failure batch remains expanded.
+
+The current [v9 starter profile](../src/core/default-profile.ts) uses `planned-v1`: a compact source-backed purchase plan, followed by numerical mechanics authoring. The [generation foundation](GENERATION-FOUNDATION.md) describes the research-derived contract, preflight feasibility and code-generated purchase evidence. Edited requirements and revisions use this route too. The plan is retained in `run.designPlan`, and planning calls use attempt purpose `plan`. With one repair per stage, the runner budgets at most four draft calls per sample, plus an optional review call. The default preserves early attack identity and legal crosspaths without demanding unique role labels, a new T3 operator or a universal 3x capstone gain.
 
 Fixed recipe selection remains available through `--authoring reference-patterns-v1`; use `--authoring planned-v1` for the current route. Keep the runtime, sources and rubric fixed when comparing them. A structural pass does not establish a coherent design.
+
+The [September 22 test audit](TESTING.md) identifies obsolete recipe assertions and a questionable runtime change-count ceiling. Workflow comparisons must separate game legality, route-specific contract checks and qualitative judgments. Main is not an accepted quality baseline merely because its checker runs.
+
+## Foundation development results
+
+The [approach comparison](PIPELINE-APPROACHES.md) evaluates PR5 through PR8 and the separate anime-to-BTD6 pitch. None has a matched benchmark establishing better character quality. The three foundation batches below used `nex-agi/nex-n2.5-mini:free`, no reasoning, provider-default sampling, a 16,000-token output limit and one correction per stage. Rimuru, Luffy and Goku ran sequentially; outputs were inspected only after each complete batch. These are reused development cases, not held-out tests. No additional provider call was used for review.
+
+| Frozen batch in `.runs/unit-pipeline/` | Completed drafts | Calls and tokens | Whole-sample time | Reported charge |
+| --- | --- | --- | --- | --- |
+| `final-benchmark-2026-09-21T21-21-44-006Z` | 0/3 | 6 calls; 51,382 input, 9,528 output | Rimuru 23.8s; Luffy 32.7s; Goku 29.3s | $0, no unavailable charges |
+| `final-benchmark-2026-09-21T21-28-47-940Z` | 0/3 | 9 calls; 82,729 input, 30,917 output | Rimuru 55.7s; Luffy 45.0s; Goku 140.5s | $0, no unavailable charges |
+| `final-benchmark-2026-09-21T21-50-33-334Z` | 0/3 | 10 calls; 96,801 input, 22,485 output | Rimuru 59.8s; Luffy 65.3s; Goku 40.2s | $0, no unavailable charges |
+
+The first stopped during planning. Rimuru and Luffy exceeded an unnecessarily small citation limit; Goku repeatedly promised T3 active follow-ups. The second followed evidence-capacity and planner-enum fixes. Rimuru's numerical repair introduced active follow-ups on forbidden paths and before the boost tier. Luffy's repair returned an active follow-up with radius zero. Goku exhausted the output allowance. No invalid Unit was published. Faster rejection is not faster successful generation.
+
+Independent reading of the second batch's plans found unresolved semantic defects. Rimuru reserved much of its defining repertoire and described a same-primary follow-up that the supported operator excludes. Luffy had recognizable Pistol and Gear references but promised an automatic burst absent from its typed intent. Goku incorrectly excluded Super Saiyan and Kaiō-ken as outside an excerpt that includes them, promised detection without its typed unlock, and referred to another incompatible advanced path's active. Several descriptions promised a slower attack while their typed intentions required faster attacks. Structural planning acceptance does not prove prose fidelity or character identity.
+
+The third batch followed Definition-aware numerical grammar narrowing in authoring and targeted repairs, plus the user's concrete character-design guidance. Its corpus and Definition hashes match the second batch. The earlier forbidden-path active effects did not recur, but all three samples still failed. Rimuru retained missing promised range and ordinary attack-rate improvements after repair. Luffy exceeded an effect budget and replaced its planned distinct volley with a different follow-up. Goku repeatedly authored zero-radius active follow-ups. Ten calls had complete reported usage. The updated code passed 398 offline tests, type checking, build, formatting and link checks; none of those checks changes the live outcome.
+
+Postbatch reading also rejected the proposals independently of their mechanics failures. All three copied the Dart base price and complete price curve across every path, with the same early pierce/cadence/range arrangement. Rimuru used only Water Blade despite supplied Black Flame behavior under the same historical qualification. Goku described a "concave" beam where the source says "concussive" and incorrectly treated supplied later-story techniques as outside the requested period. Luffy claimed the evidence did not document removal of Gear 3's drawback, although its actual prompt included that exception. All three used ordinary improvement dimensions for temporary boost prose despite available active dimensions. The observed remaining problems are source interpretation, progression choice and translation of intentions into scoped mechanics. Another prompt or a structural pass alone would not establish their resolution.
+
+Keep the grammar correction as a tested representation fix. The foundation does not yet meet the quality, speed or reliability target. Analytical crosspath reports now cover T3/T4/T5, and copied or altered reports are checked independently of object key order. Those comparisons support inspection rather than scoring a kit's appeal. No failed draft was published, no checks were relaxed and no paid or Typesafe calls were added in this foundation pass.
+
+For each further experiment, retain one short trial record alongside the existing report:
+
+- Hypothesis and the concrete failed purchase or representation it addresses.
+- Candidate commit or diff, runtime hash, Definition hash, source hashes, model, endpoint and sampling settings.
+- Development cases and untouched holdout IDs, fixed review criteria, maximum calls, time/token limits and remaining authorized spend including unknown-charge reservations.
+- Completed-batch results: first-pass drafts, repaired drafts, failures, wall time, tokens, reported charges and unavailable usage. Inspect source identity, purchase choices, progression, inheritance and unsupported claims separately.
+- Keep/drop decision and remaining failures. Record a human judgment with the exact candidate and reason; do not turn it into a universal quality score.
+
+This is an evaluation protocol, not an executable autonomous optimizer. The current runner bounds calls and per-request tokens/time; it does not enforce a global token or wall-time budget or maintain a protected holdout split. Unimplemented limits need an explicit caller-controlled stop. Existing policy counterexamples and legal but weak reference recipes are useful controls, not evidence of general quality.
 
 ## Planning-route development results
 
@@ -19,7 +53,7 @@ The free samples exposed concrete failures: Goku's fifteen milestones contained 
 
 DeepInfra returned a complete Rimuru plan, but it promised unsupported instant kills, mimicry and obstacle bypass. Compilation silently replaced some promises with ordinary stat changes. Its successful provider response therefore does not establish a usable default design. The review is retained with the result rather than presenting the structural pass as success.
 
-Earlier planning attempts are retained at `12-00-14-416Z` (Mini), `12-06-40-579Z` (DeepSeek endpoint 404s) and `12-08-59-949Z` (OpenInference timeout and invalid evidence IDs), each prefixed `final-benchmark-2026-09-21T`. The Mini batch also exposed an evaluation-only request-size limit and insufficient output-token allowance, both since corrected. Endpoint selection now verifies structured-output support and price caps. Timeouts and missing reported charges retain conservative budget reservations.
+Earlier planning attempts are retained at `12-00-14-416Z` (Nex Mini Free), `12-06-40-579Z` (DeepSeek endpoint 404s) and `12-08-59-949Z` (OpenInference timeout and invalid evidence IDs), each prefixed `final-benchmark-2026-09-21T`. The Nex Mini Free batch also exposed an evaluation-only request-size limit and insufficient output-token allowance, both since corrected. Endpoint selection now verifies structured-output support and price caps. Timeouts and missing reported charges retain conservative budget reservations.
 
 The source selection now permits 96 exact passages and 18,000 characters for planning. Source IDs are constrained in the provider schema and independently joined against retained evidence. New plan authoring rejects punctuation/numeric placeholders, allows complete explanations, and preserves old saved plans for inspection. Each tier also declares supported improvement dimensions and unlocks; code checks those promises across legal purchases before publishing a draft. Range cannot substitute for promised damage. These changes address observed representation failures; they do not certify character fidelity, purchasing value or balance.
 

@@ -25,8 +25,8 @@ test('the default profile supplies a consistent Gold and Health scale with sourc
   assert.equal(definition.profile.designPolicy?.distinctFirstUpgrades, true);
   assert.equal(definition.profile.designPolicy?.maxManualAbilityPaths, 1);
   assert.equal(definition.profile.designPolicy?.manualAbilityPath, 'path2');
-  assert.equal(definition.revision, '2026-09-21-design-v8');
-  assert.equal(defaultProfile.id, 'default-td-profile-v8');
+  assert.equal(definition.revision, '2026-09-21-design-v9');
+  assert.equal(defaultProfile.id, 'default-td-profile-v9');
   assert.equal(
     definition.profile.designPolicy?.tier5Uniqueness,
     'one-per-player-unit-type-and-path',

@@ -21,4 +21,9 @@ export { compileBlueprint } from './blueprint/compile.js';
 export * from './roles.js';
 
 export { designPlanSchema, type UnitDesignPlan } from './blueprint/plan-schema.js';
+export {
+  designEvaluationSchema,
+  evaluateUnitDesign,
+  type DesignEvaluation,
+} from './blueprint/design-evaluation.js';
 export { designPlanRequest, decodeDesignPlan } from './blueprint/plan.js';

@@ -27,6 +27,8 @@ import { targetedTierRepair } from './repair.js';
 import { designGuidance } from './design-guidance.js';
 import { designPlanRequest, decodeDesignPlan, bindDesignPlan } from './plan.js';
 import type { UnitDesignPlan } from './plan-schema.js';
+import { mechanicsPlan } from './purchase-plan.js';
+import { evaluateUnitDesign } from './design-evaluation.js';
 import { planIntentIssues } from './plan-intent.js';
 import {
   decodeReferenceBlueprint,
@@ -135,7 +137,14 @@ async function planDesign(
     } catch (error) {
       const issues =
         error instanceof z.ZodError
-          ? error.issues.map((issue) => `${issue.path.join('.')}: ${issue.message}`)
+          ? error.issues.map((issue) => {
+              const compact = output && typeof output === 'object' && 'contract' in output;
+              const path =
+                compact && issue.path[0] === 'upgradeIntents' && issue.path.length >= 3
+                  ? ['paths', issue.path[1], 'milestones', issue.path[2], ...issue.path.slice(3)]
+                  : issue.path;
+              return `${path.join('.')}: ${issue.message}`;
+            })
           : [];
       const billed = error instanceof ModelExecutionError ? (error.usage ?? usage) : usage;
       attempts.push({
@@ -195,7 +204,7 @@ export async function draftBlueprint(
               prompt:
                 repair.request.prompt +
                 '\n\nPreserve the retained character plan while correcting these tiers. Do not trade its branch purpose for easier arithmetic: ' +
-                JSON.stringify(plan),
+                JSON.stringify(mechanicsPlan(plan)),
             }
           : repair?.request;
       const response = await model.generate(
@@ -265,6 +274,11 @@ export async function draftBlueprint(
             startedAt,
             completedAt: new Date().toISOString(),
             ...(plan ? { designPlan: plan } : {}),
+            designEvaluation: evaluateUnitDesign(
+              parsed.data,
+              plan,
+              prepared.request.mechanicsDefinition!,
+            ),
           },
         });
         const checked = await checkDraft(draft);
@@ -282,7 +296,11 @@ export async function draftBlueprint(
         const billed = totalUsage(attempts);
         return freeze({
           ...draft,
-          run: { ...draft.run, attempts, ...(billed ? { usage: billed } : {}) },
+          run: {
+            ...draft.run,
+            attempts,
+            ...(billed ? { usage: billed } : {}),
+          },
         });
       }
     } catch (error) {
@@ -322,7 +340,7 @@ function blueprintRequest(
   const request = prepared.request;
   // Images and generated mechanics evidence duplicate no character knowledge in this text-only call.
   const context = {
-    designPlan: plan,
+    designPlan: plan ? mechanicsPlan(plan) : undefined,
     character: request.character,
     task: request.task,
     constraints: request.constraints,
@@ -355,7 +373,9 @@ function blueprintRequest(
           ]
         : []),
       'Keep the exact character name, all three paths and five tiers per path. Write concise English without em dashes or en dashes.',
-      'Choose 1 or 2 baseSourceIds and 1 or 2 sourceIds per path from evidenceSpans. Code owns quotation and index joins. Use sourced powers to create recognizable gameplay, with one sentence per path explaining the adaptation. Creative attack names and proposed numbers are allowed; do not claim them as canon. A quote about another character does not establish this character has that power.',
+      plan
+        ? 'The plan owns the base attack name, path names, themes, rationales and citations. These are omitted from this response schema and restored by code. Author only the requested numerical mechanics, upgrade names, limitations and constraint coverage. Use the supplied evidence to preserve conditions; a source quote about another actor does not establish ownership.'
+        : 'Choose 1 or 2 baseSourceIds and 1 or 2 sourceIds per path from evidenceSpans. Code owns quotation and index joins. Use sourced powers to create recognizable gameplay, with one sentence per path explaining the adaptation. Creative attack names and proposed numbers are allowed; do not claim them as canon. A quote about another character does not establish this character has that power.',
       'Design one automatic base attack and three distinct tactical specializations, such as focused damage, coverage and control. Preserve meaningful weaknesses. Early upgrades should improve this attack, not unlock a full kit. Follow the supplied starter scale; all prices are incremental and all values are unbalanced proposals.',
       'Mechanics come only from typed fields. No Unit HP, survivability, dodging, armor bypass, teleportation or extra actors may be hidden in prose. Pierce is a target cap including the primary target; positive splash requires pierce of at least 2. It is not armor penetration. Every delivery needs a clear path. Use only declared enemy restrictions. Themes describe actual tactical jobs: strength can inspire damage, speed a shorter interval, mobility more range. Names must not promise unsupported behavior.',
       'Each tier has statChanges plus nullable camo/delivery/damageType/targeting fields. Null means unchanged; do not repeat current values. Tier1/2 allow 1 to 3 primitive changes total; Tier3/4/5 allow up to 4, or tighter Definition limits. Count each statChanges or boostChanges entry and every nonnull enum/boolean/unlockBoost field as one. Each nonnull slow or burn counts as TWO changes, but one new capability. Tier1 and Tier2 may add only one new capability.',
@@ -375,7 +395,7 @@ function blueprintRequest(
             JSON.stringify({ issues: issues.slice(0, 20), previous }),
           ]),
     ].join('\n\n'),
-    schema: modelOutputJsonSchema(request),
+    schema: modelOutputJsonSchema(request, !!plan),
     ...(signal ? { signal } : {}),
   };
 }

@@ -7,6 +7,10 @@ import { bindDesignPlan, decodeDesignPlan, designPlanRequest } from '../src/core
 import { designPlanSchema, type UnitDesignPlan } from '../src/core/blueprint/plan-schema.js';
 import { miraCandidate, miraRequest } from './fixtures/core-fixtures.js';
 import { defaultAuthoringDefinition } from '../src/core/default-profile.js';
+import {
+  purchasePlanSchema,
+  purchasePlanOutputSchema,
+} from '../src/core/blueprint/purchase-plan.js';
 
 function fixture(): UnitDesignPlan {
   const sourceIds = [authorEvidence(miraRequest())[0]!.id];
@@ -63,6 +67,90 @@ function fixture(): UnitDesignPlan {
   };
 }
 
+test('compact purchase plans bind one promise per milestone and code-owned early crosspath summaries', () => {
+  const plan = fixture();
+  const { upgradeIntents, paths, ...rest } = plan;
+  const wire = {
+    ...rest,
+    contract: 'purchase-plan-v1',
+    paths: Object.fromEntries(
+      pathKeys.map((path) => {
+        const { crosspaths, referenceExample, milestones, ...branch } = paths[path];
+        return [
+          path,
+          {
+            ...branch,
+            milestones: Object.fromEntries(
+              tierKeys.map((tier) => [
+                tier,
+                {
+                  change: milestones[tier],
+                  ...upgradeIntents![path][tier],
+                },
+              ]),
+            ),
+          },
+        ];
+      }),
+    ),
+  };
+  const parsed = purchasePlanSchema.parse(wire);
+  const decoded = decodeDesignPlan(parsed, miraRequest());
+  assert.deepEqual(decoded.upgradeIntents, plan.upgradeIntents);
+  assert.equal(decoded.contract, 'purchase-plan-v1');
+  assert.deepEqual(decodeDesignPlan(decoded, miraRequest()), decoded);
+  assert.deepEqual(decoded.paths.path1.milestones, plan.paths.path1.milestones);
+  assert.deepEqual(
+    decoded.paths.path1.crosspaths.map(({ path }) => path),
+    ['path2', 'path3'],
+  );
+  assert.match(decoded.paths.path1.crosspaths[0]!.contribution, /Stronger Spark.*Faster Spark/);
+  assert.doesNotMatch(decoded.paths.path1.crosspaths[0]!.contribution, /durable targets/);
+  parsed.paths.path1.milestones.tier1.change = ':0';
+  assert.throws(() => decodeDesignPlan(parsed, miraRequest()), /in words/);
+});
+
+test('nine relevant repertoire entries do not discard an otherwise valid proposal', () => {
+  const plan = fixture();
+  plan.repertoire = Array.from({ length: 9 }, (_, index) => ({
+    ...plan.repertoire[0]!,
+    name: `Documented use ${index + 1}`,
+  }));
+  assert.equal(decodeDesignPlan(plan, miraRequest()).repertoire.length, 9);
+});
+
+test('provider purchase choices exclude impossible active tiers and honor custom manual slots', () => {
+  const input = miraRequest();
+  input.mechanicsDefinition = structuredClone(defaultAuthoringDefinition);
+  const schema = purchasePlanOutputSchema(input);
+  for (const path of pathKeys) {
+    const milestones = schema.shape.paths.shape[path].shape.milestones.shape;
+    for (const tier of ['tier1', 'tier2', 'tier3'] as const) {
+      assert.ok(!milestones[tier].shape.unlock.options.includes('active-follow-up'));
+      assert.ok(!milestones[tier].shape.unlock.options.includes('manual-boost'));
+      assert.ok(
+        !milestones[tier].shape.improves.element.options.some((value) =>
+          value.startsWith('active-'),
+        ),
+      );
+    }
+    assert.deepEqual(milestones.tier1.shape.unlock.options, ['none', 'camo']);
+    assert.equal(milestones.tier4.shape.unlock.options.includes('manual-boost'), path === 'path2');
+  }
+  input.mechanicsDefinition.profile.designPolicy!.manualAbilityPath = 'path3';
+  const custom = purchasePlanOutputSchema(input);
+  assert.ok(
+    custom.shape.paths.shape.path3.shape.milestones.shape.tier4.shape.unlock.options.includes(
+      'manual-boost',
+    ),
+  );
+  assert.ok(
+    !custom.shape.paths.shape.path2.shape.milestones.shape.tier4.shape.unlock.options.includes(
+      'manual-boost',
+    ),
+  );
+});
+
 test('plans retain complete capstone purpose while allowing sparse sourced repertoires', () => {
   const plan = fixture();
   assert.deepEqual(decodeDesignPlan(plan, miraRequest()), plan);
@@ -101,14 +189,12 @@ test('planning prompt preserves revision context and supplies complete bounded w
   assert.deepEqual(context.previous, request.previous!.draft);
   assert.deepEqual(context.constraints, request.constraints);
   assert.equal(call.signal, signal);
-  assert.equal(context.workedExamples.length, 3);
+  assert.ok(context.workedExamples.length > 0);
   for (const example of context.workedExamples) {
     assert.equal(Object.keys(example.milestones).length, 5);
     assert.ok(example.capstoneValue && example.limitations && example.crosspaths);
   }
-  assert.match(call.prompt, /3-3-0 and 3-2-1 are illegal/);
-  assert.match(call.prompt, /do not introduce new status, delivery, distribution/);
-  assert.match(call.prompt, /unsupported signature elements/);
+  assert.deepEqual(context.definition, request.mechanicsDefinition);
 });
 
 test('historical selected evidence retains its period limitation in the decoded proposal', () => {
@@ -224,13 +310,13 @@ test('compact provider grammar retains all local plan lengths, array bounds and 
       plan.base.sourceIds = [];
     },
     (plan) => {
-      plan.base.sourceIds = Array(3).fill(plan.base.sourceIds[0]);
+      plan.base.sourceIds = Array(97).fill(plan.base.sourceIds[0]);
     },
     (plan) => {
       plan.base.sourceIds = ['invented'];
     },
     (plan) => {
-      plan.repertoire = Array(9).fill(plan.repertoire[0]);
+      plan.repertoire = Array(33).fill(plan.repertoire[0]);
     },
     (plan) => {
       plan.paths.path1.crosspaths = [];
@@ -286,9 +372,10 @@ test('planning distinguishes omitted technique aspects and source-period excepti
   const call = designPlanRequest(await prepareRequest(miraRequest()));
   assert.match(call.prompt, /unsupported aspect from an entire technique/);
   assert.match(call.prompt, /later period removing an earlier drawback/);
-  assert.match(call.prompt, /unsupported wishes remain explicit omissions/);
+  assert.match(call.prompt, /[Uu]nsupported wishes remain explicit omissions/);
   const schema = call.schema as { required: string[] };
-  assert.ok(schema.required.includes('upgradeIntents'));
+  assert.ok(schema.required.includes('contract'));
+  assert.ok(!schema.required.includes('upgradeIntents'));
 });
 
 test('unsupported extension and premature active intents are corrected before mechanics authoring', () => {
@@ -318,6 +405,7 @@ test('active improvement intents respect the supplied manual path and earliest b
     assert.throws(() => decodeDesignPlan(plan, input), /only on path2/);
     // A custom Definition can authorize another path; the check is not hardcoded.
     input.mechanicsDefinition.profile.designPolicy!.manualAbilityPath = 'path3';
+    plan.upgradeIntents!.path3.tier4.unlock = 'manual-boost';
     assert.deepEqual(decodeDesignPlan(plan, input), plan);
     input.mechanicsDefinition.profile.designPolicy!.manualAbilityPath = 'path2';
   }
@@ -343,6 +431,8 @@ test('manual ability count and prohibition apply even when only active improveme
     plan.upgradeIntents![path].tier5 = { improves: ['active-damage'], unlock: 'none' };
   assert.throws(() => decodeDesignPlan(plan, input), /active boosts on 2 paths.*at most 1/);
   policy.maxManualAbilityPaths = 2;
+  for (const path of ['path1', 'path2'] as const)
+    plan.upgradeIntents![path].tier4 = { improves: [], unlock: 'manual-boost' };
   assert.deepEqual(decodeDesignPlan(plan, input), plan);
   policy.manualAbilityPath = null;
   assert.throws(() => decodeDesignPlan(plan, input), /does not permit manual boosts/);

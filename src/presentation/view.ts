@@ -6,6 +6,7 @@ import {
   type PreparedRequest,
   type UnitCandidate,
   type UnitRoleRanking,
+  type DesignEvaluation,
 } from '../core/index.js';
 import { summarizeUsage, type UsageSummary } from './usage.js';
 
@@ -18,6 +19,7 @@ export interface ArtifactView {
   reviewSummary: string | null;
   usage: UsageSummary;
   roles?: UnitRoleRanking;
+  designEvaluation?: DesignEvaluation;
 }
 
 export function readArtifactView(input: unknown): ArtifactView {
@@ -31,6 +33,9 @@ export function readArtifactView(input: unknown): ArtifactView {
       resultId: result.data.id,
       reviewSummary: result.data.reviewSummary,
       usage: summarizeUsage(result.data),
+      ...(result.data.run.draft.designEvaluation
+        ? { designEvaluation: result.data.run.draft.designEvaluation }
+        : {}),
       ...(result.data.roles ? { roles: result.data.roles } : {}),
     };
   }
@@ -44,6 +49,9 @@ export function readArtifactView(input: unknown): ArtifactView {
       resultId: null,
       reviewSummary: null,
       usage: summarizeUsage(checked.data),
+      ...(checked.data.draft.run.designEvaluation
+        ? { designEvaluation: checked.data.draft.run.designEvaluation }
+        : {}),
       ...(checked.data.draft.roles ? { roles: checked.data.draft.roles } : {}),
     };
   }
@@ -56,6 +64,7 @@ export function readArtifactView(input: unknown): ArtifactView {
     resultId: null,
     reviewSummary: null,
     usage: summarizeUsage(draft),
+    ...(draft.run.designEvaluation ? { designEvaluation: draft.run.designEvaluation } : {}),
     ...(draft.roles ? { roles: draft.roles } : {}),
   };
 }

@@ -647,7 +647,9 @@ test('wire attack extensions preserve authored volleys and accept legacy omissio
   unit.paths.path2.tiers.tier5.changes = [
     { kind: 'followUp', target: 'boost', value: { ...followUp, count: 6 } },
   ];
-  assert.deepEqual(decodeBlueprintOutput(modelOutput(unit), request()), unit);
+  const extended = request();
+  extended.mechanicsDefinition!.rules.attackExtensions = ['distinct-volley', 'volley-follow-up'];
+  assert.deepEqual(decodeBlueprintOutput(modelOutput(unit), extended), unit);
 });
 
 test('one tier with several operations on the same stat displays its net change once', () => {
@@ -1240,6 +1242,20 @@ test('the default schema permits only an optional middle-path boost in drafting 
   unit.paths.path3.specialization = 'group-damage';
   const output = modelOutput(unit);
   assert.equal(modelOutputSchema(input).safeParse(output).success, true);
+  type JsonSchema = { type?: string; properties: Record<string, JsonSchema>; anyOf?: JsonSchema[] };
+  for (const path of pathKeys)
+    for (const tier of tierKeys) {
+      const repair = targetedTierRepair(input, output, [
+        `paths.${path}.tiers.${tier}: Correct this purchase.`,
+      ])!;
+      const schema = repair.request.schema as JsonSchema;
+      const active =
+        schema.properties.paths!.properties[path]!.properties.tiers!.properties[tier]!.properties
+          .activeFollowUp!;
+      if (path === 'path2' && (tier === 'tier4' || tier === 'tier5'))
+        assert.ok(active.anyOf?.some((choice) => choice.type === 'object'));
+      else assert.equal(active.type, 'null');
+    }
   for (const path of ['path1', 'path3'] as const) {
     const badUnlock = structuredClone(output);
     badUnlock.paths[path].tiers.tier4.unlockBoost = output.paths.path2.tiers.tier4.unlockBoost;
@@ -1512,6 +1528,60 @@ test('planned drafting retains character decisions, revision context and each bi
     );
     assert.deepEqual(compiled.tiers, unit.paths[path].tiers);
   }
+});
+
+test('planned mechanics omit code-owned labels and retain verifiable purchase evidence without extra model calls', async () => {
+  const plan = plannedDesign();
+  const wire = modelOutput(blueprint());
+  const slim = JSON.parse(JSON.stringify(wire));
+  delete slim.baseSourceIds;
+  delete slim.baseAttack.name;
+  for (const path of pathKeys)
+    for (const field of ['name', 'sourceIds', 'theme', 'rationale']) delete slim.paths[path][field];
+  const model = new ResponseModel([{ output: plan }, { output: slim }]);
+  const draft = await draftUnit(await prepareRequest(plannedRequest()), model);
+  assert.equal(model.requests.length, 2);
+  const grammar = model.requests[1]!.schema as {
+    properties: Record<string, { properties: Record<string, unknown> }>;
+  };
+  assert.equal(grammar.properties.baseSourceIds, undefined);
+  assert.equal(grammar.properties.baseAttack!.properties.name, undefined);
+  assert.equal(draft.candidate.blueprint!.baseAttack.name, plan.base.name);
+  assert.equal(draft.run.designEvaluation!.scope, 'analytical-not-simulation');
+  assert.equal(draft.run.designEvaluation!.paths[0]!.crosspaths.length, 12);
+  assert.match(renderArtifact(draft, { details: true }), /Purchase evidence/);
+  assert.doesNotMatch(renderArtifact(draft), /Purchase evidence/);
+  const reordered = structuredClone(draft);
+  const reverseKeys = (value: unknown): unknown => {
+    if (Array.isArray(value)) return value.map(reverseKeys);
+    if (value && typeof value === 'object')
+      return Object.fromEntries(
+        Object.entries(value)
+          .reverse()
+          .map(([key, entry]) => [key, reverseKeys(entry)]),
+      );
+    return value;
+  };
+  reordered.run.designEvaluation = reverseKeys(
+    reordered.run.designEvaluation,
+  ) as typeof reordered.run.designEvaluation;
+  assert.deepEqual(reordered.run.designEvaluation, draft.run.designEvaluation);
+  assert.equal(
+    (await checkDraft(reordered)).findings.some((finding) => finding.outcome === 'fail'),
+    false,
+  );
+  const edited = structuredClone(draft);
+  edited.run.designEvaluation!.paths[0]!.capstoneComparison.tier5.totalGold += 1;
+  assert.ok(
+    (await checkDraft(edited)).findings.some(
+      (finding) => finding.subject === 'run.designEvaluation' && finding.outcome === 'fail',
+    ),
+  );
+  delete edited.run.designEvaluation;
+  assert.equal(
+    (await checkDraft(edited)).findings.some((finding) => finding.outcome === 'fail'),
+    false,
+  );
 });
 
 test('planning source correction is bounded and retains both planning charges before mechanics', async () => {

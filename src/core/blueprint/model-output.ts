@@ -70,23 +70,10 @@ const tierOutput = z.strictObject({
     )
     .max(4),
 });
-const ordinaryTier = tierOutput.extend({
-  unlockBoost: z.null(),
-  boostChanges: tierOutput.shape.boostChanges.max(0),
+const pathOutput = blueprintSchema.shape.paths.shape.path1.omit({
+  sourceFactIndices: true,
+  specialization: true,
 });
-const activeTier = tierOutput.extend({ boostChanges: tierOutput.shape.boostChanges.max(0) });
-const finalTier = tierOutput.extend({ unlockBoost: z.null() });
-const pathOutput = blueprintSchema.shape.paths.shape.path1
-  .omit({ sourceFactIndices: true, specialization: true })
-  .extend({
-    tiers: z.strictObject({
-      tier1: ordinaryTier,
-      tier2: ordinaryTier,
-      tier3: ordinaryTier,
-      tier4: activeTier,
-      tier5: finalTier,
-    }),
-  });
 
 /** Separate fields avoid ambiguous object unions in provider structured-output grammars. */
 export function modelOutputSchema(request: AuthorRequest) {
@@ -97,14 +84,45 @@ export function modelOutputSchema(request: AuthorRequest) {
   const evidenceIds = authorEvidence(request).map(({ id }) => id);
   if (!evidenceIds.length)
     throw new Error('Supply source text with at least one passage of 15 characters.');
-  const sourceIds = z.array(z.enum(evidenceIds)).min(1).max(2);
-  const policy = request.mechanicsDefinition?.profile.designPolicy;
+  const sourceIds = z.array(z.enum(evidenceIds)).min(1).max(96);
+  const definition = request.mechanicsDefinition;
+  const policy = definition?.profile.designPolicy;
+  // Without a Definition, preserve the exploratory schema's extension choices.
+  const allowsFollowUp =
+    !definition || !!definition.rules.attackExtensions?.includes('volley-follow-up');
+  const followUp = allowsFollowUp ? followUpSchema.nullable().optional() : z.null().optional();
+  const distribution =
+    !definition || definition.rules.attackExtensions?.includes('distinct-volley')
+      ? distributionSchema.nullable().optional()
+      : z.literal('same-primary').nullable().optional();
   const sourcedPath = (key: (typeof pathKeys)[number]) => {
-    const allowsBoost = policy?.manualAbilityPath === undefined || policy.manualAbilityPath === key;
+    const allowsBoost =
+      (policy?.maxManualAbilityPaths ?? 1) > 0 &&
+      (policy?.manualAbilityPath === undefined || policy.manualAbilityPath === key);
+    const atTier = (tier: number) =>
+      tierOutput.extend({
+        distribution,
+        followUp,
+        activeFollowUp:
+          allowsBoost && tier >= (definition?.rules.manualBoostUnlockTier ?? 4)
+            ? followUp
+            : z.null().optional(),
+        unlockBoost:
+          allowsBoost && tier === (definition?.rules.manualBoostUnlockTier ?? 4)
+            ? tierOutput.shape.unlockBoost
+            : z.null(),
+        boostChanges:
+          allowsBoost && tier === (definition?.rules.manualBoostModifyTier ?? 5)
+            ? tierOutput.shape.boostChanges
+            : tierOutput.shape.boostChanges.max(0),
+      });
     const output = pathOutput.extend({
-      tiers: pathOutput.shape.tiers.extend({
-        tier4: allowsBoost ? activeTier : ordinaryTier,
-        tier5: allowsBoost ? finalTier : ordinaryTier,
+      tiers: z.strictObject({
+        tier1: atTier(1),
+        tier2: atTier(2),
+        tier3: atTier(3),
+        tier4: atTier(4),
+        tier5: atTier(5),
       }),
     });
     return policy
@@ -115,8 +133,8 @@ export function modelOutputSchema(request: AuthorRequest) {
     .omit({ sourceFacts: true, proposals: true, referencePattern: true })
     .extend({
       baseAttack: attackSchema.extend({
-        distribution: distributionSchema.nullable().optional(),
-        followUp: followUpSchema.nullable().optional(),
+        distribution,
+        followUp,
       }),
       unsupportedMechanics: blueprintSchema.shape.proposals,
       baseSourceIds: sourceIds,
@@ -131,8 +149,27 @@ export function modelOutputSchema(request: AuthorRequest) {
 }
 
 /** Inline provider schema. Shared references caused malformed responses in live probes. */
-export function modelOutputJsonSchema(request: AuthorRequest): Record<string, unknown> {
-  return providerJsonSchema(modelOutputSchema(request));
+export function modelOutputJsonSchema(
+  request: AuthorRequest,
+  planned = false,
+): Record<string, unknown> {
+  const schema = providerJsonSchema(modelOutputSchema(request));
+  if (planned) {
+    // The retained plan already owns these fields. bindDesignPlan supplies them
+    // before the same strict decoder runs, also for older full-shaped responses.
+    type ObjectSchema = { properties: Record<string, ObjectSchema>; required: string[] };
+    const omit = (node: ObjectSchema, fields: string[]) => {
+      for (const field of fields) delete node.properties[field];
+      node.required = node.required.filter((field) => !fields.includes(field));
+    };
+    const root = schema as unknown as ObjectSchema;
+    const properties = root.properties;
+    omit(root, ['baseSourceIds']);
+    omit(properties.baseAttack!, ['name']);
+    for (const path of pathKeys)
+      omit(properties.paths!.properties[path]!, ['name', 'sourceIds', 'theme', 'rationale']);
+  }
+  return schema;
 }
 
 /** Shared provider grammar adaptation; runtime validation retains every bound.

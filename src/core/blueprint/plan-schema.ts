@@ -2,7 +2,8 @@ import { z } from 'zod';
 import { pathKeys, tierKeys } from '../mechanics/schemas.js';
 
 const text = z.string().trim().min(1).max(800);
-const sourceIds = z.array(z.string().min(1)).min(1).max(2);
+// Citation bounds match the bounded authoring evidence catalogue, not a prose quota.
+const sourceIds = z.array(z.string().min(1)).min(1).max(96);
 const branch = z.strictObject({
   name: text.max(80),
   sourceIds,
@@ -67,12 +68,13 @@ export const upgradeIntentsSchema = z.strictObject({
 
 /** A retained design proposal, not evidence that its mechanics are executable. */
 export const designPlanSchema = z.strictObject({
+  contract: z.literal('purchase-plan-v1').optional(),
   concept: text,
   signature: z.strictObject({ name: text.max(80), sourceIds, adaptation: text }),
   repertoire: z
     .array(z.strictObject({ name: text.max(80), sourceIds, limitation: text }))
     .min(1)
-    .max(8),
+    .max(32),
   base: z.strictObject({ name: text.max(80), sourceIds, behavior: text }),
   paths: z.strictObject({ path1: branch, path2: branch, path3: branch }),
   omittedTechniques: z.array(z.strictObject({ name: text.max(80), reason: text })).max(12),

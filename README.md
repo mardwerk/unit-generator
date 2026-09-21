@@ -4,6 +4,8 @@ Unit Generator turns supplied character evidence and Tower Defense game rules in
 
 The CLI and local [UnitLab](docs/LAB.md) share a [typed generator core](docs/API.md). Applications call it directly with structured inputs and Results. The core has no console, filesystem, subprocess or hidden project history.
 
+The [generation foundation](docs/GENERATION-FOUNDATION.md) connects character evidence to purchasing decisions, executable changes and independent checks. It applies the supplied game-design research within the existing two-call pipeline.
+
 ## Try it
 
 Requires Node.js 24 or newer and pnpm.
@@ -38,7 +40,7 @@ pnpm cli render .runs/luffy.json -o .runs/luffy.md
 pnpm cli build .runs/luffy.json --tiers 5,2,0
 ```
 
-`generate` retrieves character evidence, then uses the default `planned-v1` route. One model stage designs the source-backed repertoire, base attack and three purchasing decisions; a second implements that plan as numerical mechanics. Code resolves arithmetic and checks every legal build. Each stage allows one repair by default. The artifact retains `run.designPlan` and all stage attempts and reported usage. Edited requirements and revisions use the same planning route. `review .runs/luffy.json` adds an independent model review. The [mechanics definition](docs/MECHANICS.md) keeps prices, upgrades, crosspaths and boosts explicit. Fixed recipes remain an optional reference benchmark. [Earlier evaluations](docs/PIPELINE-EVALUATION.md) do not establish the new route's live reliability.
+`generate` retrieves character evidence, then uses the default `planned-v1` route. One model stage supplies a compact source-backed purchase plan; a second implements numerical mechanics. Code binds names and citations, checks plan feasibility, resolves arithmetic and checks every legal build against its promised changes. Each stage allows one repair by default. The artifact retains `run.designPlan`, analytical `run.designEvaluation`, attempts and reported usage. `render --details` shows purchase comparisons without another model call. Revisions use the same route. `review .runs/luffy.json` adds an optional independent model review. The [mechanics definition](docs/MECHANICS.md) keeps prices, upgrades, crosspaths and boosts explicit. [Evaluations](docs/PIPELINE-EVALUATION.md) record reliability and quality limits.
 
 For explicit source text and custom rules:
 
@@ -69,5 +71,7 @@ pnpm build
 ```
 
 Tests use explicit model doubles and HTTP fixtures; they require neither a model account nor external network access. `pnpm dev` rebuilds automatically; run `pnpm build` before using the CLI or `pnpm start` after source changes. TypeScript builds the backend; esbuild bundles the React client for the same local server. The UI calls the structured HTTP adapter, never the CLI.
+
+The [test audit](docs/TESTING.md) explains which checks protect behavior, which design assumptions were removed, and why test passes do not establish generation quality.
 
 Read [PRODUCT.md](docs/PRODUCT.md), [CONTEXT.md](CONTEXT.md) and [AGENTS.md](AGENTS.md) for scope, vocabulary and contributor rules. Public contributors do not need access to Foundation or Towerright.
