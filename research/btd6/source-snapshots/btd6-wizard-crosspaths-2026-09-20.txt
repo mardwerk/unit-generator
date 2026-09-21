@@ -1,0 +1,122 @@
+	
+	Strategy Page
+This article is a strategy page, where players may share their ideas on how to optimize the subject in question. Feel free to add new strategies on this page! However, make sure the content you add is clearly formatted, unambiguous, and informative.
+
+Note for all contributors: If you're planning to add a new strategy section about your specific strategy, please make sure to add version numbers and dates to each new section, especially for the latest games.
+
+In Bloons TD 6, it is important to choose the best crosspathing for a specific tower in order to receive the best benefits out of that tower type. Towers have special roles to play for each stage of the game. The Wizard Monkey in its core is to provide specific roles in a defense, in a similar way to Dart Monkey, mostly with the aim to be accurate and dynamic supporting roles in the defense.
+
+Contents
+1	Introduction
+2	Upgrades
+2.1	Tier 2 and below
+2.1.1	Base Tower and Tier 1 Crosspaths
+2.1.2	Tier 2 Crosspaths
+2.2	Upper Path 1
+2.2.1	Arcane Mastery
+2.2.2	Arcane Spike
+2.2.3	Archmage
+2.3	Upper Path 2
+2.3.1	Dragon's Breath
+2.3.2	Summon Phoenix
+2.3.3	Wizard Lord Phoenix
+2.4	Upper Path 3
+2.4.1	Shimmer
+2.4.2	Necromancer: Unpopped Army
+2.4.3	Prince of Darkness
+Introduction
+
+The Wizard Monkey is an interesting tower. While it can't detect camo or pop leads bloons at its base, it can cheaply do this with Fireball (X-1-X) for leads, and Monkey Sense (X-X-2) for camos. This makes combating camo-lead bloons really easy, since they can both be unlocked and bought very easily. Path 1 is generally good for DPS and line of sight issues, Path 2 is good for dealing damage to most Bloons (but not purples), and path 3 is good for supporting. Crosspathing doesn't affect or change the higher tiers but rather adds different attacks or upgrades to Wizard Monkey. It can't pop purple bloons without Necromancer: Unpopped Army or using the Wizard Lord Phoenix ability.
+
+Upgrades
+Tier 2 and below
+Base Tower and Tier 1 Crosspaths
+Guided Magic
+Fireball
+Intense Magic
+0-0-0: It functions like a slower 0-0-0 Engineer Monkey but pops Frozen Bloons by default.
+1-0-0: The wizard can see through obstables and their projectiles home onto bloons. Use this upgrade path if there is a lot of line of sight issues on the map. It's important to note that Fireball and Dragon's Breath are also affected by this upgrade. It also allows the projectiles of the Wizard Monkey to seek out bloons.
+0-1-0: This upgrade allows the wizard to shoot explosive fireballs that can pop Lead bloons as well as clusters from side angles.
+0-0-1: Increases the Wizards Monkeys projectile speed and pierce.
+1-1-0: As previously stated, this allows Fireball to ignore Line Of Sight issues.
+1-0-1: Combines the ability to see bloons behind cover and increase pierce.
+0-1-1: Combines Fireball lead popping power with the increase in pierce. Fireballs are affected by the pierce bonus gained from Intense Magic.
+Tier 2 Crosspaths
+Arcane Blast
+Wall of Fire
+Monkey Sense
+2-0-0: Increases the size of the projectile and the damage of the magical bolts the wizard shoots.
+0-2-0: Creates a stationary projectile that continuously and rapidly damages bloons that comes into contact with it, with purples destroying the projectle immediately. Useful for cleaning up groups of bloons and dealing a considerable amount of damage to them with Walls of Fire. Crosspathing is not essential, but adding crosspath benefits the Wall of Fire attack to certain extents.
+0-0-2: Needed to pop Camo Bloons, but also improves range. Crosspath it to be more reliable at popping Camo Bloons. This crosspath can be used as a stepping stone for 0-0-3 Shimmer.
+2-1-0: Combines the increased projectile size and damage with lead popping power and potential extra cluster damage. Fireballs and bolts now deal 1 extra damage.
+2-0-1: Combines the increased projectile size and damage with the increased pierce.
+1-2-0: Combines the seeking of bloons even behind cover with the Wall of Fire's high pierce and lead popping power. Also allows targeting of wall of fire
+1-0-2: The same as 1-0-1 but it can now see camo bloons and hit from further range.
+2-2-0: Combines the increased projectile size and damage with the high pierce and lead popping power.
+2-0-2: Combines the increased projectile size and damage with increased pierce and range in addition to camo detection.
+0-2-1: Combines the high pierce and lead popping power with even more pierce.
+0-1-2: An inexpensive way to pop Camo Leads, although not the most reliable method of doing so.
+0-2-2: A good choice against camo leads, helped by added range. Place near a single track or a track intersection; it can only attack fast enough to place one Wall of Fire at a time.
+Upper Path 1
+Arcane Mastery
+3-0-0: Arcane Mastery increases its range, attack speed, pierce, and damage. The non-crosspathed Arcane Mastery is rarely utilized due to the need to use crosspaths to optimize its attacks. The only occasion where this particular crosspath might be used is when going for a Round 40 Arcane Spike on Hard Mode, but then again it's risky to do. The main bolt starts off with a decent 7 pierce.
+3-1-0: The fireball attack can be shot further and through obstacles, which can act as some cheap lead-popping power of an existing Arcane Mastery. Deals 2 damage, like 2-1-0, but no further improvements compared to the bolt other than extra range.
+3-2-0: Optimizes the Wall of Fire attack to flexibly place Walls of Fire wherever at whenever. However, this does miss out on a stronger bolt.
+3-0-1: Main bolt gains +5 pierce for 12 pierce per shot. Not only that but the bolts move faster. Often the most useful crosspatch as an independent path. The next upgrade comes with an easy camo detection.
+3-0-2: Gains camo detection, and works well for handling early-game camos until Round 45. Also, it gains extra range, improving its range yet more.
+Arcane Spike
+4-0-0: Arcane Spike doubles its attack speed again and gains substantial damage increases, as well as granting lead-popping to its bolts and dealing greater damage to MOAB-class. The non-crosspathed Arcane Spike is rarely used, mainly only for Round 40 Arcane Spike challenges on CHIMPS Mode. Crosspathing will optimize its popping power.
+4-1-0: Fireballs deal extra MOAB-class damage, but nothing really extra other than some more projectiles, as it does the same amount of damage to other bloons as its predecessor and at the same rate. BTDB2 counterpart lacks the bonus.
+4-2-0: Wall of Fire gives it more DPS especially when given Alch buffs, but cannot see camo without support. It requires support in order to beat the DPS efficiency of 4-0-1, though it does more MOAB-class damage.
+4-0-1: Gives bolts with 12 pierce instead of 7 and bolts move faster. Stronger at handling bloons independently. Also has a cheap access to a camo detection upgrade.
+4-0-2: Low-cost camo detection that allows it to be useful against camo bloons especially DDTs. Can also see slightly further.
+Archmage
+5-0-0: Archmage gains a faster-attacking bolt with higher MOAB-class damage, slightly more base damage, and gains both a Dragon's Breath attack and Shimmer with greatly enhanced stats. It is best to choose the crosspath depending on how the player chooses to use Archmage: 5-2-0 for general DPS or 5-0-2 for grouped anti-MOAB popping power.
+5-1-0: Archmage gains an improved triple fireball attack that deals huge damage, especially to MOAB-class bloons. It may help as some extra bloon-popping power in addition to further damage to MOAB-class. Besides improved Super Ceramic damage, the fireball attack serves as just a source of extra DPS for Archmage.
+5-2-0: Gains a Wall of Fire attack that is deployed twice as fast and does much more MOAB-class damage, making this crosspath combination the better crosspath for general DPS. The improved Fireball and Wall of Fire as well Dragon’s Breath help the Archmage against super ceramics by adding the attacks that can effectively damage them, than just its main attack.
+5-0-1: Better for MOAB-popping power. It adds pierce to the bolt attack, which allows Archmage to damage more MOAB-class bloons generally which is definitely its specialty at the cost of suffering against Super Ceramics.
+5-0-2: Can see camos which will improve its anti-Camo substantially along with Shimmer. Can also see slightly further.
+Upper Path 2
+Dragon's Breath
+0-3-0: Dragon's Breath adds a rapid-fire flame attack that deals a decent chunk of damage to both bloons and blimps alike, as well as shooting 3 fireballs and improved Wall of Fire blazes. Crosspathing isn't too important but useful for it.
+1-3-0: Dragon's Breath flames last longer, twice as much to be exact. Flames can pass through walls as of Version 40.0. In addition, Guided Magic allows its fireballs and Walls of Fire to pass through walls, and Wall of Fire can become targetable rather than locked on Close.
+2-3-0: Arcane Blast affects the triple fireballs by dealing +1 damage per fireball. This benefit alone is more impactful than the improvement to the measly bolt.
+0-3-1: Dragon's Breath flames gain more pierce, +2 to be exact. This is useful for making Dragon's Breath better against grouped bloons. In addition, Walls of Fire and Fireballs both receive extra pierce, making these attacks better at cleanup too.
+0-3-2: Gains camo detection, allowing it to counter Camo Bloons with ease.
+Summon Phoenix
+0-4-0: Summon Phoenix receives a new ability that summons a phoenix that shoots high-damage flames quickly and as V42 shoots 2 dragons breath attacks. As of Version 38, Summon Phoenix's phoenix no longer detects camo by default, now needing the Monkey Sense crosspath to actually do so. If this is not a problem, crosspath benefits may focus on the main Wizard. In terms of strength other than internal Camo detection, 1-4-0 is the only way to alter the phoenix’s crosspathing.
+1-4-0: Phoenix's flames gain light seeking. Does improve the Dragon's Breath attacks as well. Makes them hit shots more easily.
+2-4-0: Phoenix's flames are not affected by the Arcane Blast crosspath. Affects the triple fireball attack, however.
+0-4-1: Phoenix's flames are not affected by the Intense Magic crosspath. Does improve the Dragon's Breath attack, however, because this crosspath is basically a 0-3-1 Wizard with an ability.
+0-4-2: The summoned Phoenix no longer detects camo by default, and as such does require the parent Wizard to have Monkey Sense or requires external camo detection.
+Wizard Lord Phoenix
+0-5-0: Wizard Lord Phoenix shoots three improved Dragons's breath attacks also massively improves all others fire attacks, gains a permanent Phoenix, and replaces its old ability with the Wizard Lord Phoenix ability, which when activated transforms the wizard into a Lava Phoenix temporarily. The transformation is affected by crosspathing, and its main fire attacks while untransformed also do. While its transformation is the most powerful part of this upgrade, crosspathing is still worthy here.
+1-5-0: Phoenix and Lava Phoenix flames lightly home, Dragon's Breath attack last much longer, which utilizes the flames' huge pierce especially along straightaways. Walls of Fire, Fireballs, and Dragon's Breath all can pass through walls and Walls of Fire can become targeted. All of these enhance its fire attacks greatly.
+2-5-0: The triple fireball attack already does high damage, meaning the +1 fireball damage will do only a small benefit to DPS compared to 1-5-0. Otherwise, it just affects the measly bolt.
+0-5-1: Dragon's Breath attack gains +2 pierce, but pitiful compared to the massive base 15 pierce. Wall of Fire can benefit from +5 pierce for 25 pierce total, and +5 pierce to Fireballs.
+0-5-2: The Lava Phoenix transformation no longer detects camo by default, so will require some form of camo-detection to counter camo bloons. The main wizard himself will have improved range to better exert the might of his own passive attacking.
+Upper Path 3
+Shimmer
+0-0-3: Gains a shimmer attack that decamos all bloons in range. The Wizard's detection radius must detect a Camo Bloon in order to activate a shimmer attack. Shimmer also gains a substantial range increase for its base attacks, the same amount gained by Arcane Mastery. Crosspathing for Shimmer is mostly based on 0-0-2 Wizard, except for 1-0-3 crosspath which actually lets shimmers detect through walls.
+1-0-3: Shimmer can target through walls like its main attacks.
+2-0-3: An increase of damage for each bolt, which can be useful in conjunction with the increased range.
+0-1-3: In essence, this is basically a Shimmer Wizard with a lead-popping option.
+0-2-3: Gains extra DPS via Wall of Fire, and because it also detects camo it is effective at popping Camos. Combining this with towers that have no camo detection can form a synergy with 0-2-3 Shimmer. The increased range shouldn't hurt because Wall of Fire is locked on Close.
+Necromancer: Unpopped Army
+0-0-4: Necromancer can summon Undead Bloons, which spawn from having bloons popped within up to a fair distance from the Necromancer. Giving crosspathing benefits strongly for its own independent summoning of bloons, as well as giving itself some assistance for when the graveyard count becomes low. Higher graveyard count increases damage of all its attacks, including those gained from crosspaths.
+1-0-4: Undead Bloons last longer, allowing them to travel along the track for longer time until they expire. Undead Bloons do ignore Line of Sight even without this upgrade, however, but the bolts will pass over obstacles and home onto bloons, and the shimmer detection sees over walls.
+2-0-4: Increases bolt damage, which does slightly contribute to increasing stored pops.
+0-1-4: Adds a fireball attack that can be used to bolster its graveyard counter and beat Leads without needing to rely entirely on the undead bloons to pop them. Having this crosspath allows it to start its graveyard much easier.
+0-2-4: Gains a superior amount of damage potential through the Wall of Fire attack. Because the Wall of Fire is only ever spawned within range of the Necromancer, any bloons popped by its own Wall of Fire will scale that Necromancer's undead bloons very quickly, especially during the mid-game.
+Prince of Darkness
+0-0-5: Prince of Darkness improves its Undead Bloons by expanding its graveyard capacity, and being able to summon both Undead MOABs and Undead BFBs alongside normal Undead Bloons. Prince of Darkness also improves all Undead Bloons by making them last longer and deal +1 damage, including for itself. Also gains even more range. Crosspathing isn't essential as Prince of Darkness's main power comes from its Undead Bloons, and crosspaths only minimally affect the Undead Bloons themselves. Crosspathing can help make it summon Undead Bloons better on its own, however.
+1-0-5: Guided Magic helps increase lifespan of all undead bloons, despite the Prince of Darkness receiving a large lifespan buff already. The 1-0-5 Prince of Darkness crosspath is helpful for the magical bolt to pass over walls, however.
+2-0-5: Gains a much stronger bolt. Basically deals +1 damage, but this can make a decent difference for the Prince of Darkness gaining damage buffs quicker.
+0-1-5: The Fireball attack helps let the Prince of Darkness pop leads if on an empty graveyard.
+0-2-5: The Wall of Fire attack can be buffed for the Prince of Darkness if its graveyard count reaches each bonus damage buff threshold. The Wall of Fire damage bonus can vary based on timing at which it spawns, but nonetheless deals a huge amount of damage, even if Prince of Darkness itself is the main source of damage.
+Show
+v • d • e
+Crosspathing
+Show
+v • d • e
+Monkey Apprentice / Wizard Monkey

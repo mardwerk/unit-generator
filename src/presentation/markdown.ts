@@ -1,6 +1,8 @@
 import type { Finding, UnitCandidate } from '../core/index.js';
 import { renderDetailed } from './details.js';
 import { escapeMarkdown as text, readArtifactView, type ArtifactView } from './view.js';
+import { usageSummaryText } from './usage.js';
+import { roleRows } from './roles.js';
 
 export interface RenderOptions {
   details?: boolean;
@@ -17,6 +19,7 @@ export function renderArtifact(input: unknown, options: RenderOptions = {}): str
   }
   return [
     ...unitIntroduction(view),
+    ...suggestedRoles(view),
     ...failedChecks(view.findings),
     ...basicAttack(view.candidate),
     ...upgradePaths(view.candidate),
@@ -38,6 +41,7 @@ function unitIntroduction(view: ArtifactView): string[] {
     text(role),
     '',
     reviewStatus(view),
+    usageSummaryText(view.usage),
     'This design does not certify runtime behavior or balance. Entry statuses distinguish confirmed choices, proposals and open details.',
     '',
   ];
@@ -45,7 +49,9 @@ function unitIntroduction(view: ArtifactView): string[] {
 
 function reviewStatus(view: ArtifactView): string {
   if (view.kind === 'draft') {
-    return 'Draft only. Structural checks and model review have not run.';
+    return view.candidate.blueprint
+      ? 'Draft with checked upgrade mechanics. Independent model review has not run.'
+      : 'Draft only. Structural checks and model review have not run.';
   }
   const failed = view.findings.filter((finding) => finding.outcome === 'fail').length;
   const unresolved = view.findings.filter((finding) => finding.outcome === 'unresolved').length;
@@ -282,4 +288,19 @@ function repeatsMechanicDecision(finding: Finding, candidate: UnitCandidate): bo
 function prose(parts: (string | null)[]): string {
   const fields = parts.filter((part): part is string => part !== null).map((part) => part.trim());
   return text([...new Set(fields)].join(' '));
+}
+
+function suggestedRoles(view: ArtifactView): string[] {
+  if (!view.roles || view.roles.status === 'skipped') return [];
+  if (view.roles.status !== 'completed') return [text(view.roles.note), ''];
+  return [
+    'Suggested build roles. Confidence is provider-reported, not verified accuracy.',
+    '',
+    '| Build | Role | Confidence |',
+    '| --- | --- | --- |',
+    ...roleRows(view.roles, view.candidate).map(
+      (row) => `| ${text(row.build)} | ${text(row.role)} | ${row.confidence} |`,
+    ),
+    '',
+  ];
 }

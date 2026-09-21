@@ -1,15 +1,35 @@
 import { escapeMarkdown as cell, type ArtifactView } from './view.js';
+import { stageUsageRows, usageSummaryText } from './usage.js';
 
 export function renderDetailed(view: ArtifactView): string {
   return (
     [
       ...describeUnit(view),
+      ...describeUsage(view),
       ...describeAbilities(view),
       ...describeMechanics(view),
       ...describeReview(view),
       ...describeEvidence(view),
     ].join('\n') + '\n'
   );
+}
+
+function describeUsage(view: ArtifactView): string[] {
+  const lines = [
+    '',
+    '## Generation usage',
+    '',
+    usageSummaryText(view.usage),
+    '',
+    'Costs are reported USD, not estimates. Partial totals include only reported stages of this revision. Failed or cancelled attempts are excluded; unavailable reports are not zero. Reasoning and cached input tokens are breakdowns, not additional totals.',
+    '',
+  ];
+  for (const stage of view.usage.stages) {
+    lines.push(`### ${stage.stage}`, '', '| Metric | Reported value |', '| --- | --- |');
+    for (const [label, value] of stageUsageRows(stage)) lines.push(`| ${label} | ${cell(value)} |`);
+    lines.push('');
+  }
+  return lines;
 }
 
 function describeUnit(view: ArtifactView): string[] {
@@ -23,6 +43,12 @@ function describeUnit(view: ArtifactView): string[] {
     '',
     cell(candidate.role),
     '',
+    ...(candidate.blueprint?.referencePattern
+      ? [
+          `Recorded reference pattern: ${cell(candidate.blueprint.referencePattern.id)}, version ${cell(candidate.blueprint.referencePattern.version)}. Initial numerical mechanics and prices came from this fixed proposed pattern. This is authoring history, not proof that external edits preserved those mechanics or that the design is balanced.`,
+          '',
+        ]
+      : []),
     '## Basic attack',
     '',
     `${cell(candidate.basicAttack.name)} (${candidate.basicAttack.status}). ${cell(candidate.basicAttack.behavior)}`,

@@ -1,6 +1,5 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { setTimeout as delay } from 'node:timers/promises';
 import { get } from 'node:http';
 import type {
   AuthorResult,
@@ -13,11 +12,24 @@ import { prepareRequest } from '../src/core/index.js';
 import { startLab } from '../src/lab/server.js';
 import { FakeModel, miraCandidate, miraRequest, miraReview } from './fixtures/core-fixtures.js';
 
+function deferred<T>() {
+  let resolve!: (value: T | PromiseLike<T>) => void;
+  const promise = new Promise<T>((done) => {
+    resolve = done;
+  });
+  return { promise, resolve };
+}
+
 async function withLab(
   model: ModelClient,
   body: (lab: Awaited<ReturnType<typeof startLab>>, post: Post) => Promise<void>,
 ) {
-  const lab = await startLab({ model, example: miraRequest(), port: 0 });
+  const lab = await startLab({
+    model,
+    example: miraRequest(),
+    port: 0,
+    publicDirectory: new URL('../../src/lab/public/', import.meta.url),
+  });
   const post: Post = (operation, input, options = {}) =>
     fetch(`${lab.origin}/api/${operation}`, {
       method: 'POST',
@@ -124,6 +136,41 @@ test('UnitLab preserves supplied provenance, resolves new text and refuses serve
   });
 });
 
+test('plain local URLs supply the current session without a launch token or stored browser state', async () => {
+  const tokens: string[] = [];
+  for (let restart = 0; restart < 2; restart++) {
+    await withLab(new FakeModel(), async (lab) => {
+      assert.equal(lab.url, `${lab.origin}/`);
+      for (const path of ['/', '/index.html']) {
+        const page = await fetch(`${lab.origin}${path}`);
+        assert.equal(page.status, 200);
+        assert.equal(page.headers.get('cache-control'), 'no-store');
+        const html = await page.text();
+        const token = html.match(/<meta name="unitlab-session" content="([a-f0-9]{64})"/u)?.[1];
+        assert.equal(token, lab.token);
+        assert.doesNotMatch(html, /__UNITLAB_SESSION__/u);
+        const prepared = await artifact<PreparedRequest>(
+          await fetch(`${lab.origin}/api/prepare`, {
+            method: 'POST',
+            headers: {
+              Authorization: `Bearer ${token}`,
+              Origin: lab.origin,
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ request: miraRequest() }),
+          }),
+        );
+        assert.equal(prepared.kind, 'prepared');
+      }
+      tokens.push(lab.token);
+      const foreignPage = await fetch(lab.url, { headers: { Origin: 'https://example.org' } });
+      assert.equal(foreignPage.status, 403);
+      assert.ok(!(await foreignPage.text()).includes(lab.token));
+    });
+  }
+  assert.notEqual(tokens[0], tokens[1]);
+});
+
 test('UnitLab protects local operations with a session token and exact origin', async () => {
   await withLab(new FakeModel(), async (lab, post) => {
     const request = miraRequest();
@@ -169,56 +216,90 @@ test('UnitLab protects local operations with a session token and exact origin', 
   });
 });
 
-test('UnitLab cancellation reaches the model and releases the single active model stage', async () => {
-  let started!: () => void;
-  const running = new Promise<void>((resolve) => {
-    started = resolve;
-  });
-  let cancelled!: () => void;
-  const stopped = new Promise<void>((resolve) => {
-    cancelled = resolve;
-  });
-  let calls = 0;
-  const model: ModelClient = {
-    id: 'test-cancellable',
-    async generate({ signal }) {
-      calls++;
-      if (calls > 1) return miraCandidate();
-      assert.ok(signal);
-      started();
-      return new Promise((_resolve, reject) => {
-        const stop = () => {
-          cancelled();
-          reject(new Error('Cancelled test generation.'));
-        };
-        if (signal.aborted) stop();
-        else signal.addEventListener('abort', stop, { once: true });
-      });
-    },
-  };
-  await withLab(model, async (_lab, post) => {
-    const prepared = await prepareRequest(miraRequest());
-    const controller = new AbortController();
-    const pending = post('draft', { prepared }, { signal: controller.signal });
-    await Promise.race([
-      running,
-      delay(2_000).then(() => {
-        throw new Error('Model did not start.');
-      }),
-    ]);
-    const duplicate = await post('draft', { prepared });
-    assert.equal(duplicate.status, 409);
-    const aborted = assert.rejects(pending, /abort/i);
-    controller.abort();
-    await aborted;
-    await Promise.race([
-      stopped,
-      delay(2_000).then(() => {
-        throw new Error('Model did not stop.');
-      }),
-    ]);
-    const retry = await artifact<DraftArtifact>(await post('draft', { prepared }));
-    assert.equal(retry.kind, 'draft');
-    assert.equal(calls, 2);
+test('UnitLab restores unfinished session inputs without treating them as executable requests', async () => {
+  await withLab(new FakeModel(), async (_lab, post) => {
+    const request = {
+      ...miraRequest(),
+      character: { name: 'New character', work: '', scope: '' },
+      task: '',
+      documents: [{ id: '', kind: 'source', url: 'unfinished URL' }],
+      constraints: { unfinished: true },
+      progression: { unfinished: true },
+    };
+    const restored = await artifact<{ kind: string; artifact: unknown }>(
+      await post('inspect', { artifact: request, editable: true }),
+    );
+    assert.equal(restored.kind, 'request');
+    assert.deepEqual(restored.artifact, request);
+    assert.equal((await post('prepare', { request })).status, 400);
+    assert.equal((await post('inspect', { artifact: request })).status, 400);
+    assert.equal(
+      (await post('inspect', { artifact: { ...request, character: null }, editable: true })).status,
+      400,
+    );
+    const tampered = structuredClone(await prepareRequest(miraRequest()));
+    tampered.request.task = 'Edited without re-preparing.';
+    assert.equal((await post('inspect', { artifact: tampered, editable: true })).status, 400);
   });
 });
+
+test(
+  'UnitLab overlaps model stages and cancellation affects only its HTTP request',
+  { timeout: 5000 },
+  async () => {
+    const firstEntered = deferred<void>();
+    const entered = deferred<void>();
+    const cancelled = deferred<void>();
+    const finishSecond = deferred<{ output: ReturnType<typeof miraCandidate> }>();
+    const signals: AbortSignal[] = [];
+    const model: ModelClient = {
+      id: 'test-parallel',
+      async generate({ signal }) {
+        assert.ok(signal);
+        signals.push(signal);
+        if (signals.length === 1)
+          return new Promise((_resolve, reject) => {
+            firstEntered.resolve();
+            signal.addEventListener(
+              'abort',
+              () => {
+                cancelled.resolve();
+                reject(new Error('Cancelled test generation.'));
+              },
+              { once: true },
+            );
+          });
+        if (signals.length === 2) {
+          entered.resolve();
+          return finishSecond.promise;
+        }
+        return { output: miraCandidate() };
+      },
+    };
+    await withLab(model, async (_lab, post) => {
+      const prepared = await prepareRequest(miraRequest());
+      const controller = new AbortController();
+      const first = post('draft', { prepared }, { signal: controller.signal });
+      const rejected = assert.rejects(first, /abort/i);
+      await firstEntered.promise;
+      // Dispatch the second request without waiting for the first to finish.
+      const second = post('draft', { prepared });
+      await entered.promise;
+      assert.equal(signals.length, 2);
+      assert.notEqual(signals[0], signals[1]);
+      controller.abort();
+      await rejected;
+      await cancelled.promise;
+      assert.equal(signals[0]!.aborted, true);
+      assert.equal(signals[1]!.aborted, false);
+      // One completion/cancellation must not unlock configuration while another runs.
+      assert.equal((await post('provider', {})).status, 409);
+      finishSecond.resolve({ output: miraCandidate() });
+      const completed = await artifact<DraftArtifact>(await second);
+      assert.equal(completed.kind, 'draft');
+      const third = await artifact<DraftArtifact>(await post('draft', { prepared }));
+      assert.equal(third.kind, 'draft');
+      assert.equal(signals.length, 3);
+    });
+  },
+);

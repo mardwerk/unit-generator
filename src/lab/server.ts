@@ -3,11 +3,40 @@ import { readFile } from 'node:fs/promises';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { z } from 'zod';
 import type { ModelClient } from '../core/index.js';
+import { ModelExecutionError } from '../core/index.js';
 import { executeLabOperation } from './operations.js';
 import type { LabRequest } from './contracts.js';
+import { prepareCharacter } from '../node/character-source.js';
+import { LabProvider } from './providers.js';
+import type { ImageGenerationClient } from '../node/image-generation.js';
+import { iconSubjects } from '../presentation/icon-subjects.js';
+import { imagePrompt } from '../presentation/image-prompts.js';
+import { readArtifactView } from '../presentation/view.js';
+import { LabLibrary } from './library.js';
 
 const maxRequestBytes = 32_000_000;
-const operations = new Set(['prepare', 'draft', 'check', 'review', 'inspect', 'render']);
+const operations = new Set([
+  'character',
+  'provider',
+  'prepare',
+  'draft',
+  'check',
+  'review',
+  'inspect',
+  'render',
+  'library/save',
+  'library/load',
+  'library/delete',
+  'library/configure',
+  'library/icons',
+  'library/portrait',
+  'library/portrait/get',
+  'library/icon/generate',
+]);
+const characterInput = z.strictObject({
+  name: z.string().trim().min(1).max(120),
+  choice: z.number().int().positive().optional(),
+});
 
 class HttpError extends Error {
   constructor(
@@ -20,20 +49,27 @@ class HttpError extends Error {
 }
 
 export interface LabServerOptions {
-  model: ModelClient;
+  model?: ModelClient;
+  imageModel?: ImageGenerationClient;
+  provider?: LabProvider;
+  characterLookup?: typeof prepareCharacter;
   example: LabRequest;
   port?: number;
   publicDirectory?: URL;
   clientDirectory?: URL;
+  library?: LabLibrary;
 }
 
-/** Foreground local adapter. Artifacts and revision history belong to its caller. */
+/** Foreground local adapter with an explicit local artifact library. */
 export async function startLab(options: LabServerOptions) {
+  const provider = options.provider ?? new LabProvider();
+  const library = options.library ?? (await LabLibrary.open());
   const token = randomBytes(32).toString('hex');
   const publicDirectory = options.publicDirectory ?? new URL('./public/', import.meta.url);
   const clientDirectory = options.clientDirectory ?? new URL('./client/', import.meta.url);
   const pending = new Set<AbortController>();
-  let modelBusy = false;
+  let activeModelStages = 0;
+  const generatingIcons = new Set<string>();
   let origin = '';
 
   const server = createServer((request, response) => {
@@ -60,7 +96,7 @@ export async function startLab(options: LabServerOptions) {
     response.setHeader('Referrer-Policy', 'no-referrer');
     response.setHeader(
       'Content-Security-Policy',
-      "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'; frame-ancestors 'none'",
+      "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' https: data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'",
     );
     if (`http://${request.headers.host}` !== origin) {
       throw new HttpError(403, 'INVALID_HOST', 'Use the local address printed by UnitLab.');
@@ -73,13 +109,19 @@ export async function startLab(options: LabServerOptions) {
       if (request.method !== 'GET') {
         throw new HttpError(405, 'METHOD_NOT_ALLOWED', 'This resource requires GET.');
       }
-      return serveAsset(pathname, response, publicDirectory, clientDirectory);
+      return serveAsset(pathname, response, publicDirectory, clientDirectory, token);
     }
     if (!matchesToken(request.headers.authorization, token)) {
-      throw new HttpError(401, 'SESSION_REQUIRED', 'Open the session link printed by UnitLab.');
+      throw new HttpError(401, 'SESSION_REQUIRED', 'Reload the local UnitLab page to reconnect.');
     }
     if (request.method === 'GET' && pathname === '/api/example') {
       return json(response, 200, options.example);
+    }
+    if (request.method === 'GET' && pathname === '/api/provider') {
+      return json(response, 200, provider.state);
+    }
+    if (request.method === 'GET' && pathname === '/api/library') {
+      return json(response, 200, await library.state());
     }
     const operation = pathname.slice('/api/'.length);
     if (!operations.has(operation)) {
@@ -94,9 +136,14 @@ export async function startLab(options: LabServerOptions) {
     if (request.headers['content-type']?.split(';')[0] !== 'application/json') {
       throw new HttpError(415, 'JSON_REQUIRED', 'Send an application/json request.');
     }
-    const usesModel = operation === 'draft' || operation === 'review';
-    if (usesModel && modelBusy) {
-      throw new HttpError(409, 'BUSY', 'Another model stage is running. Wait or stop it first.');
+    const usesModel =
+      operation === 'draft' || operation === 'review' || operation === 'library/icon/generate';
+    if ((operation === 'provider' || operation === 'library/configure') && activeModelStages > 0) {
+      throw new HttpError(
+        409,
+        'BUSY',
+        'Model stages are running. Wait or stop them before changing settings.',
+      );
     }
     const controller = new AbortController();
     const disconnect = () => {
@@ -104,28 +151,137 @@ export async function startLab(options: LabServerOptions) {
     };
     response.once('close', disconnect);
     pending.add(controller);
-    if (usesModel) modelBusy = true;
+    if (usesModel) activeModelStages++;
+    let iconDestination: string | undefined;
     try {
       const payload = await readJson(request);
-      const artifact = await executeLabOperation(
-        operation,
-        payload,
-        options.model,
-        controller.signal,
-      );
+      let artifact: unknown;
+      if (operation === 'library/icon/generate') {
+        const input = z
+          .strictObject({
+            artifact: z.unknown(),
+            iconKey: z.string().min(1),
+            model: z.string().min(1),
+            confirmed: z.literal(true),
+            destination: z.string().min(1).max(4096),
+          })
+          .parse(payload);
+        const view = readArtifactView(input.artifact);
+        const subject = iconSubjects(view.candidate).find((entry) => entry.key === input.iconKey);
+        if (!subject)
+          throw new HttpError(400, 'INVALID_ICON', 'Choose an icon belonging to this Unit.');
+        if (!options.imageModel && !provider.state.images.ready)
+          throw new HttpError(
+            400,
+            'PROVIDER_REQUIRED',
+            'Image generation requires a valid OpenRouter API key in Settings.',
+          );
+        const client = options.imageModel ?? provider.imageClient;
+        if (client.model !== input.model)
+          throw new HttpError(
+            409,
+            'IMAGE_MODEL_CHANGED',
+            'The image model changed. Open the confirmation again.',
+          );
+        // Validate the artifact and local destination before a potentially billable request.
+        const destinations = await library.icons(input.artifact);
+        if (
+          destinations.icons.find((icon) => icon.key === input.iconKey)?.path !== input.destination
+        )
+          throw new HttpError(
+            409,
+            'ICON_DESTINATION_CHANGED',
+            'The icon destination changed. Reload the icon and confirm its new destination.',
+          );
+        if (generatingIcons.has(input.destination))
+          throw new HttpError(409, 'BUSY', 'This icon is already generating.');
+        iconDestination = input.destination;
+        generatingIcons.add(iconDestination);
+        const image = await client.generate(
+          imagePrompt(view.candidate, subject.label, subject.description, subject.kind, 1024),
+          controller.signal,
+        );
+        controller.signal.throwIfAborted();
+        try {
+          const icons = await library.saveIcon(input.artifact, input.iconKey, image.png, {
+            model: client.model,
+            ...(image.usage ? { usage: image.usage } : {}),
+          });
+          artifact = { icons, model: client.model, ...(image.usage ? { usage: image.usage } : {}) };
+        } catch {
+          throw new ModelExecutionError(
+            'The image was generated but could not be saved. Check the library folder before generating another image.',
+            image.usage,
+            {
+              failure: {
+                code: 'MODEL_FAILED',
+                message:
+                  'The image was generated but could not be saved. Check the library folder before generating another image.',
+              },
+            },
+          );
+        }
+      } else if (operation === 'library/portrait/get') {
+        const { artifact: unit } = z.strictObject({ artifact: z.unknown() }).parse(payload);
+        artifact = await library.portrait(unit);
+      } else if (operation === 'library/portrait') {
+        const { artifact: unit, referenceId } = z
+          .strictObject({ artifact: z.unknown(), referenceId: z.string().min(1).max(4096) })
+          .parse(payload);
+        artifact = await library.setPortrait(unit, referenceId);
+      } else if (operation === 'library/icons') {
+        const { artifact: unit } = z.strictObject({ artifact: z.unknown() }).parse(payload);
+        artifact = await library.icons(unit);
+      } else if (operation === 'library/save') {
+        const { artifact: saved } = z.strictObject({ artifact: z.unknown() }).parse(payload);
+        artifact = await library.save(saved);
+      } else if (operation === 'library/load') {
+        const { id } = z.strictObject({ id: z.string() }).parse(payload);
+        artifact = await library.load(id);
+      } else if (operation === 'library/delete') {
+        const { ids } = z.strictObject({ ids: z.array(z.string()) }).parse(payload);
+        artifact = await library.delete(ids);
+      } else if (operation === 'library/configure') {
+        if (activeModelStages > 0)
+          throw new HttpError(409, 'BUSY', 'Wait for model stages before changing the library.');
+        const { directory } = z.strictObject({ directory: z.string() }).parse(payload);
+        artifact = await library.configure(directory);
+      } else if (operation === 'provider') {
+        if (activeModelStages > 0)
+          throw new HttpError(409, 'BUSY', 'Wait for the current model stage to finish.');
+        artifact = provider.configure(payload);
+      } else if (operation === 'character') {
+        const { name, choice } = characterInput.parse(payload);
+        artifact = await (options.characterLookup ?? prepareCharacter)(name, {
+          choice,
+          signal: controller.signal,
+        });
+      } else {
+        if (usesModel && !options.model && !provider.state.ready) {
+          throw new HttpError(400, 'PROVIDER_REQUIRED', provider.state.message);
+        }
+        artifact = await executeLabOperation(
+          operation,
+          payload,
+          options.model ?? provider.client,
+          controller.signal,
+          provider.roleClient,
+        );
+      }
       controller.signal.throwIfAborted();
       json(response, 200, artifact);
     } finally {
+      if (iconDestination) generatingIcons.delete(iconDestination);
       response.removeListener('close', disconnect);
       pending.delete(controller);
-      if (usesModel) modelBusy = false;
+      if (usesModel) activeModelStages--;
     }
   }
 
   return {
     origin,
     token,
-    url: `${origin}/#token=${token}`,
+    url: `${origin}/`,
     async close() {
       for (const controller of pending) controller.abort();
       await new Promise<void>((resolve, reject) => {
@@ -175,6 +331,7 @@ async function serveAsset(
   response: ServerResponse,
   publicDirectory: URL,
   clientDirectory: URL,
+  token: string,
 ) {
   let file: URL;
   let type: string;
@@ -184,8 +341,17 @@ async function serveAsset(
   } else if (pathname === '/styles.css') {
     file = new URL('styles.css', publicDirectory);
     type = 'text/css';
+  } else if (pathname === '/app.js') {
+    file = new URL('app.js', publicDirectory);
+    type = 'text/javascript';
+  } else if (pathname === '/mardwerk.png') {
+    file = new URL('mardwerk.png', publicDirectory);
+    type = 'image/png';
   } else if (/^\/client\/[a-z0-9-]+\.js$/.test(pathname)) {
     file = new URL(pathname.slice('/client/'.length), clientDirectory);
+    type = 'text/javascript';
+  } else if (pathname === '/presentation/usage.js') {
+    file = new URL('../presentation/usage.js', import.meta.url);
     type = 'text/javascript';
   } else {
     throw new HttpError(404, 'NOT_FOUND', 'Resource not found.');
@@ -201,7 +367,10 @@ async function serveAsset(
     );
   }
   response.writeHead(200, { 'Content-Type': `${type}; charset=utf-8` });
-  response.end(content);
+  // Only the same-origin app can read this no-store HTML; API calls still require the token.
+  response.end(
+    type === 'text/html' ? content.toString('utf8').replace('__UNITLAB_SESSION__', token) : content,
+  );
 }
 
 function json(response: ServerResponse, status: number, value: unknown) {
@@ -214,14 +383,30 @@ function sendError(response: ServerResponse, error: unknown) {
   if (error instanceof HttpError) {
     return json(response, error.status, { error: { code: error.code, message: error.message } });
   }
+  const failure =
+    error instanceof ModelExecutionError
+      ? (error.failure ?? {
+          code: 'MODEL_FAILED',
+          message:
+            'The model request failed. Check the provider configuration and retry this stage.',
+        })
+      : undefined;
   const message =
-    error instanceof z.ZodError
+    failure?.message ??
+    (error instanceof z.ZodError
       ? error.issues
           .slice(0, 8)
           .map((issue) => `${issue.path.join('.')}: ${issue.message}`)
           .join('\n')
       : error instanceof Error
         ? error.message
-        : 'UnitLab operation failed.';
-  return json(response, 400, { error: { code: 'OPERATION_FAILED', message } });
+        : 'UnitLab operation failed.');
+  return json(response, failure ? 502 : 400, {
+    error: {
+      code: failure?.code ?? 'OPERATION_FAILED',
+      message,
+      ...(failure ? { details: failure } : {}),
+      ...(error instanceof ModelExecutionError && error.usage ? { usage: error.usage } : {}),
+    },
+  });
 }

@@ -1,8 +1,11 @@
+import { rankUnitRoles, type RoleRankingClient } from './roles.js';
 import { z } from 'zod';
-import type { ModelClient, ModelRequest } from './model.js';
+import { draftBlueprint } from './blueprint/draft.js';
+import { stageFailure, type ModelClient, type ModelRequest } from './model.js';
 import {
   candidateSchema,
   draftArtifactSchema,
+  modelUsageSchema,
   preparedSchema,
   type DraftArtifact,
   type PreparedRequest,
@@ -11,6 +14,10 @@ import { freeze, verifyPrepared } from './prepare.js';
 
 export interface OperationOptions {
   signal?: AbortSignal;
+  /** Optional advisory role classification; never changes the generated mechanics. */
+  roleRankingClient?: RoleRankingClient;
+  /** Bounded semantic/structural repair for typed blueprints; no transport retries. */
+  maxRepairAttempts?: number;
 }
 
 export async function draftUnit(
@@ -21,17 +28,27 @@ export async function draftUnit(
   const prepared = preparedSchema.parse(input);
   await verifyPrepared(prepared);
   options.signal?.throwIfAborted();
+  if (prepared.request.mechanicsDefinition) {
+    const draft = await draftBlueprint(prepared, model, options);
+    const roles = await rankUnitRoles(
+      draft.candidate,
+      prepared.request.mechanicsDefinition,
+      options.roleRankingClient,
+      options.signal,
+    );
+    return freeze(draftArtifactSchema.parse({ ...draft, roles }));
+  }
   const startedAt = new Date().toISOString();
   let candidate;
+  let usage;
   try {
-    candidate = candidateSchema.parse(await model.generate(draftModelRequest(prepared, options)));
+    const response = await model.generate(draftModelRequest(prepared, options));
+    usage = response.usage === undefined ? undefined : modelUsageSchema.parse(response.usage);
+    candidate = candidateSchema.parse(response.output);
+    options.signal?.throwIfAborted();
   } catch (error) {
-    throw new Error(
-      `Draft model execution failed: ${error instanceof Error ? error.message : String(error)}`,
-      { cause: error },
-    );
+    throw stageFailure(error, 'draft', usage, error instanceof z.ZodError);
   }
-  options.signal?.throwIfAborted();
   return freeze(
     draftArtifactSchema.parse({
       schemaVersion: '1',
@@ -43,6 +60,7 @@ export async function draftUnit(
         modelId: model.id,
         startedAt,
         completedAt: new Date().toISOString(),
+        ...(usage === undefined ? {} : { usage }),
       },
     }),
   );
@@ -98,9 +116,48 @@ function draftModelRequest(prepared: PreparedRequest, options: OperationOptions)
         'follows the exact declared path order. The builds are examples and do not ' +
         'establish correctness for all legal builds. If progression is null, keep ' +
         'arrangements provisional.',
+      'Each tier benefit must stand alone as the exact change bought at that tier. ' +
+        'Keep it compact: prefer one sentence listing the actual changes and at most ' +
+        'one sentence for essential limits or unspecified details. For example, ' +
+        '"Damage rises from 20 to 30; range rises from 50 to 55 map units." Do not ' +
+        'repeat unchanged properties, the entire prior kit, or filler such as ' +
+        '"This ability is enhanced". Use these example numbers only as a writing ' +
+        'pattern, never as game values. ' +
+        'Name the affected attack or ability and compare its behavior immediately before ' +
+        'and after this purchase. For a new ability, state the newly available action, ' +
+        'trigger, targets and material limits. For an enhancement, identify the changed ' +
+        'property and its previous and resulting behavior. Include replacements and ' +
+        'tradeoffs. "Adds Slash", "Improves Slash", "Extends Slash" or "Improves Slash ' +
+        'and Mark interaction" alone do not specify an upgrade. A second hit must say ' +
+        'whether it repeats on the same target or selects another, when it occurs and ' +
+        'how its damage is determined. A Mark interaction must say what triggers, ' +
+        'whether the mark is consumed and what changes for the marked target.',
+      'Apply the supplied Profile progression and complexity budgets when present. ' +
+        'Count independently operating capabilities by trigger, cadence, targets and ' +
+        'tactical purpose, not JSON object count or names. An upgrade is not necessarily ' +
+        'a manual ability. A named cosmetic variation of one attack must not silently ' +
+        'grant another attack. Reserve techniques that exceed the Profile budget. ' +
+        'Do not impose the bundled preset on a request with different explicit rules.',
+      'When supplied rules or Profile reference values support numerical proposals, ' +
+        'state the before and after values with units, or an exact delta or multiplier ' +
+        'and its named baseline. Distinguish attack interval from attack rate, extra ' +
+        'projectiles from extra hits, and additive from multiplicative changes. Cite ' +
+        "the reference basis in that tier's evidence and label proposed values as " +
+        'proposed, never approved or balanced. If the baseline, magnitude, timing or ' +
+        'interaction lacks a supplied basis, explicitly mark that detail unspecified ' +
+        'in the benefit and record the needed decision. Do not invent numbers to make ' +
+        'a vague upgrade look precise. A wholly unspecified benefit remains open.',
+      'Write shared ability behavior once. Each tier benefit adds only its own change; ' +
+        'do not repeat the same full ability description across tiers. Gate each change ' +
+        'by its purchased tier and any explicit prerequisites. Basic attack and ' +
+        'lower-tier ability text must not grant unpurchased higher-tier effects. If one ' +
+        'ability describes multiple stages, qualify each stage by its unlock. Identify ' +
+        'required purchases on other paths and separate the immediate benefit from ' +
+        'conditional synergy. Never imply that a later form or cosmetic appearance ' +
+        'automatically grants all upgrades.',
       JSON.stringify(prepared.request),
     ].join('\n\n'),
-    schema: z.toJSONSchema(candidateSchema) as Record<string, unknown>,
+    schema: z.toJSONSchema(candidateSchema.omit({ blueprint: true })) as Record<string, unknown>,
     ...(options.signal ? { signal: options.signal } : {}),
   };
 }

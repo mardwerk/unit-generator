@@ -1,0 +1,336 @@
+Accessed through browser preview 2026-09-20. Community wiki content, raw research note.
+
+Upgrades
+Path 1
+	Sharp ShotsCOST: $120 / $140 / $150 / $170
+UNLOCK: Default
+
+
+Description: Can pop 1 extra Bloon per shot.
+Effect: Gains +1 pierce, for 3 pierce by default. Gains +3 pierce with Crossbow or Sharp Shooter, and for Crossbow Master it gains +8 pierce.
+	Razor Sharp ShotsCOST: $170 / $200 / $215 / $240
+UNLOCK: 100 XP
+
+
+Description: Can pop 2 more bloons per shot.
+Effect: Gains +2 pierce, for 5 pierce by default. Gains +5 pierce (total: +8) with Crossbow or Sharp Shooter, and for Crossbow Master it gains +8 pierce (total: +16).
+	Spike-o-pultCOST: $270 / $320 / $345 / $385
+UNLOCK: 2,100 XP
+
+
+Description: Converts the Dart Monkey into a slower attacking Spike-o-pult that hurls large spiked balls. Each ball can pop lots of Bloons and rebounds off obstacles.
+Effect: Hurls spiked balls that pop up to 18 bloons per shot, deal 2 damage and pop Frozen bloons, increases the range by 15%. Spiked balls bounce off obstacles and can rehit the same bloons again if the projectile hits any obstacle. Attacks slightly slower (1.15s instead of 0.95s).
+	JuggernautCOST: $1,530 / $1,800 / $1,945 / $2,160
+UNLOCK: 7,500 XP
+
+
+Description: Hurls a giant spiked ball that pops lead and excels at crushing Ceramic and Fortified Bloons.
+Effect: Hurls juggernaut balls that pop up to 60 bloons per shot, pop all Bloon types except Camo, deal 2 damage, +3 to Ceramics and +2 to Fortified, and gains twice as much projectile speed. Attacks slightly faster (1s instead of 1.15s). Inflicts a speed-based knockback for 0.15s upon hitting Bloons.
+	Ultra-JuggernautCOST: $12,750 / $15,000 / $16,200 / $18,000
+UNLOCK: 22,000 XP
+
+
+Description: Gigantic spiked ball splits twice into 6 Juggernaut balls for even more destructive power against Ceramic, Fortified and Lead Bloons.
+Effect: Hurls gigantic juggernaut balls that retains knockback effects and each dealing 5 damage, +8 to Ceramics, +20 to Leads and +5 to Fortified, have 210 pierce, travel faster, and split twice into 6 mini juggernaut balls every half pierce bloons hit. These mini juggernaut balls each have 2 damage, +3 ceramic damage, +2 fortified damage, and 50 pierce. Both main projectile and mini projectiles can rehit bloons if they hit any walls.
+Path 2
+	Quick ShotsCOST: $85 / $100 / $110 / $120
+UNLOCK: Default
+
+
+Description: Shoots 15% faster.
+Effect: Attacks +17.6% faster (0.85x attack cooldown). Without additional upgrades, its attack cooldown reduces to 0.8075s.
+	Very Quick ShotsCOST: $160 / $190 / $205 / $230
+UNLOCK: 100 XP
+
+
+Description: Shoots 33% faster!
+Effect: Attacks +50% faster than base Dart Monkey (attack cooldown from 0.85x to approximately 0.6667x). Without additional upgrades, its attack cooldown reduces to 0.633s.
+	Triple ShotCOST: $380 / $450 / $485 / $540
+UNLOCK: 2,000 XP
+
+
+Description: Throws 3 darts at a time instead of 1.
+Effect: Throws 3 darts per attack, in a 60° fixed spread, and increases attack speed by +33% (attack cooldown of 0.47475s).
+	Super Monkey Fan ClubCOST: $6,120 / $7,200 / $7,775 / $8,640
+UNLOCK: 9,500 XP
+
+
+Description: Super Monkey Fan Club Ability: Converts up to 10 nearby Dart Monkeys including itself into Super Monkeys for 15 seconds. Regular attack speed also increased.
+Effect: Gains an ability that transforms itself and up to 9 of the nearest non-special Dart Monkeys into Super Monkeys, which have 40 range. Cannot affect catapult-operating Dart Monkeys nor crossbow wielders nor the Plasma Monkey Fan Club. Has a cooldown of 50 seconds. Attacks 2x faster than Triple Shot (0.5x attack cooldown multiplier, attack cooldown reduced from 0.474s to 0.24s).
+	Plasma Monkey Fan ClubCOST: $38,250 / $45,000 / $48,600 / $54,000
+UNLOCK: 30,000 XP
+
+
+Description: Elite membership of this club grants the Dart Monkeys even more power.
+Effect: Ability now transforms the club leader and up to 20 of the nearest non-special Dart Monkeys into Super Monkeys that shoot plasma blasts instead of darts. The plasma attacks twice as fast, deals 2 damage per hit and has 5 pierce.
+Path 3
+	Long Range DartsCOST: $75 / $90 / $95 / $110
+UNLOCK: Default
+
+
+Description: Makes the Dart Monkey shoot further than normal.
+Effect: Gains +8 range (from 32 to 40 by default) and increases projectile lifespan by 35%.
+	Enhanced EyesightCOST: $170 / $200 / $215 / $240
+UNLOCK: 100 XP
+
+
+Description: Shoots even further and can detect Camo bloons.
+Effect: Gains +8 range on top of previous upgrades, a total of +60% increased projectile lifespan compared to the base tower, 16.67% increased projectile speed, camo detection and the Camo Prioritization targeting option. Also more knockback force on Juggernaut.
+	CrossbowCOST: $490 / $575 / $620 / $690
+UNLOCK: 2,100 XP
+
+
+Description: Uses a long range Crossbow that can pop 3 layers of Bloon for every hit.
+Effect: Deals 3 damage per hit, gains extra pierce, slightly increase projectile speed, and gains +12 range, for a total of 60 range.
+	Sharp ShooterCOST: $1,740 / $2,050 / $2,215 / $2,460
+UNLOCK: 12,000 XP
+
+
+Description: Sharp Shooter attacks faster and does powerful Crit shots every few shots that do a lot more damage.
+Effect: Deals 6 damage per hit, attacks every 0.475s instead of 0.95s, projectile speed further increased, and lands a Critical Hit after every 10 shots. Crits deal 50 damage per hit.
+	Crossbow MasterCOST: $18,275 / $21,500 / $23,220 / $25,800
+UNLOCK: 35,000 XP
+
+
+Description: Crossbow Master shoots really fast and devastates most Bloon types with ease.
+Effect: Attacks every 0.2375s instead of 0.475s, and deals 8 damage per hit and deals 80 damage per Critical Hit, increases pierce from 4 to 8, range from 60 to 80, and applies Critical Hits every 5 shots instead of every 10 shots. Can also damage any bloon type.
+Paragon
+	Apex Plasma Master COST: $127,500 / $150,000 / $162,000 / $180,000
+UNLOCK: 500,000 XP
+
+Description: Fill the area with Bloon shredding plasma juggernaut balls, leaving nothing behind...
+Effect: Shoots triple rapid-fire plasma Ultra-Juggernaut balls that deal enormous damage, especially to Ceramics and Bosses. Can rehit bloons after bouncing off obstacles or the edges of the screen.
+Total Cost
+
+Easy:
+
+		Tier 1	Tier 2	Tier 3	Tier 4	
+Collapse
+Tier 5
+Path 1
+Base Cost	120	185	255	1,530	12,750
+Cumulative Cost	290	475	730	2,260	15,010
+Base Sell	84	130	179	1,071	8,925
+Cumulative Sell	203	333	511	1,582	10,507
+Path 2
+Base Cost	85	160	340	6,375	38,250
+Cumulative Cost	255	415	755	7,130	45,380
+Base Sell	60	112	238	4,462.5	26,775
+Cumulative Sell	179	291	529	4,991.5	31,766.5
+Path 3
+Base Cost	75	170	530	1,700	18,275
+Cumulative Cost	245	415	945	2,645	20,920
+Base Sell	53	119	371	1,190	12,792.5
+Cumulative Sell	172	291	662	1,852	14,644
+
+Medium:
+
+		Tier 1	Tier 2	Tier 3	Tier 4	
+Collapse
+Tier 5
+Path 1
+Base Cost	140	200	320	1,800	15,000
+Cumulative Cost	340	540	860	2,660	17,660
+Base Sell	98	154	210	1,260	10,500
+Cumulative Sell	238	392	602	1,862	12,362
+Path 2
+Base Cost	100	190	450	7,200	45,000
+Cumulative Cost	300	490	940	8,240	53,390
+Base Sell	70	133	280	5,250	31,500
+Cumulative Sell	210	343	623	5,873	37,373
+Path 3
+Base Cost	90	200	575	2,050	21,500
+Cumulative Cost	290	490	1,065	3,115	24,615
+Base Sell	63	140	437.5	1,400	15,050
+Cumulative Sell	203	343	780.5	2,180.5	17,230.5
+
+Hard:
+
+		Tier 1	Tier 2	Tier 3	Tier 4	
+Collapse
+Tier 5
+Path 1
+Base Cost	150	235	325	1,945	16,200
+Cumulative Cost	365	600	925	2,870	19,070
+Base Sell	105	164.5	227.5	1,361.5	11,340
+Cumulative Sell	255.5	420	647.5	2,009	13,349
+Path 2
+Base Cost	110	205	430	8,100	48,600
+Cumulative Cost	325	530	950	9,050	57,650
+Base Sell	77	143.5	301	5,670	34,020
+Cumulative Sell	227,5	371	665	6,335	40,355
+Path 3
+Base Cost	95	215	675	2,160	23,220
+Cumulative Cost	310	525	1,200	3,360	26,580
+Base Sell	66.5	150,5	472.5	1,512	16,254
+Cumulative Sell	217	367.5	840	2,352	18,606
+
+Impoppable:
+
+		Tier 1	Tier 2	Tier 3	Tier 4	
+Collapse
+Tier 5
+Path 1
+Base Cost	170	265	360	2,160	18,000
+Cumulative Cost	410	675	1,035	3,195	21,195
+Base Sell	119	185.5	252	1,512	12,600
+Cumulative Sell	287	472.5	724.5	2,236.5	14,836.5
+Path 2
+Base Cost	120	230	480	9,000	54,000
+Cumulative Cost	360	590	1,070	10,070	64,070
+Base Sell	84	161	336	6,300	37,800
+Cumulative Sell	252	413	749	7,049	44,849
+Path 3
+Base Cost	110	240	750	2,400	25,800
+Cumulative Cost	350	590	1,340	3,740	29,540
+Base Sell	77	168	525	1,680	18,060
+Cumulative Sell	245	413	938	2,618	20,678
+Full Popology
+Main article: Dart Monkey (BTD6)/Popology
+	
+	<Destroy Content?>
+This section is a candidate for a partial or complete content removal. Please discuss further on this article's talk page.
+
+Reason: Likely going to be deleted to move out content.
+Strategy
+See also: Dart Monkey (BTD6)/Strategies
+Summary
+
+The Dart Monkey is one of the most versatile early-game towers, and should not be underestimated because its low price and weak stats. They possesses many upgrades that greatly assist fulfilling niches. Top path has high pierce and bouncing projectiles, which help it deal with maps with ton of Line of Sight issues. Middle Path is good at spreading out burst damage, which helps it deal with multi-lane maps. Bottom path dominates pre-round 81 and solos Deflation with balanced stats. Even the base Dart Monkey is vital for CHIMPS on almost any map due to its two pierce and comes with some cheap Tier 3 upgrades that excel in the early-game.
+
+Dart monkeys are very cheap triple/three dart starts is one of the most common Expert map R6 CHIMPS solutions. Dart Monkey's top path is very good early and in the right maps and the middle path is for BAD damage and the bottom path is often used as a tier 3 for cheap Camo in Bossing up to r40. Dart is one of those towers that's a dirt cheap starter option.
+
+Tips
+Middle crosspath is usually the best for Tier 3 and above upgrades, as its attack speed optimizes DPS.
+Using the triple 0-0-0 strategy on CHIMPS works on almost all maps to beat Round 6 and above, with an exception of certain maps such as Flooded Valley, Bloody Puddles, and Infernal.
+Dart + Sniper works for early-game CHIMPS on long-distance maps.
+Dart + Sub is a great option to start CHIMPS to catch faster bloons and clear out the remains on water-based maps.
+A 032 dart monkey is a very good early-game tower, having both range and DPS needed for the first 25-ish rounds
+Additional Strategies
+Crosspathing/Dart Monkey
+Monkey Knowledge
+
+This section displays Monkey Knowledge that has effects on Dart Monkey and its changes when compared to one by default:
+
+ Increased Lifespan: Projectiles shot from Dart Monkey have increased lifespan.
+ Extra Dart Pops: Increase projectile pierce by 1.
+2 pierce → 3 pierce
+ Crossbow Reach: Increases range of the Crossbow and its further upgrades by 3.
+Crossbow range: 56 → 59
+Sharp Shooter range: 60 → 63
+Crossbow Master range: 80 → 83
+Apex Plasma Master range: 85 → 88
+ 4 And 4: Dart Monkey's Triple Shot gets 4 darts every 4th shot.
+ Force vs Force: Juggernaut does +2 damage per shot to MOAB-Class Bloons.
+Juggernaut: 2 → 4
+Ultra-Juggernaut: 5 → 7
+Apex Plasma Master: 15 → 17 (Degree 1)
+ Master Double Cross: Allows for the purchase of two Crossbow Masters on the same map.
+ Bonus Monkey!: Each game starts with a Free Dart Monkey.
+ Come On Everybody!: Primary towers attack 5% faster if all are below tier 3, and cost 5% less if all are tier 3 or 4.
+ Monkey Education: All Monkeys XP earn rate increased by 8%.
+ Better Sell Deals: All Monkeys sell for 5% more.
+Increases sell potency from 70% to 75%.
+ Veteran Monkey Training: All Monkeys reload time reduced by 3%.
+ Global Ability Cooldowns: All Ability cooldowns for all Monkeys reduced by 3%.
+Version History
+Differences Between BTD5 and BTD6
+	
+	This section is incomplete. You can help by expanding it.
+
+Listed are comparisons of the Dart Monkey in BTD6 compared to BTD5. Takes into account Flash and Mobile versions.
+
+ 0-0-0 Dart Monkey has more pierce (1 → 2).
+ 1-x-x Sharp Shots has more pierce (2 → 3).
+ 2-x-x Razor Sharp Shots has more pierce (4 → 5)
+ x-4-x Super Monkey Fan Club now has an initial cooldown of a quarter of the cooldown.
+ x-4-x Super Monkey Fan Club no longer increases attack range temporarily.
+ x-4-x Super Monkey Fan Club now applies bonuses from 1st tier upgrades, 2nd tier upgrades, and middle path upgrades when the ability is active.
+ 3-x-x Spike-O-Pult does more damage (1 → 2)
+ 3-x-x Spike-O-Pult costs less ($500 → $300).
+ 4-x-x Juggernaut costs more ($1500 → $1800).
+ 4-x-x Juggernaut does more damage (1 → 2)
+ 4-x-x Juggernaut does more bonus damage (+2 → +3)
+ 4-x-x Juggernaut has less pierce (100 → 60)
+ 4-x-x Juggernaut can knockback non-MOAB-Class bloons briefly
+ x-3-x Triple Shot (formerly Triple Darts) costs more ($330 → $400).
+ Several changes in path placement of the upgrades; some upgrades are moved to different paths. This allows for more options with the first two middle path upgrades but means that Triple Shots and higher can no longer have extra pierce per shot and camo detection at once.
+ Enhanced Eyesight cost increased ($120 → $200).
+Balance Changes
+Initial release (compared to BTD5)
+
+Note: Lists all balance changes implemented for the Dart Monkey when it was first released in Bloons TD 6 (June 14th 2018) in comparison to Bloons TD 5. Takes into account Flash and Mobile versions of Bloons TD 5.
+
+ 0-0-0 Dart Monkey has more pierce (1 → 2).
+ 1-x-x Sharp Shots has more pierce (2 → 3).
+ 2-x-x Razor Sharp Shots has more pierce (4 → 5)
+ x-4-x Super Monkey Fan Club now has an initial cooldown of a quarter of the cooldown.
+ x-4-x Super Monkey Fan Club no longer increases attack range temporarily.
+ x-4-x Super Monkey Fan Club now applies bonuses from 1st tier upgrades, 2nd tier upgrades, and middle path upgrades when the ability is active.
+ 3-x-x Spike-O-Pult has more pierce (18 → 22).
+ 3-x-x Spike-O-Pult costs less ($500 → $300).
+ 4-x-x Juggernaut costs more ($1500 → $1800).
+ x-3-x Triple Shot (formerly Triple Darts) costs more ($330 → $400).
+ Several changes in path placement of the upgrades; some upgrades are moved to different paths. This allows for more options with the first two middle path upgrades but means that Triple Shots and higher can no longer have extra Pierce per shot and camo detection at once.
+ Enhanced Eyesight cost increased ($120 → $200).
+2.0
+ x-4-x Super Monkey Fan Club monkeys can now be converted into Super Monkeys by their own ability.
+4.0
+ 4-x-x Juggernaut's description now mentions that it can pop Lead Bloons.
+ x-x-4 Sharp Shooter now deals more damage per shot (4 → 5).
+7.0
+ 5-x-x Ultra-Juggernaut does +1 damage, from 3 → 4 (9 → 12 for ceramics).
+ x-x-5 Crossbow Master's price was reduced from $27,000 to $25,000.
+8.0
+ x-x-5 Crossbow Master's crit rate increased from every 8-12 shots to every 6-10 shots.
+12.0
+ 3-x-x Spike o Pult's ball now bounces the same as Juggernaut.
+ x-4-x Super Monkey Fan Club no longer stacks with Total Transformation.
+ x-5-x PMFC max count reduced from 40 to 20.
+ x-5-x PMFC damage per shot of the plasma monkeys increased by 1.
+ x-x-4 Sharpshooter damage increased from 5 to 6.
+ x-x-5 Crossbow Master attack speed bonus increased to 75%.
+ x-x-5 Crossbow Master crit rate increased from every 6-10 shots to every 4-8 shots.
+14.0
+ 5-x-x Ultra-Juggernaut's projectiles can hit the same target multiple times.
+18.0
+ x-x-5 Crossbow Master's base attack speed increased by roughly 50% (0.2375s → 0.16s).
+ x-x-5 Crossbow Master's base pierce reduced from 23 to 10.
+ 1-0-5 and 2-0-5 pierce bonus increased to +6 and +7, up from +1 and +2.
+While the pierce bonus is a buff, the 205 pierce total was nerfed from the previous 24 and 25 respectively to 16 and 23.
+20.0
+“	Dart Monkey at its core is an early game focus tower, so we added some projectile speed options to try and help with its tendency to miss faster Bloons. Spike-o-pult's rate was also increased and damage type changed to shatter to be more versatile of a stepping stone in niche setups saving for Juggernaut	”
+	~ Ninja Kiwi	
+ 3-x-x Spike-O-Pult can now pop frozen Bloons.
+ 3-x-x Spike-O-Pult attack rate increased (1.25 → 1.15).
+ x-x-2 Enhanced Eyesight projectile speed increased (300 → 330).
+ x-x-3 Crossbow projectile speed increased (300 → 360).
+ x-x-4 Sharp Shooter Eyesight projectile speed increased (300 → 400).
+22.0
+“	We're happy enough with most of Dart Monkey's bottom path, but the T4 stepping stone has always felt pretty undesirable for the price point compared to T3 so we have just increased the attack rate slightly at tier 4.	”
+	~ Ninja Kiwi	
+ Sharp Shooter reload time reduced from 0.95s to 0.85s. Does not affect Crossbow Master reload time.
+23.0
+“	While we're happy with Dart Monkey being a more niche or early use tower, too many people were finding Juggernaut itself even further niche or lackluster on first impression. While retaining the overpower power potential we've added a beefy impact to each individual target hit, and we've tweaked sharpshooter slightly to provide similar power but with more of a speed focus to enable more distinct crosspath choice between speed and pierce.	”
+	~ Ninja Kiwi	
+ Juggernaut damage increased (1 → 2).
+ Juggernaut pierce reduced (100 → 50).
+ Sharp Shooter attack rate increased (0.85s → 0.75s).
+ Sharp Shooter damage reduced (6 → 5).
+ Crossbow Master is completely unaffected by these changes. Despite NK stating that all Tier 5 Dart Monkeys are not affected by this change, only the Crossbow Master damage is unchanged. Ultra-Juggernaut's small secondary Juggernaut balls are not affected by this change.
+ [undocumented] Ultra-Juggernaut base damage increased (4 → 5)
+24.0
+“	The previous sharpshooter rework caused more trouble than intended in setups without much other cleanup by popping Black Bloons into large clusters of reds which then clogged up the pierce. We decided to keep the buffed attack speed value as well as adding back the stronger damage value.	”
+	~ Ninja Kiwi	
+ Sharp Shooter damage increased (5 → 6). Does not affect Crossbow Master.
+25.0
+“	For new players, camo is the first real game mechanic that presents a wall for new players. To combat this we have swapped the initial unlock costs of Spike-o-pult & Crossbow to nudge new players more towards upgrading down the camo path for Dart Monkeys first.	”
+	~ Ninja Kiwi	
+ Spike-o-pult XP unlock cost increased from 1,900 XP to 2,100 XP.
+ Crossbow XP unlock cost reduced from 2,100 XP to 1,900 XP.
+26.0
+“	While overall good, the difficulty of using PMFC to its full potential doesn't feel quite worth it so price has been cut to make it a little easier to reach.	”
+	~ Ninja Kiwi	
+ Plasma Fan Club price reduced from $50,000 to $45,000.
+28.0
+“	Instead of saying the same thing each time; many specific crosspaths that add a 'camo specialty' to a tower end up being viewed as rather inferior crosspaths due to camo being quite available to pick up through other methods. To give these upgrades more use even with other forms of camo reveal in play, we have added a brand new Camo Prioritization option that is added to the towers when taking this crosspath. When enabled this filter combines the selected target method with Camo Prioritization (e.g. Strong Camo would wo

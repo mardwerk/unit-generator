@@ -1,0 +1,342 @@
+Accessed through browser preview 2026-09-20. Community wiki content, raw research note.
+
+Upgrades
+Path 1
+	Full Metal JacketCOST: $295 / $350 / $380 / $420
+UNLOCK: 120 XP
+
+
+Description: Shots pop through 4 layers of bloon, and both bullets and shrapnel can pop Lead and Frozen Bloons.
+Effect: Bullets deal 4 damage and pop Frozen and Leads. With Shrapnel Shot, shrapnel pieces also pop Frozen and Lead and deal 2 damage.
+	Large CalibreCOST: $1,105 / $1,300 / $1,405 / $1,560
+UNLOCK: 800 XP
+
+
+Description: Shots can pop through 7 layers of Bloon.
+Effect: Bullets deal 7 damage instead of 4. With Shrapnel Shot, each shrapnel piece deals 3 damage instead of 2.
+	Deadly PrecisionCOST: $1,870 / $2,200 / $2,375 / $2,640
+UNLOCK: 3,500 XP
+
+
+Description: 20 damage per shot, plus bonus damage to Ceramics.
+Effect: Bullets deal 20 damage plus +50 damage to Ceramics. With Shrapnel Shot, each shrapnel piece deals 4 damage instead of 3.
+	Maim MOABCOST: $5,355 / $6,300 / $6,805 / $7,560
+UNLOCK: 10,500 XP
+
+
+Description: Deals much more damage and immobilizes MOAB class bloons for a short time.
+Effect: Bullets temporarily stun MOAB-class bloons and deal 30 damage instead of 20. With Shrapnel Shot, each shrapnel piece deals 6 damage instead of 4 and can stun MOAB-class bloons.
+	Cripple MOABCOST: $27,200 / $32,000 / $34,560 / $38,400
+UNLOCK: 37,500 XP
+
+
+Description: Crippled MOABs are immobilized for longer and take extra damage from all other attacks.
+Effect: Bullets temporarily cripple MOAB-class bloons, rendering them vulnerable to +5 damage and become stunned for longer, on top of 140 damage per bullet instead of 30, plus a small deadly area-of-effect that inflicts collateral damage. With Shrapnel Shot, each shrapnel piece deals 12 damage instead of 6, pierces up to 3 bloons, and can cripple MOAB-class bloons.
+Path 2
+	Night Vision GogglesCOST: $210 / $250 / $270 / $300
+UNLOCK: 200 XP
+
+
+Description: Allows Sniper to detect and do an additional 2 damage to Camo bloons.
+Effect: Gains camo detection, and all attacks deal +2 damage to Camo Bloons.
+	Shrapnel ShotCOST: $380 / $450 / $485 / $540
+UNLOCK: 600 XP
+
+
+Description: Damaged bloons spray out a cone of sharp shrapnel.
+Effect: If a bloon is damaged, it will spray out a cone of sharp shrapnel in the same direction as the bullet. Shrapnel improves damage potential with Path 1 upgrades. Shrapnel cannot hit the bloon which spawned it.
+	Bouncing BulletCOST: $1,785 / $2,100 / $2,270 / $2,520
+UNLOCK: 2,500 XP
+
+
+Description: Shots bounce to new targets up to 2 times.
+Effect: Bullet can bounce onto nearby targets, popping up to 3 bloons each. Bullets produce shrapnel in the direction of the bullet prior to collision every time they damage bloons.
+	Supply DropCOST: $6,460 / $7,600 / $8,210 / $9,120
+UNLOCK: 11,000 XP
+
+
+Description: Supply Drop ability: Drops a crate full of cash and activates Supply Drop for other snipers. Regular attack also damages Lead Bloons and increases Shrapnel popping power.
+Effect: Ability gives $1100 cash when deployed cash crate is collected. If other Supply Drop abilities are ready, activates all of them simultaneously. Bullets pop Frozen and Lead, hit up to 5 Bloons, and each shrapnel piece has 5 pierce instead of 2.
+	Elite SniperCOST: $11,900 / $14,000 / $15,120 / $16,800
+UNLOCK: 35,000 XP
+
+
+Description: Supply Drop gives much more cash. Grants Elite targeting prio and faster reload to all snipers.
+Effect: Ability gives $3000 cash when deployed cash crate is collected, and activates the abilities of all other Supply Drop Snipers that are not on cooldown. Attacks +150% faster (0.4x attack cooldown) and gives all other Snipers +33% attack speed (0.75x attack cooldown). Also unlocks and gives all snipers the Elite targeting option.
+Path 3
+	Fast FiringCOST: $380 / $450 / $485 / $540
+UNLOCK: 130 XP
+
+
+Description: Shoots faster than normal.
+Effect: Gains +42% attack speed (0.70x attack cooldown).
+	Even Faster FiringCOST: $380 / $450 / $485 / $540
+UNLOCK: 600 XP
+
+
+Description: Shoots even faster!
+Effect: Gains a further +42% attack speed (0.70x attack cooldown), for a total of 0.49x attack cooldown
+	Semi-AutomaticCOST: $2,295 / $2,700 / $2,915 / $3,240
+UNLOCK: 2,750 XP
+
+
+Description: Attacks 3x as fast!
+Effect: 3x attack speed on top of previous upgrades, for a total of x0.167 attack cooldown
+	Full Auto RifleCOST: $3,485 / $4,100 / $4,430 / $4,920
+UNLOCK: 10,000 XP
+
+
+Description: Fully automatic weapon with incredible popping power.
+Effect: 2x attack speed on top of previous upgrades (for a total of x0.0808 attack cooldown), and bullets deal +2 MOAB-class damage. With Shrapnel Shot, deals +1 damage via shrapnel.
+	Elite DefenderCOST: $12,665 / $14,900 / $16,090 / $17,880
+UNLOCK: 30,000 XP
+
+
+Description: Fires super fast and does more damage to MOAB-class Bloons. Fires faster the further the Bloons are along the track. Gains 4x attack speed briefly on losing lives.
+Effect: 2x attack speed on top of previous upgrades (for a total of x0.0404 attack cooldown), as well as attacking an additive percentage amount faster depending on how close the Bloons are nearing the exit. If lives are lost, attacks 4x faster for about 7 seconds (on top of other attack speed bonuses). Bullets deal +4 damage to MOAB-class Bloons.
+Total Costs
+
+Easy:
+
+		Tier 1	Tier 2	Tier 3	Tier 4	
+Collapse
+Tier 5
+Path 1
+Base Cost	295	1,105	2,550	4,800	27,200
+Cumulative Cost	595	1,700	4,250	9,050	36,250
+Base Sell	206.5	773.5	1,785	3,360	19,040
+Cumulative Sell	416.5	1,190	2,975	6,335	25,375
+Path 2
+Base Cost	210	380	2,040	6,460	12,325
+Cumulative Cost	510	890	2,930	9,390	21,715
+Base Sell	147	266	1,904	4,522	8,627.5
+Cumulative Sell	357	623	2,051	6,573	15,200.5
+Path 3
+Base Cost	380	380	2,465	3,485	12,495
+Cumulative Cost	680	1,060	3,525	7,010	19,505
+Base Sell	266	266	1,725.5	2,439.5	8,746.5
+Cumulative Sell	476	742	2,467.5	4,907	13,653.5
+
+Medium:
+
+		Tier 1	Tier 2	Tier 3	Tier 4	
+Collapse
+Tier 5
+Path 1
+Base Cost	350	1,300	3,000	5,650	32,000
+Cumulative Cost	700	2,000	5,000	10,650	42,650
+Base Sell	245	910	2,100	3,955	22,400
+Cumulative Sell	490	1,400	3,500	7,455	29,855
+Path 2
+Base Cost	250	450	2,400	7,600	14,500
+Cumulative Cost	600	1,050	3,450	11,050	25,550
+Base Sell	175	315	1,680	5,320	10,150
+Cumulative Sell	420	735	2,415	7,735	17,885
+Path 3
+Base Cost	450	450	2,900	4,100	14,700
+Cumulative Cost	800	1,250	4,150	8,250	22,950
+Base Sell	315	315	2,030	2,870	10,290
+Cumulative Sell	560	875	2,905	5,775	16,065
+
+Hard:
+
+		Tier 1	Tier 2	Tier 3	Tier 4	
+Collapse
+Tier 5
+Path 1
+Base Cost	380	1,405	3,240	6,100	34,560
+Cumulative Cost	760	2,165	5,405	11,505	46,065
+Base Sell	266	843.5	2,268	4,270	24,192
+Cumulative Sell	532	1,515.5	3,783.5	8,053.5	32,245.5
+Path 2
+Base Cost	270	485	2,590	8,210	15,660
+Cumulative Cost	650	1,135	3,725	11,935	27,595
+Base Sell	189	339.5	1,813	5,747	5,747
+Cumulative Sell	455	794.5	2,607.5	8,354.5	19,316.5
+Path 3
+Base Cost	485	485	3,130	4,430	15,875
+Cumulative Cost	865	1,350	4,480	8,910	24,785
+Base Sell	339.5	339.5	2,191	3,101	11,112.5
+Cumulative Sell	605.5	945	3,136	6,237	17,349.5
+
+Impoppable:
+
+		Tier 1	Tier 2	Tier 3	Tier 4	
+Collapse
+Tier 5
+Path 1
+Base Cost	420	1,560	3,600	6,780	38,400
+Cumulative Cost	840	2,400	6,000	12,780	51,180
+Base Sell	294	1,092	2,520	4,746	28,560
+Cumulative Sell	588	1,680	4,200	8,946	35,826
+Path 2
+Base Cost	300	540	2,880	9,120	17,400
+Cumulative Cost	720	1,260	4,140	13,260	30,660
+Base Sell	210	378	2,016	6,384	12,180
+Cumulative Sell	504	882	2,898	9,282	21,462
+Path 3
+Base Cost	540	540	3,480	4,920	17,640
+Cumulative Cost	960	1,500	4,980	9,900	27,540
+Base Sell	378	378	2,436	3,444	12,348
+Cumulative Sell	672	1,050	3,486	6,930	19,278
+Strategy
+See also: Sniper Monkey (BTD6)/Strategies
+Summary
+
+Sniper Monkeys have a clear advantage on maps that require long range and have few or no obstacles that block their visions. It generally deals high damage but low pierce, with many of its upgrades relying on other towers for maximum group-popping.
+
+Tips
+Using the 0-0-0 Sniper on CHIMPS helps beat maps that require long range. It can be paired with the 0-0-0 Dart on most maps to beat the first few rounds before purchasing better towers.
+It may be helpful to switch the Sniper's targeting from Strong to First in situations where bloons are getting close to the exit.
+Top-path upgrades should be set to strong to take advantage of single-bloon popping power. Deadly Precision can pick off ceramics before a bloon rush and Maim MOAB can effectively stall MOABs from leaking.
+Bottom-path faster firing upgrades can make the sniper effective on shorter maps.
+Additional Strategies
+Crosspathing/Sniper Monkey
+Monkey Knowledge
+
+This section displays Monkey Knowledge that has effects on Sniper Monkey and its changes when compared to one by default:
+
+ Elite Military Training: All Military Monkeys get a one-off +1000 XP and earn XP in-game 5% faster permanently.
+ Ceramic Shock: Ceramic Bloons shot by all Snipers are slowed down for 2 seconds.
+ Cheaper Maiming: Maim MOAB cost reduced by $1,000.
+$4,250, $5,000, $5,400, and $6,000 reduced to $3,250, $4,000, $4,400, and $5,000 on Easy, Medium, Hard, and Impoppable, respectively.
+ Flanking Maneuvers: Attacks 10% faster when set targeting priority to "Last".
+ Master Defender: Elite Defender's passive ability has no cooldown.
+ Military Conscription: First military tower costs only ⅔ of the original cost.
+Sniper Monkey base cost from $300, $350, $380, and $420 → $200, $235, $255, and $280 on Easy, Medium, Hard, and Impoppable, respectively.
+ Advanced Logistics: All Military Monkeys base costs reduced by 5%.
+Sniper Monkey base cost from $300, $350, $380, and $420 → $285, $330, $360, and $400 on Easy, Medium, Hard, and Impoppable, respectively.
+If Military Conscription is also enabled, the final cost will be $185, $215, $235, and $260.
+ Monkey Education: All Monkeys XP earn rate increased by 8%.
+ Better Sell Deals: All Monkeys sell for 5% more.
+Increases sell potency from 70% to 75%.
+ Veteran Monkey Training: All Monkeys reload time reduced by 3%.
+ Global Ability Cooldowns: All Ability cooldowns for all Monkeys reduced by 3%.
+Version History
+Differences Between BTD5 and BTD6
+
+Listed are comparisons of the Sniper Monkey in BTD6 compared to BTD5. Takes into account Flash and Mobile versions.
+
+ Large Calibre (former Point Five Oh) now costs less ($2,200 → $1,500).
+ Deadly Precision now costs less ($4,000 → $3,000).
+ Maim MOAB (former Cripple MOAB) now costs less ($12,500 → $5,400).
+ Cripple MOAB is now a Tier-5 upgrade that adds vulnerability to affected MOAB-class bloons and stuns for much longer, but now costs $32,000.
+ Several changes in path placement of the upgrades; some upgrades are moved to different paths. Particular changes occur with Faster Firing, Semi-Automatic, Night Vision Goggles, and Supply Drop.
+ Supply Drop now costs less ($12,000 → $7,200).
+ Sniper Monkey now is able to be blocked by Line of Sight limitations, thereby not guaranteed having infinite range.
+ Overpopping a MOAB or DDT with a Sniper Monkey will now guarantee Ceramic Bloons, regardless of how much damage was applied to the MOAB-class bloon.
+ Supply Drop ability has full initial cooldown.
+ Supply Drop ability cooldown increased (60s → 90s)
+ Supply drop ability now gives flat 1100 cash instead of 1000-3000 cash.
+Balance Changes
+Initial release (compared to BTD5)
+
+Note: Lists all balance changes implemented for the Sniper Monkey when it was first released in Bloons TD 6 (June 14th 2018) in comparison to Bloons TD 5. Takes into account Flash and Mobile versions of Bloons TD 5.
+
+ Large Calibre (former Point Five Oh) now costs less ($2,200 → $1,500).
+ Deadly Precision now costs less ($4,000 → $3,000).
+ Maim MOAB (former Cripple MOAB) now costs less ($12,500 → $7,000).
+ Cripple MOAB is now a Tier-5 upgrade that adds vulnerability to affected MOAB-class bloons and stuns for much longer, but now costs $50,000.
+ Several changes in path placement of the upgrades; some upgrades are moved to different paths. Particular changes occur with Faster Firing, Semi-Automatic, Night Vision Goggles, and Supply Drop.
+ Supply Drop now costs less ($12,000 → $8,000).
+ Sniper Monkey now is able to be blocked by Line of Sight limitations, thereby not guaranteed having infinite range.
+ Overpopping a MOAB or DDT with a Sniper Monkey will now guarantee Ceramic Bloons, regardless of how much damage was applied to the MOAB-class bloon.
+2.0
+ Elite Sniper now increases attack speed of all snipers by 33%.
+ Elite Defender base fire rate increased by 2x.
+3.0
+ Elite Sniper automatically changes target setting to Elite upon purchase.
+7.0
+ Maim MOAB damage increased (18 → 30).
+ Cripple MOAB damage increased (18 → 60).
+ Bouncing Bullet price reduced ($3,500 → $3,200).
+ Supply Drop price reduced from ($8,000 → $7,200).
+ Elite Sniper price reduced from ($16,000 → $13,000).
+8.0
+ Cripple MOAB costs less ($50,000 → $40,000).
+11.0
+ Night Vision Goggles and subsequent upgrades now gives the sniper a damage bonus to any Camo Bloons it hits (+0 → +2). Only affects main bullet.
+ Elite Defender now grants a speed boost equal to the % of the track that the bloons have covered. E.g. If the bloons are half way through the map Elite Defender will grant 50% attack speed. If the bloons are three quarters through the map, Elite Defender will grant 75% attack speed. (It retains its bonus when lives are lost).
+ Elite Defender now activates passive ability when Ezili's Sacrifice Totem is activated.
+12.0
+ 4-x-x Maim MOAB price reduced ($7,000 → $5,000).
+ 3-x-x Deadly Precision damage increased (18 → 20).
+ 3-x-x Deadly Precision gains extra +15 damage to ceramics.
+17.0
+ x-2-x Shrapnel Shot reworked to eject in a 45 degree arc instead of 360.
+ x-2-x Shrapnel Shot now produces shrapnel upon every hit.
+ 3+-2-0 Crosspathing now increases the damage of Shrapnel.
+19.0
+ 2-2-0 Large Calibre increases Shrapnel Shot fragment damage from 1 → 2.
+ 3-2-0 Deadly Precision increases Shrapnel Shot fragment damage from 2 → 4.
+ 4-2-0 Maim MOAB increases Shrapnel Shot fragment damage from 3 → 6.
+ 5-2-0 Cripple MOAB increases Shrapnel Shot fragment damage from 5 → 12.
+20.0
+“	This tower felt like it's strength too heavily required the xx2 upgrade, and that this harmed crosspath choices. So we increased the base attack rate while nerfing the increase from these upgrades. This is a slight overall buff.	”
+	~ Ninja Kiwi	
+ Reworked attack speed and related upgrades. Changes made overall are a buff.
+ Base attack speed increased (2 → 1.59).
+ x-x-1 Fast Firing attack speed buff reduced (35% → 30%).
+ x-x-2 Even Faster Firing attack speed buff reduced (40% → 30%).
+ 5-x-x Cripple MOAB debuff duration increased.
+MOAB (6 → 7).
+BFB (3 → 6).
+ZOMG (1.5 → 3).
+DDT (1.5 → 4).
+BAD (0.25 → 0.75).
+21.0
+“	To retain value in more Lead-heavy situations including against DDTs, this upgrade that has always allowed Lead popping to main attack will now also grant this to the Shrapnel from any shrapnel shot snipers mixing in this upgrade.	”
+	~ Ninja Kiwi	
+ 1-2-0 Shrapnel now gains Normal type damage from Full Metal Jacket.
+22.0
+“	Trading off rate of fire for shrapnel crosspath doesn't work well for Maim MOAB as it's all about being a stall tower, so instead of focusing on a damage increase here the shrapnel will now apply the benefits of the sniper's stun & debuff to turn this crosspath choice into a question of preference in grouping vs single target. Bouncing Bullet has also had its shrapnel pierce increased as it was the only T3 sniper that did not have 3 pierce shrapnel.	”
+	~ Ninja Kiwi	
+ 4-2-0 Maim MOAB shrapnel fragments now also benefit from stun.
+ 5-2-0 Cripple MOAB shrapnel fragments now also benefit from stun and debuff.
+ Bouncing Bullet's shrapnel pierce increased from 2 to 3.
+23.0
+“	Small improvements for underloved sniper upgrades with respective path specialties intact. As bottom path sniper has proven superiority for group damage dealing in many situations and middle T4 on the group-damage path has only offered a farming option, the pierce of shrapnel has been doubled at this T4 to add offensive value as well.	”
+	~ Ninja Kiwi	
+ Cripple MOAB now deals +20 damage to MOAB-class.
+ Supply Drop's shrapnel pierce increased (3 → 6).
+26.0
+“	Cripple MOAB's price currently limits it mainly to freeplay and so has been reduced.	”
+	~ Ninja Kiwi	
+ 5xx Cripple MOAB price reduced from $40,000 → $34,000
+28.0
+“	No wrist enjoys spamming cash drops, so sniper's random cash drop has been standardized around a higher amount with slower cooldown for an overall buff. As middle path sniper has been feeling to be in a good spot with alchemist buffs, but other uses of sniper shrapnel weak due to lack of alchemist buff, we have decided to swap alchemist buffability over from the number of bounces to the power of the shrapnel itself.	”
+	~ Ninja Kiwi	
+ Night Vision Goggles now grants Sniper Monkey the new Camo Prioritization filter
+ Supply Drop: Cash Generating abilities now have a 3 minute timeout
+ Supply Drop ability cooldown increased from 60s → 90s
+ Supply Drop Sniper cash produced increased from a range of $500-$1000 to a flat $1200
+ Elite Sniper cash produced increased from a range of $1500-$3000 to a flat $3000
+ Shrapnel Shot, shrapnel on all crosspaths is now able to receive any external buffs
+ Pierce buffs no longer increase the amount of bounces that a bouncing bullet with Bouncing Bullets or above can make.
+ Full Auto Rifle price reduced from $4750 → $4250
+ Full Auto Rifle base damage type changed from Normal → Sharp
+ Elite Defender base damage type changed from Normal → Sharp
+30.0
+“	Elite Sniper bouncing bullet jump distance has been reduced so that it can't quite bridge small track splits so easily, however to change up use this lost distance has been added back to crosspathing. Elite Defender falls off a lot after midgame & really lacks any true cross pathing choice, so it has had some MOAB damage added to the base attack with the amount improved from crosspathing.	”
+	~ Ninja Kiwi	
+ Bouncing Bullet without Large Calibre bounce distance reduced slightly 50 -> 40. 2-3-0 remains unaffected.
+ Full Auto Rifle gains +1 MOAB bonus to initial bullet hit
+ 0-x-5 Elite Defender gains +2 MOAB bonus to initial bullet hit
+ 1-0-5 Elite Defender gains +3 MOAB bonus to initial bullet hit
+ 2-0-5 Elite Defender gains +4 MOAB bonus to initial bullet hit
+32.0
+“	Sniper middle path is too strong for how easy to use it is, while having infinite range & cash production as well. We have removed the free +1 pierce increase shrapnel gains at T3 in addition to the added bounce. Maim MOABs grouped stun potential when crosspathed with Shrapnel feels it is overperforming too much so the shrapnel will now have a reduced stun amount compared to the initial target hit.	”
+	~ Ninja Kiwi	
+ Bouncing Bullet shrapnel pierce reduced from 3 → 2
+ 4-2-0 Maim MOAB's shrapnel stun reduced by about 33% effectiveness
+MOAB 3s → 2s
+BFB 1.5s → 1s
+ZOMG and DDT 0.75s → 0.5s
+ 5-2-0 Cripple MOAB Shrapnel stun/debuff duration reduced
+MOAB 7s → 4.5s
+BFB 6s → 4s
+ZOMG 3s → 2s
+DDT 4s → 2.5s
+BAD 0.75s → 0.5s
+33.0
+“	After the lower tier nerfs Elite Sniper still remains just a bit too good even without consid

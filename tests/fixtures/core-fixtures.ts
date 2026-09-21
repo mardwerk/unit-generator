@@ -2,6 +2,7 @@ import type {
   AuthorRequest,
   ModelClient,
   ModelRequest,
+  ModelResponse,
   SemanticReview,
   UnitCandidate,
 } from '../../src/core/index.js';
@@ -221,7 +222,7 @@ export class FakeModel implements ModelClient {
   readonly id = 'test/fake';
   readonly requests: ModelRequest[] = [];
   constructor(private readonly responses: unknown[] = [miraCandidate(), miraReview()]) {}
-  async generate(request: ModelRequest): Promise<unknown> {
+  async generate(request: ModelRequest): Promise<ModelResponse> {
     this.requests.push(request);
     if (!this.responses.length) {
       throw new Error('No fake response configured');
@@ -230,6 +231,6 @@ export class FakeModel implements ModelClient {
     if (response instanceof Error) {
       throw response;
     }
-    return structuredClone(response);
+    return { output: structuredClone(response) };
   }
 }

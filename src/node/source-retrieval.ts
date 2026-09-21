@@ -127,7 +127,7 @@ function parseWikiArticle(content: string): string {
   return parsed.parse.text['*'];
 }
 
-async function readResponseText(response: Response, maxBytes: number): Promise<string> {
+export async function readResponseText(response: Response, maxBytes: number): Promise<string> {
   const chunks: Uint8Array[] = [];
   let bytes = 0;
   const reader = response.body?.getReader();

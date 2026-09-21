@@ -1,0 +1,131 @@
+	
+	Strategy Page
+This article is a strategy page, where players may share their ideas on how to optimize the subject in question. Feel free to add new strategies on this page! However, make sure the content you add is clearly formatted, unambiguous, and informative.
+
+Note for all contributors: If you're planning to add a new strategy section about your specific strategy, please make sure to add version numbers and dates to each new section, especially for the latest games.
+
+In Bloons TD 6, it is important to choose the best crosspathing for a specific tower in order to receive the best benefits out of that tower type. Towers have special roles to play for each stage of the game. The Dart Monkey in its core is a source of cheap early-game damage or fulfill a special niche with its higher upgrades.
+
+Contents
+1	Introduction
+2	Upgrades
+2.1	Tier 2 and below
+2.1.1	Base Tower and Tier 1 Crosspaths
+2.1.2	Tier 2 Crosspaths
+2.2	Upper Path 1
+2.2.1	Spike-O-Pult
+2.2.2	Juggernaut
+2.2.3	Ultra-Juggernaut
+2.3	Upper Path 2
+2.3.1	Triple Shot
+2.3.2	Super Monkey Fan Club
+2.3.3	Plasma Monkey Fan Club
+2.4	Upper Path 3
+2.4.1	Crossbow
+2.4.2	Sharp Shooter
+2.4.3	Crossbow Master
+3	Strategy
+Introduction
+
+The Dart Monkey is mostly centered around being cheap options for popping bloons. For its later upgrades, each upgrade fulfills a different niche in the game depending on the respective upgrades' underlying roles.
+
+In general, each path of the Dart Monkey is built specifically around optimizing one specific aspect. Path 1 is about pierce, Path 2 is about DPS, and Path 3 is about range.
+
+Upgrades
+Tier 2 and below
+Base Tower and Tier 1 Crosspaths
+Sharp Shots
+Quick Shots
+Long Range Darts
+0-0-0: The most basic option for the Dart Monkey. Multiple of these are useful on early-game CHIMPS and are usually more efficient than upgrading existing Dart Monkeys.
+1-0-0: One extra pierce is good, especially without Extra Dart Pops MK. However, if pierce is what you're after, 2-x-x is usually the better option.
+0-1-0: Just a simple Attack speed boost. If not using it for attack speed, just use it as a stepping stone for x-2-x.
+0-0-1: In rare cases where range may be necessary, this upgrade can be helpful in itself. Otherwise, it's just a stepping stone for x-x-2.
+1-1-0: Hybridizes 3 pierce with extra attack speed.
+1-0-1: Hybridizes 3 pierce with extra range.
+0-1-1: Hybridizes extra attack speed with extra range. It is basically a weaker 0-2-2 with no camo detection.
+Tier 2 Crosspaths
+Razor Sharp Shots
+Very Quick Shots
+Enhanced Eyesight
+2-0-0: This is almost always good as it heavily increases pierce up to 5, 6 with Extra Dart Pops MK.
+0-2-0: Usually used as a crosspath for the other two paths, or for 0-3-0, as it's not that strong on its own.
+0-0-2: Useful as a cheap counter for Round 3 on ABR or as cheap camo range for Advanced Intel.
+2-1-0: Hybridizes 5 pierce with extra attack speed. Almost always better to get 2-2-0 for more attack speed.
+2-0-1: Hybridizes 5 pierce with extra range. Camo detection from 2-0-2 is better in almost every situation
+1-2-0: Hybridizes 3 pierce with optimized attack speed. Almost always better to get 2-2-0 for more pierce
+1-0-2: Hybridizes 3 pierce with much higher range and camo detection. Consistently better to get 2-0-2 for more pierce.
+2-2-0: Efficient if used on straight lines to utilize its full pierce, and does well for really early game.
+2-0-2: This is basically, without knowledge, a slower firing but cheaper version of 2-0-0 Ninja. Decent early game for camo detection.
+0-2-1: Hybridizes optimized attack speed with extra range. Camo detection from 0-2-2 is better in almost every situation.
+0-1-2: Hybridizes extra attack speed with much higher range and camo detection. Consistently better to get 0-2-2 for more attack speed.
+0-2-2: Decent if you forgot about camo detection for round 24 or 33, other than that used to get to 0-3-2 or 0-2-3.
+Upper Path 1
+Spike-O-Pult
+3-0-0: Spike-o-pult attacks slower but packs much higher pierce and damage per shot, in addition to popping Frozen, more range, and allowing its shots to bounce off obstacles. If needing the large pierce right away, settling for 3-0-0 is okay. It is recommended to crosspath this tower once there is enough money to buy crosspaths for it.
+3-1-0: More attack speed than a base 3-0-0, for greater consistency of shots.
+3-2-0: Provides an optimised amount of attack speed on the Spike-o-pult. On denser early-game rounds, this crosspath is generally better for the greater attack speed.
+3-0-1: More range can be useful, but it isn't normally the best option compared to crosspathing with Path 2 unless needing to specifically to shoot along a straightaway more reliably.
+3-0-2: Comes with built-in camo detection plus even more range and more projectile duration and speed. Similarly to 3-0-1, the extra range can be helpful if needing to shoot along a straightaway more reliably and also lets do more bounces because the improved ball, but this misses out on extra attack speed.
+Juggernaut
+4-0-0: The cheapest option to pop Leads with a Dart Monkey, and does decent damage to Ceramics and Fortified in addition to limited knockback versus bloons. Crosspath to either Path 2 or Path 3 depending on the needs of the defense.
+4-1-0: Gains more attack speed, for greater consistency of making shots.
+4-2-0: Even more attack speed to shoot Juggernauts faster allows it to finish off groups of bloons more reliably.
+4-0-1: In itself, it is not very useful unless wanting to go for 4-0-2 for the camo detection.
+4-0-2: The cheapest option to pop Camo Leads with a Dart Monkey. Also useful for popping normal Camo Bloons along good straightaways. In BTD6, it also gains a longer-lasting knockback.
+Ultra-Juggernaut
+5-0-0: Ultra-Juggernaut further improves its balls to deal even more damage and split into multiple balls. This upgrade doesn't serve optimal value without crosspaths, unless on a custom challenge that restricts certain upgrades. Pick either Path 2 or Path 3 to suit the defense's needs.
+5-1-0: Increased attack speed for more consistency of shots.
+5-2-0: The usual go-to crosspath for Ultra-Juggernaut. The Quick Shots and Very Quick Shots upgrades both provide extra attack speed, which allows it to throw Ultra-Juggernaut projectiles at a greater rate.
+5-0-1: Not as useful compared to a 5-0-0 and locks out Path 2's bonus attack speed. Only buy this if wanting to buy 5-0-2.
+5-0-2: Generally useful if along a straightaway and/or needing to pop Camo Bloons. However, external support such as Primary Mentoring, Stronger Stimulant already compensate for the range and Radar Scanner or Etienne Level 8+ already compensate for Camo bloons, as this crosspath will miss out the attack speed bonuses from Path 2, However the extra projectile duration and speed could be sometimes reliable.
+Upper Path 2
+Triple Shot
+0-3-0: Triple Shot allows the Dart Monkey to shoot triple the darts. Can be useful even without crosspathing. Can be used to pop early Yellow and Pinks along curved areas of the bloon track.
+1-3-0: Slightly more pierce per dart can be helpful at combatting denser bloon rounds during the early-game.
+2-3-0: If the bloons are quite dense, this is a useful upgrade to get for the early-game. Also pairs well with Super Monkey Fan Club transformation.
+0-3-1: More range can be helpful to let the Dart Monkey hit bloons further. It is worth upgrading further to 0-3-2 for the built-in camo detection.
+0-3-2: Effective early-game camo detection for all rounds. In addition, it has much longer range, useful for spreading the darts further, and can be more useful than the other crosspath in some cases.
+Super Monkey Fan Club
+0-4-0: Super Monkey Fan Club's ability transforms up to 10 Dart Monkeys into Super Monkeys that inherit base pierce and range stats from the fans, plus camo detection if any. The most important part of this upgrade is its transformation ability to other Dart Monkeys, so it shouldn't be a problem if it is not crosspathed. However, to take advantage of its slightly extra base attack speed applying to its own transformation too, crosspathing this Dart Monkey is recommended to let this Dart Monkey itself become more effective. For PMFC transforms, this offers the highest attack speed and therefore the highest DPS for the transformed monkeys. The two crosspaths that matter are the 2-4-0 and the 0-4-2.
+1-4-0: An extra pierce per dart is nice, but is usually recommended to get 2-4-0 for even more pierce.
+2-4-0: More pierce is useful on denser rounds. Allowing its super darts to pop +3 bloons is more worthy over more range. Strangely, the extra range is not inherited with the transformation. Use Primary Mentoring to boost its range to compensate the lack of internal bonus range. For PMFC transforms, this crosspath adds extra pierce which is important for bloon rushes when large clumps of bloons with very tight spcing.
+0-4-1: Useless for the Dart Monkey's own transformation, as the transformation effect does not inherit range bonuses.
+0-4-2: The only thing making this crosspath useful is the built-in camo detection. The range bonus is not inherited with the transformed form. For PMFC transforms, this crosspath allows the transformed monkey to have more uptime since it covers more of the stage, signifcantly increasing the single-target damage, inexchange for low pierce.
+Plasma Monkey Fan Club
+0-5-0: Plasma Monkey Fan Club transforms up to 20 Dart Monkeys into plasma-shooting monkeys, and utilize similar stat inheritance rules as its predecessor. Crosspathing Plasma Monkey Fan Club is not essential, but it's worth crosspathing it to improve the main tower itself. All Dart Monkeys affected by the transformation will inherit their internal buffs, with exception of range (might be a bug, or could be intentional).
+1-5-0: Extra pierce provided with the crosspath is good, but please just buy 2-5-0.
+2-5-0: Extra pierce is helpful for the main tower itself. Allowing its plasma to pop +3 bloons is more worthy over more range. Strangely, the extra range is not inherited with the transformation. Use Primary Mentoring to boost its range to compensate the lack of internal bonus range.
+0-5-1: Useless for the Dart Monkey's own transformation, as the transformation effect does not inherit range bonuses.
+0-5-2: The only thing making this crosspath useful is the built-in camo detection. The range bonus is not inherited with the transformed form.
+Upper Path 3
+Crossbow
+0-0-3: Crossbow deals 3 damage per shot and pierces an extra bloon, making it excel against stronger early-game bloons and a bit better against groups of bloons. Crosspathing this Dart Monkey is helpful, but it is not essential to make it useful in the early-game. In the uncommon case where it is necessary to quickly buy this upgrade for the 3 damage per shot, 0-0-3 is still acceptable.
+1-0-3: Crossbow already gains +1 pierce, but 4 pierce can be somewhat helpful in some cases. Gaining another +1 pierce allows the Crossbow to be slightly more effective against straightaways.
+2-0-3: If along an effective straightaway, the extra +3 pierce might be better than the attack speed provided by Path 2, more specifically on denser rounds.
+0-1-3: Leaving the Crossbow at 0-1-3 can be sometimes useful if not wanting to just invest fully into a Crossbow and only buying it for purely the better early-game.
+0-2-3: Normally better all-round, because more attack speed allows it to make shots more often and therefore can maximize its extra damage. Usually a stepping stone for 0-2-4.
+Sharp Shooter
+0-0-4: Sharp Shooter grants critical shots and increases damage of each ordinary shot by a lot. By this point, the crosspaths of either path should be quite cheap in comparison. A non-crosspathed Sharp Shooter should only be used if attempting a challenge that requires fewest crosspaths, and if doing so it should be for some slight extra single-target damage mixed with stronger bloon damage.
+1-0-4: Slightly better against grouped bloons, but better to buy 2-0-4. It is worth mentioning that the 4 pierce allows it to have more consistency against offspring of stronger bloons.
+2-0-4: Against denser bloons, this crosspath can be better than other crosspaths of Sharp Shooter due to gaining an extra +3 pierce.
+0-1-4: Activates crits more often due to a faster fire rate.
+0-2-4: An optimised attack speed bonus to the Sharp Shooter. Generally better so that crits can be activated at a faster rate.
+Crossbow Master
+0-0-5: Crossbow Master attacks incredibly quickly, pops all bloon types, pierces more bloons, and crits much faster. It is unreasonable to not crosspath Crossbow Master unless on a custom challenge that requires a lack of additional crosspaths. Pick either Path 1 or Path 2 depending on the Crossbow Master's positioning.
+1-0-5: If used along a straight line, extra pierce is useful, but generally advised to use 2-0-5 for additional pierce.
+2-0-5: If along an effective straightaway, this crosspath can be better for the much greater pierce, but the rate of activating crits more often is generally better.
+0-1-5: Increases the rate of shots for more activations of crits per second.
+0-2-5: With this crosspath, crits can be activated at a faster rate because the Crossbow Master will attack faster, making it better at single-target and have better overall DPS.
+Strategy
+
+Since each path focuses on a specific niche (Path 1 is Pierce, Path 2 is DPS, Path 3 is range and damage), you can crosspath to focus on one specific niche and have a little of another niche. But since attack speed (from Path 2) increases DPS (Damage per Second), most effective Dart Monkey crosspaths will have at least Path 2 crosspaths because it directly affects both Path 1 and Path 3 in Projectiles thrown per second.
+
+However, there are some viable crosspaths that doesn't involve path 2. The 2-0-5 Dart Monkey is an example of this. Because Crossbow master gains massive pierce with this upgrade, it can be used on straightaways to crit a lot more bloons that the 0-2-5 could. This means that more bloons are affected by the numerous crits the Crossbow master deals more DPS on straightaways than 0-2-5.
+
+Show
+v • d • e
+Crosspathing
+Show
+v • d • e
+Dart Monkey

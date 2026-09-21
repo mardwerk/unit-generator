@@ -1,3 +1,4 @@
+import { defaultAuthoringDefinition } from '../src/node/default-profile.js';
 import assert from 'node:assert/strict';
 import { execFile } from 'node:child_process';
 import { chmod, mkdir, mkdtemp, readFile, rm, writeFile } from 'node:fs/promises';
@@ -9,7 +10,12 @@ import { test } from 'node:test';
 import { miraCandidate, miraRequest, miraReview } from './fixtures/core-fixtures.js';
 import { loadRequestFile } from '../src/node/request-file.js';
 import { renderArtifact } from '../src/presentation/markdown.js';
-import { authorUnit } from '../src/core/index.js';
+import {
+  authorUnit,
+  defaultMechanicsDefinition,
+  definitionDocument,
+  definitionProgression,
+} from '../src/core/index.js';
 import { FakeModel } from './fixtures/core-fixtures.js';
 const execute = promisify(execFile);
 const cli = fileURLToPath(new URL('../src/cli.js', import.meta.url));
@@ -221,4 +227,56 @@ test('Markdown escapes embedded HTML and table separators while retaining meanin
   assert.match(rendered, /&lt;script&gt;/);
   assert.ok(rendered.includes('\\|Spark'));
   assert.match(rendered, /mira-brief-v1/);
+});
+
+test('CLI prints the explicit mechanics Definition without a provider and prepares its preset', async () => {
+  await setup(async (directory, requestPath) => {
+    const printed = await run(['definition'], directory);
+    assert.equal(printed.code, 0, printed.stderr);
+    assert.deepEqual(JSON.parse(printed.stdout), defaultAuthoringDefinition);
+    const output = await run(['definition', '--output', 'definition.json'], directory);
+    assert.equal(output.code, 0, output.stderr);
+    assert.equal(output.stdout, '');
+    assert.deepEqual(
+      JSON.parse(await readFile(join(directory, 'definition.json'), 'utf8')),
+      defaultAuthoringDefinition,
+    );
+    const input = JSON.parse(await readFile(requestPath, 'utf8'));
+    input.progression = null;
+    await writeFile(requestPath, JSON.stringify(input));
+    const prepared = await run(['prepare', requestPath, '--preset', 'btd6'], directory);
+    assert.equal(prepared.code, 0, prepared.stderr);
+    const artifact = JSON.parse(prepared.stdout);
+    assert.equal(artifact.kind, 'prepared');
+    assert.deepEqual(artifact.request.mechanicsDefinition, defaultAuthoringDefinition);
+    assert.deepEqual(
+      artifact.request.progression,
+      definitionProgression(defaultAuthoringDefinition),
+    );
+    assert.equal(
+      artifact.request.documents.filter(
+        (document: { id: string }) =>
+          document.id === definitionDocument(defaultAuthoringDefinition).id,
+      ).length,
+      1,
+    );
+    const invalid = await run(['prepare', requestPath, '--preset', 'invented'], directory);
+    assert.notEqual(invalid.code, 0);
+    assert.match(invalid.stderr, /--preset btd6/);
+  });
+});
+
+test('offline CLI definition and preparation ignore unrelated invalid model environment', async () => {
+  await setup(async (directory, request) => {
+    const environment = {
+      ...process.env,
+      OPENROUTER_MODEL: 'invalid',
+      OPENROUTER_REASONING: 'invalid',
+    };
+    for (const command of [['definition'], ['prepare', request]]) {
+      const response = await run(command, directory, environment);
+      assert.equal(response.code, 0, response.stderr);
+      assert.ok(JSON.parse(response.stdout));
+    }
+  });
 });

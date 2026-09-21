@@ -1,4 +1,7 @@
+import { designPlanSchema } from './blueprint/plan-schema.js';
+import { unitRoleRankingSchema } from './roles.js';
 import { z } from 'zod';
+import { blueprintSchema, mechanicsDefinitionSchema } from './mechanics/schemas.js';
 
 const text = z.string().trim().min(1);
 
@@ -7,6 +10,25 @@ const refs = z.array(text);
 const version = z.literal('1');
 
 const decisionStatus = z.enum(['confirmed', 'proposed', 'open']);
+
+const referenceUrl = z
+  .string()
+  .url()
+  .refine((value) => {
+    const url = new URL(value);
+    return ['https:', 'http:'].includes(url.protocol) && !url.username && !url.password;
+  }, 'Reference URLs must use HTTP or HTTPS without credentials');
+
+export const visualReferenceSchema = z.strictObject({
+  id: text,
+  url: referenceUrl,
+  sourceUrl: referenceUrl,
+  caption: text,
+  kind: z.enum(['appearance', 'pose', 'form', 'reference']),
+  attribution: text.nullable(),
+  width: z.number().int().positive().max(100_000).optional(),
+  height: z.number().int().positive().max(100_000).optional(),
+});
 
 export const resolvedDocumentSchema = z.strictObject({
   id: text,
@@ -20,6 +42,8 @@ export const resolvedDocumentSchema = z.strictObject({
     access: z.enum(['supplied', 'local-file', 'retrieved']),
     note: text.nullable(),
   }),
+  visualReferences: z.array(visualReferenceSchema).optional(),
+  visualNotes: z.array(text).optional(),
 });
 
 export const characterSchema = z.strictObject({
@@ -162,6 +186,7 @@ export const candidateSchema = z.strictObject({
   constraintCoverage: constraintCoverageSchema,
   representativeBuilds: representativeBuildsSchema,
   unresolvedQuestions: unresolvedQuestionsSchema,
+  blueprint: blueprintSchema.optional(),
 });
 
 export const progressionSchema = z.strictObject({
@@ -196,6 +221,7 @@ export const requestSchema = z.strictObject({
     }),
   ),
   progression: progressionSchema.nullable(),
+  mechanicsDefinition: mechanicsDefinitionSchema.optional(),
   previous: z
     .strictObject({
       resultId: text,
@@ -213,11 +239,37 @@ export const preparedSchema = z.strictObject({
   request: requestSchema,
 });
 
+const tokenCount = z.number().int().nonnegative().nullable();
+
+export const modelUsageSchema = z.strictObject({
+  inputTokens: tokenCount,
+  outputTokens: tokenCount,
+  totalTokens: tokenCount,
+  reasoningTokens: tokenCount,
+  cachedInputTokens: tokenCount,
+  costUsd: z.number().finite().nonnegative().nullable(),
+  actualModel: z.string().nullable(),
+  provider: z.string().nullable(),
+  generationId: z.string().nullable(),
+});
+
 export const modelRunSchema = z.strictObject({
   id: text,
   modelId: text,
   startedAt: text,
   completedAt: text,
+  usage: modelUsageSchema.optional(),
+  designPlan: designPlanSchema.optional(),
+  attempts: z
+    .array(
+      z.strictObject({
+        number: z.number().int().positive(),
+        purpose: z.enum(['plan', 'design', 'repair']),
+        issues: z.array(text),
+        usage: modelUsageSchema.optional(),
+      }),
+    )
+    .optional(),
 });
 
 export const draftArtifactSchema = z.strictObject({
@@ -226,6 +278,7 @@ export const draftArtifactSchema = z.strictObject({
   prepared: preparedSchema,
   candidate: candidateSchema,
   run: modelRunSchema,
+  roles: unitRoleRankingSchema.optional(),
 });
 
 export const checkedArtifactSchema = z.strictObject({
@@ -237,7 +290,12 @@ export const checkedArtifactSchema = z.strictObject({
 
 export const semanticReviewSchema = z.strictObject({
   summary: text,
-  findings: z.array(findingSchema.extend({ method: z.literal('model') })),
+  findings: z.array(
+    findingSchema.extend({
+      id: text.regex(/^model\.[a-zA-Z0-9][a-zA-Z0-9._-]*$/),
+      method: z.literal('model'),
+    }),
+  ),
 });
 
 export const resultSchema = z.strictObject({
@@ -248,6 +306,7 @@ export const resultSchema = z.strictObject({
   candidate: candidateSchema,
   findings: z.array(findingSchema),
   reviewSummary: text,
+  roles: unitRoleRankingSchema.optional(),
   run: z.strictObject({
     draft: modelRunSchema,
     review: modelRunSchema,
@@ -255,6 +314,7 @@ export const resultSchema = z.strictObject({
 });
 
 export type ResolvedDocument = z.infer<typeof resolvedDocumentSchema>;
+export type VisualReference = z.infer<typeof visualReferenceSchema>;
 
 export type AuthorRequest = z.infer<typeof requestSchema>;
 
@@ -271,3 +331,5 @@ export type CheckedArtifact = z.infer<typeof checkedArtifactSchema>;
 export type AuthorResult = z.infer<typeof resultSchema>;
 
 export type SemanticReview = z.infer<typeof semanticReviewSchema>;
+
+export type ModelUsage = z.infer<typeof modelUsageSchema>;

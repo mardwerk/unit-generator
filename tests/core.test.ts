@@ -1,5 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { z } from 'zod';
 import {
   authorUnit,
   checkDraft,
@@ -7,6 +8,7 @@ import {
   prepareRequest,
   reviewDraft,
   requestSchema,
+  candidateSchema,
   type AuthorRequest,
   type UnitCandidate,
 } from '../src/core/index.js';
@@ -361,11 +363,11 @@ test(
   async () => {
     await assert.rejects(
       authorUnit(miraRequest(), new FakeModel([new Error('transport unavailable')])),
-      /Draft model execution failed.*transport unavailable/,
+      /Draft model execution failed.*could not complete/,
     );
     await assert.rejects(
       authorUnit(miraRequest(), new FakeModel([miraCandidate(), new Error('review failed')])),
-      /Review model execution failed.*review failed/,
+      /Review model execution failed.*could not complete/,
     );
     const blank = miraCandidate();
     blank.basicAttack.delivery = '  ';
@@ -377,7 +379,7 @@ test(
     badReview.findings[0]!.evidence = ['invented'];
     await assert.rejects(
       authorUnit(miraRequest(), new FakeModel([miraCandidate(), badReview])),
-      /unknown evidence/,
+      /invalid finding or evidence references/,
     );
   },
 );
@@ -392,6 +394,22 @@ test('review rejects altered deterministic findings and aborted runs do not call
   await assert.rejects(authorUnit(miraRequest(), model, { signal: controller.signal }));
   assert.equal(model.requests.length, 0);
 });
+test('review response schema exposes the permitted evidence IDs and complete finding IDs', async () => {
+  const model = new FakeModel();
+  const request = miraRequest();
+  await authorUnit(request, model);
+  const schema = JSON.parse(JSON.stringify(model.requests[1]!.schema));
+  const finding = schema.properties.findings.items.properties;
+  assert.deepEqual(
+    finding.evidence.items.enum,
+    request.documents.map(({ id }) => id),
+  );
+  const idPattern = new RegExp(finding.id.pattern);
+  assert.ok(idPattern.test('model.001'));
+  assert.equal(idPattern.test('model-001'), false);
+  assert.equal(idPattern.test('model.'), false);
+});
+
 test('model output schemas require all object keys and reject additional properties', async () => {
   const model = new FakeModel();
   await authorUnit(miraRequest(), model);
@@ -414,4 +432,76 @@ test('model output schemas require all object keys and reject additional propert
     Object.values(node).forEach(inspect);
   };
   model.requests.forEach((request) => inspect(request.schema));
+});
+
+test('draft request requires concrete purchased-tier changes without changing the artifact contract', async () => {
+  const request = miraRequest();
+  request.documents[1]!.text +=
+    ' Experimental reference: base Spark attack interval is 1 second; proposed changes need balancing.';
+  const model = new FakeModel([miraCandidate()]);
+  const artifact = await draftUnit(await prepareRequest(request), model);
+  const sent = model.requests[0]!;
+  for (const instruction of [
+    'Each tier benefit must stand alone as the exact change bought at that tier.',
+    'compare its behavior immediately before and after this purchase',
+    'state the newly available action, trigger, targets and material limits',
+    'before and after values with units, or an exact delta or multiplier and its named baseline',
+    'explicitly mark that detail unspecified in the benefit',
+    'Do not invent numbers',
+    'do not repeat the same full ability description across tiers',
+    'Gate each change by its purchased tier and any explicit prerequisites',
+    'separate the immediate benefit from conditional synergy',
+  ]) {
+    assert.ok(sent.prompt.includes(instruction), instruction);
+  }
+  const retained = JSON.parse(sent.prompt.split('\n\n').at(-1)!);
+  assert.deepEqual(retained, artifact.prepared.request);
+  assert.match(retained.documents[1]!.text, /base Spark attack interval is 1 second/);
+  assert.deepEqual(sent.schema, z.toJSONSchema(candidateSchema.omit({ blueprint: true })));
+  assert.deepEqual(
+    candidateSchema.parse(JSON.parse(JSON.stringify(artifact.candidate))),
+    miraCandidate(),
+  );
+});
+
+test('review requests tier-specific missing details and retains a scoped model finding for a vague upgrade', async () => {
+  const candidate = miraCandidate();
+  candidate.paths[0]!.tiers[1]!.benefit = 'Improves Spark.';
+  const review = miraReview();
+  review.findings = [
+    {
+      id: 'model.offense-tier-2',
+      method: 'model',
+      category: 'missing_specification',
+      severity: 'warning',
+      outcome: 'unresolved',
+      subject: 'path.offense.tier.2',
+      rule: 'Each purchased tier needs its own operational change.',
+      message: 'Improves Spark does not specify the changed property or its resulting behavior.',
+      evidence: ['R1'],
+      action: 'Specify the before and after Spark behavior. Leave unsupported values unspecified.',
+    },
+  ];
+  const model = new FakeModel([candidate, review]);
+  const result = await authorUnit(miraRequest(), model);
+  const sent = model.requests[1]!;
+  for (const instruction of [
+    'Inspect every tier benefit against the basic attack, preceding tiers and linked abilities',
+    'Evaluate meaning, not particular words',
+    'Identify missing tier-specific specifications by path ID and tier',
+    'Missing specifications are unresolved, not a pass',
+    'Check numerical changes against their supplied rules or Profile reference basis',
+    'do not invent numbers, approvals or balance evidence',
+    'Flag basic attack or lower-tier text that already grants an unpurchased higher-tier effect',
+    'not proof that every legal build executes correctly',
+  ]) {
+    assert.ok(sent.prompt.includes(instruction), instruction);
+  }
+  const retained = JSON.parse(sent.prompt.split('\n\n').at(-1)!);
+  assert.equal(retained.candidate.paths[0].tiers[1].benefit, 'Improves Spark.');
+  assert.deepEqual(result.candidate, candidate);
+  assert.deepEqual(
+    result.findings.find((finding) => finding.id === 'model.offense-tier-2'),
+    review.findings[0],
+  );
 });

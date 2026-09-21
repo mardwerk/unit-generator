@@ -1,3 +1,4 @@
+import { withDefinitionEvidence, definitionProgression } from './blueprint/definition.js';
 import { requestSchema, type AuthorRequest, type PreparedRequest } from './schemas.js';
 /** Freeze cloned, validated artifacts so callers cannot change retained evidence. */
 export function freeze<T>(value: T): T {
@@ -40,10 +41,23 @@ function validateRequest(request: AuthorRequest): void {
     throw new Error('A revision requires explicit feedback');
   }
   validateProgression(request.progression);
+  if (request.mechanicsDefinition) {
+    if (
+      JSON.stringify(request.progression) !==
+      JSON.stringify(definitionProgression(request.mechanicsDefinition))
+    )
+      throw new Error(
+        'Progression must match the explicit mechanics definition. Use its three paths and crosspath limits.',
+      );
+    if (withDefinitionEvidence(request) !== request)
+      throw new Error(
+        'Prepared requests must retain their mechanics definition evidence. Run prepare again.',
+      );
+  }
 }
 
 export async function prepareRequest(input: unknown): Promise<PreparedRequest> {
-  const request = requestSchema.parse(input);
+  const request = withDefinitionEvidence(requestSchema.parse(input));
   validateRequest(request);
   return freeze({
     schemaVersion: '1',

@@ -1,0 +1,356 @@
+OverviewBTD5BSM2BTD6BATTDBTDB2
+
+
+
+
+	
+	This is a LONG page!
+This page is very long. Visiting or editing long pages like this may greatly reduce the performance of your device or even cause the page to crash in the worst cases. If possible, try moving some of the content to separate pages or removing content that is no longer needed.
+Help: Fandom "Short and long pages on Fandom" under the "Splitting an article" section.
+	
+	Article stub
+This article is a stub.
+You can help Bloons Wiki by expanding it.
+	
+	Information is out of date.
+
+
+This article's information is out of date. Please improve this article by adding the most current information about the subject of this page.
+Outdated info: Include all Activated Abilities up to Version 56.0
+
+“	You have an Activated Ability! These create powerful temporary effects to help you win. Choose careful when to use them however as each one has a cooldown before it can be used again.	”
+	~ "Activated Abilities" popup upon encountering Activated Abilities	
+
+Activated Ability icon
+
+Activated Abilities notice
+
+Activated Abilities are activatable abilities in Bloons TD 6, renamed from "Special Abilities" in BTD5. There is a lot more variety for activated abilities in this game, with Tier 5 upgrades further improving predecessor abilities in general. It is also worth a note that Banana Farm now has an activated ability despite not having one in BTD5. And finally, sometimes there are abilities given to upgrades that aren't necessarily along Path 2; the only towers to do so without the use of Monkey Knowledge Points are the Dark Knight and above upgrades, as of currently.
+
+There are some potential sources of decreasing ability cooldowns of towers outside of Monkey Knowledge Points and Relic Knowledge, for exmple: Energizer's local water-based cooldown buff and global cooldown buff, Bloontonium Reactor's local water-based cooldown buff, Primary Mentoring's Primary Monkey cooldown buff, Primary Expertise's Primary Monkey further cooldown buff, Obyn Greenfoot Level 12+. And some even reset cooldown, such as Striker Jones' Level 10+ Artillery Command ability, and Geraldo's Rejuv Potion. There are also special Monkey Knowledge Points that reduce the ability cooldowns of certain towers. Unless specified, assume all abilities also can get buffed by the "Global Ability Cooldowns" when MK is active.
+
+Most abilities have an initial cooldown of 1/3 the original cooldown duration (e.g. First Strike Capability has an initial cooldown of 20s, as it has a 60s normal cooldown). Most abilities with a reduced cooldown duration from a further upgrade will reduce the initial cooldown to the original ability's initial cooldown minus the cooldown reduction between the faster and slower abilities (e.g. Tsar Bomba initial cooldown is 5s because Ground Zero full cooldown is 45s and Tsar Bomba full cooldown is 35s, and the difference 10s is taken away from 15s initial cooldown of the first-mentioned), four exceptions to this rule being Wizard Lord Phoenix, Pop and Awe, income-only abilities, and all Paragon activated abilities. As of Version 8.0, all income-only abilities in BTD6 now undergo a full initial cooldown, regardless of whether the prior upgrade ability was available or not.
+
+Note 1: Ability descriptions here are written in terms of their respective game mechanics, rather than using their official descriptions.
+Note 2: Ability "type" determines how abilities are handled in-game. Abilities with "duration" involve a duration, those with "instant" are instant-use abilities, and "delay" refers to presence of a time delay before activating the final product (e.g. Ground Zero requires a brief time delay before dropping the nuke, Striker Jones firing Concussive Shell before stunning the bloons). Some abilities cannot be reactivated if ability is in use under a specific condition; such a condition should be clearly specified for a particular duration-oriented ability.
+Contents
+1	Primary Monkeys
+1.1	Super Monkey Fan Club
+1.2	Plasma Monkey Fan Club
+1.3	Turbo Charge
+1.4	Perma Charge
+1.5	Glaive Dominus
+1.6	MOAB Assassin
+1.7	MOAB Eliminator
+1.8	Bomb Blitz
+1.9	Ballistic Obliteration Missile Bunker
+1.10	Blade Maelstrom
+1.11	Super Maelstrom
+1.12	Crucible of Steel and Flame
+1.13	Snowstorm
+1.14	Absolute Zero
+1.15	Herald of Everfrost
+1.16	Glue Strike
+1.17	Glue Storm
+1.18	Deadeye
+1.19	Bounty Hunter
+1.20	Golden Justice
+1.21	Nomad
+1.22	Avenger
+2	Military Monkeys
+2.1	Supply Drop
+2.2	Elite Sniper
+2.3	Elite Defender
+2.4	First Strike Capability
+2.5	Pre-Emptive Strike
+2.6	Nautic Siege Core
+2.7	Monkey Pirates
+2.8	Pirate Lord
+2.9	Navarch of the Seas
+2.10	Ground Zero
+2.11	Tsar Bomba
+2.12	Goliath Doomship
+2.13	Support Chinook
+2.14	Special Poperations
+2.15	Artillery Battery
+2.16	Pop and Awe
+2.17	Rocket Storm
+2.18	M.A.D
+3	Magic Monkeys
+3.1	Summon Phoenix
+3.2	Wizard Lord Phoenix
+3.3	Magus Perfectus
+3.4	Tech Terror
+3.5	The Anti-Bloon
+3.6	Dark Knight
+3.7	Dark Champion
+3.8	Legend of the Night
+3.9	Bloon Sabotage
+3.10	Grand Saboteur
+3.11	Transforming Tonic
+3.12	Total Transformation
+3.13	Jungle's Bounty
+3.14	Spirit of the Forest
+3.15	Root of all Nature
+3.16	Arctic Knight
+3.17	Popseidon
+3.18	Thunder's Decree
+3.19	Stormwrath Archon
+4	Support Monkeys
+4.1	IMF Loan
+4.2	Monkey-Nomics
+4.3	Spike Storm
+4.4	Carpet of Spikes
+4.5	Mega Massive Munitions Factory
+4.6	Call To Arms
+4.7	Homeland Defense
+4.8	Overclock
+4.9	Ultraboost
+4.10	Master Builder
+4.11	Mega Sentry Ability
+4.12	Power Glove Ability
+4.13	Tyrannosaurus Rex
+4.14	Giganotosaurus
+5	Heroes
+5.1	Quincy
+5.2	Gwendolin
+5.3	Striker Jones
+5.4	Obyn Greenfoot
+5.5	Captain Churchill
+5.6	Benjamin
+5.7	Ezili
+5.8	Pat Fusty
+5.9	Adora
+5.10	Admiral Brickell
+5.11	Etienne
+5.12	Sauda
+5.13	Psi
+5.14	Geraldo
+5.15	Corvus
+5.16	Rosalia
+5.17	Silas
+5.18	Dan D'Monke
+6	Monkey Knowledge Points
+6.1	Emergency Unlock
+6.2	Door Gunner
+6.3	Vine Rupture
+7	Powers, Powers Pro and Premium Powers
+7.1	Tech Bot
+7.2	Battle Cat
+7.3	Super Monkey Beacon
+7.4	Hype Boost Monkey
+7.5	Tech Bot Prime
+7.6	Portable Lake Pro
+8	Removed abilities
+8.1	Soulbind
+8.2	Jungle's Bounty
+8.3	Spirit of the Forest
+9	Gallery
+9.1	Videos
+10	Trivia
+Primary Monkeys
+Super Monkey Fan Club
+
+Super Monkey Fan Club Ability
+
+This is the special ability for the Tier 4 Dart Monkey, Super Monkey Fan Club. It transforms up to 10 Dart Monkeys that are neither x-x-3+ nor 3+-x-x nor x-5-x into 0-0-0 Super Monkeys for 15 seconds.
+
+Super Monkey Fan Club Ability
+Ability: The Dart Monkey itself and up to 9 other closest Dart Monkeys below Tier 5 not upgraded to 3+-x-x or x-x-3+ are transformed into Super Monkeys temporarily.
+Type: Duration
+Duration: 15 seconds
+Cooldown: 50 seconds
+Uptime: 30%
+Initial cooldown: 16.67s (33%)
+Reduced cooldowns from: Monkey Knowledge, Relic Knowledge, Primary Mentoring buff, Primary Expertise buff, global Energizer buff, Geraldo's Rejuv Potion
+Plasma Monkey Fan Club
+
+Plasma Monkey Fan Club Ability
+
+This is the 5th tier ability for the Dart Monkey, Plasma Monkey Fan Club. Instead of transforming to 0-0-0 Super Monkeys, the ability transforms up to 20 Dart Monkeys to Plasma Monkeys, reminiscent of the 2-0-0 Super Monkey upgrade but with 2 damage instead of 1 and with 4 base pierce.
+
+Plasma Monkey Fan Club Ability
+Ability: The Dart Monkey itself and up to 19 closest Dart Monkeys not upgraded to 3+-x-x or x-x-3+ are transformed into Plasma Monkeys temporarily.
+Type: Duration
+Duration: 15 seconds
+Cooldown: 50 seconds
+Uptime: 30%
+Initial cooldown: 16.67s (33%)
+Reduced cooldowns from: Monkey Knowledge, Relic Knowledge, Primary Mentoring buff, Primary Expertise buff, global Energizer buff, Geraldo's Rejuv Potion
+Turbo Charge
+
+Turbo Charge Ability
+
+This is the ability for the Tier 4 Boomerang Monkey, Turbo Charge. Turbo Charge temporarily increases the attack speed of the Boomerang Monkey by 7x and deals +1 damage for 10 seconds.
+
+Turbo Charge Ability
+Ability: Attacks 7x faster and deals +1 damage temporarily
+Type: Duration, cannot be reactivated while active
+Duration: 10 seconds
+Cooldown: 45 seconds
+Uptime: 22%
+Initial cooldown: 15s (33%)
+Reduced cooldowns from: Monkey Knowledge, Relic Knowledge, Primary Mentoring buff, Primary Expertise buff, global Energizer buff, Geraldo's Rejuv Potion
+Perma Charge
+
+Perma Charge Ability
+
+As the Tier 5 Boomerang Monkey ability, Perma Charge keeps the same speed as turbo charge permanently, while the ability allows the Boomerang Monkey to deal +8 damage at an incredibly fast speed.
+
+Perma Charge Ability
+Ability: Deals +8 damage temporarily (Deals +10 damage if crosspathed with Red Hot Rangs)
+Type: Duration, cannot be reactivated while active
+Duration: 15 seconds
+Cooldown: 45 seconds
+Uptime: 25%
+Initial cooldown: 15s (33%)
+Reduced cooldowns from: Monkey Knowledge, Relic Knowledge, Primary Mentoring buff, Primary Expertise buff, global Energizer buff, Geraldo's Rejuv Potion
+Glaive Dominus
+
+Overcharge Ability
+
+As the Paragon for the Boomerang Monkey, the Glaive Dominus features one ability: Overcharge. Introduced in Version 53.0, the Paragon receives 10 stacks of Overcharge buffs, increasing its attack speed by 187%, with each stack applying a 0.9x attack cooldown that is depleted every 3 seconds. The ability has a cooldown of 45 seconds at degree 1, and can only be triggered if no charges remain; additionally, it requires the full initial cooldown before use as with all other Paragon abilities.
+
+Overcharge Ability
+Ability: Glaive Dominus increases its attack speed up to +187% while gaining a stack of 10 Overcharge buffs, with each stack depleting every 3 seconds with a -10% attack cooldown decrease until 30 seconds have passed.
+Type: Duration, cannot be reactivated while active
+Duration: 30 seconds
+Cooldown: 45 seconds (Degree 1)
+Uptime: 66.67% (Degree 1)
+Initial cooldown: 45 seconds (Degree 1; 100%)
+Reduced cooldowns from: Monkey Knowledge, Relic Knowledge, Extra degrees for Paragon, Nautic Siege Core buff
+MOAB Assassin
+
+MOAB Assassin Ability
+
+The Tier 4 Bomb Shooter ability belongs to the MOAB Assassin, which allows it to deal an instant 750 blimp-penetrating damage to the targeted visible blimp on screen when activated. Cooldown of 30 seconds.
+
+MOAB Assassin Ability
+Ability: Instantly deals 750 blimp-penetrating damage to the targeted visible blimp on screen
+Type: Instant, cannot activate without visible MOAB-class
+Duration: Instant
+Cooldown: 30 seconds
+Uptime: N/A
+Initial cooldown: 10s (33%)
+Reduced cooldowns from: Monkey Knowledge, Relic Knowledge, Primary Mentoring buff, Primary Expertise buff, global Energizer buff, Striker Jones' Artillery Command ability, Geraldo's Rejuv Potion
+MOAB Eliminator
+
+MOAB Eliminator Ability
+
+The Tier 5 Bomb Shooter ability belongs to the MOAB Eliminator. It is a greatly improved version of MOAB Assassin with greater damage and a 3x shorter cooldown (10 seconds instead of 30), 4500 blimp-penetrating damage to the targeted visible blimp on screen to be precise. Additionally, it has no initial cooldown.
+
+MOAB Eliminator Ability
+Ability: Instantly deals 4500 blimp-penetrating damage to the targeted visible blimp on screen
+Type: Instant, cannot activate without visible MOAB-class
+Duration: Instant
+Cooldown: 10 seconds
+Uptime: N/A
+Initial cooldown: None
+Reduced cooldowns from: Monkey Knowledge, Relic Knowledge, Primary Mentoring buff, Primary Expertise buff, global Energizer buff, Striker Jones' Artillery Command ability, Geraldo's Rejuv Potion
+Bomb Blitz
+
+There is one more Bomb Shooter ability, for the Bomb Blitz upgrade, but instead of being activatable by the press of a button, the player must let a Bloon leak or lose a life in order to trigger it. When activated, it triggers a bomb storm that damages the triggering Bloon and instantly destroys anything below ZOMG (includes DDTs), and deals 2000 damage to ZOMGs and BADs; the ability can prevent life loss if the triggering Bloon is weak enough (especially when playing on Impoppable and/or CHIMPS). Cooldown of 60 seconds.
+
+Just like Elite Defender, Bomb Blitz's passive ability can be automatically triggered by activating Ezili's Sacrificial Totem Ability. Cooldowns for Bomb Blitz can be reset with Striker Jones' Artillery Command ability or Geraldo's Rejuv Potion.
+
+Bomb Blitz Passive Ability
+Ability: If a Bloon escapes, a bomb storm will deal 2000 damage to all Bloons on screen, including the triggering Bloon.
+Type: Instant + delay
+Duration: Instant
+Cooldown: 60 seconds (ability), ~0.5s (deployment)
+Uptime: N/A
+Initial cooldown: 20 seconds (33.33%)
+Reduced cooldowns from: Primary Mentoring buff, Primary Expertise buff, global Energizer buff, Striker Jones' Artillery Command ability, Geraldo's Rejuv Potion
+Ballistic Obliteration Missile Bunker
+	
+	This section is incomplete. You can help by expanding it.
+Blade Maelstrom
+
+Blade Maelstrom Ability
+
+This is the special ability for the Tier 4 Tack Shooter, Blade Maelstrom. It covers the entire screen with spiraling blades from the tower for up to 3 seconds. These blades have 120 pierce, +40 per Path 1 crosspath (up to 200), but cannot pop Lead unless near an MIB or receives any other benefit from external sources. They also spread out the farther they fly away from the tower.
+
+Cooldown for this ability is 20 seconds.
+
+Blade Maelstrom Ability
+Ability: Produces two sprays of continuous blades clockwise (anti-clockwise with 0-4-1+) for the ability duration
+Type: Duration, cannot be reactivated while active
+Duration: Depends on crosspath
+x-4-0: 3 seconds
+0-4-1: 3.5 seconds
+0-4-2: 4 seconds
+Cooldown: 20 seconds
+Uptime: Depends on crosspath
+x-4-0: 15%
+0-4-1: 17.5%
+0-4-2: 20%
+Initial cooldown: 6.67s (33%)
+Reduced cooldowns from: Monkey Knowledge, Relic Knowledge, Primary Mentoring buff, Primary Expertise buff, global Energizer buff, Geraldo's Rejuv Potion
+Super Maelstrom
+
+Super Maelstrom Ability
+
+The Tier 5 Tack Shooter, Super Maelstrom, has an upgraded version of the Blade Maelstrom ability that makes the Blade Maelstrom ability produce twice the blades. It also deals greater damage, has 300 (+100 per Path 1 crosspath, up to 500) pierce per blade, and ability lasts much longer (9 seconds, +1.5s per Path 3 crosspath, up to 12s). Cooldown remains at 20 seconds.
+
+Super Maelstrom Ability
+Ability: Produces four sprays of continuous higher damage blades clockwise for the ability duration
+Type: Duration, cannot be reactivated while active
+Duration: Depends on crosspath
+x-5-0: 9 seconds
+0-5-1: 10.5 seconds
+0-5-2: 12 seconds
+Cooldown: 20 seconds
+Uptime: Depends on crosspath
+x-4-0: 45%
+0-4-1: 52.5%
+0-4-2: 60%
+Initial cooldown: 6.67s (33%)
+Reduced cooldowns from: Monkey Knowledge, Relic Knowledge, Primary Mentoring buff, Primary Expertise buff, global Energizer buff, Geraldo's Rejuv Potion
+Crucible of Steel and Flame
+	
+	This section is incomplete. You can help by expanding it.
+Snowstorm
+
+Snowstorm Ability
+
+Snowstorm replaces the old Absolute Zero upgrade in BTD5. The ability freezes all bloons on screen, including frozen-immune (white and zebra, but not lead unless with Cold Snap or any other source of lead-popping power), camo, and MOAB-class (but not BADs or Bosses). Additionally, all bloons on screen except lead (unless with Cold Snap or any other source of lead-popping power) are dealt 1 damage. However, the freeze duration is reduced to 3 seconds for any bloon with properties of white, camo, or MOAB-class, while other types of bloon without any of the three properties are frozen for up to 6 seconds. The freezing soaks up to 2 layers, not including MOAB-class.
+
+Cooldown is 30 seconds.
+
+Snowstorm Ability
+Ability: Immediately freezes all bloons on screen temporarily, with much less effect on white, zebra, camo, and MOAB-class
+Type: Instant
+Duration: Instant (ability), 6 seconds (freeze to bloons other than white, zebra, camo, or MOAB-class), 3 seconds (freeze to white, zebra, camo, or MOAB-class)
+Cooldown: 30 seconds
+Uptime: 20% (freeze, non-immune), 10% (freeze, immune)
+Initial cooldown: 10 seconds (33%)
+Reduced cooldowns from: Monkey Knowledge, Relic Knowledge, Primary Mentoring buff, Primary Expertise buff, global Energizer buff, Geraldo's Rejuv Potion
+Absolute Zero
+
+Absolute Zero Ability
+
+Absolute Zero is an entirely new upgrade in BTD6, improving on the potency of the Snowstorm upgrade. The ability freezes all bloons on screen, including frozen-immune, camo, and MOAB-class (but not BADs or Bosses) for the full 10 seconds duration. The freezing soaks up to 4 layers, not including MOAB-class. In addition, all Ice Monkeys attack 100% faster for 10 seconds.
+
+Cooldown is 20 seconds. Due to the way that most types of Tier 5 abilities with lower cooldowns work in the game, there is no initial cooldown for Absolute Zero's ability.
+
+Absolute Zero Ability
+Ability: Immediately freezes all bloons on screen for an extensive period, including for white, zebra, lead, camo, and MOAB-class. All Ice Monkeys attack 50% faster for 10 seconds.
+Type: Instant + duration, cannot be reactivated while active
+Duration: Instant (ability), 10 seconds (freeze), 10 seconds (buff)
+Cooldown: 20 seconds
+Uptime: 50% (freeze), 50% (buff)
+Initial cooldown: None
+Reduced cooldowns from: Monkey Knowledge, Relic Knowledge, Primary Mentoring buff, Primary Expertise buff, global Energizer buff, Geraldo's Rejuv Potion
+Herald of Everfrost
+	
+	This section is incomplete. You can help by expanding it.
+Glue Strike
+
+Glue Strike Ability
+
+Glue Strike, the Tier 4 Glue Gunner's ability, glues all bloons on screen immediately upon activation, and affected bloons including MOAB-class bloons are vulnerable to +2 damage for the duration of the glue. The ability glue can soak up to 3 layers, or all standard bloons with Glue Soak. It does not soak through MOAB-class layers. Glued bloons are soaked for standard duration based on the glue of itself. Also causes all Lead properties to be rendered ineffective while attached on bloons.
+
+Cooldown is 30 seconds.
+
+Glue Strike Ability
+Ability: Immediately glues all bloons on screen. Bloons affected are vulnerable to +2 damage and Lead Bloons vulnerable by Sharp damage Type attac

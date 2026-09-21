@@ -1,0 +1,163 @@
+BTD6BTDB2
+Dark Knight
+General Information
+Game
+Bloons TD 6
+Tower
+Super Monkey
+Unlocked at
+6,500 XP
+Cost
+$4,760 (Easy)
+$5,600 (Medium)
+$6,050 (Hard)
+$6,720 (Impoppable)
+Activated Ability
+Darkshift
+Targeting Options
+First, Last, Close, Strong,
+Camo Prioritization
+Camo Detection
+Yes
+Other Names
+DK
+DKnight
+Popology
+Path Upgrades
+← Previous
+Current
+Next →
+
+Ultravision
+
+Dark Knight
+
+Dark Champion
+
+Path Info
+Path
+Upgrade Tier
+3
+3
+
+[Source]
+
+“	Dark blades increase knockback and pierce and deal extra damage to MOAB-class Bloons. Gains Darkshift ability to shift to a nearby location.	”
+	~ In-game description	
+
+Dark Knight is the third upgrade on Path 3 for the Super Monkey in Bloons TD 6. It replaces the Super Monkey's darts with dark blades that deal +2 damage to MOAB-class Bloons and can deal extra knockback versus Leads and Ceramics, specifically at -90% speed instead of -60% speed (although the Dark Knight upgrade by itself cannot pop lead bloons). Additionally, it gains a new special ability named "Darkshift" that allows it to teleport to anywhere within its range, with a cooldown of 20 seconds.
+
+Dark blades deal 3 damage to MOAB-class Bloons, as well as +1 Camo damage due to Ultravision. They also have +3 extra pierce, giving 4 pierce overall (+1 with any Path 1 crosspath, or +1 with 0-1-3 plus another +2 with 0-2-3).
+
+This upgrade costs $4,760 on Easy, $5,600 on Medium, $6,050 on Hard, and $6,720 on Impoppable.
+
+Contents
+1	Description
+1.1	Overview
+1.2	Activated Abilities
+1.3	Targeting Priorities
+1.4	Costs
+2	Strategy
+2.1	Summary
+2.2	Tips
+3	Version History
+3.1	Balance Changes
+3.2	Bug Fixes and General Changes
+3.3	Extra Notes (Version History)
+4	Bugs
+5	Sounds
+6	Gallery
+6.1	Official artwork
+6.2	Projectiles
+7	Trivia
+Description
+Overview
+
+Dark Knight
+
+The Dark Knight changes from a comic-book hero style outfit to a dark vigilante suit. The monkey gains black gloves. Most of the Dark Knight's outfit is black or dark grey, and throws dark blades instead of darts. Its cape loses the dart and circle logo, instead gaining thick vertical subtly dark stripes on the cape.
+
+Crosspathing with path 1 adds a single-lens set of laser goggles, then swaps them for a three-lens set of plasma goggles. Crosspathing with path 2 adds 1-2 golden stripes on its head.
+
+Dark Knight retains all the functionality of Ultravision, whilst gaining +2 MOAB damage (for 3) and +3 pierce (for 4) on its attack. It additionally improves lead/ceramic knockback to a 90% slowdown, from 60%. Additionally, the Dark Knight receives the Darkshift ability, which allows it to teleport anywhere within its own range on a 20 second cooldown.
+
+Activated Abilities
+See also: Activated Abilities (BTD6)#Dark Knight
+
+Darkshift Ability
+
+Unlike most Tier 3 upgrades, the Dark Knight has an ability called "Darkshift". It teleports the Dark Knight to any land location within its immediate range. It takes around ~0.25s to teleport. Cooldown of 20 seconds.
+
+Like most magic-based activated abilities, Dark Knight's ability cooldowns can be reduced by adding a global Energizer buff or Obyn Level 12+. It can have its ability cooldowns reset with Geraldo's Rejuv Potion. Like other activated abilities involving selection menus, Darkshift is unaffected by Tech Bot.
+
+Targeting Priorities
+
+Dark Knight targets bloons using the standard targeting priorities. It shoots straight movement projectiles.
+
+First: Targets the first bloon visible within its range.
+Last: Targets the last bloon visible within its range.
+Close: Targets the closest bloon visible within its range.
+Strong: Targets the strongest bloon visible within its range.
+
+Dark Knight can access Camo Prioritization, allowing all its attacks to prioritize Camo Bloons over other types when this secondary targeting option is active.
+
+Costs
+Updated as of Version 56.0. Listed prices exclude external buffs, any sacrifices, and Monkey Knowledge.
+[Module | Data]	Purchase	Sell
+Costs	Easy	Medium	Hard	Impoppable	Easy	Medium	Hard	Impoppable
+Upgrade (X-X-3)	$4,760	$5,600	$6,050	$6,720	-
+Total (0-0-3)	$10,455	$12,300	$13,285	$14,760	$7,319	$8,610	$9,300	$10,332
+Crosspath (1-0-3)	$12,155	$14,300	$15,445	$17,160	$8,509	$10,010	$10,812	$12,012
+Crosspath (2-0-3)	$14,280	$16,800	$18,145	$20,160	$9,996	$11,760	$12,702	$14,112
+Crosspath (0-1-3)	$11,730	$13,800	$14,905	$16,560	$8,211	$9,660	$10,434	$11,592
+Crosspath (0-2-3)	$13,345	$15,700	$16,955	$18,840	$9,342	$10,990	$11,869	$13,188
+
+This upgrade's prices (or included crosspath's prices) are affected by the following MK:  Better Sell Deals
+
+Strategy
+Summary
+
+Dark Knight is an effective mid-game option at countering MOAB-class bloons and dealing decent cleanup against regular bloons. With the favorable Plasma Blasts crosspath, Dark Knight is effective at taking down MOAB-class bloons at a relatively low cost compared to alternate Tier 3 Super Monkey options, Sun Avatar and Robo Monkey. The additional benefit of Dark Knight is that it comes with an activated ability that allows it to teleport within its direct range, which can come in handy in a handful of tricky situations. Like all Tier 3 Super Monkeys, Dark Knight benefits from Monkey Commerce discounts and pairs well with Obyn Greenfoot and Alchemist buffs.
+
+Tips
+Dark Knight gains significant increases in overall DPS and utility, including knockback and teleportation range, from crosspaths. As a general rule of thumb, the top crosspath Dark Knight offers overall DPS and popping of Frozen and Leads, whereas the middle crosspath Dark Knight gives a large pierce boost and better utility in terms of knockback and its unique localized teleportation.
+Generally, a 2-0-3 Dark Knight is better, as it can pop DDTs without extra support (such as MIB, Gwendolin Level 4+, or Acidic Mixture Dip), has double attack speed, and gains +1 pierce on top of the bonus +4 pierce that Dark Knight comes with by default.
+Occasionally, a 0-2-3 Dark Knight is useful, but only in cases where range and projectile speed are of a greater considerable importance. Specifically, Epic Range now adds extra projectile speed and pierce as of Version 10.0 and Version 25.0, and 0-2-3 has more pierce than 2-0-3 as of Version 30.0.
+1-0-3 Dark Knight is not more useful than a 0-2-3 Dark Knight, as all Laser Blasts does is increase pierce by +1, grant Frozen Bloon popping, and prevent the Super Monkey from popping Purples. Compared to the 0-2-3 Dark Knight, the bonus range and projectile speed outweighs most of these single benefits from Laser Blasts, unless further upgraded to Plasma Blasts.
+Additionally, adding a specific MK will allow Super Monkeys to pop Frozen Bloons by default regardless of upgrades (except on CHIMPS Mode or on challenges where MK is disabled).
+2-0-3 Dark Knights make considerably decent poppers of MOAB-class bloons, especially to DDTs, but they themselves may struggle to solo the Ceramics inside. Additional support may be required to pop the Ceramics that come out of the DDTs, such as a Bloonjitsu with Distraction, a Druid of the Storm (but not to Camo Ceramics). In contrast, the 0-2-3 has less trouble at clearing up Super Ceramics, as its much higher pierce and range allows it to hit many more targets per shot, but is weak to DDTs.
+0-2-3 Dark Knight is a viable option when trying to utilize the most of the new "Darkshift" ability, as the longer range makes it capable of travelling further per ability use. In combination with the large pierce gain, the 0-2-3 Dark Knight can be utilized for long-distance rapid damage.
+The 2-0-3 Dark Knight pairs well with Etienne during the mid-game, as it deals effective MOAB-class damage and decent bloon damage while UCAV is under cooldown. In addition, it can also help UCAV focus on more important MOAB-class targets by destroying MOAB-class bloons quicker so that UCAV can attack other strong targets.
+An uncrosspathed or 0-X-3 Dark Knight is capable of utilizing buffs from Geraldo's Sharpening Stone, allowing it to gain extra pierce and damage, which pairs well with the Dark Knight's improvements to Knockback. Support will be necessary to counter DDTs; invest in Embrittlement or a Monkey Intelligence Bureau to patch up the Dark Knight's lead vulnerability.
+Version History
+Balance Changes
+
+Dark Knights were a popular option back when BTD6 was first released, due to their high blimp damage potential for low cost. Regardless, Dark Knights were buffed overall in various updates. The non-crosspathed and 0-2-3 crosspath were buffed even greater with the buffs the upgrade itself has received. The added activated ability for teleportation also adds a unique aspect to the Super Monkey that no other Super Monkey upgrade can utilize. Version 28.0 nerfed its Lead and Ceramic slowdown slightly, as many elite players found Dark Knight to be extremely versatile for both the mid-game and late-game, all at a rather low overall cost.
+
+10.0
+ Dark Knight pierce increased (2 → 3)
+12.0
+ Indirect buff, as the Knockback upgrade applied decreased knockback to Leads, Fortified, and Ceramics (from -100% → -60%), but upgrading to Dark Knight restores the full -100% to these types.
+17.0
+ Gains 'Darkshift' ability which allows the Dark Knight to teleport anywhere in a short radius. Upgrading to Dark Champion will let the Super Monkey teleport anywhere.
+17.1
+Resolved an issue attempting to redeploy a Dark Knight during Dark shift
+Resolved an issue where Dark Knight's placed on Arctic Wind platforms could teleport onto water, instantly causing them to sell themselves
+Resolved a crash with Techbotting Dark Knight
+20.0
+“	[...] In addition to this, Dark Knight's reliance on Alchemist/Obyn to reach a reasonable pierce value made it too difficult to enjoy teleporting around using Dark Knight's new ability so we tried to cut out that dependency with a sizable pierce increase.	”
+	~ Ninja Kiwi	
+ Dark Knight has increased pierce (3 → 5). Does not affect Dark Champion.
+22.0
+Dark Knight resolved an issue with placement when Darkshifting
+28.0
+“	[...] Dark Knights have been feeling strong with their stalling power but we don't want to hit this too hard just yet so have reduced the slow amount slightly and restored it at the T4.	”
+	~ Ninja Kiwi	
+ Affected by Ultravision adding Camo Prioritization target option
+ Dark Knight lead/ceramic slow amount decreased from 100% → 90%. Dark Champion lead/ceramic slow remains at 100%
+30.0
+“	We wanted some more meaning to middle path being a pierce choice aside from just being cheaper, so we’ve lowered Plasma Blast pierce but reduced its price. Sun Avatar and Robo Monkey have had small price decreases while Dark Knight has had a small increase to line the T3s a little closer up. [...]	”
+	~ Ninja Kiwi, referring to nerfing 2-0-3 Dark Knight	
+ Dark Knight price $5500 → $5600
+31.0
+“	Robo didn't need to lose pierce in the last Super Monkey T2 rework, and Dark Knight feels like it has too much pierce without ever considering the pierce crosspath. So to balance these together we've taken out pierce from Dark Knight and added it ba

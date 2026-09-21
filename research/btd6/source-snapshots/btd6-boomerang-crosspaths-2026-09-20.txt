@@ -1,0 +1,128 @@
+In Bloons TD 6, it is important to choose the best crosspathing for a specific tower in order to receive the best benefits out of that tower type. Towers have special roles to play for each stage of the game. The Boomerang Monkey in its core is a source of high pierce along a specific trajectory.
+
+Contents
+1	Introduction
+2	Upgrades
+2.1	Tier 2 and below
+2.1.1	Base Tower and Tier 1 Crosspaths
+2.1.2	Tier 2 Crosspaths
+2.2	Upper Path 1
+2.2.1	Glaive Ricochet
+2.2.2	MOAR Glaives
+2.2.3	Glaive Lord
+2.3	Upper Path 2
+2.3.1	Bionic Boomerang
+2.3.2	Turbo Charge
+2.3.3	Perma Charge
+2.4	Upper Path 3
+2.4.1	Kylie Boomerang
+2.4.2	MOAB Press
+2.4.3	MOAB Domination
+3	Strategy
+Quick Answers
+How does the Boomerang Monkey's attack speed compare to the Dart Monkey and Bomb Sho?
+What is the role of the Boomerang Monkey in each stage of the game?
+What is the best path for a Glaive Lord crosspath?
+What makes the Boomerang Monkey a source of high pierce in Bloons TD 6?
+Introduction
+
+The core of Boomerang Monkey is its high pierce potential and its boomerangs thrown in an arc. It normally attacks considerably slower than a Dart Monkey, but it still generally faster than the Bomb Shooter.
+
+When it comes to Tier 3+ upgrades. The Boomerang Monkey changes a lot. Path 1 converts its attacks into a ricocheting behavior, which means optimizing where it can shoot becomes more important than optimizing the boomerang-throwing curvature. Path 2 retains the traditional curved boomerang throwing patterns, and centers mostly around greater attack speed. Path 3 converts its curved attacks into straight-line attacks, making straightaway action more of a key factor to take into account. Path 3 is also centered around popping M.O.A.B class bloons effectively.
+
+Upgrades
+Tier 2 and below
+Base Tower and Tier 1 Crosspaths
+Improved Rangs
+Faster Throwing
+Long Range Rangs
+0-0-0: Base boomerang is ok for tightly packed rounds, but 1-0-0 and 2-0-0 are better options. Base Boomerang is generally just fine. But make sure to place where the boomerangs go as much on the track as possible.
+1-0-0: Can be handy for beating Round 4 for a low price.
+0-1-0: It increases attack speed for the Boomerang Monkey, which can be useful in some cases.
+0-0-1: A large range increase to make the Boomerang Monkey reach further. Also changes the arc for the Boomerang Monkey, but this may not always be the best upgrade to choose in itself, unless wanting to go for 0-0-2.
+1-1-0: Combines the bonus pierce of Improved Rangs with faster attack speed, which should make its high pierce attacks more consistent.
+1-0-1: More range and a wider arc can be helpful, but the wider arc isn't much of a necessity in most situations. This does modify the arc, so it can be somewhat useful in limited cases.
+0-1-1: Faster attack speed with more range and a wider curvature. Usually a stepping stone for 0-2-2.
+Tier 2 Crosspaths
+Glaives
+Faster Rangs
+Red Hot Rangs
+2-0-0: Contains a significant amount of pierce for its price. Useful in the early-game for countering grouped bloons.
+0-2-0: This synergizes well with the other two paths by allowing them to utilize their abilities much more often.
+0-0-2: Cheapest option to pop Lead Bloons with a Boomerang Monkey. Also increases the damage of the boomerang.
+2-1-0: Hybridizes pierce with a small speed bonus. Compared to 1-2-0, it is better at piercing but less consistent DPS.
+2-0-1: Glaives with more range.
+1-2-0: Hybridizes moderate speed bonus with a chunk of extra pierce. Compared to 2-1-0, it is better at consistent DPS but has less overall DPS if consuming all pierce.
+1-0-2: A piercing Red Hot Rangs.
+2-2-0: Hybridizes pierce with a moderate speed bonus. It is essentially a less upgraded version of a 2-3-0 Bionic Boomerang without the bonus blimp damage.
+2-0-2: A piercing Red Hot Rangs with lots of pierce. Good for early lead rounds, and, with camo buffing, even good for Round 59, with help for the other Bloons. The latter camo buffing option is outclassed by 0-2-2 wizard. See that for more info.
+0-2-1: You should usually go for 0-2-2 unless budget doesn't allow it.
+0-1-2: Basically a Red Hot Rangs with faster attack speed. Mostly a stepping stone to 0-2-2, but does decently at carrying rounds on early-game CHIMPS.
+0-2-2: An even faster Red Hot Rangs. Mostly a stepping stone for the Tier 3 upgrades.
+Upper Path 1
+Glaive Ricochet
+3-0-0: Glaive Ricochet removes the curvature aspect of the boomerang in favor of a massive increase of pierce and an aggressive seeking Glaive that follows along the track. Crosspathing can help increase the potential of Glaive Ricochet.
+3-1-0: Increases the rate of throwing ricocheting glaives. Use 3-2-0 for the best results.
+3-2-0: Gains an optimum attack speed bonus. Best synergized with buffs such as from Alch buffs so that the 3-2-0 can compete over 3-0-2.
+3-0-1: Gains a minor range boost. Since the Glaives will most likely be out of the range of the Glaive Ricochet, it is only purchased as a stepping stone.
+3-0-2: Gives extra damage on a high pierce tower and lead popping makes it maximize its damage output. In most cases, it is the optimal crosspath versus bloons.
+MOAR Glaives
+4-0-0: M.O.A.R increases attack speed, jump distance between bloons, pierce, gains bonus damage to Ceramics, and its glaives can travel through obstacles. Crosspathing is immensely helpful in utilizing the increase in stats further.
+4-1-0: Gains an appreciable speed bonus. Usually a stepping stone for 4-2-0.
+4-2-0: As it can attack fast enough to use up all the shots of an Alchemist buff, but slow enough to get good uptime, you can go for this crosspath. Choosing this crosspath also makes more use of the +1 Ceramic damage, making it somewhat better than 4-0-2 for late-game at the exchange of being somewhat weaker at skipping layers for the mid-game.
+4-0-1: Same principles as 3-0-1
+4-0-2: In most scenarios this is the best option as it basically doubles the damage of the M.O.A.R Glaives, which combined with the stat increases from Glaive Ricochet into M.O.A.R. Glaives can make M.O.A.R. Glaives a terror in mid-game, particularly by skipping more layers and thus inflicting more damage to stronger bloons.
+Glaive Lord
+5-0-0: Gains orbital glaives that shred through bloons and camo bloons, though the main tower still can't see camo bloons. Just like its preceding upgrade, crosspathing will allow Glaive Lord to maximize its potential. In addition, Glaive Lord's main attack gains the shredding effect, which slowly rips apart the first bloon hit, and these glaives deal extra damage to all bloons. Crosspathing greatly increases potential of Glaive Lord's popping power.
+5-1-0: Gains an appreciable speed bonus for the main glaive only. Usually a stepping stone for 5-2-0.
+5-2-0: This crosspath suffered a severe nerf in 27.0, so that it is now pointless. Before 27.0, this crosspath was preferred in order to optimize the shredding effect by having it stack faster. In 27.0, the shredding was reworked so that it dealt much higher damage per shred cycle but can no longer be stacked. There is a very slight advantage over 5-0-2 if targeting multiple MOABs instead, but even then it's still hard to pull off and generally not worthy of a pursue.
+5-0-1: Starting from Version 29.0, the rotating glaives do increase in range when this crosspath is purchased.
+5-0-2: Use this crosspath if you want to optimize the spinning glaives as it gives an extra +1 damage to them and it allows them to pop lead and frozen bloons. This is the recommended crosspath as of version 27.0, since it is the only crosspath that aids the Glaive Lord's exclusive attacks.
+Upper Path 2
+Bionic Boomerang
+0-3-0: Bionic Boomerang is usually a stepping stone for Turbo Charge but it can dish out a good amount of DPS on its own when crosspathed. Bionic Boomerang gains a decent amount of attack speed along with +2 MOAB-class damage, which means crosspathing will optimize its power greatly for its needs.
+1-3-0: Adds a considerable amount of pierce to each boomerang, +4 to be specific, but this is normally just a stepping stone towards the 2-3-0 crosspath, which provides the most amount of bonus pierce.
+2-3-0: Useful due to that fact that it can pop a lot more bloons extremely fast. In fact, 2-3-0 is very useful for handling various non-lead bloon types during the early-game and mid-game due to how universally viable it is at handling both grouped and spaced bloons.
+0-3-1: Range isn't the most important aspect of Boomerang Monkeys in general so this is usually a stepping stone.
+0-3-2: Adds more damage per shot and can pop Frozen and Lead, making it better against single-target and specialised bloons. Usually the preferred crosspath if you are going 0-5-2 because Permacharge deals lots of bonus damage with this crosspath, especially to MOABs and Bosses.
+Turbo Charge
+0-4-0: Turbo Charge adds an ability that allows the Boomerang Monkey to throw boomerangs 7x faster and deal +1 damage for a limited time. Unlike most abilities, Turbo Charge's abilities are directly affected by crosspaths, however, the principles of its preceding upgrade retain here. Also take into account the +2 MOAB-class damage inherited from Bionic Boomerang, as this specific bonus damage scales much more for Turbo Charge.
+1-4-0: Adding more pierce to the Turbo Charge directly affects its ability, allowing its ability to let that Turbo Charge pierce more bloons. It has around twice the pierce compared to the 0-4-0, making it stronger against grouped waves. Of course, the upgraded crosspath 2-4-0 is still preferable for the maximum pierce.
+2-4-0: An even better pierce buff that has the capability to deal a big chunk of damage to densely clumped bloons. Moderately clumped bloons will become shredded easily with 2-4-0.
+0-4-1: As with 0-3-1, range isn't the most important aspect for Turbo Charge, given that boomerangs cover a wide arc already and its ability doesn't need a wider arc. Mostly a stepping stone to 0-4-2 Turbo Charge.
+0-4-2: As with 0-3-2, 0-4-2 is better for single-target damage and receives lead-popping power. In practice, it is noticeably stronger at handling single-target blimps but tends to struggle at handling the offspring of the blimps due to lacking any Path 1 crosspathing.
+Perma Charge
+0-5-0: Perma-Charge now attacks like a permanent Turbo Charge ability with it's ability increasing the damage of its attacks. Crosspathing should depend on whether you are using Perma Charge to take out groups of weaker bloons or strong single bloons.
+1-5-0: See 2-5-0
+2-5-0: The best crosspath in most scenarios, as it gains triple pierce, allowing it to shred through MOABs and ceramics easily in late game without getting blocked and dealing more grouped damage than 0-5-2. However, it requires MIB to pop DDTs which is inefficient due to it requiring at least $10,950 on medium to pop leads (which the same thing can be done with X-X-2 for a measly $300 on medium) and it misses out on the benefits of upper Path 1 Monkey Village upgrades.
+0-5-1: Generic range stepping stone.
+0-5-2: Good only if Perma Charge has no way to allow it to pop leads. The very low pierce but high single-target damage when the ability is activated makes it a force to be reckoned with against single-bloon rounds due to the 10 additional damage it gains with the ability for a total of 18 damage per boomerang when the ability is active. This crosspath is more desirable if opting for Primary Training and its subsequent upgrades for buffs, since it only requires Radar Scanner plus this crosspath to pop DDTs instead of MIB. Primary Training and its subsequent upgrades also notably helps with pierce issues and ability cooldowns in conjunction with the ballista attack, which can allow Perma Charge to focus on blimps, where it excels at, all for a much cheaper price than Middle Path Monkey Village and provides these buffs 100% of the time.
+Upper Path 3
+Kylie Boomerang
+0-0-3: Kylie Boomerang changes path pattern of the boomerang to be thrown in a straight forward-and-backwards formation. These boomerangs also can rehit the same bloon more than once and gains a much higher pierce. Crosspathing is worth having for this upgrade to increase its middle early-game potential. Path 1 doesn't amplify its pierce as much as the other Boomerang crosspaths do, so Path 2 is generally the best for its DPS.
+1-0-3: Kylie Boomerang with extra 4 pierce better for straight line bloons rush.
+2-0-3: This crosspath is very useful for handling straight line amount bloons even better than 1-0-3, especially for contact damage.
+0-1-3: Only getting small amount extra attack speed so in general so this is usually a stepping stone.
+0-2-3: Gains even more attack speed and boomerangs move faster. Bear in mind that faster boomerangs aren't always better for rehitting bloons, but the extra attack speed is worth because of adding consistency to each shot.
+MOAB Press
+0-0-4: MOAB Press serves as a cost-effective means of pushing MOAB-Class Bloons backwards, especially if slowed or stunned by another tower. It should be crosspathed to enhance its knockback potential.
+1-0-4: Gains more pierce for knockback boomerangs, the main value of this crosspath. 2-0-4 is still better off because it provides significantly better effects.
+2-0-4: This crosspath grants both much more pierce and 50% more knockback for all knockback boomerangs. It is thus the most optimized crosspath for Round 98 and other comparable dense blimp rounds.
+0-1-4: Sometimes, 0-1-4 can be used to de-sync MOAB Presses, but this is rarely utilized and not normally necessary due to Presses de-syncing anyway due to range differences.
+0-2-4: Providing the maximum bonus attack internal attack speed, this is the most versatile crosspath for pushing back blimps. More reliable at knocking back spaced blimps and is better against MOABs and visible DDTs.
+MOAB Domination
+0-0-5: Stronger boomerangs and all anti-MOAB boomerangs become flammable explosives that deal huge damage. Crosspathing is important for maximum DPS and knockback.
+1-0-5: Does not improve the explosion or napalm at all, and the only bonus to its anti-MOAB boomerangs are just more pierce as 1-0-4 MOAB Press would.
+2-0-5: Gains extra explosion radius and explosion pierce. However, these bonuses are very minor in comparison to a faster firing rate offered by Path 2. Plus, the bonus +50% knockback offered via the 2-0-4 MOAB Press is redundant here because MOAB Domination is mostly a DPS tower more than a support-oriented tower.
+0-1-5: See 0-2-5
+0-2-5: Much faster rate of throwing anti-MOAB boomerangs increases its rate of producing flammable explosions and therefore much more DPS. Also higher rate of knockback. Unanimously the superior crosspath for MOAB Domination and fire too.
+Strategy
+
+Turbo Charge is a unique upgrade because its one of the few abilities that is directly affected by crosspathing. Crosspathing with its next upgrade, Perma Charge, usually comes down to whether the player needs to. 2-5-0 is usually a better crosspath than 0-5-2 due to the fact that it handles groups of bloons much better than 0-5-2 and it won't get blocked from using its returning hitbox as often as 0-5-2. However, there is merit to using 0-5-2. This crosspath is usually preferred with strategies that will prevent Perma Charge from getting their shots blocked since its when its ability is activated, it gains an additional 8 damage, which makes it better for single target damage.
+
+Show
+v • d • e
+Crosspathing
+Show
+v • d • e
+Boomerang Monkey (a.k.a. Boomerang Thrower, Boomerang)

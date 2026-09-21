@@ -1,0 +1,239 @@
+{
+  "consolidated_on": "2026-09-21",
+  "entries": [
+    {
+      "original_path": "btd6_README.txt",
+      "path": "research/btd6/raw/btd6_README.txt",
+      "sha256": "3b420a3067a7a7af3cdf0ff476d9ef9377073bdd64c488944e33a2dc7a57008f",
+      "action": "moved_byte_identical"
+    },
+    {
+      "original_path": "btd6_abilities.csv",
+      "path": "research/btd6/raw/btd6_abilities.csv",
+      "sha256": "26d8137e02969ae199d550286469d2b72d235bf4b380db4bc0380d31177e8883",
+      "action": "moved_byte_identical"
+    },
+    {
+      "original_path": "btd6_tower_reference.md",
+      "path": "research/btd6/raw/btd6_tower_reference.md",
+      "sha256": "4377413889938e9ed670e100b76b5b5830fa691a6307f2e37a984753b2281aee",
+      "action": "moved_byte_identical"
+    },
+    {
+      "original_path": "btd6_towers.csv",
+      "path": "research/btd6/raw/btd6_towers.csv",
+      "sha256": "090458a73afd6842728418def9bd16513fb1d751da0675b878d4811e3db2f301",
+      "action": "moved_byte_identical"
+    },
+    {
+      "original_path": "btd6_towers.json",
+      "path": "research/btd6/raw/btd6_towers.json",
+      "sha256": "a2a5e2bb4591a6278f079a6796d06f76428716080bd4a42453f898cb1403f8f6",
+      "action": "moved_byte_identical"
+    },
+    {
+      "original_path": "btd6_towers.xlsx",
+      "path": "research/btd6/raw/btd6_towers.xlsx",
+      "sha256": "7d5732e9ae596974ecbb66b339f4a720a516f72b31e5efe5ad335e18d9adfb6f",
+      "action": "moved_byte_identical"
+    },
+    {
+      "original_path": "btd6_upgrades.csv",
+      "path": "research/btd6/raw/btd6_upgrades.csv",
+      "sha256": "291ba1a8604849c92a824bb841cbc4218979ab715d0bb5456a1aa5e7c59e2c26",
+      "action": "moved_byte_identical"
+    },
+    {
+      "original_path": "towerdefense_categories.json",
+      "path": "research/btd6/raw/towerdefense_categories.json",
+      "sha256": "556140b4a91ee3ed4a0c8f7008a91ec8a6fbe645c73357ecc937f69a2ec7f456",
+      "action": "moved_byte_identical"
+    },
+    {
+      "original_path": ".runs/Boomerang_Monkey_(BTD6)-upgrade-reference.txt",
+      "path": "research/btd6/source-snapshots/Boomerang_Monkey_(BTD6)-upgrade-reference.txt",
+      "sha256": "ba5441ae490ce21eb2fb4c01bc671d8a9e0278f81ecefce3f9c0d13f9285aa6b",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".runs/Dart_Monkey_(BTD6)-upgrade-reference.txt",
+      "path": "research/btd6/source-snapshots/Dart_Monkey_(BTD6)-upgrade-reference.txt",
+      "sha256": "95a9db88113582901fba26d4dcd2f65eaa18597500badd768f73303c7671f721",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-abilities.txt",
+      "path": "research/btd6/source-snapshots/btd6-abilities.txt",
+      "sha256": "ee2e1f792a589215a1f6a16aa0a3074d4cc917860cfd0f1ea0bb3b029a8fe845",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-access-notes.md",
+      "path": "research/btd6/source-snapshots/btd6-access-notes.md",
+      "sha256": "e046833a1ff730c21a86969951177e8a924436bb89ab0bf6fdafddfdd38f5a02",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-activated-abilities.txt",
+      "path": "research/btd6/source-snapshots/btd6-activated-abilities.txt",
+      "sha256": "adb3022abf8f5366a575a663e80bdb57fbeca13768a05cd880961d591c1a356d",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-beast-handler.txt",
+      "path": "research/btd6/source-snapshots/btd6-beast-handler.txt",
+      "sha256": "ce81f29fd29ba14e3bf724b27f331e5dc029108b8fcc16c3ab03115315d1ddb7",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-boomerang-2026-09-20.txt",
+      "path": "research/btd6/source-snapshots/btd6-boomerang-2026-09-20.txt",
+      "sha256": "58132d49ee4a7fccaf0c14a05425e8f981742ec66519d7cb36612d337be7c555",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-boomerang-crosspaths-2026-09-20.txt",
+      "path": "research/btd6/source-snapshots/btd6-boomerang-crosspaths-2026-09-20.txt",
+      "sha256": "0bd98d903859bc7cccc82a5cb80486ff9475c625202e9fa79622b92e457778a8",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-crosspath.txt",
+      "path": "research/btd6/source-snapshots/btd6-crosspath.txt",
+      "sha256": "5f04145ad3a6ee5f89f1e158165360aa104a330aa0262b852abb8536e1c94f6c",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-dark-knight.txt",
+      "path": "research/btd6/source-snapshots/btd6-dark-knight.txt",
+      "sha256": "04c08de0cb1dd06220dc18a37f7a08887cb3bd20afe352b2cfd3def8f5c1f4cf",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-dart-2026-09-20.txt",
+      "path": "research/btd6/source-snapshots/btd6-dart-2026-09-20.txt",
+      "sha256": "ad4bd7a0b70ad832d033646ed17a91d6c92373c6cd732420b01afa146bece036",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-dart-crosspaths-2026-09-20.txt",
+      "path": "research/btd6/source-snapshots/btd6-dart-crosspaths-2026-09-20.txt",
+      "sha256": "bac738104111a9c8769fdd1d8e58956ad59cb4c6446cb442a03b7ac904bd8f9f",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-engineer-2026-09-20.txt",
+      "path": "research/btd6/source-snapshots/btd6-engineer-2026-09-20.txt",
+      "sha256": "4e74eac32b3d1beb18a4bf34bbd8cb2c8bf348af085c33e656104b7e002a2dfb",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-engineer-crosspaths-2026-09-20.txt",
+      "path": "research/btd6/source-snapshots/btd6-engineer-crosspaths-2026-09-20.txt",
+      "sha256": "8fc9c33600a26b757347b7bd70bd531e360897ef2f4fedca2ee8945b07e02e29",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-farm.txt",
+      "path": "research/btd6/source-snapshots/btd6-farm.txt",
+      "sha256": "24444857782701428177834281d9e4752c3a544a474355136e5f2e184e56d980",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-sniper-2026-09-20.txt",
+      "path": "research/btd6/source-snapshots/btd6-sniper-2026-09-20.txt",
+      "sha256": "3a29294eaab1e26848097ecab59aa906d892ca54ecd95e976671f8c49626fe59",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-sniper-crosspaths-2026-09-20.txt",
+      "path": "research/btd6/source-snapshots/btd6-sniper-crosspaths-2026-09-20.txt",
+      "sha256": "758bf2ba97a9edcd6110c26233bd5d55333771a06cc10699f5d88bad04454b79",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-towers.txt",
+      "path": "research/btd6/source-snapshots/btd6-towers.txt",
+      "sha256": "f973ef975a95007df0938329d9b7cd0cc222ddf634758cdb887dddc14881648b",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-upgrades.txt",
+      "path": "research/btd6/source-snapshots/btd6-upgrades.txt",
+      "sha256": "f5f7aa21ccd38a68c60ddfe3f4468577ffbb4ee2a58a6b6ec80b0c42ac6a1e40",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-village-2026-09-20.txt",
+      "path": "research/btd6/source-snapshots/btd6-village-2026-09-20.txt",
+      "sha256": "7ae2475c3edbebd165a6f7b23424583941bd7a57c1020619d67cab8cab5e6615",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-wizard-2026-09-20.txt",
+      "path": "research/btd6/source-snapshots/btd6-wizard-2026-09-20.txt",
+      "sha256": "4650d7fcce34b9102b1e57750a162198ab4355b5ab8bcb9696ecf7e3f7789c9c",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/btd6-wizard-crosspaths-2026-09-20.txt",
+      "path": "research/btd6/source-snapshots/btd6-wizard-crosspaths-2026-09-20.txt",
+      "sha256": "004c7a5f0f0f2f74c91bf6b3f1d6d98c4a1198a7619596b0f43cf4d1f31e282e",
+      "action": "copied_byte_identical",
+      "qualification": "Retained local research snapshot, not independently refreshed or patch verified. Original remains ignored."
+    },
+    {
+      "original_path": ".scratch/notes/ninjakiwi.com-Bloons-TD-6.html.html",
+      "path": "research/btd6/source-snapshots/ninjakiwi.com-Bloons-TD-6.html.html",
+      "sha256": "51f7cf8c328285eeb730eac1c3cc77536d097013d290a310eaa14726aff1354f",
+      "action": "copied_byte_identical",
+      "qualification": "Previously retained official product page snapshot; not a current mechanics specification."
+    },
+    {
+      "original_path": ".scratch/notes/ninjakiwi.com-Bloons-TD-6.html.txt",
+      "path": "research/btd6/source-snapshots/ninjakiwi.com-Bloons-TD-6.html.txt",
+      "sha256": "4f5391c5c4276edfe97553221357f86400e4143c407817632e469a864ff0b788",
+      "action": "copied_byte_identical",
+      "qualification": "Previously retained official product page snapshot; not a current mechanics specification."
+    },
+    {
+      "original_path": ".scratch/notes/store.steampowered.com-Bloons_TD_6.html",
+      "path": "research/btd6/source-snapshots/store.steampowered.com-Bloons_TD_6.html",
+      "sha256": "22eec2c244cb0c06fe62a25b1bf31eb061491242a51ea4250870e19221404bf8",
+      "action": "copied_byte_identical",
+      "qualification": "Previously retained official product page snapshot; not a current mechanics specification."
+    },
+    {
+      "original_path": ".scratch/notes/store.steampowered.com-Bloons_TD_6.txt",
+      "path": "research/btd6/source-snapshots/store.steampowered.com-Bloons_TD_6.txt",
+      "sha256": "8bd52603502acc1381b3554458f65688f7d1e65f6038ae8560fb252ef112636b",
+      "action": "copied_byte_identical",
+      "qualification": "Previously retained official product page snapshot; not a current mechanics specification."
+    }
+  ],
+  "excluded": [
+    "Generated .runs evaluation artifacts remain local.",
+    "manga-mayhem/docs/BTD6-ENEMY-BASELINE.md remains owned by Manga Mayhem; linked in research README."
+  ]
+}

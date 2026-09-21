@@ -1,0 +1,1621 @@
+
+Overview Classic Pre-BTD4 BTD4 BTD5 BTD6 BATTD Bloons Pop! BTDB2 BCS
+
+Dart Monkey
+
+General Information
+
+Game
+
+Bloons TD 6 (v1.0)
+
+Release Date
+
+June 13th 2018
+
+Class
+
+Primary Monkey
+
+Unlocked at
+
+Level 1
+
+Cost
+
+$170 (Easy)$200 (Medium)$215 (Hard)$240 (Impoppable)
+
+Activated Ability(s)
+
+Super Monkey Fan ClubPlasma Monkey Fan Club
+
+Targeting Options
+
+First, Last, Close, Strong,Camo Prioritization with Enhanced Eyesight
+
+Hotkey
+
+Q
+
+Other Names
+
+Dart
+
+Statistics
+
+Damage
+
+1
+
+Pierce
+
+2
+
+Attack Speed
+
+0.95s
+
+Range
+
+32
+
+Status Effects
+
+Requires upgrades
+
+Tower Boosts
+
+Requires upgrades
+
+Income/Life Boosts
+
+N/A
+
+Camo Detection
+
+Yes (x-x-2)
+
+Footprint
+
+Small (6)
+
+Default Damage Type
+
+Sharp
+
+Related Towers
+
+Dart Monkey (pre-BTD4), for the pre-BTD4 counterpartDart Monkey (BTD4), for the BTD4 counterpartDart Monkey (BTD5), for the BTD5 counterpartDart Monkey (BTDB2), for the BTDB2 counterpart
+
+The Dart Monkey is a Primary-class tower that was released in the initial release of Bloons TD 6. The Dart Monkey is by far the most iconic tower in the game along with the Super Monkey; it is a very simple and in its base form it throws a dart at bloons having two pierce and one damage. The tower retains its name and role from the Bloons TD 4, 5, and Classic game generations, with significant additions. It was the first non-hero tower to be revealed for Bloons TD 6, introduced on around 26th April 2018. Dart Monkey, as with previous mainstream games, is the first tower to be unlocked in the game, and is introduced by the Tutorial Monkey as part of the tutorial for Bloons TD 6.
+Dart Monkey attacks at a moderate speed, throwing a dart every 1 second. Darts deal 1 damage and hit up to 2 bloons per dart, having a moderately low range of 32. Their very cheap cost for relatively high stats makes them highly versatile early-game options, and comes with many cheap and effective upgrades.
+Although the Dart Monkey specializes in early-game power, its upgrades offer a degree of outstanding popping power. It can also be upgraded into a catapult operator that hurls spiked balls (Spike-o-pult, Juggernaut, Ultra-Juggernaut), remain as a Dart Monkey by throwing triple the darts and rallying up a fan club with allied Dart Monkeys (Triple Shot, Super Monkey Fan Club, Plasma Monkey Fan Club), or swap out darts for a bolt-shooting crossbow (Crossbow, Sharp Shooter, Crossbow Master).
+It costs $170 on Easy, $200 on Medium, $215 on Hard, and $240 on Impoppable.
+
+Contents
+
+1 Description
+
+1.1 Target Priorities
+
+2 Upgrades
+
+2.1 Path 1
+2.2 Path 2
+2.3 Path 3
+2.4 Paragon
+2.5 Total Cost
+
+3 Full Popology
+4 Strategy
+
+4.1 Summary
+4.2 Tips
+4.3 Additional Strategies
+
+5 Monkey Knowledge
+6 Version History
+
+6.1 Differences Between BTD5 and BTD6
+6.2 Balance Changes
+6.3 Bug Fixes and General Changes
+
+7 Merchandise
+
+7.1 Dart Monkey Plush
+7.2 Dart Monkey Vinyl Figure
+7.3 Dart Monkey 2.0 Plushie
+7.4 Doughboi Dart Monkey
+
+8 Sounds
+9 Gallery
+
+9.1 Teasers
+9.2 Official artwork
+9.3 Dart Monkey Plush
+9.4 Dart Monkey Vinyl Figure
+
+9.4.1 Perspectives of Dart Monkey Vinyl Figure
+
+9.5 Dart Monkey Plushie 2.0
+9.6 Videos
+
+10 Other languages
+11 Trivia
+12 References
+
+Description[]
+<a href="https://static.wikia.nocookie.net/b__/images/3/3f/Placeholder_other.png/revision/latest?cb=20240529232033&amp;path-prefix=bloons" class="mw-file-description image"><img alt="Dart Monkey" src="https://static.wikia.nocookie.net/b__/images/3/3f/Placeholder_other.png/revision/latest?cb=20240529232033&amp;path-prefix=bloons" decoding="async" loading="lazy" width="180" height="180" class="thumbimage" data-image-name="Placeholder other.png" data-image-key="Placeholder_other.png" data-relevant="0" data-src="https://static.wikia.nocookie.net/b__/images/3/3f/Placeholder_other.png/revision/latest?cb=20240529232033&amp;path-prefix=bloons" /></a> 	 		 			 		 		 		 			Dart Monkey 		 	 
+The Dart Monkey is a non-clothed monkey with a tuft of hair for its hairstyle. As with all monkeys in BTD6, it has big circular eyes, thick brown eyebrows, and dark fur around most of its head except its face. Its fur is brown and its skin is a slightly lighter tone of brown. Its belly is oval-shaped with two angular ovals above, colored the same as its skin. Its belly also features a small belly button. It carries a dart on its right hand.
+Overall, it looks not too different compared to its BTD5 counterpart outside of having the general BTD6 art style. There are minor differences to the Dart Monkey's visual appearance, however.
+Dart Monkey was one of the first towers to be teased prior to the release of BTD6. Its base tower image was displayed as part of the way to convince players of BTD5 that BTD6 is still in production. Later, the Dart Monkey was teased in future BTD6 teasers until the official release of BTD6.
+Many changes have occurred for the Dart Monkey, the most significant of which is that the base 0-0-0 tower can now pop two bloons per shot instead of one, and both the Sharp Shots and Razor Sharp Shots upgrades have been moved to the Spike-O-Pult path. Another significant change is that Dart Monkey now has access to new upgrades that increase attack speed permanently, a first for the Dart Monkey. In addition to this, there is an entirely new set of higher-tier upgrades dedicated to crossbows.
+Path 1 is themed around increasing the Dart Monkey's pierce. It starts with increased pierce for darts, then converts the Dart Monkey into a Spike-O-Pult, which then upgrades into a Juggernaut that can pop Lead Bloons and heavily damage Ceramic Bloons, and finally, the Ultra-Juggernaut for immense grouped Bloon destruction by hurling gigantic juggernauts that burst into more juggernauts.
+Path 2 is about speed and projectile count. The first two upgrades are pure attack speed increases, something not given to the Dart Monkey in the Bloons TD series before. The third upgrade is Triple Shot, allowing it to shoot three darts per shot instead of one. The final two upgrades along this upgrade path provide activated abilities that transform many nearby Dart Monkeys into Super Monkeys for a short time; Super Monkey Fan Club converts up to 10 nearby Dart Monkeys into Super Monkeys, while the Plasma Monkey Fan Club converts up to 20 Dart Monkeys into Plasma Monkeys (similarly to the 2-0-0 Super Monkey's Plasma Blasts upgrade).
+Path 3 focuses on more range and damage, with the second upgrade, Enhanced Eyesight, granting camo detection. All of the upgrades along this path provide extra pierce. The Tier 3, Crossbow, gives the Dart Monkey a crossbow and extra damage, while Tier 4, Sharp Shooter, provides even more damage and attack speed on top, including occasional critical hits. The final upgrade along this upgrade path, Crossbow Master, gives the Dart Monkey significantly more attack speed, damage, range and pierce, and can also pop any bloon type.
+If all Tier 5 Dart Monkeys from each path are placed on the map, it grants access to the almighty Dart Monkey Paragon, the Apex Plasma Master, which rapidly shoots plasma juggernaut balls that inflict much more damage to Ceramic Bloons and Boss Bloons.
+The Dart Monkey is a Primary Monkey.
+
+Target Priorities[]
+The base Dart Monkey uses the standard target priorities: First, Last, Close, Strong. All its attacks are dependent on its given target priority.
+
+First: Targets the first bloon visible within its range.
+Last: Targets the last bloon visible within its range.
+Close: Targets the closest bloon visible within its range.
+Strong: Targets the strongest bloon visible within its range.
+Upgrades[]
+Path 1[]
+
+Sharp ShotsCOST: $120 / $140 / $150 / $170UNLOCK: Default 
+
+Description:  Can pop 1 extra Bloon per shot.
+Effect: Gains +1 pierce, for 3 pierce by default. Gains +3 pierce with Crossbow or Sharp Shooter, and for Crossbow Master it gains +8 pierce.
+
+Razor Sharp ShotsCOST: $170 / $200 / $215 / $240UNLOCK: 100 XP
+
+Description:  Can pop 2 more bloons per shot.
+Effect: Gains +2 pierce, for 5 pierce by default. Gains +5 pierce (total: +8) with Crossbow or Sharp Shooter, and for Crossbow Master it gains +8 pierce (total: +16).
+
+Spike-o-pultCOST: $270 / $320 / $345 / $385UNLOCK: 2,100 XP
+
+Description:  Converts the Dart Monkey into a slower attacking Spike-o-pult that hurls large spiked balls. Each ball can pop lots of Bloons and rebounds off obstacles.
+Effect: Hurls spiked balls that pop up to 18 bloons per shot, deal 2 damage and pop Frozen bloons, increases the range by 15%. Spiked balls bounce off obstacles and can rehit the same bloons again if the projectile hits any obstacle. Attacks slightly slower (1.15s instead of 0.95s).
+
+JuggernautCOST: $1,530 / $1,800 / $1,945 / $2,160UNLOCK: 7,500 XP
+
+Description:  Hurls a giant spiked ball that pops lead and excels at crushing Ceramic and Fortified Bloons.
+Effect: Hurls juggernaut balls that pop up to 60 bloons per shot, pop all Bloon types except Camo, deal 2 damage, +3 to Ceramics and +2 to Fortified, and gains twice as much projectile speed. Attacks slightly faster (1s instead of 1.15s). Inflicts a speed-based knockback for 0.15s upon hitting Bloons.
+
+Ultra-JuggernautCOST: $12,750 / $15,000 / $16,200 / $18,000UNLOCK: 22,000 XP
+
+Description:  Gigantic spiked ball splits twice into 6 Juggernaut balls for even more destructive power against Ceramic, Fortified and Lead Bloons.
+Effect: Hurls gigantic juggernaut balls that retains knockback effects and each dealing 5 damage, +8 to Ceramics, +20 to Leads and +5 to Fortified, have 210 pierce, travel faster, and split twice into 6 mini juggernaut balls every half pierce bloons hit. These mini juggernaut balls each have 2 damage, +3 ceramic damage, +2 fortified damage, and 50 pierce. Both main projectile and mini projectiles can rehit bloons if they hit any walls.
+
+Path 2[]
+
+Quick ShotsCOST: $85 / $100 / $110 / $120UNLOCK: Default 
+
+Description:  Shoots 15% faster.
+Effect: Attacks +17.6% faster (0.85x attack cooldown). Without additional upgrades, its attack cooldown reduces to 0.8075s.
+
+Very Quick ShotsCOST: $160 / $190 / $205 / $230UNLOCK: 100 XP
+
+Description:  Shoots 33% faster!
+Effect: Attacks +50% faster than base Dart Monkey (attack cooldown from 0.85x to approximately 0.6667x). Without additional upgrades, its attack cooldown reduces to 0.633s.
+
+Triple ShotCOST: $380 / $450 / $485 / $540UNLOCK: 2,000 XP
+
+Description:  Throws 3 darts at a time instead of 1.
+Effect: Throws 3 darts per attack, in a 60° fixed spread, and increases attack speed by +33% (attack cooldown of 0.47475s).
+
+Super Monkey Fan ClubCOST: $6,120 / $7,200 / $7,775 / $8,640UNLOCK: 9,500 XP
+
+Description:  Super Monkey Fan Club Ability: Converts up to 10 nearby Dart Monkeys including itself into Super Monkeys for 15 seconds. Regular attack speed also increased.
+Effect: Gains an ability that transforms itself and up to 9 of the nearest non-special Dart Monkeys into Super Monkeys, which have 40 range. Cannot affect catapult-operating Dart Monkeys nor crossbow wielders nor the Plasma Monkey Fan Club. Has a cooldown of 50 seconds. Attacks 2x faster than Triple Shot (0.5x attack cooldown multiplier, attack cooldown reduced from 0.474s to 0.24s).
+
+Plasma Monkey Fan ClubCOST: $38,250 / $45,000 / $48,600 / $54,000UNLOCK: 30,000 XP
+
+Description:  Elite membership of this club grants the Dart Monkeys even more power.
+Effect: Ability now transforms the club leader and up to 20 of the nearest non-special Dart Monkeys into Super Monkeys that shoot plasma blasts instead of darts. The plasma attacks twice as fast, deals 2 damage per hit and has 5 pierce.
+
+Path 3[]
+
+Long Range DartsCOST: $75 / $90 / $95 / $110UNLOCK: Default 
+
+Description:  Makes the Dart Monkey shoot further than normal.
+Effect: Gains +8 range (from 32 to 40 by default) and increases projectile lifespan by 35%.
+
+Enhanced EyesightCOST: $170 / $200 / $215 / $240UNLOCK: 100 XP
+
+Description:  Shoots even further and can detect Camo bloons.
+Effect: Gains +8 range on top of previous upgrades, a total of +60% increased projectile lifespan compared to the base tower, 16.67% increased projectile speed, camo detection and the Camo Prioritization targeting option. Also more knockback force on Juggernaut.
+
+CrossbowCOST: $490 / $575 / $620 / $690UNLOCK: 2,100 XP
+
+Description:  Uses a long range Crossbow that can pop 3 layers of Bloon for every hit.
+Effect: Deals 3 damage per hit, gains extra pierce, slightly increase projectile speed, and gains +12 range, for a total of 60 range.
+
+Sharp ShooterCOST: $1,740 / $2,050 / $2,215 / $2,460UNLOCK: 12,000 XP
+
+Description:  Sharp Shooter attacks faster and does powerful Crit shots every few shots that do a lot more damage.
+Effect: Deals 6 damage per hit, attacks every 0.475s instead of 0.95s, projectile speed further increased, and lands a Critical Hit after every 10 shots. Crits deal 50 damage per hit.
+
+Crossbow MasterCOST: $18,275 / $21,500 / $23,220 / $25,800UNLOCK: 35,000 XP
+
+Description:  Crossbow Master shoots really fast and devastates most Bloon types with ease.
+Effect: Attacks every 0.2375s instead of 0.475s, and deals 8 damage per hit and deals 80 damage per Critical Hit, increases pierce from 4 to 8, range from 60 to 80, and applies Critical Hits every 5 shots instead of every 10 shots. Can also damage any bloon type.
+
+Paragon[]
+
+Apex Plasma Master COST: $127,500 / $150,000 / $162,000 / $180,000UNLOCK: 500,000 XP
+
+Description:  Fill the area with Bloon shredding plasma juggernaut balls, leaving nothing behind...
+Effect: Shoots triple rapid-fire plasma Ultra-Juggernaut balls that deal enormous damage, especially to Ceramics and Bosses. Can rehit bloons after bouncing off obstacles or the edges of the screen.
+
+Total Cost[]
+Easy:
+
+Tier 1
+
+Tier 2
+
+Tier 3
+
+Tier 4
+
+Tier 5
+
+Path 1
+
+Base Cost
+
+120
+
+185
+
+255
+
+1,530
+
+12,750
+
+Cumulative Cost
+
+290
+
+475
+
+730
+
+2,260
+
+15,010
+
+Base Sell
+
+84
+
+130
+
+179
+
+1,071
+
+8,925
+
+Cumulative Sell
+
+203
+
+333
+
+511
+
+1,582
+
+10,507
+
+Path 2
+
+Base Cost
+
+85
+
+160
+
+340
+
+6,375
+
+38,250
+
+Cumulative Cost
+
+255
+
+415
+
+755
+
+7,130
+
+45,380
+
+Base Sell
+
+60
+
+112
+
+238
+
+4,462.5
+
+26,775
+
+Cumulative Sell
+
+179
+
+291
+
+529
+
+4,991.5
+
+31,766.5
+
+Path 3
+
+Base Cost
+
+75
+
+170
+
+530
+
+1,700
+
+18,275
+
+Cumulative Cost
+
+245
+
+415
+
+945
+
+2,645
+
+20,920
+
+Base Sell
+
+53
+
+119
+
+371
+
+1,190
+
+12,792.5
+
+Cumulative Sell
+
+172
+
+291
+
+662
+
+1,852
+
+14,644
+
+Medium:
+
+Tier 1
+
+Tier 2
+
+Tier 3
+
+Tier 4
+
+Tier 5
+
+Path 1
+
+Base Cost
+
+140
+
+200
+
+320
+
+1,800
+
+15,000
+
+Cumulative Cost
+
+340
+
+540
+
+860
+
+2,660
+
+17,660
+
+Base Sell
+
+98
+
+154
+
+210
+
+1,260
+
+10,500
+
+Cumulative Sell
+
+238
+
+392
+
+602
+
+1,862
+
+12,362
+
+Path 2
+
+Base Cost
+
+100
+
+190
+
+450
+
+7,200
+
+45,000
+
+Cumulative Cost
+
+300
+
+490
+
+940
+
+8,240
+
+53,390
+
+Base Sell
+
+70
+
+133
+
+280
+
+5,250
+
+31,500
+
+Cumulative Sell
+
+210
+
+343
+
+623
+
+5,873
+
+37,373
+
+Path 3
+
+Base Cost
+
+90
+
+200
+
+575
+
+2,050
+
+21,500
+
+Cumulative Cost
+
+290
+
+490
+
+1,065
+
+3,115
+
+24,615
+
+Base Sell
+
+63
+
+140
+
+437.5
+
+1,400
+
+15,050
+
+Cumulative Sell
+
+203
+
+343
+
+780.5
+
+2,180.5
+
+17,230.5
+
+Hard:
+
+Tier 1
+
+Tier 2
+
+Tier 3
+
+Tier 4
+
+Tier 5
+
+Path 1
+
+Base Cost
+
+150
+
+235
+
+325
+
+1,945
+
+16,200
+
+Cumulative Cost
+
+365
+
+600
+
+925
+
+2,870
+
+19,070
+
+Base Sell
+
+105
+
+164.5
+
+227.5
+
+1,361.5
+
+11,340
+
+Cumulative Sell
+
+255.5
+
+420
+
+647.5
+
+2,009
+
+13,349
+
+Path 2
+
+Base Cost
+
+110
+
+205
+
+430
+
+8,100
+
+48,600
+
+Cumulative Cost
+
+325
+
+530
+
+950
+
+9,050
+
+57,650
+
+Base Sell
+
+77
+
+143.5
+
+301
+
+5,670
+
+34,020
+
+Cumulative Sell
+
+227,5
+
+371
+
+665
+
+6,335
+
+40,355
+
+Path 3
+
+Base Cost
+
+95
+
+215
+
+675
+
+2,160
+
+23,220
+
+Cumulative Cost
+
+310
+
+525
+
+1,200
+
+3,360
+
+26,580
+
+Base Sell
+
+66.5
+
+150,5
+
+472.5
+
+1,512
+
+16,254
+
+Cumulative Sell
+
+217
+
+367.5
+
+840
+
+2,352
+
+18,606
+
+Impoppable:
+
+Tier 1
+
+Tier 2
+
+Tier 3
+
+Tier 4
+
+Tier 5
+
+Path 1
+
+Base Cost
+
+170
+
+265
+
+360
+
+2,160
+
+18,000
+
+Cumulative Cost
+
+410
+
+675
+
+1,035
+
+3,195
+
+21,195
+
+Base Sell
+
+119
+
+185.5
+
+252
+
+1,512
+
+12,600
+
+Cumulative Sell
+
+287
+
+472.5
+
+724.5
+
+2,236.5
+
+14,836.5
+
+Path 2
+
+Base Cost
+
+120
+
+230
+
+480
+
+9,000
+
+54,000
+
+Cumulative Cost
+
+360
+
+590
+
+1,070
+
+10,070
+
+64,070
+
+Base Sell
+
+84
+
+161
+
+336
+
+6,300
+
+37,800
+
+Cumulative Sell
+
+252
+
+413
+
+749
+
+7,049
+
+44,849
+
+Path 3
+
+Base Cost
+
+110
+
+240
+
+750
+
+2,400
+
+25,800
+
+Cumulative Cost
+
+350
+
+590
+
+1,340
+
+3,740
+
+29,540
+
+Base Sell
+
+77
+
+168
+
+525
+
+1,680
+
+18,060
+
+Cumulative Sell
+
+245
+
+413
+
+938
+
+2,618
+
+20,678
+
+Full Popology[]
+Main article: Dart Monkey (BTD6)/Popology
+
+<Destroy Content?>This section is a candidate for a partial or complete content removal. Please discuss further on this article's talk page.Reason: Likely going to be deleted to move out content.
+
+Strategy[]
+See also: Dart Monkey (BTD6)/Strategies
+Summary[]
+The Dart Monkey is one of the most versatile early-game towers, and should not be underestimated because its low price and weak stats. They possesses many upgrades that greatly assist fulfilling niches. Top path has high pierce and bouncing projectiles, which help it deal with maps with ton of Line of Sight issues. Middle Path is good at spreading out burst damage, which helps it deal with multi-lane maps. Bottom path dominates pre-round 81 and solos Deflation with balanced stats. Even the base Dart Monkey is vital for CHIMPS on almost any map due to its two pierce and comes with some cheap Tier 3 upgrades that excel in the early-game. 
+Dart monkeys are very cheap triple/three dart starts is one of the most common Expert map R6 CHIMPS solutions. Dart Monkey's top path is very good early and in the right maps and the middle path is for BAD damage and the bottom path is often used as a tier 3 for cheap Camo in Bossing up to r40. Dart is one of those towers that's a dirt cheap starter option.
+
+Tips[]
+Middle crosspath is usually the best for Tier 3 and above upgrades, as its attack speed optimizes DPS.
+Using the triple 0-0-0 strategy on CHIMPS works on almost all maps to beat Round 6 and above, with an exception of certain maps such as Flooded Valley, Bloody Puddles, and Infernal.
+Dart + Sniper works for early-game CHIMPS on long-distance maps.
+Dart + Sub is a great option to start CHIMPS to catch faster bloons and clear out the remains on water-based maps.
+A 032 dart monkey is a very good early-game tower, having both range and DPS needed for the first 25-ish rounds
+Additional Strategies[]
+Crosspathing/Dart Monkey
+Monkey Knowledge[]
+This section displays Monkey Knowledge that has effects on Dart Monkey and its changes when compared to one by default:
+
+Increased Lifespan: Projectiles shot from Dart Monkey have increased lifespan.
+Extra Dart Pops: Increase projectile pierce by 1.
+2 pierce → 3 pierce
+Crossbow Reach: Increases range of the Crossbow and its further upgrades by 3.
+Crossbow range: 56 → 59
+Sharp Shooter range: 60 → 63
+Crossbow Master range: 80 → 83
+Apex Plasma Master range: 85 → 88
+4 And 4: Dart Monkey's Triple Shot gets 4 darts every 4th shot.
+Force vs Force: Juggernaut does +2 damage per shot to MOAB-Class Bloons.
+Juggernaut: 2 → 4
+Ultra-Juggernaut: 5 → 7
+Apex Plasma Master: 15 → 17 (Degree 1)
+Master Double Cross: Allows for the purchase of two Crossbow Masters on the same map.
+Bonus Monkey!: Each game starts with a Free Dart Monkey.
+Come On Everybody!: Primary towers attack 5% faster if all are below tier 3, and cost 5% less if all are tier 3 or 4.
+Monkey Education: All Monkeys XP earn rate increased by 8%.
+Better Sell Deals: All Monkeys sell for 5% more.
+Increases sell potency from 70% to 75%.
+Veteran Monkey Training: All Monkeys reload time reduced by 3%.
+Global Ability Cooldowns: All Ability cooldowns for all Monkeys reduced by 3%.
+Version History[]
+Differences Between BTD5 and BTD6[]
+
+This section is incomplete. You can help by expanding it.
+
+Listed are comparisons of the Dart Monkey in BTD6 compared to BTD5. Takes into account Flash and Mobile versions.
+
+0-0-0 Dart Monkey has more pierce (1 → 2).
+1-x-x Sharp Shots has more pierce (2 → 3).
+2-x-x Razor Sharp Shots has more pierce (4 → 5)
+x-4-x Super Monkey Fan Club now has an initial cooldown of a quarter of the cooldown.
+x-4-x Super Monkey Fan Club no longer increases attack range temporarily.
+x-4-x Super Monkey Fan Club now applies bonuses from 1st tier upgrades, 2nd tier upgrades, and middle path upgrades when the ability is active.
+3-x-x Spike-O-Pult does more damage (1 → 2)
+3-x-x Spike-O-Pult costs less ($500 → $300).
+4-x-x Juggernaut costs more ($1500 → $1800).
+4-x-x Juggernaut does more damage (1 → 2)
+4-x-x Juggernaut does more bonus damage (+2 → +3)
+4-x-x Juggernaut has less pierce (100 → 60)
+4-x-x Juggernaut can knockback non-MOAB-Class bloons briefly
+x-3-x Triple Shot (formerly Triple Darts) costs more ($330 → $400).
+Several changes in path placement of the upgrades; some upgrades are moved to different paths. This allows for more options with the first two middle path upgrades but means that Triple Shots and higher can no longer have extra pierce per shot and camo detection at once.
+Enhanced Eyesight cost increased ($120 → $200).
+Balance Changes[]
+
+Initial release (compared to BTD5)
+Note: Lists all balance changes implemented for the Dart Monkey when it was first released in Bloons TD 6 (June 14th 2018) in comparison to Bloons TD 5. Takes into account Flash and Mobile versions of Bloons TD 5.
+
+0-0-0 Dart Monkey has more pierce (1 → 2).
+1-x-x Sharp Shots has more pierce (2 → 3).
+2-x-x Razor Sharp Shots has more pierce (4 → 5)
+x-4-x Super Monkey Fan Club now has an initial cooldown of a quarter of the cooldown.
+x-4-x Super Monkey Fan Club no longer increases attack range temporarily.
+x-4-x Super Monkey Fan Club now applies bonuses from 1st tier upgrades, 2nd tier upgrades, and middle path upgrades when the ability is active.
+3-x-x Spike-O-Pult has more pierce (18 → 22).
+3-x-x Spike-O-Pult costs less ($500 → $300).
+4-x-x Juggernaut costs more ($1500 → $1800).
+x-3-x Triple Shot (formerly Triple Darts) costs more ($330 → $400).
+Several changes in path placement of the upgrades; some upgrades are moved to different paths. This allows for more options with the first two middle path upgrades but means that Triple Shots and higher can no longer have extra Pierce per shot and camo detection at once.
+Enhanced Eyesight cost increased ($120 → $200).
+2.0
+x-4-x Super Monkey Fan Club monkeys can now be converted into Super Monkeys by their own ability.
+4.0
+4-x-x Juggernaut's description now mentions that it can pop Lead Bloons.
+x-x-4 Sharp Shooter now deals more damage per shot (4 → 5).
+7.0
+5-x-x Ultra-Juggernaut does +1 damage, from 3 → 4 (9 → 12 for ceramics).
+x-x-5 Crossbow Master's price was reduced from $27,000 to $25,000.
+8.0
+x-x-5 Crossbow Master's crit rate increased from every 8-12 shots to every 6-10 shots.
+12.0
+3-x-x Spike o Pult's ball now bounces the same as Juggernaut.
+x-4-x Super Monkey Fan Club no longer stacks with Total Transformation.
+x-5-x PMFC max count reduced from 40 to 20.
+x-5-x PMFC damage per shot of the plasma monkeys increased by 1.
+x-x-4 Sharpshooter damage increased from 5 to 6.
+x-x-5 Crossbow Master attack speed bonus increased to 75%.
+x-x-5 Crossbow Master crit rate increased from every 6-10 shots to every 4-8 shots.
+14.0
+5-x-x Ultra-Juggernaut's projectiles can hit the same target multiple times.
+18.0
+x-x-5 Crossbow Master's base attack speed increased by roughly 50% (0.2375s → 0.16s).
+x-x-5 Crossbow Master's base pierce reduced from 23 to 10.
+1-0-5 and 2-0-5 pierce bonus increased to +6 and +7, up from +1 and +2.
+While the pierce bonus is a buff, the 205 pierce total was nerfed from the previous 24 and 25 respectively to 16 and 23.
+20.0
+
+“
+
+Dart Monkey at its core is an early game focus tower, so we added some projectile speed options to try and help with its tendency to miss faster Bloons. Spike-o-pult's rate was also increased and damage type changed to shatter to be more versatile of a stepping stone in niche setups saving for Juggernaut
+
+”
+
+~ Ninja Kiwi
+
+3-x-x Spike-O-Pult can now pop frozen Bloons.
+3-x-x Spike-O-Pult attack rate increased (1.25 → 1.15).
+x-x-2 Enhanced Eyesight projectile speed increased (300 → 330).
+x-x-3 Crossbow projectile speed increased (300 → 360).
+x-x-4 Sharp Shooter Eyesight projectile speed increased (300 → 400).
+22.0
+
+“
+
+We're happy enough with most of Dart Monkey's bottom path, but the T4 stepping stone has always felt pretty undesirable for the price point compared to T3 so we have just increased the attack rate slightly at tier 4.
+
+”
+
+~ Ninja Kiwi
+
+Sharp Shooter reload time reduced from 0.95s to 0.85s. Does not affect Crossbow Master reload time.
+23.0
+
+“
+
+While we're happy with Dart Monkey being a more niche or early use tower, too many people were finding Juggernaut itself even further niche or lackluster on first impression. While retaining the overpower power potential we've added a beefy impact to each individual target hit, and we've tweaked sharpshooter slightly to provide similar power but with more of a speed focus to enable more distinct crosspath choice between speed and pierce.
+
+”
+
+~ Ninja Kiwi
+
+Juggernaut damage increased (1 → 2).
+Juggernaut pierce reduced (100 → 50).
+Sharp Shooter attack rate increased (0.85s → 0.75s).
+Sharp Shooter damage reduced (6 → 5).
+Crossbow Master is completely unaffected by these changes. Despite NK stating that all Tier 5 Dart Monkeys are not affected by this change, only the Crossbow Master damage is unchanged. Ultra-Juggernaut's small secondary Juggernaut balls are not affected by this change.
+[undocumented] Ultra-Juggernaut base damage increased (4 → 5)
+24.0
+
+“
+
+The previous sharpshooter rework caused more trouble than intended in setups without much other cleanup by popping Black Bloons into large clusters of reds which then clogged up the pierce. We decided to keep the buffed attack speed value as well as adding back the stronger damage value.
+
+”
+
+~ Ninja Kiwi
+
+Sharp Shooter damage increased (5 → 6). Does not affect Crossbow Master.
+25.0
+
+“
+
+For new players, camo is the first real game mechanic that presents a wall for new players. To combat this we have swapped the initial unlock costs of Spike-o-pult & Crossbow to nudge new players more towards upgrading down the camo path for Dart Monkeys first.
+
+”
+
+~ Ninja Kiwi
+
+Spike-o-pult XP unlock cost increased from 1,900 XP to 2,100 XP.
+Crossbow XP unlock cost reduced from 2,100 XP to 1,900 XP.
+26.0
+
+“
+
+While overall good, the difficulty of using PMFC to its full potential doesn't feel quite worth it so price has been cut to make it a little easier to reach.
+
+”
+
+~ Ninja Kiwi
+
+Plasma Fan Club price reduced from $50,000 to $45,000.
+28.0
+
+“
+
+Instead of saying the same thing each time; many specific crosspaths that add a 'camo specialty' to a tower end up being viewed as rather inferior crosspaths due to camo being quite available to pick up through other methods. To give these upgrades more use even with other forms of camo reveal in play, we have added a brand new Camo Prioritization option that is added to the towers when taking this crosspath. When enabled this filter combines the selected target method with Camo Prioritization (e.g. Strong Camo would work through all Camos in strength order, then revert to normal Strong until any new Camos show up). Individual Monkeys are called out below.
+
+”
+
+~ Ninja Kiwi, referring to Camo Prioritization
+
+Enhanced Eyesight now grants Dart Monkey the new Camo Prioritization filter.
+Dart Paragon has had a slight performance change to improve bit rate issues when streaming. This will not change power in any way.
+30.0
+
+“
+
+Juggernaut relying on ricochets felt too niche in the current game, sadly excelling in far too few situations, so instead the Ceramic damage strength has been increased leading a little better into the T5 and benefiting it in more general straight line situations. Crossbow Master is pretty much around the entry level T5 that we want, but a little too expensive for something that brings no extra utility.
+
+”
+
+~ Ninja Kiwi
+
+Juggernaut ceramic bonus increased from +2 → +3
+Crossbow Master price $25,000 → $23,500
+31.0
+
+“
+
+To add a little more synergetic crosspath use for the Juggernaut 402 crosspath, xx2 will now also grant bonus projectile lifespan, this applies to any use of that crosspath though we feel it will in particular pair nicely with the ricocheting projectiles. Juggernaut in general is also seeing a small utility knockback buff to help it carry on a little longer into the game.
+
+”
+
+~ Ninja Kiwi
+
+Long Range Darts also increases projectile lifespan +15%
+Enhanced Eyesight also increases projectile lifespan +20%
+Juggernaut now applies a speed-based knockback onto non-blimp bloons similarly to Buckshot except for 0.1s.
+33.0
+
+“
+
+As Sharpshooter’s crit occurrence didn’t feel frequent enough the overall attack rate has been increased also just to lead better into the T5’s already high rate of fire. Along with this all Crossbow criticals have been standardized, overall with T5 criticals occurring more frequently in exchange for a slight reduction in base pierce to improve Sharp Shot crosspath value. Apex Plasma Master excels generally for the cheapest paragon & how easy it is to start scaling early degrees so is seeing a rate decrease.
+
+”
+
+~ Ninja Kiwi
+
+Sharpshooter attack cooldown reduced from 0.75s → 0.6s, Buff does not carry over to Crossbow Master.
+Sharpshooter crit rate changed from 8-12 shots to every 10th
+Crossbow Master crit rate changed from 4-8 shots to every 5th
+Crossbow Master pierce reduced from 10 → 8
+Apex Plasma Master attack cooldown increased from 0.3s → 0.35s
+34.0
+
+“
+
+While not appreciated by all because of a lack of map situations it applies well in, we enjoy the quite specific niche that Juggernaut fills. However, we wanted to make some minor tweaks allowing it to apply itself better against fortified ceramics & reducing the exceptionally high ultra-juggernaut secondary balls pierce in favour of damage that can be more reliably used up.
+
+”
+
+~ Ninja Kiwi
+
+Juggernaut now deal +2 Fortified bloons damage on top of the new damage buff
+Ultra-Juggernaut main ball now deal +5 Fortified bloons damage on top of the new damage buff
+Ultra-Juggernaut mini ball now deal +2 Fortified bloons damage on top of the new damage buff
+Ultra-Juggernaut mini juggernaut ball damage 1 → 2
+Ultra-Juggernaut mini juggernaut ball pierce 100 → 50
+35.0
+
+“
+
+As an already niche tower, adding a little more niche than ‘just ceramics’ by helping Ultra-Juggernaut with a small amount of endgame DDT AoE [sic]. Also, we’re already fairly happy with the SMFC abilities, but at T4 it feels clunky and outdated that the ability can only influence a max of 10 dart monkeys at a time when casting the ability multiple times in quick succession from multiple T4s so we are removing that limitation. We discussed whether the SMFC change would reduce the specificity of which Monkeys are affected but the benefits seemed greater, so we’ll be looking for feedback from folks who enjoy dart multitude builds.
+
+”
+
+~ Ninja Kiwi
+
+Ultra-Juggernaut mini-balls ceramic damage bonus increased 2 → 3
+Ultra-Juggernaut main projectile now deals bonus damage to lead +20
+Super Monkey Fan Club multiple simultaneous ability uses is no longer limited to 10 maximum conversions
+36.0
+
+“
+
+Current Sharp Shooter niches appear to struggle with some tight placement due to their high range opening up a ranged niche but being extremely tight on that range, given this is actually 'the range path' it feels fair to help this with a little further increased range.
+
+”
+
+~ Ninja Kiwi
+
+Sharp Shooter range increased 56 → 60 (+25% over xx2)
+Crossbow Master range increased 76 → 80 (+33% over T4)
+Crossbow Master price reduced from $23500 → $21500
+38.0
+
+“
+
+Spike-o-pult not re-hitting targets after a rebound in the same way as Juggernaut isn’t as fun so we’re allowing this functionality to occur earlier now. Given the shift to more use in Boomerang Paragon with recent buffs making it more desirable we are again swapping the prices on these 2 paragons around.
+
+”
+
+~ Ninja Kiwi
+
+Spike-o-pult now allows re-hitting targets after bouncing
+Apex Plasma Master price reduced $350,000 → $325,000
+Ultra-Juggernaut description changed from "Gigantic spiked ball splits twice into 6 Juggernaut balls for even more destructive power against Ceramic and Fortified Bloons." to "Gigantic spiked ball splits twice into 6 Juggernaut balls for even more destructive power against Ceramic, Fortified and Lead Bloons."
+39.0
+
+“
+
+Dart Monkey is intended to be the ‘Cheapest’ somewhat entry level Paragon so being locked behind a $300k+ price tag meant that all other paragons would have to be higher than that as well - while we’re not too drastically lowering all paragons this update the new lower floor on paragon costs will allow for much more leeway in design going forward. We lowered the power somewhat to justify this new price however not that much as it was one of the more heavily nerfed in power from the bug fix as well, in addition to this now that the Ceramic Bonus is scaling properly, we wanted to increase the value of this bonus far more to really bring out that Juggernaut bonus against Dreadbloon+.
+
+”
+
+~ Ninja Kiwi
+
+??? [buff/nerf indeterminate] Apex Plasma Master's overall Boss damage undetermined
+Apex Plasma Master price reduced ($325,000 → $150,000)
+Apex Plasma Master base damage reduced (20 → 15)
+Apex Plasma Master base bonus Ceramic damage increased (+30 → +75)
+Apex Plasma Master base attack cooldown increased (0.35s → 0.4s)
+Apex Plasma Master's Ceramic damage bonuses now properly scales with Paragon degrees when interacting with Bosses
+40.0
+
+“
+
+We bumped up the ceramic a lot along with the paragon rework to highlight Juggernaut path and keep something of a Dreadbloon niche due to the multiple tower category requirement, upon review of this in practice we want to start off bumping that amount up even more.
+
+”
+
+~ Ninja Kiwi
+
+Apex Plasma Master bonus damage to ceramic increased (+75 → +90)
+41.0
+
+“
+
+Spike-o-pult is too weak for how slow it is.
+
+”
+
+~ Ninja Kiwi
+
+Spike-o-pult damage increased from 1 to 2. Does not affect Juggernaut (2).
+Spike-o-pult ceramic bonus no longer gives +1 Ceramic damage. Does not affect Juggernaut (+4)
+42.0
+
+“
+
+Players have found Spike-o-pult’s lower range to sometimes cause issues leading into Juggernaut due to very specific placement being required to aim the attack on this path and how that aiming changes along with increased range, while quite a niche problem we feel it’s fair enough to match the range across these upgrades to address this concern.
+
+”
+
+~ Ninja Kiwi
+
+Spike-o-pult range increased from 32 to 36.8. Juggernaut range remains unchanged at 36.8.
+43.0
+
+“
+
+While we have been working to increase this niche with many new maps, Juggernaut’s functions sub-optimally for the majority of current maps in the game as the knockback doesn’t scale well without good rebound opportunities; to help with this we’re increasing their knockback force slightly with even more emphasis on the less-favored crosspath. We are slightly reducing the cost of Super Monkey Fan Club to overall improve the value of taking multiple to maintain higher uptime
+
+”
+
+~ Ninja Kiwi
+
+Juggernaut knockback duration increased from 0.1s to 0.15s
+4-0-2 Juggernaut knockback speed quantity to heavy targets increased from 1.5x to 2.25x
+4-0-2 Juggernaut knockback speed quantity to light targets increased from 3x to 4.5x
+Super Monkey Fan Club price reduced from $8000 to $7500
+44.0
+
+“
+
+Spike-o-pult’s piercing power in the extreme conditions is too cost effective compared to the Juggernaut so we’re tweaking these slightly to keep Juggernaut as a proper upgrade in Races. Crossbow Master is shuffling around to a higher damage point that should work more effectively with top path’s pierce
+
+”
+
+~ Ninja Kiwi
+
+Spike-o-pult pierce decreased from 22 to 18
+Juggernaut pierce increased from 50 to 60. Does not affect Ultra-Juggernaut's mini-juggernauts (50).
+Ultra-Juggernaut main juggernaut pierce increased from 200 to 210.
+Crossbow Master base attack cooldown increased from 0.16s to 0.24s
+Crossbow Master damage increased from 6 to 8
+Crossbow Master crit damage increased from 50 to 80
+1-0-5 Crossbow Master pierce increased from 14 to 16
+2-0-5 Crossbow Master pierce increased from 21 to 24
+45.0
+
+“
+
+Juggernaut attacks too slow to fully utilize its knockback, so we're doubling the knockback to regular Bloons with a smaller increase also to Ceramics. Bottom path is seeing quality of life changes aimed at improved crosspathing and projectile speed progression as this path focusses on projectile range and speed.
+
+”
+
+~ Ninja Kiwi
+
+Juggernaut knockback amount versus light bloons increased from 3 to 6. Also affects Ultra-Juggernaut.
+Juggernaut knockback amount versus heavy bloons increased from 1.5 to 2. Also affects Ultra-Juggernaut.
+Long Range Darts projectile lifespan multiplier compared to x-x-0 increased from +15% to +35%.
+Enhanced Eyesight projectile lifespan multiplier compared to x-x-0 increased from +50% to +60%, but compared to x-x-1 reduced from +35% to +25%
+Enhanced Eyesight projectile speed increased from 330 to 350. Also affects projectile speed percentage increase to crosspaths (+10% → +16.67%)
+1-0-3 Crossbow pierce increased from 4 to 6. Also affects 1-0-4 Sharp Shooter but not Crossbow Master (16).
+2-0-3 Crossbow pierce increased from 6 to 9. Also affects 2-0-4 Sharp Shooter but not Crossbow Master (24).
+Crossbow range increased from 56 to 60. Sharp Shooter range unchanged at 60.
+Crossbow projectile speed increased from 360 to 400.
+Sharp Shooter projectile speed increased from 400 to 450. Crossbow Master projectile speed remains 450.
+47.0
+
+“
+
+Shuffle on lower tier upgrade costs & increased attack speed across middle path in order to offer these upgrades more value both in and out of Super Monkey Fan Club transformation.
+
+”
+
+~ Ninja Kiwi
+
+Sharp Shots cost decreased from $220 to $200
+Spike-o-pult cost increased from $300 to $320
+Triple Shot cost increased from $400 to $450
+Triple Shot gains an attack cooldown reduction by 0.75x (+33% attack speed), attack cooldown decreased from 0.633s to 0.47475s.
+Super Monkey Fan Club cost decreased from $7500 to $7200
+Super Monkey Fan Club attack cooldown multiplier decreased from 0.75x to 0.50x, base attack cooldown decreased from 0.4375s to 0.2378s.
+Crossbow cost decreased from $625 to $575
+Sharp Shooter cost increased from $2000 to $2050
+48.0
+
+“
+
+Bottom path Dart Monkey has trouble with missing targets and tier 4 in particular seems to be a poor stepping stone for Crosspath Master, so Sharpshooter will now grant a large projectile speed boost and has greater of an attack speed increase.
+
+”
+
+~ Ninja Kiwi
+
+x-x-4 Sharpshooter projectile speed 450 → 600
+x-x-4 Sharpshooter attack cooldown 0.6s → 0.475s
+x-x-5 Crossbow Master attack cooldown 0.24s → 0.2375s
+50.0
+
+“
+
+Crossbow’s pierce is being increased to more effectively match the number of Child Bloons that spawn when targets are popped open, the pierce crosspath is being improved even further as this change does effectively nerf the crosspath.
+
+”
+
+~ Ninja Kiwi
+
+x-x-3 Crossbow pierce increased 3 → 4
+2-0-3 Crossbow pierce increased 9 → 12
+x-x-5 Crossbow Master unchanged
+52.0
+
+“
+
+Dart Monkey’s paragon is currently far too cost effective for being the cheapest paragon so we are lowering its power, but this is mainly directly against bosses so its base damage will also increase to compensate against non-boss targets. We also want to note that the Juggernaut is currently unintentionally rebounding even off map borders, we have not fixed this for this update though will still be monitoring it for now.
+
+”
+
+~ Ninja Kiwi
+
+Dart Paragon attack cooldown increased 0.4s → 0.5s
+Dart Paragon Boss damage bonus reduced 80 → 60
+Dart Paragon damage increased 15 → 25
+53.0
+
+“
+
+Juggernaut knockback is excessive against regular light Bloon targets and will be reduced.
+
+”
+
+~ Ninja Kiwi
+
+4-x-x Juggernaut light knockback multi reduced 6 → 4
+4-0-2 Juggernaut light knockback multi reduced 9 → 6
+Bug Fixes and General Changes[]
+
+This section is incomplete. You can help by expanding it.
+
+2.0
+x/4/x Dart Monkeys can now be affected by Super Monkey Fan Club.
+3.0
+Dart Monkeys will no longer miss bloons directly in front of them.
+This indirectly brought back progress on beating #OUCH CHIMPS, and is overall a buff.
+4-x-x Juggernaut balls will now directly bounce off walls when crosspathed.
+Master Double Cross (a Monkey Knowledge that allows you to have two Crossbow Masters at once) now works more consistently.
+11.0
+Placing a Dart Monkey Insta-Monkey will no longer consume all of your free Dart Monkeys.
+12.1
+x-x-5 Crossbow Master's base attack damage (correctly) increased (5 → 6).
+This was the result of a 12.0 Sharp Shooter buff not being inherited by Crossbow Master until this bug fix.
+20.0
+Master Double Cross no longer allows you to use 1 Crossbow Master in Daily Challenges where this tower is prohibited.
+24.0
+x-4-x Super Monkey Fan Club description has been updated with more detail.
+27.2
+Tidied up some existing Juggernaut projectile issues that have been highlighted by Dart Monkey Paragon
+28.2
+Resolved an issue where people could amusingly run Twitch Polls during the tutorial and ban Quincy or Dart Monkey from use
+38.0
+‘4 and 4’ Monkey Knowledge should now apply to the Dart Monkey Paragon
+42.0
+Juggernaut’s bonus damage to fortified targets now works across crosspaths
+Merchandise[]
+So far, Ninja Kiwi has released three merchandise items related to the Dart Monkey.
+
+Dart Monkey Plush[]
+<a href="https://static.wikia.nocookie.net/b__/images/b/b2/Dart_Monkey_Plush.png/revision/latest?cb=20211012022739&amp;path-prefix=bloons" class="mw-file-description image"><img alt="Dart Monkey Plush" src="https://static.wikia.nocookie.net/b__/images/b/b2/Dart_Monkey_Plush.png/revision/latest/scale-to-width-down/180?cb=20211012022739&amp;path-prefix=bloons" decoding="async" loading="lazy" width="180" height="101" class="thumbimage" data-image-name="Dart Monkey Plush.png" data-image-key="Dart_Monkey_Plush.png" data-relevant="1" data-src="https://static.wikia.nocookie.net/b__/images/b/b2/Dart_Monkey_Plush.png/revision/latest/scale-to-width-down/180?cb=20211012022739&amp;path-prefix=bloons" /></a> 	 		 			 		 		 		 	 
+<a href="https://static.wikia.nocookie.net/b__/images/9/9f/2021-12-18_16-03-10.png/revision/latest?cb=20211218210438&amp;path-prefix=bloons" class="mw-file-description image"><img alt="Campaign page after campaign ended" src="https://static.wikia.nocookie.net/b__/images/9/9f/2021-12-18_16-03-10.png/revision/latest/scale-to-width-down/180?cb=20211218210438&amp;path-prefix=bloons" decoding="async" loading="lazy" width="180" height="88" class="thumbimage" data-image-name="2021-12-18 16-03-10.png" data-image-key="2021-12-18_16-03-10.png" data-relevant="1" data-src="https://static.wikia.nocookie.net/b__/images/9/9f/2021-12-18_16-03-10.png/revision/latest/scale-to-width-down/180?cb=20211218210438&amp;path-prefix=bloons" /></a> 	 		 			 		 		 		 			Campaign page after campaign ended 		 	 
+Link to Campaign
+Dart Monkey Plush is a plush toy version of the original BTD6 Dart Monkey. It comes with a plush dart attached to the monkey's right hand. Dart Monkey Plush was available between 24th September 2021 and 15th October 2021. Shipping was expected for January 11th 2022, and has since been confirmed to be shipped to countries around the world. It is around 15 centimeters tall. Each Dart Monkey Plush costed $25.99.
+According to Ninja Kiwi's October 22nd 2021 blog, a total of 7026 Dart Monkey Plushes have sold throughout the campaign. The campaign was 3513% funded.
+
+“
+
+Message from the Creator
+The original classic - Dart Monkey in its cute and cuddly Plush form! Always ready to help fend off the Bloon invasion, Dart Monkey has its dart (softly) sharpened and ready to go. Whether sitting on your desk, guarding your bookshelf, or keeping watch while you sleep, Dart Monkey will keep the Bloons away, and always with a smile. 
+This Tier 0 classic Dart Monkey is only available for a limited time and will not be offered again, so pre-order now to avoid missing out on the OG dart master! For more amazing content...Click Here!
+Product Information
+Designed by Ninja Kiwi, Dart Monkey Plush is made with an Ultra Soft Fleece exterior that feels amazing! The interior is stuffed with fluffy Polypropylene cotton filling to keep its shape for years to come. Each Plush is tagged to show exactly how many were created, making your limited edition plush even more special. Dart Monkey Plush arrives in a reusable drawstring bag and shipped in a compostable mailer to limit environmental impact. Support Ninja Kiwi by pre-ordering today!
+Product Details
+
+Dimensions
+Height: 16cm
+Some heights may vary due to hair, or additional accessories.
+
+Materials
+Polypropylene Cotton
+Plush Fabric (Ultra Soft Fleece)
+Care Instructions
+Handwash warm or cool only. Do not machine wash or dry clean.
+
+”
+
+~ Makeship entry for Dart Monkey Plush
+
+<img style="" src="https://static.wikia.nocookie.net/b__/images/c/c0/Dart_and_druid_plush.jpg/revision/latest/scale-to-width-down/139?cb=20240831063244&amp;path-prefix=bloons" title="Dart and druid plush.jpg (666 KB)" class="thumbimage" alt="Dart Plush and Druid Plush" height="185" width="185" data-image-name="Dart and druid plush.jpg" data-image-key="Dart_and_druid_plush.jpg" data-relevant="1" data-caption="Dart Plush and Druid Plush">Dart Plush and Druid Plush
+Dart Monkey Vinyl Figure[]
+<a href="https://static.wikia.nocookie.net/b__/images/1/14/Dart_Vinyl_Figure_Display.png/revision/latest?cb=20221024053129&amp;path-prefix=bloons" class="mw-file-description image"><img alt="Dart Monkey Vinyl Figure on Makeship" src="https://static.wikia.nocookie.net/b__/images/1/14/Dart_Vinyl_Figure_Display.png/revision/latest/scale-to-width-down/180?cb=20221024053129&amp;path-prefix=bloons" decoding="async" loading="lazy" width="180" height="101" class="thumbimage" data-image-name="Dart Vinyl Figure Display.png" data-image-key="Dart_Vinyl_Figure_Display.png" data-relevant="1" data-src="https://static.wikia.nocookie.net/b__/images/1/14/Dart_Vinyl_Figure_Display.png/revision/latest/scale-to-width-down/180?cb=20221024053129&amp;path-prefix=bloons" /></a> 	 		 			 		 		 		 			Dart Monkey Vinyl Figure on Makeship 		 	 
+Link to campaign
+Dart Monkey Vinyl Figure is a vinyl figure version of the original BTD6 Dart Monkey. It comes with a dart attached to the monkey's right hand. The Dart Monkey is standing up with dart on right hand, smiling, and pointing a finger with left hand. Dart Monkey Vinyl Figure was available between 21st October and 19th November 2022. Shipping will be expected for March 7th 2023, although delayed until March 10th 2023. It is around 10 centimeters tall. Each Dart Moneky Vinyl Figure costed $29.99 each.
+By the end of the campaign, 1997 Dart Monkey Vinyl Figures were sold. It had the lowest percentage of the campaign funds compared to other items sold at Makeship, at only 399%. 
+
+“
+
+Message from the Creator
+When Bloons show up, there's always a monkey you can count on to be there, dart in hand, eyes on the prize. The original Bloons popper, Dart Monkey!
+For more amazing Ninja Kiwi content, Click Here!
+Product Details
+
+Dimensions
+Height: 9.7cm
+Width: 7.26cm
+Depth: 5cm
+Figure dimensions will vary depending on specific character and pose.
+
+Materials
+Coloured PVC
+Oil Paint and Water-Based Paint
+Varnish
+Care Instructions
+To keep your figure in optimal condition limit exposure to these five elements: dust, oil, sunlight, heat, moisture. Long-term exposure to these elements can lead to eventual fading or weakening of Vinyl material. Figures can be cleaned using either a microfiber or cotton cloth that is dry or lightly damp. If using water be sure to pat (not rub) the figure dry after cleaning. If additional care is needed, please use a Q-tip or cloth (microfiber or cotton) along with household dish soap and warm water to gently spot clean any affected areas.
+
+”
+
+~ Makeship entry for Dart Monkey Vinyl Figure
+
+<img style="" src="https://static.wikia.nocookie.net/b__/images/8/88/Dartactionfigure.jpg/revision/latest/scale-to-width-down/139?cb=20230312054807&amp;path-prefix=bloons" title="Dartactionfigure.jpg (896 KB)" class="thumbimage" alt="Dart Monkey Vinyl Figure in the box (source)" height="185" width="185" data-image-name="Dartactionfigure.jpg" data-image-key="Dartactionfigure.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl Figure in the box (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11my3gp/the_vinyl_figure_is_here/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl Figure in the box (source)<img style="" src="https://static.wikia.nocookie.net/b__/images/a/aa/Dartfigure_outbox.png/revision/latest/scale-to-width-down/181?cb=20230312054911&amp;path-prefix=bloons" title="Dartfigure outbox.png (66 KB)" class="thumbimage" alt="Dart Monkey Vinyl Figure out of box (source)" height="185" width="185" data-image-name="Dartfigure outbox.png" data-image-key="Dartfigure_outbox.png" data-relevant="1" data-caption="Dart Monkey Vinyl Figure out of box (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11ov0jw/my_dart_monkey_figure_came_in_and_is_best_friends/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl Figure out of box (source)<img style="" src="https://static.wikia.nocookie.net/b__/images/4/49/Dartvinyl_gaming.jpg/revision/latest/scale-to-width-down/139?cb=20230315073950&amp;path-prefix=bloons" title="Dartvinyl gaming.jpg (3.22 MB)" class="thumbimage" alt="Dart Monkey Vinyl Figure in the box with side and center visible (source)" height="185" width="185" data-image-name="Dartvinyl gaming.jpg" data-image-key="Dartvinyl_gaming.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl Figure in the box with side and center visible (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11qplgx/finally_ive_obtained_monke_in_a_box/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl Figure in the box with side and center visible (source)<img style="" src="https://static.wikia.nocookie.net/b__/images/d/dd/Dartvinyl1.jpg/revision/latest/scale-to-width-down/185?cb=20230315073952&amp;path-prefix=bloons" title="Dartvinyl1.jpg (261 KB)" class="thumbimage" alt="Dart Monkey Vinyl angled to point to middle (source)" height="185" width="185" data-image-name="Dartvinyl1.jpg" data-image-key="Dartvinyl1.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl angled to point to middle (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11r98ey/my_dart_monkey_vinyl_figure_finally_arrived_so_i/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl angled to point to middle (source)<img style="" src="https://static.wikia.nocookie.net/b__/images/3/36/Dartvinyl2.jpg/revision/latest/scale-to-width-down/185?cb=20230315073954&amp;path-prefix=bloons" title="Dartvinyl2.jpg (277 KB)" class="thumbimage" alt="Dart Monkey Vinyl angled in high-angle shot (source)" height="185" width="185" data-image-name="Dartvinyl2.jpg" data-image-key="Dartvinyl2.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl angled in high-angle shot (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11r98ey/my_dart_monkey_vinyl_figure_finally_arrived_so_i/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl angled in high-angle shot (source)<img style="" src="https://static.wikia.nocookie.net/b__/images/4/48/Dartvinyl3.jpg/revision/latest/scale-to-width-down/185?cb=20230315073955&amp;path-prefix=bloons" title="Dartvinyl3.jpg (167 KB)" class="thumbimage" alt="Dart Monkey Vinyl angled in close-up shot (source)" height="185" width="185" data-image-name="Dartvinyl3.jpg" data-image-key="Dartvinyl3.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl angled in close-up shot (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11r98ey/my_dart_monkey_vinyl_figure_finally_arrived_so_i/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl angled in close-up shot (source)<img style="" src="https://static.wikia.nocookie.net/b__/images/1/16/Dartvinyl4.jpg/revision/latest/scale-to-width-down/185?cb=20230315073957&amp;path-prefix=bloons" title="Dartvinyl4.jpg (273 KB)" class="thumbimage" alt="Dart Monkey Vinyl angled in full shot (source)" height="185" width="185" data-image-name="Dartvinyl4.jpg" data-image-key="Dartvinyl4.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl angled in full shot (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11r98ey/my_dart_monkey_vinyl_figure_finally_arrived_so_i/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl angled in full shot (source)<img style="" src="https://static.wikia.nocookie.net/b__/images/2/25/Dartfig_product_%281%29.jpg/revision/latest/scale-to-width-down/185?cb=20230316033422&amp;path-prefix=bloons" title="Dartfig product (1).jpg (1.3 MB)" class="thumbimage" alt="Dart Monkey Vinyl back box angle (source)" height="185" width="185" data-image-name="Dartfig product (1).jpg" data-image-key="Dartfig_product_%281%29.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl back box angle (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11sc8rj/dart_monkey_arrived/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl back box angle (source)<img style="" src="https://static.wikia.nocookie.net/b__/images/a/a8/Dartfig_product_%282%29.jpg/revision/latest/scale-to-width-down/185?cb=20230316033423&amp;path-prefix=bloons" title="Dartfig product (2).jpg (1.25 MB)" class="thumbimage" alt="Dart Monkey Vinyl top box angle (source)" height="185" width="185" data-image-name="Dartfig product (2).jpg" data-image-key="Dartfig_product_%282%29.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl top box angle (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11sc8rj/dart_monkey_arrived/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl top box angle (source)<img style="" src="https://static.wikia.nocookie.net/b__/images/e/ed/Dartfig_product_%283%29.jpg/revision/latest/scale-to-width-down/185?cb=20230316033424&amp;path-prefix=bloons" title="Dartfig product (3).jpg (1.3 MB)" class="thumbimage" alt="Dart Monkey Vinyl left side box angle (source)" height="185" width="185" data-image-name="Dartfig product (3).jpg" data-image-key="Dartfig_product_%283%29.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl left side box angle (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11sc8rj/dart_monkey_arrived/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl left side box angle (source)<img style="" src="https://static.wikia.nocookie.net/b__/images/9/93/Dartfig_product_%284%29.jpg/revision/latest/scale-to-width-down/185?cb=20230316033425&amp;path-prefix=bloons" title="Dartfig product (4).jpg (1.3 MB)" class="thumbimage" alt="Dart Monkey Vinyl right side box angle (source)" height="185" width="185" data-image-name="Dartfig product (4).jpg" data-image-key="Dartfig_product_%284%29.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl right side box angle (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11sc8rj/dart_monkey_arrived/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl right side box angle (source)<img style="" src="https://static.wikia.nocookie.net/b__/images/0/0a/Dartfig_product_%285%29.jpg/revision/latest/scale-to-width-down/185?cb=20230316033526&amp;path-prefix=bloons" title="Dartfig product (5).jpg (1.36 MB)" class="thumbimage" alt="Dart Monkey Vinyl front box angle (source)" height="185" width="185" data-image-name="Dartfig product (5).jpg" data-image-key="Dartfig_product_%285%29.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl front box angle (&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.reddit.com/r/btd6/comments/11sc8rj/dart_monkey_arrived/&quot;&amp;gt;source&amp;lt;/a&amp;gt;)">Dart Monkey Vinyl front box angle (source)
+Dart Monkey 2.0 Plushie[]
+<a href="https://static.wikia.nocookie.net/b__/images/d/de/Dart_and_moab_plush_promotion.png/revision/latest?cb=20240711222648&amp;path-prefix=bloons" class="mw-file-description image"><img alt="Promotion of the Dart Monkey 2.0 Plushie and MOAB Jumbo 2" src="https://static.wikia.nocookie.net/b__/images/d/de/Dart_and_moab_plush_promotion.png/revision/latest/scale-to-width-down/180?cb=20240711222648&amp;path-prefix=bloons" decoding="async" loading="lazy" width="180" height="180" class="thumbimage" data-image-name="Dart and moab plush promotion.png" data-image-key="Dart_and_moab_plush_promotion.png" data-relevant="1" data-src="https://static.wikia.nocookie.net/b__/images/d/de/Dart_and_moab_plush_promotion.png/revision/latest/scale-to-width-down/180?cb=20240711222648&amp;path-prefix=bloons" /></a> 	 		 			 		 		 		 			Promotion of the Dart Monkey 2.0 Plushie and MOAB Jumbo 2.0 Plushie 		 	 
+As part of a vote on Twitter (announcement, poll) and other social media, Ninja Kiwi has re-released the Dart Monkey Plush and the MOAB Jumbo Plush, tying in with Makeship's TimeWarp 2024. Dart Monkey Plush has been updated with fresh new colours. The campaign for Dart Monkey 2.0 Plushie has been released on 9th July 2024 and ended on 6th August 2024. It costs $29.99 USD. If both MOAB Jumbo 2.0 Plushie and the Dart Plushie 2.0 are bought, the client will get a 10% discount for both items.
+By the end of the campaign, 2,572 were sold, and the campaign was 1,286% Funded. Manufacturing began on 6th August 2024 and shipping expected on October 30th 2024.
+
+<img style="" src="https://static.wikia.nocookie.net/b__/images/f/ff/IMG_20250507_162036.png/revision/latest/scale-to-width-down/185?cb=20250507233608&amp;path-prefix=bloons" title="IMG 20250507 162036.png (8.81 MB)" class="thumbimage" alt="Dart Monkey Plush with other Dart Monkeys" height="139" width="185" data-image-name="IMG 20250507 162036.png" data-image-key="IMG_20250507_162036.png" data-relevant="1" data-caption="Dart Monkey Plush with other Dart Monkeys">Dart Monkey Plush with other Dart Monkeys
+Doughboi Dart Monkey[]
+
+This section is incomplete. You can help by expanding it.
+
+Doughboi Dart Monkey was released. Started Feb 14 2025.[1] Finished March 14, 2025. Delivered at 8th May 2025.
+
+<img style="" src="https://static.wikia.nocookie.net/b__/images/f/ff/IMG_20250507_162036.png/revision/latest/scale-to-width-down/185?cb=20250507233608&amp;path-prefix=bloons" title="IMG 20250507 162036.png (8.81 MB)" class="thumbimage" alt="Doughboi Dart Monkey with other Dart Monkeys" height="139" width="185" data-image-name="IMG 20250507 162036.png" data-image-key="IMG_20250507_162036.png" data-relevant="1" data-caption="Doughboi Dart Monkey with other Dart Monkeys">Doughboi Dart Monkey with other Dart Monkeys
+Sounds[]
+When placed:
+
+https://bloons.fandom.com/wiki/File:PlaceTowerMonkey01.ogg [foot landing]
+https://bloons.fandom.com/wiki/File:PlaceTowerMonkey02.ogg [foot landing]
+When activated Super Monkey Fan Club Ability or Plasma Monkey Fan Club Ability:
+
+https://bloons.fandom.com/wiki/File:ActivatedFanClub.ogg [Crowd cheering]
+Gallery[]
+<img style="" src="https://static.wikia.nocookie.net/b__/images/2/25/Screenshot_20190407-101120.jpg/revision/latest/scale-to-width-down/185?cb=20190408004241&amp;path-prefix=bloons" title="Screenshot 20190407-101120.jpg (961 KB)" class="thumbimage" alt="BTD6 upgrades list (Pre Version 27.0)" height="108" width="185" data-image-name="Screenshot 20190407-101120.jpg" data-image-key="Screenshot_20190407-101120.jpg" data-relevant="1" data-caption="BTD6 upgrades list (Pre Version 27.0)">BTD6 upgrades list (Pre Version 27.0)<img style="" src="https://static.wikia.nocookie.net/b__/images/7/7c/Screenshot_20180622-021609.png/revision/latest/scale-to-width-down/185?cb=20180622080006&amp;path-prefix=bloons" title="Screenshot 20180622-021609.png (2.57 MB)" class="thumbimage" alt="Entire upgrade tree for the Dart Monkey in BTD6, excluding Apex Plasma Master" height="108" width="185" data-image-name="Screenshot 20180622-021609.png" data-image-key="Screenshot_20180622-021609.png" data-relevant="1" data-caption="Entire upgrade tree for the Dart Monkey in BTD6, excluding Apex Plasma Master">Entire upgrade tree for the Dart Monkey in BTD6, excluding Apex Plasma Master<img style="" src="https://static.wikia.nocookie.net/b__/images/c/c2/DartMonkeyCrosspaths.png/revision/latest/scale-to-width-down/185?cb=20211214125424&amp;path-prefix=bloons" title="DartMonkeyCrosspaths.png (764 KB)" class="thumbimage" alt="All Dart Monkey upgrades, including Apex Plasma Master" height="108" width="185" data-image-name="DartMonkeyCrosspaths.png" data-image-key="DartMonkeyCrosspaths.png" data-relevant="1" data-caption="All Dart Monkey upgrades, including Apex Plasma Master">All Dart Monkey upgrades, including Apex Plasma Master<img style="" src="https://static.wikia.nocookie.net/b__/images/4/41/Ronzhangdc02.png/revision/latest/scale-to-width-down/185?cb=20230425033603&amp;path-prefix=bloons" title="Ronzhangdc02.png (2.45 MB)" class="thumbimage" alt="Three Dart Monkeys in the &quot;attack&quot; pose" height="108" width="185" data-image-name="Ronzhangdc02.png" data-image-key="Ronzhangdc02.png" data-relevant="1" data-caption="Three Dart Monkeys in the &quot;attack&quot; pose">Three Dart Monkeys in the "attack" pose
+Teasers[]
+<img style="" src="https://static.wikia.nocookie.net/b__/images/e/e2/Btd6monkey.png/revision/latest/scale-to-width-down/185?cb=20180426113758&amp;path-prefix=bloons" title="Btd6monkey.png (82 KB)" class="thumbimage" alt="The first official teaser of the BTD6 Dart Monkey, posted on around 27 October 2017" height="185" width="185" data-image-name="Btd6monkey.png" data-image-key="Btd6monkey.png" data-relevant="1" data-caption="The first official teaser of the BTD6 Dart Monkey, posted on around 27 October 2017">The first official teaser of the BTD6 Dart Monkey, posted on around 27 October 2017
+Official artwork[]
+<img style="" src="https://static.wikia.nocookie.net/b__/images/b/b2/000-DartMonkey.png/revision/latest/scale-to-width-down/143?cb=20190522014750&amp;path-prefix=bloons" title="000-DartMonkey.png (141 KB)" class="thumbimage" alt="Tower portrait" height="185" width="185" data-image-name="000-DartMonkey.png" data-image-key="000-DartMonkey.png" data-relevant="1" data-caption="Tower portrait">Tower portrait<img style="" src="https://static.wikia.nocookie.net/b__/images/a/a7/000-DartMonkeyInsta.png/revision/latest?cb=20200713080739&amp;path-prefix=bloons" title="000-DartMonkeyInsta.png (19 KB)" class="thumbimage" alt="Instamonkey icon" height="116" width="116" data-image-name="000-DartMonkeyInsta.png" data-image-key="000-DartMonkeyInsta.png" data-relevant="1" data-caption="Instamonkey icon">Instamonkey icon<img style="" src="https://static.wikia.nocookie.net/b__/images/8/8b/DartSteamCard.png/revision/latest/scale-to-width-down/185?cb=20240528091507&amp;path-prefix=bloons" title="DartSteamCard.png (97 KB)" class="thumbimage" alt="Steam Trading Card" height="185" width="185" data-image-name="DartSteamCard.png" data-image-key="DartSteamCard.png" data-relevant="1" data-caption="Steam Trading Card">Steam Trading Card<img style="" src="https://static.wikia.nocookie.net/b__/images/3/38/DartSteamCardFull.jpg/revision/latest/scale-to-width-down/185?cb=20240528091508&amp;path-prefix=bloons" title="DartSteamCardFull.jpg (134 KB)" class="thumbimage" alt="Expanded Steam Card" height="185" width="185" data-image-name="DartSteamCardFull.jpg" data-image-key="DartSteamCardFull.jpg" data-relevant="1" data-caption="Expanded Steam Card">Expanded Steam Card
+Dart Monkey Plush[]
+<img style="" src="https://static.wikia.nocookie.net/b__/images/8/83/Dart_Monkey_Plush_Toy-1_1_1000x.png/revision/latest/scale-to-width-down/185?cb=20211012022635&amp;path-prefix=bloons" title="Dart Monkey Plush Toy-1 1 1000x.png (762 KB)" class="thumbimage" alt="Sitting front view" height="185" width="185" data-image-name="Dart Monkey Plush Toy-1 1 1000x.png" data-image-key="Dart_Monkey_Plush_Toy-1_1_1000x.png" data-relevant="1" data-caption="Sitting front view">Sitting front view<img style="" src="https://static.wikia.nocookie.net/b__/images/a/a1/Dart_Monkey_Plush_Toy-2_1_1000x.png/revision/latest/scale-to-width-down/185?cb=20211012022635&amp;path-prefix=bloons" title="Dart Monkey Plush Toy-2 1 1000x.png (584 KB)" class="thumbimage" alt="Side view" height="185" width="185" data-image-name="Dart Monkey Plush Toy-2 1 1000x.png" data-image-key="Dart_Monkey_Plush_Toy-2_1_1000x.png" data-relevant="1" data-caption="Side view">Side view<img style="" src="https://static.wikia.nocookie.net/b__/images/2/24/Dart_Monkey_Plush_Toy-3_1_1000x.png/revision/latest/scale-to-width-down/185?cb=20211012022633&amp;path-prefix=bloons" title="Dart Monkey Plush Toy-3 1 1000x.png (706 KB)" class="thumbimage" alt="Back view" height="185" width="185" data-image-name="Dart Monkey Plush Toy-3 1 1000x.png" data-image-key="Dart_Monkey_Plush_Toy-3_1_1000x.png" data-relevant="1" data-caption="Back view">Back view<img style="" src="https://static.wikia.nocookie.net/b__/images/4/4b/Dart_Monkey_Plush_Toy-4_1_1000x.png/revision/latest/scale-to-width-down/185?cb=20211012022635&amp;path-prefix=bloons" title="Dart Monkey Plush Toy-4 1 1000x.png (681 KB)" class="thumbimage" alt="Side-left view" height="185" width="185" data-image-name="Dart Monkey Plush Toy-4 1 1000x.png" data-image-key="Dart_Monkey_Plush_Toy-4_1_1000x.png" data-relevant="1" data-caption="Side-left view">Side-left view<img style="" src="https://static.wikia.nocookie.net/b__/images/0/0d/Dart_Monkey_Plush_Toy-5_1_1000x.png/revision/latest/scale-to-width-down/185?cb=20211012022635&amp;path-prefix=bloons" title="Dart Monkey Plush Toy-5 1 1000x.png (613 KB)" class="thumbimage" alt="Standing front view" height="185" width="185" data-image-name="Dart Monkey Plush Toy-5 1 1000x.png" data-image-key="Dart_Monkey_Plush_Toy-5_1_1000x.png" data-relevant="1" data-caption="Standing front view">Standing front view<img style="" src="https://static.wikia.nocookie.net/b__/images/e/eb/E_IaOUHX0AAVp1j.jpg/revision/latest/scale-to-width-down/185?cb=20211009163152&amp;path-prefix=bloons" title="E IaOUHX0AAVp1j.jpg (355 KB)" class="thumbimage" alt="Coming Soon" height="185" width="185" data-image-name="E IaOUHX0AAVp1j.jpg" data-image-key="E_IaOUHX0AAVp1j.jpg" data-relevant="1" data-caption="Coming Soon">Coming Soon<img style="" src="https://static.wikia.nocookie.net/b__/images/d/d1/E_c8rrbUUAcE_Uc.jpg/revision/latest/scale-to-width-down/185?cb=20211009163708&amp;path-prefix=bloons" title="E c8rrbUUAcE Uc.jpg (168 KB)" class="thumbimage" alt="Giveaway" height="185" width="185" data-image-name="E c8rrbUUAcE Uc.jpg" data-image-key="E_c8rrbUUAcE_Uc.jpg" data-relevant="1" data-caption="Giveaway">Giveaway<img style="" src="https://static.wikia.nocookie.net/b__/images/8/8c/FAAlPFbVcAgmqUP.jpg/revision/latest/scale-to-width-down/185?cb=20211009163728&amp;path-prefix=bloons" title="FAAlPFbVcAgmqUP.jpg (170 KB)" class="thumbimage" alt="Limited edition" height="185" width="185" data-image-name="FAAlPFbVcAgmqUP.jpg" data-image-key="FAAlPFbVcAgmqUP.jpg" data-relevant="1" data-caption="Limited edition">Limited edition<img style="" src="https://static.wikia.nocookie.net/b__/images/9/95/FBLq0zuXsAQ7LmR.jpg/revision/latest/scale-to-width-down/185?cb=20211009163750&amp;path-prefix=bloons" title="FBLq0zuXsAQ7LmR.jpg (238 KB)" class="thumbimage" alt="1 Week left" height="185" width="185" data-image-name="FBLq0zuXsAQ7LmR.jpg" data-image-key="FBLq0zuXsAQ7LmR.jpg" data-relevant="1" data-caption="1 Week left">1 Week left<img style="" src="https://static.wikia.nocookie.net/b__/images/4/4c/Makeship_advert_dart_monkey_plush.png/revision/latest/scale-to-width-down/185?cb=20230715055741&amp;path-prefix=bloons" title="Makeship advert dart monkey plush.png (903 KB)" class="thumbimage" alt="Dart Monkey Plush featured on Makeship&#039;s &quot;Launch Campaign&quot; website" height="185" width="185" data-image-name="Makeship advert dart monkey plush.png" data-image-key="Makeship_advert_dart_monkey_plush.png" data-relevant="1" data-caption="Dart Monkey Plush featured on Makeship&#039;s &quot;&amp;lt;a target=&quot;_blank&quot; rel=&quot;nofollow noreferrer noopener&quot; class=&quot;external text&quot; href=&quot;https://www.makeship.com/launch-campaign&quot;&amp;gt;Launch Campaign&amp;lt;/a&amp;gt;&quot; website">Dart Monkey Plush featured on Makeship's "Launch Campaign" website
+Dart Monkey Vinyl Figure[]
+<img style="" src="https://static.wikia.nocookie.net/b__/images/7/78/Dartvinyl_teaser.jpg/revision/latest/scale-to-width-down/185?cb=20221027054006&amp;path-prefix=bloons" title="Dartvinyl teaser.jpg (133 KB)" class="thumbimage" alt="Dart Monkey Vinyl Figure teaser" height="185" width="185" data-image-name="Dartvinyl teaser.jpg" data-image-key="Dartvinyl_teaser.jpg" data-relevant="1" data-caption="Dart Monkey Vinyl Figure teaser">Dart Monkey Vinyl Figure teaser<img style="" src="https://static.wikia.nocookie.net/b__/images/a/a8/DVinyl_Image3_9_1000x.png.png/revision/latest/scale-to-width-down/185?cb=20221024051802&amp;path-prefix=bloons" title="DVinyl Image3 9 1000x.png.png (663 KB)" class="thumbimage" alt="Dart Monkey Vinyl Figure box side with figure outside" height="185" width="185" data-image-name="DVinyl Image3 9 1000x.png.png" data-image-key="DVinyl_Image3_9_1000x.png.png" data-relevant="1" data-caption="Dart Monkey Vinyl Figure box side with figure outside">Dart Monkey Vinyl Figure box side with figure outside<img style="" src="https://static.wikia.nocookie.net/b__/images/d/da/DVinyl_Image2_10_1000x.png.png/revision/latest/scale-to-width-down/185?cb=20221024051806&amp;path-prefix=bloons" title="DVinyl Image2 10 1000x.png.png (811 KB)" class="thumbimage" alt="Dart Monkey Vinyl Figure inside box" height="185" width="185" data-image-name="DVinyl Image2 10 1000x.png.png" data-image-key="DVinyl_Image2_10_1000x.png.png" data-relevant="1" data-caption="Dart Monkey Vinyl Figure inside box">Dart Monkey Vinyl Figure inside box
+Perspectives of Dart Monkey Vinyl Figure[]
+Angle 1Angle 2Angle 3Angle 4Angle 5Angle 6Angle 7Angle 8Angle 9Angle 10Angle 11Angle 12Angle 13Angle 14Angle 15Angle 16Angle 17Angle 18Angle 19Angle 201/20
+
+Dart Monkey Plushie 2.0[]
+<img style="" src="https://static.wikia.nocookie.net/b__/images/6/60/Dart2.0_plush_%281%29.png/revision/latest/scale-to-width-down/185?cb=20240711222602&amp;path-prefix=bloons" title="Dart2.0 plush (1).png (1.03 MB)" class="thumbimage" alt="Front view" height="185" width="185" data-image-name="Dart2.0 plush (1).png" data-image-key="Dart2.0_plush_%281%29.png" data-relevant="1" data-caption="Front view">Front view<img style="" src="https://static.wikia.nocookie.net/b__/images/2/22/Dart2.0_plush_%282%29.png/revision/latest/scale-to-width-down/185?cb=20240711222622&amp;path-prefix=bloons" title="Dart2.0 plush (2).png (725 KB)" class="thumbimage" alt="Right view" height="185" width="185" data-image-name="Dart2.0 plush (2).png" data-image-key="Dart2.0_plush_%282%29.png" data-relevant="1" data-caption="Right view">Right view<img style="" src="https://static.wikia.nocookie.net/b__/images/5/59/Dart2.0_plush_%283%29.png/revision/latest/scale-to-width-down/185?cb=20240711222620&amp;path-prefix=bloons" title="Dart2.0 plush (3).png (832 KB)" class="thumbimage" alt="Back view" height="185" width="185" data-image-name="Dart2.0 plush (3).png" data-image-key="Dart2.0_plush_%283%29.png" data-relevant="1" data-caption="Back view">Back view<img style="" src="https://static.wikia.nocookie.net/b__/images/5/53/Dart2.0_plush_%284%29.png/revision/latest/scale-to-width-down/185?cb=20240711222619&amp;path-prefix=bloons" title="Dart2.0 plush (4).png (817 KB)" class="thumbimage" alt="Angled view" height="185" width="185" data-image-name="Dart2.0 plush (4).png" data-image-key="Dart2.0_plush_%284%29.png" data-relevant="1" data-caption="Angled view">Angled view<img style="" src="https://static.wikia.nocookie.net/b__/images/e/e7/Dart2.0_plush_%285%29.png/revision/latest/scale-to-width-down/185?cb=20240711222616&amp;path-prefix=bloons" title="Dart2.0 plush (5).png (761 KB)" class="thumbimage" alt="Standing view" height="185" width="185" data-image-name="Dart2.0 plush (5).png" data-image-key="Dart2.0_plush_%285%29.png" data-relevant="1" data-caption="Standing view">Standing view<img style="" src="https://static.wikia.nocookie.net/b__/images/5/55/Dart2.0_plush_%286%29.png/revision/latest/scale-to-width-down/185?cb=20240711222614&amp;path-prefix=bloons" title="Dart2.0 plush (6).png (2.18 MB)" class="thumbimage" alt="2.0 attachment" height="185" width="185" data-image-name="Dart2.0 plush (6).png" data-image-key="Dart2.0_plush_%286%29.png" data-relevant="1" data-caption="2.0 attachment">2.0 attachment<img style="" src="https://static.wikia.nocookie.net/b__/images/b/b5/Dart2.0_plush_%287%29.png/revision/latest/scale-to-width-down/185?cb=20240711222610&amp;path-prefix=bloons" title="Dart2.0 plush (7).png (1.5 MB)" class="thumbimage" alt="Exclusive tag" height="185" width="185" data-image-name="Dart2.0 plush (7).png" data-image-key="Dart2.0_plush_%287%29.png" data-relevant="1" data-caption="Exclusive tag">Exclusive tag
+Videos[]
+<img style="" src="https://static.wikia.nocookie.net/b__/images/a/a0/OWN_YOUR_VERY_OWN_DART_MONKEY%21/revision/latest/scale-to-width-down/185?cb=20211013034336&amp;path-prefix=bloons" title="OWN YOUR VERY OWN DART MONKEY! (30 KB)" class="thumbimage" alt="Ninja Kiwi&#039;s official promo of the Dart Monkey Plush" height="139" width="185" data-video-name="OWN YOUR VERY OWN DART MONKEY!" data-video-key="OWN_YOUR_VERY_OWN_DART_MONKEY%21" data-caption="Ninja Kiwi&#039;s official promo of the Dart Monkey Plush">OWN YOUR VERY OWN DART MONKEY!Ninja Kiwi's official promo of the Dart Monkey Plush<img style="" src="https://static.wikia.nocookie.net/b__/images/5/58/A_Brief_Guide_To_BTD6-_Dart_Monkey/revision/latest/scale-to-width-down/185?cb=20211013034451&amp;path-prefix=bloons" title="A Brief Guide To BTD6- Dart Monkey (25 KB)" class="thumbimage" alt="Dart Monkey basics" height="139" width="185" data-video-name="A Brief Guide To BTD6- Dart Monkey" data-video-key="A_Brief_Guide_To_BTD6-_Dart_Monkey" data-caption="Dart Monkey basics">A Brief Guide To BTD6- Dart MonkeyDart Monkey basics
+Other languages[]
+Tower
+
+Language
+Name
+Meaning
+
+English
+
+Dart Monkey
+
+Arabic
+
+القرد النشَّاب
+
+Simplified Chinese
+
+飞镖猴
+
+Traditional Chinese
+
+飛鏢猴
+
+Danish
+
+Dart-abe
+
+Finnish
+
+Tikka-apina
+
+French
+
+Singe à fléchettes
+
+German
+
+Wurfpfeilaffe
+
+Italian
+
+Scimmia a freccette
+
+Japanese
+
+ダーツモンキー
+
+Korean
+
+다트 원숭이
+
+Norwegian
+
+Dart-ape
+
+Polish
+
+Małpka z rzutkami
+
+Monkey with Darts
+
+Portuguese
+
+Macaco Dardo
+
+Russian
+
+Обезьяна с дротиками
+
+Spanish
+
+Mono lanzadardos (Europe)Mono dardero  (Latin America)
+
+Swedish
+
+Pilskjutarapa
+
+Thai
+
+ลิงลูกดอก
+
+Turkish
+
+Okçu Maymun
+
+Description
+
+Language
+Name
+Meaning
+
+English
+
+Throws a single dart at nearby bloons. Short range and low pierce but cheap.
+
+French
+
+Lance une fléchette sur les Bloons à proximité. Courte portée et pouvoir perfortant, mais bon marché.
+
+German
+
+Wirft einen Pfeil auf Bloons in der Nähe. Kurze Richweite und niedrige Durchschlagskraft, aber billig.
+
+Polish
+
+Rzuca pojedynczą rzutką w najbliższe blony. Niewielki zasięg i słabe przebicie, ale jest tania.
+
+Throws a single dart at nearby bloons. Short range and poor pierce, but it's cheap.
+
+Russian
+
+Стреляет одним дротиком по шарам поблизости. Имеет малый радиус действия и низкую пробивающую способность, но стоит дёшево.
+
+Trivia[]
+In the middle of the Hedge map, there is a Dart Monkey statue that rotates 90 degrees when it is tapped.
+The fifth tier on path 3 has a similar color scheme to the hero Quincy.
+Due to the 000 Dart Monkey being cheap and basic, memes suggesting it as the strongest tower in the game are very common.
+000 Dart Monkey can APC (All Pops CHIMPS) in the world's longest map made by map editor.
+The Dart Monkey is the second tower to receive plushies of them, the first being the Super Monkey.
+The October 8th 2021 NK blog suggests that Makeship, Ninja Kiwi's fundraising partner, will likely allow NK to fundraise other limited-time plushes other than Dart Monkey Plush, given how overwhelmingly well the Dart Monkey Plush sold.
+The base Dart Monkey is the only tower to appear on an upgrade icon from another tower, more specfically from the Monkey City upgrade.
+As if you don't already know, the Dart Monkey has the cheapest base price in BTD6.
+References[]
+
+↑ https://www.instagram.com/p/DFv4kPSPTJy/
+

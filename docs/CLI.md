@@ -1,8 +1,60 @@
 # CLI usage
 
-Run `pnpm install` and `pnpm build` with Node.js 24 or newer. `pnpm cli --help` lists options. Generation uses the existing Codex configuration and login; `--model`, `--reasoning` and `--timeout` override execution settings for that call. The default timeout is 600 seconds per model call. Large source and rules documents can take several minutes to process.
+Run `pnpm install` and `pnpm build` with Node.js 24 or newer. `pnpm cli --help` lists options. Generation defaults to the OpenRouter SDK with `openrouter/free` and requires `OPENROUTER_API_KEY`. Use `--provider codex` for the existing local Codex configuration and login. `--model`, `--reasoning` and `--timeout` override that call. OpenRouter reasoning defaults to `none`; `low`, `medium` and `high` are optional. Codex retains its own configured default and accepts those three levels. Default timeouts are 120 seconds for OpenRouter and 600 seconds for Codex. Large source and rules documents can take several minutes to process.
+
+## Generate from a name
+
+```sh
+pnpm cli generate "Monkey D. Luffy" -o .runs/luffy.json
+pnpm cli render .runs/luffy.json -o .runs/luffy.md
+pnpm cli build .runs/luffy.json --tiers 5,2,0
+pnpm cli review .runs/luffy.json -o .runs/luffy-reviewed.json
+```
+
+`generate` returns a checked artifact using the explicit [BTD6-inspired mechanics definition](MECHANICS.md). The first call authors a compact blueprint. The model selects source passage IDs; code copies their exact text, verifies the references, resolves all 64 legal builds and compiles the readable kit. On invalid design output, one repair receives the failed checks. `--repairs 0` disables this; `--repairs 2` permits two repairs. Authentication, rate limits and timeouts stop immediately. Invalid blueprints never become published candidates. This is mechanics validation, not combat simulation or balance approval. Independent semantic `review` remains a separate call so a failed review cannot discard the saved Unit.
+
+The default is `default-td-profile-v4` with definition `btd6-combat-v1`: Gold currency, a 1-health enemy layer and Dart-based references of 200 Gold, 1 damage, 0.95-second interval, 32 range and 2 pierce. Health means shared player lives, with a 150-Health starter reference. Units have no HP. Explicit older artifacts and custom definitions keep their supplied scale. See [mechanics](MECHANICS.md) for provenance and scope.
+
+`--roles auto|typesafe|openrouter|off` selects optional role ranking after a successful draft. The default comes from `UNIT_ROLE_PROVIDER`, falling back to `auto`. Auto prefers TypeSafe when `TYPESAFE_API_KEY` is available, otherwise it uses an explicitly configured OpenRouter Jev model and key. It does not switch providers after a ranking failure. `TYPESAFE_MODEL` defaults to `jev-1.13.0`. OpenRouter ranking requires both `OPENROUTER_API_KEY` and an explicitly configured `OPENROUTER_JEV_MODEL`; the generation model is a separate setting. Set `OPENROUTER_JEV_MODEL=~typesafe/jev-latest` for the verified latest-family alias, or pin `typesafe/jev-1.13`. OpenRouter ranking calls its [Decisions API](https://openrouter.ai/docs/api/api-reference/alphadecisions/submit-a-decisions-questions-and-answers-request), not chat completions. The alias may advance within the Jev family; pinned versions reject a different release. Neither route substitutes another model on failure.
+
+Ranking inspects the resolved base and three pure tier-five builds. The artifact and rendered Roles panel retain advisory choices separately from mechanics. Missing credentials or provider failure records skipped or unavailable status while preserving the draft; cancellation still stops the operation. TypeSafe's estimated charge remains separate from provider-reported totals. Confidence is a selection signal, not measured accuracy.
+
+To rank a saved Unit without regenerating it:
+
+```sh
+pnpm cli rank .runs/luffy.json --roles typesafe -o .runs/luffy-roles.json
+```
+
+`rank` accepts a draft, checked artifact or final Result with a structured mechanics definition and returns a standalone role-ranking result. It does not replace or modify the saved Unit. `--roles off` returns skipped status without a provider call. The same `--roles` option is available on `draft`, `author` and `generate`; other commands do not accept it.
+
+`build` returns resolved attack stats, cumulative investment, available boosts and upgrade deltas for the three purchased tiers. It uses no model. Invalid combinations such as `5,3,0` are rejected.
+
+Repairs replace only failing tiers when the previous response is structurally valid and every issue identifies a tier. Code preserves all unaffected fields and repeats the full checks. Other design errors require a full-output repair within the same attempt limit. Tier 1 and Tier 2 can add only one new capability. Tiers 1 through 3 allow at most three typed changes; advanced tiers allow four changes. A slow or burn includes both magnitude and duration.
+
+An overfilled tier can receive a small choice of existing effects to keep. The model selects a combination; code preserves its numbers and checks the whole Unit again. This avoids asking the model to rewrite the same overloaded tier without constraining the correction.
+
+For separate stages, `character` saves the retrieved inputs before any generation:
+
+```sh
+pnpm cli character "Monkey D. Luffy" -o .runs/luffy-input.json
+pnpm cli draft .runs/luffy-input.json -o .runs/luffy-draft.json
+pnpm cli check .runs/luffy-draft.json -o .runs/luffy-checked.json
+```
+
+If a name is ambiguous, repeat `character` or `generate` with `--choice ID` from the listed choices. Lookup and image retrieval use network requests; models receive retained source text rather than browsing tools.
+
+Long character articles use a bounded authoring selection of up to 6,000 source characters. The full article remains in the saved input; source notes report how many exact passages reached the model. Selection favors identity, combat abilities and limitations, but does not establish complete canon coverage. Supply focused source documents when a particular period or technique matters. Confirmed constraints and game rules remain unabridged.
+
+`definition` exports the default JSON definition without a model or input file. To use this preset with your own source documents, add `--preset btd6` to `prepare` or `author`. An explicitly conflicting progression is rejected. Existing custom requests without `mechanicsDefinition` keep the earlier prose authoring contract and do not receive typed build guarantees.
+
+```sh
+pnpm cli definition -o .runs/mechanics.json
+pnpm cli prepare my-character.request.json --preset btd6 -o .runs/prepared.json
+```
 
 ## Author and revise
+
+The CLI loads optional `.env` settings from its working directory. Existing environment variables take precedence; `--model` overrides `OPENROUTER_MODEL` and `--reasoning` overrides `OPENROUTER_REASONING`. Use [.env.example](../.env.example) for the setting names. Keep real keys in ignored local files.
 
 ```sh
 pnpm cli author examples/mira.request.json -o .runs/mira-v1.json
@@ -11,9 +63,11 @@ pnpm cli render .runs/mira-v1.json --details -o .runs/mira-v1.details.md
 pnpm cli author examples/mira.request.json --previous .runs/mira-v1.json --feedback "Strengthen the support role." -o .runs/mira-v2.json
 ```
 
-`author` resolves inputs, generates one candidate, checks structural constraints and makes a fresh model call for semantic review. It returns one revision; it does not run an automatic correction loop. Revisions receive the full current Request, previous candidate and findings, and explicit feedback. No command looks up a previous run implicitly.
+`author` resolves inputs, generates one candidate, checks structural constraints and makes a fresh model call for semantic review. It returns one revision. Definition-backed drafting permits the bounded design repair described above; semantic findings require explicit revision feedback. Revisions receive the full current Request, previous candidate and findings, and explicit feedback. No command looks up a previous run implicitly.
 
 `render` defaults to the Unit's role, basic attack, every upgrade, forms and other abilities, shared gameplay rules, corrections and open decisions. Upgrade abilities appear with their tier. `--details` adds the expanded evidence, reference IDs, example builds and check report. Both views use the same artifact without model calls; JSON retains the complete structured record. Long gameplay descriptions remain intact, so an existing verbose draft can still produce a long kit.
+
+Markdown includes reported cost and tokens for completed model stages, with stage details in the expanded view. Unknown values are unavailable; partial totals are labeled. Failed calls report known usage on stderr. A successful repaired draft includes the usage of every draft attempt exactly once and retains per-attempt issues and usage in `run.attempts`. A timeout may occur before any usage report is received. The Codex adapter currently does not report usage.
 
 Use `--output` or `-o` to create a new file. Existing files are refused before generation and protected against replacement during writing. Without that option, stdout contains the complete JSON artifact, or Markdown for `render`. Diagnostics use stderr. If using shell redirection, choose a new filename that is not also an input.
 
@@ -32,9 +86,9 @@ pnpm cli render .runs/result.json -o .runs/result.md
 | Step | Input and outcome | Model use |
 | --- | --- | --- |
 | `prepare` | Resolve named text, files or URLs. Retain exact text and an input hash. | None. URLs may use the network. |
-| `draft` | Read a prepared Request and return a structured candidate with evidence and open details. | One Codex call. |
+| `draft` | Read a prepared Request and return a structured candidate with evidence and open details. | One call for legacy requests; definition-backed requests allow a bounded repair and optional post-draft role ranking. |
 | `check` | Read a draft and return reference, assignment, dependency and supplied progression findings. | None. |
-| `review` | Verify the checked artifact, then review the candidate against the original evidence and decisions. | One fresh Codex call. |
+| `review` | Verify the checked artifact, then review the candidate against the original evidence and decisions. | One fresh selected-provider call. |
 | `render` | Show a draft, checked artifact or Result as a compact Markdown kit. Use `--details` for the expanded report. | None. |
 
 Each artifact is schema-versioned JSON and can be inspected or saved between steps. Input edits invalidate the retained hash; prepare a new Request after changing inputs. A reviewer cannot replace the deterministic findings with fabricated passes. Model findings remain explicitly labeled as model judgments.
@@ -63,8 +117,10 @@ For Manga Mayhem, supply the relevant product, ability, combat and progression d
 
 ## Model connection and limits
 
+OpenRouter uses the official SDK with structured output. Free routing enforces zero-price models and never falls back to a paid model. An explicit `--model` override may select a paid model. Credentials stay outside artifacts. The browser app also supports entering a session key in Settings.
+
 Only the Node Codex adapter invokes the installed Codex CLI. It uses a fresh temporary workspace, existing model/auth settings, a structured final-response file and restricted tools. It does not resume sessions or parse human console output. Requests are sent to the provider configured in Codex. Provider credentials are neither copied into Results nor printed by this tool. The integration was tested with Codex CLI 0.155.1.
 
-Generation and semantic review are model-assisted. Deterministic checks cover explicit structure and relationships, not combat simulation, all possible builds, player appeal or runtime implementation. Shared purchase-based unlocks are represented as `conditional` availability and are not forced into one upgrade path. Numerical balancing and general mechanics execution remain future work.
+Generation and semantic review are model-assisted. Deterministic checks cover explicit structure and relationships. Definition-backed Units additionally resolve all legal builds, including crosspath and boost inheritance. They do not simulate combat, establish player appeal or implement a game runtime. Shared purchase-based unlocks are represented as `conditional` availability and are not forced into one upgrade path. Numerical balancing and general mechanics execution remain future work.
 
 The [API](API.md) exposes the same stages directly for UnitLab or another caller. A UI does not need to run these commands or parse their output.

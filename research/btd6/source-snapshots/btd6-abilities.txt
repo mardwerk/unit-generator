@@ -1,0 +1,200 @@
+OverviewBTD5BSM2BTD6BATTDBTDB2
+“	TIP: ACTIVATED ABILITIES
+
+You unlocked an activated ability. These powerful effects can instantly turn the tide of a battle. Abilities can be found in the abilities menu.
+
+Unlike powers, activated abilities have unlimited uses. However, each ability will take some time to recharge after you use it.
+
+	”
+	~ Cuber's introduction to activated abilities in BATTD when player has an activated ability available for the first time	
+
+Special Abilities (also called Activated Abilities) made their debut in Bloons TD 5, and they make further appearance in other games in the BTD5 series, as well as sequel games Bloons TD 6 and Bloons Adventure Time TD. Special Abilities allow towers to perform special attacks or special assistance at the will of the player by the activation of a button. Some abilities last for a limited time, while others are instantaneous or require a brief deployment time before activating its effect. Most abilities involve either adding a new special attack, improving an existing attack, or a special transformation of some sort, but some may involve income generation or special mobility. Cooldowns can be reduced with certain upgrades or with special premium upgrades. Most abilities have no initial cooldown (in BTD5 generation games) or have an initial cooldown of 33% of the original cooldown (in BTD6), although in Bloons Adventure Time TD character abilities have no initial cooldown but item abilities have a full initial cooldown.
+
+Contents
+1	Abilities (BTD6)
+2	Abilities (BATTD)
+3	Abilities (BSM2)
+4	Abilities (BTD5)
+4.1	Super Monkey Fan Club
+4.2	Blade Maelstrom
+4.3	Supply Drop
+4.4	Turbo Charge
+4.5	Sabotage Supply Lines
+4.6	MOAB Assassin
+4.7	Absolute Zero
+4.8	Glue Striker
+4.9	Monkey Pirates
+4.10	Ground Zero
+4.11	Bloon Annihilation
+4.12	Summon Phoenix
+4.13	M.I.B Call to Arms
+4.14	Pop and Awe
+4.15	Rocket Storm
+4.16	Orbital Strike
+4.17	Spike Storm
+4.18	First Strike Capability
+4.19	Misdirection
+4.20	The Swarm!
+4.21	Activate Sea Monster!
+4.22	Abominable Ability
+4.23	Shadow Double
+5	Gallery
+6	Trivia
+6.1	Specific to BTD5
+Abilities (BTD6)
+Main article: Activated Abilities (BTD6)
+
+Activated Abilities return in Bloons TD 6. However, almost all activated abilities start on initial cooldown, usually 33% of the original cooldown, or 100% if the ability is purely income-generating or other few special upgrades such as Paragons. It is worth a note that a player generally begins getting introduced to Activated Abilities from automatically leveled Heroes. Heroes generally gain abilities at Levels 3 and 10, sometimes 7 as well. All other towers have activated abilities starting at Tier 4 on Path 2, and often upgraded abilities at Tier 5. A few towers also gain activated abilities at other paths, such as Dark Knight's Darkshift ability.
+
+Abilities (BATTD)
+	
+	What is with all those "TBA" marks?
+Temporary fillers such as "TBA", "???", and filler images are used for content that is yet to be added, for layout purposes. Please help by replacing them with useful content, if you can.
+
+(insert info here)
+
+Abilities (BSM2)
+Main article: Epic Power
+
+Activated Abilities return in Bloons Super Monkey 2 in the form of Epic Powers and either Snap Freeze in the Flash version, or Active Powerups in the Mobile version. Epic Powers are special upgrades that can be bought after unlocking all six tiers of a weapon that only possess an activated ability. Like BTD5, all activated abilities start ready when loading a level. Swapping Epic Powers mid level will not let the player have the ability cooldown up immediately, requiring the player to think tactically about when they use Activated Abilities. In the Flash Version, Epic Powers can only be activated by clicking the mouse, which activates the topmost ability, thus preventing the player from saving abilities in the queue that they would rather save later. In the Mobile version, Epic Powers are instead activated below the Supermonkey, letting the player choose which powers to use, but also making the icons prone to being pushed around by Bosses and Shielded Bloons.
+
+Abilities (BTD5)
+
+Special Abilities first make their debut in the BTD5 generation.
+
+Some of these effects last 5-15 seconds, and others do something on the screen instantly, like glueing or freezing all bloons on screen. Special abilities are available after towers are upgraded to Tier Four on the Second Path with the exception of the Banana Farm in BTD5. Some abilities get a more powerful version upon upgrading to 5th tier on the Second Path. Each special ability, when used, has a "cooldown" time before it can be used again, but this cooldown can be reduced with either the "Hotter Cooldown" Premium Upgrade, (-30%) Being in the range of a 4/x Monkey Village, (-20%) or being in the range of a submerged 4/x Monkey Sub (-15%). These cooldown reducing effects can stack with each other, greatly reducing the cooldown time of some abilities.
+
+All abilities have no initial cooldown, with exception of Supply Drop (Flash versions only), and Misdirection.
+
+The description of Special Abilities
+1/23
+
+This serves as an index of abilities.
+
+Super Monkey Fan Club
+
+This is the special ability for the Dart Monkey. It changes up to 10 Dart Monkeys into 0/0 Super Monkeys for 15 seconds
+
+Blade Maelstrom
+
+This is the special ability for the Tack Shooter. It covers the entire screen with spiralling blades from the tower.
+
+The blades have unlimited popping power, but cannot pop Lead. They also spread out the farther they fly away from the tower.
+
+Supply Drop
+
+This is the special ability for the Sniper Monkey. It calls an Operation: Dart Storm that flies from the left and drops a crate full of $500 - $1500 cash.
+
+Turbo Charge
+
+This allows the Boomerang Thrower that activated it to attack 5x as fast for 10 seconds.
+
+Sabotage Supply Lines
+
+This is the special ability for the Ninja Monkey in BTD5. During the sabotage all newly spawned bloons will move at half the speed. Bloons that were on the last 10s will be slowed to half speed. (Flash Versions only)
+
+MOAB Assassin
+
+This is the special ability for the Bomb Tower. It fires a deadly missile that targets any MOAB, BFB or DDT and destroys that layer instantly. This does 1000 damage to ZOMGs. (Seventh image in the gallery.) It also creates an explosion that does 3 damage to anything in its radius.
+
+Absolute Zero
+
+This is the special ability for the Ice Tower. It freezes the entire sceen for 4 seconds. It only slows MOAB-class Bloons in BTD5. (11th in the picture)
+
+Glue Striker
+
+This is the special ability for the Glue Gunner. It glues all the bloons on the screen. This does not affect M.O.A.B. Class Bloons in BTD5. (6th in the picture.)
+
+Monkey Pirates
+
+This is the special ability for the Monkey Buccaneer. It grabs the nearest BFB, MOAB, or DDT with a harpoon and destroys it along with all bloons inside instantly. This does not affect a ZOMG.
+
+Ground Zero
+
+This is the special ability for the Monkey Ace. It drops a bloontonium bomb and deals 350 damage to all Bloons on screen. (4th in the picture)
+
+Bloon Annihilation
+
+This is the special ability for the Technological Terror, and for the Phase Crystal in Bloons Monkey City. This destroys all the bloons inside the ability's radius, which is as large as the range of a 0/0 Super Monkey. It does 1000 damage to the ZOMG bloon. (5th in the picture) For Phase Crystal's Bloon Annihilation Ability, the cooldown is 10 seconds.
+
+Summon Phoenix
+
+This is the special ability for the Monkey Apprentice. It summons a phoenix that spits fire at bloons for 20 seconds. (8th in the picture.)
+
+M.I.B Call to Arms
+
+This is the special ability for the Monkey Village. It doubles the attack speed and popping power of all towers in range of the village for ten seconds. (12th in the picture.)
+
+Pop and Awe
+
+This is the special ability for the Mortar Tower.
+
+In BTD5, it immobilizes the bloons and bombards the entire screen with mortar shells for five seconds, popping one layer off every bloon on-screen once per second. MOAB-Class Bloons will also be stunned, though BFBs are stunned for slightly less (2 seconds), and ZOMGs are barely stunned at all (half a second). DDTs are also stunned for 0.5 seconds.
+
+Rocket Storm
+
+This is the special ability for the Dartling Gun's Bloon Area Denial System upgrade. It shoots 5 volleys / pulses of missiles at 100 Bloons each (500 in total) or, if there is less than 100 Bloons on the screen, it will shoot as many rockets as there are bloons on screen. Note that the missiles can still miss their targets. (Last in the picture.)
+
+Orbital Strike
+
+This is the special ability for the special agent, the Bloonsday Device. For a few seconds a beam controlled by the mouse destroys bloons and does massive damage to MOAB class bloons.
+
+Spike Storm
+
+This is the special ability of the Spike Factory. When used, it covers the whole screen with short-lived spikes (just like in BTD4).
+
+First Strike Capability
+
+This is the special ability for the Monkey Sub. It fires a devastatingly large missile that targets the largest bloon on screen, sometimes destroying up to a ZOMG Bloon in one go, or many lesser bloons.
+
+Misdirection
+
+Misdirection is the COBRA's special ability. It sends the strongest bloon in range up to BFB to the start of the opponent's side. As the COBRA is only available in Bloons TD Battles Mobile, this ability is limited to said game.
+
+The Swarm!
+
+This is the special ability for the special agent Beekeeper Pro. It makes a swarm of 100 bees that pop bloons the way normal ones do, but disperse after an amount of time.
+
+Activate Sea Monster!
+
+This is the special ability for the special agent Portable Lake Pro. It creates a tentacle that lashes nearby bloons for 5 seconds. Pops 5 layers off of bloons with unlimited popping power, can pop lead but can't detect Camo Bloons.
+
+Abominable Ability
+
+This is for the Mad Snowman pro version appearing in Bloons Tower Defense 5 Deluxe only. It throws snowballs hypersonic for 10 seconds.
+
+Shadow Double
+
+This is the special ability for the Ninja Monkey. It creates a shadow copy of itself, with identical upgrades. This can be unlocked by the Ninja Academy Specialty Building at Tier 3. It is represented by a white and black shuriken.
+
+Gallery
+Activated Abilities notice in BTD5 Mobile
+Trivia
+Ability icons in BTD6 are generally the same as their upgrade icons, but in BTD5 generation games, ability icons are always not the same as their respective upgrades.
+Soulbind had the shortest recharge time before it got removed and Orbital Strike has the longest.
+The Monkey Beacon from BTD3 and BTD4 has a special ability, Super Monkey Storm, available upon buying its Monkey Storm upgrade, and requires $1,000 each use. In BTD4, it requires a cooldown after using, and only one Monkey Storm Beacon can be in play at any given time.
+Bloons TD 4, its mobile version, and BMC Mobile are the only Bloons TD games in the franchise to have Special Abilities that require cash to use.
+Specific to BTD5
+By selling and rebuying towers, it is possible to use a special ability lots of times (unlimited times with Monkey Tycoon). This doesn't work on Supply Drop Snipers, for obvious reasons and for most upgrades in BTD6.
+This makes Hotter Cooldown much less useful.
+If there is no MOAB-class Bloon on the screen, the MOAB Takedown Ability will still hook on the strongest Bloon on the screen.
+
+MOAB Takedown popping a red bloon
+
+Oddly, Absolute Zero can freeze White Bloons and Zebra Bloons even without a level 3 Ice Fortress.
+Perhaps it is so cold that not even they can withstand its arctic temperature.
+If this were the case, then maybe the M.O.A.B. Class Bloons have an advanced heating system since they can't be frozen by Absolute Zero.
+The Banana Farm is the only tower without an ability in BTD5.
+The Bloonsday Device (on non-pro & pro), the Beekeeper (pro), the Portable Lake (pro), & the Mad snowman (pro) are the only Special Agents that have a special ability.
+The Sniper Monkey's Supply Drop ability is the only ability in the Flash versions that requires a full initial cooldown upon buying, to avoid sell/rebuy abuse to gain unlimited cash. The ability doesn't need a cooldown in the Mobile versions, however.
+Most abilities are the last upgrades for path 2 (with the exceptions like for special agents).
+As of Mar 22, 2012, the Super Monkeys that the Super Monkey Fan Club makes no longer fire triple darts during the ability, nerfing it.
+Technological Terror only destroys things in a 0/0 Super Monkey range for Bloon Annihilation Ability.
+The Shadow Double Ability is the only ability that you get from a Specialty Building. However, some tier 4 upgrades in the Mobile version grants some abilities (i.e. Fourth Upgrade Tier for Bombing Range grants a temporary doubled range that could cover the entire track).
+Precaution: Only save at round 1~46, 49, 59, 69 & 79 or all your special abilities will have to recharge again after you reloaded.
+With the Hotter Cooldown and the High Energy Beacon, the Super Monkey Fan Club can be constantly used.
+The Dart Monkey, Boomerang Thrower, Glue Gunner, and Spike Factory are the only towers who's abilities will change depending on their path 1 upgrades. (And the Shadow Double Ability, but that's a replica of the ninja.)
+Generally, fast forward often will actually make the recharge last for 1/3 of the original time, making it very useful for some abilities, such as the MOAB Assassin, but detrimental to other abilities, such as the M.I.B. Call To Arms.
+Show
+v • d • e
+Special Abilities / Activated Abilities

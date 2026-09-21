@@ -11,6 +11,7 @@ import {
   resultSchema,
   reviewDraft,
   type ModelClient,
+  type RoleRankingClient,
 } from '../core/index.js';
 import { verifyPrepared } from '../core/prepare.js';
 import { requestFileSchema } from '../node/request-file.js';
@@ -24,9 +25,29 @@ const inputSchema = requestFileSchema.extend({
     .min(1),
 });
 
+// Saving unfinished editor content must not imply that it is ready to execute.
+const editableInputSchema = inputSchema.extend({
+  task: z.string(),
+  character: z.strictObject({ name: z.string(), work: z.string(), scope: z.string() }),
+  documents: z.array(
+    z.union([
+      resolvedDocumentSchema.extend({ id: z.string(), text: z.string() }),
+      requestFileSchema.shape.documents.element.extend({
+        id: z.string(),
+        text: z.string().optional(),
+        file: z.string().optional(),
+        url: z.string().optional(),
+        sourceUrl: z.string().optional(),
+      }),
+    ]),
+  ),
+  constraints: z.unknown().default([]),
+  progression: z.unknown().default(null),
+});
+
 const payloadSchema = z.record(z.string(), z.unknown());
 
-export async function inspectInput(input: unknown): Promise<InspectedInput> {
+export async function inspectInput(input: unknown, editable = false): Promise<InspectedInput> {
   const kind = payloadSchema.parse(input).kind;
   if (kind === 'prepared') {
     const artifact = preparedSchema.parse(input);
@@ -48,7 +69,7 @@ export async function inspectInput(input: unknown): Promise<InspectedInput> {
     await verifyPrepared(artifact.prepared);
     return { kind, artifact };
   }
-  return { kind: 'request', artifact: inputSchema.parse(input) };
+  return { kind: 'request', artifact: (editable ? editableInputSchema : inputSchema).parse(input) };
 }
 
 async function prepareInput(input: unknown, signal: AbortSignal) {
@@ -79,6 +100,7 @@ export async function executeLabOperation(
   input: unknown,
   model: ModelClient,
   signal: AbortSignal,
+  roleRankingClient?: RoleRankingClient,
 ): Promise<unknown> {
   const payload = payloadSchema.parse(input);
   signal.throwIfAborted();
@@ -86,13 +108,19 @@ export async function executeLabOperation(
     case 'prepare':
       return prepareInput(payload.request, signal);
     case 'draft':
-      return draftUnit(preparedSchema.parse(payload.prepared), model, { signal });
+      return draftUnit(preparedSchema.parse(payload.prepared), model, {
+        signal,
+        roleRankingClient,
+      });
     case 'check':
       return checkDraft(draftArtifactSchema.parse(payload.draft));
     case 'review':
       return reviewDraft(checkedArtifactSchema.parse(payload.checked), model, { signal });
-    case 'inspect':
-      return inspectInput(payload.artifact);
+    case 'inspect': {
+      const request = z.strictObject({ artifact: z.unknown(), editable: z.boolean().optional() });
+      const { artifact, editable } = request.parse(payload);
+      return inspectInput(artifact, editable);
+    }
     case 'render': {
       const request = z.strictObject({ artifact: z.unknown(), details: z.boolean().optional() });
       const { artifact, details } = request.parse(payload);

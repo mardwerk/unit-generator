@@ -8,6 +8,7 @@
     "node": ">=24"
   },
   "bin": {
+    "mardwerk-unit": "./dist/lab/main.js",
     "unit-generator": "./dist/cli.js"
   },
   "exports": {
@@ -24,25 +25,37 @@
     "dist",
     "examples",
     "docs",
+    "research",
     "README.md",
     "CONTEXT.md"
   ],
   "scripts": {
+    "dev": "node --watch --watch-path=src --watch-path=scripts --watch-path=examples --watch-path=tsconfig.json scripts/dev.mjs",
     "build": "tsc -p tsconfig.json && node scripts/copy-lab-assets.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
     "test": "tsc -p tsconfig.test.json && node --test .test-build/tests/*.test.js",
-    "format": "prettier --write \"src/**/*.{ts,html,css}\" \"tests/**/*.ts\" \"scripts/*.mjs\" \"*.json\"",
-    "format:check": "prettier --check \"src/**/*.{ts,html,css}\" \"tests/**/*.ts\" \"scripts/*.mjs\" \"*.json\"",
+    "format": "prettier --write \"src/**/*.{ts,tsx,html,css}\" \"tests/**/*.{ts,tsx}\" \"scripts/*.mjs\" \"*.json\"",
+    "format:check": "prettier --check \"src/**/*.{ts,tsx,html,css}\" \"tests/**/*.{ts,tsx}\" \"scripts/*.mjs\" \"*.json\"",
     "cli": "node dist/cli.js",
-    "lab": "node dist/lab/main.js"
+    "lab": "node dist/lab/main.js",
+    "start": "node dist/lab/main.js",
+    "eval:intake": "node scripts/evaluate-intake.mjs"
   },
   "dependencies": {
+    "@openrouter/sdk": "^1.2.146",
     "cheerio": "^1.1.2",
+    "lucide-react": "^1.47.0",
+    "react": "^19.3.0",
+    "react-dom": "^19.3.0",
+    "sharp": "^0.35.4",
     "smol-toml": "^1.8.0",
     "zod": "^4.3.6"
   },
   "devDependencies": {
     "@types/node": "^24.0.0",
+    "@types/react": "^19.3.0",
+    "@types/react-dom": "^19.3.0",
+    "esbuild": "^0.28.2",
     "prettier": "^3.9.8",
     "typescript": "^5.9.0"
   }

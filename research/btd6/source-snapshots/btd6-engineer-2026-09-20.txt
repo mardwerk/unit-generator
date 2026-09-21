@@ -1,0 +1,278 @@
+Accessed through browser preview 2026-09-20. Community wiki content, raw research note.
+
+Upgrades
+Path 1
+	Sentry GunCOST: $425 / $500 / $540 / $600
+UNLOCK: 160 XP
+
+
+Description: Creates temporary sentry guns and deploys them nearby.
+Effect: Produces temporary sentry guns onto nearby land. Sentry Guns pop up to 2 bloons per shot, lasts for up to 25 seconds before disappearing, and can be improved with crosspathing.
+	Faster EngineeringCOST: $340 / $400 / $430 / $480
+UNLOCK: 550 XP
+
+
+Description: Increased efficiency allows the Engineer to produce sentries, foam and bloon traps more often.
+Effect: Produces all contraptions +66% faster (0.60x attack cooldown).
+	SprocketsCOST: $490 / $575 / $620 / $690
+UNLOCK: 1,850 XP
+
+
+Description: Increases sentry gun and Engineer attack speed.
+Effect: Nailgun and newly deployed sentry guns attack twice as fast.
+	Sentry ExpertCOST: $2,125 / $2,500 / $2,700 / $3,000
+UNLOCK: 9,500 XP
+
+
+Description: Sentries deploy with different damage types based on your need.
+Effect: Replaces all new sentries with four specialized sentries: Crushing , Boom, Cold, and Energy. Adjusts deployment of these four sentry types depending on bloons on the screen. Crushing sentries shoot spiked balls, Boom sentries shoot explosive bombs, Cold sentries shoot ice balls, and Energy sentries shoot powerful laser beams.
+	Sentry ChampionCOST: $27,200 / $32,000 / $34,560 / $38,400
+UNLOCK: 30,000 XP
+
+
+Description: Creates super-powerful but highly unstable sentries.
+Effect: Replaces all new sentries with powerful plasma sentries that shoot plasma 15 times per second that have 5 pierce and 3 damage. The sentries can pop Frozen and Lead but cannot pop Camo or Purple. Expired sentries now explode a wave of plasma after 25 seconds or when sold, instead of disappearing.
+Path 2
+	Larger Service AreaCOST: $210 / $250 / $270 / $300
+UNLOCK: 170 XP
+
+
+Description: Shoots further and deploys sentries in a much larger area. Sentries have longer range
+Effect: Engineer gains +20 range and any newly deployed sentries gain +4 range. Allow newly placed selectable placement for Bloon Traps.
+	DeconstructionCOST: $295 / $350 / $380 / $420
+UNLOCK: 500 XP
+
+
+Description: Nail gun and Sentry shots do extra damage to MOAB-class and Fortified Bloons.
+Effect: Nailgun and newly deployed sentries deal +1 damage to MOAB-class and +1 damage to Fortified.
+	Cleansing FoamCOST: $765 / $900 / $970 / $1,080
+UNLOCK: 2,000 XP
+
+
+Description: Sprays foam that removes Camo and Regrow and pops Lead Bloons.
+Effect: Sprays foam on a selected spot on nearby bloon tracks. Bloons that hit the foam will permanently lose Camo and Regrow properties. Popping the lead layer to any passing Lead Bloons. In addition, attacks 4x faster for the first 1 seconds of a round. If crosspathed with Sentry Gun, sentries shoot foamy nails that apply foam effect on hit bloons. If crosspathed with Pin, foam slows every non-blimp bloon by 50%.
+	OverclockCOST: $11,475 / $13,500 / $14,580 / $16,200
+UNLOCK: 14,000 XP
+
+
+Description: Overclock Ability: Target another tower to supercharge its attack speed for a short time.
+Effect: Ability temporarily increases attack speed of tower, range of a Monkey Village, or production of a Banana Farm. Ability duration depends on tier of the selected tower. Main attacks gains more pierce.
+	UltraboostCOST: $61,200 / $72,000 / $77,760 / $86,400
+UNLOCK: 35,000 XP
+
+
+Description: Ultra-Overclocked Monkeys gain a small but permanent boost every time they are overclocked.
+Effect: Ability now permanently applies a 10th of the bonus of Overclock onto the selected tower, stacking up to 10 times. Ability cooldown reduced to 35 seconds. Main attack gains even more pierce.
+Path 3
+	Oversize NailsCOST: $380 / $450 / $485 / $540
+UNLOCK: 150 XP
+
+
+Description: Massivization allows nails to pop 8 Bloons at once, including frozen. Also increases Foam and Sentry effectiveness.
+Effect: Nailgun pierce increases from 3 to 8. Pierce of regular sentries increased from 2 to 3 and foam increased from 10 to 15.
+	PinCOST: $185 / $220 / $235 / $265
+UNLOCK: 500 XP
+
+
+Description: Pins Bloons in place for a short time when struck.
+Effect: Nailgun nails pin any non-blimp bloon other than Leads and Ceramics. Can give Pin effect to sentries with Sprockets or above. Also lets Cleansing Foam slow down any non-blimp bloons.
+	Double GunCOST: $380 / $450 / $485 / $540
+UNLOCK: 1,800 XP
+
+
+Description: Two guns for twice the fun.
+Effect: Double nailgun attack speed and newly formed sentry guns shoot double projectiles, with the second projectile having 1 pierce.
+	Bloon TrapCOST: $3,060 / $3,600 / $3,890 / $4,320
+UNLOCK: 11,000 XP
+
+
+Description: Bloon trap captures Bloons until full. Select to empty full trap for cash.
+Effect: Produces a Bloon Trap that captures up to 500 RBE worth of non-blimp bloons. The full trap earns a bonus +100% income compared to popping them normally. Bloon Traps can only trap bloons it can target. Middle path crosspath allows traps to be manually adjusted, autocollecting them.
+	XXXL TrapCOST: $38,250 / $45,000 / $48,600 / $54,000
+UNLOCK: 40,000 XP
+
+
+Description: Huge Bloon traps can trap some of the largest Bloons in them...
+Effect: Produces a huge XXXL Bloon Trap that captures up to 10,000 RBE worth of all bloon excluding BADs, Bosses, and undetected Camo. There is a 2 second cooldown between each trap that starts when placed. Manually collecting the full trap earns a bonus +100% compared to popping them normally. Only one XXXL trap can be on screen at any time per player.
+Paragon
+	Master Builder COST: $552,500 / $650,000 / $702,000 / $780,000
+UNLOCK: 750,000 XP
+
+Description: Monkey engineering developed to perfection. Creates three Mega Sentries that can build their own sentries.
+Effect: Upgrades into a four-armed supersonic nail-shooting machine that produces three permanent specialized Mega Sentries (Green, Red, Blue) that themselves produce their own temporary miniature Modified Paragon Sentries (stronger versions of Champion Sentries). Nails deal enormous damage and can stun MOAB-class bloons. Can manually place Mega Sentries on any land location. Also overclocks itself at the start of each round and has an overclock ability that applies to paragons.
+Total Costs
+
+Note: these numbers refer to Medium Mode.
+
+		Tier 1	Tier 2	Tier 3	Tier 4	Tier 5
+Path 1
+Base Cost	500	400	525	2,500	32,000
+Cumulative Cost	700	1,100	1,625	4,125	36,125
+Base Sell	350	630	2,185	2,748	25,138
+Cumulative Sell	665	945	2,500	3,063	25,453
+Path 2
+Base Cost	250	350	800	13,500	120,000
+Cumulative Cost	700	1,050	1,850	15,350	135,350
+Base Sell	175	420	980	10,430	94,430
+Cumulative Sell	490	735	1,295	10,745	94,745
+Path 3
+Base Cost	450	220	500	3,500	54,000
+Cumulative Cost	900	1,120	1,620	5,120	59,120
+Base Sell	315	469	819	3,269	41,069
+Cumulative Sell	630	784	1,134	3,584	41,384
+Strategy
+See also: Engineer Monkey (BTD6)/Strategies
+Summary
+
+Engineer Monkeys contain various lower-tier and higher-tier upgrades that are specifically geared to support the defense, typically offering strong indirect roles for the defense via their various sentries and other contraptions. An Engineer Monkey is typically best paired with additional defenses to make use of their supporting roles, but also possess many powerful upgrades that focus on DPS as well as support.
+
+Tips
+Engi + Dart is a solid early-game on CHIMPS, with Engi doing most of the group-popping and Dart offering a little extra popping of stray bloons.
+Monkey Knowledge
+
+This section displays Monkey Knowledge that has effects on Engineer Monkey and its changes when compared to one by default:
+
+ Vigilant Sentries: Sentry Turrets last longer than normal.
+Increases Sentry Gun lifespan from 25 seconds to 30 seconds. Applies to all Sentries, including from Sentry Expert and Sentry Champion.
+ Monkey Education: All Monkeys XP earn rate increased by 8%.
+ Thicker Foams: Cleansing Foam can hit 3 more Bloons before expiring.
+Increases pierce of each base cleansing foam blob from 10 to 13.
+With Oversize Nails, cleansing foam blobs increase pierce from 15 to 18.
+ Better Sell Deals: All Monkeys sell for 5% more.
+Increases sell potency from 70% to 75%.
+ Big Traps: Bloon Trap can hold up to 530 RBE.
+ Veteran Monkey Training: All Monkeys reload time reduced by 3%.
+ Global Ability Cooldowns: All Ability cooldowns for all Monkeys reduced by 3%.
+Rogue Legends
+
+In Rogue Legends, the Engineer Monkeys can be affected by some artifacts, allowing the tower to receive Artifact Buffs. This section displays Artifacts that has effects on Engineer Monkey.
+
+Here are the list of the Artifacts the Ninja Monkey can affect:
+
+Artifacts that only exclusive to the Engineers: Alchemic Engineering
+Artifacts that affects the Engineers' abilities: Ability Stacking, Absolute Ability, Innate Ability
+Artifacts that affects the Engineers attacks: Added Preservatives, BB Gatling Gun, Bouncing Projectiles, Slow And Steady, Slower Is Harder
+Artifacts that affects the Engineers and the Support Categories: Crystal Crash, Duckageddon, First Class Support Inspiration, First Class Support Precision, First Class Support Quickening, The Unspoken Heroes, Explosive Economics
+Artifacts that affects the Engineers and all tower categories: General's Disposition, Intelligence Agent
+Artifacts that requires Master Of All Trades or Essence Of Dreadbloon Artifact to benefit the Engineers:
+Primary Artifacts: Critical Success, Ceramic Chunker, Greater Primary Inspiration, Greater Primary Precision, Greater Primary Quickening, Primal Instinct
+Military Artifacts: Cold Steel, Elite Military Inspiration, Elite Military Precision, Elite Military Quickening, Too Many Cooks
+Magic Artifacts: Confuddling Spelling, Grand Magic Inspiration, Grand Magic Precision, Grand Magic Quickening, Mystic Twister, Zig Then Zag
+Artifacts that benefits their own categories but doesn't benefit the Engineers:
+Primary Artifacts: Unification
+Military Artifacts: Conscription, Squadron Together Strong
+Magic Artifacts: Monkey Academy
+Hero Artifacts: One Monkey Army
+Artifacts that only benefit Tier 4 Engineers: Essence Of Blastapopoulos, Essence Of Phayze, Essence Of Vortex
+
+Engineer first teaser
+
+Teasers
+
+It was teased a few days earlier on Reddit via r/btd6, on September 15th 2019, before the Version 12.0 update. Other teasers posted on Ninja Kiwi's Twitter, more than in r/btd6, the first one of an Engineer driving a truck (link), and the second is the Engineer carrying a toolbox full of tools (link). Both of these posts tease the Engineer Monkey.
+
+The first Twitter teaser was accompanied by "Your delivery has been shipped." and was tagged with the following hashtags: #btd6, #BloonsTD6, #NinjaKiwi. Likewise, the second Twitter teaser was accompanied by "The anticipation is building 🐒🎈", followed with these hashtags: #BloonsTD6, #btd6, #NinjaKiwi.
+
+Version History
+
+Listed are comparisons of thecurrent (44.1) Engineer Monkey in BTD6 compared to BTD5. Takes into account Flash and Mobile versionse.
+
+ Sentries no longer consume Footprint.
+ Bloon Trap now has decreased income gain dependent on round income penalty, similar to BTD5 Deluxe and Monkey City Flash.
+ Several changes in path placement of the upgrades. Sprockets is now a Path 1 Tier 3 upgrade, Cleansing Foam is now a Path 2 Tier 3 upgrade, Bloon Trap is now a Path 3 Tier 4 upgrade, and none of these upgrades may be bought on the same tower.
+ Cleansing Foam now has less pierce (30 → 10).
+ Bloon Trap now has a longer placement cooldown whenever trap is destroyed (~1.0s → ~2.8s)
+ For each round when that trap still stays on the map, Engineer will store another Bloon Trap on itself, and the effect stacks with the number of rounds passing per Engineer. When all Bloon Traps are used during a later round, Engineer won't spawn another until next round.(???)
+ Larger Service Area upgrade costs less ($650 → $550???).
+ Sprockets upgrade costs less ($550 → $525).
+ Overclock ability now has an initial cooldown of 15 seconds before usage when the upgrade is first purchased.
+ Overclock ability can now target itself.
+ Overclock ability duration decreases to 45s for T5 towers (who doesn't exist in btd5, but idk.
+ Bloon Trap now traps more RBE (250 → 500).
+ Sentries also can applies any upgrade not just engineer (???)
+ Large service area now gives extra range to sentries
+ Bloon trp can be spawned in a selected point if have large service area
+ Cleansing has more pierce if it have oversized nails
+ CLeansing foam with sentries now spawn cleansing sentries
+Balance Changes
+12.0 (Engineer Monkey Update)
+
+Note: Lists all balance changes implemented for the Engineer Monkey when it was first released in Bloons TD 6 (September 18th 2019) in comparison to Bloons TD 5. Takes into account Flash and Mobile versions of Bloons TD 5.
+
+ Sentries no longer consume Footprint.
+ Sentries now have 1 pierce per nail instead of 2.
+ Bloon Trap now has decreased income gain dependent on round income penalty, similar to BTD5 Deluxe and Monkey City Flash.
+ Several changes in path placement of the upgrades. Sprockets is now a Path 1 Tier 3 upgrade, Cleansing Foam is now a Path 2 Tier 3 upgrade, Bloon Trap is now a Path 3 Tier 4 upgrade, and none of these upgrades may be bought on the same tower.
+ Cleansing Foam now has less pierce (30 → 10).
+ Bloon Trap now has a longer placement cooldown whenever trap is destroyed (~1.0s → ~5.0s) and is limited to 1 per round. The XXXL Trap upgrade can still place unlimited Traps.
+ For each round when that trap still stays on the map, Engineer will store another Bloon Trap on itself, and the effect stacks with the number of rounds passing per Engineer. When all Bloon Traps are used during a later round, Engineer won't spawn another until next round.
+ Larger Service Area upgrade costs less ($650 → $550).
+ Sprockets upgrade costs less ($550 → $525).
+ Overclock ability now has an initial cooldown of 15 seconds before usage when the upgrade is first purchased.
+ Overclock ability can now target itself.
+ Overclock ability duration decreases to 45s for towers valued between $15,000-$39,999, and to 30s for towers valued $40,000+.
+ Bloon Trap now traps more RBE (250 → 500).
+14.0
+ 4-x-x Sentry Expert Energy Sentry damage increased from 1 to 2.
+ 4-x-x Sentry Expert Bomb Sentry damage increased from 1 to 2.
+ 4-x-x Sentry Expert Bomb Sentry attack rate increased from 1.5s to 1.4s.
+ 4-x-x Sentry Expert Spiked Ball attack rate increased from 1.25s to 1s.
+ 5-x-x Sentry Champion explosion damage increased from 70 to 85.
+ 5-x-x Sentry Champion manually sold sentries will now explode with no animation delay.
+ x-4-x Overclock reload time reduction lowered from -50% to -40% (farms remain 2x speed and villages still receive 25% range).
+ x-5-x Ultraboost permanent reload time reduction lowered to -4% for a maximum of -40%.
+15.0
+ 1-x-x Standard Sentry pierce increased from 1 to 2.
+ 4-x-x Sentry Expert price reduced from $2,800 to $2,500.
+ 5-x-x Paragon Sentry pierce increased from 3 to 5.
+18.0
+ Sentry Expert's Boom Sentry blast radius increased (12 → 18).
+ Sentry Expert's Boom Sentry attack speed increased (1.4 → 1.3).
+20.0
+“	Continuing our efforts to make crosspaths meaningful and fit the style of each path more solidly, a number of crosspath and base level balance shifts were made.	”
+	~ Ninja Kiwi	
+ 1-1-0 Larger Service Area now applies 1/5th the range (+4) to any sentries produced.
+ 1-0-1 Oversize Nails allows sentries produced by this tower to pop frozen Bloons.
+ 1-0-1 Oversize Nails now increases sentry pierce by +1.
+ 2-x-x Faster Engineering sentry deployment rate increased further from 7s to 6s.
+ 4-x-x Sentry Expert base range of all sentries increased from 45 to 50.
+ 5-x-x Sentry Champion explosion radius now scales with sentry radius.
+ x-4-x Engineer Overclock ability active buff state will now be included in save files.
+ x-5-x Ultraboost will now apply 'perma' stacks upon ability activation rather than expiration.
+21.0
+“	Engineer is quite poor in terms of crosspathing, so we've added crosspath benefits to Cleansing Foam as well as an overall price buff to the middle crosspathing upgrades. We've been somewhat unhappy with how Overclock sits in the game for a while and especially how the interaction with tower cost causes levelling heroes naturally to be far advantageous over purchasing upgrades when this is already underused. We have made an attempt to rework these issues by moving it to a tier-based system rather than price.	”
+	~ Ninja Kiwi	
+ 5-x-x Sentry Champion explosion damage increased from 85 → 100.
+ 0-1-0 Larger Service Area price reduced from $550 → 250.
+ 0-2-0 Deconstruction price increased from $200 → 350.
+ 2-3-0 Faster Engineering increases Cleansing Foam rate 2 → 1.2.
+ 0-3-1 Oversize Nails increases Cleansing Foam pierce 10 → 15.
+ Banana Farms give 66.7% more income instead of 100%.
+ Overclock ability is reworked to operate on a tier basis rather than a cost basis:
+ T5 duration is now always 30 seconds.
+ T4 duration is now always 45 seconds.
+ T3 duration is now always 60 seconds.
+ T2 duration is now always 75 seconds.
+ T1 duration is now always 90 seconds.
+ T0 duration is now always 105 seconds.
+ Hero duration is based on X/4, where X is level, starting from Level 0 (i.e. Level 1-3 is T0, Level 4-7 is T1, Level 8-11 is T2, Level 12-15 is T3, Level 16-19 is T4, Level 20 is T5).
+22.0
+“	Bloon Trap can now be used more effectively.	”
+	~ Ninja Kiwi	
+ If all of an Engineer's stockpiled Bloon Traps are used up, Bloon Trap now has a cooldown of 20s instead of only capping at one new trap per round. Bloon Trap cooldown now starts upon once it spawns rather than once it is collected. Does not affect the existing 2.8s cooldown while refreshing a trap.
+Note: Bloon Trap is still limited to 1 at a time per Engineer.
+ 2-0-4 Faster Engineering reduces the bonus Bloon Trap cooldown from 20s → 16s. Does not affect the existing 2.8s cooldown per trap.
+ XXXL Trap will cooldown at 1/6th of the rate of the standard Bloon Trap.
+XXXL Trap cooldown is now increased from 2.8s to 3.33s.
+Note: Bloon Trap's minimum deploy time of 2.8s will override 205 Trap's 2.7s cooldown.
+23.0
+“	Sentry Expert has underperformed for a while, so we're adding solid crosspathing buffs to all Sentries. We've added a pierce & speed boost to Overclock's base upgrade and lowered the cooldown on Ultraboost to allow the possibility for it to achieve full uptime as a freeplay tower and get its stacks up faster. Finally last update we allowed Bloontrap to be set multiple times per round, and we wanted to stay on the side of caution with a long cooldown, but after seeing it in the wild we are happy to make this cooldown faster.	”
+	~ Ninja Kiwi	
+ Deconstruction now grants all spawned Sentries with +1 damage to MOAB-class and +1 damage to Fortified.
+ 4-0-1 Sentry expert now increases sentry pierce by roughly 25% instead of +1.
+ 4-0-1 Crushing Sentry pierce increased (22 → 28).
+ 4-0-1 Bomb Sentry pierce increased (30 → 38).
+ 4-0-1 Cold Sentry pierce increased (15 → 19).
+ Overclock's main attack's projecitle speed increased (375 → 750).
+ Overclock's main attack's pierce increased (3 → 15).
+

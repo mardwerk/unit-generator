@@ -2,8 +2,9 @@ import { mkdtemp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises'
 import { homedir, tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parse } from 'smol-toml';
-import type { ModelClient, ModelRequest } from '../core/model.js';
-import { runCodexProcess } from './codex-process.js';
+import type { ModelClient, ModelRequest, ModelResponse } from '../core/model.js';
+import { ModelExecutionError } from '../core/model.js';
+import { codexFailure, runCodexProcess } from './codex-process.js';
 
 export interface CodexOptions {
   executable?: string;
@@ -42,38 +43,48 @@ export class CodexModelClient implements ModelClient {
     return `codex:${model}${effort}`;
   }
 
-  async generate(request: ModelRequest): Promise<unknown> {
+  async generate(request: ModelRequest): Promise<ModelResponse> {
     if (request.signal?.aborted) {
-      throw new Error('Codex generation was cancelled.');
+      throw codexFailure({ code: 'CANCELLED', message: 'Codex generation was cancelled.' });
     }
-    const config = await inspectConfig(this.options.configPath);
-    this.selectedModel = this.options.model ?? config.model;
-    this.selectedEffort = this.options.reasoningEffort ?? config.reasoningEffort;
-    const directory = await mkdtemp(join(tmpdir(), 'unit-generator-codex-'));
     try {
-      const workspace = join(directory, 'workspace');
-      const schema = join(directory, 'schema.json');
-      const output = join(directory, 'result.json');
-      await mkdir(workspace);
-      await writeFile(schema, JSON.stringify(request.schema), { mode: 0o600 });
-      await runCodexProcess({
-        executable: this.options.executable,
-        args: codexArguments(this.options, config, {
-          schema,
+      const config = await inspectConfig(this.options.configPath);
+      this.selectedModel = this.options.model ?? config.model;
+      this.selectedEffort = this.options.reasoningEffort ?? config.reasoningEffort;
+      const directory = await mkdtemp(join(tmpdir(), 'unit-generator-codex-'));
+      try {
+        const workspace = join(directory, 'workspace');
+        const schema = join(directory, 'schema.json');
+        const output = join(directory, 'result.json');
+        await mkdir(workspace);
+        await writeFile(schema, JSON.stringify(request.schema), { mode: 0o600 });
+        await runCodexProcess({
+          executable: this.options.executable,
+          args: codexArguments(this.options, config, {
+            schema,
+            output,
+          }),
+          cwd: workspace,
           output,
-        }),
-        cwd: workspace,
-        output,
-        prompt: `${request.system}\n\n${request.prompt}`,
-        signal: request.signal,
-        timeoutMs: this.options.timeoutMs,
-        maxOutputBytes: this.options.maxOutputBytes,
-      });
-      return await readCodexResponse(output, this.options.maxOutputBytes);
-    } finally {
-      await rm(directory, {
-        recursive: true,
-        force: true,
+          prompt: `${request.system}\n\n${request.prompt}`,
+          signal: request.signal,
+          timeoutMs: this.options.timeoutMs,
+          maxOutputBytes: this.options.maxOutputBytes,
+        });
+        return { output: await readCodexResponse(output, this.options.maxOutputBytes) };
+      } finally {
+        await rm(directory, {
+          recursive: true,
+          force: true,
+        });
+      }
+    } catch (error) {
+      if (error instanceof ModelExecutionError) throw error;
+      // Filesystem and subprocess exceptions may include private paths or source text.
+      throw codexFailure({
+        code: 'MODEL_FAILED',
+        message:
+          'Codex generation could not use its temporary workspace safely. Check local disk access and retry this stage.',
       });
     }
   }
@@ -89,10 +100,16 @@ function resolveOptions(options: CodexOptions): CodexSettings {
       options.configPath ??
       join(process.env.CODEX_HOME ?? join(homedir(), '.codex'), 'config.toml'),
   };
-  const validTimeout = Number.isSafeInteger(settings.timeoutMs) && settings.timeoutMs > 0;
+  const validTimeout =
+    Number.isSafeInteger(settings.timeoutMs) &&
+    settings.timeoutMs > 0 &&
+    settings.timeoutMs <= 2_147_483_647;
   const validLimit = Number.isSafeInteger(settings.maxOutputBytes) && settings.maxOutputBytes > 0;
   if (!validTimeout || !validLimit) {
-    throw new Error('Codex timeout and output limit must be positive integers.');
+    throw codexFailure({
+      code: 'MODEL_FAILED',
+      message: 'Codex timeout and output limit must be positive bounded integers.',
+    });
   }
   return settings;
 }
@@ -193,10 +210,12 @@ async function inspectConfig(configPath: string): Promise<CodexConfig> {
       return { servers: [] };
     }
     // TOML errors can quote source lines containing credentials. Never expose them.
-    throw new Error(
-      'Codex configuration could not be inspected safely. Check that config.toml is ' +
+    throw codexFailure({
+      code: 'MODEL_FAILED',
+      message:
+        'Codex configuration could not be inspected safely. Check that config.toml is ' +
         'valid TOML and under 1 MB.',
-    );
+    });
   }
 }
 
@@ -205,21 +224,29 @@ async function readCodexResponse(output: string, maxOutputBytes: number): Promis
   try {
     const size = (await stat(output)).size;
     if (size > maxOutputBytes) {
-      throw new Error('Codex structured response exceeded the configured output limit.');
+      throw codexFailure({
+        code: 'OUTPUT_LIMIT',
+        message: 'Codex structured response exceeded the configured output limit.',
+      });
     }
     result = await readFile(output, 'utf8');
   } catch (error) {
-    if (error instanceof Error && error.message.startsWith('Codex')) {
+    if (error instanceof ModelExecutionError) {
       throw error;
     }
-    throw new Error(
-      'Codex did not produce a structured final response. Check the local Codex login ' +
+    throw codexFailure({
+      code: 'MODEL_OUTPUT_INVALID',
+      message:
+        'Codex did not produce a structured final response. Check the local Codex login ' +
         'and model configuration.',
-    );
+    });
   }
   try {
     return JSON.parse(result);
   } catch {
-    throw new Error('Codex returned invalid JSON in its structured final response.');
+    throw codexFailure({
+      code: 'MODEL_OUTPUT_INVALID',
+      message: 'Codex returned invalid JSON in its structured final response.',
+    });
   }
 }

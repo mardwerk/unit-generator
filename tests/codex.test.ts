@@ -4,6 +4,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { test } from 'node:test';
 import { CodexModelClient } from '../src/node/codex.js';
+import { ModelExecutionError, type ModelFailure } from '../src/core/model.js';
 const request = {
   system: 'Use only evidence.',
   prompt: 'Produce the candidate.',
@@ -30,6 +31,20 @@ async function fakeCodex(
     });
   }
 }
+function codexError(code: ModelFailure['code'], message: RegExp) {
+  return (error: unknown): true => {
+    assert.ok(error instanceof ModelExecutionError);
+    assert.equal(error.failure?.code, code);
+    assert.equal(error.failure?.provider, 'Codex');
+    assert.equal(error.failure?.message, error.message);
+    assert.equal(error.usage, undefined);
+    assert.equal(error.cause, undefined);
+    assert.match(error.message, message);
+    assert.doesNotMatch(JSON.stringify(error), /SECRET_CREDENTIAL_TOKEN|SECRET_TOKEN_VALUE/);
+    return true;
+  };
+}
+
 async function assertClean(directory: string) {
   const cwd = await readFile(join(directory, 'cwd.txt'), 'utf8');
   await assert.rejects(access(cwd));
@@ -49,7 +64,9 @@ test('Codex requests are isolated, stdin-fed, tool-limited and parsed from the f
         timeoutMs: 5000,
       });
       assert.equal(client.id, 'codex:test-model');
-      const result = (await client.generate(request)) as {
+      const response = await client.generate(request);
+      assert.equal(Object.hasOwn(response, 'usage'), false);
+      const result = response.output as {
         args: string[];
         prompt: string;
         schema: unknown;
@@ -92,7 +109,9 @@ test('Codex failures do not reveal provider console secrets and always clean tem
           configPath: join(directory, 'config.toml'),
         }).generate(request),
         (error) => {
-          assert.ok(error instanceof Error);
+          assert.ok(error instanceof ModelExecutionError);
+          assert.equal(error.failure?.code, 'MODEL_FAILED');
+          assert.equal(error.failure?.provider, 'Codex');
           assert.match(error.message, /exit status 7/);
           assert.doesNotMatch(error.message, /SECRET_CREDENTIAL_TOKEN/);
           return true;
@@ -107,7 +126,7 @@ test('Codex failures do not reveal provider console secrets and always clean tem
         executable,
         configPath: join(directory, 'config.toml'),
       }).generate(request),
-      /invalid JSON/,
+      codexError('MODEL_OUTPUT_INVALID', /invalid JSON/),
     );
     await assertClean(directory);
   });
@@ -117,7 +136,7 @@ test('Codex failures do not reveal provider console secrets and always clean tem
         executable,
         configPath: join(directory, 'config.toml'),
       }).generate(request),
-      /did not produce/,
+      codexError('MODEL_OUTPUT_INVALID', /did not produce/),
     );
     await assertClean(directory);
   });
@@ -126,7 +145,7 @@ test('Codex failures do not reveal provider console secrets and always clean tem
       executable: '/nonexistent/unit-generator-codex',
       configPath: '/nonexistent/unit-generator-config.toml',
     }).generate(request),
-    /could not start/,
+    codexError('MODEL_FAILED', /could not start/),
   );
 });
 test('Codex timeout, cancellation and output limits terminate the process and clean up', async () => {
@@ -137,7 +156,13 @@ test('Codex timeout, cancellation and output limits terminate the process and cl
         configPath: join(directory, 'config.toml'),
         timeoutMs: 500,
       }).generate(request),
-      /timed out/,
+      (error) => {
+        codexError('LOCAL_TIMEOUT', /app's 0.5-second limit/)(error);
+        assert.ok(error instanceof ModelExecutionError);
+        assert.equal(error.failure?.timeoutMs, 500);
+        assert.equal(error.failure?.httpStatus, undefined);
+        return true;
+      },
     );
     await assertClean(directory);
     const controller = new AbortController();
@@ -150,7 +175,7 @@ test('Codex timeout, cancellation and output limits terminate the process and cl
       signal: controller.signal,
     });
     setTimeout(() => controller.abort(), 300);
-    await assert.rejects(pending, /cancelled/);
+    await assert.rejects(pending, codexError('CANCELLED', /cancelled/));
     await assertClean(directory);
     await assert.rejects(
       new CodexModelClient({
@@ -160,7 +185,7 @@ test('Codex timeout, cancellation and output limits terminate the process and cl
         ...request,
         signal: AbortSignal.abort(),
       }),
-      /cancelled/,
+      codexError('CANCELLED', /cancelled/),
     );
   });
   await fakeCodex(
@@ -172,7 +197,7 @@ test('Codex timeout, cancellation and output limits terminate the process and cl
           configPath: join(directory, 'config.toml'),
           maxOutputBytes: 1000,
         }).generate(request),
-        /output limit/,
+        codexError('OUTPUT_LIMIT', /output limit/),
       );
       await assertClean(directory);
     },
@@ -184,7 +209,7 @@ test('Codex timeout, cancellation and output limits terminate the process and cl
         configPath: join(directory, 'config.toml'),
         maxOutputBytes: 1000,
       }).generate(request),
-      /output limit/,
+      codexError('OUTPUT_LIMIT', /output limit/),
     );
     await assertClean(directory);
   });
@@ -202,7 +227,7 @@ test('Codex preserves configured provider and auth while disabling every configu
         executable,
         configPath,
       });
-      const result = (await client.generate(request)) as {
+      const result = (await client.generate(request)).output as {
         args: string[];
       };
       assert.equal(client.id, 'codex:configured-model:reasoning=medium');
@@ -224,7 +249,7 @@ test('Codex preserves configured provider and auth while disabling every configu
         model: 'override-model',
         reasoningEffort: 'high',
       });
-      const overridden = (await override.generate(request)) as {
+      const overridden = (await override.generate(request)).output as {
         args: string[];
       };
       assert.equal(override.id, 'codex:override-model:reasoning=high');
@@ -232,7 +257,9 @@ test('Codex preserves configured provider and auth while disabling every configu
       assert.ok(overridden.args.includes('model_reasoning_effort="high"'));
       await writeFile(configPath, 'token = "SECRET_TOKEN_VALUE" malformed');
       await assert.rejects(client.generate(request), (error) => {
-        assert.ok(error instanceof Error);
+        assert.ok(error instanceof ModelExecutionError);
+        assert.equal(error.failure?.code, 'MODEL_FAILED');
+        assert.equal(error.failure?.provider, 'Codex');
         assert.match(error.message, /configuration could not be inspected/);
         assert.doesNotMatch(error.message, /SECRET_TOKEN_VALUE/);
         return true;

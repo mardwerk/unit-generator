@@ -1,0 +1,380 @@
+	
+	This is a LONG page!
+This page is very long. Visiting or editing long pages like this may greatly reduce the performance of your device or even cause the page to crash in the worst cases. If possible, try moving some of the content to separate pages or removing content that is no longer needed.
+Help: Fandom "Short and long pages on Fandom" under the "Splitting an article" section.
+“	Tower upgrades are usually a better option than just adding more towers.	”
+	~ BTD1 Pre-Round Comment on Round 12	
+
+Example defense in Bloons TD 6 with Dart Monkeys upgraded to Tier 3
+
+Upgrades are purchasable enhancements that empower an existing tower. Most upgrades are bought with in-game cash. Most upgrades enhance the overall power of the tower or add new perks that can increase the potential of an existing defense. Some upgrades also add special abilities that can be activated on-demand. Certain upgrades may require special conditions in order to be purchasable, such as buying a previous upgrade of a certain path (e.g. in BTD6, Razor Sharp Shots requires Sharp Shots), or needing a specific tower nearby (e.g. in BATTD, Finn's Brofist requires Jake nearby). With some exceptions, all upgrades inherit their previous upgrades (e.g. MIB in BTD6 still has the upgrades of Radar Scanner and Grow Blocker) with the inherited upgrades referred to as built-in upgrades, as they require to be purchased before the desired upgrade is available.
+
+Contents
+1	Structure
+1.1	Terminology
+1.2	In Bloons TD 5
+2	Price Upgrade Index
+3	Upgrades
+3.1	Bloons TD 6
+3.1.1	Primary Monkeys
+3.1.2	Military Monkeys
+3.1.3	Magic Monkeys
+3.1.4	Support Monkeys
+3.1.5	Heroes
+3.1.6	Pro Powers
+3.2	Bloons TD 5
+3.2.1	Bloons TD 5 Flash
+3.2.1.1	Disclaimers
+3.2.2	Bloons TD 5 Deluxe
+3.2.2.1	Disclaimers
+3.2.3	Bloons TD 5 Mobile/Steam
+3.2.3.1	Disclaimers
+3.3	Bloons TD 4
+3.4	Bloons TD 3
+3.5	Bloons TD 2
+3.6	Bloons TD
+4	Quotes
+5	Sounds
+6	Gallery
+6.1	Pre-BTD4
+6.2	BTD4
+6.3	BTD5
+6.4	BTD6
+6.5	BATTD
+6.6	BTDB2
+7	Achievements (BTD6)
+8	Sources
+9	Trivia
+9.1	BTD5 Trivia
+Structure
+
+Upgrade structure of a Dart Monkey in Bloons TD 6, excluding Paragons (which merges successors of Tier 5 upgrades)
+
+In most games, tower upgrades are constructed in a linear or multi-linear progression of upgrades. Of those games that use a multi-linear progression of upgrades, most towers offer upgrade paths that each can be unlocked up to a certain amount of tiers. For example, in Bloons TD 6, there are 3 upgrade paths, each of which can go up to 5 tiers, plus one additional tier shared by successors of the fifth tier called Paragons. However, some games offer a very different upgrade system, a notable example being Bloons Adventure Time TD, in which all Characters use an integrated-path upgrade system and all Allies use a single-path upgrade system.
+
+In games with a multi-linear progression of upgrades, each tower has a number of Upgrade Paths and Upgrade Tiers.
+
+Terminology
+
+Basic terminology:
+
+Path X: "Path X" specifies the upgrade path of the tower, where X is a whole number (i.e. 1, 2, 3, etc.). The top-most path is referred as Path 1, and any paths lower down are each referred with a higher integer.
+Note: On Bloons Wiki, some pages may "Top Path", "Middle Path", and "Bottom Path" instead of "Path X", to better reflect community and official developer terminology.
+Tier X: "Tier X" specifies the tier of an upgrade path, where X is a natural integer (i.e. 1, 2, 3, etc.). The first upgrade of a path is referred as the Tier 1 upgrade. Successors of the first upgrade are each referred with a higher integer.
+Crosspath: Crosspaths are upgrades that have been purchased along separate paths. For further information, refer to Crosspathing.
+
+Extra terminology:
+
+Upper Path X: On Bloons Wiki, "Upper Path X" specifies upgrades of at least Tier 3 along a specified upgrade path, where X is a natural integer (i.e. 1, 2, 3, etc.) and determines the path of the tower. For instance, Upper Path 2 Dart Monkeys in Bloons TD 6 would refer to Triple Shot, Super Monkey Fan Club, and Plasma Monkey Fan Club.
+Lower Path X: On Bloons Wiki, "Lower Path X" specifies upgrades up to Tier 2 along a specified upgrade path, where X is a natural integer (i.e. 1, 2, 3, etc.) and determines the path of the tower. For instance, Lower Path 2 Dart Monkeys in Bloons TD 6 would refer to Quick Shots and Very Quick Shots.
+
+Community Terminology:
+
+"Stepping Stone" is a term to refer to upgrades that are only bought soley so that the player can progress through an upgrade path and is almost never solely relied on for a defense. These upgrades tend to be at least moderately-priced tier 3 upgrades and up and (usually) not very good upgrades themselves. Examples include but are not limited to, in no particular order:
+Really Big Bombs
+Long Life Spikes & Deadly Spikes
+Super Monkey Fan Club
+Hot Shots (Tack Shooter)
+Bionic Boomerang
+Laser Blasts
+Heavy Shells
+Buckshot
+Golden Eagle
+Dual Layer Blades
+"Falling off" or "Fall off" are terms for upgrades whose power diminishes due to it being overwhelmed by the general strength of the Bloons thus rendering them more useless in their job. While it can happen anywhere in a game, (generally at the sole blimp rounds) this notably happens after Round 80, since this is when ceramics, already the most dangerous regular bloon, becomes much stronger, (specifically 60 health) and only get faster. This massive boost in health and speed spells the death to their usefulness, as they have more health to speed past the large pierce towers typically have. The most notable casualties of this transition are M.O.A.R Glaives, Bloontonium Reactor and Crossbow Master.
+In Bloons TD 5
+
+Upgrade lineages of the Spike Factory tower.
+
+In Bloons TD 5 and other games in the Bloons TD 5 Generation, there are two separate paths and four upgrades on each of those paths. The left path is usually referred to in-game as Path 1, while the right path is usually referred to as Path 2. Upgrades of the paths are called tiers (or levels as per the tower information button in the flash version). After buying the 3rd tier of a path, the other 3rd tier becomes locked and cannot be obtained unless sold or another tower of the same type is bought.
+
+Path 1 is usually oriented around adding new mechanics for a tower. For example, the tier 3 upgrade on Path 1 for the Boomerang Thrower, Glaive Ricochet, allows the boomerang to hit bloons by bouncing rather than hitting them in a curved direction. The next upgrade, Glaive Lord, adds another new mechanic; 2 spinning glaives permanently orbit the tower. Projectiles may change with tier 3 or 4 upgrades too.
+
+Path 2 is usually oriented around a Special Ability. Path 2 upgrades usually don't change the tower's mechanics, and all Path 2 tier 4 upgrades have abilities (except the Banana Farm). For example, the tier 4 upgrade on Path 2 for the Monkey Ace, Ground Zero, does not change anything for the previous upgrade, Operation: Dart Storm, except gain the Ground Zero Ability; it still functions in the exact same way as Operation: Dart Storm otherwise. Operation: Dart Storm also increases the pierce and projectile amount of the Monkey Ace, not changing or adding any new mechanics to the tower.
+
+A few towers, such as the Mortar Tower and the Ice Tower, do not follow these patterns with their upgrades though.
+
+Price Upgrade Index
+Main article: Bloons Tower Defense General Strategies/Price Upgrade Index
+
+The Price Upgrade Index, or PUI, is an unofficial strategy page made to find out how much an upgrade is worth compared to its cost. The formula for the index is:
+
+Total Cost
+Upgrade Stat
+
+Case in point, say a monkey costs $500 to buy for 5 pierce.
+
+$
+500
+5
+ pierce
+=
+$
+100
+ per pierce
+
+Now imagine the same monkey costs $500 to buy and its upgrade costs $500 for 20 pierce.
+
+$
+1
+,
+000
+20
+ pierce
+=
+$
+50
+ per pierce
+
+The Dart Monkey's upgrade thus has more value than its base because it gives less cost per pierce.
+
+Upgrades
+Bloons TD 6
+
+Below are a list of upgrades in BTD6. Open a section to read more about each tower and their upgrades. Hover over the image to read the official description of the selected upgrade. Click on the hyperlink of the selected upgrade name to read more information of that particular upgrade.
+
+Note 1: Upgrades prices are valid as of Version 43.0. All descriptions are valid as of Version 43.0 (Heroes updated as of Version 43.0). Prices are shown in Medium Difficulty. Also, this does not account for external discounts such as with Monkey Knowledge or other sources.
+
+Note 2: When accounting for rounding due to cost modifiers (e.g. Easy, Hard, Impoppable) all upgrade costs will round to the nearest 5 but also less than or equal to 2.5 rounds down and greater than or equal to 7.5 rounds up; this isn't the same for tower base costs.
+
+Also, BTD6 upgrade artworks prioritize the highest upgrade tier, and if the highest upgrade tiers tie then the chosen upgrade artwork is decided by the Path 2, 1, or 3 crosspath, in that order of priority.
+
+Primary Monkeys
+Tower	Tier 1	Tier 2	Tier 3	Tier 4	Tier 5	
+Expand
+Paragon
+
+
+
+
+Military Monkeys
+Tower	Tier 1	Tier 2	Tier 3	Tier 4	Tier 5	
+Expand
+Paragon
+
+
+
+
+Magic Monkeys
+Tower	Tier 1	Tier 2	Tier 3	Tier 4	Tier 5	
+Expand
+Paragon
+
+
+
+
+Support Monkeys
+Tower	Tier 1	Tier 2	Tier 3	Tier 4	Tier 5	
+Expand
+Paragon
+
+
+
+
+Heroes
+Heroes	
+Expand
+Levels
+
+
+
+
+Pro Powers
+Power	Tier 1	Tier 2	
+Expand
+Tier 3
+
+
+
+
+Bloons TD 5
+Main article: Tower and upgrade stats (BTD5M, BMCM and Battles Mobile)
+
+Below are a list of tower upgrades in all versions of Bloons TD 5. Hover over the portraits to see each description, and click the hyperlinks on the upgrade names to view more about them.
+
+NOTE: There is a disclaimers part in every section. Please read them, as official descriptions can include many errors and inaccuracies.
+
+Bloons TD 5 Flash
+
+Prices are shown as they are in Easy, Medium, and Hard difficulties.
+
+Base Tower	Tier 1	Tier 2	Tier 3	Tier 4	
+Expand
+Total Cost
+
+
+
+
+Bloons TD 5 Deluxe
+
+Prices are shown as they are in Easy Medium, and Hard difficulties.
+
+Base Tower	Tier 1	Tier 2	Tier 3	Tier 4	
+Expand
+Total Cost
+
+
+
+
+Bloons TD 5 Mobile/Steam
+
+Prices are shown as they are in Easy, Medium, Hard, and Impoppable difficulties.
+
+Base Tower	Tier 1	Tier 2	Tier 3	Tier 4	
+Expand
+Total Cost
+
+
+
+
+Bloons TD 4
+
+Below are a list of upgrades in BTD4. Click on the hyperlink of the selected upgrade name to read more information of that particular upgrade.
+
+Tower	Tier 1	Tier 2	Tier 3	
+Expand
+Tier 4
+Bloons TD 3
+
+Below is a list of upgrades in Bloons Tower Defense 3.
+
+Tower	Tier 1	
+Expand
+Tier 2
+Bloons TD 2
+
+Below are a list of upgrades in Bloons Tower Defense 2.
+
+Tower	Top Upgrade	
+Expand
+Bottom Upgrade
+Bloons TD
+
+Below are a list of upgrades in Bloons Tower Defense.
+
+Tower	Left Upgrade	
+Expand
+Right Upgrade
+Quotes
+“	In BTD4, every tower type has 4 sequential upgrades. The fourth upgrade is extra powerful.	”
+	~ BTD4 Round 29 Pre-Round Comment	
+“	Sometimes more towers with less upgrades are better, sometimes less towers with more upgrades are better, it's up to you to decide.	”
+	~ BTD4 Round 52 pre-round comment	
+“	Sometimes it's better to upgrade your Monkeys instead of placing more.	”
+	~ BMC Mobile loading screen tip	
+Sounds
+
+When upgrading a tower in BTD6:
+
+ [shine]
+
+When upgrading a tower in BTD5:
+
+Gallery
+Pre-BTD4
+BTD1/BTD2 upgrade
+BTD3 upgrade
+BTD1/BTD2 upgrade (Can't Afford)
+BTD3 upgrade (Can't Afford)
+BTD1/BTD2 upgrade (Bought)
+BTD3 upgrade (Bought)
+BTD1 Round 12 pre-round comment
+BTD4
+BTD4 upgrade
+BTD4 upgrade (Can't Afford)
+BTD4 upgrade (Bought)
+BTD4 unupgraded message
+BTD5
+BTD5 upgrade
+BTD5 upgrade (Can't Afford)
+BTD5 upgrade (Bought)
+BTD5 maximum upgrades message
+BTD5 upgrade locked message (Deflation/Daily Challenges)
+BTD5 upgrade requiring XP to unlock
+BTD5 unlock at rank ## message
+BTD5 path closed message
+BTD5 unupgraded message
+Locked tier 3/4 and max upgrades message.
+Unlocking an upgrade to use in Bloons TD 5 Deluxe.
+Unlocking an upgrade to use in Bloons TD 5 Flash.
+Unlocking an upgrade to use in Bloons TD 5 Mobile.
+Unlocking an upgrade to use in Bloons TD 5 Flash, but the upgrade menu name appears rather than the tower's name.
+Beta upgrading panel from Bloons TD 5 Flash.
+BTD6
+BTD6 upgrade (in upgrade menu)
+BTD6 upgrade tip
+BTD6 upgrade portrait with the upgrade's respective cost
+Upgrade button for Lots More Darts
+Pop and Awe upgrade description in 42.0, with 6 lines of words
+BATTD
+	
+	Not enough images!
+There are not enough images on this page to sufficiently complete this page or section. You can help by uploading some images related to the article's subject(s).
+BTDB2
+	
+	Not enough images!
+There are not enough images on this page to sufficiently complete this page or section. You can help by uploading some images related to the article's subject(s).
+Achievements (BTD6)
+	Big Monkey
+FIRST RELEASED: Version 21.0
+
+Description: Deploy a tier 4 monkey tower
+
+Rewards:
+
+20
+	Mega Monkey
+FIRST RELEASED: Initial Release
+
+Description: Deploy a tier 5 monkey tower
+
+Rewards:
+
+50
+	Apotheosis
+FIRST RELEASED: Version 27.0
+
+Description: Upgrade to a Monkey Paragon Tower
+
+Rewards:
+
+x3
+Sources
+
+[1]
+
+Trivia
+According to Jake the Dog in Bloons Adventure Time TD, upgrading gives a tickling sensation. Sauda from Bloons TD 6 also reports a tickling sensation upon leveling up.
+In BTD6, a purchased upgrade is referred as "Owned".
+In BTD6, the following are the only Tier 3 upgrades whose upgrade prices alone cost the same as their BTD5 counterpart: Double Shot, Cluster Bombs, Monkey Town, and Razor Rotors.
+According to Ninja Kiwi's 15th March 2024 blog, upgrade descriptions of each tower and their upgrades are written by all types of monkeys. In their words, they describe this as a sort of "big potluck everyone brings a plate and sits around coming up with the best descriptions".
+BTD5 Trivia
+Sometimes, when a tower reaches tier 3 or 4 on flash versions of Bloons TD 5, the upgrade name on the menu will change from the original tower name. The changed upgrade menu names are ordered as listed:
+(When unlocking an upgrade in Bloons TD 5 Flash in particular, the upgrade menu name is accounted for)
+Dart Monkey: Spike-O-Pult for Spike-O-Pult and Juggernaut for Juggernaut
+Tack Shooter: Tack Sprayer for Tack Sprayer, Ring of Fire for Ring of Fire, and Blade Shooter for Blade Shooter and Blade Maelstrom
+Sniper Monkey: Supply Drop Sniper for Supply Drop
+Boomerang Thrower: Glaive Lord for Glaive Lord
+Ninja Monkey: Bloonjitsu Master for Bloonjitsu and Ninja Saboteur for Sabotage Supply Lines
+Bomb Tower: Cluster Bomb Tower(Cluster Bomb Shooter in BMC) for Cluster Bombs and Bloon Impact, MOAB Mauler for Moab Mauler, and MOAB Assassin for MOAB Assassin
+Ice Tower: None; Ice Tower(Ice Monkey in BMC) for all upgrades
+Glue Gunner: Bloon Dissolver for Bloon Dissolver, Bloon Liquefier for Bloon Liquefier, Glue Hose for Glue Hose, and Glue Striker for Glue Striker
+Monkey Buccaneer: Destroyer for Destroyer, Aircraft Carrier for Aircraft Carrier, Cannon Ship for Cannon Ship, and Monkey Pirates for Monkey Pirates
+Monkey Ace: Spectre for Spectre
+Super Monkey: Sun God for Sun God, Temple of the Monkey God for Temple of the Monkey God, Robo Monkey for Robo Monkey, and Technological Terror for Technological Terror
+Monkey Apprentice: Disciple of Air for Summon Whirlwind, Master of Air for Tempest Tornado, Disciple of Fire for Dragon's Breath, and Master of Fire for Summon Pheonix
+Monkey Village: Monkey Town for Monkey Town and High Energy Beacon, Monkey Intelligence Bureau for Monkey Intelligence Bureau, and M.I.B Call To Arms for M.I.B Call To Arms
+Banana Farm: Banana Republic for Banana Republic, Banana Research Facility for Banana Research Facility, Monkey Bank for Monkey Bank, and Banana Investments Advisory for Banana Investments Advisory
+Mortar Tower: Artillery Battery for Artillery Battery
+Dartling Gun: Laser Cannon for Laser Cannon, Ray of Doom for Ray of Doom, Hydra Rocket Pods for Hydra Rocket Pods, and Bloon Area Denial System for Bloon Area Denial System
+Spike Factory: Spiked Ball Factory for Spiked Ball Factory, Spiked Mines for Spiked Mines, MOAB-SHREDR Spikes for MOAB-SHREDR Spikes, and Spike Storm for Spike Storm
+Monkey Engineer: Bloon Trap for Bloon Trap
+Bloonchipper: None; Bloonchipper for all upgrades
+Monkey Sub: Submerge and Support for Submerge and Support, Bloontonium Reactor for Bloontonium Reactor, Ballistic Missile for Ballistic Missile, and First Strike Capability for First Strike Capability
+
+
+
+
+Show
+v • d • e
+Game mechanics
