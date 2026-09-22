@@ -13,7 +13,7 @@ import {
   sessionSnapshot,
   type Revision,
 } from './artifacts.js';
-import { editRequest, readEditor, type EditorInput } from './editor-state.js';
+import { editRequest, readEditor, selectDeliverable, type EditorInput } from './editor-state.js';
 
 import {
   createDraft,
@@ -149,14 +149,22 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
     if (!fresh && selected && manager.busy(selected.id)) return;
     const request = fresh
       ? readEditor(fresh.input)
-      : { ...emptyRequest(), character: { ...emptyRequest().character, name: query } };
+      : {
+          ...emptyRequest(),
+          character: { ...emptyRequest().character, name: query },
+          ...(input.base.deliverable ? { deliverable: input.base.deliverable } : {}),
+        };
     const revision =
       !fresh && choice !== undefined && selected
         ? selected
         : insertRevision(request, null, foreground);
     await manager.start(revision, {
       remaining,
-      lookup: { name: query, ...(choice === undefined ? {} : { choice }) },
+      lookup: {
+        name: query,
+        ...(choice === undefined ? {} : { choice }),
+        ...(revision.request.deliverable ? { deliverable: revision.request.deliverable } : {}),
+      },
     });
   }
   async function run(remaining: boolean, explicit?: LabRequest, foreground = true) {
@@ -199,17 +207,29 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
       },
     });
   }
-  function revise(text: string) {
+  function revise(text: string, operation: 'redesign' | 'prose-edit' = 'redesign') {
     if (!text.trim()) {
       reportError(new Error('Describe what should change.'));
       return;
     }
-    if (artifact?.kind !== 'result') return;
+    if (!artifact || artifact.kind === 'prepared') return;
+    const candidate = candidateOf(artifact)!;
+    const priorId =
+      artifact.kind === 'result'
+        ? artifact.id
+        : artifact.kind === 'checked'
+          ? artifact.draft.run.id
+          : artifact.run.id;
     try {
       const request: LabRequest = {
         ...readEditor(input),
-        previous: { resultId: artifact.id, draft: artifact.candidate, findings: artifact.findings },
+        previous: {
+          resultId: priorId,
+          draft: candidate,
+          findings: artifact.kind === 'draft' ? [] : artifact.findings,
+        },
         feedback: text.trim(),
+        ...(requestOf(artifact).deliverable === 'concept' ? { operation } : {}),
       };
       void run(true, request);
     } catch (error) {
@@ -411,6 +431,8 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
       generationBusy: jobs.some((entry) => entry.state === 'running'),
       error: createError,
       setName: (value: string) => setCreation((draft) => nameCreateDraft(draft, value)),
+      setDeliverable: (deliverable: 'concept' | 'mechanics') =>
+        setCreation((draft) => ({ ...draft, input: selectDeliverable(draft.input, deliverable) })),
       changeInput: (value: EditorInput) =>
         setCreation({ name: value.character.name, input: value, edited: true }),
       loadRequest: (request: LabRequest) => setCreation(createDraft(request)),

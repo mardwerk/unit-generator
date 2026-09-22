@@ -1,5 +1,6 @@
 import { randomBytes, timingSafeEqual } from 'node:crypto';
 import { readFile } from 'node:fs/promises';
+import { join } from 'node:path';
 import { createServer, type IncomingMessage, type ServerResponse } from 'node:http';
 import { z } from 'zod';
 import type { ModelClient } from '../core/index.js';
@@ -13,6 +14,8 @@ import { iconSubjects } from '../presentation/icon-subjects.js';
 import { imagePrompt } from '../presentation/image-prompts.js';
 import { readArtifactView } from '../presentation/view.js';
 import { LabLibrary } from './library.js';
+import { createEvidenceRun } from '../node/evidence.js';
+import { preparedSchema, checkedArtifactSchema } from '../core/index.js';
 
 const maxRequestBytes = 32_000_000;
 const operations = new Set([
@@ -36,6 +39,7 @@ const operations = new Set([
 const characterInput = z.strictObject({
   name: z.string().trim().min(1).max(120),
   choice: z.number().int().positive().optional(),
+  deliverable: z.enum(['concept', 'mechanics']).optional(),
 });
 
 class HttpError extends Error {
@@ -251,22 +255,49 @@ export async function startLab(options: LabServerOptions) {
           throw new HttpError(409, 'BUSY', 'Wait for the current model stage to finish.');
         artifact = provider.configure(payload);
       } else if (operation === 'character') {
-        const { name, choice } = characterInput.parse(payload);
+        const { name, choice, deliverable } = characterInput.parse(payload);
         artifact = await (options.characterLookup ?? prepareCharacter)(name, {
           choice,
+          ...(deliverable ? { deliverable } : {}),
           signal: controller.signal,
         });
       } else {
         if (usesModel && !options.model && !provider.state.ready) {
           throw new HttpError(400, 'PROVIDER_REQUIRED', provider.state.message);
         }
-        artifact = await executeLabOperation(
-          operation,
-          payload,
-          options.model ?? provider.client,
-          controller.signal,
-          provider.roleClient,
-        );
+        const stagePayload =
+          operation === 'draft' || operation === 'review'
+            ? z.record(z.string(), z.unknown()).parse(payload)
+            : null;
+        const stageInput =
+          operation === 'draft'
+            ? preparedSchema.parse(stagePayload!.prepared)
+            : operation === 'review'
+              ? checkedArtifactSchema.parse(stagePayload!.checked)
+              : null;
+        const prepared = stageInput?.kind === 'prepared' ? stageInput : stageInput?.draft.prepared;
+        const evidence =
+          prepared?.request.deliverable === 'concept'
+            ? await createEvidenceRun({
+                directory: join((await library.state()).directory, 'evidence'),
+                input: stageInput,
+                settings: { operation },
+              })
+            : undefined;
+        try {
+          const client = options.model ?? provider.client;
+          artifact = await executeLabOperation(
+            operation,
+            payload,
+            evidence ? evidence.wrap(client) : client,
+            controller.signal,
+            provider.roleClient,
+          );
+          await evidence?.finish(artifact);
+        } catch (error) {
+          await evidence?.fail(error);
+          throw error;
+        }
       }
       controller.signal.throwIfAborted();
       json(response, 200, artifact);

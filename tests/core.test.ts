@@ -457,7 +457,15 @@ test('draft request requires concrete purchased-tier changes without changing th
   const retained = JSON.parse(sent.prompt.split('\n\n').at(-1)!);
   assert.deepEqual(retained, artifact.prepared.request);
   assert.match(retained.documents[1]!.text, /base Spark attack interval is 1 second/);
-  assert.deepEqual(sent.schema, z.toJSONSchema(candidateSchema.omit({ blueprint: true })));
+  const legacyOutput = candidateSchema.omit({ blueprint: true, crosspaths: true }).extend({
+    paths: z.array(candidateSchema.shape.paths.element.omit({ limitation: true })),
+    abilities: z.array(candidateSchema.shape.abilities.element.omit({ activation: true })),
+  });
+  assert.deepEqual(sent.schema, z.toJSONSchema(legacyOutput));
+  const output = JSON.parse(JSON.stringify(sent.schema));
+  assert.ok(!('crosspaths' in output.properties));
+  assert.ok(!('limitation' in output.properties.paths.items.properties));
+  assert.ok(!('activation' in output.properties.abilities.items.properties));
   assert.deepEqual(
     candidateSchema.parse(JSON.parse(JSON.stringify(artifact.candidate))),
     miraCandidate(),

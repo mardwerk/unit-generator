@@ -11,9 +11,38 @@ pnpm cli build .runs/luffy.json --tiers 5,2,0
 pnpm cli review .runs/luffy.json -o .runs/luffy-reviewed.json
 ```
 
-`generate` returns a checked artifact using the explicit [BTD6-inspired mechanics definition](MECHANICS.md). The first call authors a compact blueprint. The model selects source passage IDs; code copies their exact text, verifies the references, resolves all 64 legal builds and compiles the readable kit. On invalid design output, one repair receives the failed checks. `--repairs 0` disables this; `--repairs 2` permits two repairs. Authentication, rate limits and timeouts stop immediately. Invalid blueprints never become published candidates. This is mechanics validation, not combat simulation or balance approval. Independent semantic `review` remains a separate call so a failed review cannot discard the saved Unit.
+## Qualitative concepts
 
-The default is `default-td-profile-v4` with definition `btd6-combat-v1`: Gold currency, a 1-health enemy layer and Dart-based references of 200 Gold, 1 damage, 0.95-second interval, 32 range and 2 pierce. Health means shared player lives, with a 150-Health starter reference. Units have no HP. Explicit older artifacts and custom definitions keep their supplied scale. See [mechanics](MECHANICS.md) for provenance and scope.
+Concept mode describes complete behavior without prices or combat magnitudes. It does not require the numerical backend to support every proposed interaction. Choose it explicitly for name-based intake:
+
+```sh
+pnpm cli generate "Monkey D. Luffy" --deliverable concept -o .runs/luffy-concept.json
+pnpm cli render .runs/luffy-concept.json -o .runs/luffy-concept.md
+```
+
+For reproducible supplied sources, [Iona](../examples/iona.concept.request.json) uses the public three-path profile. [Two-path Iona](../examples/iona.two-path.concept.request.json) supplies a synthetic ruleset with three tiers, different crosspath limits and a required activation slot. [Rowan](../examples/rowan.concept.request.json) is a second original character. These are source requests, not accepted generated units.
+
+```sh
+pnpm cli prepare examples/iona.concept.request.json -o .runs/iona.prepared.json
+pnpm cli draft .runs/iona.prepared.json --evidence-dir .runs/concept-evidence -o .runs/iona.draft.json
+pnpm cli check .runs/iona.draft.json -o .runs/iona.checked.json
+pnpm cli render .runs/iona.checked.json -o .runs/iona.md
+pnpm cli author examples/iona.concept.request.json --previous .runs/iona.checked.json --operation prose-edit --feedback "Simplify wording while preserving every behavior." -o .runs/iona.revised.json
+```
+
+`--operation redesign` permits deliberate design changes. `prose-edit` preserves declared structure and asks the model to preserve behavior; free-text equivalence remains a separate review obligation. `author` includes a model review, while `draft` followed by `check` uses one generation call. Concept drafting has no automatic repair loop. Use an explicit revision to address findings. `--repairs` continues to control numerical authoring only.
+
+Concept requests carry `deliverable: "concept"`, `progression` and `conceptRules`. Import a complete external request to change those rules without changing generator code. `--deliverable concept` converts a legacy request to the bundled public concept preset, or preserves an already explicit concept request. Concept requests reject `mechanicsDefinition`; numerical references in supplied text do not change the qualitative deliverable. Concept-to-mechanics formalization is not implemented: supply a separate explicit mechanics request instead of expecting `--deliverable mechanics` to translate behavior. `build` and role ranking still require numerical mechanics.
+
+Every concept model operation retains its input, exact prompt/schema, original output, safe settings, usage and outcome in a unique folder under `.runs/evidence`, or the supplied `--evidence-dir`. Failed attempts remain there. Each folder includes an `observations.json` template for predicted scenarios, preservation and acceptance reasons; those fields start unassessed. Evidence files can contain the complete supplied material. Choose an external output directory for external project content. Credentials and raw provider error objects are not retained.
+
+The default concept Markdown is the readable unit sheet. `render --details` includes source evidence and scoped findings. Structural checks cover declared paths, tiers, activation slots and directional crosspaths. They do not prove the meaning of prose, runtime support, balance or preference. Keep final acceptance separate from a successful command exit.
+
+## Numerical generation
+
+`generate` returns a checked artifact using the explicit [BTD6-inspired mechanics definition](MECHANICS.md). The default `planned-v1` route first authors a compact purchase plan, then a numerical blueprint. The model selects source passage IDs; code copies their exact text, verifies the references, resolves all 64 legal builds and compiles the readable kit. On invalid design output, one repair receives the failed checks. `--repairs 0` disables this; `--repairs 2` permits two repairs. Authentication, rate limits and timeouts stop immediately. Invalid blueprints never become published candidates. This is mechanics validation, not combat simulation or balance approval. Independent semantic `review` remains a separate call so a failed review cannot discard the saved Unit.
+
+The default is `default-td-profile-v9` with definition `btd6-combat-v1`, revision `2026-09-21-design-v9`: Gold currency, a 1-health enemy layer and Dart-based references of 200 Gold, 1 damage, 0.95-second interval, 32 range and 2 pierce. Health means shared player lives, with a 150-Health starter reference. Units have no HP. Explicit older artifacts and custom definitions keep their supplied scale. See [mechanics](MECHANICS.md) for provenance and scope.
 
 `--roles auto|typesafe|openrouter|off` selects optional role ranking after a successful draft. The default comes from `UNIT_ROLE_PROVIDER`, falling back to `auto`. Auto prefers TypeSafe when `TYPESAFE_API_KEY` is available, otherwise it uses an explicitly configured OpenRouter Jev model and key. It does not switch providers after a ranking failure. `TYPESAFE_MODEL` defaults to `jev-1.13.0`. OpenRouter ranking requires both `OPENROUTER_API_KEY` and an explicitly configured `OPENROUTER_JEV_MODEL`; the generation model is a separate setting. Set `OPENROUTER_JEV_MODEL=~typesafe/jev-latest` for the verified latest-family alias, or pin `typesafe/jev-1.13`. OpenRouter ranking calls its [Decisions API](https://openrouter.ai/docs/api/api-reference/alphadecisions/submit-a-decisions-questions-and-answers-request), not chat completions. The alias may advance within the Jev family; pinned versions reject a different release. Neither route substitutes another model on failure.
 

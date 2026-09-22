@@ -17,6 +17,7 @@ export function renderArtifact(input: unknown, options: RenderOptions = {}): str
   if (options.details) {
     return renderDetailed(view);
   }
+  if (view.prepared.request.deliverable === 'concept') return renderConcept(view);
   return [
     ...unitIntroduction(view),
     ...suggestedRoles(view),
@@ -183,6 +184,9 @@ function otherAbilities(candidate: UnitCandidate): string[] {
 
 function abilityProse(ability: Ability, abilities: Map<string, Ability>): string[] {
   const parts = [
+    ...(ability.activation
+      ? [ability.activation === 'manual' ? 'Manually activated.' : 'Automatic.']
+      : []),
     ability.description,
     ability.availability,
     ability.delivery,
@@ -303,4 +307,68 @@ function suggestedRoles(view: ArtifactView): string[] {
     ),
     '',
   ];
+}
+
+/** The concept sheet contains the design; findings and evidence stay in the detailed report. */
+function renderConcept(view: ArtifactView): string {
+  const { candidate } = view;
+  const abilities = new Map(candidate.abilities.map((ability) => [ability.id, ability]));
+  const lines = [
+    `# ${text(candidate.character.name)}`,
+    '',
+    text(candidate.role),
+    '',
+    '## Starting attack',
+    '',
+    `${text(candidate.basicAttack.name)}. ${prose([candidate.basicAttack.behavior, candidate.basicAttack.delivery, candidate.basicAttack.targeting, candidate.basicAttack.limitations])}`,
+    '',
+  ];
+  for (const path of candidate.paths) {
+    lines.push(`## ${text(path.name)}`, '', text(path.theme), '');
+    for (const tier of path.tiers) {
+      lines.push(
+        `### Tier ${tier.tier}: ${text(tier.name)}`,
+        '',
+        prose([
+          tier.benefit,
+          ...tier.abilityIds.flatMap((id) => {
+            const ability = abilities.get(id);
+            return ability
+              ? abilityProse(ability, abilities)
+              : [`Assigned ability ${id} is not declared.`];
+          }),
+        ]),
+        '',
+      );
+    }
+    if (path.limitation) lines.push(text(path.limitation), '');
+    for (const pair of candidate.crosspaths ?? []) {
+      if (pair.mainPathId !== path.id) continue;
+      const secondary = candidate.paths.find((entry) => entry.id === pair.secondaryPathId);
+      const borrowed = pair.borrowedTiers.map(
+        (tier) => secondary?.tiers.find((entry) => entry.tier === tier)?.name ?? `Tier ${tier}`,
+      );
+      lines.push(
+        `### Crosspath: ${text(secondary?.name ?? pair.secondaryPathId)}`,
+        '',
+        `Borrowed upgrades: ${borrowed.map(text).join(', ')}.`,
+        '',
+        prose([pair.interaction, pair.choice]),
+        '',
+      );
+    }
+  }
+  const assigned = new Set(
+    candidate.paths.flatMap((path) => path.tiers.flatMap((tier) => tier.abilityIds)),
+  );
+  for (const ability of candidate.abilities) {
+    if (assigned.has(ability.id) || ['reserved', 'omitted'].includes(ability.placement)) continue;
+    lines.push(`## ${text(ability.name)}`, '', prose(abilityProse(ability, abilities)), '');
+  }
+  // Shared operational behavior belongs to the kit even though its support status belongs to the report.
+  if (candidate.mechanics.length) {
+    lines.push('## Shared interactions', '');
+    for (const mechanic of candidate.mechanics) lines.push(text(mechanic.behavior), '');
+  }
+  return lines.join('\n');
 }

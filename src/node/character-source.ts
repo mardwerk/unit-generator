@@ -1,5 +1,10 @@
 import { z } from 'zod';
-import { prepareRequest, type PreparedRequest } from '../core/index.js';
+import {
+  applyConceptProfile,
+  prepareRequest,
+  type AuthorRequest,
+  type PreparedRequest,
+} from '../core/index.js';
 import {
   defaultProfile,
   starterAuthoringTask,
@@ -29,6 +34,7 @@ export type CharacterPreparation =
   PreparedRequest | { kind: 'choices'; choices: CharacterChoice[] };
 
 interface LookupOptions {
+  deliverable?: 'concept' | 'mechanics';
   choice?: number;
   signal?: AbortSignal;
   fetch?: typeof fetch;
@@ -269,7 +275,7 @@ export async function prepareCharacter(
     },
     { signal: options.signal, fetch: options.fetch },
   );
-  return prepareRequest({
+  const request: AuthorRequest = {
     schemaVersion: '1',
     character: {
       name: selected.name,
@@ -298,5 +304,10 @@ export async function prepareCharacter(
     mechanicsDefinition: defaultAuthoringDefinition,
     previous: null,
     feedback: null,
-  });
+  };
+  return prepareRequest(
+    options.deliverable === 'concept'
+      ? applyConceptProfile(request)
+      : { ...request, ...(options.deliverable ? { deliverable: options.deliverable } : {}) },
+  );
 }

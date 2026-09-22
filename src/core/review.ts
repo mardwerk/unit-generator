@@ -1,3 +1,4 @@
+import { conceptDesignGuidance, conceptSkillVersion } from './concept-guidance.js';
 import { z } from 'zod';
 import { blueprintReviewRequest } from './blueprint/review.js';
 import { ModelExecutionError, stageFailure, type ModelClient, type ModelRequest } from './model.js';
@@ -81,6 +82,12 @@ function reviewModelRequest(checked: CheckedArtifact, options: OperationOptions)
       'not executable gameplay validation and cannot establish balance or acceptance.',
     prompt: [
       'Use concise English; do not use em dashes or en dashes in generated prose.',
+      ...(checked.draft.prepared.request.deliverable === 'concept'
+        ? [
+            `Review against ${conceptSkillVersion}:\n${conceptDesignGuidance}`,
+            'This is a qualitative concept review. Do not require prices, damage values, exact attack intervals or cooldown durations. Missing numerical balance is intentional. First describe one concrete interaction from the candidate in the review summary, including its trigger and limits, before judging its contribution. Distinguish misunderstood rules, missing implementation, useful predicted behavior and tested behavior. For prose-edit compare every altered attack, trigger, restriction, dependency and inherited effect with the retained previous candidate; structural agreement is not proof of semantic preservation. Report an independent attack becoming dependent, replenished pierce or lost cross-copy restrictions as a design change, not a prose improvement.',
+          ]
+        : []),
       'Review this candidate independently against the full request, binding ' +
         'constraints, source scope, explicit decisions, prior draft and revision ' +
         'feedback. Do not revise the candidate. Report actionable findings with the ' +
@@ -115,13 +122,17 @@ function reviewModelRequest(checked: CheckedArtifact, options: OperationOptions)
         'capabilities. For an overloaded tier identify the excess behaviors and propose ' +
         'moving, reserving or simplifying them. Check early crosspaths for accumulated ' +
         'overload. Cite the actual supplied Profile; do not invent universal tier limits.',
-      'Check numerical changes against their supplied rules or Profile reference ' +
-        'basis. Verify before and after values, units, named baselines and whether ' +
-        'changes add or multiply. Distinguish attack interval from attack rate and ' +
-        'projectile count from hit count. Preserve explicit unknowns; do not invent ' +
-        'numbers, approvals or balance evidence to fill gaps. Proposed values with a ' +
-        'reference basis remain proposals. Report conflicts with supplied values as ' +
-        'conflicts and missing values or baselines as unresolved specifications.',
+      ...(checked.draft.prepared.request.deliverable === 'concept'
+        ? []
+        : [
+            'Check numerical changes against their supplied rules or Profile reference ' +
+              'basis. Verify before and after values, units, named baselines and whether ' +
+              'changes add or multiply. Distinguish attack interval from attack rate and ' +
+              'projectile count from hit count. Preserve explicit unknowns; do not invent ' +
+              'numbers, approvals or balance evidence to fill gaps. Proposed values with a ' +
+              'reference basis remain proposals. Report conflicts with supplied values as ' +
+              'conflicts and missing values or baselines as unresolved specifications.',
+          ]),
       'Check that every upgrade effect is gated by its purchased tier and explicit ' +
         'prerequisites. Flag basic attack or lower-tier text that already grants an ' +
         'unpurchased higher-tier effect. Shared ability descriptions must distinguish ' +

@@ -43,6 +43,18 @@ export function GenerateInputs({
               disabled={session.busy}
             />
           </label>
+          <label className="field">
+            <span>Output</span>
+            <select
+              aria-label="Output"
+              value={session.input.base.deliverable ?? 'mechanics'}
+              onChange={(e) => session.setDeliverable(e.target.value as 'concept' | 'mechanics')}
+              disabled={session.busy || session.usesEditedInputs}
+            >
+              <option value="mechanics">Numerical unit</option>
+              <option value="concept">Qualitative concept</option>
+            </select>
+          </label>
           <button
             id="generate"
             type="submit"

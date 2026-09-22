@@ -1,5 +1,9 @@
 # Pipeline approach decisions
 
+PR 10 disposition: reviewed at `c7216f3`, left unmerged. Its standalone planning descriptors do not enter production generation, and reproduced counterexamples invalidate several guard claims. See [PR10-REVIEW.md](PR10-REVIEW.md) for the smaller optional augmentation.
+
+Update after the completed branch experiment: PR 6 remains open and was reviewed at `3e5d73b`. It now adds source-aware technique grouping, revision context and simulation. Read [PR6-REVIEW.md](PR6-REVIEW.md) for the current disposition. The earlier `d4240b2` review and pending-comparison language below are historical; [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) supersedes that next action. No PR was merged.
+
 September 22 disposition: PR5, PR7 and PR8 are closed without merging; their commits and findings remain recorded below. PR6 remains open as the reference for a bounded compact-authoring experiment, not an approved replacement. No PR was merged. The next comparison is the already-supported direct route against `planned-v1`, with identical source inputs and a shared evaluator. Only then add a source-aware compact candidate from PR6's useful idea. Its name-matched whole kits, positional citations and omitted revision context must not become defaults. The [test audit](TESTING.md) separates contractual checks from unproven design requirements.
 
 Retain the [purchase-contract foundation](GENERATION-FOUNDATION.md) and adapt small, testable ideas from PR5 through PR8. None establishes a better complete generator. This is an architectural decision about preserving source interpretation, explicit purchase intent and deterministic evidence, not a claim that `planned-v1` has solved quality. All three foundation free batches returned zero drafts from three characters each. Fast, reliable free generation and convincing character kits remain unsolved.

@@ -67,7 +67,7 @@ export class AuthoringJobs {
     initial: Revision,
     options: {
       remaining: boolean;
-      lookup?: { name: string; choice?: number };
+      lookup?: { name: string; choice?: number; deliverable?: 'concept' | 'mechanics' };
       before?: () => Promise<Revision>;
     },
   ): Promise<void> {

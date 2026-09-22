@@ -1,5 +1,21 @@
 # Unit pipeline evaluation
 
+## Concept development smoke, September 22, 2026
+
+The initial concept implementation was exercised with four sequential calls: original Iona and Rowan briefs, each under the public three-path and synthetic two-path rulesets. The exact model was `nvidia/nemotron-3-super-120b-a12b:free`, with reasoning `none`, a 120-second call deadline, no repairs and no model judge. Its catalogue prices were checked immediately before dispatch and the adapter enforced zero-price routing. The local plan, original outputs, per-call evidence and report remain in `.runs/concept-smoke-2026-09-22/`.
+
+Three calls returned parseable candidates; Rowan under the public profile timed out. The returned candidates had 7, 25 and 38 deterministic failure findings respectively. These counts include repeated consequences of the same error, not independent design defects. The batch produced zero development-accepted concepts. This was an application smoke test, not a controlled comparison or a human-preference study.
+
+Observed failures include forbidden early/manual activation, included abilities mislabeled as reserved or innate, source IDs used as decision references, invented evidence IDs and illegal example builds. Qualitative inspection also found exhausted-pierce ricochets promising another hit, inconsistent kick cadence and crosspaths changing projectile budgets or referring to replaced attacks. Those semantic observations were made by the coding assistant, not a blinded reviewer or the project owner. The evidence distinguishes them from executed checks; no scenario was executed.
+
+The three returned calls reported zero cost and 24,558 total tokens. The timeout supplied no usage or charge report. Verified free routing is recorded separately from missing provider usage, and cost per accepted design is undefined with zero acceptance. Existing paid-spend reservations were preserved.
+
+The implemented operation cycle and evidence capture are usable, but this batch does not establish repeatable acceptable generation. Keep the concept route opt-in. Before a study freeze, correct the earliest recurring failure under a fresh bounded protocol and review several complete concepts for source fidelity, behavior and crosspaths. Do not loosen checks or silently repair these saved samples to improve their outcome.
+
+## Numerical and branch history
+
+September 22 branch update: the completed PR 6 experiment at `3e5d73b` is assessed in [PR6-REVIEW.md](PR6-REVIEW.md). Its reported live successes are separate from the main-branch batches below. This review reproduced 30 focused offline tests and four simulator probes, with no live generation. The probes exposed ignored follow-up behavior and active cadence, so simulator passes are not general runtime validation.
+
 Historical local batch paths may need restoring from the [verified local archive](LOCAL-ARTIFACTS.md). The latest failure batch remains expanded.
 
 The current [v9 starter profile](../src/core/default-profile.ts) uses `planned-v1`: a compact source-backed purchase plan, followed by numerical mechanics authoring. The [generation foundation](GENERATION-FOUNDATION.md) describes the research-derived contract, preflight feasibility and code-generated purchase evidence. Edited requirements and revisions use this route too. The plan is retained in `run.designPlan`, and planning calls use attempt purpose `plan`. With one repair per stage, the runner budgets at most four draft calls per sample, plus an optional review call. The default preserves early attack identity and legal crosspaths without demanding unique role labels, a new T3 operator or a universal 3x capstone gain.

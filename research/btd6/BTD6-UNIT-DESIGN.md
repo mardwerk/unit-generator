@@ -154,7 +154,7 @@ The Result should retain the relevant rule, affected upgrade or build, evidence,
 
 ## Source register and reliability
 
-All sources below were inspected on September 20, 2026. Primary pages were fetched directly. Fandom rejected direct HTTP requests with status 403 but its articles were readable through the browser. Raw extracts and access notes are retained under ignored `.scratch/notes/` for this research session. This document summarizes sources in original wording and does not reproduce their upgrade descriptions wholesale.
+All sources below were inspected on September 20, 2026. Primary pages were fetched directly. Fandom rejected direct HTTP requests with status 403 but its articles were readable through the browser. Raw extracts and access notes are retained in [source-snapshots/](source-snapshots/). This document summarizes sources in original wording and does not reproduce their upgrade descriptions wholesale.
 
 | ID | Source | What it supports and limitations |
 | --- | --- | --- |

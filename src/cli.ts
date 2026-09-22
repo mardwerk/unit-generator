@@ -19,6 +19,7 @@ import {
   type DraftArtifact,
   type CheckedArtifact,
   type ModelClient,
+  applyConceptProfile,
 } from './core/index.js';
 import { CodexModelClient } from './node/codex.js';
 import { OpenRouterModelClient } from './node/openrouter.js';
@@ -30,6 +31,7 @@ import { verifyPrepared } from './core/prepare.js';
 import { readArtifactView } from './presentation/view.js';
 import { renderArtifact } from './presentation/markdown.js';
 import { formatCost } from './presentation/usage.js';
+import { createEvidenceRun, type EvidenceRun } from './node/evidence.js';
 
 const help = `Unit Generator
 
@@ -58,6 +60,9 @@ Options:
   --timeout SECONDS      Timeout per call (OpenRouter: 120, Codex: 600)
   --codex FILE           Codex executable (default: codex on PATH)
   --preset btd6          Apply the default definition to prepare or author
+  --deliverable MODE     concept or mechanics for character, generate, prepare or author
+  --operation MODE       generate, redesign or prose-edit for prepare or author
+  --evidence-dir DIR     Retain model attempts here (concept default: .runs/evidence)
   --choice ID            Select a character when name lookup is ambiguous
   --tiers A,B,C          Purchased tiers for build, e.g. 5,2,0
   --roles MODE           Optional ranking: auto (default), typesafe, openrouter or off
@@ -143,6 +148,9 @@ function parseInvocation() {
       codex: { type: 'string' },
       details: { type: 'boolean' },
       preset: { type: 'string' },
+      deliverable: { type: 'string' },
+      operation: { type: 'string' },
+      'evidence-dir': { type: 'string' },
       choice: { type: 'string' },
       tiers: { type: 'string' },
       repairs: { type: 'string' },
@@ -167,6 +175,29 @@ function parseInvocation() {
   }
   if (values.preset && (values.preset !== 'btd6' || !['prepare', 'author'].includes(command)))
     throw new Error('--preset btd6 applies only to prepare or author.');
+  if (
+    values.deliverable !== undefined &&
+    (!['concept', 'mechanics'].includes(values.deliverable) ||
+      !['character', 'generate', 'prepare', 'author'].includes(command))
+  )
+    throw new Error(
+      '--deliverable must be concept or mechanics with character, generate, prepare or author.',
+    );
+  if (
+    values.operation !== undefined &&
+    (!['generate', 'redesign', 'prose-edit'].includes(values.operation) ||
+      !['prepare', 'author'].includes(command))
+  )
+    throw new Error('--operation must be generate, redesign or prose-edit with prepare or author.');
+  if (values.preset && values.deliverable === 'concept')
+    throw new Error(
+      '--preset btd6 is numerical. Use --deliverable concept for the public concept profile.',
+    );
+  if (
+    values['evidence-dir'] !== undefined &&
+    !['draft', 'author', 'generate', 'review'].includes(command)
+  )
+    throw new Error('--evidence-dir applies only to draft, author, generate or review.');
   if (
     values.choice &&
     (!['character', 'generate'].includes(command) || !/^[1-9][0-9]*$/.test(values.choice))
@@ -247,7 +278,7 @@ function createModel(values: Invocation['values']): ModelClient {
 
 async function executeCommand(
   invocation: Invocation,
-  model: () => ModelClient,
+  model: (input: unknown, concept: boolean) => Promise<ModelClient>,
   signal: AbortSignal,
 ): Promise<unknown> {
   const { command, file, values } = invocation;
@@ -263,6 +294,7 @@ async function executeCommand(
     process.stderr.write('Finding character evidence...\n');
     const prepared = await prepareCharacter(file, {
       signal,
+      ...(values.deliverable ? { deliverable: values.deliverable as 'concept' | 'mechanics' } : {}),
       ...(values.choice ? { choice: Number(values.choice) } : {}),
     });
     if (prepared.kind === 'choices') {
@@ -273,7 +305,13 @@ async function executeCommand(
     }
     if (command === 'character') return prepared;
     process.stderr.write('Designing and checking the Unit...\n');
-    return checkDraft(await draftUnit(prepared, model(), options));
+    return checkDraft(
+      await draftUnit(
+        prepared,
+        await model(prepared, prepared.request.deliverable === 'concept'),
+        options,
+      ),
+    );
   }
   if (command === 'prepare' || command === 'author') {
     process.stderr.write('Loading explicit inputs...\n');
@@ -283,11 +321,26 @@ async function executeCommand(
       ...(values.feedback !== undefined ? { feedback: values.feedback } : {}),
     });
     if (values.preset === 'btd6') request = applyDefaultProfile(request);
+    if (values.deliverable === 'concept') request = applyConceptProfile(request);
+    if (values.deliverable === 'mechanics') {
+      if (request.deliverable === 'concept')
+        throw new Error(
+          'Concept formalization is not implemented. Supply a separate mechanics request with an explicit mechanicsDefinition; --deliverable does not translate concept rules.',
+        );
+      const { conceptRules: _conceptRules, ...fields } = request;
+      request = { ...fields, deliverable: 'mechanics' };
+      if (!request.mechanicsDefinition) request = applyDefaultProfile(request);
+    }
+    if (values.operation)
+      request = {
+        ...request,
+        operation: values.operation as 'generate' | 'redesign' | 'prose-edit',
+      };
     if (command === 'prepare') {
       return prepareRequest(request);
     }
     process.stderr.write('Drafting and reviewing...\n');
-    return authorUnit(request, model(), options);
+    return authorUnit(request, await model(request, request.deliverable === 'concept'), options);
   }
   const input = await readJsonFile(file);
   switch (command) {
@@ -318,12 +371,23 @@ async function executeCommand(
     }
     case 'draft':
       process.stderr.write('Drafting...\n');
-      return draftUnit(input as PreparedRequest, model(), options);
+      return draftUnit(
+        input as PreparedRequest,
+        await model(input, (input as PreparedRequest).request?.deliverable === 'concept'),
+        options,
+      );
     case 'check':
       return checkDraft(input as DraftArtifact);
     case 'review':
       process.stderr.write('Reviewing...\n');
-      return reviewDraft(input as CheckedArtifact, model(), options);
+      return reviewDraft(
+        input as CheckedArtifact,
+        await model(
+          input,
+          (input as CheckedArtifact).draft?.prepared?.request?.deliverable === 'concept',
+        ),
+        options,
+      );
     case 'render':
       return renderArtifact(input, { details: values.details });
   }
@@ -350,14 +414,33 @@ async function main(): Promise<void> {
   if (invocation.values.output) {
     await ensureNewOutput(invocation.values.output);
   }
-  const model = () => createModel(invocation.values);
+  let evidence: EvidenceRun | undefined;
+  let evidenceFinished = false;
+  const model = async (input: unknown, concept: boolean) => {
+    const client = createModel(invocation.values);
+    if (concept || invocation.values['evidence-dir']) {
+      evidence = await createEvidenceRun({
+        directory: invocation.values['evidence-dir'] ?? '.runs/evidence',
+        input,
+        settings: { operation: invocation.command },
+      });
+      process.stderr.write(`Evidence: ${evidence.directory}\n`);
+      return evidence.wrap(client);
+    }
+    return client;
+  };
   const controller = new AbortController();
   const cancel = () => controller.abort();
   process.once('SIGINT', cancel);
   process.once('SIGTERM', cancel);
   try {
     const artifact = await executeCommand(invocation, model, controller.signal);
+    await evidence?.finish(artifact);
+    evidenceFinished = true;
     await emitArtifact(invocation, artifact);
+  } catch (error) {
+    if (!evidenceFinished) await evidence?.fail(error);
+    throw error;
   } finally {
     process.removeListener('SIGINT', cancel);
     process.removeListener('SIGTERM', cancel);

@@ -25,3 +25,4 @@ export {
 } from './request-file.js';
 
 export { createRoleRankingClient } from './role-ranking.js';
+export { createEvidenceRun, type EvidenceRun } from './evidence.js';

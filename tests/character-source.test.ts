@@ -57,6 +57,24 @@ test('character name resolves to canonical identity with retrieved provenance an
   assert.equal(result.request.previous, null);
 });
 
+test('concept name intake selects qualitative rules without numerical profile evidence', async () => {
+  const result = await prepareCharacter('Luffy', {
+    fetch: wikipedia([luffy]),
+    deliverable: 'concept',
+  });
+  assert.equal(result.kind, 'prepared');
+  if (result.kind !== 'prepared') return;
+  assert.equal(result.request.deliverable, 'concept');
+  assert.equal(result.request.mechanicsDefinition, undefined);
+  assert.equal(result.request.conceptRules?.id, 'public-concept');
+  assert.ok(
+    !result.request.documents.some(
+      (document) =>
+        document.id.startsWith('mechanics:') || document.id.startsWith('default-td-profile-'),
+    ),
+  );
+});
+
 test('ambiguity returns named choices and only accepts a current matching choice', async () => {
   const castlevania = page(
     2,

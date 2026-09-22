@@ -29,6 +29,7 @@ export function App() {
   const [libraryError, setLibraryError] = useState('');
   const [settings, setSettings] = useState(false);
   const [feedback, setFeedback] = useState('');
+  const [revisionOperation, setRevisionOperation] = useState<'redesign' | 'prose-edit'>('redesign');
   const inputFile = useRef<HTMLInputElement>(null);
   const previous = candidateOf(
     session.revisions.find((entry) => entry.id === session.comparisonId)?.artifact ?? null,
@@ -246,8 +247,22 @@ export function App() {
                     onContinue={() => void session.run(true)}
                   />
                 ) : null}
-                {session.artifact?.kind === 'result' && (
+                {current && (
                   <Disclosure title="Revise this Unit" className="feedback-panel">
+                    {session.input.base.deliverable === 'concept' && (
+                      <Field label="Revision type">
+                        <select
+                          value={revisionOperation}
+                          disabled={session.busy}
+                          onChange={(e) =>
+                            setRevisionOperation(e.target.value as 'redesign' | 'prose-edit')
+                          }
+                        >
+                          <option value="redesign">Change the design</option>
+                          <option value="prose-edit">Edit wording and preserve mechanics</option>
+                        </select>
+                      </Field>
+                    )}
                     <Field label="What should change?">
                       <textarea
                         id="feedback"
@@ -262,7 +277,7 @@ export function App() {
                       type="button"
                       className="primary"
                       disabled={session.busy}
-                      onClick={() => session.revise(feedback)}
+                      onClick={() => session.revise(feedback, revisionOperation)}
                     >
                       Generate revision
                     </button>

@@ -1,7 +1,10 @@
 import { readFile, stat } from 'node:fs/promises';
+import { createHash } from 'node:crypto';
 import { dirname, resolve } from 'node:path';
 import { z } from 'zod';
-import { requestSchema, resultSchema, type AuthorRequest } from '../core/index.js';
+import { requestSchema, type AuthorRequest } from '../core/index.js';
+import { readArtifactView } from '../presentation/view.js';
+import { verifyPrepared } from '../core/prepare.js';
 import { loadDocument } from './sources.js';
 
 const documentSpecSchema = z.strictObject({
@@ -68,9 +71,13 @@ export async function loadRequestFile(
     options.previousResultFile ??
     (input.previousResultFile ? resolve(base, input.previousResultFile) : undefined);
   if (priorFile) {
-    const result = resultSchema.parse(await readJsonFile(priorFile));
+    const saved = await readJsonFile(priorFile);
+    const result = readArtifactView(saved);
+    await verifyPrepared(result.prepared);
     previous = {
-      resultId: result.id,
+      resultId:
+        result.resultId ??
+        `artifact:${createHash('sha256').update(JSON.stringify(saved)).digest('hex')}`,
       draft: result.candidate,
       findings: result.findings,
     };

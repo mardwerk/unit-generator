@@ -10,6 +10,14 @@ Units must satisfy their declared requirements. Scoped checks alone do not estab
 
 Engine, CLI and UnitLab remain in this repository. The Greenfield implementation supports structured authoring, scoped checks and a [minimal local UnitLab](LAB.md) for trying the stages and comparing revisions. The default structured mechanics definition now resolves purchased builds, crosspaths and attack boosts. Combat simulation and runtime execution remain outside the current implementation.
 
+## Requested next direction
+
+Explicit concept mode now uses the existing core, CLI and UnitLab for qualitative generation, scoped checks, save/load, revision and rendering. The versioned public concept policy allows bounded early auxiliary behavior and uses configurable progression, activation slots and directional crosspath coverage. Original public examples exercise two different concept rulesets. This preserves rich proposals without asserting numerical or runtime support. Numerical `planned-v1` remains the default; a later comparison determines whether to promote concept authoring.
+
+The normal user input should remain a character name, with the game configuration selected once. The intended output is a complete unit under that configuration. The current checked draft is an intermediate milestone; playable output requires a compatible Consumer and runtime evidence. The generator should choose a coherent source organization before filling purchase slots. The core must permit different progression and mechanic implementations, with the public BTD6-based default separate from private shared forms and stamina.
+
+[GENERATOR-RESHAPE.md](GENERATOR-RESHAPE.md) records the code audit, proposed boundaries, completion states and staged acceptance. [REFINEMENT.md](REFINEMENT.md) describes controlled improvement. The updated [PR 6 review](PR6-REVIEW.md) replaces the earlier assumption that its branch experiment is pending. This direction does not claim that interchangeable rules, Apex or forms are implemented today.
+
 ## Authoring contract
 
 The [generation foundation](GENERATION-FOUNDATION.md) defines construction and evaluation responsibilities. A compact purchase plan records player situations, promised changes and retained weaknesses. Deterministic comparisons support review; they do not establish tactical value or balance.

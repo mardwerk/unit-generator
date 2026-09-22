@@ -1,3 +1,4 @@
+import { checkConcept } from './concept.js';
 import {
   draftArtifactSchema,
   type CheckedArtifact,
@@ -119,6 +120,7 @@ export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact>
             'Implement the retained typed upgrade promise and compile again. This check does not assess prose, source interpretation or tactical value.',
         });
   }
+  checkConcept(draft, report);
   checkEvidence(candidate, request, report);
   checkDependencies(candidate, request, report);
   checkProgression(candidate, request.progression, report);

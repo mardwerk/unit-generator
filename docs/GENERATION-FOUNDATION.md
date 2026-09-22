@@ -8,6 +8,12 @@ The [PR comparison](PIPELINE-APPROACHES.md) records which ideas from PR5 through
 
 For example, a precision branch may promise sustained pressure on separated durable enemies. More damage and personal detection can support that adaptation. Calling it an armor-piercing beam cannot grant an undeclared immunity bypass. Its capstone must explain the value of concentrating investment compared with cheaper copies, retaining placement and target-access assumptions.
 
+## Requested evolution
+
+The latest requirement adds an explicit choice of source organization: persistent identity, parallel mastery, successive forms and meaningful limitations. Purchase reasons remain important, but cannot alone distinguish a coherent character from themed stat packages. The [reshape proposal](GENERATOR-RESHAPE.md) describes retaining that choice without mandating another model stage. Its private form policies must remain outside the public default.
+
+The completed [PR 6 experiment review](PR6-REVIEW.md) adds new source and simulation evidence, with important evaluator gaps. Follow [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) for current next work; the previous handoff comparison is historical.
+
 ## One pipeline, separate responsibilities
 
 `Evidence + explicit Request → purchase plan → numerical mechanics → compile and check → purchase evidence + Unit`

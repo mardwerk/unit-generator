@@ -1,5 +1,16 @@
 import type { LabDocument, LabRequest } from '../contracts.js';
 import type { ResolvedDocument } from '../../core/index.js';
+import {
+  defaultConceptRules,
+  defaultConceptProfile,
+  conceptAuthoringTask,
+} from '../../core/index.js';
+import {
+  defaultProfile,
+  defaultProgression,
+  defaultAuthoringDefinition,
+  starterAuthoringTask,
+} from '../../core/default-profile.js';
 
 export interface DocumentInput {
   id: string;
@@ -17,6 +28,7 @@ export interface EditorInput {
   task: string;
   constraints: string;
   progression: string;
+  conceptRules?: string;
   documents: DocumentInput[];
 }
 export function editRequest(request: LabRequest): EditorInput {
@@ -26,6 +38,9 @@ export function editRequest(request: LabRequest): EditorInput {
     task: request.task,
     constraints: JSON.stringify(request.constraints, null, 2),
     progression: JSON.stringify(request.progression, null, 2),
+    ...(request.conceptRules
+      ? { conceptRules: JSON.stringify(request.conceptRules, null, 2) }
+      : {}),
     documents: request.documents.map((document) => ({
       id: document.id,
       kind: document.kind,
@@ -40,11 +55,21 @@ export function editRequest(request: LabRequest): EditorInput {
 }
 export function readEditor(input: EditorInput): LabRequest {
   let constraints: unknown, progression: unknown;
+  let conceptRules: LabRequest['conceptRules'];
   try {
     constraints = JSON.parse(input.constraints);
     progression = JSON.parse(input.progression);
   } catch {
     throw new Error('Constraints and progression must contain valid JSON.');
+  }
+  if (input.base.deliverable === 'concept') {
+    try {
+      conceptRules = JSON.parse(input.conceptRules ?? '');
+    } catch {
+      throw new Error('Concept rules must contain a valid JSON object.');
+    }
+    if (!conceptRules || typeof conceptRules !== 'object' || Array.isArray(conceptRules))
+      throw new Error('Concept rules must contain a valid JSON object.');
   }
   return {
     ...input.base,
@@ -52,6 +77,7 @@ export function readEditor(input: EditorInput): LabRequest {
     task: input.task,
     constraints,
     progression,
+    ...(conceptRules ? { conceptRules } : {}),
     documents: input.documents.map((document) => {
       if (document.mode === 'url')
         return {
@@ -86,4 +112,43 @@ export function readEditor(input: EditorInput): LabRequest {
       };
     }),
   };
+}
+
+/** Explicitly select a bundled preset; imported rules remain intact until the user switches. */
+export function selectDeliverable(
+  input: EditorInput,
+  deliverable: 'concept' | 'mechanics',
+): EditorInput {
+  const request = readEditor(input);
+  if (request.deliverable === deliverable) return input;
+  const { mechanicsDefinition, conceptRules: _rules, ...base } = request;
+  const documents = request.documents.filter(
+    (doc) =>
+      !/^default-td-profile-v[0-9]+$/.test(doc.id) &&
+      doc.id !== defaultConceptProfile.id &&
+      doc.id !== (mechanicsDefinition ? `mechanics:${mechanicsDefinition.id}` : ''),
+  );
+  return editRequest({
+    ...base,
+    deliverable,
+    operation: 'generate',
+    previous: null,
+    feedback: null,
+    task:
+      !request.task ||
+      request.task === starterAuthoringTask ||
+      request.task === conceptAuthoringTask
+        ? deliverable === 'concept'
+          ? conceptAuthoringTask
+          : starterAuthoringTask
+        : request.task,
+    progression: structuredClone(defaultProgression),
+    documents: [
+      ...documents,
+      structuredClone(deliverable === 'concept' ? defaultConceptProfile : defaultProfile),
+    ],
+    ...(deliverable === 'concept'
+      ? { conceptRules: structuredClone(defaultConceptRules) }
+      : { mechanicsDefinition: structuredClone(defaultAuthoringDefinition) }),
+  });
 }

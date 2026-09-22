@@ -1,5 +1,7 @@
 # Bounded Unit mechanics
 
+This is the implemented main-branch contract. Shared forms, stamina, Apex and interchangeable progression are proposed in [GENERATOR-RESHAPE.md](GENERATOR-RESHAPE.md), not supported by this DSL. PR 6 has a separate experimental simulator; its [review](PR6-REVIEW.md) records limitations and does not change these guarantees.
+
 The mechanics module resolves purchased Unit builds and checks their declared behavior. It does not simulate combat, waves, travel, enemy layers, map geometry, runtime cooldowns or balance. Its explicit Definition is a small, experimental combat vocabulary inspired by the [ordinary BTD6 design reference](../research/btd6/BTD6-UNIT-DESIGN.md) and [tower examples](../research/btd6/BTD6-UNIT-EXAMPLES.md). It does not reproduce BTD6's numerical balance or complete damage table.
 
 The supplied 26-tower dataset adds [source-linked reference candidates](../research/btd6/btd6-reference-candidates.json). This catalogue is reference data, not a loadable mechanics Definition. It distinguishes a supported operation's shape from missing numerical values, unspecified behavior and unsupported operators. The [JEV classification experiment](../research/btd6/JEV-BTD6-EVALUATION.md) treats build roles as advisory labels. Neither those labels nor JEV confidence can authorize a mechanic or fill a missing value.

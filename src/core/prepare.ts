@@ -1,3 +1,4 @@
+import { validateConceptRequest } from './concept.js';
 import { withDefinitionEvidence, definitionProgression } from './blueprint/definition.js';
 import { requestSchema, type AuthorRequest, type PreparedRequest } from './schemas.js';
 /** Freeze cloned, validated artifacts so callers cannot change retained evidence. */
@@ -24,6 +25,7 @@ function unique(values: readonly (string | number)[], subject: string): void {
 }
 
 function validateRequest(request: AuthorRequest): void {
+  validateConceptRequest(request);
   unique(
     request.documents.map((document) => document.id),
     'Documents',

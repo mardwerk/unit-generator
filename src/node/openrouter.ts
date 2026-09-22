@@ -3,6 +3,7 @@ import type { ModelClient, ModelRequest, ModelResponse, ModelFailure } from '../
 import { ModelExecutionError } from '../core/model.js';
 import { modelUsageSchema, type ModelUsage } from '../core/schemas.js';
 import { openRouterFailure, retryAfter } from './openrouter-errors.js';
+import { EvidenceWriteError, type ModelOutputObserver } from './evidence.js';
 
 export const OPENROUTER_FREE_MODEL = 'openrouter/free';
 
@@ -68,7 +69,23 @@ export class OpenRouterModelClient implements ModelClient {
     this.id = `openrouter:${this.#model}`;
   }
 
-  async generate(request: ModelRequest): Promise<ModelResponse> {
+  get evidenceSettings(): Record<string, unknown> {
+    return {
+      model: this.#model,
+      reasoningEffort: this.#reasoningEffort,
+      timeoutMs: this.#timeoutMs,
+      maxOutputBytes: this.#maxOutputBytes,
+    };
+  }
+
+  generateWithEvidence(
+    request: ModelRequest,
+    observe: ModelOutputObserver,
+  ): Promise<ModelResponse> {
+    return this.generate(request, observe);
+  }
+
+  async generate(request: ModelRequest, observe?: ModelOutputObserver): Promise<ModelResponse> {
     if (request.signal?.aborted)
       throw failureError({ code: 'CANCELLED', message: 'OpenRouter generation was cancelled.' });
     if (!this.#apiKey) {
@@ -88,6 +105,7 @@ export class OpenRouterModelClient implements ModelClient {
     let reportedFailure: ModelFailure | undefined;
     let retryAfterSeconds: number | undefined;
     let usage: ModelUsage | undefined;
+    let evidenceFailure: EvidenceWriteError | undefined;
     const sdk = new OpenRouter({
       apiKey: this.#apiKey,
       serverURL: 'https://openrouter.ai/api/v1',
@@ -142,8 +160,35 @@ export class OpenRouterModelClient implements ModelClient {
               );
               throw failureError(reportedFailure);
             }
+            if (
+              observe &&
+              payload &&
+              typeof payload === 'object' &&
+              'choices' in payload &&
+              Array.isArray(payload.choices)
+            ) {
+              const choice = payload.choices[0];
+              const message = choice && typeof choice === 'object' ? choice.message : null;
+              const content =
+                message && typeof message.content === 'string' ? message.content : null;
+              const refusal =
+                message && typeof message.refusal === 'string' ? message.refusal : null;
+              const redact = (value: string | null) =>
+                value?.replaceAll(this.#apiKey, '[REDACTED]') ?? null;
+              await observe({
+                content: redact(content),
+                refusal: redact(refusal),
+                finishReason:
+                  typeof choice?.finish_reason === 'string' ? redact(choice.finish_reason) : null,
+                redacted: Boolean(
+                  content?.includes(this.#apiKey) || refusal?.includes(this.#apiKey),
+                ),
+                ...('usage' in payload ? { usage: errorEnvelopeUsage(payload.usage) } : {}),
+              });
+            }
             return bounded;
           } catch (error) {
+            if (error instanceof EvidenceWriteError) evidenceFailure = error;
             limitExceeded = error instanceof ResponseError;
             throw error;
           }
@@ -217,6 +262,11 @@ export class OpenRouterModelClient implements ModelClient {
       if (typeof content !== 'string' || !content.trim()) {
         throw new ResponseError('OpenRouter did not return a structured final response.');
       }
+      if (content.includes(this.#apiKey)) {
+        throw new ResponseError(
+          'OpenRouter returned credential-bearing content. The response was rejected.',
+        );
+      }
       try {
         return {
           output: JSON.parse(content),
@@ -226,6 +276,8 @@ export class OpenRouterModelClient implements ModelClient {
         throw new ResponseError('OpenRouter returned invalid JSON in its structured response.');
       }
     } catch (error) {
+      if (evidenceFailure) throw evidenceFailure;
+      if (error instanceof EvidenceWriteError) throw error;
       if (request.signal?.aborted)
         throw failureError(
           { code: 'CANCELLED', message: 'OpenRouter generation was cancelled.' },

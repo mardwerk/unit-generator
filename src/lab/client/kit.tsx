@@ -22,6 +22,14 @@ function Prose({ parts }: { parts: (string | null | undefined)[] }) {
 }
 function Behavior({ ability, abilities }: { ability: Ability; abilities: Map<string, Ability> }) {
   const rows = [
+    [
+      'Activation',
+      ability.activation === 'manual'
+        ? 'Manually activated'
+        : ability.activation === 'automatic'
+          ? 'Automatic'
+          : null,
+    ],
     ['Availability', ability.availability],
     ['Delivery', ability.delivery],
     ['Targeting', ability.targeting],
@@ -82,6 +90,7 @@ export function CharacterSheet({
 }) {
   const report = useRef<HTMLDetailsElement>(null);
   const candidate = candidateOf(artifact);
+  const concept = requestOf(artifact).deliverable === 'concept';
   const definition = requestOf(artifact).mechanicsDefinition;
   const stats = useMemo(
     () => (candidate ? kitStats(candidate, definition) : undefined),
@@ -240,6 +249,16 @@ export function CharacterSheet({
                   }
                 />
               )}
+              {concept && (
+                <Prose
+                  parts={[
+                    candidate.basicAttack.behavior,
+                    candidate.basicAttack.delivery,
+                    candidate.basicAttack.targeting,
+                    candidate.basicAttack.limitations,
+                  ]}
+                />
+              )}
               <button
                 type="button"
                 className="card-open"
@@ -278,6 +297,7 @@ export function CharacterSheet({
                 <header className="path-heading">
                   <h3>{path.name}</h3>
                   <p className="path-theme">{path.theme}</p>
+                  {concept && path.limitation && <p>{path.limitation}</p>}
                 </header>
                 {path.tiers.map((tier) => {
                   const tierStats = stats?.tiers.get(tierStatKey(path.id, tier.tier));
@@ -325,6 +345,18 @@ export function CharacterSheet({
                         ) : (
                           <p className="tier-change">{tier.benefit}</p>
                         )}
+                        {concept &&
+                          tier.abilityIds.map((id) => {
+                            const ability = abilities.get(id);
+                            return ability ? (
+                              <div key={id}>
+                                {ability.description !== tier.benefit && (
+                                  <p>{ability.description}</p>
+                                )}
+                                <Behavior ability={ability} abilities={abilities} />
+                              </div>
+                            ) : null;
+                          })}
                         <button
                           type="button"
                           className="card-open"
@@ -346,6 +378,27 @@ export function CharacterSheet({
               </section>
             ))}
           </div>
+          {concept && candidate.crosspaths && candidate.crosspaths.length > 0 && (
+            <section aria-label="Crosspaths">
+              <h3>Crosspaths</h3>
+              {candidate.crosspaths.map((crosspath) => {
+                const main = candidate.paths.find((path) => path.id === crosspath.mainPathId);
+                const secondary = candidate.paths.find(
+                  (path) => path.id === crosspath.secondaryPathId,
+                );
+                return (
+                  <section key={`${crosspath.mainPathId}:${crosspath.secondaryPathId}`}>
+                    <h4>
+                      {main?.name ?? crosspath.mainPathId} with{' '}
+                      {secondary?.name ?? crosspath.secondaryPathId}
+                    </h4>
+                    <p>{crosspath.interaction}</p>
+                    <p>{crosspath.choice}</p>
+                  </section>
+                );
+              })}
+            </section>
+          )}
           {remaining.length > 0 && (
             <section>
               <h3>Forms and other abilities</h3>
@@ -365,7 +418,12 @@ export function CharacterSheet({
                     <Badge value={ability.status} />
                     <Badge value={ability.placement} />
                   </div>
-
+                  {concept && (
+                    <>
+                      <p>{ability.description}</p>
+                      <Behavior ability={ability} abilities={abilities} />
+                    </>
+                  )}
                   <button
                     type="button"
                     className="card-open"

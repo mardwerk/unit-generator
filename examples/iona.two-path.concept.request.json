@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "1",
+  "task": "Design Iona using the supplied qualitative rules.",
+  "character": {
+    "name": "Iona",
+    "work": "Original glass courier brief",
+    "scope": "Supplied public brief only"
+  },
+  "documents": [
+    {
+      "id": "iona-source",
+      "kind": "source",
+      "text": "Iona throws glass discs, sweeps nearby enemies with a separate kick while a disc is away, redirects passing allied discs with a held mirror and uses a glass tether to briefly restrain an enemy. These are invented source abilities, not approved game mechanics."
+    },
+    {
+      "id": "two-path-rules",
+      "kind": "rules",
+      "text": "Two paths with three tiers. Only one exceeds tier one. Manual activation must be purchased on reach starting at tier two. Early support has no additional bounded-support policy."
+    }
+  ],
+  "constraints": [],
+  "progression": {
+    "paths": [
+      {
+        "id": "reach",
+        "tiers": [
+          1,
+          2,
+          3
+        ]
+      },
+      {
+        "id": "hold",
+        "tiers": [
+          1,
+          2,
+          3
+        ]
+      }
+    ],
+    "maxActivePaths": 2,
+    "maxPathsAboveTier": {
+      "tier": 1,
+      "count": 1
+    },
+    "maxTotalTiers": 4,
+    "allowedTierCombinations": null
+  },
+  "previous": null,
+  "feedback": null,
+  "deliverable": "concept",
+  "conceptRules": {
+    "id": "synthetic-two-path",
+    "version": "1",
+    "manualActivation": {
+      "allowedSlots": [
+        {
+          "pathId": "reach",
+          "tiers": [
+            2,
+            3
+          ]
+        }
+      ],
+      "required": true
+    },
+    "crosspaths": {
+      "mainFromTier": 2,
+      "secondaryThroughTier": 1,
+      "coverage": "all-legal-pairs"
+    },
+    "earlySupport": "unrestricted"
+  }
+}

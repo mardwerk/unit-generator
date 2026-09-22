@@ -8,6 +8,7 @@ export function renderDetailed(view: ArtifactView): string {
       ...describePurchases(view),
       ...describeUsage(view),
       ...describeAbilities(view),
+      ...describeConcept(view),
       ...describeMechanics(view),
       ...describeReview(view),
       ...describeEvidence(view),
@@ -132,6 +133,9 @@ function describeAbilities(view: ArtifactView): string[] {
       '',
       `${ability.status}; ${ability.placement}. ${cell(ability.description)}`,
       '',
+      ...(ability.activation
+        ? [ability.activation === 'manual' ? 'Manually activated.' : 'Automatic.', '']
+        : []),
       `Assignment: ${cell(ability.pathId === null ? 'No single path assignment' : `${ability.pathId}, tier ${ability.tier ?? 'unspecified'}`)}. Prerequisites: ${cell(ability.prerequisiteAbilityIds.join(', ') || 'None declared')}.`,
       '',
       `Availability: ${cell(ability.availability)}`,
@@ -233,6 +237,32 @@ function describeEvidence(view: ArtifactView): string[] {
   for (const source of candidate.sources) {
     lines.push(
       `- ${cell(source.documentId)}: ${cell(source.claims.join('; '))} Limits: ${cell(source.limitations)}`,
+    );
+  }
+  return lines;
+}
+
+function describeConcept(view: ArtifactView): string[] {
+  if (view.prepared.request.deliverable !== 'concept') return [];
+  const lines = [
+    '## Concept rules and crosspaths',
+    '',
+    cell(JSON.stringify(view.prepared.request.conceptRules)),
+    '',
+  ];
+  for (const path of view.candidate.paths) {
+    if (path.limitation) lines.push(`${cell(path.name)}: ${cell(path.limitation)}`, '');
+  }
+  for (const pair of view.candidate.crosspaths ?? []) {
+    const secondary = view.candidate.paths.find((path) => path.id === pair.secondaryPathId);
+    const borrowed = pair.borrowedTiers.map(
+      (tier) => secondary?.tiers.find((entry) => entry.tier === tier)?.name ?? `Tier ${tier}`,
+    );
+    lines.push(
+      `${cell(pair.mainPathId)} with ${cell(pair.secondaryPathId)} tiers ${pair.borrowedTiers.join(', ')}: ${cell(pair.interaction)} ${cell(pair.choice)}`,
+      '',
+      `Borrowed upgrades: ${borrowed.map(cell).join(', ')}.`,
+      '',
     );
   }
   return lines;

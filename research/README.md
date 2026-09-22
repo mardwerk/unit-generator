@@ -1,5 +1,7 @@
 # Unit design research
 
+The [framework source notes](FRAMEWORK-SOURCES.md) add JSON Schema, Zod, CEL and character/product reference boundaries for the [reshape proposal](../docs/GENERATOR-RESHAPE.md). They distinguish implementation documentation from research evidence.
+
 The [natural-language game design synthesis](game-design/README.md) applies the user-supplied September 21 report to player promises, purchase decisions, progression, feedback and test hypotheses. It retains the complete attachment and provenance, and separates adopted design principles from external claims and citations that were not independently verified.
 
 The [BTD6 pattern analysis](btd6/PATTERNS.md) derives authoring guidance from the supplied 26 towers and all 390 regular upgrade summaries. The [bounded optimization proposal](btd6/AUTORESEARCH.md) describes a future experiment, not an implemented autonomous training loop.

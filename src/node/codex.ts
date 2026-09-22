@@ -1,10 +1,11 @@
-import { mkdtemp, mkdir, readFile, rm, stat, writeFile } from 'node:fs/promises';
+import { mkdtemp, mkdir, open, readFile, rm, stat, writeFile } from 'node:fs/promises';
 import { homedir, tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { parse } from 'smol-toml';
 import type { ModelClient, ModelRequest, ModelResponse } from '../core/model.js';
 import { ModelExecutionError } from '../core/model.js';
 import { codexFailure, runCodexProcess } from './codex-process.js';
+import { EvidenceWriteError, type ModelOutputObserver } from './evidence.js';
 
 export interface CodexOptions {
   executable?: string;
@@ -43,7 +44,23 @@ export class CodexModelClient implements ModelClient {
     return `codex:${model}${effort}`;
   }
 
-  async generate(request: ModelRequest): Promise<ModelResponse> {
+  get evidenceSettings(): Record<string, unknown> {
+    return {
+      model: this.selectedModel,
+      reasoningEffort: this.selectedEffort,
+      timeoutMs: this.options.timeoutMs,
+      maxOutputBytes: this.options.maxOutputBytes,
+    };
+  }
+
+  generateWithEvidence(
+    request: ModelRequest,
+    observe: ModelOutputObserver,
+  ): Promise<ModelResponse> {
+    return this.generate(request, observe);
+  }
+
+  async generate(request: ModelRequest, observe?: ModelOutputObserver): Promise<ModelResponse> {
     if (request.signal?.aborted) {
       throw codexFailure({ code: 'CANCELLED', message: 'Codex generation was cancelled.' });
     }
@@ -58,19 +75,43 @@ export class CodexModelClient implements ModelClient {
         const output = join(directory, 'result.json');
         await mkdir(workspace);
         await writeFile(schema, JSON.stringify(request.schema), { mode: 0o600 });
-        await runCodexProcess({
-          executable: this.options.executable,
-          args: codexArguments(this.options, config, {
-            schema,
+        try {
+          await runCodexProcess({
+            executable: this.options.executable,
+            args: codexArguments(this.options, config, {
+              schema,
+              output,
+            }),
+            cwd: workspace,
             output,
-          }),
-          cwd: workspace,
-          output,
-          prompt: `${request.system}\n\n${request.prompt}`,
-          signal: request.signal,
-          timeoutMs: this.options.timeoutMs,
-          maxOutputBytes: this.options.maxOutputBytes,
-        });
+            prompt: `${request.system}\n\n${request.prompt}`,
+            signal: request.signal,
+            timeoutMs: this.options.timeoutMs,
+            maxOutputBytes: this.options.maxOutputBytes,
+          });
+        } finally {
+          // Capture the bounded final file even when the process fails or is cancelled.
+          if (observe) {
+            let content: string | undefined;
+            let truncated = false;
+            try {
+              const file = await open(output, 'r');
+              try {
+                const size = (await file.stat()).size;
+                const bytes = Buffer.alloc(Math.min(size, this.options.maxOutputBytes));
+                const read = await file.read(bytes, 0, bytes.length, 0);
+                content = bytes.subarray(0, read.bytesRead).toString('utf8');
+                truncated = size > this.options.maxOutputBytes;
+              } finally {
+                await file.close();
+              }
+            } catch (error) {
+              if ((error as NodeJS.ErrnoException).code !== 'ENOENT')
+                throw new EvidenceWriteError();
+            }
+            if (content !== undefined) await observe({ content, truncated });
+          }
+        }
         return { output: await readCodexResponse(output, this.options.maxOutputBytes) };
       } finally {
         await rm(directory, {
@@ -79,7 +120,7 @@ export class CodexModelClient implements ModelClient {
         });
       }
     } catch (error) {
-      if (error instanceof ModelExecutionError) throw error;
+      if (error instanceof ModelExecutionError || error instanceof EvidenceWriteError) throw error;
       // Filesystem and subprocess exceptions may include private paths or source text.
       throw codexFailure({
         code: 'MODEL_FAILED',

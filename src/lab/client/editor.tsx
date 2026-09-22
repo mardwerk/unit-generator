@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Plus, Upload, Trash2 } from 'lucide-react';
 import { Disclosure, Field, IconButton } from './ui.js';
-import type { DocumentInput, EditorInput } from './editor-state.js';
+import { selectDeliverable, type DocumentInput, type EditorInput } from './editor-state.js';
 
 export function RequestEditor({
   value,
@@ -26,6 +26,40 @@ export function RequestEditor({
     });
   return (
     <fieldset id="request-editor" disabled={disabled}>
+      <Field label="Output preset">
+        <select
+          value={value.base.deliverable ?? (definition ? 'mechanics' : '')}
+          onChange={(e) =>
+            onChange(selectDeliverable(value, e.target.value as 'concept' | 'mechanics'))
+          }
+        >
+          <option value="" disabled>
+            Legacy supplied rules
+          </option>
+          <option value="mechanics">Numerical unit</option>
+          <option value="concept">Qualitative concept</option>
+        </select>
+      </Field>
+      <p className="muted small">
+        Switching presets replaces progression and bundled rules and starts a new design. Import a
+        request to use an external ruleset.
+      </p>
+      {value.base.deliverable === 'concept' && value.base.previous && (
+        <Field label="Revision type">
+          <select
+            value={value.base.operation ?? 'redesign'}
+            onChange={(e) =>
+              onChange({
+                ...value,
+                base: { ...value.base, operation: e.target.value as 'redesign' | 'prose-edit' },
+              })
+            }
+          >
+            <option value="redesign">Change the design</option>
+            <option value="prose-edit">Edit wording and preserve mechanics</option>
+          </select>
+        </Field>
+      )}
       <h3>Character brief</h3>
       <Field label="Character name">
         <input
@@ -188,6 +222,16 @@ export function RequestEditor({
         }}
       />
       <Disclosure title="Confirmed choices and progression">
+        {value.base.deliverable === 'concept' && (
+          <Field label="Concept rules (JSON object)">
+            <textarea
+              className="code-input"
+              rows={8}
+              value={value.conceptRules ?? ''}
+              onChange={(e) => onChange({ ...value, conceptRules: e.target.value })}
+            />
+          </Field>
+        )}
         <Field label="Constraints (JSON array)">
           <textarea
             className="code-input"

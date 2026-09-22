@@ -96,7 +96,7 @@ function hasExactTiers(path: Path | undefined, expectedTiers: number[]): boolean
   return allTiersDeclared && new Set(actualTiers).size === expectedTiers.length;
 }
 
-function buildViolations(
+export function progressionBuildViolations(
   build: Build,
   selections: Map<string, number>,
   progression: Progression,
@@ -153,7 +153,7 @@ function checkRepresentativeBuild(
   const selections = new Map(
     build.selections.map((selection) => [selection.pathId, selection.tier]),
   );
-  const reasons = buildViolations(build, selections, progression);
+  const reasons = progressionBuildViolations(build, selections, progression);
   report({
     category: reasons.length ? 'conflict' : 'coverage',
     outcome: reasons.length ? 'fail' : 'pass',
