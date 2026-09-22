@@ -89,6 +89,7 @@ export type UnitDesignPlan = z.infer<typeof designPlanSchema>;
 /** A small lexical floor catches empty placeholder output, not strategic quality.
  * Keep this authoring check separate so old retained plans remain inspectable. */
 export const designPlanAuthoringSchema = designPlanSchema
+  .omit({ interpretation: true })
   .extend({ upgradeIntents: upgradeIntentsSchema })
   .superRefine((plan, context) => {
     const wordSegments = new Intl.Segmenter(undefined, { granularity: 'word' });

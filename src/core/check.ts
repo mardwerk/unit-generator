@@ -1,3 +1,4 @@
+import { interpretationCitationIssues } from './blueprint/plan.js';
 import {
   draftArtifactSchema,
   type AuthorRequest,
@@ -124,6 +125,17 @@ export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact>
             'Implement the retained typed upgrade promise and compile again. This check does not assess prose, source interpretation or tactical value.',
         });
     checkInterpretation(draft.run.designPlan?.interpretation, request, report);
+    if (request.interpretation && draft.run.designPlan)
+      for (const issue of interpretationCitationIssues(draft.run.designPlan.paths, request))
+        report({
+          category: 'evidence',
+          outcome: 'fail',
+          subject: `run.designPlan.${issue.path}`,
+          rule: 'interpretation-citation-coverage',
+          message: issue.message,
+          action:
+            'Restore a permitted retained span citation. Citation coverage alone does not establish semantic fidelity.',
+        });
   }
   checkEvidence(candidate, request, report);
   checkDependencies(candidate, request, report);
@@ -218,6 +230,6 @@ function checkInterpretation(
       outcome: 'pass',
       subject: 'run.designPlan.interpretation',
       rule: 'retained-interpretation',
-      message: `The retained interpretation validates under ${retained.layout.rulePack} with resolved evidence. This does not certify character fidelity or balance.`,
+      message: `The retained interpretation validates under ${retained.layout.rulePack} with resolved evidence. This checks record retention, layout and evidence references, not semantic fidelity, specialization use or balance.`,
     });
 }

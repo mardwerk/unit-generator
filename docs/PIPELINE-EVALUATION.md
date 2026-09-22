@@ -139,9 +139,10 @@ For an explicitly authorized paid benchmark, pass `--model provider/model --max-
 - Hypothesis: an optional pinned interpretation constrains the planned-v1
   route without changing default behavior. See [Interpretation
   record](RULEPACK-DESIGN-PLAN.md).
-- Setup: `examples/luffy.request.json` supplies only source text on elastic
-  brawling, three coexisting Haki disciplines and sequential stamina-limited
-  Gears, plus public three-path rules and 3x5 progression. No path mapping
+- Historical setup at [c97fdad](https://github.com/mardwerk/unit-generator/commit/c97fdad8cb052bafa37f6dc92de3179f8ba2f3d3):
+  the then-present `examples/luffy.request.json` supplied an author-written
+  elastic-character brief plus public three-path rules and 3x5 progression.
+  No path mapping
   is pinned and no interpretation is supplied, so the default route runs.
   Command:
   `node dist/cli.js author examples/luffy.request.json --preset btd6 --provider codex --timeout 590`.
@@ -149,7 +150,7 @@ For an explicitly authorized paid benchmark, pass `--model provider/model --max-
   Offline helper cases: `tests/rulepack-layout.test.ts`.
 - Outcome: one successful draft with no repair. Paths are Armament
   Hardening, Observation and Elastic Reach, and Conqueror's Group Pressure
-  over a Stretching Punch base. Shared Gear progression is reserved, not
+  over a Stretching Punch base. Unsupported progression is reserved, not
   granted; all deterministic build checks pass with 0 failed findings, 3
   unresolved extension proposals and 1 not-checked scope note. This sample
   used the existing author route, so it shows existing-route behavior and
@@ -163,6 +164,15 @@ For an explicitly authorized paid benchmark, pass `--model provider/model --max-
 - Human judgment: keep as an experimental opt-in. The default route is
   unchanged, the helpers stay out of the public API, and layout validation
   is kept separate from numerical and runtime support. Apex synthesis
-  beyond T5 capstones, stamina runtime behavior and balance remain
+  beyond T5 capstones, unsupported runtime behavior and balance remain
   unvalidated; generated artifacts stay in ignored `.runs/` and are not
   committed.
+
+
+The September 22 correction replaces the PR-added Luffy fixture and request
+with original public fixtures and `examples/mira-interpretation.request.json`.
+The earlier run remains historical evidence of the unpinned route, not a
+published source packet or interpretation experiment. The new example marks
+impact, reach and capacity as proposed groupings rather than source facts.
+No new live result is reported. Offline regression results are recorded in
+[RULEPACK-DESIGN-PLAN.md](RULEPACK-DESIGN-PLAN.md).

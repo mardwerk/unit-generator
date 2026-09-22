@@ -97,6 +97,11 @@ export function selectLayout(
 /**
  * Record the winning layout as a plan. Unsupported proposals are
  * preserved here and reported by validation, never silently dropped.
+ * Defaults: base identity uses the first expresses_identity relationship's
+ * source, or the first concept when absent. The three fixed invariants below
+ * are helper defaults, not deductions from source evidence or caller rules.
+ * Callers should edit the returned base/invariants before supplying the record
+ * when those defaults do not express their intent.
  * Slots sort alphabetically onto path1 and up, which the plan citation
  * check in blueprint/plan.ts relies on.
  */

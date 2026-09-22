@@ -2,8 +2,10 @@
 
 The default planned-v1 route runs unchanged without this. A request can
 optionally pin an interpretation: a reference pack plus a layout plan that
-maps reference concepts onto the ruleset. The planner must honor the
-bindings, and the checker re-validates the retained copy.
+maps reference concepts onto the ruleset. The planner receives the intended
+bindings and their meaning. Checks establish retention, layout validity and
+exact citation coverage; they do not establish that the generated design
+follows the supplied interpretation.
 
 These helpers are experimental. Import them by path, for example
 `src/core/design.ts`. They are not part of the public API in
@@ -65,6 +67,14 @@ automatic comparison and no built-in recipe.
 invariants. Unsupported proposals stay in the plan so validation can
 report them. Slots sort alphabetically onto path1 and up.
 
+The helper chooses the base from the source of the first `expresses_identity`
+relationship, falling back to the first concept. It inserts three fixed
+invariants: preserve the base fighting identity, preserve shared form access
+when purchasing a specialization, and prevent forms from granting unpurchased
+specialization effects. These are helper defaults, not findings derived from
+the source or the active pack. Callers can edit the returned base identity and
+invariants before supplying the record.
+
 `validateLayoutPlan` checks the subject, the pack ref, known concepts,
 the path count, disabled apex bindings and disabled shared forms.
 
@@ -78,19 +88,60 @@ it.
 
 Set `request.interpretation` with a reference pack and a layout plan.
 Prepare validates it: planned-v1 mode, a known 3-by-5 pack, a clean
-layout check and resolved evidence. The planner receives the pinned
-bindings and each branch must cite its bound concept or the base
-identity. The decoded plan retains the record, and the checker fails the
-draft when the retained copy differs from the request or no longer
-validates. Revisions resupply the record as request input. No field
-means the default route runs exactly as before.
+layout check and resolved evidence. The planner receives concept labels,
+descriptions, evidence/interpretation status, relationships and bindings.
+Source evidence and proposed grouping remain distinct.
+
+Provider output schemas exclude `interpretation`. The decoder ignores a
+model-supplied copy, including unsolicited copies from providers that do not
+enforce the schema, and binds the retained record only from the request.
+Revisions explicitly resupply that record. Omitting `request.interpretation`
+preserves the default route.
+
+Each branch must cite an exact retained evidence span allowed by its bound
+concept or the base identity. A concept that explicitly cites a source document
+allows that document's retained spans. A concept citing one span does not allow
+an unrelated span from the same document. Base-identity fallback is deliberate:
+it establishes coarse citation coverage, not specialization fidelity. A branch
+can pass while ignoring its specialization, so semantic review and controlled
+design comparison remain necessary.
+
+Checking repeats record equality, layout, evidence resolution and branch
+citation coverage after reload. `render --details` displays the retained
+interpretation separately from the unit sheet. A successful check does not
+prove that prose honors relationships or invariants, nor that the Consumer
+implements them. External caller-supplied pack registration, concept mode,
+shared-form execution and arbitrary numerical topologies remain outside this
+experiment.
 
 ## Validation
 
-`examples/luffy.request.json` runs locally through the existing author
-route and stays out of version control per `README.md`. It shows
-existing-route behavior: Armament, Observation and Conqueror paths over a
-stretching-punch base, with shared Gear progression reserved. It does not
-exercise the new helpers. Those are covered offline in
-`tests/rulepack-layout.test.ts`, including a form-less reference with
-conflicting groupings on the same interface.
+`examples/mira-interpretation.request.json` is an original public example with
+an explicit interpretation. Prepare it offline with:
+
+```sh
+node dist/cli.js prepare examples/mira-interpretation.request.json --preset btd6 --output .runs/mira-interpretation.prepared.json
+```
+
+Authoring that request with the same preset calls the configured model. No live
+generation of this example is claimed here. The original fictional brief and
+proposed gameplay groupings remain separate in the supplied record.
+
+The layout helpers are covered offline in `tests/rulepack-layout.test.ts`,
+including a reference with no forms and conflicting groupings on the same
+interface. The tests use original public reference fixtures.
+
+The September 22, 2026 correction adds opaque-ID prompt regressions,
+same-document wrong-span cases including base fallback, unsolicited model
+interpretation cases and a provider-schema comparison against pre-PR revision
+`b54822c6d7ff7f77d542ecc4a47f5cabd4b881e7`. An original Mira model double
+exercises generation, file save/reload, revision, checking and rendering with
+an interpretation supplied. These offline tests establish application behavior,
+not live model fidelity, design preference or gameplay quality. No live
+interpretation experiment is claimed by these checks.
+
+Verification of the correction: all 408 branch tests passed, with production
+and test TypeScript compilation, build, formatting and whitespace checks.
+After replacing the PR-added character fixtures with original public examples,
+the 11 affected layout tests and test compilation passed again. The documented
+Mira preparation command was executed offline. No model was called.

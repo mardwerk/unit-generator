@@ -144,7 +144,13 @@ export function designPlanRequest(prepared: PreparedRequest, signal?: AbortSigna
 
 /** Validate joins and structural choices. Source interpretation remains a review obligation. */
 export function decodeDesignPlan(output: unknown, request: AuthorRequest): UnitDesignPlan {
-  const plan = designPlanAuthoringSchema.parse(expandPurchasePlan(output));
+  // A provider cannot introduce or edit caller-owned interpretation, including
+  // legacy expanded plan output and unsolicited fields from non-strict providers.
+  const modelOutput =
+    output && typeof output === 'object' && !Array.isArray(output)
+      ? Object.fromEntries(Object.entries(output).filter(([key]) => key !== 'interpretation'))
+      : output;
+  const plan = designPlanAuthoringSchema.parse(expandPurchasePlan(modelOutput));
   const evidence = new Map(authorEvidence(request).map((span) => [span.id, span]));
   const issues: z.core.$ZodIssue[] = [];
   const selections = [
@@ -319,20 +325,18 @@ function pinnedInterpretationPrompt(
       sharedForms: interpretation.layout.bindings.shared_forms,
       apex: interpretation.layout.bindings.apex,
       invariants: interpretation.layout.design_invariants,
-      reference: interpretation.reference.concepts.map((concept) => ({
-        id: concept.id,
-        evidenceIds: concept.evidenceIds,
-      })),
+      reference: interpretation.reference,
     }),
-    'Each branch must cite at least one span from its bound concept or the base identity. Do not reason the bindings away.',
+    "Reference concepts include labels, descriptions, evidence IDs and evidence/interpretation status. Relationships and their status are data describing the supplied grouping, not additional verified source facts. Each branch must cite at least one exact retained span allowed by its bound concept or the base identity. Whole-document evidence permits that document's retained spans. This citation coverage does not prove semantic fidelity. Preserve the requested bindings and invariants.",
   ].join(' ');
 }
 
 /**
- * Check that each planned branch cites its bound concept. Slots sort
+ * Check exact citation coverage from the bound concept or base identity.
+ * This does not establish specialization fidelity. Slots sort
  * alphabetically onto path1 and up, matching planFromLayout output.
  * Inputs: branch source ids by path key plus the full request.
- * Outcome: one issue per branch with no bound-concept citation.
+ * Outcome: one issue per branch with no allowed retained span citation.
  */
 export function interpretationCitationIssues(
   branches: Record<string, { sourceIds: readonly string[] }>,
@@ -341,25 +345,26 @@ export function interpretationCitationIssues(
   const interpretation = request.interpretation;
   if (!interpretation) return [];
   const spans = authorEvidence(request);
-  const docOf = new Map(spans.map((span) => [span.id, span.documentId]));
+  const knownSpans = new Set(spans.map((span) => span.id));
   const sourceDocs = new Set(
     request.documents
       .filter((document) => document.kind === 'source')
       .map((document) => document.id),
   );
-  const docsFor = (evidenceIds: readonly string[]): Set<string> => {
-    const docs = new Set<string>();
+  const spansFor = (evidenceIds: readonly string[]): Set<string> => {
+    const allowed = new Set<string>();
     for (const id of evidenceIds) {
-      const doc = docOf.get(id);
-      if (doc) docs.add(doc);
-      else if (sourceDocs.has(id)) docs.add(id);
+      if (knownSpans.has(id)) allowed.add(id);
+      else if (sourceDocs.has(id)) {
+        for (const span of spans) if (span.documentId === id) allowed.add(span.id);
+      }
     }
-    return docs;
+    return allowed;
   };
   const concepts = new Map(
     interpretation.reference.concepts.map((concept) => [concept.id, concept]),
   );
-  const baseDocs = docsFor(
+  const baseSpans = spansFor(
     concepts.get(interpretation.layout.bindings.base_identity)?.evidenceIds ?? [],
   );
   const slots = Object.keys(interpretation.layout.bindings.specialization_paths).sort();
@@ -368,14 +373,12 @@ export function interpretationCitationIssues(
     const key = pathKeys[index];
     if (!key) return;
     const boundId = interpretation.layout.bindings.specialization_paths[slot]!;
-    const allowed = new Set([...docsFor(concepts.get(boundId)?.evidenceIds ?? []), ...baseDocs]);
-    const cited = (branches[key]?.sourceIds ?? [])
-      .map((id) => docOf.get(id))
-      .filter((doc) => doc !== undefined);
-    if (!cited.some((doc) => allowed.has(doc)))
+    const allowed = new Set([...spansFor(concepts.get(boundId)?.evidenceIds ?? []), ...baseSpans]);
+    const cited = branches[key]?.sourceIds ?? [];
+    if (!cited.some((id) => allowed.has(id)))
       issues.push({
         path: `paths.${key}`,
-        message: `Path ${key} cites no evidence from its bound concept ${boundId}. Cite the bound specialization or the base identity.`,
+        message: `Path ${key} cites no allowed evidence span from its bound concept ${boundId} or the base identity. Cite an exact retained span; shared document identity alone is insufficient.`,
       });
   });
   return issues;
