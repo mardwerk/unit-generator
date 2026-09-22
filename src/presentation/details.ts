@@ -6,6 +6,7 @@ export function renderDetailed(view: ArtifactView): string {
     [
       ...describeUnit(view),
       ...describePurchases(view),
+      ...describeInterpretation(view),
       ...describeUsage(view),
       ...describeAbilities(view),
       ...describeMechanics(view),
@@ -235,5 +236,37 @@ function describeEvidence(view: ArtifactView): string[] {
       `- ${cell(source.documentId)}: ${cell(source.claims.join('; '))} Limits: ${cell(source.limitations)}`,
     );
   }
+  return lines;
+}
+
+function describeInterpretation(view: ArtifactView): string[] {
+  const record = view.interpretation;
+  if (!record) return [];
+  const lines = [
+    '## Pinned interpretation',
+    '',
+    `Caller-supplied record under ${cell(record.layout.rulePack)}. Retention and citation coverage do not establish semantic fidelity, specialization use or balance.`,
+    '',
+    `Base identity: ${cell(record.layout.bindings.base_identity)}.`,
+    '',
+  ];
+  for (const [index, slot] of Object.keys(record.layout.bindings.specialization_paths)
+    .sort()
+    .entries())
+    lines.push(
+      `Path ${index + 1}: ${cell(record.layout.bindings.specialization_paths[slot]!)}.`,
+      '',
+    );
+  for (const concept of record.reference.concepts)
+    lines.push(
+      `${cell(concept.id)}: ${cell(concept.label)} (${concept.status}). ${cell(concept.description)} Evidence: ${concept.evidenceIds.map(cell).join(', ') || 'None declared'}.`,
+      '',
+    );
+  for (const relationship of record.reference.relationships)
+    lines.push(
+      `${cell(relationship.from)} ${cell(relationship.kind)} ${cell(relationship.to)} (${relationship.status}).${relationship.note ? ` ${cell(relationship.note)}` : ''}`,
+      '',
+    );
+  for (const invariant of record.layout.design_invariants) lines.push(cell(invariant), '');
   return lines;
 }

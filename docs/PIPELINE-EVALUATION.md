@@ -133,3 +133,46 @@ The first command prints a plan without provider calls. The second executes it u
 Another checkout needs the ignored corpus artifacts or an equivalent version-1 manifest. Fresh retrieval is a new input corpus. Credentials load locally and are excluded from reports. Keep live generation, deterministic replay, model critique and human reading separate. Generalization, source-period ambiguity, unsupported mechanics and balance remain unresolved by these small development samples; expanding one demonstrated gap is more useful than claiming broad reliability from structural pass counts.
 
 For an explicitly authorized paid benchmark, pass `--model provider/model --max-cost-usd 0.20`. The runner checks endpoint support and prices before generation, caps provider rates, and reserves a conservative cost before each call. Missing usage does not release a reservation. `--provider` can pin an endpoint tag. Ordinary requests exclude flex, priority and batch service endpoints; routing uses the selected exact tag. `--sampling provider-default` omits temperature and top-p, matching production behavior and supporting reasoning models that reject those parameters. Record this difference when comparing batches. `--max-tokens` controls the output bound. Free-only routing remains the default; no paid fallback is automatic.
+
+## Interpretation record validation (2026-09-22)
+
+- Hypothesis: an optional pinned interpretation constrains the planned-v1
+  route without changing default behavior. See [Interpretation
+  record](RULEPACK-DESIGN-PLAN.md).
+- Historical setup at [c97fdad](https://github.com/mardwerk/unit-generator/commit/c97fdad8cb052bafa37f6dc92de3179f8ba2f3d3):
+  the then-present `examples/luffy.request.json` supplied an author-written
+  elastic-character brief plus public three-path rules and 3x5 progression.
+  No path mapping
+  is pinned and no interpretation is supplied, so the default route runs.
+  Command:
+  `node dist/cli.js author examples/luffy.request.json --preset btd6 --provider codex --timeout 590`.
+  Provider: local Codex configuration. The adapter reports no usage.
+  Offline helper cases: `tests/rulepack-layout.test.ts`.
+- Outcome: one successful draft with no repair. Paths are Armament
+  Hardening, Observation and Elastic Reach, and Conqueror's Group Pressure
+  over a Stretching Punch base. Unsupported progression is reserved, not
+  granted; all deterministic build checks pass with 0 failed findings, 3
+  unresolved extension proposals and 1 not-checked scope note. This sample
+  used the existing author route, so it shows existing-route behavior and
+  does not exercise the new helpers. Those are covered offline. Full suite:
+  403/403 tests pass, covering explicit caller selection with duplicate
+  rejection, preserved unsupported bindings, apex and subject checks,
+  per-definition capabilities, content-based pack immutability, reference
+  evidence resolution, prepare-time interpretation validation, planner
+  pinning with citation checks, and a form-less reference with conflicting
+  groupings on the same interface.
+- Human judgment: keep as an experimental opt-in. The default route is
+  unchanged, the helpers stay out of the public API, and layout validation
+  is kept separate from numerical and runtime support. Apex synthesis
+  beyond T5 capstones, unsupported runtime behavior and balance remain
+  unvalidated; generated artifacts stay in ignored `.runs/` and are not
+  committed.
+
+
+The September 22 correction replaces the PR-added Luffy fixture and request
+with original public fixtures and `examples/mira-interpretation.request.json`.
+The earlier run remains historical evidence of the unpinned route, not a
+published source packet or interpretation experiment. The new example marks
+impact, reach and capacity as proposed groupings rather than source facts.
+No new live result is reported. Offline regression results are recorded in
+[RULEPACK-DESIGN-PLAN.md](RULEPACK-DESIGN-PLAN.md).

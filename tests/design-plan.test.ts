@@ -1,6 +1,8 @@
+import { createHash } from 'node:crypto';
+import { interpretationFor } from './fixtures/interpretation-fixtures.js';
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { prepareRequest } from '../src/core/index.js';
+import { prepareRequest, definitionProgression } from '../src/core/index.js';
 import { pathKeys, tierKeys } from '../src/core/mechanics/schemas.js';
 import { authorEvidence } from '../src/core/blueprint/evidence.js';
 import { bindDesignPlan, decodeDesignPlan, designPlanRequest } from '../src/core/blueprint/plan.js';
@@ -466,4 +468,57 @@ test('early identity checks reject explicit new capabilities but allow existing-
     plan.upgradeIntents!.path3.tier2 = { improves: [dimension], unlock: 'camo' };
     assert.deepEqual(decodeDesignPlan(plan, input), plan);
   }
+});
+
+test('uninterpreted planned provider schema matches the pre-PR baseline and never exposes caller-owned interpretation', async () => {
+  const request = miraRequest();
+  request.mechanicsDefinition = structuredClone(defaultAuthoringDefinition);
+  request.progression = definitionProgression(request.mechanicsDefinition);
+  const before = designPlanRequest(await prepareRequest(request));
+  // Measured from compiled b54822c6d7ff7f77d542ecc4a47f5cabd4b881e7
+  // with this same Mira packet and defaultAuthoringDefinition. This freezes the
+  // actual provider schema, including narrowed evidence and purchase choices.
+  assert.equal(
+    createHash('sha256').update(JSON.stringify(before.schema)).digest('hex'),
+    '97db9d92e3bb225c9b93af54c6f153d27650e218e033932bf92ec88f8aac2dba',
+  );
+  assert.ok(!JSON.stringify(before.schema).includes('interpretation'));
+  request.interpretation = interpretationFor(request);
+  const pinned = designPlanRequest(await prepareRequest(request));
+  assert.deepEqual(pinned.schema, before.schema);
+});
+
+test('model-owned interpretation is ignored for expanded and compact output and only caller input is retained', () => {
+  const request = miraRequest();
+  const plan = fixture();
+  const untrusted = { ...plan, interpretation: { invented: 'Never bind this model object.' } };
+  assert.equal(decodeDesignPlan(untrusted, request).interpretation, undefined);
+  request.interpretation = interpretationFor(request);
+  assert.deepEqual(decodeDesignPlan(untrusted, request).interpretation, request.interpretation);
+  const { upgradeIntents, paths, ...rest } = plan;
+  const compact = {
+    ...rest,
+    contract: 'purchase-plan-v1',
+    interpretation: { invented: true },
+    paths: Object.fromEntries(
+      pathKeys.map((path) => {
+        const { crosspaths, referenceExample, milestones, ...branch } = paths[path];
+        return [
+          path,
+          {
+            ...branch,
+            milestones: Object.fromEntries(
+              tierKeys.map((tier) => [
+                tier,
+                { change: milestones[tier], ...upgradeIntents![path][tier] },
+              ]),
+            ),
+          },
+        ];
+      }),
+    ),
+  };
+  assert.deepEqual(decodeDesignPlan(compact, request).interpretation, request.interpretation);
+  delete request.interpretation;
+  assert.equal(decodeDesignPlan(compact, request).interpretation, undefined);
 });
