@@ -1,6 +1,6 @@
-import type { RoleRankingClient } from './roles.js';
+import { rankUnitRoles, type RoleRankingClient } from './roles.js';
 import { z } from 'zod';
-import { draftSpineUnit } from './generate.js';
+import { draftBlueprint } from './blueprint/draft.js';
 import { stageFailure, type ModelClient, type ModelRequest } from './model.js';
 import {
   candidateSchema,
@@ -29,7 +29,14 @@ export async function draftUnit(
   await verifyPrepared(prepared);
   options.signal?.throwIfAborted();
   if (prepared.request.mechanicsDefinition) {
-    return draftSpineUnit(prepared, model, options);
+    const draft = await draftBlueprint(prepared, model, options);
+    const roles = await rankUnitRoles(
+      draft.candidate,
+      prepared.request.mechanicsDefinition,
+      options.roleRankingClient,
+      options.signal,
+    );
+    return freeze(draftArtifactSchema.parse({ ...draft, roles }));
   }
   const startedAt = new Date().toISOString();
   let candidate;

@@ -118,7 +118,7 @@ const path = z.strictObject({
   specialization: z.enum(pathSpecializations).optional(),
   theme: text.max(300),
   rationale: text.max(300),
-  sourceFactIndices: z.array(z.number().int().nonnegative()).min(1).max(8),
+  sourceFactIndices: z.array(z.number().int().nonnegative()).min(1).max(96),
   tiers: z.strictObject({ tier1: tier, tier2: tier, tier3: tier, tier4: tier, tier5: tier }),
 });
 const proposal = z.strictObject({ name: text, reason: text });
@@ -131,7 +131,7 @@ export const blueprintSchema = z.strictObject({
   sourceFacts: z
     .array(z.strictObject({ documentId: text, quote: text.max(500) }))
     .min(1)
-    .max(8),
+    .max(96),
   constraintCoverage: z.array(
     z.strictObject({ constraintId: text, implementation: text.max(500) }),
   ),
@@ -199,7 +199,7 @@ export const mechanicsDefinitionSchema = z.strictObject({
   profile: z.strictObject({
     currency: text,
     /** Explicit construction strategy, including edited requests and revisions. */
-    authoringMode: z.enum(['direct', 'reference-patterns-v1', 'planned-v1', 'spine-v1']).optional(),
+    authoringMode: z.enum(['direct', 'reference-patterns-v1', 'planned-v1']).optional(),
     /** Opt-in authoring policy. Existing explicit definitions retain their original checks. */
     designPolicy: z
       .strictObject({

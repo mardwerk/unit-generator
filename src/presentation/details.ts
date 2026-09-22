@@ -5,6 +5,7 @@ export function renderDetailed(view: ArtifactView): string {
   return (
     [
       ...describeUnit(view),
+      ...describePurchases(view),
       ...describeUsage(view),
       ...describeAbilities(view),
       ...describeMechanics(view),
@@ -12,6 +13,48 @@ export function renderDetailed(view: ArtifactView): string {
       ...describeEvidence(view),
     ].join('\n') + '\n'
   );
+}
+
+function describePurchases(view: ArtifactView): string[] {
+  const evaluation = view.designEvaluation;
+  if (!evaluation) return [];
+  const currency = cell(view.prepared.request.mechanicsDefinition?.profile.currency ?? 'currency');
+  const lines = [
+    '## Purchase evidence',
+    '',
+    'Calculated from the resolved builds. Throughput assumes eligible targets continuously in reach; group values are capacity upper bounds. These comparisons do not prove balance, source fidelity or player preference.',
+    '',
+  ];
+  const number = (value: number | null) =>
+    value === null ? 'unavailable' : cell(Number(value.toPrecision(4)));
+  for (const path of evaluation.paths) {
+    lines.push(`### ${cell(path.name)}`, '');
+    if (path.purchaseClaim)
+      lines.push(
+        `Purchase intention: ${cell(path.purchaseClaim.buyFor)}`,
+        `Retained weakness: ${cell(path.purchaseClaim.weakness)}`,
+        `Capstone intention: ${cell(path.purchaseClaim.capstoneValue)}`,
+        '',
+      );
+    lines.push(`| Purchase | Added ${currency} | Changed capacities |`, '| --- | --- | --- |');
+    for (const purchase of [...path.milestones, ...path.crosspaths]) {
+      const deltas = Object.entries(purchase.metricDeltas)
+        .filter(([, delta]) => delta.change !== 0)
+        .map(
+          ([metric, delta]) => `${cell(metric)}: ${number(delta.before)} → ${number(delta.after)}`,
+        );
+      lines.push(
+        `| ${purchase.from.join('-')} → ${purchase.to.join('-')} | ${number(purchase.incrementalGold)} | ${deltas.length ? deltas.join('; ') : cell(purchase.capabilityChanges.join('; ') || 'No change in measured capacities.')} |`,
+      );
+    }
+    const comparison = path.capstoneComparison;
+    lines.push(
+      '',
+      `T5 total: ${number(comparison.tier5.totalGold)} ${currency}. The same budget buys ${comparison.tier4CopiesAtTier5Budget ?? 'an undefined number of'} pure T4 copies. Extra copies need extra placement space and target access. Range and active uptime do not add across copies.`,
+      '',
+    );
+  }
+  return lines;
 }
 
 function describeUsage(view: ArtifactView): string[] {

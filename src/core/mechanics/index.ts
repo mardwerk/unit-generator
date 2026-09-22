@@ -9,16 +9,6 @@ export {
 } from './resolve.js';
 export { validateBlueprint } from './validate.js';
 export {
-  referenceWaves,
-  simulateWave,
-  killsByWave,
-  usefulnessIssues,
-  minUsefulFollowUpRadius,
-  type WaveSpec,
-  type WaveResult,
-  type ActiveAbility,
-} from './simulation.js';
-export {
   selectVolleyTargets,
   resolveFollowUpHits,
   type AttackTarget,

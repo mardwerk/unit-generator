@@ -19,6 +19,10 @@
     "./node": {
       "types": "./dist/node/index.d.ts",
       "import": "./dist/node/index.js"
+    },
+    "./experiments/compact-spine": {
+      "types": "./dist/experiments/compact-spine/index.d.ts",
+      "import": "./dist/experiments/compact-spine/index.js"
     }
   },
   "files": [
@@ -33,7 +37,7 @@
     "dev": "node --watch --watch-path=src --watch-path=scripts --watch-path=examples --watch-path=tsconfig.json scripts/dev.mjs",
     "build": "tsc -p tsconfig.json && node scripts/copy-lab-assets.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
-    "test": "tsc -p tsconfig.test.json && node --test .test-build/tests/*.test.js",
+    "test": "node -e \"require('node:fs').rmSync('.test-build', { recursive: true, force: true })\" && tsc -p tsconfig.test.json && node --test .test-build/tests/*.test.js",
     "format": "prettier --write \"src/**/*.{ts,tsx,html,css}\" \"tests/**/*.{ts,tsx}\" \"scripts/*.mjs\" \"*.json\"",
     "format:check": "prettier --check \"src/**/*.{ts,tsx,html,css}\" \"tests/**/*.{ts,tsx}\" \"scripts/*.mjs\" \"*.json\"",
     "cli": "node dist/cli.js",

@@ -9,11 +9,9 @@ import { ZodError } from 'zod';
 import {
   prepareRequest,
   draftUnit,
-  draftSpineUnit,
   checkDraft,
   reviewDraft,
   authorUnit,
-  generateUnit,
   ModelExecutionError,
   resolveBuild,
   type BuildSelection,
@@ -39,7 +37,7 @@ Usage: unit-generator <command> [input.json | "Character name"] [options]
 
 Commands:
   character Resolve a character name to cited source text and the default definition
-  generate  Draft and check a Unit from a name (offline trope packet, or --source retrieval)
+  generate  Resolve a name, draft and check a Unit with the default definition
   rank      Classify a saved Unit base and completed paths without regenerating
   definition Print the default BTD6-inspired mechanics definition (no input)
   build     Resolve a saved Unit at --tiers 5,2,0 without a model call
@@ -60,7 +58,6 @@ Options:
   --timeout SECONDS      Timeout per call (OpenRouter: 120, Codex: 600)
   --codex FILE           Codex executable (default: codex on PATH)
   --preset btd6          Apply the default definition to prepare or author
-  --source               Retrieve character evidence before generate (uses network)
   --choice ID            Select a character when name lookup is ambiguous
   --tiers A,B,C          Purchased tiers for build, e.g. 5,2,0
   --roles MODE           Optional ranking: auto (default), typesafe, openrouter or off
@@ -146,7 +143,6 @@ function parseInvocation() {
       codex: { type: 'string' },
       details: { type: 'boolean' },
       preset: { type: 'string' },
-      source: { type: 'boolean' },
       choice: { type: 'string' },
       tiers: { type: 'string' },
       repairs: { type: 'string' },
@@ -171,16 +167,11 @@ function parseInvocation() {
   }
   if (values.preset && (values.preset !== 'btd6' || !['prepare', 'author'].includes(command)))
     throw new Error('--preset btd6 applies only to prepare or author.');
-  if (values.source && command !== 'generate')
-    throw new Error('--source applies only to generate.');
   if (
     values.choice &&
-    ((command !== 'character' && !(command === 'generate' && values.source)) ||
-      !/^[1-9][0-9]*$/.test(values.choice))
+    (!['character', 'generate'].includes(command) || !/^[1-9][0-9]*$/.test(values.choice))
   )
-    throw new Error(
-      '--choice requires a positive character ID with character or generate --source.',
-    );
+    throw new Error('--choice requires a positive character ID with character or generate.');
   if (
     command === 'build'
       ? !/^[0-5],[0-5],[0-5]$/.test(values.tiers ?? '')
@@ -269,10 +260,6 @@ async function executeCommand(
   };
   if (command === 'definition') return defaultAuthoringDefinition;
   if (command === 'character' || command === 'generate') {
-    if (command === 'generate' && !values.source) {
-      process.stderr.write('Designing and checking the Unit...\n');
-      return generateUnit(file, model(), options);
-    }
     process.stderr.write('Finding character evidence...\n');
     const prepared = await prepareCharacter(file, {
       signal,
@@ -286,7 +273,7 @@ async function executeCommand(
     }
     if (command === 'character') return prepared;
     process.stderr.write('Designing and checking the Unit...\n');
-    return checkDraft(await draftSpineUnit(prepared, model(), options));
+    return checkDraft(await draftUnit(prepared, model(), options));
   }
   if (command === 'prepare' || command === 'author') {
     process.stderr.write('Loading explicit inputs...\n');

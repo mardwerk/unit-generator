@@ -6,13 +6,29 @@ import {
 } from './schemas.js';
 import { compileBlueprint } from './blueprint/compile.js';
 import { validateBlueprintRequest } from './blueprint/validate.js';
-import { allLegalBuilds, usefulnessIssues } from './mechanics/index.js';
+import { planIntentIssues } from './blueprint/plan-intent.js';
+import { evaluateUnitDesign } from './blueprint/design-evaluation.js';
+import { allLegalBuilds } from './mechanics/index.js';
 import { candidateSchema } from './schemas.js';
 import { freeze, verifyPrepared } from './prepare.js';
 import { checkEvidence } from './check-evidence.js';
 import { checkDependencies } from './check-dependencies.js';
 import { checkProgression } from './check-progression.js';
 import { findingSeverity, type ReportFinding } from './findings.js';
+
+/** JSON object key order is not part of derived purchase evidence. Array order is. */
+function orderedJson(value: unknown): string {
+  return JSON.stringify(value, (_key, entry) =>
+    entry && typeof entry === 'object' && !Array.isArray(entry)
+      ? Object.fromEntries(
+          Object.keys(entry)
+            .sort()
+            .map((key) => [key, entry[key]]),
+        )
+      : entry,
+  );
+}
+
 /** Structural checks only. Natural-language semantics require separate review. */
 export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact> {
   const draft = draftArtifactSchema.parse(input);
@@ -51,8 +67,24 @@ export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact>
         message:
           'The readable candidate differs from its compiled blueprint. Recompile it instead of editing derived fields.',
       });
-    if (candidate.blueprint && issues.length === 0)
-      issues.push(...usefulnessIssues(candidate.blueprint));
+    if (
+      candidate.blueprint &&
+      issues.length === 0 &&
+      draft.run.designEvaluation &&
+      orderedJson(draft.run.designEvaluation) !==
+        orderedJson(
+          evaluateUnitDesign(
+            candidate.blueprint,
+            draft.run.designPlan,
+            request.mechanicsDefinition,
+          ),
+        )
+    )
+      issues.push({
+        path: 'run.designEvaluation',
+        message:
+          'The retained purchase evidence differs from the blueprint and plan. Recompute it instead of editing derived comparisons.',
+      });
     if (issues.length)
       for (const issue of issues)
         report({
@@ -71,6 +103,21 @@ export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact>
         rule: 'typed-mechanics',
         message: `All ${allLegalBuilds(request.mechanicsDefinition).length} legal builds resolve with valid stats, purchase gates, scoped boosts and matching compiled output. This does not simulate combat or certify balance.`,
       });
+    if (issues.length === 0 && candidate.blueprint && draft.run.designPlan?.upgradeIntents)
+      for (const issue of planIntentIssues(
+        candidate.blueprint,
+        draft.run.designPlan,
+        request.mechanicsDefinition,
+      ))
+        report({
+          category: 'conflict',
+          outcome: 'fail',
+          subject: issue.path,
+          rule: 'planned-upgrade-intent',
+          message: issue.message,
+          action:
+            'Implement the retained typed upgrade promise and compile again. This check does not assess prose, source interpretation or tactical value.',
+        });
   }
   checkEvidence(candidate, request, report);
   checkDependencies(candidate, request, report);

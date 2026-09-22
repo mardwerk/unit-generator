@@ -1,17 +1,8 @@
-import type { Attack } from './mechanics/schemas.js';
-import type { pathSpecializations } from './mechanics/schemas.js';
+import { freeze } from '../../core/prepare.js';
+import type { Attack } from '../../core/mechanics/schemas.js';
+import type { pathSpecializations } from '../../core/mechanics/schemas.js';
 
 export type Specialization = (typeof pathSpecializations)[number];
-
-/** Five-line character summary built from the name alone. No network, no canon claims. */
-export interface TropePacket {
-  archetype: string;
-  attackShape: string;
-  quirk: string;
-  strength: string;
-  weakness: string;
-  work: string;
-}
 
 export interface SpinePathTemplate {
   specialization: Specialization;
@@ -59,7 +50,8 @@ const sharp = (
 const boostLine =
   'T4 unlocks the manual boost with a positive duration below its cooldown. T5 modifies that boost and must raise peak output or uptime, not duty fraction alone.';
 
-export const spines: Spine[] = [
+/** Prescribed numerical recipe hints, selected explicitly by the caller. Not source facts or governing rules. */
+export const spines: readonly Spine[] = freeze([
   {
     id: 'aimed',
     label: 'cheap aimed projectile with three careers',
@@ -290,153 +282,4 @@ export const spines: Spine[] = [
       },
     ],
   },
-];
-
-interface KeywordRule {
-  match: RegExp;
-  archetype: string;
-  attackShape: string;
-  quirk: string;
-  strength: string;
-  weakness: string;
-  spine: string;
-}
-
-const rules: KeywordRule[] = [
-  {
-    match: /flam|fire|pyro|blaze|inferno|torch|ember|magma|lava|natsu|dragneel|ifrit/,
-    archetype: 'fire wielder',
-    attackShape: 'energy bolt with lingering burn',
-    quirk: 'burn keeps hurting after the hit',
-    strength: 'pressure on grouped enemies over time',
-    weakness: 'short reach and weak instant hits',
-    spine: 'element',
-  },
-  {
-    match: /frost|ice|glacier|blizzard|snow|winter/,
-    archetype: 'frost wielder',
-    attackShape: 'chilling projectile that slows',
-    quirk: 'chill stalls what it touches',
-    strength: 'stalling fast groups for allies',
-    weakness: 'low direct damage',
-    spine: 'ward',
-  },
-  {
-    match: /lightning|thunder|storm|volt|electro|railgun/,
-    archetype: 'storm caller',
-    attackShape: 'fast energy strike with chaining sparks',
-    quirk: 'sparks jump to nearby targets',
-    strength: 'burst against clustered enemies',
-    weakness: 'falls off against single tough targets',
-    spine: 'chain',
-  },
-  {
-    match: /shadow|assassin|ninja|sniper|eye|hawk|sight|deadeye|rifle|gunslinger/,
-    archetype: 'deadeye',
-    attackShape: 'long range single shot',
-    quirk: 'sees across the map',
-    strength: 'killing priority targets at any distance',
-    weakness: 'no group coverage',
-    spine: 'deadeye',
-  },
-  {
-    match:
-      /bomb|blast|cannon|mortar|tank|buster|wrecker|juggernaut|titan|giant|colossus|quake|meteor/,
-    archetype: 'siege brute',
-    attackShape: 'slow explosive area attack',
-    quirk: 'every hit shakes the ground',
-    strength: 'clearing dense waves',
-    weakness: 'slow shots and weak precision',
-    spine: 'heavy',
-  },
-  {
-    match:
-      /wind|blade|dancer|boomerang|ricochet|chain|whip|stretch|elastic|dance|sword|katana|zoro|slash/,
-    archetype: 'skirmisher',
-    attackShape: 'curved projectile that chains between targets',
-    quirk: 'shots bend toward the next target',
-    strength: 'coverage on bends and clusters',
-    weakness: 'weak against spread out tough targets',
-    spine: 'chain',
-  },
-  {
-    match: /time|clock|chrono|trap|warden|guardian|wall|shield|frostbite|slow/,
-    archetype: 'warden',
-    attackShape: 'control first attack that stalls the wave',
-    quirk: 'enemies slow down around it',
-    strength: 'buying time for allied attackers',
-    weakness: 'depends on allies for kills',
-    spine: 'ward',
-  },
-  {
-    match: /mage|wizard|witch|sorcer|spell|arcane|curse|demon|dragon|spirit|ghost|phoenix|star/,
-    archetype: 'spellcaster',
-    attackShape: 'energy bolt with lingering burn',
-    quirk: 'spells linger after impact',
-    strength: 'scaling damage over long fights',
-    weakness: 'fragile positioning and modest reach',
-    spine: 'element',
-  },
-  {
-    match: /pirate|monkey|goku|gokuu|luffy|naruto|ichigo|slayer|pirat/,
-    archetype: 'brawler',
-    attackShape: 'cheap aimed projectile',
-    quirk: 'straightforward hits that keep coming',
-    strength: 'reliable early damage anywhere',
-    weakness: 'no built in answer to camo or crowds',
-    spine: 'aimed',
-  },
-];
-
-/** Build the five-line trope packet from the name alone. Keywords are hints, not canon. */
-export function tropePacketForName(name: string): TropePacket {
-  const lowered = name.toLowerCase();
-  const rule = rules.find((entry) => entry.match.test(lowered));
-  if (rule)
-    return {
-      archetype: rule.archetype,
-      attackShape: rule.attackShape,
-      quirk: rule.quirk,
-      strength: rule.strength,
-      weakness: rule.weakness,
-      work: 'Unspecified source work',
-    };
-  return {
-    archetype: 'brawler',
-    attackShape: 'cheap aimed projectile',
-    quirk: 'straightforward hits that keep coming',
-    strength: 'reliable early damage anywhere',
-    weakness: 'no built in answer to camo or crowds',
-    work: 'Unspecified source work',
-  };
-}
-
-/** Pick the spine whose base loop fits the trope packet. Pure lookup, no model call. */
-export function pickSpine(trope: TropePacket): Spine {
-  const shape = trope.attackShape;
-  const wanted = shape.includes('burn')
-    ? 'element'
-    : shape.includes('chain') || shape.includes('curved') || shape.includes('bend')
-      ? 'chain'
-      : shape.includes('explosive') || shape.includes('area')
-        ? 'heavy'
-        : shape.includes('long range')
-          ? 'deadeye'
-          : shape.includes('stall') || shape.includes('slow') || shape.includes('control')
-            ? 'ward'
-            : 'aimed';
-  const spine = spines.find((entry) => entry.id === wanted);
-  if (!spine) throw new Error(`Unknown spine ${wanted}.`);
-  return spine;
-}
-
-/** Verbatim trope document lines. Quotes in the blueprint cite these exact lines. */
-export function tropeDocumentText(name: string, trope: TropePacket, spine: Spine): string {
-  return [
-    `Trope: ${name} reads as a ${trope.archetype} known for ${trope.attackShape}.`,
-    `Signature quirk: ${trope.quirk}.`,
-    `Strength in play: ${trope.strength}.`,
-    `Weakness in play: ${trope.weakness}.`,
-    `Spine: ${spine.label}; keep the base ${trope.attackShape} readable at every tier.`,
-  ].join('\n');
-}
+]);

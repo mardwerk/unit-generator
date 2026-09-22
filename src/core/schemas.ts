@@ -1,4 +1,5 @@
 import { designPlanSchema } from './blueprint/plan-schema.js';
+import { designEvaluationSchema } from './blueprint/design-evaluation.js';
 import { unitRoleRankingSchema } from './roles.js';
 import { z } from 'zod';
 import { blueprintSchema, mechanicsDefinitionSchema } from './mechanics/schemas.js';
@@ -260,6 +261,7 @@ export const modelRunSchema = z.strictObject({
   completedAt: text,
   usage: modelUsageSchema.optional(),
   designPlan: designPlanSchema.optional(),
+  designEvaluation: designEvaluationSchema.optional(),
   attempts: z
     .array(
       z.strictObject({

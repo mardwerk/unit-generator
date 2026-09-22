@@ -108,8 +108,10 @@ test('small source sets reach authoring without filtering', () => {
   assert.deepEqual(authorEvidence(request), evidenceSpans(request));
 });
 
-test('authoring caps long sources at 6000 characters while keeping identity first', () => {
+test('planned evidence caps short wiki fragments while retaining identity, signature and limitations', () => {
   const request = miraRequest();
+  request.mechanicsDefinition = structuredClone(defaultMechanicsDefinition);
+  request.mechanicsDefinition.profile.authoringMode = 'planned-v1';
   request.documents[0]!.text = [
     'Mira keeps the old observatory.',
     ...Array.from({ length: 319 }, (_, index) => `Archive entry ${index} lists a festival.`),
@@ -123,11 +125,14 @@ test('authoring caps long sources at 6000 characters while keeping identity firs
   });
   const original = structuredClone(request);
   const all = evidenceSpans(request);
-  assert.ok(all.reduce((total, span) => total + span.text.length, 0) > 6_000);
+  assert.ok(all.length > 96);
+  assert.ok(all.reduce((total, span) => total + span.text.length, 0) < 18_000);
   const selected = authorEvidence(request);
-  assert.ok(selected.length > 0 && selected.length < all.length);
-  assert.ok(selected.reduce((total, span) => total + span.text.length, 0) <= 6_000);
+  assert.equal(selected.length, 96);
+  assert.ok(selected.reduce((total, span) => total + span.text.length, 0) <= 18_000);
   assert.ok(selected.some(({ text }) => text.startsWith('Mira keeps')));
+  assert.ok(selected.some(({ text }) => text.includes('signature Spark')));
+  assert.ok(selected.some(({ text }) => text.includes('cannot strike')));
   assert.ok(selected.some(({ documentId }) => documentId === 'period-limits'));
   const positions = selected.map((span) => all.findIndex(({ id }) => id === span.id));
   assert.deepEqual(
@@ -143,16 +148,18 @@ test('authoring caps long sources at 6000 characters while keeping identity firs
   assert.deepEqual(request, original);
 });
 
-test('authoring keeps its character budget when many long passages exceed it', () => {
+test('planned evidence keeps its character budget even when 96 long passages would exceed it', () => {
   const request = miraRequest();
+  request.mechanicsDefinition = structuredClone(defaultMechanicsDefinition);
+  request.mechanicsDefinition.profile.authoringMode = 'planned-v1';
   request.documents[0]!.text = Array.from(
     { length: 120 },
     (_, index) => `Passage ${index} describes ${'the same old village festival '.repeat(12)}.`,
   ).join(' ');
   const all = evidenceSpans(request);
   const selected = authorEvidence(request);
-  assert.ok(selected.length > 0 && selected.length < all.length);
-  assert.ok(selected.reduce((total, span) => total + span.text.length, 0) <= 6_000);
+  assert.ok(selected.length > 0 && selected.length < 96);
+  assert.ok(selected.reduce((total, span) => total + span.text.length, 0) <= 18_000);
   for (const span of selected)
     assert.deepEqual(
       span,
@@ -160,7 +167,7 @@ test('authoring keeps its character budget when many long passages exceed it', (
     );
 });
 
-test('authoring applies no span count cap to short passages', () => {
+test('legacy evidence does not acquire the planned passage cap or relevance bonuses', () => {
   const request = miraRequest();
   request.documents[0]!.text = Array.from(
     { length: 110 },
@@ -168,4 +175,69 @@ test('authoring applies no span count cap to short passages', () => {
   ).join(' ');
   assert.equal(authorEvidence(request).length, 110);
   assert.deepEqual(authorEvidence(request), evidenceSpans(request));
+  request.documents[0]!.text =
+    Array.from({ length: 350 }, (_, index) => `Festival record number ${index}.`).join(' ') +
+    ' Her signature fires a projectile.';
+  const selected = authorEvidence(request);
+  assert.ok(selected.length > 96);
+  assert.equal(
+    selected.some(({ text }) => text.includes('Her signature')),
+    false,
+  );
+  assert.ok(selected.reduce((total, span) => total + span.text.length, 0) <= 6_000);
+});
+
+test('planned evidence keeps technique behavior with ownership and exceptions beside repetitive inventories', () => {
+  const request = miraRequest();
+  request.mechanicsDefinition = structuredClone(defaultMechanicsDefinition);
+  request.mechanicsDefinition.profile.authoringMode = 'planned-v1';
+  request.documents[0]!.text = [
+    'Mira keeps the observatory.',
+    ...Array.from(
+      { length: 160 },
+      (_, index) => `Skills\nFormer\nExtra skills\nInventory entry ${index}.`,
+    ),
+  ].join('\n\n');
+  const technique = {
+    ...request.documents[0]!,
+    id: 'character-technique:example:Prism',
+    text: [
+      "Observed link on Mira's article: https://example.org/Prism",
+      'Section: Skills > Former > Extra skills',
+      'Link text: Prism',
+      'Parent passage: Mira formerly used Prism.',
+      'Former entries do not establish current availability.',
+      "Other users' powers do not transfer to Mira.",
+      'Prism converts stored light into colored ribbons.',
+      'These ribbons bend freely around the user.',
+      'They remain visible inside a dark room.',
+      'However, they disappear inside a sealed crystal chamber.',
+    ].join('\n\n'),
+  };
+  request.documents.push(technique);
+  const original = structuredClone(request);
+  const all = evidenceSpans(request);
+  const selected = authorEvidence(request);
+  assert.ok(all.length > 96);
+  assert.ok(selected.length <= 96);
+  assert.ok(selected.reduce((total, span) => total + span.text.length, 0) <= 18_000);
+  assert.deepEqual(
+    selected.filter((span) => span.documentId === technique.id),
+    all.filter((span) => span.documentId === technique.id),
+  );
+  // Exact repeated headings can remain as context, but cannot fill the budget
+  // ahead of the inventory's distinct passages or the complete technique packet.
+  assert.equal(selected.filter((span) => span.text === 'Skills\nFormer\nExtra skills').length, 1);
+  const positions = selected.map((span) => all.findIndex(({ id }) => id === span.id));
+  assert.deepEqual(
+    positions,
+    [...positions].sort((a, b) => a - b),
+  );
+  for (const span of selected)
+    assert.deepEqual(
+      span,
+      all.find(({ id }) => id === span.id),
+    );
+  assert.deepEqual(authorEvidence(request), selected);
+  assert.deepEqual(request, original);
 });

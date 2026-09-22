@@ -16,7 +16,7 @@ test('the default profile supplies a consistent Gold and Health scale with sourc
   const definition = prepared.request.mechanicsDefinition!;
   assert.equal(definition.id, 'btd6-combat-v1');
   assert.equal(definition.profile.currency, 'Gold');
-  assert.equal(definition.profile.authoringMode, 'spine-v1');
+  assert.equal(definition.profile.authoringMode, 'planned-v1');
   assert.ok(Object.isFrozen(defaultProfile.origin));
   assert.throws(() => {
     defaultProfile.text = 'mutated rules';
@@ -25,8 +25,8 @@ test('the default profile supplies a consistent Gold and Health scale with sourc
   assert.equal(definition.profile.designPolicy?.distinctFirstUpgrades, true);
   assert.equal(definition.profile.designPolicy?.maxManualAbilityPaths, 1);
   assert.equal(definition.profile.designPolicy?.manualAbilityPath, 'path2');
-  assert.equal(definition.revision, '2026-09-21-design-v8');
-  assert.equal(defaultProfile.id, 'default-td-profile-v8');
+  assert.equal(definition.revision, '2026-09-21-design-v9');
+  assert.equal(defaultProfile.id, 'default-td-profile-v9');
   assert.equal(
     definition.profile.designPolicy?.tier5Uniqueness,
     'one-per-player-unit-type-and-path',
