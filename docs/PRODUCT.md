@@ -16,7 +16,7 @@ Explicit concept mode now uses the existing core, CLI and UnitLab for qualitativ
 
 The normal user input should remain a character name, with the game configuration selected once. The intended output is a complete unit under that configuration. The current checked draft is an intermediate milestone; playable output requires a compatible Consumer and runtime evidence. The generator should choose a coherent source organization before filling purchase slots. The core must permit different progression and mechanic implementations, with the public BTD6-based default separate from private shared forms and stamina.
 
-[GENERATOR-RESHAPE.md](GENERATOR-RESHAPE.md) records the code audit, proposed boundaries, completion states and staged acceptance. [REFINEMENT.md](REFINEMENT.md) describes controlled improvement. The updated [PR 6 review](PR6-REVIEW.md) replaces the earlier assumption that its branch experiment is pending. This direction does not claim that interchangeable rules, Apex or forms are implemented today.
+[GENERATOR-RESHAPE.md](GENERATOR-RESHAPE.md) records the code audit, proposed boundaries, completion states and staged acceptance. [REFINEMENT.md](REFINEMENT.md) describes controlled improvement. The merged [compact-spine experiment](COMPACT-SPINE-EXPERIMENT.md) and [interpretation record](RULEPACK-DESIGN-PLAN.md) remain opt-in; neither promotes a new default. This direction does not claim that interchangeable rules, Apex or forms are implemented today.
 
 ## Authoring contract
 

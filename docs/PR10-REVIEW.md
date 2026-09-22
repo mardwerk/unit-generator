@@ -1,5 +1,13 @@
 # PR 10: optional planning augmentation
 
+[PR 10](https://github.com/mardwerk/unit-generator/pull/10) merged September 22, 2026 at `1263bb32b20abb7fae3194e67641e3e2f34cd687` as an opt-in experiment. The combined concept and experiment tree passed all 436 tests, TypeScript, build, formatting and whitespace checks.
+
+The corrected experiment at `2064b6b` addresses the three integration findings below. Provider schemas exclude interpretation; decoding retains only the caller's record; the planner receives concept meaning and relationships; citation joins retain exact spans. Original public fixtures cover the full generation, file reload, revision, checking and rendering cycle. The 408-test branch suite passed, followed by the affected layout tests after fixture replacement. No live interpretation benefit is claimed.
+
+The experiment remains optional on the bundled three-path `planned-v1` backend. Base-identity citation fallback establishes coverage, not specialization fidelity. Helper defaults remain explicit limitations. The reviews below are historical assessments of their named commits.
+
+## Historical review
+
 ## Revised head review
 
 Re-reviewed September 22, 2026 at `c97fdad8cb052bafa37f6dc92de3179f8ba2f3d3`. The revised PR now integrates an optional interpretation into prepare, planning, retained output and checking. The earlier standalone-only assessment below applies to the old head. The revised PR remains open and unmerged because three integration problems are reproducible.

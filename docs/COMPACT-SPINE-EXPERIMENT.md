@@ -14,21 +14,30 @@ Build with `pnpm build`. The public [request](../examples/compact-spine.request.
 node --input-type=module <<'JS'
 import { mkdir, writeFile } from 'node:fs/promises';
 import { prepareRequest } from '@mardwerk/unit-generator';
-import { CodexModelClient, loadRequestFile } from '@mardwerk/unit-generator/node';
+import { CodexModelClient, loadRequestFile, createEvidenceRun } from '@mardwerk/unit-generator/node';
 import { draftCompactSpine } from '@mardwerk/unit-generator/experiments/compact-spine';
 
 await mkdir('.runs', { recursive: true });
 const request = await loadRequestFile('examples/compact-spine.request.json');
-const result = await draftCompactSpine(
-  await prepareRequest(request),
-  new CodexModelClient(),
-  { spineId: 'aimed', maxRepairAttempts: 1 },
-);
+const prepared = await prepareRequest(request);
+const run = await createEvidenceRun({ directory: '.runs/evidence', input: prepared });
+let result;
+try {
+  result = await draftCompactSpine(
+    prepared,
+    run.wrap(new CodexModelClient()),
+    { spineId: 'aimed', maxRepairAttempts: 1 },
+  );
+} catch (error) {
+  await run.fail(error);
+  throw error;
+}
+await run.finish(result);
 await writeFile('.runs/compact-spine.result.json', JSON.stringify(result, null, 2), { flag: 'wx' });
 JS
 ```
 
-This is a usage example, not a recorded generation. For research runs, pass a recording `ModelClient` that saves each exact request and original response before decoding, including failures. The plain example above retains the final compact output, selected recipe, checked artifact and reported attempt usage; it is not a complete raw-attempt archive. Missing usage remains unknown. Keep private input and output files outside version control.
+This is a usage example, not a recorded generation. The recording wrapper saves exact model requests and original responses before decoding, including failures. The final result retains the compact output, selected recipe, checked artifact and reported attempt usage. Missing usage remains unknown. Record scenarios, preservation judgments and acceptance in the run's `observations.json`; private input and output files stay outside version control.
 
 `result.checked` is a normal checked artifact that the existing renderer, review API and library can consume. `result.output` retains the compact response and explicit source-span selections. `result.spine` records the recipe assistance. A revision supplies the full prior candidate and explicit feedback in `request.previous` and `request.feedback`, then prepares a new Request.
 

@@ -10,7 +10,7 @@ Retain exact assembled requests, schemas, sources, resolved rules, effective gen
 
 Before freezing a pilot, demonstrate two meaningfully different public or synthetic concept rulesets without generator edits, several references, and the complete operation cycle. Test independent attacks, finite hit budgets, event dependencies and cross-copy restrictions with original examples. Pair each deliberate defect with a valid control. Configuration of concept rules does not establish executable mechanic portability. Private project rules and character mappings stay outside the public repository.
 
-The two PRs are being integrated as separate opt-in experiments. [PR 10](PR10-REVIEW.md) retains a caller-supplied interpretation on `planned-v1`; its correction excludes that record from provider output, preserves concept meaning in the prompt and checks exact citation spans. Citation coverage still does not establish interpretation fidelity.
+Both PRs are merged as separate opt-in experiments. [PR 10](PR10-REVIEW.md) retains a caller-supplied interpretation on `planned-v1`; its correction excludes that record from provider output, preserves concept meaning in the prompt and checks exact citation spans. Citation coverage still does not establish interpretation fidelity.
 
 [PR 6](PR6-REVIEW.md) retains compact numerical generation with an explicitly selected recipe. Its adaptation preserves the default route, supplies full revision context and the selected Definition, and replaces positional citations with explicit spans. The incomplete simulator and automatic name-based selection are excluded. Its earlier branch study remains historical evidence; the obsolete 24-call handoff must not be restarted.
 

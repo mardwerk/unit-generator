@@ -6,6 +6,8 @@ The CLI and local [UnitLab](docs/LAB.md) share a [typed generator core](docs/API
 
 For a qualitative design, choose **Qualitative concept** in UnitLab or pass `--deliverable concept` to name-based CLI generation. Concept mode retains independent attacks, interactions, crosspaths and practical limitations without requiring a numerical blueprint. It uses explicit progression and concept rules, supports revisions and records model attempts. See [concept authoring](docs/CLI.md#qualitative-concepts) and the original [Iona example](examples/iona.concept.request.json). Numerical `planned-v1` remains the default.
 
+Two separate opt-in experiments are available: a [caller-supplied interpretation](docs/RULEPACK-DESIGN-PLAN.md) on `planned-v1`, and a [compact numerical recipe](docs/COMPACT-SPINE-EXPERIMENT.md) selected through its own API. Neither replaces the default route or establishes better design quality.
+
 The [generation foundation](docs/GENERATION-FOUNDATION.md) connects character evidence to purchasing decisions, executable changes and independent checks. It applies the supplied game-design research within the existing two-call pipeline.
 
 The [reshape proposal](docs/GENERATOR-RESHAPE.md) records broader rule implementation and interpretation work. The [refinement process](docs/REFINEMENT.md) separates development evidence from a later frozen study. Configurable concept rules are implemented; interchangeable numerical backends and runtime behavior remain future work.

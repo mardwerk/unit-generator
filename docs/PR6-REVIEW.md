@@ -1,4 +1,12 @@
-# PR 6 review at 3e5d73b
+# PR 6: optional compact generation
+
+[PR 6](https://github.com/mardwerk/unit-generator/pull/6) merged September 22, 2026 at `124c7111a44254a5a7877dda960203271c0970d1` as an opt-in experiment. The combined concept and experiment tree passed all 436 tests, TypeScript, build, formatting and whitespace checks.
+
+The adapted experiment at `a85e2e9` preserves the main baseline and adds a separate package API, an original public example and tests. Callers explicitly select a numerical recipe. Complete revision context, explicit source spans, per-constraint accounts and the supplied Definition replace the original route's weaker boundaries. Pinned interpretations are rejected before dispatch rather than ignored.
+
+Automatic name recipes, regex interpretation, gallery seeding and the incomplete simulator gate are excluded. Ten focused offline tests, TypeScript, build, formatting and a public-example preparation passed. No new provider call qualified this adaptation. See [COMPACT-SPINE-EXPERIMENT.md](COMPACT-SPINE-EXPERIMENT.md). The review below remains a historical assessment of `3e5d73b`.
+
+## Historical review
 
 Reviewed September 22, 2026 after the user identified the completed branch experiment. [PR 6](https://github.com/mardwerk/unit-generator/pull/6) was open at inspection, with head `3e5d73bd8ad588067a16e9e47721e797fc09c27b`. The existing local review worktree was clean and updated from detached `d4240b2` to this head. Main remains `b54822c`; no merge or PR comment was made. The PR description still describes the earlier offline-only approach and omits the new source option and simulator. The code and branch evaluation document are the evidence for this review.
 
