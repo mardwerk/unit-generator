@@ -1,3 +1,4 @@
+import type { InterpretationInput } from '../core/design.js';
 import {
   checkedArtifactSchema,
   draftArtifactSchema,
@@ -20,6 +21,7 @@ export interface ArtifactView {
   usage: UsageSummary;
   roles?: UnitRoleRanking;
   designEvaluation?: DesignEvaluation;
+  interpretation?: InterpretationInput;
 }
 
 export function readArtifactView(input: unknown): ArtifactView {
@@ -35,6 +37,9 @@ export function readArtifactView(input: unknown): ArtifactView {
       usage: summarizeUsage(result.data),
       ...(result.data.run.draft.designEvaluation
         ? { designEvaluation: result.data.run.draft.designEvaluation }
+        : {}),
+      ...(result.data.run.draft.designPlan?.interpretation
+        ? { interpretation: result.data.run.draft.designPlan.interpretation }
         : {}),
       ...(result.data.roles ? { roles: result.data.roles } : {}),
     };
@@ -52,6 +57,9 @@ export function readArtifactView(input: unknown): ArtifactView {
       ...(checked.data.draft.run.designEvaluation
         ? { designEvaluation: checked.data.draft.run.designEvaluation }
         : {}),
+      ...(checked.data.draft.run.designPlan?.interpretation
+        ? { interpretation: checked.data.draft.run.designPlan.interpretation }
+        : {}),
       ...(checked.data.draft.roles ? { roles: checked.data.draft.roles } : {}),
     };
   }
@@ -65,6 +73,9 @@ export function readArtifactView(input: unknown): ArtifactView {
     reviewSummary: null,
     usage: summarizeUsage(draft),
     ...(draft.run.designEvaluation ? { designEvaluation: draft.run.designEvaluation } : {}),
+    ...(draft.run.designPlan?.interpretation
+      ? { interpretation: draft.run.designPlan.interpretation }
+      : {}),
     ...(draft.roles ? { roles: draft.roles } : {}),
   };
 }

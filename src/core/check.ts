@@ -1,6 +1,8 @@
 import { checkConcept } from './concept.js';
+import { interpretationCitationIssues } from './blueprint/plan.js';
 import {
   draftArtifactSchema,
+  type AuthorRequest,
   type CheckedArtifact,
   type DraftArtifact,
   type Finding,
@@ -9,6 +11,10 @@ import { compileBlueprint } from './blueprint/compile.js';
 import { validateBlueprintRequest } from './blueprint/validate.js';
 import { planIntentIssues } from './blueprint/plan-intent.js';
 import { evaluateUnitDesign } from './blueprint/design-evaluation.js';
+import { authorEvidence } from './blueprint/evidence.js';
+import { getRulePack } from './rulepack.js';
+import { validateLayoutPlan } from './design.js';
+import { danglingReferenceEvidence } from './reference.js';
 import { allLegalBuilds } from './mechanics/index.js';
 import { candidateSchema } from './schemas.js';
 import { freeze, verifyPrepared } from './prepare.js';
@@ -119,6 +125,18 @@ export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact>
           action:
             'Implement the retained typed upgrade promise and compile again. This check does not assess prose, source interpretation or tactical value.',
         });
+    checkInterpretation(draft.run.designPlan?.interpretation, request, report);
+    if (request.interpretation && draft.run.designPlan)
+      for (const issue of interpretationCitationIssues(draft.run.designPlan.paths, request))
+        report({
+          category: 'evidence',
+          outcome: 'fail',
+          subject: `run.designPlan.${issue.path}`,
+          rule: 'interpretation-citation-coverage',
+          message: issue.message,
+          action:
+            'Restore a permitted retained span citation. Citation coverage alone does not establish semantic fidelity.',
+        });
   }
   checkConcept(draft, report);
   checkEvidence(candidate, request, report);
@@ -154,4 +172,66 @@ export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact>
     draft,
     findings,
   });
+}
+
+/** Re-validate the retained interpretation against the request copy. */
+function checkInterpretation(
+  retained: NonNullable<AuthorRequest['interpretation']> | undefined,
+  request: AuthorRequest,
+  report: ReportFinding,
+): void {
+  if (!request.interpretation && !retained) return;
+  if (
+    !request.interpretation ||
+    !retained ||
+    orderedJson(retained) !== orderedJson(request.interpretation)
+  ) {
+    report({
+      category: 'conflict',
+      outcome: 'fail',
+      subject: 'run.designPlan.interpretation',
+      rule: 'retained-interpretation',
+      message:
+        'The retained interpretation differs from the request copy. Rebind it from the request instead of editing the retained record.',
+      action: 'Restore the request interpretation and check again.',
+    });
+    return;
+  }
+  let pack;
+  try {
+    pack = getRulePack(retained.layout.rulePack);
+  } catch {
+    pack = undefined;
+  }
+  const issues = pack
+    ? validateLayoutPlan(retained.layout, retained.reference, pack).map(
+        (issue) => `${issue.path}: ${issue.message}`,
+      )
+    : [`rulePack: Unknown RulePack: ${retained.layout.rulePack}.`];
+  const known = [
+    ...authorEvidence(request).map((span) => span.id),
+    ...request.documents
+      .filter((document) => document.kind === 'source')
+      .map((document) => document.id),
+  ];
+  for (const id of danglingReferenceEvidence(retained.reference, known))
+    issues.push(`reference: Interpretation cites unknown evidence: ${id}.`);
+  if (issues.length)
+    for (const issue of issues)
+      report({
+        category: 'conflict',
+        outcome: 'fail',
+        subject: 'run.designPlan.interpretation',
+        rule: 'retained-interpretation',
+        message: issue,
+        action: 'Correct the interpretation or its governing pack and check again.',
+      });
+  else
+    report({
+      category: 'coverage',
+      outcome: 'pass',
+      subject: 'run.designPlan.interpretation',
+      rule: 'retained-interpretation',
+      message: `The retained interpretation validates under ${retained.layout.rulePack} with resolved evidence. This checks record retention, layout and evidence references, not semantic fidelity, specialization use or balance.`,
+    });
 }

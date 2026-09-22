@@ -61,3 +61,8 @@ Evaluate against the same frozen corpus. Generate the batch sequentially, then r
 Start with the smallest evidence-supported correction to source selection, contract, rule, compiler or reference. Do not compensate for representation failures with a stronger paid model. Add vector storage, agent orchestration, optimization or simulation only when a repeatable failure and bounded comparison justify it. A single-call route remains a possible experiment; the current two-call boundary preserves an independently stated intention before execution.
 
 All three completed foundation free-model batches produced zero complete drafts from three characters. The final batch included the grammar fixes and character-design guidance; it still failed numerical validation and independent source/progression review. This foundation supplies construction and inspection boundaries, but it does not yet meet the quality, speed or reliability target. Measurements and remaining failures belong in [pipeline evaluation](PIPELINE-EVALUATION.md).
+
+The experimental [interpretation record](RULEPACK-DESIGN-PLAN.md) pins an
+optional reference-to-ruleset mapping onto the planned-v1 route. The
+default route runs unchanged without it. Layout validation stays separate
+from numerical build resolution and runtime support.

@@ -1,0 +1,109 @@
+{
+  "schemaVersion": "1",
+  "task": "Design a numerical Spark unit while retaining the supplied interpretation of impact, reach and capacity. Unsupported perception behavior stays a proposal.",
+  "character": {
+    "name": "Mira",
+    "work": "Original public interpretation example",
+    "scope": "Supplied invented brief only; no outside canon."
+  },
+  "documents": [
+    {
+      "id": "mira-source",
+      "kind": "source",
+      "text": "Mira fires a magical Spark at a detected enemy. She can aim along an unobstructed firing lane; sensing an enemy does not make the projectile travel through a wall. She is an original public character."
+    },
+    {
+      "id": "example-rules",
+      "kind": "rules",
+      "text": "Use the explicit numerical Definition supplied by the btd6 preset. Retain projectile delivery and purchase gates. Impact, reach and target capacity are proposed design groupings, not additional source facts."
+    }
+  ],
+  "constraints": [],
+  "progression": {
+    "paths": [
+      {
+        "id": "path-1",
+        "tiers": [1, 2, 3, 4, 5]
+      },
+      {
+        "id": "path-2",
+        "tiers": [1, 2, 3, 4, 5]
+      },
+      {
+        "id": "path-3",
+        "tiers": [1, 2, 3, 4, 5]
+      }
+    ],
+    "maxActivePaths": 2,
+    "maxPathsAboveTier": {
+      "tier": 2,
+      "count": 1
+    },
+    "maxTotalTiers": null,
+    "allowedTierCombinations": null
+  },
+  "previous": null,
+  "feedback": null,
+  "interpretation": {
+    "reference": {
+      "subject": "Mira",
+      "concepts": [
+        {
+          "id": "spark",
+          "label": "Spark identity",
+          "status": "evidence",
+          "description": "An aimed magical projectile requiring a clear delivery path.",
+          "evidenceIds": ["mira-source"]
+        },
+        {
+          "id": "impact",
+          "label": "Focused impact",
+          "status": "interpretation",
+          "description": "Develop damage per hit while keeping the aimed projectile.",
+          "evidenceIds": ["mira-source"]
+        },
+        {
+          "id": "reach",
+          "label": "Extended reach",
+          "status": "interpretation",
+          "description": "Develop attack reach without granting new detection or obstacle exceptions.",
+          "evidenceIds": ["mira-source"]
+        },
+        {
+          "id": "capacity",
+          "label": "Crowd capacity",
+          "status": "interpretation",
+          "description": "Develop finite target capacity while keeping clear delivery.",
+          "evidenceIds": ["mira-source"]
+        }
+      ],
+      "relationships": [
+        {
+          "from": "impact",
+          "kind": "can_coexist_with",
+          "to": "reach",
+          "status": "interpretation",
+          "note": "Proposed purchases modify different properties of the same attack."
+        }
+      ]
+    },
+    "layout": {
+      "subject": "Mira",
+      "rulePack": "td-three-path@1.0.0",
+      "bindings": {
+        "base_identity": "spark",
+        "specialization_paths": {
+          "A": "impact",
+          "B": "reach",
+          "C": "capacity"
+        },
+        "shared_forms": null,
+        "apex": {
+          "specialization_policy": "none",
+          "form_policy": "none"
+        }
+      },
+      "design_invariants": ["Detection and attack delivery remain separate."]
+    }
+  }
+}
