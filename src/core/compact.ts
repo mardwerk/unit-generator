@@ -114,7 +114,7 @@ export function compactPrompt(
   name: string,
   trope: TropePacket,
   spine: Spine,
-  anchors: string[],
+  anchors: { documentId: string; quote: string }[],
   previous?: { json: string; issues: string[] },
 ): { system: string; prompt: string } {
   const system =
@@ -122,7 +122,8 @@ export function compactPrompt(
   const rules = [
     `Design "${name}", a ${trope.archetype} whose attack is ${trope.attackShape}. Quirk: ${trope.quirk}. Strength: ${trope.strength}. Weakness: ${trope.weakness}.`,
     spineBlock(spine),
-    'Character anchors (flavor only, not mechanics): ' + anchors.map((a) => `"${a}"`).join(' '),
+    'Character anchors (flavor only, not mechanics): ' +
+      anchors.map((a) => `[${a.documentId}] "${a.quote}"`).join(' '),
     'Role is one sentence naming the unit job. Weakness is one sentence naming what beats it. Each path theme is one sentence. Tier names carry character flavor and promise only supported behavior.',
     'Copy the spine base attack numbers; change at most two fields modestly for the trope. The base keeps the spine delivery with no volley or follow-up mechanics; those specialize at tier 3. Use exactly the listed tier cost for each tier.',
     'T1 and T2 on every path: improve existing nonzero stats, range, pierce, interval, or personal camo only. Never add slow, burn, stun, splash, multishot, volley, follow-up, delivery, targeting or damage type changes at T1 or T2.',
@@ -144,8 +145,7 @@ export function compactPrompt(
 
 export interface CompactContext {
   characterName: string;
-  documentId: string;
-  quotes: string[];
+  facts: { documentId: string; quote: string }[];
   spine: Spine;
   constraintIds: string[];
 }
@@ -155,9 +155,9 @@ export function compileCompactToBlueprint(
   input: CompactBlueprint,
   context: CompactContext,
 ): UnitBlueprint {
-  const sourceFacts = context.quotes.map((quote) => ({
-    documentId: context.documentId,
-    quote,
+  const sourceFacts = context.facts.map((fact) => ({
+    documentId: fact.documentId,
+    quote: fact.quote,
   }));
   const paths = Object.fromEntries(
     pathKeys.map((key, index) => {

@@ -1,5 +1,6 @@
 import { z } from 'zod';
 import { compileBlueprint } from './blueprint/compile.js';
+import { combatScore } from './blueprint/evidence.js';
 import { validateBlueprintRequest } from './blueprint/validate.js';
 import { checkDraft } from './check.js';
 import {
@@ -69,17 +70,35 @@ export async function prepareSpineRequest(name: string): Promise<PreparedRequest
   );
 }
 
-/** Verbatim anchor lines from retained source documents. Quotes must match exactly. */
-export function sourceAnchors(request: PreparedRequest['request'], limit = 6): string[] {
-  const lines: string[] = [];
+/** Verbatim anchor lines with their owning document, combat-ranked so technique
+ * passages beat biography intros. Chunks stay short enough for source-fact quotes. */
+export function sourceAnchors(
+  request: PreparedRequest['request'],
+  limit = 6,
+): { documentId: string; quote: string }[] {
+  const chunks: { documentId: string; text: string }[] = [];
+  const pushChunk = (documentId: string, text: string) => {
+    let remaining = text.replace(/\s+/g, ' ').trim();
+    while (remaining.length > 450) {
+      const boundary = remaining.lastIndexOf(' ', 450);
+      const end = boundary >= 15 ? boundary : 450;
+      chunks.push({ documentId, text: remaining.slice(0, end).trim() });
+      remaining = remaining.slice(end).trim();
+    }
+    if (remaining.length >= 20) chunks.push({ documentId, text: remaining });
+  };
   for (const document of request.documents) {
     if (document.kind !== 'source') continue;
-    for (const sentence of document.text.split(/(?<=[.!?])\s+/)) {
-      const clean = sentence.replace(/\s+/g, ' ').trim();
-      if (clean.length >= 20 && !lines.includes(clean)) lines.push(clean);
-      if (lines.length >= limit) return lines;
-    }
+    for (const sentence of document.text.split(/(?<=[.!?])\s+/)) pushChunk(document.id, sentence);
   }
+  const scored = chunks.map((entry, order) => ({
+    ...entry,
+    score: combatScore(entry.text),
+    order,
+  }));
+  const unique = [...new Map(scored.map((entry) => [entry.text, entry])).values()];
+  unique.sort((a, b) => b.score - a.score || a.order - b.order);
+  const lines = unique.slice(0, limit).map(({ documentId, text }) => ({ documentId, quote: text }));
   if (!lines.length) throw new Error('Supply source text before drafting.');
   return lines;
 }
@@ -104,10 +123,7 @@ export async function draftSpineUnit(
   const anchors = sourceAnchors(request);
   const context = {
     characterName: request.character.name,
-    documentId:
-      request.documents.find((doc) => doc.kind === 'source' && doc.id === tropeDocumentId)?.id ??
-      request.documents.find((doc) => doc.kind === 'source')!.id,
-    quotes: anchors,
+    facts: anchors,
     spine,
     constraintIds: request.constraints.map((constraint) => constraint.id),
   };

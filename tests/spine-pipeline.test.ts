@@ -191,6 +191,46 @@ describe('trope intake', () => {
       assert.ok(document.text.includes(line));
     assert.ok(sourceAnchors(prepared.request).length > 0);
   });
+
+  it('ranks technique passages above biography intros for anchors', () => {
+    const request = {
+      documents: [
+        {
+          id: 'bio',
+          kind: 'source',
+          text: 'Mira keeps the old observatory. She was born in a quiet village by the sea.',
+        },
+        {
+          id: 'technique',
+          kind: 'source',
+          text: 'Prism converts stored light into burning ribbons that damage enemies on contact.',
+        },
+      ],
+    } as unknown as Parameters<typeof sourceAnchors>[0];
+    const anchors = sourceAnchors(request, 2);
+    assert.ok(
+      anchors.some(({ quote }) => quote.includes('burning ribbons')),
+      `technique passage missing from ${JSON.stringify(anchors)}`,
+    );
+  });
+
+  it('keeps anchors short enough for source-fact quotes', () => {
+    const request = {
+      documents: [
+        {
+          id: 'inventory',
+          kind: 'source',
+          text: `Skills attack damage combat power ${'technique power damage attack '.repeat(60)}.`,
+        },
+      ],
+    } as unknown as Parameters<typeof sourceAnchors>[0];
+    const anchors = sourceAnchors(request, 6);
+    assert.ok(anchors.length > 0);
+    for (const { documentId, quote } of anchors) {
+      assert.equal(documentId, 'inventory');
+      assert.ok(quote.length <= 500, `anchor too long: ${quote.length}`);
+    }
+  });
 });
 
 describe('compact decoding and fun gates', () => {
@@ -227,8 +267,7 @@ describe('compact decoding and fun gates', () => {
     const compact = validCompact(spine);
     const context = {
       characterName: 'Cannon Bertha',
-      documentId: 'trope-packet',
-      quotes: sourceAnchors(prepared.request),
+      facts: sourceAnchors(prepared.request),
       spine,
       constraintIds: [] as string[],
     };

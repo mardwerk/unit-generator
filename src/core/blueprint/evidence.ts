@@ -16,6 +16,14 @@ export function historicalTechniqueContext(request: AuthorRequest, documentId: s
   return { documentId, quote: section, technique };
 }
 
+/** Lexical combat relevance for deterministic ranking. Not semantic verification. */
+const combatPattern =
+  /\b(?:abilit\w*|power\w*|attack\w*|combat|strength|speed|technique\w*|transform\w*|form\w*|damage|control|weapon\w*|punch\w*|beam\w*|stretc\w*|absor\w*|mimic\w*|summon\w*|limit\w*|weak\w*|cannot|unable|immune|immunity)\b/gi;
+
+export function combatScore(text: string): number {
+  return Math.min(text.match(combatPattern)?.length ?? 0, 12);
+}
+
 /** Deterministic source passages. Selection is model-assisted; quotation is not. */
 export function evidenceSpans(request: AuthorRequest): EvidenceSpan[] {
   const spans: EvidenceSpan[] = [];
@@ -68,10 +76,7 @@ export function authorEvidence(request: AuthorRequest): EvidenceSpan[] {
   const ranked = all.map((span, index) => {
     const identity = !first.has(span.documentId);
     first.add(span.documentId);
-    const combat =
-      span.text.match(
-        /\b(?:abilit\w*|power\w*|attack\w*|combat|strength|speed|technique\w*|transform\w*|form\w*|damage|control|weapon\w*|punch\w*|beam\w*|stretc\w*|absor\w*|mimic\w*|summon\w*|limit\w*|weak\w*|cannot|unable|immune|immunity)\b/gi,
-      )?.length ?? 0;
+    const combat = combatScore(span.text);
     return {
       span,
       index,
