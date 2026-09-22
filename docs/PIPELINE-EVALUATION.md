@@ -133,3 +133,31 @@ The first command prints a plan without provider calls. The second executes it u
 Another checkout needs the ignored corpus artifacts or an equivalent version-1 manifest. Fresh retrieval is a new input corpus. Credentials load locally and are excluded from reports. Keep live generation, deterministic replay, model critique and human reading separate. Generalization, source-period ambiguity, unsupported mechanics and balance remain unresolved by these small development samples; expanding one demonstrated gap is more useful than claiming broad reliability from structural pass counts.
 
 For an explicitly authorized paid benchmark, pass `--model provider/model --max-cost-usd 0.20`. The runner checks endpoint support and prices before generation, caps provider rates, and reserves a conservative cost before each call. Missing usage does not release a reservation. `--provider` can pin an endpoint tag. Ordinary requests exclude flex, priority and batch service endpoints; routing uses the selected exact tag. `--sampling provider-default` omits temperature and top-p, matching production behavior and supporting reasoning models that reject those parameters. Record this difference when comparing batches. `--max-tokens` controls the output bound. Free-only routing remains the default; no paid fallback is automatic.
+
+## RulePack realignment validation (2026-09-22)
+
+- Hypothesis: separating the versioned `RulePack` from the generated
+  `DesignPlan` lets the same framework propose a coherent Haki organization
+  for Luffy while the active pack decides whether shared Gear forms are
+  legal. See [RulePack and DesignPlan](RULEPACK-DESIGN-PLAN.md).
+- Setup: `examples/luffy.request.json` supplies only source text (elastic
+  brawling, three coexisting Haki disciplines, sequential stamina-limited
+  Gears) plus public three-path rules and 3x5 progression. No path mapping
+  is pinned. Command:
+  `node dist/cli.js author examples/luffy.request.json --preset btd6 --provider codex --timeout 590`.
+  Provider: local Codex configuration (usage unreported by the adapter).
+  Offline replaceability cases: `tests/rulepack-layout.test.ts`.
+- Outcome: one successful draft with no repair. Paths are Armament
+  Hardening, Observation and Elastic Reach, and Conqueror's Group Pressure
+  over a Stretching Punch base. Shared Gear progression is reserved, not
+  granted; all deterministic build checks pass with 0 failed findings (3
+  unresolved extension proposals, 1 not-checked scope note). Offline suite:
+  400/400 tests pass, including public-pack rejection of silent shared
+  forms, private-pack stamina thresholds `[3, 4, 6, 7]` with permanent apex
+  form, four-path layout validation, no invented forms for a form-less
+  reference, missing-capability diagnostics and pack immutability.
+- Human judgment: keep. The generator selected the Haki organization
+  without character-specific framework code, and the public pack forced the
+  Gear omission into the open. Apex synthesis beyond T5 capstones, stamina
+  runtime behavior and balance remain unvalidated; generated artifacts stay
+  in ignored `.runs/` and are not committed.
