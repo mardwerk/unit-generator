@@ -1,4 +1,3 @@
-import { conceptDesignGuidance, conceptSkillVersion } from './concept-guidance.js';
 import { z } from 'zod';
 import { blueprintReviewRequest } from './blueprint/review.js';
 import { ModelExecutionError, stageFailure, type ModelClient, type ModelRequest } from './model.js';
@@ -84,7 +83,9 @@ function reviewModelRequest(checked: CheckedArtifact, options: OperationOptions)
       'Use concise English; do not use em dashes or en dashes in generated prose.',
       ...(checked.draft.prepared.request.deliverable === 'concept'
         ? [
-            `Review against ${conceptSkillVersion}:\n${conceptDesignGuidance}`,
+            checked.draft.prepared.request.conceptSkill
+              ? `Review against retained ${checked.draft.prepared.request.conceptSkill.version}:\n${checked.draft.prepared.request.conceptSkill.text}`
+              : 'Legacy artifact: design Skill was not retained. Review only the explicit rules and candidate; do not assume current guidance.',
             'This is a qualitative concept review. Do not require prices, damage values, exact attack intervals or cooldown durations. Missing numerical balance is intentional. First describe one concrete interaction from the candidate in the review summary, including its trigger and limits, before judging its contribution. Distinguish misunderstood rules, missing implementation, useful predicted behavior and tested behavior. For prose-edit compare every altered attack, trigger, restriction, dependency and inherited effect with the retained previous candidate; structural agreement is not proof of semantic preservation. Report an independent attack becoming dependent, replenished pierce or lost cross-copy restrictions as a design change, not a prose improvement.',
           ]
         : []),

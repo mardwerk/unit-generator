@@ -295,7 +295,12 @@ export function CharacterSheet({
             {candidate.paths.map((path) => (
               <section className="path-section" key={path.id}>
                 <header className="path-heading">
-                  <h3>{path.name}</h3>
+                  <h3>
+                    {requestOf(artifact).conceptDefinition?.presentation.pathLabel === 'Branch'
+                      ? 'Branch: '
+                      : ''}
+                    {path.name}
+                  </h3>
                   <p className="path-theme">{path.theme}</p>
                   {concept && path.limitation && <p>{path.limitation}</p>}
                 </header>
@@ -533,6 +538,20 @@ export function CharacterSheet({
             <pre className="document-text">{document.text}</pre>
           </Disclosure>
         ))}
+      </Disclosure>
+      <Disclosure title="Effective Request">
+        <p>
+          Deliverable: {requestOf(artifact).deliverable ?? 'legacy'}. Strategy:{' '}
+          {concept
+            ? 'concept direct'
+            : (requestOf(artifact).mechanicsDefinition?.profile.authoringMode ?? 'generic')}
+          . Skill: {requestOf(artifact).conceptSkill?.version ?? 'not retained'}.
+        </p>
+        <p>
+          These are the retained inputs for this artifact. Model identity and usage are recorded in
+          the run; raw attempts are in the local evidence directory.
+        </p>
+        <pre className="raw-json">{JSON.stringify(requestOf(artifact), null, 2)}</pre>
       </Disclosure>
       <Disclosure title="Raw artifact JSON">
         <pre className="raw-json">{JSON.stringify(artifact, null, 2)}</pre>

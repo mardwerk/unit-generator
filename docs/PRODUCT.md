@@ -18,6 +18,18 @@ The normal user input should remain a character name, with the game configuratio
 
 [GENERATOR-RESHAPE.md](GENERATOR-RESHAPE.md) records the code audit, proposed boundaries, completion states and staged acceptance. [REFINEMENT.md](REFINEMENT.md) describes controlled improvement. The merged [compact-spine experiment](COMPACT-SPINE-EXPERIMENT.md) and [interpretation record](RULEPACK-DESIGN-PLAN.md) remain opt-in; neither promotes a new default. This direction does not claim that interchangeable rules, Apex or forms are implemented today.
 
+## Definition authority and compatibility
+
+The shared Core is stable computation; a Game Definition is replaceable input. A Profile changes only variations explicitly permitted by its Definition. Changing legal purchases is a Definition change unless that Definition declares the topology configurable. Conflicting inputs must be rejected rather than resolved by an undocumented priority. A Definition package distributes that contract and its supporting material; it is not a second authority.
+
+Replacement must govern preparation, model inputs, checks, revision, rendering, saving and reload. Retain resolved content and revisions, with an input fingerprint. Reload must not select newer defaults. Revising under retained rules and adapting to different rules are distinct operations; adaptation must identify the changed contract and its consequences. Current numerical generation remains bounded to its supported three-path representation.
+
+Declarative replacement uses semantics the operation already understands. New computation requires an explicit compatible Engine module loaded as a trusted application dependency. A model-generated rules document does not implement that module or a Consumer. Private Definitions, sources, preferences and generated content remain in an external project directory.
+
+Report separately whether behavior is permitted and sufficiently specified, whether the selected operation can check or formalize it, and whether a Consumer has implemented and tested it. A permitted mechanic that a representation cannot express needs a representation finding, not a proposal to change the game's rules. A Mechanic proposal is a requested Definition change.
+
+Report operation completion, scoped check outcomes, attributed review and project Acceptance separately. Prose edits preserve attacks, triggers, targeting, inheritance, restrictions and interactions. Changed dependencies or timing require a redesign, even when a new candidate passes more checks. Preserve prior candidates and interrupted attempt evidence where available.
+
 ## Authoring contract
 
 The [generation foundation](GENERATION-FOUNDATION.md) defines construction and evaluation responsibilities. A compact purchase plan records player situations, promised changes and retained weaknesses. Deterministic comparisons support review; they do not establish tactical value or balance.

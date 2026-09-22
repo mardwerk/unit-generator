@@ -51,12 +51,16 @@ export function RequestEditor({
             onChange={(e) =>
               onChange({
                 ...value,
-                base: { ...value.base, operation: e.target.value as 'redesign' | 'prose-edit' },
+                base: {
+                  ...value.base,
+                  operation: e.target.value as 'redesign' | 'prose-edit' | 'adapt',
+                },
               })
             }
           >
             <option value="redesign">Change the design</option>
             <option value="prose-edit">Edit wording and preserve mechanics</option>
+            <option value="adapt">Adapt to changed rules</option>
           </select>
         </Field>
       )}
@@ -222,12 +226,37 @@ export function RequestEditor({
         }}
       />
       <Disclosure title="Confirmed choices and progression">
+        {value.conceptDefinition !== undefined && (
+          <>
+            <p>
+              Definition controls progression and permitted Profile changes. Changed rules require
+              an explicit adaptation when revising.
+            </p>
+            <Field label="Concept Definition (JSON object)">
+              <textarea
+                className="code-input"
+                rows={12}
+                value={value.conceptDefinition}
+                onChange={(e) => onChange({ ...value, conceptDefinition: e.target.value })}
+              />
+            </Field>
+            <Field label="Concept Profile (JSON object or null)">
+              <textarea
+                className="code-input"
+                rows={5}
+                value={value.conceptProfile ?? 'null'}
+                onChange={(e) => onChange({ ...value, conceptProfile: e.target.value })}
+              />
+            </Field>
+          </>
+        )}
         {value.base.deliverable === 'concept' && (
           <Field label="Concept rules (JSON object)">
             <textarea
               className="code-input"
               rows={8}
               value={value.conceptRules ?? ''}
+              readOnly={value.conceptDefinition !== undefined}
               onChange={(e) => onChange({ ...value, conceptRules: e.target.value })}
             />
           </Field>
@@ -257,7 +286,7 @@ export function RequestEditor({
             className="code-input"
             rows={8}
             value={value.progression}
-            readOnly={Boolean(definition)}
+            readOnly={Boolean(definition) || value.conceptDefinition !== undefined}
             onChange={
               definition ? undefined : (e) => onChange({ ...value, progression: e.target.value })
             }

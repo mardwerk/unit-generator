@@ -61,7 +61,7 @@ Options:
   --codex FILE           Codex executable (default: codex on PATH)
   --preset btd6          Apply the default definition to prepare or author
   --deliverable MODE     concept or mechanics for character, generate, prepare or author
-  --operation MODE       generate, redesign or prose-edit for prepare or author
+  --operation MODE       generate, redesign, prose-edit or adapt for prepare or author
   --evidence-dir DIR     Retain model attempts here (concept default: .runs/evidence)
   --choice ID            Select a character when name lookup is ambiguous
   --tiers A,B,C          Purchased tiers for build, e.g. 5,2,0
@@ -185,10 +185,12 @@ function parseInvocation() {
     );
   if (
     values.operation !== undefined &&
-    (!['generate', 'redesign', 'prose-edit'].includes(values.operation) ||
+    (!['generate', 'redesign', 'prose-edit', 'adapt'].includes(values.operation) ||
       !['prepare', 'author'].includes(command))
   )
-    throw new Error('--operation must be generate, redesign or prose-edit with prepare or author.');
+    throw new Error(
+      '--operation must be generate, redesign, prose-edit or adapt with prepare or author.',
+    );
   if (values.preset && values.deliverable === 'concept')
     throw new Error(
       '--preset btd6 is numerical. Use --deliverable concept for the public concept profile.',
@@ -334,7 +336,7 @@ async function executeCommand(
     if (values.operation)
       request = {
         ...request,
-        operation: values.operation as 'generate' | 'redesign' | 'prose-edit',
+        operation: values.operation as 'generate' | 'redesign' | 'prose-edit' | 'adapt',
       };
     if (command === 'prepare') {
       return prepareRequest(request);

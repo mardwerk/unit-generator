@@ -1,0 +1,85 @@
+{
+  "schemaVersion": "1",
+  "task": "Design Iona under the automatic-only branch Definition. No crosspath purchases or manual activation.",
+  "character": {
+    "name": "Iona",
+    "work": "Original glass courier brief",
+    "scope": "Supplied public brief only"
+  },
+  "documents": [
+    {
+      "id": "iona-source",
+      "kind": "source",
+      "text": "Iona throws glass discs, sweeps nearby enemies with a separate kick while a disc is away, redirects passing allied discs with a held mirror and uses a glass tether to briefly restrain an enemy. These are invented source abilities, not approved game mechanics."
+    }
+  ],
+  "constraints": [],
+  "progression": null,
+  "previous": null,
+  "feedback": null,
+  "deliverable": "concept",
+  "conceptDefinition": {
+    "schemaVersion": "1",
+    "id": "automatic-branches",
+    "version": "1",
+    "progression": {
+      "paths": [
+        {
+          "id": "sweep",
+          "tiers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        },
+        {
+          "id": "relay",
+          "tiers": [
+            1,
+            2,
+            3,
+            4
+          ]
+        }
+      ],
+      "maxActivePaths": 1,
+      "maxPathsAboveTier": null,
+      "maxTotalTiers": 4,
+      "allowedTierCombinations": null
+    },
+    "rules": {
+      "manualActivation": {
+        "allowedSlots": [],
+        "required": false
+      },
+      "crosspaths": {
+        "mainFromTier": 2,
+        "secondaryThroughTier": 1,
+        "coverage": "none"
+      },
+      "earlySupport": "bounded"
+    },
+    "guidance": "Choose one branch of four upgrades. All attacks and abilities are automatic. No manual activation or crosspath purchases are permitted. Independent attacks may run on separate cadences. Describe inherited effects and explicit replacements. Units have no personal health; redirection never replenishes remaining travel or hit capacity. These are qualitative design permissions, not implemented Consumer behavior.",
+    "presentation": {
+      "pathLabel": "Branch"
+    },
+    "profileOptions": {
+      "earlySupport": [
+        "bounded"
+      ],
+      "manualActivationRequired": []
+    }
+  },
+  "conceptProfile": {
+    "id": "automatic-example",
+    "version": "1",
+    "definition": {
+      "id": "automatic-branches",
+      "version": "1"
+    },
+    "overrides": {
+      "earlySupport": "bounded"
+    }
+  }
+}

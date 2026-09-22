@@ -1,4 +1,5 @@
 import { validateConceptRequest } from './concept.js';
+import { resolveConceptRequest, validateConceptDefinition } from './concept-definition.js';
 import { withDefinitionEvidence, definitionProgression } from './blueprint/definition.js';
 import { authorEvidence } from './blueprint/evidence.js';
 import { getRulePack, type RulePack } from './rulepack.js';
@@ -29,6 +30,7 @@ function unique(values: readonly (string | number)[], subject: string): void {
 }
 
 function validateRequest(request: AuthorRequest): void {
+  validateConceptDefinition(request);
   validateConceptRequest(request);
   unique(
     request.documents.map((document) => document.id),
@@ -64,7 +66,9 @@ function validateRequest(request: AuthorRequest): void {
 }
 
 export async function prepareRequest(input: unknown): Promise<PreparedRequest> {
-  const request = withDefinitionEvidence(requestSchema.parse(input));
+  const request = requestSchema.parse(
+    withDefinitionEvidence(resolveConceptRequest(requestSchema.parse(input))),
+  );
   validateRequest(request);
   return freeze({
     schemaVersion: '1',

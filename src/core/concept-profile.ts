@@ -1,6 +1,11 @@
 import { defaultProgression, starterAuthoringTask } from './default-profile.js';
 import { freeze } from './prepare.js';
-import type { AuthorRequest, ConceptRules, ResolvedDocument } from './schemas.js';
+import type {
+  AuthorRequest,
+  ConceptDefinition,
+  ConceptRules,
+  ResolvedDocument,
+} from './schemas.js';
 
 export const defaultConceptRules: ConceptRules = freeze({
   id: 'public-concept',
@@ -32,17 +37,36 @@ export const defaultConceptProfile: ResolvedDocument = freeze({
   },
 });
 
+export const defaultConceptDefinition: ConceptDefinition = freeze({
+  schemaVersion: '1',
+  id: defaultConceptRules.id,
+  version: defaultConceptRules.version,
+  progression: structuredClone(defaultProgression!),
+  rules: {
+    manualActivation: structuredClone(defaultConceptRules.manualActivation),
+    crosspaths: structuredClone(defaultConceptRules.crosspaths),
+    earlySupport: defaultConceptRules.earlySupport,
+  },
+  guidance: defaultConceptProfile.text,
+  presentation: { pathLabel: 'Path' },
+  profileOptions: { earlySupport: ['bounded'], manualActivationRequired: [false, true] },
+});
+
 /** Explicitly convert a request to the public concept preset. External resolved concept requests need no conversion. */
 export function applyConceptProfile(request: AuthorRequest): AuthorRequest {
-  if (request.deliverable === 'concept' && request.conceptRules && request.progression)
+  if (
+    request.deliverable === 'concept' &&
+    (request.conceptDefinition || (request.conceptRules && request.progression))
+  )
     return structuredClone(request);
   const { mechanicsDefinition, ...qualitative } = request;
   return {
     ...qualitative,
     deliverable: 'concept',
     task: request.task === starterAuthoringTask ? conceptAuthoringTask : request.task,
-    progression: structuredClone(defaultProgression),
+    progression: structuredClone(defaultProgression!),
     conceptRules: structuredClone(defaultConceptRules),
+    conceptDefinition: structuredClone(defaultConceptDefinition),
     documents: [
       ...request.documents.filter(
         (document) =>

@@ -1,6 +1,7 @@
 import type { AuthorRequest, DraftArtifact, UnitCandidate } from './schemas.js';
 import type { ReportFinding } from './findings.js';
 import { progressionBuildViolations } from './check-progression.js';
+import { conceptContractChanges } from './concept-definition.js';
 
 export interface RequiredConceptCrosspath {
   mainPathId: string;
@@ -59,10 +60,12 @@ export function requiredConceptCrosspaths(request: AuthorRequest): RequiredConce
 export function validateConceptRequest(request: AuthorRequest): void {
   if (request.operation === 'generate' && request.previous)
     throw new Error('Use redesign or prose-edit when supplying a previous candidate.');
-  if ((request.operation === 'redesign' || request.operation === 'prose-edit') && !request.previous)
+  if (['redesign', 'prose-edit', 'adapt'].includes(request.operation ?? '') && !request.previous)
     throw new Error('Revision operations require a previous candidate and feedback.');
 
   if (request.deliverable !== 'concept') {
+    if (request.operation === 'adapt')
+      throw new Error('adapt currently requires a concept Deliverable.');
     if (request.conceptRules) throw new Error('conceptRules require deliverable concept.');
     if (request.operation === 'prose-edit')
       throw new Error('prose-edit currently requires deliverable concept.');
@@ -165,6 +168,27 @@ export function checkConcept(draft: DraftArtifact, report: ReportFinding): void 
   const request = draft.prepared.request;
   if (request.deliverable !== 'concept') return;
   const { candidate } = draft;
+  if (request.operation === 'adapt')
+    report({
+      category: 'scope',
+      outcome: 'not_checked',
+      subject: 'request',
+      rule: 'concept-contract-change',
+      message: `Explicit contract adaptation: ${conceptContractChanges(request).join('; ') || 'no retained contract difference'}. Legal builds and requirements use the new contract. Behavioral consequences require review.`,
+      action:
+        'Review changed behavior, affected inherited effects, crosspaths and unresolved implications against the previous candidate.',
+    });
+  if (request.previous && !request.previous.conceptContract)
+    report({
+      category: 'scope',
+      outcome: 'not_checked',
+      subject: 'request.previous',
+      rule: 'previous-concept-contract',
+      message:
+        'This previous candidate has no retained concept contract. Rule preservation cannot be established.',
+      action:
+        'Load the prior artifact through the CLI or Lab to retain its resolved rules when available.',
+    });
   const rules = request.conceptRules!;
   const fail = (subject: string, rule: string, message: string) =>
     report({

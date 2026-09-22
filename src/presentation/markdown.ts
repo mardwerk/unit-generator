@@ -324,7 +324,12 @@ function renderConcept(view: ArtifactView): string {
     '',
   ];
   for (const path of candidate.paths) {
-    lines.push(`## ${text(path.name)}`, '', text(path.theme), '');
+    lines.push(
+      `## ${view.prepared.request.conceptDefinition?.presentation.pathLabel === 'Branch' ? 'Branch: ' : ''}${text(path.name)}`,
+      '',
+      text(path.theme),
+      '',
+    );
     for (const tier of path.tiers) {
       lines.push(
         `### Tier ${tier.tier}: ${text(tier.name)}`,

@@ -29,7 +29,9 @@ export function App() {
   const [libraryError, setLibraryError] = useState('');
   const [settings, setSettings] = useState(false);
   const [feedback, setFeedback] = useState('');
-  const [revisionOperation, setRevisionOperation] = useState<'redesign' | 'prose-edit'>('redesign');
+  const [revisionOperation, setRevisionOperation] = useState<'redesign' | 'prose-edit' | 'adapt'>(
+    'redesign',
+  );
   const inputFile = useRef<HTMLInputElement>(null);
   const previous = candidateOf(
     session.revisions.find((entry) => entry.id === session.comparisonId)?.artifact ?? null,
@@ -249,17 +251,31 @@ export function App() {
                 ) : null}
                 {current && (
                   <Disclosure title="Revise this Unit" className="feedback-panel">
+                    <button
+                      type="button"
+                      disabled={session.busy || session.dirty}
+                      onClick={() => void session.runStage('draft')}
+                    >
+                      Rerun frozen inputs
+                    </button>
+                    <p className="muted small">
+                      Reuse retained sources, rules and guidance. The currently selected model is
+                      recorded on the new run.
+                    </p>
                     {session.input.base.deliverable === 'concept' && (
                       <Field label="Revision type">
                         <select
                           value={revisionOperation}
                           disabled={session.busy}
                           onChange={(e) =>
-                            setRevisionOperation(e.target.value as 'redesign' | 'prose-edit')
+                            setRevisionOperation(
+                              e.target.value as 'redesign' | 'prose-edit' | 'adapt',
+                            )
                           }
                         >
                           <option value="redesign">Change the design</option>
                           <option value="prose-edit">Edit wording and preserve mechanics</option>
+                          <option value="adapt">Adapt to changed rules</option>
                         </select>
                       </Field>
                     )}

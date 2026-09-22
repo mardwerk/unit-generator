@@ -248,12 +248,50 @@ export const progressionSchema = z.strictObject({
   allowedTierCombinations: z.array(z.array(z.number().int().nonnegative())).min(1).nullable(),
 });
 
+export const conceptDefinitionSchema = z.strictObject({
+  schemaVersion: z.literal('1', {
+    error: 'Unsupported concept Definition format revision; supported revision is 1.',
+  }),
+  id: text,
+  version: text,
+  progression: progressionSchema,
+  rules: conceptRulesSchema.omit({ id: true, version: true }),
+  guidance: text,
+  presentation: z.strictObject({ pathLabel: z.enum(['Path', 'Branch']) }),
+  profileOptions: z.strictObject({
+    earlySupport: z.array(z.enum(['bounded', 'unrestricted'])),
+    manualActivationRequired: z.array(z.boolean()),
+  }),
+});
+export const conceptProfileSchema = z.strictObject({
+  id: text,
+  version: text,
+  definition: z.strictObject({ id: text, version: text }),
+  overrides: z.strictObject({
+    earlySupport: z.enum(['bounded', 'unrestricted']).optional(),
+    manualActivationRequired: z.boolean().optional(),
+  }),
+});
+export const conceptSkillSchema = z.strictObject({ version: text, text });
+export const conceptContractSchema = z.strictObject({
+  progression: progressionSchema,
+  rules: conceptRulesSchema,
+  definition: conceptDefinitionSchema.optional(),
+  profile: conceptProfileSchema.optional(),
+  skill: conceptSkillSchema.optional(),
+  documents: z.array(resolvedDocumentSchema),
+  constraints: z.array(z.strictObject({ id: text, text })),
+});
+
 export const requestSchema = z.strictObject({
   schemaVersion: version,
   task: text,
   deliverable: z.enum(['concept', 'mechanics']).optional(),
-  operation: z.enum(['generate', 'redesign', 'prose-edit']).optional(),
+  operation: z.enum(['generate', 'redesign', 'prose-edit', 'adapt']).optional(),
   conceptRules: conceptRulesSchema.optional(),
+  conceptDefinition: conceptDefinitionSchema.optional(),
+  conceptProfile: conceptProfileSchema.optional(),
+  conceptSkill: conceptSkillSchema.optional(),
   character: characterSchema,
   documents: z.array(resolvedDocumentSchema).min(1),
   constraints: z.array(
@@ -275,6 +313,7 @@ export const requestSchema = z.strictObject({
       resultId: text,
       draft: candidateSchema,
       findings: z.array(findingSchema),
+      conceptContract: conceptContractSchema.optional(),
     })
     .nullable(),
   feedback: text.nullable(),
@@ -384,3 +423,6 @@ export type SemanticReview = z.infer<typeof semanticReviewSchema>;
 export type ModelUsage = z.infer<typeof modelUsageSchema>;
 
 export type ConceptRules = z.infer<typeof conceptRulesSchema>;
+export type ConceptDefinition = z.infer<typeof conceptDefinitionSchema>;
+export type ConceptProfile = z.infer<typeof conceptProfileSchema>;
+export type ConceptContract = z.infer<typeof conceptContractSchema>;

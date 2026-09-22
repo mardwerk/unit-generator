@@ -126,6 +126,7 @@ function describeUnit(view: ArtifactView): string[] {
 
 function describeAbilities(view: ArtifactView): string[] {
   const { candidate } = view;
+  if (candidate.abilities.length === 0) return [];
   const lines: string[] = [];
   lines.push('## Abilities', '');
   for (const ability of candidate.abilities) {
@@ -246,7 +247,7 @@ function describeEvidence(view: ArtifactView): string[] {
 function describeConcept(view: ArtifactView): string[] {
   if (view.prepared.request.deliverable !== 'concept') return [];
   const lines = [
-    '## Concept rules and crosspaths',
+    view.candidate.crosspaths?.length ? '## Concept rules and crosspaths' : '## Concept rules',
     '',
     cell(JSON.stringify(view.prepared.request.conceptRules)),
     '',

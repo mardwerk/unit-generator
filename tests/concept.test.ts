@@ -113,7 +113,7 @@ test('concept dispatch stays qualitative with numeric source references and reje
     /cannot contain a mechanicsDefinition/,
   );
   await assert.rejects(
-    prepareRequest({ ...request, conceptRules: undefined }),
+    prepareRequest({ ...request, conceptRules: undefined, conceptDefinition: undefined }),
     /require explicit progression and conceptRules/,
   );
 });
@@ -270,7 +270,7 @@ test('revision intent rejects missing prior candidates and invalid activation de
     /previous candidate/,
   );
   request.conceptRules!.manualActivation.allowedSlots = [{ pathId: 'missing', tiers: [9] }];
-  await assert.rejects(prepareRequest(request), /declared paths/);
+  await assert.rejects(prepareRequest(request), /rules conflict/);
 });
 
 test('both Markdown views expose declared activation and borrowed upgrades without relying on model prose', async () => {

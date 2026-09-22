@@ -26,3 +26,5 @@ The retained `.scratch/` files are local evidence, not current task instructions
 - `openrouter-verification-2026-09-20.md` and `notes/openrouter-account-usage.json` retain a historical authenticated-call receipt and account-usage snapshot. Neither is a current model allowlist, price quote or spending authorization.
 
 Keep these unique records until their evidence is no longer needed or has a verified canonical replacement. Do not recreate deleted logs or handoffs simply to record that cleanup happened.
+
+On September 22, 2026, all retired Unit Generator worktrees and non-main branches were removed. The user explicitly chose the current main checkout as the only authoritative state, so retired uncommitted edits, worktree-local evidence and the temporary recovery archive were discarded. The main checkout's retained development attempts and external accepted-concept validation were not part of that purge.

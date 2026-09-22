@@ -1,3 +1,4 @@
+import { conceptContract } from '../../core/concept-definition.js';
 import { useEffect, useRef, useState } from 'react';
 import type { InspectedInput, LabArtifact, LabRequest, LabStage } from '../contracts.js';
 import { api } from './api.js';
@@ -207,7 +208,7 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
       },
     });
   }
-  function revise(text: string, operation: 'redesign' | 'prose-edit' = 'redesign') {
+  function revise(text: string, operation: 'redesign' | 'prose-edit' | 'adapt' = 'redesign') {
     if (!text.trim()) {
       reportError(new Error('Describe what should change.'));
       return;
@@ -227,6 +228,9 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
           resultId: priorId,
           draft: candidate,
           findings: artifact.kind === 'draft' ? [] : artifact.findings,
+          ...(conceptContract(requestOf(artifact))
+            ? { conceptContract: conceptContract(requestOf(artifact)) }
+            : {}),
         },
         feedback: text.trim(),
         ...(requestOf(artifact).deliverable === 'concept' ? { operation } : {}),

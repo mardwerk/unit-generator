@@ -1,5 +1,5 @@
 /** Generic design guidance. Policy and progression are supplied separately in each request. */
-export const conceptSkillVersion = 'concept-design-v1';
+export const conceptSkillVersion = 'concept-design-v2';
 
 export const conceptDesignGuidance = `# Character-based tower-defense unit design
 
@@ -73,7 +73,7 @@ timing, target, or team interactions. Do not print this exploration.
 ## Upgrade progression without one mandatory formula
 
 Early tiers through conceptRules.crosspaths.secondaryThroughTier should
-be readable purchases and useful crosspaths.
+be readable purchases. When crosspath purchases are permitted, make these upgrades useful crosspaths.
 Plain stat upgrades are welcome. Small, bounded utility mechanics
 are also acceptable.
 
@@ -188,7 +188,7 @@ Range alone does not limit how many enemies an aura affects.
 
 ## Design the crosspaths, not just the main paths
 
-Cover the required directional combinations supplied with this request.
+When crosspath coverage is none, write no crosspath entries and do not invent crosspath purchases. Otherwise cover the required directional combinations supplied with this request.
 Each pairs one main path with the legal early purchases of another path.
 
 For each combination, name the borrowed upgrades and explain what

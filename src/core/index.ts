@@ -31,8 +31,10 @@ export { designPlanRequest, decodeDesignPlan } from './blueprint/plan.js';
 export {
   applyConceptProfile,
   defaultConceptRules,
+  defaultConceptDefinition,
   defaultConceptProfile,
   conceptAuthoringTask,
 } from './concept-profile.js';
 export { conceptSkillVersion, conceptDesignGuidance } from './concept-guidance.js';
 export { requiredConceptCrosspaths } from './concept.js';
+export { conceptContract, conceptContractChanges } from './concept-definition.js';

@@ -177,6 +177,7 @@ export function conceptCandidate(request: AuthorRequest = conceptRequest()): Uni
 
 export function alternateConceptRequest(): AuthorRequest {
   const request = conceptRequest();
+  delete request.conceptDefinition; // Legacy explicit custom rules remain supported.
   request.progression = {
     paths: ['reach', 'hold'].map((id) => ({ id, tiers: [1, 2, 3] })),
     maxActivePaths: 2,
