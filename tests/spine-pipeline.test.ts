@@ -5,6 +5,7 @@ import {
   checkDraft,
   compileCompactToBlueprint,
   compactJsonSchema,
+  compactPrompt,
   decodeCompact,
   draftSpineUnit,
   funIssues,
@@ -12,6 +13,7 @@ import {
   pickSpine,
   prepareSpineRequest,
   resolveBuild,
+  revisionSummary,
   sourceAnchors,
   tropeDocumentText,
   tropePacketForName,
@@ -72,9 +74,9 @@ function validCompact(spine: Spine): CompactBlueprint {
     ? [stat('slowPercent', 'add', 10), stat('slowSeconds', 'add', 0.5)]
     : [stat('damage', 'add', 1)];
   const path1T5 = path1Control
-    ? [stat('slowPercent', 'add', 10), stat('stunSeconds', 'set', 0.5)]
+    ? [stat('slowPercent', 'add', 10), stat('stunSeconds', 'set', 0.5), stat('damage', 'add', 8)]
     : [
-        stat('damage', 'add', 2),
+        stat('damage', 'add', 10),
         {
           kind: 'followUp' as const,
           target: 'base' as const,
@@ -89,13 +91,13 @@ function validCompact(spine: Spine): CompactBlueprint {
       ];
   const controlT5 =
     spine.paths[2]!.specialization === 'control'
-      ? [stat('slowPercent', 'add', 20), stat('slowSeconds', 'add', 0.5)]
+      ? [stat('slowPercent', 'add', 20), stat('slowSeconds', 'add', 0.5), stat('damage', 'add', 8)]
       : spine.paths[2]!.specialization === 'range'
-        ? [stat('damage', 'add', 3), stat('range', 'add', 6)]
-        : [stat('damage', 'add', 3), stat('pierce', 'add', 2)];
+        ? [stat('damage', 'add', 8), stat('range', 'add', 6)]
+        : [stat('damage', 'add', 10), stat('pierce', 'add', 2)];
   const controlT4 =
     spine.paths[2]!.specialization === 'control'
-      ? [stat('slowPercent', 'set', 30), stat('slowSeconds', 'set', 1)]
+      ? [stat('slowPercent', 'set', 30), stat('slowSeconds', 'set', 1), stat('damage', 'add', 4)]
       : [stat('damage', 'add', 2)];
   return {
     role: `A ${spine.label} unit.`,
@@ -145,6 +147,13 @@ function validCompact(spine: Spine): CompactBlueprint {
               target: 'base',
               stat: 'damageMultiplier',
               operation: 'multiply',
+              value: 2,
+            },
+            {
+              kind: 'modifyBoost',
+              target: 'base',
+              stat: 'durationSeconds',
+              operation: 'multiply',
               value: 1.5,
             },
           ]),
@@ -190,6 +199,24 @@ describe('trope intake', () => {
     for (const line of tropeDocumentText('Flame Alchemist', trope, pickSpine(trope)).split('\n'))
       assert.ok(document.text.includes(line));
     assert.ok(sourceAnchors(prepared.request).length > 0);
+  });
+
+  it('carries revision feedback and previous tier names into the prompt', () => {
+    const trope = tropePacketForName('Monkey D. Luffy');
+    const spine = pickSpine(trope);
+    const summary = revisionSummary('Give Gear Third a bigger capstone.', {
+      character: { name: 'Monkey D. Luffy' },
+      role: 'Brawler.',
+      basicAttack: { name: 'Gum-Gum Pistol' },
+      paths: [{ name: 'Barrage', tiers: [{ tier: 5, name: 'King Kong' }] }],
+    });
+    assert.ok(summary.includes('Gear Third'));
+    assert.ok(summary.includes('T5 King Kong'));
+    const { prompt } = compactPrompt('Monkey D. Luffy', trope, spine, [], undefined, null, summary);
+    assert.ok(prompt.includes('Binding revision request'));
+    assert.ok(prompt.includes('Gear Third'));
+    const plain = compactPrompt('Monkey D. Luffy', trope, spine, [], undefined, null, null);
+    assert.ok(!plain.prompt.includes('Binding revision request'));
   });
 
   it('ranks technique passages above biography intros for anchors', () => {
@@ -338,6 +365,24 @@ describe('spine generation', () => {
     assert.equal(draft.run.attempts?.length, 2);
     assert.equal(draft.run.attempts?.[1]?.purpose, 'repair');
     assert.equal(model.requests.length, 2);
+  });
+
+  it('repairs a noise follow-up through the usefulness gate', async () => {
+    const name = 'Cannon Bertha';
+    const spine = pickSpine(tropePacketForName(name));
+    const broken = validCompact(spine);
+    const followUp = broken.paths.path1.tiers.tier5.changes.find(
+      (change): change is Extract<typeof change, { kind: 'followUp' }> =>
+        change.kind === 'followUp',
+    )!;
+    followUp.value.radius = 0.06;
+    const model = new StubSpineModel([broken, validCompact(spine)]);
+    const draft = await draftSpineUnit(await prepareSpineRequest(name), model);
+    assert.equal(draft.run.attempts?.length, 2);
+    assert.equal(draft.run.attempts?.[1]?.purpose, 'repair');
+    assert.ok(draft.run.attempts?.[1]?.issues.some((issue) => issue.includes('useful minimum')));
+    const checked = await checkDraft(draft);
+    assert.ok(checked.findings.every((finding) => finding.outcome !== 'fail'));
   });
 
   it('fails after an unrepaired defect without silent substitution', async () => {

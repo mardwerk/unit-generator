@@ -39,7 +39,7 @@ pnpm cli draft .runs/luffy-input.json -o .runs/luffy-draft.json
 pnpm cli check .runs/luffy-draft.json -o .runs/luffy-checked.json
 ```
 
-If a name is ambiguous, repeat `character` with `--choice ID` from the listed choices. `generate` builds its trope packet offline and takes no `--choice`. Lookup and image retrieval use network requests; models receive retained source text rather than browsing tools.
+If a name is ambiguous, repeat `character` with `--choice ID` from the listed choices. `generate` builds its trope packet offline and takes no `--choice`. Add `--source` to retrieve character evidence first (uses network): retrieved technique documents then redirect base shape, path assignments, weakness and proposals through deterministic intel, while names and numbers stay model-authored. Lookup and image retrieval use network requests; models receive retained source text rather than browsing tools.
 
 Long character articles contribute bounded verbatim anchor lines selected in code; the full article remains in the saved input. Supply focused source documents when a particular period or technique matters. Confirmed constraints and game rules remain unabridged.
 

@@ -11,6 +11,7 @@ import {
 import { resolveUnchecked } from './mechanics/resolve.js';
 import { specialtyMetrics } from './mechanics/design-policy.js';
 import type { Spine, TropePacket } from './spines.js';
+import type { Intel } from './intel.js';
 
 const text = z.string().trim().min(1);
 
@@ -116,6 +117,8 @@ export function compactPrompt(
   spine: Spine,
   anchors: { documentId: string; quote: string }[],
   previous?: { json: string; issues: string[] },
+  intel?: Intel | null,
+  revision?: string | null,
 ): { system: string; prompt: string } {
   const system =
     'You design Tower Defense upgrade numbers inside a fixed skeleton. Return only the requested JSON object.';
@@ -132,7 +135,25 @@ export function compactPrompt(
     'Only path2 tier 4 unlocks a manual boost, exactly one, with duration below cooldown. Only path2 tier 5 modifies that boost, exactly one change of kind modifyBoost. Paths 1 and 3 stay automatic.',
     'Slow needs a positive percent and duration together. Burn needs positive damage per second and duration together. Splash needs pierce of at least 2. Area delivery needs positive splash.',
     'The three tier 1 upgrades must resolve to different behavior, and the three tier 5 upgrades must resolve to different behavior. Names and prices alone do not distinguish them.',
+    'Every paid tier must kill strictly more enemies than the previous tier on at least one reference wave (stream, horde, tough, fast, lead, camo, siege, titan), or clear the same enemies strictly faster. Follow-up radius below 4 map units is rejected as noise.',
   ];
+  if (intel) {
+    const shape = intel.baseShape
+      ? `Base attack shape is fixed by sourced signature, not the spine: delivery ${intel.baseShape.delivery}, damage type ${intel.baseShape.damageType}, targeting ${intel.baseShape.targeting}. Copy other base numbers from the spine.`
+      : 'No sourced base shape; use the spine base.';
+    rules.push(
+      'Sourced combat intel (technique clusters take precedence over trope hints): ' +
+        intel.clusters.map((c) => `${c.id}: ${c.names.join('; ') || 'none'}`).join(' | '),
+      shape +
+        (intel.rangeCap !== null
+          ? ` Base range must not exceed ${intel.rangeCap} (sourced melee reach).`
+          : ''),
+      `Path assignments: path1. ${intel.pathBriefs[0]} path2. ${intel.pathBriefs[1]} path3. ${intel.pathBriefs[2]}`,
+      intel.weaknessHint
+        ? `Derive the one-sentence weakness from this sourced limit: "${intel.weaknessHint}"`
+        : 'No sourced weakness; use the trope weakness.',
+    );
+  }
   if (previous)
     rules.push(
       'The previous output had these defects, each with its location:\n' +
@@ -140,7 +161,28 @@ export function compactPrompt(
         '\nReturn the corrected full object. Previous output:\n' +
         previous.json,
     );
+  if (revision)
+    rules.push(
+      'Binding revision request. Change the previous design only where this asks; keep everything else:\n' +
+        revision,
+    );
   return { system, prompt: rules.join('\n\n') };
+}
+
+/** Compact continuity summary so revisions keep what feedback does not change. */
+export function revisionSummary(
+  feedback: string,
+  previous: {
+    character: { name: string };
+    role: string;
+    basicAttack: { name: string };
+    paths: { name: string; tiers: { tier: number; name: string }[] }[];
+  },
+): string {
+  const paths = previous.paths
+    .map((p) => `${p.name}: ${p.tiers.map((t) => `T${t.tier} ${t.name}`).join(', ')}`)
+    .join('\n');
+  return `Requested change: ${feedback}\nPrevious base attack: ${previous.basicAttack.name}\nPrevious role: ${previous.role}\nPrevious paths:\n${paths}`;
 }
 
 export interface CompactContext {
@@ -148,6 +190,7 @@ export interface CompactContext {
   facts: { documentId: string; quote: string }[];
   spine: Spine;
   constraintIds: string[];
+  intel?: Intel | null;
 }
 
 /** Expand model numbers into a full blueprint. Prose and evidence stay code-owned. */
@@ -188,7 +231,7 @@ export function compileCompactToBlueprint(
     })),
     baseAttack: input.baseAttack,
     paths,
-    proposals: [],
+    proposals: (context.intel?.proposals ?? []).map((proposal) => ({ ...proposal })),
     reservedTechniques: [],
   };
 }

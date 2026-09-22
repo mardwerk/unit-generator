@@ -23,4 +23,5 @@ export * from './roles.js';
 export { designPlanSchema, type UnitDesignPlan } from './blueprint/plan-schema.js';
 export * from './spines.js';
 export * from './compact.js';
+export * from './intel.js';
 export { prepareSpineRequest, draftSpineUnit, generateUnit, sourceAnchors } from './generate.js';

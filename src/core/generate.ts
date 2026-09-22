@@ -1,7 +1,9 @@
 import { z } from 'zod';
 import { compileBlueprint } from './blueprint/compile.js';
 import { combatScore } from './blueprint/evidence.js';
+import { deriveIntel, intelIssues } from './intel.js';
 import { validateBlueprintRequest } from './blueprint/validate.js';
+import { usefulnessIssues } from './mechanics/index.js';
 import { checkDraft } from './check.js';
 import {
   compactJsonSchema,
@@ -9,6 +11,7 @@ import {
   compactPrompt,
   decodeCompact,
   funIssues,
+  revisionSummary,
   type CompactBlueprint,
 } from './compact.js';
 import { prepareRequest, freeze } from './prepare.js';
@@ -121,16 +124,22 @@ export async function draftSpineUnit(
   const trope = tropePacketForName(request.character.name);
   const spine = pickSpine(trope);
   const anchors = sourceAnchors(request);
+  const intel = deriveIntel(request);
   const context = {
     characterName: request.character.name,
     facts: anchors,
     spine,
     constraintIds: request.constraints.map((constraint) => constraint.id),
+    intel,
   };
   const startedAt = new Date().toISOString();
   const attempts: NonNullable<DraftArtifact['run']['attempts']> = [];
   const maxRepairs = options.maxRepairAttempts ?? 1;
 
+  const revision =
+    request.feedback && request.previous
+      ? revisionSummary(request.feedback, request.previous.draft)
+      : null;
   const call = async (previous?: { compact: CompactBlueprint; issues: string[] }) => {
     const { system, prompt } = compactPrompt(
       request.character.name,
@@ -138,6 +147,8 @@ export async function draftSpineUnit(
       spine,
       anchors,
       previous ? { json: JSON.stringify(previous.compact), issues: previous.issues } : undefined,
+      intel,
+      revision,
     );
     let usage: ModelUsage | undefined;
     try {
@@ -163,6 +174,8 @@ export async function draftSpineUnit(
       (issue) => `${issue.path}: ${issue.message}`,
     ),
     ...funIssues(blueprint, request.mechanicsDefinition),
+    ...usefulnessIssues(blueprint).map((issue) => `${issue.path}: ${issue.message}`),
+    ...(intel ? intelIssues(blueprint, intel) : []),
   ];
 
   let current: CompactAttempt = await call();

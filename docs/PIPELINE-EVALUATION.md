@@ -10,6 +10,10 @@ The v8 starter preset now uses `spine-v1`: offline trope intake from the name, a
 | Flame Alchemist, Codex provider | Passed first call, no repair. Element spine with Spreading Flames, Unleashed Channel and Crippling Heat paths. |
 | Glacier Knight, Codex provider | Passed first call, no repair. Ward spine with Deepwinter Ward, Winter's Command and Shattered Glacier paths. |
 | Monkey D. Luffy regeneration, Codex provider | Passed first call, no repair, after the base grammar fix. Clean aimed base with Gum-Gum Gatling, Gear Overdrive and Observation Pistol paths. |
+| Natsu Dragneel with retrieved evidence, Codex provider | Passed first call, no repair. Technique intel fixed the base to Fire Dragon's Roar (area, energy) and placed Phoenix Blade as the path1 tier 5 follow-up; motion sickness became the weakness. |
+| Roronoa Zoro with retrieved evidence, Codex provider | Passed first call, no repair. Chain spine kept; kit drew Santoryu, Ashura, Three Thousand Worlds and Lion Song names from technique evidence. |
+
+Simulated usefulness gates T3 and up against eight reference waves (stream, horde, tough, fast, lead, camo, siege, titan): a tier passes on strictly more kills or strictly faster clears, and follow-up radius below 4 map units fails as noise. The gallery set was refined through these gates: Natsu, Luffy, Zoro and Goku each pass with zero failed findings after at most two repairs. Two repair-loop defects surfaced and were fixed: usefulness failures never reached the repair loop (now they do, pinned by a stub test), and burst-path capstones needed duty guidance (longer duration or shorter cooldown) instead of peak multipliers. Luna variance is real: one Zoro run exhausted two repairs while a retry passed first call.
 
 The provider grammar patch (`providerJsonSchema`) was re-added for the compact schema after Codex rejected the raw zod output: every object requires all its properties, and the change union ships as `anyOf` instead of `oneOf`. A regression test pins both rules.
 

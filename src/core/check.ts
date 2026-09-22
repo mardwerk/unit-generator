@@ -6,7 +6,7 @@ import {
 } from './schemas.js';
 import { compileBlueprint } from './blueprint/compile.js';
 import { validateBlueprintRequest } from './blueprint/validate.js';
-import { allLegalBuilds } from './mechanics/index.js';
+import { allLegalBuilds, usefulnessIssues } from './mechanics/index.js';
 import { candidateSchema } from './schemas.js';
 import { freeze, verifyPrepared } from './prepare.js';
 import { checkEvidence } from './check-evidence.js';
@@ -51,6 +51,8 @@ export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact>
         message:
           'The readable candidate differs from its compiled blueprint. Recompile it instead of editing derived fields.',
       });
+    if (candidate.blueprint && issues.length === 0)
+      issues.push(...usefulnessIssues(candidate.blueprint));
     if (issues.length)
       for (const issue of issues)
         report({
