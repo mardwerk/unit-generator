@@ -140,21 +140,20 @@ For an explicitly authorized paid benchmark, pass `--model provider/model --max-
   `DesignPlan` lets the same framework propose a coherent Haki organization
   for Luffy while the active pack decides whether shared Gear forms are
   legal. See [RulePack and DesignPlan](RULEPACK-DESIGN-PLAN.md).
-- Setup: `examples/luffy.request.json` supplies only source text (elastic
-  brawling, three coexisting Haki disciplines, sequential stamina-limited
-  Gears) plus public three-path rules and 3x5 progression. No path mapping
+- Setup: `examples/luffy.request.json` supplies only source text on elastic
+  brawling, three coexisting Haki disciplines and sequential stamina-limited
+  Gears, plus public three-path rules and 3x5 progression. No path mapping
   is pinned. Command:
   `node dist/cli.js author examples/luffy.request.json --preset btd6 --provider codex --timeout 590`.
-  Provider: local Codex configuration (usage unreported by the adapter).
+  Provider: local Codex configuration. The adapter reports no usage.
   Offline replaceability cases: `tests/rulepack-layout.test.ts`.
 - Outcome: one successful draft with no repair. Paths are Armament
   Hardening, Observation and Elastic Reach, and Conqueror's Group Pressure
   over a Stretching Punch base. Shared Gear progression is reserved, not
-  granted; all deterministic build checks pass with 0 failed findings (3
-  unresolved extension proposals, 1 not-checked scope note). Offline suite:
-  400/400 tests pass, including public-pack rejection of silent shared
-  forms, private-pack stamina thresholds `[3, 4, 6, 7]` with permanent apex
-  form, four-path layout validation, no invented forms for a form-less
+  granted; all deterministic build checks pass with 0 failed findings, 3
+  unresolved extension proposals and 1 not-checked scope note. Offline suite:
+  400/400 tests pass, covering public-pack rejection of silent shared
+  forms, four-path layout validation, no invented forms for a form-less
   reference, missing-capability diagnostics and pack immutability.
 - Human judgment: keep. The generator selected the Haki organization
   without character-specific framework code, and the public pack forced the
