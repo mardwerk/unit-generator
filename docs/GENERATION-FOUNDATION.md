@@ -56,4 +56,7 @@ Start with the smallest evidence-supported correction to source selection, contr
 
 All three completed foundation free-model batches produced zero complete drafts from three characters. The final batch included the grammar fixes and character-design guidance; it still failed numerical validation and independent source/progression review. This foundation supplies construction and inspection boundaries, but it does not yet meet the quality, speed or reliability target. Measurements and remaining failures belong in [pipeline evaluation](PIPELINE-EVALUATION.md).
 
-The [RulePack and DesignPlan framework](RULEPACK-DESIGN-PLAN.md) separates the versioned ruleset (permitted systems, progression, apex and form policies) from the generated reference-to-ruleset mapping, so replacing the pack changes what counts as a valid design without changing generator code.
+The experimental [interpretation record](RULEPACK-DESIGN-PLAN.md) pins an
+optional reference-to-ruleset mapping onto the planned-v1 route. The
+default route runs unchanged without it. Layout validation stays separate
+from numerical build resolution and runtime support.

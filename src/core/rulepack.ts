@@ -1,11 +1,21 @@
 import { z } from 'zod';
-import { freeze } from './prepare.js';
+
+function freeze<T>(value: T): T {
+  if (value && typeof value === 'object') {
+    for (const child of Object.values(value)) freeze(child);
+    Object.freeze(value);
+  }
+  return value;
+}
 
 /**
- * Versioned RulePack. It selects permitted systems and defines progression,
- * purchase restrictions and apex policy. It is configuration, not an
- * implementation. A rule file can authorize a behavior, but only the domain
- * backend in src/core/mechanics can execute it.
+ * Versioned RulePack (experimental). It selects permitted systems and
+ * defines progression, purchase restrictions and apex policy. It is
+ * configuration, not an implementation. A rule file can authorize a
+ * behavior, but only the domain backend in src/core/mechanics can execute
+ * it. Layout helpers may read path counts from a pack. Numerical build
+ * resolution, purchase legality and presentation stay on the 3-by-5
+ * MechanicsDefinition.
  *
  * Inputs: a pack reference such as td-three-path@1.0.0.
  * Outcome: the frozen pack, or a thrown error for an unknown reference.
@@ -18,14 +28,10 @@ export const rulePackSchema = z.strictObject({
   normal_progression: z.strictObject({
     path_count: z.number().int().min(1).max(8),
     tiers_per_path: z.number().int().min(1).max(8),
-    sequential_purchases: z.boolean(),
-    /** State predicates checked on the proposed state after a purchase. */
-    state_constraints: z.array(z.string().trim().min(1)),
   }),
   apex: z.strictObject({
     enabled: z.boolean(),
     composition: z.enum(['explicit_synthesis', 'automatic_union']),
-    form_policy: z.enum(['none', 'permanent_highest_form_when_present']).optional(),
   }),
   shared_form_progression: z.strictObject({
     enabled: z.boolean(),
@@ -38,34 +44,18 @@ export const publicThreePathPack: RulePack = rulePackSchema.parse({
   id: 'td-three-path',
   version: '1.0.0',
   domain: 'td-combat@1.0.0',
-  normal_progression: {
-    path_count: 3,
-    tiers_per_path: 5,
-    sequential_purchases: true,
-    state_constraints: [
-      'levels.filter(t, t > 0).size() <= 2',
-      'levels.filter(t, t > 2).size() <= 1',
-    ],
-  },
-  apex: { enabled: true, composition: 'explicit_synthesis', form_policy: 'none' },
+  normal_progression: { path_count: 3, tiers_per_path: 5 },
+  apex: { enabled: true, composition: 'explicit_synthesis' },
   shared_form_progression: { enabled: false },
 });
 
-/** Four-path probe. Layout search must handle it with no generator change. */
+/** Four-path probe. Layout validation must handle it with no generator change. */
 export const fourPathPack: RulePack = rulePackSchema.parse({
   id: 'td-four-path',
   version: '1.0.0',
   domain: 'td-combat@1.0.0',
-  normal_progression: {
-    path_count: 4,
-    tiers_per_path: 5,
-    sequential_purchases: true,
-    state_constraints: [
-      'levels.filter(t, t > 0).size() <= 2',
-      'levels.filter(t, t > 2).size() <= 1',
-    ],
-  },
-  apex: { enabled: true, composition: 'explicit_synthesis', form_policy: 'none' },
+  normal_progression: { path_count: 4, tiers_per_path: 5 },
+  apex: { enabled: true, composition: 'explicit_synthesis' },
   shared_form_progression: { enabled: false },
 });
 
@@ -82,6 +72,32 @@ export function getRulePack(ref: string): RulePack {
   const found = [...registry.values()].find((pack) => pack.id === ref);
   if (!found) throw new Error(`Unknown RulePack: ${ref}`);
   return found;
+}
+
+function stableJson(value: unknown): string {
+  return JSON.stringify(value, (_key, entry) =>
+    entry && typeof entry === 'object' && !Array.isArray(entry)
+      ? Object.fromEntries(
+          Object.keys(entry)
+            .sort()
+            .map((key) => [key, entry[key]]),
+        )
+      : entry,
+  );
+}
+
+/**
+ * Throw when a revision changes the governing pack. Comparison is by
+ * resolved content, so the same id and version with edited rules still
+ * fails. Callers must supply parsed packs, not bare reference strings.
+ */
+export function assertPackImmutable(original: RulePack, revised: RulePack): void {
+  const before = rulePackSchema.parse(original);
+  const after = rulePackSchema.parse(revised);
+  if (stableJson(before) !== stableJson(after))
+    throw new Error(
+      `Candidates cannot edit their governing pack (was ${before.id}@${before.version}).`,
+    );
 }
 
 export type PackIncompatibility = {

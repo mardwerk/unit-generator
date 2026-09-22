@@ -9,7 +9,8 @@ import { z } from 'zod';
  * Sourced descriptions and inferred design groupings carry different status.
  *
  * Inputs: concepts plus proposed relationships with evidence.
- * Outcome: the validated pack, or a thrown error for dangling references.
+ * Outcome: the validated pack, or a thrown error for duplicate concept
+ * ids and dangling relationship endpoints.
  */
 export const relationshipKinds = [
   'belongs_to_family',
@@ -45,14 +46,35 @@ export const referencePackSchema = z.strictObject({
 
 export type ReferencePack = z.infer<typeof referencePackSchema>;
 
-/** Throw when a relationship endpoint names no known concept. */
+/** Throw on duplicate concept ids and on endpoints naming no known concept. */
 export function assertReferencePackCoherent(pack: ReferencePack): void {
   const parsed = referencePackSchema.parse(pack);
-  const known = new Set(parsed.concepts.map((concept) => concept.id));
+  const ids = parsed.concepts.map((concept) => concept.id);
+  if (new Set(ids).size !== ids.length)
+    throw new Error('Reference concepts must have unique identifiers.');
+  const known = new Set(ids);
   for (const rel of parsed.relationships) {
     if (!known.has(rel.from) || !known.has(rel.to))
       throw new Error(
         `Reference relationship ${rel.from} ${rel.kind} ${rel.to} names an unknown concept.`,
       );
   }
+}
+
+/**
+ * Return concept evidence ids absent from the retained source record.
+ * Inputs: the pack plus the known span ids and source document ids.
+ * Outcome: the dangling evidence ids, empty when every claim resolves.
+ */
+export function danglingReferenceEvidence(
+  pack: ReferencePack,
+  knownIds: readonly string[],
+): string[] {
+  const parsed = referencePackSchema.parse(pack);
+  const known = new Set(knownIds);
+  const dangling: string[] = [];
+  for (const concept of parsed.concepts)
+    for (const id of concept.evidenceIds)
+      if (!known.has(id) && !dangling.includes(id)) dangling.push(id);
+  return dangling;
 }

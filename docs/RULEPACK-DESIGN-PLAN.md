@@ -1,40 +1,39 @@
-# RulePack and DesignPlan framework
+# Interpretation record (experimental)
 
-The generator framework loads inputs, proposes layouts, compares candidates,
-requests revisions, runs validation and saves results. It holds no
-three-path rule. Path counts, purchase restrictions and apex policy arrive
-through a versioned `RulePack`.
+The default planned-v1 route runs unchanged without this. A request can
+optionally pin an interpretation: a reference pack plus a layout plan that
+maps reference concepts onto the ruleset. The planner must honor the
+bindings, and the checker re-validates the retained copy.
 
-The domain backend in `src/core/mechanics` defines executable game
-operations, their semantics and how to resolve them. A rule file can
-authorize a behavior, but only the backend can execute it. Adding
-teleportation to a pack without a movement-changing operation is a proposal,
-not an implementation.
+These helpers are experimental. Import them by path, for example
+`src/core/design.ts`. They are not part of the public API in
+`src/core/index.ts`.
 
 ## Components
 
 | Component | Module | Responsibility |
 | --- | --- | --- |
-| Generator framework | `src/core/draft.ts`, `src/core/blueprint/*` | Propose layouts, implement mechanics, compare candidates, repair, validate. |
 | Domain backend | `src/core/mechanics/*` | Executable operations, resolution, build legality. |
-| RulePack | `src/core/rulepack.ts` | Permitted systems, progression, purchase restrictions, apex policy. |
+| RulePack | `src/core/rulepack.ts` | Versioned pack descriptors, registry, immutability. |
 | ReferencePack | `src/core/reference.ts` | Source concept, relationships, evidence vs interpretation. |
-| DesignProfile, DesignPlan | `src/core/design.ts` | Taste examples, layout comparison, reference to ruleset mapping. |
+| Interpretation | `src/core/design.ts` | Candidate selection, layout plans, validation, capabilities. |
 
-## RulePack
+## What the pack descriptors do and do not do
 
 `rulePackSchema` defines `id`, `version`, `domain`, `normal_progression`,
-`apex` and `shared_form_progression`. Bundled packs:
+`apex` and `shared_form_progression`. Bundled descriptors:
 
-- `td-three-path@1.0.0`: the default. Three paths, five tiers, crosspath
-  caps, explicit-synthesis apex, no shared-form progression.
-- `td-four-path@1.0.0`: a probe that shows layout search works with no
-  generator change. The current backend implements 3-by-5, so other counts
-  are layout-valid only.
+- `td-three-path@1.0.0`: matches the numerical backend. Three paths, five
+  tiers, explicit-synthesis apex, no shared-form progression.
+- `td-four-path@1.0.0`: a probe that shows layout validation works with no
+  generator change. It is layout-only. Numerical build resolution,
+  purchase legality and presentation stay on the 3-by-5
+  MechanicsDefinition, so the optional route accepts 3-by-5 packs only.
 
-A plan never edits its pack. `assertPackImmutable` rejects revisions that
-change the governing pack ref, and `validateLayoutPlan` reports an explicit
-incompatibility instead of silently adding unavailable systems:
+A plan never edits its pack. `assertPackImmutable` compares resolved pack
+content, so the same id and version with edited rules still fails. A pack
+that asks for an unavailable system produces an explicit incompatibility
+instead of a silent substitution:
 
 ```text
 Unsupported design binding: shared_forms
@@ -46,27 +45,52 @@ Regenerate the layout using available systems,
 or select a pack that provides this module.
 ```
 
-## ReferencePack and taste
+## ReferencePack and selection
 
 `referencePackSchema` knows general relationships such as `develops_into`,
 `can_coexist_with` and `limited_by`. Sourced descriptions and inferred
-design groupings carry different `status` values. Character entries are
+design groupings carry different `status` values. Coherence checks cover
+duplicate concept ids, dangling relationship endpoints and evidence ids
+that resolve to no retained span or source document. Character entries are
 request inputs or test fixtures, never framework code.
 
-`compareLayouts` proposes coherent-mastery, combat-role and competing-form
-candidates, then selects under a `DesignProfile`. The default profile
-prefers parallel mastery kept apart from shared transformation
-progression, with the reason attached to each example.
+Layout candidates arrive from the caller with an explicit selection.
+`selectLayout` checks that every candidate binds known concepts, matches
+the pack path count and differs genuinely from the rest. The same paths
+under a new label are one layout, not an alternative. There is no
+automatic comparison and no built-in recipe.
 
 `planFromLayout` records the mapping as a `DesignLayoutPlan`: subject,
-`base_identity`, `specialization_paths`, optional `shared_forms`, apex
-policies and invariants. Base identity stays, specialization purchases keep
-form access, and forms grant no unpurchased effects.
+`base_identity`, `specialization_paths`, `shared_forms`, apex policies and
+invariants. Unsupported proposals stay in the plan so validation can
+report them. Slots sort alphabetically onto path1 and up.
+
+`validateLayoutPlan` checks the subject, the pack ref, known concepts,
+the path count, disabled apex bindings and disabled shared forms.
+
+`assertSupportedBehavior` follows the active Definition. Base behaviors
+are always available. `distinct-volley` and follow-ups need their attack
+extensions enabled. Anything else is a reserved technique or an
+unapproved extension proposal until a reviewed backend module implements
+it.
+
+## Optional route
+
+Set `request.interpretation` with a reference pack and a layout plan.
+Prepare validates it: planned-v1 mode, a known 3-by-5 pack, a clean
+layout check and resolved evidence. The planner receives the pinned
+bindings and each branch must cite its bound concept or the base
+identity. The decoded plan retains the record, and the checker fails the
+draft when the retained copy differs from the request or no longer
+validates. Revisions resupply the record as request input. No field
+means the default route runs exactly as before.
 
 ## Validation
 
-The Luffy check in `examples/luffy.request.json` runs locally and stays
-out of version control per `README.md`. It produces Armament, Observation
-and Conqueror paths over a stretching-punch base, reserves shared Gear
-progression under the public pack, and passes all deterministic build
-checks. Replaceability cases live in `tests/rulepack-layout.test.ts`.
+`examples/luffy.request.json` runs locally through the existing author
+route and stays out of version control per `README.md`. It shows
+existing-route behavior: Armament, Observation and Conqueror paths over a
+stretching-punch base, with shared Gear progression reserved. It does not
+exercise the new helpers. Those are covered offline in
+`tests/rulepack-layout.test.ts`, including a form-less reference with
+conflicting groupings on the same interface.

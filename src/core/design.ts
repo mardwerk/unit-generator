@@ -2,61 +2,15 @@ import { z } from 'zod';
 import type { RulePack } from './rulepack.js';
 import { unsupportedBindingDiagnostic } from './rulepack.js';
 import type { ReferencePack } from './reference.js';
-import { assertReferencePackCoherent } from './reference.js';
+import { assertReferencePackCoherent, referencePackSchema } from './reference.js';
 import type { MechanicsDefinition } from './mechanics/schemas.js';
 
 /**
- * DesignProfile. It holds accepted and rejected layout examples with
- * reasons. The standing preference is to preserve real relationships in
- * the source when assigning abilities to progression systems.
- *
- * Inputs: examples with verdicts and reasons.
- * Outcome: the validated profile used to compare layout candidates.
- */
-export const designProfileSchema = z.strictObject({
-  id: z.string().trim().min(1),
-  version: z.string().trim().min(1),
-  examples: z.array(
-    z.strictObject({
-      layout: z.string().trim().min(1),
-      verdict: z.enum(['accept', 'reject']),
-      reason: z.string().trim().min(1),
-    }),
-  ),
-});
-
-export type DesignProfile = z.infer<typeof designProfileSchema>;
-
-/** Default profile: coherent character mastery over unrelated combat roles. */
-export const defaultDesignProfile: DesignProfile = designProfileSchema.parse({
-  id: 'coherent-mastery',
-  version: '1.0.0',
-  examples: [
-    {
-      layout: 'coherent-mastery-with-shared-forms',
-      verdict: 'accept',
-      reason: 'It separates parallel mastery from shared transformation progression.',
-    },
-    {
-      layout: 'combat-role-paths',
-      verdict: 'reject',
-      reason: 'Its branches do not organize the central relationships in the reference.',
-    },
-    {
-      layout: 'gears-as-competing-paths',
-      verdict: 'reject',
-      reason:
-        'Successive forms would compete as alternative identities, and one branch would read as a later version of another.',
-    },
-  ],
-});
-
-/**
- * DesignPlan. It records the selected mapping between the reference and
- * the ruleset: why the reference is organized this way. The blueprint
- * records how the resulting unit behaves under the selected pack.
- * Invariants bind later generation: tuning cannot repurpose a
- * specialization, and a novelty pass cannot swap the organization.
+ * DesignPlan (experimental). It records the selected mapping between the
+ * reference and the ruleset: why the reference is organized this way. The
+ * blueprint records how the resulting unit behaves under the selected
+ * pack. Nothing here executes. Numerical build resolution and purchase
+ * legality stay on the 3-by-5 MechanicsDefinition.
  *
  * Inputs: subject, bindings of reference concepts to pack systems, invariants.
  * Outcome: the validated plan, or incompatibilities against the active pack.
@@ -78,6 +32,19 @@ export const designLayoutPlanSchema = z.strictObject({
 
 export type DesignLayoutPlan = z.infer<typeof designLayoutPlanSchema>;
 
+/**
+ * Optional interpretation record for the planned-v1 route. The request
+ * carries it; the planner must honor its bindings, and the checker
+ * re-validates the retained copy. Absent means the default route runs
+ * unchanged.
+ */
+export const interpretationInputSchema = z.strictObject({
+  reference: referencePackSchema,
+  layout: designLayoutPlanSchema,
+});
+
+export type InterpretationInput = z.infer<typeof interpretationInputSchema>;
+
 export type LayoutCandidate = {
   id: string;
   description: string;
@@ -86,55 +53,53 @@ export type LayoutCandidate = {
 };
 
 /**
- * Compare alternative layouts before filling upgrade slots.
- * Character content arrives through the reference pack. Structural
- * permission arrives through the rule pack. Taste arrives through the
- * profile, so a different project can prefer a different organization.
+ * Record an explicit layout selection from caller-supplied candidates.
+ * Candidates arrive from the caller or a model with their selection, not
+ * from a generator recipe. Every candidate needs genuinely different
+ * bindings: same paths and shared forms under another label is one
+ * layout, not an alternative.
  */
-export function compareLayouts(
+export function selectLayout(
   reference: ReferencePack,
   pack: RulePack,
-  profile: DesignProfile,
+  candidates: LayoutCandidate[],
+  selectedId: string,
 ): { selected: LayoutCandidate; rejected: LayoutCandidate[] } {
   assertReferencePackCoherent(reference);
-  const concepts = new Set(reference.concepts.map((c) => c.id));
-  const sharedFamily =
-    reference.relationships.find((r) => r.kind === 'develops_into' && concepts.has(r.from))?.from ??
-    null;
-  const coexisting: string[] = [];
-  for (const rel of reference.relationships.filter((r) => r.kind === 'can_coexist_with'))
-    for (const id of [rel.from, rel.to])
-      if (concepts.has(id) && !coexisting.includes(id)) coexisting.push(id);
-  const paths = (
-    coexisting.length >= pack.normal_progression.path_count ? coexisting : [...concepts]
-  ).slice(0, pack.normal_progression.path_count);
-  const candidates: LayoutCandidate[] = [
-    {
-      id: 'coherent-mastery-with-shared-forms',
-      description: `Parallel mastery paths with shared form progression where supported.`,
-      paths,
-      sharedForms: pack.shared_form_progression.enabled ? sharedFamily : null,
-    },
-    {
-      id: 'combat-role-paths',
-      description: 'Speed, heavy damage and returning attacks as paths.',
-      paths,
-      sharedForms: null,
-    },
-    {
-      id: 'gears-as-competing-paths',
-      description: 'Successive forms as competing paths.',
-      paths,
-      sharedForms: null,
-    },
-  ];
-  const isRejected = (candidate: LayoutCandidate) =>
-    profile.examples.some((e) => e.layout === candidate.id && e.verdict === 'reject');
-  const selected = candidates.find((c) => !isRejected(c)) ?? candidates[0]!;
-  return { selected, rejected: candidates.filter((c) => c !== selected) };
+  if (!candidates.length) throw new Error('Supply at least one layout candidate.');
+  const ids = candidates.map((candidate) => candidate.id);
+  if (new Set(ids).size !== ids.length)
+    throw new Error('Layout candidates must have unique identifiers.');
+  const known = new Set(reference.concepts.map((concept) => concept.id));
+  const seen = new Set<string>();
+  for (const candidate of candidates) {
+    for (const id of [
+      ...candidate.paths,
+      ...(candidate.sharedForms ? [candidate.sharedForms] : []),
+    ])
+      if (!known.has(id)) throw new Error(`Layout ${candidate.id} names unknown concept: ${id}`);
+    if (candidate.paths.length !== pack.normal_progression.path_count)
+      throw new Error(
+        `Layout ${candidate.id} binds ${candidate.paths.length} paths but ${pack.id}@${pack.version} needs ${pack.normal_progression.path_count}.`,
+      );
+    const binding = JSON.stringify({ paths: candidate.paths, sharedForms: candidate.sharedForms });
+    if (seen.has(binding))
+      throw new Error(
+        `Layout ${candidate.id} repeats another candidate's bindings under a new label.`,
+      );
+    seen.add(binding);
+  }
+  const selected = candidates.find((candidate) => candidate.id === selectedId);
+  if (!selected) throw new Error(`Selected layout is not among the candidates: ${selectedId}`);
+  return { selected, rejected: candidates.filter((candidate) => candidate !== selected) };
 }
 
-/** Record the winning layout as a plan with explicit bindings and invariants. */
+/**
+ * Record the winning layout as a plan. Unsupported proposals are
+ * preserved here and reported by validation, never silently dropped.
+ * Slots sort alphabetically onto path1 and up, which the plan citation
+ * check in blueprint/plan.ts relies on.
+ */
 export function planFromLayout(
   reference: ReferencePack,
   pack: RulePack,
@@ -156,12 +121,10 @@ export function planFromLayout(
     bindings: {
       base_identity: base,
       specialization_paths,
-      shared_forms: pack.shared_form_progression.enabled ? layout.sharedForms : null,
+      shared_forms: layout.sharedForms,
       apex: {
-        specialization_policy: 'integrate_all_paths',
-        form_policy: pack.shared_form_progression.enabled
-          ? (pack.apex.form_policy ?? 'permanent_highest_form_when_present')
-          : 'none',
+        specialization_policy: pack.apex.enabled ? 'integrate_all_paths' : 'none',
+        form_policy: pack.shared_form_progression.enabled ? 'shared_forms_when_present' : 'none',
       },
     },
     design_invariants: [
@@ -175,8 +138,8 @@ export function planFromLayout(
 export type PlanValidationIssue = { path: string; message: string };
 
 /**
- * Validate a plan against the active pack. The pack is read-only here.
- * A plan never makes itself valid by changing its ruleset.
+ * Validate a plan against the active pack and reference. The pack is
+ * read-only here. A plan never makes itself valid by changing its ruleset.
  */
 export function validateLayoutPlan(
   plan: DesignLayoutPlan,
@@ -188,6 +151,11 @@ export function validateLayoutPlan(
   const known = new Set(reference.concepts.map((c) => c.id));
   const expectedPack = `${pack.id}@${pack.version}`;
   const issues: PlanValidationIssue[] = [];
+  if (parsed.subject !== reference.subject)
+    issues.push({
+      path: 'subject',
+      message: `Plan subject ${parsed.subject} does not match reference subject ${reference.subject}.`,
+    });
   if (parsed.rulePack !== expectedPack)
     issues.push({
       path: 'rulePack',
@@ -211,6 +179,18 @@ export function validateLayoutPlan(
       path: 'bindings.specialization_paths',
       message: `Expected ${pack.normal_progression.path_count} specialization paths under ${expectedPack}.`,
     });
+  if (!pack.apex.enabled) {
+    if (parsed.bindings.apex.specialization_policy !== 'none')
+      issues.push({
+        path: 'bindings.apex.specialization_policy',
+        message: `${expectedPack} disables the apex. Bind no specialization policy.`,
+      });
+    if (parsed.bindings.apex.form_policy !== 'none')
+      issues.push({
+        path: 'bindings.apex.form_policy',
+        message: `${expectedPack} disables the apex. Bind no form policy.`,
+      });
+  }
   if (parsed.bindings.shared_forms) {
     if (!known.has(parsed.bindings.shared_forms))
       issues.push({
@@ -226,15 +206,7 @@ export function validateLayoutPlan(
   return issues;
 }
 
-/** Throw when a revision edits the governing pack to fit the candidate. */
-export function assertPackImmutable(originalRef: string, revisedRef: string): void {
-  if (originalRef !== revisedRef)
-    throw new Error(
-      `Candidates cannot edit their governing pack (was ${originalRef}, now ${revisedRef}).`,
-    );
-}
-
-const SUPPORTED_BEHAVIORS = new Set([
+const BASE_BEHAVIORS = new Set([
   'damage',
   'attack-rate',
   'range',
@@ -248,25 +220,30 @@ const SUPPORTED_BEHAVIORS = new Set([
   'delivery-change',
   'damage-type-change',
   'targeting-change',
-  'distinct-volley',
-  'follow-up',
   'manual-boost',
-  'active-follow-up',
 ]);
 
 /**
  * Compiler boundary. A name such as future_sight means nothing unless the
- * backend defines it. New operations need a reviewed backend module.
+ * active Definition can execute it. Extension behaviors need the matching
+ * attack extension enabled. New operations need a reviewed backend module.
  * Prose alone never adds one.
  */
 export function assertSupportedBehavior(effect: string, definition: MechanicsDefinition): void {
-  if (SUPPORTED_BEHAVIORS.has(effect)) return;
+  if (BASE_BEHAVIORS.has(effect)) return;
+  const extensions = definition.rules.attackExtensions ?? [];
+  if (effect === 'distinct-volley' && extensions.includes('distinct-volley')) return;
+  if (
+    (effect === 'follow-up' || effect === 'active-follow-up') &&
+    extensions.includes('volley-follow-up')
+  )
+    return;
   throw new Error(
     [
       `Unsupported behavior: ${effect}`,
       ``,
       `Active backend: ${definition.id}:${definition.revision}`,
-      `The backend defines no executable operation named ${effect}.`,
+      `The backend defines no executable operation named ${effect} under this Definition.`,
       ``,
       `Record it as a reserved technique or an unapproved extension proposal,`,
       `or implement it as a reviewed backend module first.`,

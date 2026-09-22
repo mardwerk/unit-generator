@@ -134,29 +134,35 @@ Another checkout needs the ignored corpus artifacts or an equivalent version-1 m
 
 For an explicitly authorized paid benchmark, pass `--model provider/model --max-cost-usd 0.20`. The runner checks endpoint support and prices before generation, caps provider rates, and reserves a conservative cost before each call. Missing usage does not release a reservation. `--provider` can pin an endpoint tag. Ordinary requests exclude flex, priority and batch service endpoints; routing uses the selected exact tag. `--sampling provider-default` omits temperature and top-p, matching production behavior and supporting reasoning models that reject those parameters. Record this difference when comparing batches. `--max-tokens` controls the output bound. Free-only routing remains the default; no paid fallback is automatic.
 
-## RulePack realignment validation (2026-09-22)
+## Interpretation record validation (2026-09-22)
 
-- Hypothesis: separating the versioned `RulePack` from the generated
-  `DesignPlan` lets the same framework propose a coherent Haki organization
-  for Luffy while the active pack decides whether shared Gear forms are
-  legal. See [RulePack and DesignPlan](RULEPACK-DESIGN-PLAN.md).
+- Hypothesis: an optional pinned interpretation constrains the planned-v1
+  route without changing default behavior. See [Interpretation
+  record](RULEPACK-DESIGN-PLAN.md).
 - Setup: `examples/luffy.request.json` supplies only source text on elastic
   brawling, three coexisting Haki disciplines and sequential stamina-limited
   Gears, plus public three-path rules and 3x5 progression. No path mapping
-  is pinned. Command:
+  is pinned and no interpretation is supplied, so the default route runs.
+  Command:
   `node dist/cli.js author examples/luffy.request.json --preset btd6 --provider codex --timeout 590`.
   Provider: local Codex configuration. The adapter reports no usage.
-  Offline replaceability cases: `tests/rulepack-layout.test.ts`.
+  Offline helper cases: `tests/rulepack-layout.test.ts`.
 - Outcome: one successful draft with no repair. Paths are Armament
   Hardening, Observation and Elastic Reach, and Conqueror's Group Pressure
   over a Stretching Punch base. Shared Gear progression is reserved, not
   granted; all deterministic build checks pass with 0 failed findings, 3
-  unresolved extension proposals and 1 not-checked scope note. Offline suite:
-  400/400 tests pass, covering public-pack rejection of silent shared
-  forms, four-path layout validation, no invented forms for a form-less
-  reference, missing-capability diagnostics and pack immutability.
-- Human judgment: keep. The generator selected the Haki organization
-  without character-specific framework code, and the public pack forced the
-  Gear omission into the open. Apex synthesis beyond T5 capstones, stamina
-  runtime behavior and balance remain unvalidated; generated artifacts stay
-  in ignored `.runs/` and are not committed.
+  unresolved extension proposals and 1 not-checked scope note. This sample
+  used the existing author route, so it shows existing-route behavior and
+  does not exercise the new helpers. Those are covered offline. Full suite:
+  403/403 tests pass, covering explicit caller selection with duplicate
+  rejection, preserved unsupported bindings, apex and subject checks,
+  per-definition capabilities, content-based pack immutability, reference
+  evidence resolution, prepare-time interpretation validation, planner
+  pinning with citation checks, and a form-less reference with conflicting
+  groupings on the same interface.
+- Human judgment: keep as an experimental opt-in. The default route is
+  unchanged, the helpers stay out of the public API, and layout validation
+  is kept separate from numerical and runtime support. Apex synthesis
+  beyond T5 capstones, stamina runtime behavior and balance remain
+  unvalidated; generated artifacts stay in ignored `.runs/` and are not
+  committed.

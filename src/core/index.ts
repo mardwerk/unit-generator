@@ -27,32 +27,3 @@ export {
   type DesignEvaluation,
 } from './blueprint/design-evaluation.js';
 export { designPlanRequest, decodeDesignPlan } from './blueprint/plan.js';
-export {
-  rulePackSchema,
-  getRulePack,
-  publicThreePathPack,
-  fourPathPack,
-  unsupportedBindingDiagnostic,
-  type RulePack,
-} from './rulepack.js';
-export {
-  referencePackSchema,
-  referenceConceptSchema,
-  referenceRelationshipSchema,
-  relationshipKinds,
-  assertReferencePackCoherent,
-  type ReferencePack,
-} from './reference.js';
-export {
-  designProfileSchema,
-  defaultDesignProfile,
-  designLayoutPlanSchema,
-  compareLayouts,
-  planFromLayout,
-  validateLayoutPlan,
-  assertPackImmutable,
-  assertSupportedBehavior,
-  type DesignProfile,
-  type DesignLayoutPlan,
-  type LayoutCandidate,
-} from './design.js';

@@ -109,6 +109,7 @@ export function designPlanRequest(prepared: PreparedRequest, signal?: AbortSigna
       'Worked BTD6 examples teach complete progression and tradeoffs, not templates or permission to claim unsupported mechanics. Check every planned behavior against the supplied Definition. Record unsupported signature elements and deliberate omissions in omittedTechniques and scopeLimits instead of silently replacing them with generic damage or hiding them in names. This plan is a proposal, not proof of execution. Observable feedback comes from the compiled before/after purchase effects, not invented game runtime or animations. Later code compares ordinary-target throughput, group capacity, control, reach and burst windows without claiming simulated balance.',
       retainedProgressionReference,
       'Write complete ordinary sentences describing actions, not claims of meaningful utility, identity or powerful payoff. A simple change needs one sentence; retain triggers, restrictions and inherited effects when more are needed. Never use numeric or punctuation placeholders or clip a sentence. Weakness and capstone explanations may each use up to 800 characters; buyFor has at most 300. Use consistent terms, straight quotes and no dash punctuation. Preserve confirmed decisions. Silently review source claims, legal combinations, inheritance, capacity and purchase choices; do not output scores or a review certificate.',
+      ...(request.interpretation ? [pinnedInterpretationPrompt(request.interpretation)] : []),
       JSON.stringify({
         character: request.character,
         task: request.task,
@@ -250,6 +251,14 @@ export function decodeDesignPlan(output: unknown, request: AuthorRequest): UnitD
         message: issue.message,
       })),
     );
+  if (request.interpretation)
+    issues.push(
+      ...interpretationCitationIssues(plan.paths, request).map((issue) => ({
+        code: 'custom' as const,
+        path: issue.path.split('.'),
+        message: issue.message,
+      })),
+    );
   if (issues.length) throw new z.ZodError(issues);
   const historical = new Map<string, string>();
   for (const { ids } of selections)
@@ -262,7 +271,8 @@ export function decodeDesignPlan(output: unknown, request: AuthorRequest): UnitD
         );
     }
   plan.scopeLimits = [...new Set([...plan.scopeLimits, ...historical.values()])];
-  return designPlanSchema.parse(plan);
+  if (!request.interpretation) return designPlanSchema.parse(plan);
+  return designPlanSchema.parse({ ...plan, interpretation: request.interpretation });
 }
 
 /** Bind proposed planning labels and evidence without manufacturing mechanical fields. */
@@ -288,4 +298,85 @@ export function bindDesignPlan(output: unknown, plan: UnitDesignPlan): unknown {
       path.rationale = rationale.length <= 300 ? rationale : branch.buyFor;
     }
   return bound;
+}
+
+/** Pinned layout for the optional interpretation route. Slots sort onto path1 and up. */
+function pinnedInterpretationPrompt(
+  interpretation: NonNullable<AuthorRequest['interpretation']>,
+): string {
+  const slots = Object.keys(interpretation.layout.bindings.specialization_paths).sort();
+  const paths = slots
+    .map(
+      (slot, index) =>
+        `path${index + 1} binds ${interpretation.layout.bindings.specialization_paths[slot]}`,
+    )
+    .join('; ');
+  return [
+    'A pinned interpretation governs this plan. Honor its bindings and invariants:',
+    JSON.stringify({
+      base: interpretation.layout.bindings.base_identity,
+      paths,
+      sharedForms: interpretation.layout.bindings.shared_forms,
+      apex: interpretation.layout.bindings.apex,
+      invariants: interpretation.layout.design_invariants,
+      reference: interpretation.reference.concepts.map((concept) => ({
+        id: concept.id,
+        evidenceIds: concept.evidenceIds,
+      })),
+    }),
+    'Each branch must cite at least one span from its bound concept or the base identity. Do not reason the bindings away.',
+  ].join(' ');
+}
+
+/**
+ * Check that each planned branch cites its bound concept. Slots sort
+ * alphabetically onto path1 and up, matching planFromLayout output.
+ * Inputs: branch source ids by path key plus the full request.
+ * Outcome: one issue per branch with no bound-concept citation.
+ */
+export function interpretationCitationIssues(
+  branches: Record<string, { sourceIds: readonly string[] }>,
+  request: AuthorRequest,
+): { path: string; message: string }[] {
+  const interpretation = request.interpretation;
+  if (!interpretation) return [];
+  const spans = authorEvidence(request);
+  const docOf = new Map(spans.map((span) => [span.id, span.documentId]));
+  const sourceDocs = new Set(
+    request.documents
+      .filter((document) => document.kind === 'source')
+      .map((document) => document.id),
+  );
+  const docsFor = (evidenceIds: readonly string[]): Set<string> => {
+    const docs = new Set<string>();
+    for (const id of evidenceIds) {
+      const doc = docOf.get(id);
+      if (doc) docs.add(doc);
+      else if (sourceDocs.has(id)) docs.add(id);
+    }
+    return docs;
+  };
+  const concepts = new Map(
+    interpretation.reference.concepts.map((concept) => [concept.id, concept]),
+  );
+  const baseDocs = docsFor(
+    concepts.get(interpretation.layout.bindings.base_identity)?.evidenceIds ?? [],
+  );
+  const slots = Object.keys(interpretation.layout.bindings.specialization_paths).sort();
+  const issues: { path: string; message: string }[] = [];
+  slots.forEach((slot, index) => {
+    const key = pathKeys[index];
+    if (!key) return;
+    const boundId = interpretation.layout.bindings.specialization_paths[slot]!;
+    const allowed = new Set([...docsFor(concepts.get(boundId)?.evidenceIds ?? []), ...baseDocs]);
+    const cited = (branches[key]?.sourceIds ?? [])
+      .map((id) => docOf.get(id))
+      .filter((doc) => doc !== undefined);
+    if (!cited.some((doc) => allowed.has(doc)))
+      issues.push({
+        path: `paths.${key}`,
+        message: `Path ${key} cites no evidence from its bound concept ${boundId}. Cite the bound specialization or the base identity.`,
+      });
+  });
+  return issues;
 }

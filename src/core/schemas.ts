@@ -1,4 +1,5 @@
 import { designPlanSchema } from './blueprint/plan-schema.js';
+import { interpretationInputSchema } from './design.js';
 import { designEvaluationSchema } from './blueprint/design-evaluation.js';
 import { unitRoleRankingSchema } from './roles.js';
 import { z } from 'zod';
@@ -223,6 +224,12 @@ export const requestSchema = z.strictObject({
   ),
   progression: progressionSchema.nullable(),
   mechanicsDefinition: mechanicsDefinitionSchema.optional(),
+  /**
+   * Optional pinned interpretation for the planned-v1 route. Absent means
+   * the default route runs unchanged. Validated in prepare, honored by the
+   * planner, re-checked against the retained plan.
+   */
+  interpretation: interpretationInputSchema.optional(),
   previous: z
     .strictObject({
       resultId: text,

@@ -1,4 +1,4 @@
-import type { ReferencePack } from '../../src/core/index.js';
+import type { ReferencePack } from '../../src/core/reference.js';
 
 /**
  * Luffy reference used only as test input.
