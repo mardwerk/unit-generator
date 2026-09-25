@@ -1,8 +1,10 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
+  applyProfile,
   checkDraft,
   compileBlueprint,
+  defaultUnitProfile,
   defaultMechanicsDefinition,
   definitionDocument,
   definitionProgression,
@@ -12,6 +14,7 @@ import {
   pathKeys,
   prepareRequest,
   requestSchema,
+  reviewDraft,
   tierKeys,
   type AuthorRequest,
   type ModelClient,
@@ -22,6 +25,8 @@ import {
 } from '../src/core/index.js';
 import { z } from 'zod';
 import { renderArtifact } from '../src/presentation/markdown.js';
+import { kitStats } from '../src/presentation/kit-stats.js';
+import { loadRequestFile } from '../src/node/request-file.js';
 import {
   decodeBlueprintOutput,
   decodeBlueprintOutputForDiagnostics,
@@ -1392,4 +1397,230 @@ test('diagnostic decoding preserves excess effects without bypassing structural 
   output.paths.path1.tiers.tier5.cost = 100;
   output.baseSourceIds = ['fabricated'];
   assert.throws(() => decodeBlueprintOutputForDiagnostics(output, input));
+});
+
+// Golden scenarios: complete runs of the single route with scripted model
+// responses. scripts/golden/record.mjs records them for the Go port.
+
+const reviewOutput = {
+  summary: 'The draft keeps the sourced Spark and its clear-path limit.',
+  findings: [
+    {
+      id: 'model.spark-delivery',
+      method: 'model',
+      category: 'scope',
+      severity: 'info',
+      outcome: 'pass',
+      subject: 'baseAttack',
+      rule: 'E1 establishes one aimed Spark.',
+      message: 'The base attack stays a single aimed Spark with clear delivery.',
+      evidence: ['E1'],
+      action: null,
+    },
+  ],
+};
+
+/** The fixture plan with every citation moved to the first retained span of `input`. */
+function planFor(input: AuthorRequest) {
+  const from = authorEvidence(request())[0]!.id;
+  const to = authorEvidence(input)[0]!.id;
+  return JSON.parse(
+    JSON.stringify(plannedDesign()).replaceAll(JSON.stringify(from), JSON.stringify(to)),
+  );
+}
+
+/** Policy Definitions ask each path to name its specialization. */
+function specialized(unit: UnitBlueprint): UnitBlueprint {
+  unit.paths.path1.specialization = 'direct-damage';
+  unit.paths.path2.specialization = 'ability-burst';
+  unit.paths.path3.specialization = 'group-damage';
+  return unit;
+}
+
+async function scenario(
+  input: AuthorRequest,
+  responses: (ModelResponse | Error)[],
+  options: { maxRepairAttempts?: number } = {},
+) {
+  const model = new ResponseModel(responses);
+  const prepared = await prepareRequest(input);
+  const draft = await draftUnit(prepared, model, options);
+  const checked = await checkDraft(draft);
+  for (const artifact of [draft, checked]) {
+    renderArtifact(artifact);
+    renderArtifact(artifact, { details: true });
+  }
+  kitStats(draft.candidate, prepared.request.mechanicsDefinition);
+  const result = await reviewDraft(checked, model);
+  renderArtifact(result);
+  renderArtifact(result, { details: true });
+  return result;
+}
+
+test('golden: a planned, checked and reviewed unit under the base Definition', async () => {
+  const result = await scenario(request(), [
+    { output: plannedDesign(), usage: usage('plan') },
+    { output: blueprint(), usage: usage('mechanics') },
+    { output: reviewOutput, usage: usage('review') },
+  ]);
+  assert.equal(result.kind, 'result');
+});
+
+test('golden: the bundled Profile applies its policy and review sees it', async () => {
+  const input = applyProfile({ ...request(), progression: null }, defaultUnitProfile);
+  const result = await scenario(input, [
+    { output: planFor(input), usage: usage('plan') },
+    { output: specialized(blueprint()), usage: usage('mechanics') },
+    { output: reviewOutput },
+  ]);
+  assert.ok(result.prepared.request.mechanicsDefinition?.profile.designPolicy);
+});
+
+test('golden: a revision carries the previous Result and feedback into both calls', async () => {
+  const first = await scenario(request(), [
+    { output: plannedDesign() },
+    { output: blueprint() },
+    { output: reviewOutput },
+  ]);
+  const revised = {
+    ...request(),
+    previous: { resultId: first.id, draft: first.candidate, findings: first.findings },
+    feedback: 'Make path 3 a clearer crowd option without changing the Spark.',
+  };
+  const result = await scenario(revised, [
+    { output: plannedDesign() },
+    { output: blueprint() },
+    { output: reviewOutput },
+  ]);
+  assert.equal(result.prepared.request.previous?.resultId, first.id);
+});
+
+test('golden: the Dart Monkey reference request under the bundled Profile', async () => {
+  const file = await loadRequestFile('data/reference/dart-monkey.request.json');
+  const input = applyProfile({ ...file, progression: null }, defaultUnitProfile);
+  const unit = specialized(blueprint());
+  unit.name = input.character.name;
+  unit.constraintCoverage = input.constraints.map(({ id }) => ({
+    constraintId: id,
+    implementation: 'The typed attack keeps this confirmed rule.',
+  }));
+  const output = modelOutput(unit);
+  const result = await scenario(input, [
+    { output: planFor(input) },
+    { output: output },
+    { output: { ...reviewOutput, findings: [] } },
+  ]);
+  assert.equal(result.candidate.character.name, 'Dart Monkey');
+});
+
+test('golden: malformed mechanics output gets a whole-output repair', async () => {
+  const result = await scenario(request(), [
+    { output: plannedDesign(), usage: usage('plan') },
+    { output: {}, usage: usage('first') },
+    { output: blueprint(), usage: usage('second') },
+    { output: reviewOutput },
+  ]);
+  assert.deepEqual(
+    result.run.draft.attempts?.map(({ purpose }) => purpose),
+    ['plan', 'design', 'repair'],
+  );
+});
+
+test('golden: an overloaded tier gets a targeted subset repair', async () => {
+  const result = await scenario(request(), [
+    { output: plannedDesign() },
+    { output: overloadedTierOutput(), usage: usage('design') },
+    { output: { paths: { path1: { tiers: { tier5: { choice: 'option-1' } } } } } },
+    { output: reviewOutput },
+  ]);
+  assert.equal(result.run.draft.attempts?.length, 3);
+});
+
+test('golden: fractional projectiles are repaired with arithmetic evidence', async () => {
+  const invalid = blueprint();
+  invalid.paths.path2.tiers.tier2.changes = [
+    { kind: 'stat', target: 'base', stat: 'range', operation: 'add', value: 1 },
+    { kind: 'stat', target: 'base', stat: 'projectiles', operation: 'multiply', value: 1.5 },
+  ];
+  const corrected = structuredClone(invalid);
+  corrected.paths.path2.tiers.tier2.changes[1] = {
+    kind: 'stat',
+    target: 'base',
+    stat: 'projectiles',
+    operation: 'add',
+    value: 1,
+  };
+  const result = await scenario(request(), [
+    { output: plannedDesign() },
+    { output: invalid },
+    { output: corrected },
+    { output: reviewOutput },
+  ]);
+  assert.equal(result.run.draft.attempts?.length, 3);
+});
+
+test('golden: an invalid plan is corrected before mechanics', async () => {
+  const result = await scenario(request(), [
+    { output: { ...plannedDesign(), repertoire: [] }, usage: usage('bad-plan') },
+    { output: plannedDesign(), usage: usage('plan') },
+    { output: blueprint() },
+    { output: reviewOutput },
+  ]);
+  assert.equal(result.run.draft.attempts?.[0]?.purpose, 'plan');
+});
+
+test('golden: exhausted repairs, invalid plans and provider failures publish nothing', async () => {
+  const cases: [(ModelResponse | Error)[], { maxRepairAttempts?: number }][] = [
+    [[{ output: plannedDesign() }, { output: {} }, { output: {} }], {}],
+    [
+      [{ output: plannedDesign() }, { output: {} }, { output: {} }, { output: {} }],
+      { maxRepairAttempts: 2 },
+    ],
+    [[{ output: plannedDesign() }, { output: {} }], { maxRepairAttempts: 0 }],
+    [
+      [
+        { output: { ...plannedDesign(), repertoire: [] } },
+        { output: { ...plannedDesign(), base: null } },
+      ],
+      {},
+    ],
+    [
+      [
+        new ModelExecutionError('Rate limited.', usage('limited'), {
+          failure: { code: 'RATE_LIMIT', message: 'The provider rate limit was reached.' },
+        }),
+      ],
+      {},
+    ],
+    [
+      [
+        { output: plannedDesign(), usage: usage('plan') },
+        new ModelExecutionError('Unavailable.', undefined, {
+          failure: { code: 'PROVIDER_UNAVAILABLE', message: 'The provider is unavailable.' },
+        }),
+      ],
+      {},
+    ],
+  ];
+  for (const [responses, options] of cases)
+    await assert.rejects(
+      draftUnit(await prepareRequest(request()), new ResponseModel(responses), options),
+      ModelExecutionError,
+    );
+});
+
+test('golden: an invalid or failed review publishes no Result', async () => {
+  const draft = await draftUnit(
+    await prepareRequest(request()),
+    new ResponseModel([{ output: plannedDesign() }, { output: blueprint() }]),
+  );
+  const checked = await checkDraft(draft);
+  for (const response of [
+    { output: { summary: '', findings: [] } },
+    { output: { ...reviewOutput, findings: [{ ...reviewOutput.findings[0], evidence: ['X9'] }] } },
+    new ModelExecutionError('Timed out.', usage('timeout'), {
+      failure: { code: 'PROVIDER_TIMEOUT', message: 'The provider timed out.' },
+    }),
+  ])
+    await assert.rejects(reviewDraft(checked, new ResponseModel([response])));
 });
