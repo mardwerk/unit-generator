@@ -23,12 +23,21 @@ The direct sample D had the fullest progression but empty abilities, unresolved 
 
 ## Reproduction and retained evidence
 
+This is a historical experiment harness, not a runnable benchmark against the current generator. `scripts/evaluate-jev-draft.mjs` requires `default-td-profile-v2`; current main supplies v9. A fresh `--run` on main stops with `Experiment requires defaultProfile v2.` before provider dispatch. It does not convert the current runtime into v2.
+
+For a plan-only inspection, install dependencies and supply a retained prepared artifact whose character is exactly `Monkey D. Luffy`. Its first source document must contain `=== Abilities ===` followed by `=== Bounty ===`. Replace the quoted example path below with that artifact's path. Paths resolve from the repository root; the script prints the plan without provider calls.
+
 ```sh
-node scripts/evaluate-jev-draft.mjs --input <prepared-Luffy-artifact.json>
-node scripts/evaluate-jev-draft.mjs --input <prepared-Luffy-artifact.json> --run
+node scripts/evaluate-jev-draft.mjs --input "path/to/prepared-luffy.json"
 ```
 
-The first command prints the plan without provider calls. The second requires `TYPESAFE_API_KEY` and `OPENROUTER_API_KEY`, loaded through `loadLocalEnvironment`. Paths resolve from the repository root. The prepared fixture must contain Abilities and Bounty headings; the script selects the same spans and replaces its profile with version 2.
+Historical live invocation, only with the compatible v2 implementation, prepared fixture and `TYPESAFE_API_KEY` plus `OPENROUTER_API_KEY` loaded through `loadLocalEnvironment`:
+
+```sh
+node scripts/evaluate-jev-draft.mjs --input "path/to/prepared-luffy.json" --run
+```
+
+The live plan contains four generation calls and two Jev calls. Read [OPENROUTER.md](OPENROUTER.md) and establish current provider authorization before dispatch. The historical model and price records above are not current authorization. The script selects the fixed spans and supplies its runtime's v2 Profile. It has no general frozen-runtime selection flag.
 
 The run is `.runs/jev-draft/2026-09-19T22-42-06-986Z/`. It retains source hashes, bundled runtime, exact requests and responses, `guided-addition.json`, credential-free `wire-request.json`, candidates, checks, timings and usage. These files preserve the complete advisory wording. Re-execution is a new stochastic sample. The original output-limit response lacked partial completion text; the updated recorder retains successful HTTP envelopes for future cases.
 

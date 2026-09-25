@@ -1,6 +1,6 @@
 # Sources for replaceable rules and character interpretation
 
-Checked September 22, 2026 for the [reshape proposal](../docs/GENERATOR-RESHAPE.md). These are technical documentation and reference entry points, not additional empirical evidence that the proposed generator produces good designs. Existing research is summarized in [generation approaches](GENERATION-APPROACHES.md). The workspace root `GAME-DESIGN-RESEARCH.md` contains the wider 38-paper catalogue; it is optional and is not required to use this repository.
+Checked September 22, 2026 for the [reshape proposal](../docs/GENERATOR-RESHAPE.md). These are technical documentation and reference entry points, not additional empirical evidence that the proposed generator produces good designs. The [research index](README.md) selects current paper references. The [September 21 generator survey](archive/GENERATOR-SURVEY-2026-09-21.md) is historical provenance, not the current research guide. The workspace root `GAME-DESIGN-RESEARCH.md` contains the wider 38-paper catalogue; it is optional and is not required to use this repository.
 
 | Source and access | What it supports | Boundary for this project |
 | --- | --- | --- |

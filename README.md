@@ -65,6 +65,8 @@ pnpm cli author examples/mira.request.json --provider codex --previous .runs/mir
 
 Read [CLI usage](docs/CLI.md) for independently runnable stages, source files, URLs and Luffy inputs. Local generated content belongs in ignored `.runs/`. UnitLab saves artifacts in a configurable local library and keeps unfinished edits in its browser session; Towerright owns project history and wider evaluation.
 
+The [documentation guide](docs/README.md) separates current contracts and usage from proposals, experiments and historical evidence.
+
 ## Development
 
 Use `pnpm format` after editing TypeScript or package configuration.

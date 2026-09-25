@@ -1,5 +1,7 @@
 # Allowed OpenRouter models
 
+This policy governs agent-initiated OpenRouter calls, as required by [AGENTS.md](../AGENTS.md). Application defaults and adapter support documented elsewhere do not authorize an agent to use an unlisted model.
+
 Free model IDs checked against OpenRouter's catalogue on September 22, 2026. Verify that the selected free model still has zero input and output token prices before calling.
 
 | Type | Allowed model |

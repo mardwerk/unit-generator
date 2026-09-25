@@ -1,6 +1,6 @@
 # Refining generation with evidence
 
-Build a complete concept operation first, retain evidence during development, then freeze a repeatable version for a controlled study. This September 22, 2026 priority supersedes numerical-backend extraction or PR 6 evaluator work as prerequisites. Those remain separate work when needed. [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) gives the current acceptance criteria; the [core reshape](GENERATOR-RESHAPE.md) records later portability work.
+Concept operations are implemented; repeatable design quality and preservation across real outputs remain to be established. Retain evidence during development, then freeze a repeatable version for a controlled study. This September 22, 2026 priority supersedes numerical-backend extraction or PR 6 evaluator work as prerequisites. Those remain separate work when needed. [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) gives the current acceptance criteria; the [core reshape](GENERATOR-RESHAPE.md) records later portability work.
 
 ## Diagnose the earliest evidenced failure
 
@@ -17,7 +17,7 @@ Build a complete concept operation first, retain evidence during development, th
 | Readability or preference | Pairwise human reason or player observation | Revise the relevant design choice; record disagreement rather than manufacture an objective score |
 | Cost or latency | All attempts, repair calls, timeouts and reported/unknown usage | Remove redundant model work; compare equal total budgets |
 
-The current report contains source-reading, intent, implementation and repair failures. Some promised volleys and boosts already have vocabulary. Calling all failures “missing mechanics” would prescribe the wrong fix. Conversely, support for static boosts does not implement shared forms or stamina.
+The retained [pipeline evaluation](PIPELINE-EVALUATION.md) contains source-reading, intent, implementation and repair failures. Some promised volleys and boosts already have vocabulary. Calling all failures “missing mechanics” would prescribe the wrong fix. Conversely, support for static boosts does not implement shared forms or stamina.
 
 Keep one trace row per consequential finding:
 
@@ -36,9 +36,9 @@ Record a hypothesis, the single variable changed, input and runtime hashes, exac
 
 Use two input sets: fixed source packets to compare authoring, and separate fresh-retrieval requests to measure end-to-end behavior. Do not combine their success rates. The retained Luffy, Rimuru and Goku cases are development cases. They are not holdouts after informing fixes.
 
-PR 6 has completed its branch experiment; see the [pinned review](PR6-REVIEW.md). Do not rerun the old 24-call handoff task as if it were pending. Resolve the offline evaluator and evidence defects before reusing that branch for claims about runtime quality. They do not block concept authoring. A later matched comparison must freeze source packets, Definition, rubric and model/settings, state a fresh bounded protocol within remaining authorization, and include failed samples. It should test compact authoring without treating fixed kits or positional citations as acceptable shortcuts.
+PR 6 has completed its branch experiment; see the [pinned review](PR6-REVIEW.md). Do not rerun the old 24-call handoff task as if it were pending. The merged compact adaptation fixed source joins and revision context and excluded the simulator. Resolve the historical evaluator defects before reusing that branch for claims about runtime quality. They do not block concept authoring. A later matched comparison must freeze source packets, Definition, rubric and model/settings, state a fresh bounded protocol within remaining authorization, and include failed samples. It should test compact authoring without treating fixed kits or positional citations as acceptable shortcuts.
 
-The later interpretation experiment should hold the rule implementation fixed and compare grouping quality before evaluating detailed upgrades. A reviewer should see candidate content without provider/route labels where practical.
+A future comparison of the merged optional interpretation experiment should hold the rule implementation fixed and compare grouping quality before evaluating detailed upgrades. A reviewer should see candidate content without provider/route labels where practical.
 
 ## Score dimensions separately and decide
 
@@ -60,7 +60,7 @@ Retain user preferences with a reason and scope in the caller's project. Private
 
 ## Optimizations in order
 
-First complete concept generation, save/reload, revision and presentation while preserving supplied behavior. Retain exact inputs and attempts from development. Fix lost or misread evidence and prove local contract preservation, then compare alternative source organizations. Extract the numerical rule implementation separately with offline equivalence checks. Add new operators only for repeated valuable blocked designs, with declared semantics and a Consumer when execution is needed. Tune prices and performance only against a versioned reference world.
+First establish preservation across real concept generation, save/reload, revision and presentation. These operations already exist; offline retention does not establish live semantic preservation. Retain exact inputs and attempts from development. Fix lost or misread evidence and prove local contract preservation, then compare alternative source organizations. Extract the numerical rule implementation separately with offline equivalence checks. Add new operators only for repeated valuable blocked designs, with declared semantics and a Consumer when execution is needed. Tune prices and performance only against a versioned reference world.
 
 Archive successful and failed candidates with their provenance. Quality-diversity search becomes useful when measured behavior and a trustworthy evaluator exist. Before then, a small human-reviewed collection of different interpretations is sufficient. Never optimize a universal score assembled from DPS, price and number of effects and call it taste.
 

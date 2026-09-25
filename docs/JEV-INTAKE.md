@@ -1,8 +1,8 @@
 # Jev intake experiment
 
-Status: September 19, 2026. Live TypeSafe access is verified. This experiment is separate from Unit generation and does not automatically select a route or a user's creative preferences.
+Historical result, September 19, 2026: live TypeSafe access was verified for that run; current access was not rechecked. This experiment is separate from Unit generation and does not automatically select a route or a user's creative preferences.
 
-After `pnpm build`, run `pnpm eval:intake` with `TYPESAFE_API_KEY` in the ignored local `.env`. One HTTP request asks three independent questions per input: a Choice of existing character, original concept or clarification, plus two speculative Nouls about whether an original character's identity and playstyle are supplied. Code uses those two answers only for the original-concept route. Expected labels stay outside model input. No routing thresholds are selected.
+To run a new sample, install dependencies, run `pnpm build`, and set `TYPESAFE_API_KEY` in the ignored local `.env`. `pnpm eval:intake` dispatches one potentially billable TypeSafe request; it has no dry-run flag. Confirm the model is available and its current price before using the historical estimate below. One HTTP request asks three independent questions per input: a Choice of existing character, original concept or clarification, plus two speculative Nouls about whether an original character's identity and playstyle are supplied. Code uses those two answers only for the original-concept route. Expected labels stay outside model input. No routing thresholds are selected.
 
 The first run used `jev-1.13.0` on 13 inputs and matched 11 expected routes in 1.23 seconds. Usage was 4,922 input and 1,061 output tokens. Estimated cost was $0.000206724 using the [published rate](https://docs.typesafe.ai/models); the API did not report an account charge.
 

@@ -1,14 +1,12 @@
-# Replaceable generation core and character interpretation
+# Replaceable rule implementations and character interpretation
 
-Implementation update, September 22, 2026: explicit concept authoring and configurable concept rules now exist through the original workflow. See [API](API.md#data-contract) and [CLI](CLI.md#qualitative-concepts). The audit below describes the earlier numerical implementation and the broader proposed extraction. It must not be read as evidence that executable rule replacement or interpretation selection has been completed.
+As of September 22, 2026, concept authoring and configurable concept rules exist through the original workflow. See [API](API.md#data-contract), [CLI](CLI.md#qualitative-concepts) and current [next work](NEXT-EXPERIMENT.md). `planned-v1` remains the default; outputs remain checked drafts, not playable units. Executable rule replacement and automatic interpretation selection remain proposals.
 
-The revised [PR 10 review](PR10-REVIEW.md), at `c97fdad`, confirms an optional interpretation integration. It remains unmerged pending fixes to default-schema isolation, exact evidence joins and preservation of concept semantics in the planner prompt. Its direction remains an augmentation of the current generator.
+[PR 10](PR10-REVIEW.md) merged as an optional caller-supplied interpretation. Review at `c97fdad` found default-schema leakage, widened evidence joins and lost concept semantics; correction `2064b6b` addressed them before merge. [PR 6](PR6-REVIEW.md) merged a separately selected compact experiment, excluding automatic name recipes and incomplete simulator. Its `3e5d73b` branch review remains historical.
 
-This is the proposed direction from the September 22 conversation, checked against repository commit `b54822c`. It documents requirements and a staged implementation plan. It does not describe new implemented APIs. The current default remains `planned-v1`, and its output remains a checked draft, not a playable unit.
+The numerical audit below records commit `b54822c` and the September 22 conversation. Proposed boundaries are requirements, not new implemented APIs. The target is a character name as normal input and a complete unit under a previously selected game configuration. Remaining work includes inspectable character organization, a replaceable executable Definition, and repeatable diagnosis and improvement. [REFINEMENT.md](REFINEMENT.md) owns experiments; this document owns boundaries and later migration order.
 
-The target is a character name as the normal user input and a complete unit under a previously selected game configuration as the result. The missing pieces are broader than prompting: an inspectable choice of character organization, a genuinely replaceable executable Definition, and a repeatable way to diagnose and improve output. The [refinement process](REFINEMENT.md) owns experiments; this document owns the proposed boundaries and migration order. The subsequent [PR 6 review](PR6-REVIEW.md) covers branch head `3e5d73b` separately from main.
-
-The local handoff `2026-09-22T12-56-06Z-unit-generation-next-experiment.md` was read alongside [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md). Its free-model priority, current UI, source ownership, bounded repairs and explicit inputs remain constraints. The user subsequently identified the completed PR 6 experiment. The updated review supersedes the handoff's pending-experiment status. The new direction adds a structural workstream; it does not establish that more model stages or a new core would fix the recorded failures.
+The inspected local handoff `2026-09-22T12-56-06Z-unit-generation-next-experiment.md` and [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) retain free-model priority, current UI, source ownership, bounded repairs and explicit inputs. The user subsequently identified PR 6's completed experiment; its review supersedes the handoff's pending status. Structural work does not establish that more model stages or a new core fix recorded failures.
 
 ## Requirements established by the conversation
 
@@ -20,7 +18,7 @@ External projects own their rules, preferred character mappings and acceptance e
 
 An Apex, when a ruleset defines one, needs an explicit acquisition and synthesis contract outside ordinary crosspath purchases. It is not an accidentally legal `5-5-5` build. Resource cycles, activation timing and purchase-time transitions need declared semantics before implementation. None is established by a descriptive form name or by a layout descriptor.
 
-## What the current code supports
+## Numerical audit at `b54822c`
 
 | Finding | Code evidence | Consequence |
 | --- | --- | --- |
@@ -36,7 +34,7 @@ An Apex, when a ruleset defines one, needs an explicit acquisition and synthesis
 | Repair is bounded and partially targeted | [repair.ts](../src/core/blueprint/repair.ts) preserves untouched fields and requests affected tiers | Retain the mechanism, but verify that fixes preserve promised behavior |
 | Evaluation is analytical | [design-evaluation.ts](../src/core/blueprint/design-evaluation.ts) and [MECHANICS.md](MECHANICS.md) describe resolved comparisons | No evidence of map/wave play, stamina execution, economy tuning or player preference follows |
 
-The retained latest report is present locally and was inspected, not rerun. Its plan pins `planned-v1`, Definition v9, three character samples, one repair per stage and no model review. [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) records the resulting zero published drafts and the stage-specific human reading. Those observations concern reliability and semantic fidelity, not proof that a plugin architecture would improve output.
+The retained report was inspected locally, not rerun. Its plan pins `planned-v1`, Definition v9, three character samples, one repair per stage and no model review. [PIPELINE-EVALUATION.md](PIPELINE-EVALUATION.md) records zero published drafts and stage-specific human reading. Findings concern reliability and semantic fidelity, not proof that plugins improve output.
 
 There are already useful foundations: explicit Requests, retained source passages, constraints and revision feedback, immutable Definition evidence, code-owned joins, deterministic arithmetic, scoped inheritance and legal-build enumeration. Preserve these. Avoid replacing the existing application with an unrelated universal framework.
 
@@ -69,7 +67,7 @@ Use original public examples to test preservation of parallel capabilities, shar
 
 Retain each caller preference with its scope and reason in that caller's project. Do not create character-name lookup tables or tests that always expect a particular source label. Include references without transformations and with an awkward path-count fit to detect overgeneralization.
 
-This artifact does not require a mandatory extra model call. Compare an enriched existing plan response with a bounded layout-only experiment after the current route comparison. Candidate counts such as six layouts/two finalists are untested suggestions. Free-model reliability, token limits and latency remain constraints. Keep selection reasons visible; a model's private deliberation or enthusiasm is not a retained comparison.
+This artifact does not require a mandatory extra model call. Compare an enriched existing plan response with a bounded layout-only experiment after a separately planned route comparison. The immediate concept work remains in [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md). Candidate counts such as six layouts/two finalists are untested suggestions. Free-model reliability, token limits and latency remain constraints. Keep selection reasons visible; a model's private deliberation or enthusiasm is not a retained comparison.
 
 ## Completion and portability
 
@@ -83,11 +81,11 @@ The public pack's Paragon equivalent, difficulty pricing and private forms are s
 
 ## Later numerical reshape and acceptance
 
-The September 22 concept-first decision supersedes the implementation order below as the immediate roadmap. Complete the concept operation and evidence retention in [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) first. The stages here remain a proposal for numerical portability and runtime evaluation, not prerequisites for concept mode.
+The September 22 concept-first decision supersedes this immediate implementation order. Concept operations exist; pending quality and study acceptance are tracked in [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md). The stages below propose later numerical portability and runtime evaluation, not concept prerequisites.
 
 | Stage | Bounded change | Evidence required before proceeding |
 | --- | --- | --- |
-| 1. Review the completed branch and validate its evaluator | Use the PR 6 findings to correct evidence joins, revision preservation and scenario semantics before further generation | Supported-effect sensitivity, supplied-Definition use and per-case trace; branch results distinguished from matched comparisons |
+| 1. Validate evidence and any future evaluator | PR 6 merge corrected evidence joins and revision context, excluding its simulator. Address remaining scenario defects before reusing that evaluator | Supported-effect sensitivity, supplied-Definition use and per-case trace; branch results distinguished from matched comparisons |
 | 2. Extract the current rule implementation | Move fixed numerical schemas, prompts, resolution/checking and projection behind the Engine seam | Existing public outputs and legal builds remain equivalent offline; old artifacts render; no live quality claim |
 | 3. Prove topology replacement | Supply a second four-path Definition and project it through CLI/API/Lab | Preparation, provider schema, validation, purchase/build inspection and rendering change without workflow edits; invalid combinations rejected |
 | 4. Test character organization | Retain alternative groupings and chosen invariants in a bounded optional route | Pairwise source-grounded review and preservation through mechanics/repair; held-out references before default promotion |
@@ -96,4 +94,4 @@ The September 22 concept-first decision supersedes the implementation order belo
 
 Stages 2 and 3 are structural work; stage 1 and stage 4 measure generation quality. Freeze whichever axis is not being tested. Never change the model, prompt, Definition and evaluator in the same comparison and then attribute improvement to one of them. Runtime ownership remains with the Consumer; a small headless reference Consumer can be a separate deliverable without turning Unit Generator into Towerright.
 
-When numerical reshape begins, address the PR 6 evaluator/evidence defects or extract the existing rule implementation offline with unchanged behavior as separate work. Do not begin with a simulator rewrite, arbitrary plugin execution, fine-tuning or a multi-agent service. The exact public BTD6 compatibility scope and private transition details remain open requirements for their later stages.
+For numerical reshape, separately address remaining PR 6 evaluator defects or extract existing rule implementation offline with unchanged behavior. Do not begin with simulator rewrite, arbitrary plugin execution, fine-tuning or multi-agent service. Exact public BTD6 compatibility and private transitions remain open requirements for later stages.

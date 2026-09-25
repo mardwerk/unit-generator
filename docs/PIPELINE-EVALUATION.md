@@ -1,5 +1,7 @@
 # Unit pipeline evaluation
 
+This is the evidence ledger for maintainers comparing recorded runs. Sections describe their dated runtime and inputs; historical fixes, test totals and next-step recommendations are not current acceptance claims. [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) owns pending work, [REFINEMENT.md](REFINEMENT.md) owns study design, and [LOCAL-ARTIFACTS.md](LOCAL-ARTIFACTS.md) explains evidence restoration.
+
 ## Concept development smoke, September 22, 2026
 
 Four retained attempts in `.runs/concept-smoke-2026-09-22/` used original Iona and Rowan briefs under the public three-path and synthetic two-path rulesets. The frozen plan selected `nvidia/nemotron-3-super-120b-a12b:free`, reasoning `none`, a 120-second deadline, zero repairs and no separate model-review call. Catalogue prices were checked before dispatch; the adapter enforced zero-price routing. This diagnosis inspects the saved inputs, assembled prompts, original responses, checks and observations. It makes no new provider calls and does not alter the samples.
@@ -26,7 +28,7 @@ Comparison with the owner's locally retained prototype skill found deliberate po
 | Checker scope | The recorded reference, assignment and build failures agree with the retained declarations; this audit found no demonstrated false positive among them. Repeated findings and the missing-eligible-manual messages can obscure their shared cause. Empty-constraint coverage passes prove no design preservation. `proposed_extension` findings and missing gameplay evidence are expected scope limits for concepts, not independent concept-quality failures. Prose equivalence, usefulness and control behavior were explicitly not checked. |
 | Design inspection | Iona public promises a ricochet after spending maximum pierce while claiming to use remaining pierce, leaving no capacity for its promised extra hit. Iona synthetic describes mirror redirection that changes no direction, and its `reach` crosspath restores ordinary piercing language after tier 2 replaced the disc with first-impact shards. Rowan synthetic reuses a spent pod while promising seed release on another impact without explaining the remaining seed budget. These are assistant-observed contradictions or missing behavior, not executed gameplay results or automated check findings. |
 
-The smallest next representation fix is to constrain known document and decision references to the actual Request and make ability placement/purchase relationships explicit. That can remove bookkeeping failures without narrowing qualitative mechanics. Keep rule checks intact and review the remaining interactions separately; do not silently relabel these outputs or treat fewer findings as better design. Any changed generation protocol should retain a new version and all attempts. The timeout needs a separately declared operational test before attributing it to output length or choosing a larger allowance.
+At this diagnosis, the smallest proposed representation fix was to constrain known document and decision references to the actual Request and make ability placement/purchase relationships explicit. The finite-ID portion is now implemented in [concept-output.ts](../src/core/concept-output.ts); the following exact-skill run records the remaining placement and dependency failures. That can remove bookkeeping failures without narrowing qualitative mechanics. Keep rule checks intact and review the remaining interactions separately; do not silently relabel these outputs or treat fewer findings as better design. Any changed generation protocol should retain a new version and all attempts. The timeout needs a separately declared operational test before attributing it to output length or choosing a larger allowance.
 
 The three returned calls reported zero cost and 24,558 total tokens. The timeout supplied no usage or charge report. Zero-price routing and missing provider usage are separate facts. No scenario, gameplay evaluation or human preference study ran. The assistant recorded zero development acceptances; project Acceptance remains unperformed, and cost per accepted design is undefined. The batch demonstrates working retention and check execution, but does not establish repeatable acceptable generation or justify changing the default route.
 
@@ -123,7 +125,7 @@ Independent reading found that Rimuru's historical Water Blade subset passed str
 
 The selector now reserves complete compact retrieved technique articles before filling the remaining budget, and repeated passages rank last. Original source IDs and exact text remain unchanged. Offline replay retains all Black Flame behavior and limitations within 96 passages and 8,183 characters. A regression exercises repetitive inventories beside a short technique article. The full suite passed 368 tests; type checking, build, formatting, diff checks and the local HTTP check also passed.
 
-The user clarified that free-model performance, fast generation and a simple architecture are the priorities. The verified GLM Morph preflight was not dispatched, and its unused allocation was released. [External project research](../research/IMPLEMENTATION-REFERENCES.md) informs the next experiments. A four-call decomposition remains a proposal, not an implemented default.
+The user clarified that free-model performance, fast generation and a simple architecture are the priorities. The verified GLM Morph preflight was not dispatched, and its unused allocation was released. The [archived generator survey](../research/archive/GENERATOR-SURVEY-2026-09-21.md) informed the proposals at that time; the [current research index](../research/README.md) prioritizes later, better-fitting papers. A four-call decomposition remains a proposal, not an implemented default.
 
 The next frozen free Mini batch used the repaired source selection and disabled reasoning, matching the local configuration: `final-benchmark-2026-09-21T13-46-22-379Z`. All three failed bounded validation. Rimuru stopped on a nine-entry repertoire against the eight-entry contract even after repair; Luffy retained an inadmissible T3 active follow-up and excess effects; Goku retained duplicate early purchases, a no-op crosspath purchase, missing promised detection and an oversized capstone. Nine calls reported 97,157 input and 24,103 output tokens at $0. Whole-sample times were 89.5, 140.5 and 80.3 seconds. These failures do not justify calling the free route fast, consistent or ready. The next design should reduce redundant model-authored structure and bookkeeping instead of merely selecting a stronger model or adding more stages.
 
@@ -167,7 +169,7 @@ The historical CLI run `cli-pipeline/default-free-2026-09-20T08-12-15Z/` complet
 
 ## Reproduction
 
-Run from the unit-generator directory with Node.js 24 or newer and installed dependencies:
+Run from the unit-generator directory with Node.js 24 or newer, installed dependencies and the retained ignored corpus artifacts or an equivalent version-1 manifest. The first command only prints a plan. The second dispatches provider calls and requires `OPENROUTER_API_KEY`, model availability and authorization under [OPENROUTER.md](OPENROUTER.md). Review the printed call budget before executing it:
 
 ```sh
 node scripts/evaluate-unit-pipeline.mjs --corpus .runs/logic-tuning/corpus-five.json --authoring planned-v1 --repetitions 3 --skip-review
@@ -207,9 +209,11 @@ For an explicitly authorized paid benchmark, pass `--model provider/model --max-
   evidence resolution, prepare-time interpretation validation, planner
   pinning with citation checks, and a form-less reference with conflicting
   groupings on the same interface.
-- Human judgment: keep as an experimental opt-in. The default route is
-  unchanged, the helpers stay out of the public API, and layout validation
-  is kept separate from numerical and runtime support. Apex synthesis
+- Historical judgment at that review: keep as an experimental opt-in, preserve
+  the default route, keep helpers out of the public API, and separate layout
+  validation from numerical/runtime support. The exposed helpers at that head
+  and default-schema defects are assessed in [PR10-REVIEW.md](PR10-REVIEW.md);
+  this recorded recommendation is not evidence that isolation was achieved. Apex synthesis
   beyond T5 capstones, unsupported runtime behavior and balance remain
   unvalidated; generated artifacts stay in ignored `.runs/` and are not
   committed.

@@ -8,7 +8,7 @@ Automatic name recipes, regex interpretation, gallery seeding and the incomplete
 
 ## Historical review
 
-Reviewed September 22, 2026 after the user identified the completed branch experiment. [PR 6](https://github.com/mardwerk/unit-generator/pull/6) was open at inspection, with head `3e5d73bd8ad588067a16e9e47721e797fc09c27b`. The existing local review worktree was clean and updated from detached `d4240b2` to this head. Main remains `b54822c`; no merge or PR comment was made. The PR description still describes the earlier offline-only approach and omits the new source option and simulator. The code and branch evaluation document are the evidence for this review.
+Reviewed September 22, 2026 after the user identified the completed branch experiment. [PR 6](https://github.com/mardwerk/unit-generator/pull/6) was open at inspection, with head `3e5d73bd8ad588067a16e9e47721e797fc09c27b`. The existing local review worktree was clean and updated from detached `d4240b2` to this head. At inspection, main was `b54822c`; no merge or PR comment was made. The PR description still describes the earlier offline-only approach and omits the new source option and simulator. The code and branch evaluation document are the evidence for this review.
 
 The branch experiment is completed and deserves review, not another instruction to perform it. It reports useful generated examples and adds concrete implementation work. It still does not meet the requested automatic source interpretation or replaceable-core contract. Adopt its lessons selectively rather than replacing main wholesale.
 
@@ -43,7 +43,8 @@ Code inspection explains the outcomes. Attack timestamps use `k * base.stats.int
 
 Control is also applied through a wave-wide speed factor computed from the boosted attack when an ability exists. It affects travel from the start rather than applying per-target status on hit and expiring at the appropriate time. Lead immunity is hardcoded; burn is an immediate damage approximation. Last-kill time at equal partial kill counts is not necessarily full-wave clearance time. Saturating the eight waves can reject a useful upgrade, while a small improvement on one wave can pass despite regressions elsewhere. Some approximations are reasonable for exploration, but they must be visible and should not certify a general unit's usefulness.
 
-A compact reproduction after compiling the branch tests is:
+The following historical reproduction requires the pinned `3e5d73b` review checkout and compiled branch tests. Its modules are absent from main:
+
 
 ```js
 import { simulateWave, referenceWaves } from './.test-build/src/core/mechanics/simulation.js';
@@ -59,10 +60,10 @@ console.log(JSON.stringify(results(base)) === JSON.stringify(results(changed)));
 
 Run this as an ES module from the pinned review checkout. It is a diagnostic of this implementation, not a desired invariant to freeze into a passing regression test. Before using simulation to block publication, add cases where supported effects must change observable outcomes and compare the model against the applicable runtime contract.
 
-## Disposition and next action
+## Historical disposition and remaining conditions
 
 Keep the idea of compact model output with code-owned redundant fields, improved combat-passage selection, explicit unsupported-technique proposals and actionable repair diagnostics. Keep the small scenario simulator as experimental evidence infrastructure after fixing its semantics and reporting its scope. Do not adopt positional citations, name-selected whole trees, mandatory burst slots, universal radius thresholds or default-Definition simulation as framework rules.
 
-The next step is offline: correct or disable the simulator's publication gate for unsupported measurements; make it accept the actual Definition; and retain explicit branch-to-source joins and full revision evidence in any candidate route carried forward. Use the four probes as review cases, not another round of prompt tuning to satisfy a blind evaluator. Then assess character organization separately from numerical completion.
+At this reviewed head, the next steps were offline: correct or disable the simulator's publication gate for unsupported measurements; make it accept the actual Definition; and retain explicit branch-to-source joins and full revision evidence in any candidate route carried forward. Use the four probes as review cases, not another round of prompt tuning to satisfy a blind evaluator. The merged adaptation excludes the simulator gate and retains explicit source joins and full revision context. Character organization still needs assessment separately from numerical completion.
 
-A later matched free-model comparison may still be needed to choose a default. That is an evidence gap, not a claim that the completed branch experiment did not happen, and not authorization to repeat the previous 24-call plan automatically. Keep this review pinned: refresh the PR head before implementing or merging anything.
+A later matched free-model comparison may still be needed to choose a default. That is an evidence gap, not a claim that the completed branch experiment did not happen, and not authorization to repeat the previous 24-call plan automatically. Keep this review pinned; refresh implementation evidence before further work.

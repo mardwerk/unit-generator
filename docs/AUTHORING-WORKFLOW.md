@@ -8,13 +8,13 @@ Human involvement depends on the character and supplied decisions. Luffy can rec
 
 Ask about unresolved character identity and primary playstyle. Then propose smaller design details automatically, preserving confirmed choices. The user does not need to approve every ability or upgrade assignment before seeing a coherent draft.
 
-Include proposed damage, costs, ranges and cooldowns when the supplied game rules provide enough reference values. Otherwise, identify the missing basis. Proposed values still require balancing.
+For numerical authoring, include proposed damage, costs, ranges and cooldowns when supplied rules provide enough reference values; otherwise identify the missing basis. Proposed values still require balancing. Qualitative concept requests retain behavior and limits without inventing numerical balance values.
 
 When an important ability needs a mechanic outside the current Game Definition, include an explicit mechanic proposal with the Unit draft and review them together. The proposal remains unapproved and does not establish Engine support.
 
 The main readable output is the complete compact kit: role, basic attack, every upgrade, forms and active abilities, available numbers, and decisions still needed. Detailed evidence and technical checks remain available separately. Avoid repeating the same upgrade as a second full ability description. A short status must reveal when a draft has issues; the Lab keeps the full diagnostics in a collapsed report below the kit, with an action to request another revision. Generated identifiers and reference errors are generator defects, not manual user tasks. The CLI retains its compact and detailed reading views; existing prose-heavy drafts can still be long.
 
-Revision feedback may rework the entire Unit draft. Confirmed decisions remain binding; unconfirmed arrangements can change to keep the revised Unit coherent.
+Redesign feedback may rework the entire Unit draft. Confirmed decisions remain binding; unconfirmed arrangements can change to keep the revised Unit coherent. Concept `prose-edit` preserves behavior; changing the retained concept contract requires explicit `adapt`. See [operation contracts](API.md).
 
 A model such as Jev could help identify when a human decision is needed, classify sourced abilities or select among supplied path themes. These remain intake and pre-draft evaluation ideas. The implemented optional Jev integration ranks resolved builds after drafting, independently of these proposals. Decisions need explicit criteria independent of a particular model; a suggested category does not override confirmed choices.
 
@@ -27,11 +27,11 @@ The latest intake proposal is not implemented:
 
 A shared intake operation can return a draft-ready brief or the next necessary question. CLI and Lab display the same structured choices and submit explicit answers. Routes can converge on the existing drafting stages; each route does not need its own generator or agent.
 
-The separate [Jev intake experiment](JEV-INTAKE.md) now has a live API check and a repeatable evaluation command. It does not yet route users or display probabilities in the Lab. A separate [paired drafting experiment](JEV-DRAFT-EVALUATION.md) compares drafts with and without a Jev-selected role and path package, including quality observations, time and costs.
+The separate [Jev intake experiment](JEV-INTAKE.md) records a September 19 live API check and an evaluation command. It does not yet route users or display probabilities in the Lab. A historical [paired drafting experiment](JEV-DRAFT-EVALUATION.md) compared drafts with and without a Jev-selected role and path package, including quality observations, time and costs.
 
 Optional Jev scores below choices remain an experiment. Each score needs a defined question, such as whether an option matches the supplied description. Classification confidence, source support, rule compatibility and user preference are different things. Do not present a score as the probability that the user will enjoy a design. Whether scores should be visible during neutral Q&A remains open because they can influence the choice. Verify API output semantics and calibration before displaying percentages or selecting automatic-routing thresholds; missing scores remain unavailable. Research and drafting use separate capabilities, with the same explicit inputs and outputs regardless of provider.
 
-The latest exploration considers a richer mechanics catalog, retrieval, constrained composition and optimization as capabilities that people or agents could use. Explicit inputs may include relevant roster context and balance references; standalone operation does not require sparse context. No catalog representation, embedding model, optimizer or expanded ownership boundary has been selected. Evaluate useful output and total effort before choosing infrastructure.
+The September 19 exploration considered a richer mechanics catalog, retrieval, constrained composition and optimization as capabilities that people or agents could use. Explicit inputs may include relevant roster context and balance references; standalone operation does not require sparse context. No catalog representation, embedding model, optimizer or expanded ownership boundary has been selected. Evaluate useful output and total effort before choosing infrastructure.
 
 Adaptive intake and mechanics-catalog design remain open. The current bounded generator accepts explicit decisions in Requests; Towerright owns project history, wider evaluation and Acceptance. Research permissions and confirmed game rules remain explicit inputs.
 

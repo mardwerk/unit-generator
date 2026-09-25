@@ -1,8 +1,8 @@
 # What the checks establish
 
-The test suite protects software behavior. It does not establish that generated Units are interesting, faithful or balanced. The latest foundation batch returned no usable drafts despite all software tests passing. Reporting that pass count as evidence of product quality was misleading; generation outcomes belong alongside it.
+The test suite protects software behavior. It does not establish that generated Units are interesting, faithful or balanced. The September 21, 2026 foundation batch `final-benchmark-2026-09-21T21-50-33-334Z` returned no usable drafts despite all software tests passing. [Pipeline evaluation](PIPELINE-EVALUATION.md) owns subsequent run evidence. Reporting that pass count as evidence of product quality was misleading; generation outcomes belong alongside it.
 
-This September 22 audit distinguishes three things: tests executed during development, validators that reject a generated candidate, and judgments about its quality. Deleting a test does not change a runtime validator. Passing a fixture says only that the specific operation behaved as asserted.
+This September 22, 2026 audit distinguishes three things: tests executed during development, validators that reject a generated candidate, and judgments about its quality. Deleting a test does not change a runtime validator. Passing a fixture says only that the specific operation behaved as asserted.
 
 ## Keep contracts, remove unproven design requirements
 
@@ -10,7 +10,7 @@ Keep arithmetic, legal crosspaths, integer hit counts, scoped inheritance, usabl
 
 Keep custom-policy tests when the caller explicitly opts into that policy. For example, a custom threefold capstone requirement must work if requested. That does not make threefold growth a valid universal BTD6 rule.
 
-This audit removes four recipe snapshot tests and loosens unrelated inventory assertions:
+This audit removed four recipe snapshot tests and loosens unrelated inventory assertions:
 
 - No requirement that every reference T3 change attack behavior or every T5 improve a chosen metric threefold.
 - No fixed T4 follow-up ban or minimum three-hit T5 follow-up in catalogue tests. Scoped inheritance remains checked at the actual purchased tier.
@@ -29,7 +29,7 @@ Typed plan promises also deserve scrutiny. The final free batch used ordinary da
 
 ## Comparing workflows
 
-The next comparison should use the existing direct and planned routes before another pipeline is added. PR6's compact single-call contract is a later candidate if direct authoring still exposes excessive bookkeeping. See [the PR decisions](PIPELINE-APPROACHES.md).
+At the time of this audit, the proposed next comparison used the existing direct and planned routes before adding another pipeline. PR6's compact single-call contract was a later candidate if direct authoring still exposed excessive bookkeeping. The revised compact experiment has since merged as opt-in. See [the PR decisions](PIPELINE-APPROACHES.md) for disposition and [next work](NEXT-EXPERIMENT.md) for the current roadmap.
 
 Both dry-run plans were verified against the same retained Rimuru/Luffy/Goku corpus, model settings and rubric. Direct permits at most six authoring calls for three samples; planned permits twelve because each stage may repair once. No provider calls were dispatched in this audit, so these are call bounds, not observed speed or quality results. The existing `reference-patterns-v1` route can remain an offline-design comparator; a new workflow framework is unnecessary for these initial comparisons.
 
@@ -39,4 +39,4 @@ Use a shared scorecard with separate results for source fidelity, understandable
 
 The missing quality reference is a complete reviewed Unit, with explicit reasons its source adaptation and purchases work. It need not be a perfect design, nor the only acceptable answer. Establish that reference before adding more fixtures labeled as good output, expanding automated quality scoring or optimizing toward a numeric reward. The current reference recipes remain executable comparators, not accepted character designs. Do not freeze their exact prose or numbers as the definition of quality.
 
-After cleanup, all 394 remaining tests pass. Formatting and relative documentation links also pass. This verifies the cleanup and retained software contracts; it does not change the previously recorded generation failures.
+The cleanup verification passed all 394 then-existing tests, formatting and relative documentation links. This verifies the cleanup and retained software contracts; it does not change the previously recorded generation failures.

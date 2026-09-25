@@ -8,9 +8,9 @@ The local app is named `mardwerk-unit`. Its default flow starts with a character
 
 Units must satisfy their declared requirements. Scoped checks alone do not establish balance across a game or player appeal. Towerright or another caller supplies wider evaluation and feedback; Towerright also retains project context and can provide curated Profiles.
 
-Engine, CLI and UnitLab remain in this repository. The Greenfield implementation supports structured authoring, scoped checks and a [minimal local UnitLab](LAB.md) for trying the stages and comparing revisions. The default structured mechanics definition now resolves purchased builds, crosspaths and attack boosts. Combat simulation and runtime execution remain outside the current implementation.
+Engine, CLI and UnitLab remain in this repository. The implementation supports structured authoring, scoped checks and a [local UnitLab](LAB.md) for trying the stages and comparing revisions. The default structured mechanics definition now resolves purchased builds, crosspaths and attack boosts. Combat simulation and runtime execution remain outside the current implementation.
 
-## Requested next direction
+## Current scope and requested direction
 
 Explicit concept mode now uses the existing core, CLI and UnitLab for qualitative generation, scoped checks, save/load, revision and rendering. The versioned public concept policy allows bounded early auxiliary behavior and uses configurable progression, activation slots and directional crosspath coverage. Original public examples exercise two different concept rulesets. This preserves rich proposals without asserting numerical or runtime support. Numerical `planned-v1` remains the default; a later comparison determines whether to promote concept authoring.
 
@@ -32,7 +32,7 @@ Report operation completion, scoped check outcomes, attributed review and projec
 
 ## Authoring contract
 
-The [generation foundation](GENERATION-FOUNDATION.md) defines construction and evaluation responsibilities. A compact purchase plan records player situations, promised changes and retained weaknesses. Deterministic comparisons support review; they do not establish tactical value or balance.
+The [generation foundation](GENERATION-FOUNDATION.md) explains construction and evaluation for the default numerical route. Concept operations and their retained contracts are documented in [API](API.md). A compact purchase plan records player situations, promised changes and retained weaknesses. Deterministic comparisons support review; they do not establish tactical value or balance.
 
 Authoring accepts character identity and source scope, supplied evidence or research permissions, game rules and Profile values, confirmed choices, the requested outcome and relevant earlier Results. Partial rules permit exploration; missing behavior remains visible and cannot receive a successful mechanics check.
 
@@ -42,7 +42,7 @@ The Result connects role, attacks, progression and abilities with source evidenc
 
 The [CLI](CLI.md) exposes combined authoring and individual preparation, drafting, checking and review stages. The [API](API.md) serves applications directly. The [workflow](AUTHORING-WORKFLOW.md) separates implemented authoring from proposed adaptive intake. No particular provider is required by the product contract. The [mechanics DSL](MECHANICS.md) supports bounded attack and upgrade resolution; runtime execution, gameplay simulation and game-wide balance remain outside this scope.
 
-The BTD6-inspired default uses three five-tier paths. T1 and T2 improve the existing basic attack without changing its general identity. T3 commits to a narrower specialization, usually changing the attack behavior. T4 strengthens that specialization and T5 is its ultimate version. At most two paths may be purchased: once one reaches T3, the secondary path stays available through T2, and the third path stays closed. For example, `3-0-0 → 3-1-0 → 3-2-0` is legal; `3-3-0` and `3-2-1` are not. These defaults are explicit Profile rules, not restrictions on every future game.
+The numerical BTD6-inspired default uses three five-tier paths. Concept rules separately permit bounded early auxiliary behavior. T1 and T2 improve the existing basic attack without changing its general identity. T3 commits to a narrower specialization, usually changing the attack behavior. T4 strengthens that specialization and T5 is its ultimate version. At most two paths may be purchased: once one reaches T3, the secondary path stays available through T2, and the third path stays closed. For example, `3-0-0 → 3-1-0 → 3-2-0` is legal; `3-3-0` and `3-2-1` are not. These defaults belong to the bundled numerical Definition and its Profile. A Profile can change only variations permitted by its Definition; they are not restrictions on every future game.
 
 ## Requirements from character design
 
