@@ -1,6 +1,6 @@
 # Restructure plan: shrink, then split into a stateless Go Tool
 
-Status: proposal, September 25, 2026, reviewed against `main` at `9244cd5` and open issues #4, #9, #12, #13, #14 and #15. Nothing in this document is implemented. Owner decisions from the PR review are recorded in [F](#f-decisions). It supersedes the ordering in [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) and [GENERATOR-RESHAPE.md](GENERATOR-RESHAPE.md) only for structural work; generation-quality experiments keep their own protocol in [REFINEMENT.md](REFINEMENT.md).
+Status: proposal, September 25, 2026, reviewed against `main` at `9244cd5` and open issues #4, #9, #12, #13, #14 and #15. Nothing in this document is implemented. Owner decisions from the PR review are recorded in [F](#f-decisions); alternatives rejected in review are listed in [G](#g-rejected-alternatives). It supersedes the ordering in [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) and [GENERATOR-RESHAPE.md](GENERATOR-RESHAPE.md) only for structural work; generation-quality experiments keep their own protocol in [REFINEMENT.md](REFINEMENT.md).
 
 Target end state: one Go binary with terminal operations (`research`, `prepare`, `generate`, `draft`, `check`, `review`, `author`, `edit`, `render`, `build`, `inspect`) and `serve`, which exposes the same operations over a local HTTP API. The website becomes a pure client of that API. Requests and Results cross the process boundary only as serialized, versioned JSON. The Tool keeps no hidden state: no implicit history, retained orchestration or mutable settings. Saved work lives only in a library directory the user names explicitly (`--library DIR`); the CLI and `serve` write it, and the browser displays it and requests changes through the API.
 
@@ -11,7 +11,7 @@ Evidence labels: **measured** was run in this review; **read** was established b
 ## Summary
 
 1. "Port the CLI" really means porting the Engine. `src/cli.ts` is 442 lines. The code behind it is about 13,300 lines: core 9,018, Node adapters 3,113, presentation 1,151. Porting only the CLI would leave Go shelling out to Node.
-2. Split first, then port. The cheapest route to a stateless API is to make the existing TypeScript Lab server's state explicit (library only under a user-named directory, no settings file, startup-only provider config) and stop the browser from executing Engine code (Phase 0). The Go `serve` then replaces a server whose contract already exists, and each Go slice can be exercised by the real app.
+2. Split first, then port. The cheapest route to a stateless API is to make the existing TypeScript Lab server's state explicit (library only under a user-named directory, no settings file, startup-only provider config) and stop the browser from executing Engine code (Phase 0). The Go `serve` then replaces a server whose contract already exists, in one server swap and without bridge code.
 3. The browser currently runs Engine code (**read**, **measured**). `checkDraft`, `conceptContract` and `resolveBuild` execute in the client. Zod (453 KB) and core (136 KB) make up about 590 KB of the 914 KB minified bundle.
 4. Artifact integrity is tied to JavaScript. `inputHash` is SHA-256 over `JSON.stringify(requestSchema.parse(request))` ([prepare.ts:20-24](../src/core/prepare.ts)). Its bytes depend on Zod's key order, JS `trim()` and JS string escaping. Go's encoder differs on U+2028/U+2029 and `-0`, and Go's `TrimSpace` differs on U+0085 and U+FEFF (**measured**, Go 1.24.7 vs Node 22). No test pins a literal hash value.
 5. There are about 2,300 source lines of optional route and experiment code (compact-spine, interpretation/RulePack, `reference-patterns-v1`, the legacy prose route), plus about 1,800 test lines. None of it is on the default path. Cutting it before porting avoids translating it.
@@ -48,7 +48,7 @@ UnitLab, same flow: the browser calls `POST /api/character`, which runs steps 3�
 | C3 | Lab contracts type-import `requestFileSchema` from a Node adapter ([contracts.ts:12](../src/lab/contracts.ts)) | Types come from `contracts/v1` |
 | C4 | Two request-resolution implementations: `loadRequestFile` (files, `previousResultFile`, `--repairs`) and Lab `prepareInput` (rejects files; no repair option) ([operations.ts:74](../src/lab/operations.ts)) | One `prepare` operation. File resolution happens only in the CLI layer, before the request crosses the boundary |
 | C5 | Library, icons, portraits and `lab-settings.json` persisted by the server ([library.ts](../src/lab/library.ts), [icon-files.ts](../src/lab/icon-files.ts)) | Library code moves into its own storage module behind an explicit `--library DIR`. `lab-settings.json` and `library/configure` are retired; the Engine never imports the library ([F](#f-decisions), decision 1) |
-| C6 | Evidence recording wired twice with different default locations, and interleaved into transports through `generateWithEvidence` observers | One optional recorder, only with explicit `--evidence-dir` (CLI). `serve` returns attempt traces in-band on request and writes them under `<library>/evidence` only for that request |
+| C6 | Evidence recording wired twice with different default locations, and interleaved into transports through `generateWithEvidence` observers | One recorder. The CLI writes evidence only with an explicit `--evidence-dir`; `serve` writes concept evidence under `<library>/evidence`, as the Lab does today |
 | C7 | Two provider factories: CLI `createModel` (reasoning/timeout flags) and mutable `LabProvider.configure` (in-memory key) | One `provider.FromConfig`, fixed at process start. Per-request `model` is an explicit option |
 | C8 | Env reads deep in adapters: `OPENROUTER_*`, `OPENROUTER_IMAGE_MODEL`, `UNIT_DATA_DIR`, `UNIT_RUNS_DIR` ([paths.ts](../src/node/paths.ts)) | Resolve once in `cmd` into a `Config` value; Engine and providers receive values |
 | C9 | Research returns a prepared request with the default profile baked in (step 4) | `research` returns `{character, documents}`; `prepare` applies an explicit profile (also required by #13) |
@@ -59,36 +59,32 @@ UnitLab, same flow: the browser calls `POST /api/character`, which runs steps 3�
 | C14 | Server serves compiled TS modules directly (`/client/*.js`, `/presentation/usage.js`, [server.ts:380-386](../src/lab/server.ts)) | Dead today (B3). Go embeds only built web assets |
 | C15 | `reviewDraft` rejects a checked artifact unless recomputed findings are byte-identical ([review.ts:24](../src/core/review.ts)) | Go must reproduce v1 findings exactly (golden). v2 records a checker revision |
 | C16 | Hash defined by JS/Zod serialization (Summary item 4) | Versioned hash scheme ([A.6](#a6-serialization-errors-and-versioning)) |
+| C17 | `build` and `request-file.ts` decode artifacts through presentation's `readArtifactView` | Artifact decoding lives with the contract types in `internal/unit`; `render` only projects decoded values |
 
 ### A.3 Go module layout
 
+One module, one binary, eight directories. Files inside a package are named after their responsibility; packages are not split per command or per route.
+
 ```text
-go.mod                          module github.com/mardwerk/unit-generator
-cmd/mardwerk-unit/main.go       subcommand dispatch, Config resolution (.env, env, flags), exit codes
-internal/contract/              Request, PreparedRequest, DraftArtifact, CheckedArtifact, Result;
-                                schema validation, strict decode, v1/v2 input hash
-internal/engine/                Prepare, Draft, Check, Review, Author: one operation per call, no persistence
-internal/engine/mechanics/      3×5 DSL: types, resolve, legal builds, validate, design policy, comparisons
-internal/engine/planned/        planned-v1: plan, decode, feasibility, repair, compile, evaluation
-internal/engine/concept/        concept Definition/Profile resolution, output schema, checks
-internal/engine/check/          findings, evidence/dependency/progression checks
-internal/engine/prompts/        //go:embed prompt texts and guidance; provider JSON Schema builders
-internal/model/                 ModelClient interface, ModelRequest/Response, failure codes, usage
-internal/provider/openrouter/   chat + image HTTP clients (no SDK), error mapping, redaction
-internal/provider/codex/        os/exec adapter, config.toml reading
-internal/research/              Wikipedia/Wikidata/Fandom lookup, visuals, URL document loading
-internal/render/                Markdown kit and details, `view` projection for the client
-internal/evidence/              optional recorder for an explicit --evidence-dir or <library>/evidence
-internal/library/               managed files in the user-named --library DIR: artifacts, icons, portraits
-internal/server/                serve: routes, session token, host/origin checks, embedded assets
-contracts/v1/                   exported JSON Schemas, golden corpus, TEST-MAP.csv
-web/                            TypeScript client (package.json moves here)
-data/reference/                 example requests (unchanged)
+go.mod                  module github.com/mardwerk/unit-generator
+cmd/mardwerk-unit/      main: flags, .env/env config, CLI commands, no-overwrite file output, wiring
+internal/unit/          the Engine: contract types and decoding, v1/v2 input hash, prepare, draft,
+                        check, review, planned-v1, concept, embedded prompts; the Model interface
+internal/mechanics/     3×5 DSL: resolve, legal builds, validate, design policy, comparisons
+internal/render/        Markdown kit and details, `view` projection for the client
+internal/provider/      OpenRouter (chat and images, plain HTTP) and Codex (os/exec); implement unit.Model
+internal/research/      Wikipedia/Wikidata/Fandom lookup and URL documents
+internal/library/       managed files beneath --library DIR: artifacts, icons, portraits, evidence
+internal/server/        serve: routes, token, host/origin checks, limits, embedded web assets
+contracts/v1/           exported JSON Schemas and golden fixtures
+web/                    TypeScript client (package.json moves here)
 ```
 
-Dependency rules: `cmd` → `server`/`research`/`provider`/`evidence`/`library` → `engine` → `contract`/`model`. `engine` never imports `provider`, `research`, `server`, `evidence`, `library`, `os` environment or the filesystem. `library` stores and lists artifacts but never runs Engine operations beyond `contract` validation. `render` depends on `contract` and `engine/mechanics` only. Use the standard library for flags and HTTP routing (Go 1.22+ method patterns). Candidate dependencies: a JSON Schema validator (for example `santhosh-tekuri/jsonschema`), `golang.org/x/net/html` or goquery, `golang.org/x/image/webp`, a TOML reader, and `rogpeppe/go-internal/testscript` for CLI tests.
+Dependency rules: `unit` imports only `mechanics`. `render` imports `unit` and `mechanics`. `provider`, `research` and `library` import `unit` for types only. `cmd` and `server` wire everything. The Engine calls exactly one interface, `unit.Model`, because model execution is its only external boundary: research runs before `prepare` and its output is an ordinary input, so it needs no interface. There is no config package (main owns configuration), no separate contract or evidence package, and no migration bridge.
 
-Go's `encoding/json` matches object keys case-insensitively, and `DisallowUnknownFields` does not reject duplicate keys. Zod `strictObject` does both. Validate incoming bytes against the exported JSON Schema before decoding, or use a case-sensitive decoder, so `{"Kind":"draft"}` is rejected as it is today.
+Use the standard library for flags and HTTP routing (Go 1.22+ method patterns). Add a dependency only where the standard library has no equivalent: an HTML parser (`golang.org/x/net/html`), WebP decoding (`golang.org/x/image/webp`), a TOML reader for Codex config, and `rogpeppe/go-internal/testscript` for CLI tests. Keep the TypeScript CLI's no-overwrite rule: write an exclusive temporary file, then hard-link it into place.
+
+Go's `encoding/json` matches object keys case-insensitively, and `DisallowUnknownFields` does not reject duplicate keys. Zod `strictObject` does both. Use the JSON v2 decoder (`github.com/go-json-experiment/json`, or `encoding/json/v2` once it is stable): it matches names case-sensitively and rejects duplicate names by default, and `RejectUnknownMembers(true)` rejects unknown keys. That keeps `{"Kind":"draft"}` rejected as it is today. The exported JSON Schemas are a contract for readers and tests, not a second runtime validator.
 
 ### A.4 CLI commands
 
@@ -115,7 +111,7 @@ Exit codes: `0` operation completed (findings may still fail), `1` execution fai
 
 ### A.5 `serve` HTTP API
 
-Base path `/api/v1`. The server binds `127.0.0.1` and injects a fresh session token into `index.html`. It keeps today's host, origin, token, JSON-only and 32 MB checks. `--token-file` allows a non-browser caller. There is no job store: long operations are synchronous requests, cancelled when the client disconnects. The write timeout is disabled; per-call model timeouts bound the work.
+Base path `/api/v1`. The server binds `127.0.0.1` and injects a fresh session token into `index.html`. It keeps today's host, origin, token, JSON-only and 32 MB checks. Non-browser callers such as Towerright use the CLI, so there is no second authentication mode. There is no job store: long operations are synchronous requests, cancelled when the client disconnects. The write timeout is disabled; per-call model timeouts bound the work.
 
 | Method and path | Body | Response | Replaces |
 | --- | --- | --- | --- |
@@ -123,10 +119,9 @@ Base path `/api/v1`. The server binds `127.0.0.1` and injects a fresh session to
 | `GET /profiles` | – | bundled Profiles/Definitions and example requests | `GET /api/example` |
 | `POST /research` | `{name, choice?}` | choices or sources | `/api/character` minus preparation |
 | `POST /prepare` | `{request, profile?}`; documents may be `text` or `url`, never `file` | `PreparedRequest` | `/api/prepare` |
-| `POST /draft` | `{prepared, options?:{maxRepairAttempts, model?, trace?}}` | `{artifact, trace?}` | `/api/draft` |
-| `POST /check` | `{draft}` | `{artifact}` | `/api/check`, client `checkDraft` |
-| `POST /review` | `{checked, options?}` | `{artifact, trace?}` | `/api/review` |
-| `POST /author` | `{request, options?}` | `{artifact, trace?}` | CLI only |
+| `POST /draft` | `{prepared, options?:{maxRepairAttempts, model?}}` | `DraftArtifact` | `/api/draft` |
+| `POST /check` | `{draft}` | `CheckedArtifact` | `/api/check`, client `checkDraft` |
+| `POST /review` | `{checked, options?}` | `Result` | `/api/review` |
 | `POST /render` | `{artifact, format:"markdown"\|"details"\|"view"}` | `{markdown}` or `{view}` | `/api/render`, client `kitStats` |
 | `POST /build` | `{artifact, tiers:[a,b,c]}` | resolved build | CLI only |
 | `POST /inspect` | `{artifact, editable?}` | `{kind, artifact, verified}` | `/api/inspect` |
@@ -137,7 +132,9 @@ Base path `/api/v1`. The server binds `127.0.0.1` and injects a fresh session to
 | `POST /library/icon` | `{artifact, iconKey, png, model, usage?}` | `{icons}` | write half of `/api/library/icon/generate` |
 | `POST /library/portrait`, `/library/portrait/get` | as today | as today | same |
 
-Removed: `POST /api/provider`, `library/configure` and the `lab-settings.json` file. Library routes exist only when `serve` has a library directory; they read and write managed files beneath it and nowhere else. `trace` contains each attempt's exact `{system, prompt, schema}`, raw output, usage and failure; `serve` writes it under `<library>/evidence` only for requests that ask for it.
+Removed: `POST /api/provider`, `library/configure` and the `lab-settings.json` file. Library routes exist only when `serve` has a library directory; they read and write managed files beneath it and nowhere else. The server never saves implicitly; the client decides when to call `/library/save`.
+
+The API has stage endpoints only. `generate`, `author` and `edit` are CLI compositions; the web client runs the stages itself, as it does today. Responses are the artifact or an error object, with no extra envelope: this is a synchronous local API, so HTTP status plus the error `code` is enough. `provider.key.configured` means a key is present, not that it was verified.
 
 ### A.6 Serialization, errors and versioning
 
@@ -145,6 +142,7 @@ Removed: `POST /api/provider`, `library/configure` and the `lab-settings.json` f
 - **Strictness.** Reject unknown keys, unknown `schemaVersion` values and case variants. `designEvaluationSchema` currently uses `z.object`, which silently strips unknown keys ([design-evaluation.ts:36](../src/core/planned-v1/design-evaluation.ts)). That contradicts [API.md](API.md#data-contract); make it strict in both implementations.
 - **Hash v1 (read and write until cutover).** `sha256:` over the request serialized in Zod declaration order, with omitted optional fields absent, `null` preserved, strings trimmed with JS `String.prototype.trim` semantics, `JSON.stringify` escaping (no `\u2028` or HTML escaping) and `-0` written as `0`. Go implements this with ordered structs and a small custom encoder, proved by the golden corpus. Reject lone-surrogate escapes explicitly, because Go replaces them with U+FFFD.
 - **Hash v2 (after cutover).** `jcs-sha256:`, the SHA-256 of the RFC 8785 canonical form. Verifiers accept both prefixes. Writers switch in one documented release. Saved artifacts are never rewritten in place.
+- **Three version numbers, no more.** The URL prefix (`/api/v1`) versions endpoints; `schemaVersion` versions stored artifacts; the Definition/Profile `revision` retained inside each prepared request versions rules.
 - **Artifacts.** `schemaVersion: "1"` stays. Any field that an older strict reader would reject bumps the version, and old decoders are kept for reading. Reload never substitutes today's defaults.
 - **Findings.** v1 findings must match TypeScript byte for byte, so v1 checked artifacts stay reviewable (C15). v2 adds `run.checkerRevision`.
 - **Errors.** Keep today's envelope, which the client already parses: `{"error":{"code","message","stage"?,"details"?,"usage"?}}`. Status codes: 400 `INVALID_INPUT`; 401/403 session, host and origin; 413; 415; 422 `INTEGRITY_MISMATCH`, `UNSUPPORTED_SCHEMA_VERSION`, `UNSUPPORTED_PROGRESSION` (non-3×5 mechanics), `UNSUPPORTED_ROUTE`; 502 model failures with `details` and known `usage`. Raw provider payloads and source text never appear in errors.
@@ -176,7 +174,7 @@ A CI check on the esbuild metafile should fail if the bundle contains `src/core`
 | --- | --- | --- |
 | P0.1 | Cuts B1–B14 and repository hygiene B17 | Tests and typecheck pass; about 3,300 source and script lines removed |
 | P0.2 | Golden corpus: a TS script records, for every example request and fake-model fixture: prepared artifact and hash, each `ModelRequest` (system, prompt, schema), fake responses, draft, checked, result, Markdown (compact and details), 64 builds, API responses. Add a test pinning literal hashes | `contracts/v1/golden/` is committed; a Zod upgrade that changes a hash fails CI |
-| P0.3 | Explicit TS server state: library directory becomes a `--library DIR` startup input, with no `lab-settings.json` and no `library/configure`; provider config fixed at startup; `/health` with key descriptor (#15); evidence written only for requests with `trace` | Server writes only beneath `--library`; `POST /api/provider` is gone |
+| P0.3 | Explicit TS server state: library directory becomes a `--library DIR` startup input, with no `lab-settings.json` and no `library/configure`; provider config fixed at startup; `/health` with key descriptor (#15); concept evidence under `<library>/evidence` | Server writes only beneath `--library`; `POST /api/provider` is gone |
 | P0.4 | Client stops executing Engine code: add `render` `view` and `build`; remove `checkDraft`, `conceptContract` and `kitStats` runtime imports | Bundle metafile has no `src/core` or `zod` |
 | P0.5 | Separate `research` from `prepare` (C9); profile becomes an explicit `prepare` input | `/character` returns sources; #13's profile tab can drive `prepare` |
 | P0.6 | Adopt the TS endpoint shapes of [A.5](#a5-serve-http-api) under `/api/v1` | The web client uses only `/api/v1` |
@@ -185,20 +183,20 @@ After Phase 0 the TypeScript server already has the target contract, and `serve`
 
 #### Phase 1: Go vertical slices
 
-Each slice delivers a Go command plus golden tests, and matching `serve` handlers. The TS server then delegates that operation to the Go binary: `execFile("mardwerk-unit", [op, "-", "--json-errors"])` with JSON on stdin and stdout, and the child process is killed on disconnect. Any TS module left with no consumer is deleted in the same slice. The web app keeps working throughout and exercises Go from the first slice.
+Each slice delivers a Go command, its golden tests and its `serve` handler, usable from the terminal immediately. The web app stays on the TypeScript server, which already speaks the `/api/v1` contract after P0.6, until S9. There `mardwerk-unit serve` replaces it in one step; because the contract does not change, the switch is a server swap, not a client rewrite. No bridge code is written in either language. TypeScript backend code is deleted at S9 and S10, when nothing uses it any more.
 
-| Slice | Go scope (approximate TS lines replaced) | TS deleted at end | Done when | Size |
-| --- | --- | --- | --- | --- |
-| S1 `render`, `inspect` | contract types, strict decode, v1 hash verify, Markdown, `view` (≈2,000) | `presentation/markdown.ts`, `details.ts`, `view.ts` | Byte-identical Markdown for every golden artifact; every golden hash verifies | M |
-| S2 `build`, `definition` | mechanics resolve and legal builds (≈700) | – (still used by check) | All golden builds identical; illegal tiers rejected | S |
-| S3 `check` | checks, concept checks, design policy, evaluation, validate (≈2,100) | `check*.ts`, `mechanics/*` | Findings byte-identical for all golden drafts | M |
-| S4 `prepare` | request file, `url` documents, concept Definition/Profile resolution, default profile, hash write (≈900) | `prepare.ts`, `request-file.ts`, `sources.ts`, profiles | Prepared bytes and hashes identical | M |
-| S5 `draft` (concept) + providers | `ModelClient`, OpenRouter (plain HTTP), Codex, evidence (≈1,900) | `draft.ts` concept path, `node/openrouter*`, `codex*`, `evidence.ts` | Every golden `ModelRequest` byte-identical; the same fake responses produce identical drafts; adapter error mapping matches | L |
-| S6 `draft` (planned-v1) | plan, decode, feasibility, repair, compile, evaluation (≈2,700) | `core/planned-v1/*` | As S5, including repair sequences and usage aggregation | L |
-| S7 `review`, `author`, `edit` | review prompts and validation (≈300) | `review.ts`, `author.ts` | Golden results identical | S |
-| S8 `research` | lookup, visuals, techniques (≈1,250) | `character-*.ts`, `source-retrieval.ts` | Recorded HTTP fixtures produce identical sources | M |
-| S9 `serve`, library, images | routes, security checks, library store and icon files, image API and PNG normalization (≈1,130) | `src/lab/*.ts` server and library, `node/image-generation.ts` | Web client talks to Go only; Lab security and library tests ported | L |
-| S10 cleanup | switch writers to hash v2; remove TS package exports, `tsconfig` backend build, Node runtime dependency for users | `src/core`, `src/node`, `src/cli.ts` | `web/` is the only TypeScript | S |
+| Slice | Go scope (approximate TS lines replaced) | Done when | Size |
+| --- | --- | --- | --- |
+| S1 `render`, `inspect` | contract types, strict decode, v1 hash verify, Markdown, `view` (≈2,000) | Byte-identical Markdown for every golden artifact; every golden hash verifies | M |
+| S2 `build`, `definition` | mechanics resolve and legal builds (≈700) | All 216 tier selections classified as today (64 legal); golden builds identical | S |
+| S3 `check` | checks, concept checks, design policy, evaluation, validate (≈2,100) | Findings byte-identical for all golden drafts | M |
+| S4 `prepare` | request file, `url` documents, concept Definition/Profile resolution, default profile, hash write (≈900) | Prepared bytes and hashes identical | M |
+| S5 `draft` (concept) + providers | `unit.Model`, OpenRouter (plain HTTP), Codex, evidence (≈1,900) | Every golden `ModelRequest` byte-identical; the same fake responses produce identical drafts; adapter error mapping matches | L |
+| S6 `draft` (planned-v1) | plan, decode, feasibility, repair, compile, evaluation (≈2,700) | As S5, including repair sequences and usage aggregation | L |
+| S7 `review`, `author`, `edit`, `generate` | review prompts and validation, CLI compositions (≈300) | Golden results identical | S |
+| S8 `research` | lookup, visuals, techniques (≈1,250) | Recorded HTTP fixtures produce identical sources | M |
+| S9 `serve`, library, images | routes, security checks, library store and icon files, image API and PNG normalization (≈1,130) | Web client talks to Go only; Lab security and library tests ported; `src/lab/*.ts` server deleted | L |
+| S10 cleanup | switch writers to hash v2; delete `src/core`, `src/node`, `src/cli.ts` and backend `presentation`; remove TS package exports | `web/` is the only TypeScript | S |
 
 Sizes: S is up to about 1 day, M a few days, L 1–2 weeks. These are relative estimates, not commitments.
 
@@ -207,7 +205,7 @@ Sizes: S is up to about 1 day, M a few days, L 1–2 weeks. These are relative e
 - **Research (S8).** It is network- and fixture-heavy and not needed by the other slices, because `prepare` accepts explicit documents. The TS `character` path keeps serving the web app until S8.
 - **Planned-v1 drafting (S6).** It has the largest prompt, repair and decode surface and the most golden `ModelRequest` bytes. Port it after the concept route has proven the model-boundary harness.
 - **Image generation (S9).** It needs the provider key and PNG/WebP normalization, which currently uses `sharp`, and it is only reachable from the web app.
-- **The TS server shim.** It stays until S9.
+- **The TypeScript server.** It keeps serving the web app, unchanged in contract, until S9.
 - **The web client.** It stays TypeScript permanently.
 - **`scripts/evaluate-unit-pipeline.mjs`.** It is never ported; it moves out of the repository before S10 (B13).
 
@@ -230,12 +228,11 @@ Today there are 55 test files with 426 top-level tests (**measured** by counting
 | `library` | 8 | `library` package tests: managed file names, symlink and non-regular-file refusal, cleanup, portrait preference |
 | `compact-spine-experiment`, `rulepack-layout`, `reference-authoring`, `reference-routing`, `attack-evidence`, `reference-patterns` (its 64-build check survives on extracted fixtures), `attack-patterns` | 54 | Retired with B6–B8 and B11 |
 
-Safeguards:
+Safeguards, kept deliberately small:
 
-1. `contracts/v1/TEST-MAP.csv` lists every TypeScript test title at the freeze commit with its Go or web test, or `retired:<reason>`. CI fails when a title is unmapped.
-2. A differential CI job runs the TS and Go implementations on the golden corpus and byte-compares outputs until S10.
-3. Record per-module coverage for the TS suite (`node --test --experimental-test-coverage`) before each slice. Go package coverage must not fall below it.
-4. Drop assertions about JavaScript object freezing (for example "reference catalogue is deeply frozen"). Replace them with "operation does not mutate its input" tests, which are meaningful in both languages.
+1. The golden corpus from P0.2 is the parity oracle. Go tests replay it; no job has to run TypeScript and Go side by side.
+2. Each slice's pull request lists the TypeScript tests it replaces or retires, with one reason per retired test.
+3. Drop assertions about JavaScript object freezing (for example "reference catalogue is deeply frozen"). Replace them with "operation does not mutate its input" tests, which are meaningful in both languages.
 
 ## B. Cleanup
 
@@ -300,6 +297,8 @@ Statements that are false today (verification by the command or path given):
 | [IMAGE-GENERATION.md](IMAGE-GENERATION.md) | `openai/gpt-image-1-mini` is a supported alternative | Not on the allowlist; fine for users, but an agent may not use it |
 | [research/btd6/PATTERNS.md](../research/btd6/PATTERNS.md) | Links to `btd6-crosspath.txt`, `btd6_abilities.csv`, `btd6-activated-abilities.txt` | Retired files; links are broken |
 | `.gitattributes` | Rule for `research/game-design/…` | Path does not exist |
+| [LAB.md](LAB.md) | "Original characters use the supplied identity, scope and design direction" for portrait prompts | Original-character authoring is deferred; remove the promise |
+| [CONTEXT.md](../CONTEXT.md), [PRODUCT.md](PRODUCT.md) | UnitLab "retains local settings, work and generation history" | After decision F.1, saved work lives only in the user-named `--library` directory written by the CLI and `serve`; there are no retained settings |
 | Issue #4 | Audit "role ranking" | Feature was removed |
 | Review brief | `examples/` directory | Moved to `data/reference/` in `5273757` |
 
@@ -330,9 +329,10 @@ These are ranked by measured or recorded cost. Each needs its before/after measu
 | 2 | Cold start for scripted per-stage calls: `cli.ts` imports every adapter (OpenRouter SDK, cheerio, Codex, evidence) even for `render` or `check` | Go binary (S1); interim TS fix is lazy `import()` per command | S (TS) / part of S1 | `hyperfine 'node dist/cli.js render g.json' 'mardwerk-unit render g.json'`, plus `node --cpu-prof` for module-load share |
 | 3 | Client bundle: 914,053 B minified, 236,512 B gzip; Zod 453,334 B and Engine 136,476 B (**measured** with an esbuild metafile) | Remove Engine and Zod from the client (P0.4) | M, part of P0.4 | esbuild `--metafile` totals; Chrome trace "Evaluate Script" at 4× CPU throttle on first load |
 | 4 | Test loop: `pnpm test` deletes `.test-build` and recompiles all of `src` and `tests` with `tsc` on every run | `tsc --incremental` with a persisted build-info file, or run `.ts` tests through Node type stripping and keep `tsc --noEmit` for typecheck | S | `time pnpm test`, split into the compile phase and the `node --test` phase, three runs each |
-| 5 | Research latency: sequential round trips (search, up to three sequential collection fetches at [character-source.ts:210-225](../src/node/character-source.ts), article, then parallel visuals) | Fetch collection candidates concurrently | S | Wall time of `research` against recorded fixtures with injected 200 ms latency per request, and live p50 over ten names |
+| 5 | Development loop: `pnpm dev` watches all of `src`, so a web-only edit rebuilds and restarts the backend, which interrupts active generations ([LAB.md](LAB.md)) | Interim: restart the server only for backend paths and rebuild the client with esbuild watch. After S9 the Go binary and the web build are separate anyway | S | Backend restarts per web-only edit (target 0) and save-to-visible latency over the same edit sequence |
+| 6 | Research latency: sequential round trips (search, up to three sequential collection fetches at [character-source.ts:210-225](../src/node/character-source.ts), article, then parallel visuals) | Fetch collection candidates concurrently | S | Wall time of `research` against recorded fixtures with injected 200 ms latency per request, and live p50 over ten names |
 
-Rejected because the measured cost is too small to matter: caching or deduplicating `hashRequest` (0.7 ms for 120 KB), 64-build validation (≈3 ms), `allLegalBuilds` (0.1 ms), and repeated artifact parsing in `readArtifactView`. If #4 ever generalizes the Engine beyond 3×5, measure legal-build enumeration growth for the proposed rules before enabling it.
+Rejected because the measured cost is too small to matter: caching or deduplicating `hashRequest` (0.7 ms for 120 KB), 64-build validation (≈3 ms), `allLegalBuilds` (0.1 ms), repeated artifact parsing in `readArtifactView`, and the repeated check inside `generate` (planned-v1 drafting already calls `checkDraft` at [planned-v1/draft.ts:284](../src/core/planned-v1/draft.ts), then the CLI checks again). The repeated check is a publication safeguard that costs milliseconds; keep it. If #4 ever generalizes the Engine beyond 3×5, measure legal-build enumeration growth for the proposed rules before enabling it.
 
 Measurements were taken on Node 22.22.2 in this review container. Rerun them on the project's Node 24 baseline before quoting them.
 
@@ -345,7 +345,7 @@ Measurements were taken on Node 22.22.2 in this review container. Rerun them on 
 | #12 Go CLI + `serve` | Section A |
 | #13 single mode + profile editor | P0.5: Profile is an explicit `prepare` input served by `/profiles`; remove the per-generation Output selector (B9 decided; B10 open) |
 | #14 create-view state loss | Client only: `newCreate` ([use-authoring.ts:462](../src/lab/client/use-authoring.ts)) must not reset a non-empty draft; merge the two editor models (B1 follow-up); keep the draft in client storage |
-| #15 key indicator | `/health` `provider.key {configured, source, hint}` computed from startup config; never the full key |
+| #15 key indicator | `/health` `provider.key {configured, source, hint}` computed from startup config; `configured` means present, not verified; never the full key |
 
 ## E. Unproven risks
 
@@ -381,6 +381,25 @@ Still open:
 1. **`direct` numerical route (B10).** Keep it as a study baseline, or merge it into `planned-v1`. Decide before S6 so it is not ported speculatively.
 2. **How the library folder is chosen.** This plan assumes the `--library DIR` startup flag (default `data/runs/library`), shown read-only in Settings. Switching folders from the UI would need either an in-memory switch that `/health` reports and nothing persists, or persisted settings, which bring back hidden state.
 3. **`btd6_towers.json` (B14).** Move the 1.28 MB file to the research workspace, or keep it.
+
+## G. Rejected alternatives
+
+A ChatGPT review posted on the pull request was checked against this checkout. Its reviewer could not clone the repository and read pages cached three days earlier, so its code claims were verified before use. Adopted: separating research from request assembly, moving artifact decoding out of presentation, "configured is not verified" for #15, classifying all 216 tier selections, keeping the no-overwrite hard-link write, correcting the original-character wording and the development-loop restart cost. Rejected:
+
+| Proposal | Why it was rejected |
+| --- | --- |
+| `POST /v1/rank` endpoint; "draft optionally performs role ranking" | Role ranking was deleted before this review; no `rank` code exists in `src/` or `tests/` |
+| Separate `config`, `cli`, `httpapi`, `presentation`, `source`, `contract/v1` and `legacyts` packages | More packages than responsibilities. `main` owns configuration and CLI parsing; the Engine owns its contract types; there is no bridge |
+| A source-retrieval interface next to the model interface | The Engine never calls research; research output is an ordinary `prepare` input |
+| A temporary TypeScript "stage worker" that Go `serve` delegates to | Bridge code in both languages that is deleted later. The web app keeps using the TypeScript server until Go reaches parity at S9 |
+| Request/Result envelope with `apiVersion`, `requestId` and `status` | A synchronous local API already has HTTP status and a stable error `code`; the version is in the URL |
+| HTTP `generate`, `author` and `edit` endpoints | The web client already runs stages itself; compositions stay CLI-only |
+| New status codes 409, 503 and 504 | The client branches on `code`, not status; today's statuses stay |
+| Removing the library, automatic saves, icons and portraits | Superseded by decision F.1: the library stays, in a user-named directory |
+| Compressing the browser's multi-run revision machinery | A product feature of the client, not Tool state; outside this split |
+| Reusing deterministic evaluation within one invocation as the top optimization | Measured at single-digit milliseconds per check (see [C](#c-optimizations)) |
+| "The CLI constructs providers and ranking for every command" | Providers are created lazily, only for model operations ([cli.ts](../src/cli.ts) `model` closure); only imports are eager (optimization 2) |
+| "The CLI guide still describes older single-blueprint behavior" | Stale cache; `CLI.md` describes the two-stage `planned-v1` route |
 
 ## Verification performed for this plan
 
