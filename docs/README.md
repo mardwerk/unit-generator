@@ -23,6 +23,7 @@ These are supporting documents. Read them for the named question, rather than as
 
 | Document | Reader's question | Scope |
 | --- | --- | --- |
+| [RESTRUCTURE-PLAN.md](RESTRUCTURE-PLAN.md) | How do we shrink the code and split it into a stateless Go CLI, `serve` API and web client? | Proposed migration order, cleanup cuts, optimizations with measurements, open decisions. Not implemented. |
 | [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) | What work remains next? | Current pending work and readiness criteria. |
 | [REFINEMENT.md](REFINEMENT.md) | How do we choose and evaluate a correction? | Development evidence, frozen comparisons and study protocol. |
 | [GENERATION-FOUNDATION.md](GENERATION-FOUNDATION.md) | Why does the default numerical route separate purchase intent from mechanics? | Explanation of `planned-v1`, evidence and numerical policy limits. |
