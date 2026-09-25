@@ -19,10 +19,6 @@
     "./node": {
       "types": "./dist/node/index.d.ts",
       "import": "./dist/node/index.js"
-    },
-    "./experiments/compact-spine": {
-      "types": "./dist/experiments/compact-spine/index.d.ts",
-      "import": "./dist/experiments/compact-spine/index.js"
     }
   },
   "files": [

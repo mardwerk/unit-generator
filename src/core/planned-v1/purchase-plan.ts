@@ -18,7 +18,7 @@ const branch = retainedBranch.omit({ crosspaths: true, referenceExample: true })
 /** One description and one checkable promise per purchase. No repeated intent tree
  * or invented crosspath prose. The public retained plan stays backward compatible. */
 export const purchasePlanSchema = designPlanSchema
-  .omit({ upgradeIntents: true, interpretation: true })
+  .omit({ upgradeIntents: true })
   .extend({
     contract: z.literal('purchase-plan-v1'),
     paths: z.strictObject({ path1: branch, path2: branch, path3: branch }),

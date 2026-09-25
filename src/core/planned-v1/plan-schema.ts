@@ -1,6 +1,5 @@
 import { z } from 'zod';
 import { pathKeys, tierKeys } from '../mechanics/schemas.js';
-import { interpretationInputSchema } from '../design.js';
 
 const text = z.string().trim().min(1).max(800);
 // Citation bounds match the bounded authoring evidence catalogue, not a prose quota.
@@ -81,20 +80,17 @@ export const designPlanSchema = z.strictObject({
   omittedTechniques: z.array(z.strictObject({ name: text.max(80), reason: text })).max(12),
   scopeLimits: z.array(text).max(24),
   upgradeIntents: upgradeIntentsSchema.optional(),
-  /** Optional pinned interpretation, bound by code from the request, never the model. */
-  interpretation: interpretationInputSchema.optional(),
 });
 export type UnitDesignPlan = z.infer<typeof designPlanSchema>;
 
 /** A small lexical floor catches empty placeholder output, not strategic quality.
  * Keep this authoring check separate so old retained plans remain inspectable. */
 export const designPlanAuthoringSchema = designPlanSchema
-  .omit({ interpretation: true })
   .extend({ upgradeIntents: upgradeIntentsSchema })
   .superRefine((plan, context) => {
     const wordSegments = new Intl.Segmenter(undefined, { granularity: 'word' });
     function inspect(value: unknown, path: (string | number)[]): void {
-      if (path[0] === 'upgradeIntents' || path[0] === 'interpretation') return;
+      if (path[0] === 'upgradeIntents') return;
       if (typeof value === 'string') {
         if (path.at(-1) === 'name' || path.includes('sourceIds') || path.at(-1) === 'path') return;
         const words = [...wordSegments.segment(value)].filter(

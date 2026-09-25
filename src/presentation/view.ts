@@ -1,4 +1,3 @@
-import type { InterpretationInput } from '../core/design.js';
 import {
   checkedArtifactSchema,
   draftArtifactSchema,
@@ -19,7 +18,6 @@ export interface ArtifactView {
   reviewSummary: string | null;
   usage: UsageSummary;
   designEvaluation?: DesignEvaluation;
-  interpretation?: InterpretationInput;
 }
 
 export function readArtifactView(input: unknown): ArtifactView {
@@ -36,9 +34,6 @@ export function readArtifactView(input: unknown): ArtifactView {
       ...(result.data.run.draft.designEvaluation
         ? { designEvaluation: result.data.run.draft.designEvaluation }
         : {}),
-      ...(result.data.run.draft.designPlan?.interpretation
-        ? { interpretation: result.data.run.draft.designPlan.interpretation }
-        : {}),
     };
   }
   const checked = checkedArtifactSchema.safeParse(input);
@@ -54,9 +49,6 @@ export function readArtifactView(input: unknown): ArtifactView {
       ...(checked.data.draft.run.designEvaluation
         ? { designEvaluation: checked.data.draft.run.designEvaluation }
         : {}),
-      ...(checked.data.draft.run.designPlan?.interpretation
-        ? { interpretation: checked.data.draft.run.designPlan.interpretation }
-        : {}),
     };
   }
   const draft = draftArtifactSchema.parse(input);
@@ -69,9 +61,6 @@ export function readArtifactView(input: unknown): ArtifactView {
     reviewSummary: null,
     usage: summarizeUsage(draft),
     ...(draft.run.designEvaluation ? { designEvaluation: draft.run.designEvaluation } : {}),
-    ...(draft.run.designPlan?.interpretation
-      ? { interpretation: draft.run.designPlan.interpretation }
-      : {}),
   };
 }
 
