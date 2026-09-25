@@ -3,7 +3,6 @@ import {
   applyProfile,
   defaultUnitProfile,
   prepareRequest,
-  qualitativeUnitProfile,
   starterAuthoringTask,
   type AuthorRequest,
   type PreparedRequest,
@@ -32,9 +31,8 @@ export type CharacterPreparation =
   PreparedRequest | { kind: 'choices'; choices: CharacterChoice[] };
 
 interface LookupOptions {
-  /** The Profile to generate under. Without one, `deliverable` picks a bundled Profile. */
+  /** The Profile to generate under; the bundled default when omitted. */
   profile?: UnitProfile;
-  deliverable?: 'concept' | 'mechanics';
   choice?: number;
   signal?: AbortSignal;
   fetch?: typeof fetch;
@@ -303,8 +301,6 @@ export async function prepareCharacter(
     previous: null,
     feedback: null,
   };
-  const profile =
-    options.profile ??
-    (options.deliverable === 'concept' ? qualitativeUnitProfile : defaultUnitProfile);
+  const profile = options.profile ?? defaultUnitProfile;
   return prepareRequest(applyProfile(request, profile));
 }

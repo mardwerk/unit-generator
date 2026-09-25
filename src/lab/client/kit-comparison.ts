@@ -48,7 +48,7 @@ function entries(unit: UnitCandidate): Entry[] {
         key: `path:${path.id}`,
         section: 'Upgrade path',
         name: path.name,
-        fields: { Name: path.name, Theme: path.theme, Limitation: path.limitation ?? '' },
+        fields: { Name: path.name, Theme: path.theme },
       },
       ...path.tiers.map((tier) => ({
         key: `tier:${path.id}:${tier.tier}`,
@@ -73,7 +73,6 @@ function entries(unit: UnitCandidate): Entry[] {
         Delivery: ability.delivery,
         Targeting: ability.targeting,
         Restrictions: ability.limitations,
-        Activation: ability.activation ?? '',
         Placement: [
           ability.placement,
           ability.pathId ? (paths.get(ability.pathId) ?? 'Missing path') : '',
@@ -84,16 +83,6 @@ function entries(unit: UnitCandidate): Entry[] {
         Prerequisites: names(ability.prerequisiteAbilityIds, abilities),
         Mechanics: names(ability.mechanicIds, mechanics),
         Status: ability.status.replaceAll('_', ' '),
-      },
-    })),
-    ...(unit.crosspaths ?? []).map((crosspath) => ({
-      key: `crosspath:${crosspath.mainPathId}:${crosspath.secondaryPathId}`,
-      section: 'Crosspath',
-      name: `${paths.get(crosspath.mainPathId) ?? crosspath.mainPathId} with ${paths.get(crosspath.secondaryPathId) ?? crosspath.secondaryPathId}`,
-      fields: {
-        'Borrowed tiers': crosspath.borrowedTiers.join(', '),
-        Interaction: crosspath.interaction,
-        Choice: crosspath.choice,
       },
     })),
     ...unit.mechanics.map((mechanic) => ({

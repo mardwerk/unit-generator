@@ -2,7 +2,7 @@ import { readFile, stat } from 'node:fs/promises';
 import { createHash } from 'node:crypto';
 import { dirname, resolve } from 'node:path';
 import { z } from 'zod';
-import { requestSchema, conceptContract, type AuthorRequest } from '../core/index.js';
+import { requestSchema, type AuthorRequest } from '../core/index.js';
 import { readArtifactView } from '../presentation/view.js';
 import { verifyPrepared } from '../core/prepare.js';
 import { loadDocument } from './sources.js';
@@ -67,7 +67,6 @@ export async function loadRequestFile(
     input.documents.map((document) => loadDocument(document, base, { signal: options.signal })),
   );
   let previous = input.previous;
-  let retainedSkill = input.conceptSkill;
   const priorFile =
     options.previousResultFile ??
     (input.previousResultFile ? resolve(base, input.previousResultFile) : undefined);
@@ -75,23 +74,18 @@ export async function loadRequestFile(
     const saved = await readJsonFile(priorFile);
     const result = readArtifactView(saved);
     await verifyPrepared(result.prepared);
-    retainedSkill ??= result.prepared.request.conceptSkill;
     previous = {
       resultId:
         result.resultId ??
         `artifact:${createHash('sha256').update(JSON.stringify(saved)).digest('hex')}`,
       draft: result.candidate,
       findings: result.findings,
-      ...(conceptContract(result.prepared.request)
-        ? { conceptContract: conceptContract(result.prepared.request) }
-        : {}),
     };
   }
   const { previousResultFile: _file, ...request } = input;
   return requestSchema.parse({
     ...request,
     documents,
-    ...(retainedSkill ? { conceptSkill: retainedSkill } : {}),
     previous,
     feedback: options.feedback ?? input.feedback,
   });

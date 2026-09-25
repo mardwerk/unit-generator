@@ -39,9 +39,6 @@ export function App() {
   const [libraryError, setLibraryError] = useState('');
   const [settings, setSettings] = useState(false);
   const [feedback, setFeedback] = useState('');
-  const [revisionOperation, setRevisionOperation] = useState<'redesign' | 'prose-edit' | 'adapt'>(
-    'redesign',
-  );
   const inputFile = useRef<HTMLInputElement>(null);
   const previous = candidateOf(
     session.revisions.find((entry) => entry.id === session.comparisonId)?.artifact ?? null,
@@ -308,23 +305,6 @@ export function App() {
                       Reuse retained sources, rules and guidance. The currently selected model is
                       recorded on the new run.
                     </p>
-                    {session.input.base.deliverable === 'concept' && (
-                      <Field label="Revision type">
-                        <select
-                          value={revisionOperation}
-                          disabled={session.busy}
-                          onChange={(e) =>
-                            setRevisionOperation(
-                              e.target.value as 'redesign' | 'prose-edit' | 'adapt',
-                            )
-                          }
-                        >
-                          <option value="redesign">Change the design</option>
-                          <option value="prose-edit">Edit wording and preserve mechanics</option>
-                          <option value="adapt">Adapt to changed rules</option>
-                        </select>
-                      </Field>
-                    )}
                     <Field label="What should change?">
                       <textarea
                         id="feedback"
@@ -339,7 +319,7 @@ export function App() {
                       type="button"
                       className="primary"
                       disabled={session.busy}
-                      onClick={() => session.revise(feedback, revisionOperation)}
+                      onClick={() => session.revise(feedback)}
                     >
                       Generate revision
                     </button>

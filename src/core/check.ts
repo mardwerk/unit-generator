@@ -1,4 +1,3 @@
-import { checkConcept } from './concept.js';
 import { interpretationCitationIssues } from './planned-v1/plan.js';
 import {
   draftArtifactSchema,
@@ -138,7 +137,6 @@ export async function checkDraft(input: DraftArtifact): Promise<CheckedArtifact>
             'Restore a permitted retained span citation. Citation coverage alone does not establish semantic fidelity.',
         });
   }
-  checkConcept(draft, report);
   checkEvidence(candidate, request, report);
   checkDependencies(candidate, request, report);
   checkProgression(candidate, request.progression, report);

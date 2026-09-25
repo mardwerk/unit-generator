@@ -1,4 +1,3 @@
-import { conceptContract } from '../../core/concept-definition.js';
 import { useEffect, useRef, useState } from 'react';
 import type { InspectedInput, LabArtifact, LabRequest, LabStage } from '../contracts.js';
 import { api } from './api.js';
@@ -15,7 +14,7 @@ import {
   type Revision,
 } from './artifacts.js';
 import { editRequest, readEditor, selectProfile, type EditorInput } from './editor-state.js';
-import { defaultUnitProfile, qualitativeUnitProfile, type UnitProfile } from '../../core/index.js';
+import { defaultUnitProfile, type UnitProfile } from '../../core/index.js';
 
 import {
   createDraft,
@@ -147,15 +146,12 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
       : {
           ...emptyRequest(),
           character: { ...emptyRequest().character, name: query },
-          ...(input.base.deliverable ? { deliverable: input.base.deliverable } : {}),
         };
     const revision =
       !fresh && choice !== undefined && selected
         ? selected
         : insertRevision(request, null, foreground, fresh?.profile ?? undefined);
-    const profile =
-      revision.profile ??
-      (revision.request.deliverable === 'concept' ? qualitativeUnitProfile : undefined);
+    const profile = revision.profile;
     await manager.start(revision, {
       remaining,
       lookup: {
@@ -205,7 +201,7 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
       },
     });
   }
-  function revise(text: string, operation: 'redesign' | 'prose-edit' | 'adapt' = 'redesign') {
+  function revise(text: string) {
     if (!text.trim()) {
       reportError(new Error('Describe what should change.'));
       return;
@@ -225,12 +221,8 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
           resultId: priorId,
           draft: candidate,
           findings: artifact.kind === 'draft' ? [] : artifact.findings,
-          ...(conceptContract(requestOf(artifact))
-            ? { conceptContract: conceptContract(requestOf(artifact)) }
-            : {}),
         },
         feedback: text.trim(),
-        ...(requestOf(artifact).deliverable === 'concept' ? { operation } : {}),
       };
       void run(true, request);
     } catch (error) {

@@ -13,7 +13,7 @@ export type CreateDraft = {
 
 /** True when a request already names the rules it is generated under. */
 export function hasProfileRules(request: LabRequest): boolean {
-  return Boolean(request.mechanicsDefinition || request.conceptDefinition || request.conceptRules);
+  return Boolean(request.mechanicsDefinition);
 }
 
 /** The explicit request a draft generates: its own rules, or the selected Profile's. */

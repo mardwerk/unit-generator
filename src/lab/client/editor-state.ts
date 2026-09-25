@@ -1,6 +1,6 @@
 import type { LabDocument, LabRequest } from '../contracts.js';
 import type { ResolvedDocument } from '../../core/index.js';
-import { applyProfile, defaultConceptProfile, type UnitProfile } from '../../core/index.js';
+import { applyProfile, type UnitProfile } from '../../core/index.js';
 
 export interface DocumentInput {
   id: string;
@@ -18,9 +18,6 @@ export interface EditorInput {
   task: string;
   constraints: string;
   progression: string;
-  conceptRules?: string;
-  conceptDefinition?: string;
-  conceptProfile?: string;
   documents: DocumentInput[];
 }
 export function editRequest(request: LabRequest): EditorInput {
@@ -30,15 +27,6 @@ export function editRequest(request: LabRequest): EditorInput {
     task: request.task,
     constraints: JSON.stringify(request.constraints, null, 2),
     progression: JSON.stringify(request.progression, null, 2),
-    ...(request.conceptRules
-      ? { conceptRules: JSON.stringify(request.conceptRules, null, 2) }
-      : {}),
-    ...(request.conceptDefinition
-      ? {
-          conceptDefinition: JSON.stringify(request.conceptDefinition, null, 2),
-          conceptProfile: JSON.stringify(request.conceptProfile ?? null, null, 2),
-        }
-      : {}),
     documents: request.documents.map((document) => ({
       id: document.id,
       kind: document.kind,
@@ -53,96 +41,60 @@ export function editRequest(request: LabRequest): EditorInput {
 }
 export function readEditor(input: EditorInput): LabRequest {
   let constraints: unknown, progression: unknown;
-  let conceptRules: LabRequest['conceptRules'];
-  let conceptDefinition = input.base.conceptDefinition;
-  let conceptProfile = input.base.conceptProfile;
-  if (input.conceptDefinition !== undefined) {
-    try {
-      conceptDefinition = JSON.parse(input.conceptDefinition);
-      conceptProfile = JSON.parse(input.conceptProfile ?? 'null') ?? undefined;
-    } catch {
-      throw new Error('Concept Definition and Profile must contain valid JSON.');
-    }
-    if (!conceptDefinition) throw new Error('Concept Definition must be an explicit object.');
-  }
-  const contractEdited =
-    JSON.stringify(conceptDefinition) !== JSON.stringify(input.base.conceptDefinition) ||
-    JSON.stringify(conceptProfile) !== JSON.stringify(input.base.conceptProfile);
   try {
     constraints = JSON.parse(input.constraints);
     progression = JSON.parse(input.progression);
   } catch {
     throw new Error('Constraints and progression must contain valid JSON.');
   }
-  if (input.base.deliverable === 'concept') {
-    try {
-      conceptRules = JSON.parse(input.conceptRules ?? '');
-    } catch {
-      throw new Error('Concept rules must contain a valid JSON object.');
-    }
-    if (!conceptRules || typeof conceptRules !== 'object' || Array.isArray(conceptRules))
-      throw new Error('Concept rules must contain a valid JSON object.');
-  }
-  const { conceptProfile: _previousProfile, ...base } = input.base;
   return {
-    ...base,
+    ...input.base,
     character: input.character,
     task: input.task,
     constraints,
     progression,
-    ...(conceptRules ? { conceptRules } : {}),
-    ...(conceptDefinition ? { conceptDefinition } : {}),
-    ...(conceptProfile ? { conceptProfile } : {}),
-    ...(contractEdited ? { progression: null, conceptRules: undefined } : {}),
-    documents: input.documents
-      .filter(
-        (document) =>
-          !contractEdited ||
-          (!document.id.startsWith('concept-definition:') &&
-            document.id !== defaultConceptProfile.id),
-      )
-      .map((document) => {
-        if (document.mode === 'url')
-          return {
-            id: document.id,
-            kind: document.kind,
-            url: document.url,
-            ...(document.sourceUrl ? { sourceUrl: document.sourceUrl } : {}),
-          };
-        const original = document.original;
-        if (
-          original &&
-          original.id === document.id &&
-          original.kind === document.kind &&
-          original.text === document.text
-        )
-          return original;
+    documents: input.documents.map((document) => {
+      if (document.mode === 'url')
         return {
           id: document.id,
           kind: document.kind,
-          text: document.text,
-          ...(original?.visualReferences ? { visualReferences: original.visualReferences } : {}),
-          ...(original?.visualNotes ? { visualNotes: original.visualNotes } : {}),
-          origin: {
-            location: original?.origin.location ?? document.sourceUrl ?? 'Browser-supplied text',
-            access: 'supplied',
-            note: original
-              ? 'Edited in mardwerk-unit. This text was supplied by the caller, not independently retrieved.'
-              : document.sourceUrl
-                ? 'Text supplied by the caller and attributed to this URL. The URL was not independently retrieved.'
-                : null,
-          },
+          url: document.url,
+          ...(document.sourceUrl ? { sourceUrl: document.sourceUrl } : {}),
         };
-      }),
+      const original = document.original;
+      if (
+        original &&
+        original.id === document.id &&
+        original.kind === document.kind &&
+        original.text === document.text
+      )
+        return original;
+      return {
+        id: document.id,
+        kind: document.kind,
+        text: document.text,
+        ...(original?.visualReferences ? { visualReferences: original.visualReferences } : {}),
+        ...(original?.visualNotes ? { visualNotes: original.visualNotes } : {}),
+        origin: {
+          location: original?.origin.location ?? document.sourceUrl ?? 'Browser-supplied text',
+          access: 'supplied',
+          note: original
+            ? 'Edited in mardwerk-unit. This text was supplied by the caller, not independently retrieved.'
+            : document.sourceUrl
+              ? 'Text supplied by the caller and attributed to this URL. The URL was not independently retrieved.'
+              : null,
+        },
+      };
+    }),
   };
 }
 
 /** Choosing a Profile replaces the rules and starts a new design; imported rules stay until then. */
 export function selectProfile(input: EditorInput, profile: UnitProfile): EditorInput {
-  return editRequest({
-    ...applyProfile(readEditor(input), profile),
-    operation: 'generate',
-    previous: null,
-    feedback: null,
-  });
+  const {
+    deliverable: _deliverable,
+    operation: _operation,
+    ...request
+  } = applyProfile(readEditor(input), profile);
+  return editRequest({ ...request, previous: null, feedback: null });
 }

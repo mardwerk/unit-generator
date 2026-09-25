@@ -31,20 +31,20 @@ The numerical Engine supports exactly 3 paths × 5 tiers. Other shapes need an e
   web client (TypeScript) ── HTTP ──> serve
 ```
 
-| Component | Owns | Never does |
-| --- | --- | --- |
-| Engine (`unit`, `mechanics`) | Contract types, preparation and hashing, drafting, checks, review, mechanics resolution | File or network access, environment reads, history |
-| `render` | Markdown and the web client's view data, from decoded artifacts | Model calls, validation decisions |
-| `provider` | Model and image calls behind `unit.Model` | Deciding what to generate |
-| `research` | Finding a character and retrieving source text and images | Applying a Profile or preparing a request |
-| `library` | Managed files beneath the chosen folder: artifacts, icons, portraits, saved Profiles, evidence | Reading anything outside that folder, saving implicitly |
-| CLI | Arguments, explicit input and output files, exit codes | Business rules |
-| `serve` | Local HTTP routes, session token, host/origin checks, embedded web assets | Jobs, runs or resumable state |
-| Web client | Screens, stage orchestration for the user, unsaved session state | Legality, build resolution, prompts, provider calls, authoritative validation |
+| Component                    | Owns                                                                                    | Never does                                                                    |
+| ---------------------------- | --------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| Engine (`unit`, `mechanics`) | Contract types, preparation and hashing, drafting, checks, review, mechanics resolution | File or network access, environment reads, history                            |
+| `render`                     | Markdown and the web client's view data, from decoded artifacts                         | Model calls, validation decisions                                             |
+| `provider`                   | Model and image calls behind `unit.Model`                                               | Deciding what to generate                                                     |
+| `research`                   | Finding a character and retrieving source text and images                               | Applying a Profile or preparing a request                                     |
+| `library`                    | Managed files beneath the chosen folder: artifacts, icons, portraits, saved Profiles    | Reading anything outside that folder, saving implicitly                       |
+| CLI                          | Arguments, explicit input and output files, exit codes                                  | Business rules                                                                |
+| `serve`                      | Local HTTP routes, session token, host/origin checks, embedded web assets               | Jobs, runs or resumable state                                                 |
+| Web client                   | Screens, stage orchestration for the user, unsaved session state                        | Legality, build resolution, prompts, provider calls, authoritative validation |
 
 ## Generation route
 
-There is one route; the Profile decides what it produces.
+There is one route; the Profile supplies the rules it follows.
 
 1. `research` finds the character and returns sources, or a list of choices when the name is ambiguous.
 2. `prepare` combines the sources with a Profile into one explicit request and records its hash.
@@ -59,7 +59,7 @@ Every stage is a separate operation that receives the previous artifact explicit
 
 - **Profile file.** One JSON document holding the Definition, its permitted Profile values, the rules text and the task. `prepare` copies the full Profile into the request, so the hash covers it and reloading an artifact never looks a Profile up by ID.
 - **Stable default.** One bundled Profile, BTD6-inspired: three paths of five tiers, BTD6 crosspath rules, and Dart Monkey reference costs, damage, rate, range and pierce. It is embedded in the binary and read-only; editing starts from a copy.
-- **Saved Profiles.** Files beneath `<library>/profiles/`, written through `/profiles/save`, which runs the same validation as `prepare`. A numerical Profile with any progression other than 3×5 is rejected with `UNSUPPORTED_PROGRESSION`.
+- **Saved Profiles.** Files beneath `<library>/profiles/`, written through `/profiles/save`, which runs the same validation as `prepare`. A Profile with any progression other than 3×5 is rejected with `UNSUPPORTED_PROGRESSION`.
 - **Web app.** A Profile Editor tab lists the default and saved Profiles, shows the selected one visually (paths × tiers, rules, numeric scale) and edits copies. The Generate tab has a Profile selector with the default preselected.
 - **CLI.** `--profile FILE`; without it, the bundled default.
 
@@ -71,22 +71,22 @@ Saved work lives only in a library folder the user chooses. It defaults to `data
 
 The binary is `mardwerk-unit`. Commands read explicit inputs, write one artifact to stdout or a new `-o` file (never overwriting: an exclusive temporary file is hard-linked into place), and write diagnostics to stderr. `-` reads JSON from stdin.
 
-| Command | Input → output | Model calls |
-| --- | --- | --- |
-| `research NAME [--choice ID]` | name → sources or choices | none |
-| `prepare REQUEST [--profile FILE] [--previous R --feedback T --operation M]` | request file + Profile → prepared request | none |
-| `generate NAME [--profile FILE]` | research + prepare + draft + check | 1–4 |
-| `draft PREPARED [--repairs N]` | → draft | 1–4 |
-| `check DRAFT` | → checked artifact | none |
-| `review CHECKED` | → Result | 1 |
-| `author REQUEST [...]` | prepare + draft + check + review → Result | 2–5 |
-| `edit RESULT --feedback T [--operation redesign\|prose-edit\|adapt]` | `author` with the Result as the previous version | 2–5 |
-| `render ARTIFACT [--details]` | → Markdown; verifies the input hash | none |
-| `build ARTIFACT --tiers A,B,C` | → resolved build | none |
-| `inspect ARTIFACT` | → kind, verification status, versions | none |
-| `definition` | → bundled mechanics Definition | none |
-| `library list\|save\|load\|delete [--library DIR]` | managed library files | none |
-| `serve [--port] [--provider] [--model] [--library DIR] [--web-dir]` | HTTP API | per request |
+| Command                                                             | Input → output                                   | Model calls |
+| ------------------------------------------------------------------- | ------------------------------------------------ | ----------- |
+| `research NAME [--choice ID]`                                       | name → sources or choices                        | none        |
+| `prepare REQUEST [--profile FILE] [--previous R --feedback T]`      | request file + Profile → prepared request        | none        |
+| `generate NAME [--profile FILE]`                                    | research + prepare + draft + check               | 1–4         |
+| `draft PREPARED [--repairs N]`                                      | → draft                                          | 1–4         |
+| `check DRAFT`                                                       | → checked artifact                               | none        |
+| `review CHECKED`                                                    | → Result                                         | 1           |
+| `author REQUEST [...]`                                              | prepare + draft + check + review → Result        | 2–5         |
+| `edit RESULT --feedback T`                                          | `author` with the Result as the previous version | 2–5         |
+| `render ARTIFACT [--details]`                                       | → Markdown; verifies the input hash              | none        |
+| `build ARTIFACT --tiers A,B,C`                                      | → resolved build                                 | none        |
+| `inspect ARTIFACT`                                                  | → kind, verification status, versions            | none        |
+| `definition`                                                        | → bundled mechanics Definition                   | none        |
+| `library list\|save\|load\|delete [--library DIR]`                  | managed library files                            | none        |
+| `serve [--port] [--provider] [--model] [--library DIR] [--web-dir]` | HTTP API                                         | per request |
 
 Exit codes: `0` the operation completed (findings may still fail), `1` execution failure, `2` usage error. With `--json-errors`, stderr carries the same error object as the HTTP API.
 
@@ -96,24 +96,24 @@ Configuration comes from flags, then the environment, then a `.env` file in the 
 
 `serve` binds `127.0.0.1` under `/api/v1`, injects a fresh session token into the page, and checks host, origin, token, JSON content type and a 32 MB body limit. Requests are synchronous and cancelled when the client disconnects; there are no job, run or history endpoints. Non-browser callers use the CLI.
 
-| Method and path | Body | Response |
-| --- | --- | --- |
-| `GET /health` | – | version, contract versions, Engine shape (3×5), provider `{kind, model, key:{configured, source, hint}}`, image readiness, library folder |
-| `GET /profiles` | – | bundled default and saved Profiles |
-| `POST /profiles/save`, `/profiles/delete` | `{profile}`, `{id}` | saved Profile or validation error, listing |
-| `POST /research` | `{name, choice?}` | sources or choices |
-| `POST /prepare` | `{request, profile?}`; documents are `text` or `url`, never `file` | prepared request |
-| `POST /draft` | `{prepared, options?:{maxRepairAttempts, model?}}` | draft |
-| `POST /check` | `{draft}` | checked artifact |
-| `POST /review` | `{checked, options?}` | Result |
-| `POST /render` | `{artifact, format:"markdown"\|"details"\|"view"}` | `{markdown}` or `{view}` |
-| `POST /build` | `{artifact, tiers:[a,b,c]}` | resolved build |
-| `POST /inspect` | `{artifact, editable?}` | `{kind, artifact, verified}` |
-| `POST /images` | `{prompt, model, confirmed:true}` | `{png, model, usage?}` |
-| `GET /library`, `POST /library/open` | –, `{directory}` | `{directory, entries}` |
-| `POST /library/save`, `/load`, `/delete` | `{artifact}`, `{id}`, `{ids}` | entry, `{artifact}`, listing |
-| `POST /library/icons`, `/library/icon` | `{artifact}`, `{artifact, iconKey, png, model, usage?}` | `{directory, icons}`, `{icons}` |
-| `POST /library/portrait`, `/library/portrait/get` | `{artifact, referenceId}`, `{artifact}` | portrait |
+| Method and path                                   | Body                                                               | Response                                                                                                                                  |
+| ------------------------------------------------- | ------------------------------------------------------------------ | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `GET /health`                                     | –                                                                  | version, contract versions, Engine shape (3×5), provider `{kind, model, key:{configured, source, hint}}`, image readiness, library folder |
+| `GET /profiles`                                   | –                                                                  | bundled default and saved Profiles                                                                                                        |
+| `POST /profiles/save`, `/profiles/delete`         | `{profile}`, `{id}`                                                | saved Profile or validation error, listing                                                                                                |
+| `POST /research`                                  | `{name, choice?}`                                                  | sources or choices                                                                                                                        |
+| `POST /prepare`                                   | `{request, profile?}`; documents are `text` or `url`, never `file` | prepared request                                                                                                                          |
+| `POST /draft`                                     | `{prepared, options?:{maxRepairAttempts, model?}}`                 | draft                                                                                                                                     |
+| `POST /check`                                     | `{draft}`                                                          | checked artifact                                                                                                                          |
+| `POST /review`                                    | `{checked, options?}`                                              | Result                                                                                                                                    |
+| `POST /render`                                    | `{artifact, format:"markdown"\|"details"\|"view"}`                 | `{markdown}` or `{view}`                                                                                                                  |
+| `POST /build`                                     | `{artifact, tiers:[a,b,c]}`                                        | resolved build                                                                                                                            |
+| `POST /inspect`                                   | `{artifact, editable?}`                                            | `{kind, artifact, verified}`                                                                                                              |
+| `POST /images`                                    | `{prompt, model, confirmed:true}`                                  | `{png, model, usage?}`                                                                                                                    |
+| `GET /library`, `POST /library/open`              | –, `{directory}`                                                   | `{directory, entries}`                                                                                                                    |
+| `POST /library/save`, `/load`, `/delete`          | `{artifact}`, `{id}`, `{ids}`                                      | entry, `{artifact}`, listing                                                                                                              |
+| `POST /library/icons`, `/library/icon`            | `{artifact}`, `{artifact, iconKey, png, model, usage?}`            | `{directory, icons}`, `{icons}`                                                                                                           |
+| `POST /library/portrait`, `/library/portrait/get` | `{artifact, referenceId}`, `{artifact}`                            | portrait                                                                                                                                  |
 
 Responses are the artifact or an error object, with no envelope. `generate`, `author` and `edit` exist only in the CLI; the web client runs the stages itself. `key.configured` means a key is present, not that it works.
 

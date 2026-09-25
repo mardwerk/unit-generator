@@ -19,7 +19,7 @@ import { Activity } from '../src/lab/client/activity.js';
 import { ProfilesView } from '../src/lab/client/profiles.js';
 import type { AuthoringSession } from '../src/lab/client/use-authoring.js';
 import { miraRequest } from './fixtures/core-fixtures.js';
-import { defaultUnitProfile, qualitativeUnitProfile } from '../src/core/index.js';
+import { defaultUnitProfile } from '../src/core/index.js';
 
 test('a new create draft is independent of the current run and imported rules survive naming', () => {
   const request = miraRequest();
@@ -250,9 +250,10 @@ test('an unsent create draft survives view switches and only an explicit action 
 
 test('the Profiles tab shows the default read-only and draws the path and tier shape', () => {
   const saved = {
-    ...structuredClone(qualitativeUnitProfile),
-    id: 'my-concept',
-    name: 'My concept rules',
+    ...structuredClone(defaultUnitProfile),
+    id: 'my-rules',
+    name: 'My rules',
+    rules: { ...structuredClone(defaultUnitProfile.rules), id: 'profile:my-rules' },
   };
   const profiles = [
     { profile: defaultUnitProfile, builtIn: true },
@@ -281,8 +282,8 @@ test('the Profiles tab shows the default read-only and draws the path and tier s
   assert.match($('.profile-facts').text(), /Gold/);
   assert.equal($('.profile-detail button:contains("Delete")').length, 0);
   assert.equal($('.profile-detail button:contains("Duplicate")').length, 1);
-  const own = view('my-concept');
-  assert.match(own('.profile-detail').text(), /Qualitative concept/);
+  const own = view('my-rules');
+  assert.match(own('.profile-detail h3').text(), /My rules/);
   assert.equal(own('.profile-detail button:contains("Delete")').length, 1);
   assert.equal(own('.profile-detail button:contains("Use for new units")').is('[disabled]'), true);
 
@@ -316,6 +317,6 @@ test('the Profiles tab shows the default read-only and draws the path and tier s
     form('#profile-select option')
       .toArray()
       .map((option) => form(option).text()),
-    ['Rules from imported inputs', 'BTD6-inspired (default)', 'My concept rules (saved)'],
+    ['Rules from imported inputs', 'BTD6-inspired (default)', 'My rules (saved)'],
   );
 });

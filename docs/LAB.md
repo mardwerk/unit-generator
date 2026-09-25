@@ -26,7 +26,7 @@ Enter a character name, pick a Profile (the BTD6-inspired default is preselected
 
 ## Profiles
 
-A Profile is the set of rules a unit is generated under: a Definition (numerical or qualitative), its rules text and the task. The **Profiles** tab lists the one built-in Profile, the read-only BTD6-inspired default (three paths of five tiers, BTD6 crosspath rules, 150 starting health and Dart Monkey reference costs, damage, rate, range and pierce), and the Profiles saved in `<library>/profiles/`. It shows the selected Profile's paths and tiers, prices, stats and limits. **Duplicate** makes an editable copy; saving runs the same checks as preparing a request, so a numerical Profile must keep three paths of five tiers. **Use for new units** selects it on the Generate form.
+A Profile is the set of rules a unit is generated under: a mechanics Definition, its rules text and the task. The **Profiles** tab lists the one built-in Profile, the read-only BTD6-inspired default (three paths of five tiers, BTD6 crosspath rules, 150 starting health and Dart Monkey reference costs, damage, rate, range and pierce), and the Profiles saved in `<library>/profiles/`. It shows the selected Profile's paths and tiers, prices, stats and limits. **Duplicate** makes an editable copy; saving runs the same checks as preparing a request, so a numerical Profile must keep three paths of five tiers. **Use for new units** selects it on the Generate form.
 
 ## Settings
 
@@ -35,7 +35,7 @@ A Profile is the set of rules a unit is generated under: a Definition (numerical
 
 ## Library
 
-Completed Results are saved automatically; earlier stages can be saved with Save to library. Entries are `unitlab-<content hash>.json` files, grouped by series with portraits. Delete and cleanup touch only those managed files. Exports: JSON (compatible with the CLI), Markdown, and a session download that keeps unsaved editor content. Qualitative runs also keep model inputs and raw outputs under `<library>/evidence/`.
+Completed Results are saved automatically; earlier stages can be saved with Save to library. Entries are `unitlab-<content hash>.json` files, grouped by series with portraits. Delete and cleanup touch only those managed files. Exports: JSON (compatible with the CLI), Markdown, and a session download that keeps unsaved editor content.
 
 ## Icons and portraits
 

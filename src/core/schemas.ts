@@ -90,7 +90,6 @@ const pathsSchema = z.array(
     id: text,
     name: text,
     theme: text,
-    limitation: text.optional(),
     tiers: z
       .array(
         z.strictObject({
@@ -119,7 +118,6 @@ const abilitiesSchema = z.array(
     targeting: text,
     limitations: text,
     placement: z.enum(['innate', 'upgrade', 'conditional', 'reserved', 'omitted']),
-    activation: z.enum(['automatic', 'manual']).optional(),
     pathId: text.nullable(),
     tier: z.number().int().positive().nullable(),
     mechanicIds: refs,
@@ -177,31 +175,6 @@ const unresolvedQuestionsSchema = z.array(
   }),
 );
 
-export const conceptCrosspathSchema = z.strictObject({
-  mainPathId: text,
-  secondaryPathId: text,
-  borrowedTiers: z.array(z.number().int().positive()).min(1),
-  interaction: text,
-  choice: text,
-});
-
-export const conceptRulesSchema = z.strictObject({
-  id: text,
-  version: text,
-  manualActivation: z.strictObject({
-    allowedSlots: z.array(
-      z.strictObject({ pathId: text, tiers: z.array(z.number().int().positive()).min(1) }),
-    ),
-    required: z.boolean(),
-  }),
-  crosspaths: z.strictObject({
-    mainFromTier: z.number().int().positive(),
-    secondaryThroughTier: z.number().int().positive(),
-    coverage: z.enum(['all-legal-pairs', 'none']),
-  }),
-  earlySupport: z.enum(['bounded', 'unrestricted']),
-});
-
 export const candidateSchema = z.strictObject({
   schemaVersion: version,
   character: characterSchema,
@@ -215,16 +188,6 @@ export const candidateSchema = z.strictObject({
   representativeBuilds: representativeBuildsSchema,
   unresolvedQuestions: unresolvedQuestionsSchema,
   blueprint: blueprintSchema.optional(),
-  crosspaths: z.array(conceptCrosspathSchema).optional(),
-});
-
-/** Concept output must declare controls and crosspaths, and cannot contain a numerical blueprint. */
-export const conceptCandidateSchema = candidateSchema.omit({ blueprint: true }).extend({
-  paths: z.array(pathsSchema.element.extend({ limitation: text })),
-  abilities: z.array(
-    abilitiesSchema.element.extend({ activation: z.enum(['automatic', 'manual']) }),
-  ),
-  crosspaths: z.array(conceptCrosspathSchema),
 });
 
 export const progressionSchema = z.strictObject({
@@ -247,50 +210,15 @@ export const progressionSchema = z.strictObject({
   allowedTierCombinations: z.array(z.array(z.number().int().nonnegative())).min(1).nullable(),
 });
 
-export const conceptDefinitionSchema = z.strictObject({
-  schemaVersion: z.literal('1', {
-    error: 'Unsupported concept Definition format revision; supported revision is 1.',
-  }),
-  id: text,
-  version: text,
-  progression: progressionSchema,
-  rules: conceptRulesSchema.omit({ id: true, version: true }),
-  guidance: text,
-  presentation: z.strictObject({ pathLabel: z.enum(['Path', 'Branch']) }),
-  profileOptions: z.strictObject({
-    earlySupport: z.array(z.enum(['bounded', 'unrestricted'])),
-    manualActivationRequired: z.array(z.boolean()),
-  }),
-});
-export const conceptProfileSchema = z.strictObject({
-  id: text,
-  version: text,
-  definition: z.strictObject({ id: text, version: text }),
-  overrides: z.strictObject({
-    earlySupport: z.enum(['bounded', 'unrestricted']).optional(),
-    manualActivationRequired: z.boolean().optional(),
-  }),
-});
-export const conceptSkillSchema = z.strictObject({ version: text, text });
-export const conceptContractSchema = z.strictObject({
-  progression: progressionSchema,
-  rules: conceptRulesSchema,
-  definition: conceptDefinitionSchema.optional(),
-  profile: conceptProfileSchema.optional(),
-  skill: conceptSkillSchema.optional(),
-  documents: z.array(resolvedDocumentSchema),
-  constraints: z.array(z.strictObject({ id: text, text })),
-});
-
 export const requestSchema = z.strictObject({
   schemaVersion: version,
   task: text,
-  deliverable: z.enum(['concept', 'mechanics']).optional(),
+  /**
+   * Legacy: requests saved before the qualitative route was removed may carry
+   * these. They have no effect; the CLI and web app never add them.
+   */
+  deliverable: z.literal('mechanics').optional(),
   operation: z.enum(['generate', 'redesign', 'prose-edit', 'adapt']).optional(),
-  conceptRules: conceptRulesSchema.optional(),
-  conceptDefinition: conceptDefinitionSchema.optional(),
-  conceptProfile: conceptProfileSchema.optional(),
-  conceptSkill: conceptSkillSchema.optional(),
   character: characterSchema,
   documents: z.array(resolvedDocumentSchema).min(1),
   constraints: z.array(
@@ -312,7 +240,6 @@ export const requestSchema = z.strictObject({
       resultId: text,
       draft: candidateSchema,
       findings: z.array(findingSchema),
-      conceptContract: conceptContractSchema.optional(),
     })
     .nullable(),
   feedback: text.nullable(),
@@ -418,8 +345,3 @@ export type AuthorResult = z.infer<typeof resultSchema>;
 export type SemanticReview = z.infer<typeof semanticReviewSchema>;
 
 export type ModelUsage = z.infer<typeof modelUsageSchema>;
-
-export type ConceptRules = z.infer<typeof conceptRulesSchema>;
-export type ConceptDefinition = z.infer<typeof conceptDefinitionSchema>;
-export type ConceptProfile = z.infer<typeof conceptProfileSchema>;
-export type ConceptContract = z.infer<typeof conceptContractSchema>;

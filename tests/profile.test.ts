@@ -1,14 +1,12 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import {
-  applyConceptProfile,
   applyDefaultProfile,
   applyProfile,
   bundledProfiles,
   defaultProgression,
   defaultUnitProfile,
   prepareRequest,
-  qualitativeUnitProfile,
   starterAuthoringTask,
   unitProfileSchema,
   validateProfile,
@@ -35,46 +33,43 @@ function sourceRequest(): AuthorRequest {
   };
 }
 
-test('the single bundled Profile and the CLI qualitative Profile validate and reproduce the old presets', async () => {
+test('the single bundled Profile validates, keeps BTD6 reference values and matches the old preset', async () => {
   assert.deepEqual(bundledProfiles, [defaultUnitProfile]);
-  for (const profile of [defaultUnitProfile, qualitativeUnitProfile])
-    assert.deepEqual(await validateProfile(profile), profile);
-  const scale = defaultUnitProfile.mechanicsDefinition!.profile.referenceScale!;
+  assert.deepEqual(await validateProfile(defaultUnitProfile), defaultUnitProfile);
+  const scale = defaultUnitProfile.mechanicsDefinition.profile.referenceScale!;
   assert.deepEqual(
     [scale.startingHealth, scale.baseCost, scale.baseRange, scale.incrementalUpgradeCosts],
     [150, 200, 32, [140, 200, 320, 1800, 15000]],
   );
-
-  const numerical = applyProfile(sourceRequest(), defaultUnitProfile);
+  const applied = applyProfile(sourceRequest(), defaultUnitProfile);
   const preset = applyDefaultProfile(sourceRequest());
-  assert.equal(numerical.deliverable, 'mechanics');
-  assert.deepEqual(numerical.mechanicsDefinition, preset.mechanicsDefinition);
-  assert.deepEqual(numerical.documents, preset.documents);
-  assert.deepEqual(numerical.progression, defaultProgression);
-  const prepared = await prepareRequest(numerical);
+  assert.deepEqual(applied.mechanicsDefinition, preset.mechanicsDefinition);
+  assert.deepEqual(applied.documents, preset.documents);
+  assert.deepEqual(applied.progression, defaultProgression);
+  assert.equal(applied.task, defaultUnitProfile.task);
+  const prepared = await prepareRequest(applied);
   assert.equal(prepared.request.mechanicsDefinition?.profile.authoringMode, 'planned-v1');
-
-  const qualitative = applyProfile(sourceRequest(), qualitativeUnitProfile);
-  const concept = applyConceptProfile(sourceRequest());
-  for (const field of [
-    'deliverable',
-    'task',
-    'progression',
-    'conceptRules',
-    'conceptDefinition',
-    'documents',
-  ] as const)
-    assert.deepEqual(qualitative[field], concept[field], field);
-  assert.equal(qualitative.mechanicsDefinition, undefined);
-  await prepareRequest(qualitative);
 });
 
 test('switching Profiles replaces the previous rules instead of mixing them', () => {
-  const concept = applyProfile(sourceRequest(), qualitativeUnitProfile);
-  const back = applyProfile(concept, defaultUnitProfile);
+  const custom = {
+    ...structuredClone(defaultUnitProfile),
+    id: 'custom',
+    name: 'Custom',
+    task: 'Custom task.',
+    rules: {
+      ...structuredClone(defaultUnitProfile.rules),
+      id: 'profile:custom',
+      text: 'Custom rules.',
+    },
+  };
+  const first = applyProfile(sourceRequest(), custom);
+  assert.deepEqual(
+    first.documents.map(({ id }) => id),
+    ['mira-source', 'profile:custom'],
+  );
+  const back = applyProfile(first, defaultUnitProfile);
   assert.deepEqual(back, applyProfile(sourceRequest(), defaultUnitProfile));
-  assert.equal(back.conceptDefinition, undefined);
-  assert.equal(back.conceptRules, undefined);
   assert.deepEqual(
     back.documents.map(({ id }) => id),
     ['mira-source', defaultUnitProfile.rules.id],
@@ -82,14 +77,9 @@ test('switching Profiles replaces the previous rules instead of mixing them', ()
   assert.deepEqual(applyProfile(back, defaultUnitProfile), back);
 });
 
-test('a Profile needs exactly one Definition, a rules document and a safe ID', async () => {
-  const both = {
-    ...defaultUnitProfile,
-    conceptDefinition: qualitativeUnitProfile.conceptDefinition,
-  };
-  assert.equal(unitProfileSchema.safeParse(both).success, false);
-  const { mechanicsDefinition: _removed, ...neither } = defaultUnitProfile;
-  assert.equal(unitProfileSchema.safeParse(neither).success, false);
+test('a Profile needs a mechanics Definition, a rules document and a safe ID', async () => {
+  const { mechanicsDefinition: _removed, ...missing } = defaultUnitProfile;
+  assert.equal(unitProfileSchema.safeParse(missing).success, false);
   assert.equal(
     unitProfileSchema.safeParse({ ...defaultUnitProfile, id: '../escape' }).success,
     false,
@@ -101,15 +91,9 @@ test('a Profile needs exactly one Definition, a rules document and a safe ID', a
     }).success,
     false,
   );
-  const definition = qualitativeUnitProfile.conceptDefinition!;
-  const forbidden = {
-    ...qualitativeUnitProfile,
-    conceptProfile: {
-      id: 'custom',
-      version: '1',
-      definition: { id: definition.id, version: definition.version },
-      overrides: { earlySupport: 'unrestricted' as const },
-    },
-  };
-  await assert.rejects(validateProfile(forbidden), /does not permit this earlySupport/);
+  const unsupported = structuredClone(defaultUnitProfile) as { mechanicsDefinition: unknown };
+  (
+    unsupported.mechanicsDefinition as { progression: { maxAdvancedPaths: number } }
+  ).progression.maxAdvancedPaths = 2;
+  await assert.rejects(validateProfile(unsupported));
 });

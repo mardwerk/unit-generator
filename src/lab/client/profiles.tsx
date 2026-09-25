@@ -1,11 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Copy, FolderOpen, Pencil, Play, Trash2 } from 'lucide-react';
-import {
-  bundledProfiles,
-  profileDeliverable,
-  profileProgression,
-  type UnitProfile,
-} from '../../core/index.js';
+import { bundledProfiles, profileProgression, type UnitProfile } from '../../core/index.js';
 import type { ProfileEntry, ProfilesState } from '../contracts.js';
 import { api } from './api.js';
 import { Disclosure, Field } from './ui.js';
@@ -67,7 +62,6 @@ function savedRules(id: string, text: string): UnitProfile['rules'] {
 
 export function ProgressionGrid({ profile }: { profile: UnitProfile }) {
   const progression = profileProgression(profile);
-  const label = profile.conceptDefinition?.presentation.pathLabel ?? 'Path';
   const tiers = Math.max(...progression.paths.map((path) => Math.max(...path.tiers)));
   return (
     <figure className="progression-figure">
@@ -77,7 +71,7 @@ export function ProgressionGrid({ profile }: { profile: UnitProfile }) {
             <th scope="col">Tier</th>
             {progression.paths.map((path, index) => (
               <th scope="col" key={path.id}>
-                {label} {index + 1}
+                Path {index + 1}
               </th>
             ))}
           </tr>
@@ -94,7 +88,7 @@ export function ProgressionGrid({ profile }: { profile: UnitProfile }) {
         </tbody>
       </table>
       <figcaption className="muted small">
-        Buy up to {progression.maxActivePaths} of {progression.paths.length} {label.toLowerCase()}s
+        Buy up to {progression.maxActivePaths} of {progression.paths.length} paths
         {progression.maxPathsAboveTier
           ? `; at most ${progression.maxPathsAboveTier.count} above T${progression.maxPathsAboveTier.tier}`
           : ''}
@@ -107,46 +101,27 @@ export function ProgressionGrid({ profile }: { profile: UnitProfile }) {
 function Facts({ profile }: { profile: UnitProfile }) {
   const facts: [string, string][] = [];
   const mechanics = profile.mechanicsDefinition;
-  if (mechanics) {
-    const scale = mechanics.profile.referenceScale;
-    const policy = mechanics.profile.designPolicy;
-    facts.push(['Currency', mechanics.profile.currency]);
-    if (scale) {
-      facts.push([scale.healthResource, `${scale.startingHealth} to start`]);
-      facts.push(['Base unit', `${scale.baseCost} ${mechanics.profile.currency}`]);
-      facts.push([
-        'Base attack',
-        `${scale.baseDamage} damage, every ${scale.baseIntervalSeconds} s, range ${scale.baseRange}, ${scale.basePierce} pierce`,
-      ]);
-      facts.push(['Upgrade prices', scale.incrementalUpgradeCosts.join(', ')]);
-    }
+  const scale = mechanics.profile.referenceScale;
+  const policy = mechanics.profile.designPolicy;
+  facts.push(['Currency', mechanics.profile.currency]);
+  if (scale) {
+    facts.push([scale.healthResource, `${scale.startingHealth} to start`]);
+    facts.push(['Base unit', `${scale.baseCost} ${mechanics.profile.currency}`]);
     facts.push([
-      'Changes per upgrade',
-      `${mechanics.profile.earlyTierMaxChanges} early, ${mechanics.profile.maxChangesPerTier} later`,
+      'Base attack',
+      `${scale.baseDamage} damage, every ${scale.baseIntervalSeconds} s, range ${scale.baseRange}, ${scale.basePierce} pierce`,
     ]);
-    if (policy)
-      facts.push([
-        'Manual boost',
-        policy.manualAbilityPath ? `${policy.manualAbilityPath} only` : 'not allowed',
-      ]);
+    facts.push(['Upgrade prices', scale.incrementalUpgradeCosts.join(', ')]);
   }
-  const concept = profile.conceptDefinition;
-  if (concept) {
-    const slots = concept.rules.manualActivation.allowedSlots;
+  facts.push([
+    'Changes per upgrade',
+    `${mechanics.profile.earlyTierMaxChanges} early, ${mechanics.profile.maxChangesPerTier} later`,
+  ]);
+  if (policy)
     facts.push([
-      'Manual activation',
-      slots.length
-        ? slots.map((slot) => `${slot.pathId} T${slot.tiers.join('/')}`).join(', ')
-        : 'none',
+      'Manual boost',
+      policy.manualAbilityPath ? `${policy.manualAbilityPath} only` : 'not allowed',
     ]);
-    facts.push([
-      'Crosspaths',
-      concept.rules.crosspaths.coverage === 'none'
-        ? 'none'
-        : `main from T${concept.rules.crosspaths.mainFromTier}, other through T${concept.rules.crosspaths.secondaryThroughTier}`,
-    ]);
-    facts.push(['Early support', concept.rules.earlySupport]);
-  }
   return (
     <dl className="profile-facts">
       {facts.map(([term, value]) => (
@@ -170,28 +145,22 @@ function ProfileEditor({
   onSave: (profile: UnitProfile) => Promise<void>;
   onCancel: () => void;
 }) {
-  const mechanics = profileDeliverable(initial) === 'mechanics';
   const [id, setId] = useState(initial.id);
   const [name, setName] = useState(initial.name);
   const [task, setTask] = useState(initial.task);
   const [rules, setRules] = useState(initial.rules.text);
   const [definition, setDefinition] = useState(
-    JSON.stringify(mechanics ? initial.mechanicsDefinition : initial.conceptDefinition, null, 2),
-  );
-  const [overrides, setOverrides] = useState(
-    JSON.stringify(initial.conceptProfile ?? null, null, 2),
+    JSON.stringify(initial.mechanicsDefinition, null, 2),
   );
   const [error, setError] = useState('');
   const [saving, setSaving] = useState(false);
   async function save() {
     setError('');
     let parsed: unknown;
-    let profileOverrides: unknown = null;
     try {
       parsed = JSON.parse(definition);
-      if (!mechanics) profileOverrides = JSON.parse(overrides || 'null');
     } catch {
-      setError('The Definition and overrides must be valid JSON.');
+      setError('The mechanics Definition must be valid JSON.');
       return;
     }
     const profile = {
@@ -201,12 +170,7 @@ function ProfileEditor({
       name,
       task,
       rules: savedRules(id.trim(), rules),
-      ...(mechanics
-        ? { mechanicsDefinition: parsed }
-        : {
-            conceptDefinition: parsed,
-            ...(profileOverrides ? { conceptProfile: profileOverrides } : {}),
-          }),
+      mechanicsDefinition: parsed,
     } as UnitProfile;
     setSaving(true);
     try {
@@ -239,7 +203,7 @@ function ProfileEditor({
         <Field label="Rules text">
           <textarea rows={10} value={rules} onChange={(e) => setRules(e.target.value)} required />
         </Field>
-        <Field label={mechanics ? 'Mechanics Definition (JSON)' : 'Concept Definition (JSON)'}>
+        <Field label="Mechanics Definition (JSON)">
           <textarea
             rows={12}
             spellCheck={false}
@@ -247,16 +211,6 @@ function ProfileEditor({
             onChange={(e) => setDefinition(e.target.value)}
           />
         </Field>
-        {!mechanics && (
-          <Field label="Concept Profile overrides (JSON object or null)">
-            <textarea
-              rows={4}
-              spellCheck={false}
-              value={overrides}
-              onChange={(e) => setOverrides(e.target.value)}
-            />
-          </Field>
-        )}
         <p className="muted small">
           Saving runs the same checks as preparing a request. The numerical Engine supports three
           paths of five tiers only.
@@ -374,11 +328,7 @@ export function ProfilesView({
               <h3>
                 {shown.profile.name} {isDefault && <span className="badge confirmed">Default</span>}
               </h3>
-              <p className="muted small">
-                {profileDeliverable(shown.profile) === 'mechanics'
-                  ? 'Numerical unit: prices and stats checked by the Engine.'
-                  : 'Qualitative concept: complete behavior without prices or numbers.'}
-              </p>
+              <p className="muted small">Prices and stats are checked by the Engine.</p>
               <ProgressionGrid profile={shown.profile} />
               <Facts profile={shown.profile} />
               <Disclosure title="Task">
