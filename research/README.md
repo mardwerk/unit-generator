@@ -1,6 +1,6 @@
 # Unit design research
 
-This index owns Unit Generator research: paper notes that frame representation and evaluation, plus the BTD6 reference material below. Framework notes, the natural-language design synthesis and the September 21 generator survey now live in the planning workspace (knowledge and cold-store); [next generation work](../docs/NEXT-EXPERIMENT.md) owns the current roadmap.
+This index owns Unit Generator research: paper notes that frame representation and evaluation, plus the BTD6 reference material below. Framework notes, the natural-language design synthesis and the September 21 generator survey now live in the planning workspace (knowledge and cold-store); [next generation work](https://github.com/mardwerk/unit-generator/blob/9244cd5/docs/NEXT-EXPERIMENT.md) owns the current roadmap.
 
 The [BTD6 pattern analysis](btd6/PATTERNS.md) derives authoring guidance from the supplied 26 towers and all 390 regular upgrade summaries. The [bounded optimization proposal](btd6/AUTORESEARCH.md) describes a future experiment, not an implemented autonomous training loop.
 
@@ -17,7 +17,7 @@ Use these papers to frame representation and evaluation, not to choose a pipelin
 | How do we preserve meaningful alternatives? | [GAVEL, R3](https://arxiv.org/html/2407.09388v2) and [quality diversity, R4](https://arxiv.org/abs/1907.04053) | Separate variation, feasibility and evaluation. Archive coverage is not demonstrated strategic diversity; GAVEL's roughly 48-hour runs do not establish interactive latency. |
 | What distinguishes many passing checks from a complete result? | [GameASG-Bench, R38](https://arxiv.org/html/2609.21293v1) | Declare acceptance scenarios independently and report whole-task success. The recent preprint measures software compliance, not novelty or fun. |
 
-These are a closer fit than the old card/monster examples. Runtime claims still require a compatible Consumer; concept work can retain predicted scenarios and attributed review. [REFINEMENT.md](../docs/REFINEMENT.md) owns the study protocol.
+These are a closer fit than the old card/monster examples. Runtime claims still require a compatible Consumer; concept work can retain predicted scenarios and attributed review. [REFINEMENT.md](https://github.com/mardwerk/unit-generator/blob/9244cd5/docs/REFINEMENT.md) owns the study protocol.
 
 ## BTD6 evidence
 

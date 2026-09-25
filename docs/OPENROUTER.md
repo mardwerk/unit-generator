@@ -37,6 +37,6 @@ Free model IDs checked against OpenRouter's catalogue on September 22, 2026. Ver
 | Image generation | `x-ai/grok-imagine-image-2.0` |
 | Image generation | `qwen/qwen-image-3-pro` |
 
-Every other OpenRouter model is disallowed. GPT-5.4 Mini and its aliases remain explicitly prohibited. Do not use an unapproved fallback or an opaque model router. Before using a model outside this table, ask the user and update this file according to their answer before dispatch.
+Every other OpenRouter model is disallowed. GPT-5.4 Mini and its aliases remain explicitly prohibited. Do not use an unapproved fallback or an opaque model router. The application default `openrouter/free` is such an opaque router, so an agent running the CLI or web app must pass an allowed model explicitly (for example `--model nvidia/nemotron-3-super-120b-a12b:free`). Before using a model outside this table, ask the user and update this file according to their answer before dispatch.
 
 Existing spending limits and image-generation authorization still apply. Native Codex CLI and subagent models are outside this OpenRouter policy.

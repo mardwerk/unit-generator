@@ -1,6 +1,6 @@
 # Agent instructions
 
-Read [README.md](README.md), [CONTEXT.md](CONTEXT.md) and [docs/PRODUCT.md](docs/PRODUCT.md) before changing this repository. These local documents are the contributor reference; Foundation is private and optional.
+Read [README.md](README.md), [CONTEXT.md](CONTEXT.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before changing this repository, and [docs/RESTRUCTURE-PLAN.md](docs/RESTRUCTURE-PLAN.md) before structural work. These local documents are the contributor reference; Foundation is private and optional. Documents describe intent and can be wrong; when a document and the code disagree, check the code and fix the document.
 
 ## Rules
 
