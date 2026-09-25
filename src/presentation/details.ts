@@ -238,4 +238,3 @@ function describeEvidence(view: ArtifactView): string[] {
   }
   return lines;
 }
-
