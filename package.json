@@ -34,9 +34,8 @@
     "CONTEXT.md"
   ],
   "scripts": {
-    "dev": "node --watch --watch-path=src --watch-path=scripts --watch-path=data/reference --watch-path=data/assets --watch-path=tsconfig.json scripts/dev.mjs",
+    "dev": "node --watch --watch-path=src --watch-path=scripts --watch-path=data/reference --watch-path=tsconfig.json scripts/dev.mjs",
     "build": "tsc -p tsconfig.json && node scripts/copy-lab-assets.mjs",
-    "schema": "node scripts/export-schema.mjs",
     "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
     "test": "node -e \"require('node:fs').rmSync('.test-build', { recursive: true, force: true })\" && tsc -p tsconfig.test.json && node --test .test-build/tests/*.test.js",
     "format": "prettier --write \"src/**/*.{ts,tsx,html,css}\" \"tests/**/*.{ts,tsx}\" \"scripts/*.mjs\" \"*.json\" \"data/**/*.json\"",

@@ -20,7 +20,7 @@ pnpm cli generate "Monkey D. Luffy" --deliverable concept -o data/runs/luffy-con
 pnpm cli render data/runs/luffy-concept.json -o data/runs/luffy-concept.md
 ```
 
-For reproducible supplied sources, [Wizard Monkey](../data/reference/wizard-monkey.concept.request.json) uses the public three-path profile. [Two-path Boomerang Monkey](../data/reference/boomerang-monkey.two-path.concept.request.json) supplies a synthetic ruleset with three tiers, different crosspath limits and a required activation slot. These are source requests, not accepted generated units.
+For reproducible supplied sources, [Wizard Monkey](../data/reference/wizard-monkey.concept.request.json) uses the public three-path profile. These are source requests, not accepted generated units.
 
 ```sh
 pnpm cli prepare data/reference/wizard-monkey.concept.request.json -o data/runs/wizard.prepared.json
@@ -32,7 +32,7 @@ pnpm cli author data/reference/wizard-monkey.concept.request.json --previous dat
 
 `--operation redesign` permits deliberate design changes. `prose-edit` preserves declared structure and asks the model to preserve behavior; free-text equivalence remains a separate review obligation. `author` includes a model review, while `draft` followed by `check` uses one generation call. Concept drafting has no automatic repair loop. Use an explicit revision to address findings. `--repairs` continues to control numerical authoring only.
 
-For stronger replacement coverage, [automatic branch Sniper Monkey](../data/reference/sniper-monkey.automatic.concept.request.json) supplies a complete Definition and Profile with two four-tier branches, no crosspaths and no manual controls. Run it through the same prepare, draft, check and render commands. `--operation adapt` explicitly changes the rules of a prior concept; ordinary redesign and prose-edit reject a changed retained contract. See [Definition compatibility](API.md#concept-definition-compatibility).
+For stronger replacement coverage, [automatic branch Sniper Monkey](../data/reference/sniper-monkey.automatic.concept.request.json) supplies a complete Definition and Profile with three four-tier branches, no crosspaths and no manual controls. Run it through the same prepare, draft, check and render commands. `--operation adapt` explicitly changes the rules of a prior concept; ordinary redesign and prose-edit reject a changed retained contract. See [Definition compatibility](API.md#concept-definition-compatibility).
 
 Concept requests carry `deliverable: "concept"` and either a `conceptDefinition` with its permitted Profile or explicit `progression` and `conceptRules`. Import a complete external request to change those rules without changing generator code. `--deliverable concept` converts a legacy request to the bundled public concept preset, or preserves an already explicit concept request. Concept requests reject `mechanicsDefinition`; numerical references in supplied text do not change the qualitative deliverable. Concept-to-mechanics formalization is not implemented: supply a separate explicit mechanics request instead of expecting `--deliverable mechanics` to translate behavior. `build` still requires numerical mechanics.
 

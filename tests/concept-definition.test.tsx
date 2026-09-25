@@ -65,7 +65,7 @@ test('two Definitions govern generation, checks, revision, rendering, reload and
         for (const path of candidate.paths)
           for (const tier of path.tiers) {
             tier.benefit =
-              path.id === 'sweep'
+              path.id === 'heavy'
                 ? [
                     'The disc travels farther without gaining hits.',
                     'The disc hits a larger finite group.',
@@ -125,7 +125,7 @@ test('two Definitions govern generation, checks, revision, rendering, reload and
       const markdown = renderArtifact(revised);
       const html = renderToStaticMarkup(<CharacterSheet artifact={revised} busy={false} />);
       if (automatic) {
-        assert.equal(candidate.paths.length, 2);
+        assert.equal(candidate.paths.length, 3);
         assert.ok(candidate.paths.every((p) => p.tiers.length === 4));
         assert.deepEqual(candidate.crosspaths, []);
         assert.deepEqual(candidate.abilities, []);

@@ -330,7 +330,7 @@ async function executeCommand(
   }
   const input = await readJsonFile(file);
   switch (command) {
-  case 'build': {
+    case 'build': {
       const view = readArtifactView(input);
       await verifyPrepared(view.prepared);
       if (!view.candidate.blueprint || !view.prepared.request.mechanicsDefinition)

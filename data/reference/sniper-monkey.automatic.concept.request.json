@@ -32,6 +32,10 @@
         {
           "id": "rapid",
           "tiers": [1, 2, 3, 4]
+        },
+        {
+          "id": "chain",
+          "tiers": [1, 2, 3, 4]
         }
       ],
       "maxActivePaths": 1,

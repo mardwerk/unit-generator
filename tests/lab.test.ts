@@ -28,7 +28,7 @@ async function withLab(
     model,
     example: miraRequest(),
     port: 0,
-    publicDirectory: new URL('../../data/assets/public/', import.meta.url),
+    publicDirectory: new URL('../../src/web/public/', import.meta.url),
   });
   const post: Post = (operation, input, options = {}) =>
     fetch(`${lab.origin}/api/${operation}`, {
