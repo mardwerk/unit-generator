@@ -171,3 +171,20 @@ func MustFromGo(value any) any { return FromGoValue(value) }
 func ToGo(value any, target any) error {
 	return json.Unmarshal([]byte(Stringify(value)), target)
 }
+
+// MarshalJSON writes the object in order.
+func (o *Object) MarshalJSON() ([]byte, error) { return []byte(Stringify(o)), nil }
+
+// UnmarshalJSON reads an object, keeping key order.
+func (o *Object) UnmarshalJSON(data []byte) error {
+	value, err := Decode(data)
+	if err != nil {
+		return err
+	}
+	obj, ok := value.(*Object)
+	if !ok {
+		return errors.New("expected a JSON object")
+	}
+	*o = *obj
+	return nil
+}
