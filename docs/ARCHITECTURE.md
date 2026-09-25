@@ -58,7 +58,7 @@ Every stage is a separate operation that receives the previous artifact explicit
 ## Profiles
 
 - **Profile file.** One JSON document holding the Definition, its permitted Profile values, the rules text and the task. `prepare` copies the full Profile into the request, so the hash covers it and reloading an artifact never looks a Profile up by ID.
-- **Stable default.** The bundled default is embedded in the binary and read-only. Editing starts from a copy.
+- **Stable default.** One bundled Profile, BTD6-inspired: three paths of five tiers, BTD6 crosspath rules, and Dart Monkey reference costs, damage, rate, range and pierce. It is embedded in the binary and read-only; editing starts from a copy.
 - **Saved Profiles.** Files beneath `<library>/profiles/`, written through `/profiles/save`, which runs the same validation as `prepare`. A numerical Profile with any progression other than 3×5 is rejected with `UNSUPPORTED_PROGRESSION`.
 - **Web app.** A Profile Editor tab lists the default and saved Profiles, shows the selected one visually (paths × tiers, rules, numeric scale) and edits copies. The Generate tab has a Profile selector with the default preselected.
 - **CLI.** `--profile FILE`; without it, the bundled default.

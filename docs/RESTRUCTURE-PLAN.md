@@ -245,7 +245,7 @@ Measurements were taken on Node 22.22.2 in this review container. Rerun them on 
 | #4 5×10 progression | After P0.4, add a deterministic 5×10 **concept** fixture (concept progression is already variable) to test layout, focus and export. `health.engine.mechanics` reports 3×5; `prepare` rejects non-3×5 mechanics with `UNSUPPORTED_PROGRESSION`. Drop "role ranking" from the checklist |
 | #9 audit | B1 and B2 done in this PR; B3–B13 continue it |
 | #12 Go CLI + `serve` | Section A |
-| #13 single mode + profile editor | Done in this PR on today's server: core `applyProfile`, bundled read-only default plus a qualitative Profile, saved Profiles in the library, a Profiles tab and a Generate selector. Remaining: P0.5 moves Profile application fully to `prepare`, B10 retires `direct` |
+| #13 single mode + profile editor | Done in this PR on today's server: core `applyProfile`, one bundled read-only BTD6-inspired default, saved Profiles in the library, a Profiles tab and a Generate selector. Remaining: P0.5 moves Profile application fully to `prepare`, B10 retires `direct` |
 | #14 create-view state loss | Done in this PR: the Generate button and logo only switch views; Clear or a confirmed New inputs starts over; the Inputs panel state lives in the app. Merging the two editor models (B1 follow-up) remains |
 | #15 key indicator | Done in this PR on today's server: provider state carries `key {configured, source, hint}` and Settings shows it; the Go `/health` keeps the same shape |
 
@@ -279,11 +279,12 @@ Recorded from Kyle's review of this plan on the pull request, September 25, 2026
 | 6 | Switch writers to `jcs-sha256:` at S10 | [ARCHITECTURE.md](ARCHITECTURE.md#contracts-and-versioning) |
 | 7 | One generation route; no named routes such as `planned-v1`. Behavior comes from reusable, interchangeable Profiles with a stable default. The web app gets a Profile Editor tab (visualize, edit, several Profiles, stable default) and a Profile selector on Generate | [ARCHITECTURE.md](ARCHITECTURE.md#profiles), P0.7, B10 |
 | 8 | The library folder is selectable in the web app and defaults to `data/runs/library` | C5, [ARCHITECTURE.md](ARCHITECTURE.md#library), P0.3 |
+| 10 | One bundled Profile: the BTD6-inspired 3×5 default. The qualitative Profile is not offered | Done in this PR; concept code remains only for `--deliverable concept` and old artifacts (open question 1) |
 | 9 | `btd6_towers.json` moves out of the repository; the maintainer handles it | B14 is no longer part of P0.1 |
 
 Still open:
 
-1. **Qualitative output inside the single route.** The numerical and qualitative (concept) deliverables have different outputs and checks. The plan keeps both as Profile options of the one route, with the numerical Profile as the default. The alternative is numerical-only, which deletes about 940 lines of concept code and 1,200 lines of its tests, and with them the only variable-progression output (#4).
+1. **Delete qualitative (concept) output entirely?** After decision 10 the web app no longer offers it; only `--deliverable concept`, the concept example requests and old concept artifacts reach it. Deleting it removes about 940 lines of code and 1,200 lines of tests, plus the only output that supports other path/tier shapes (#4). Old concept artifacts would then need the TypeScript version to open.
 ## G. Rejected alternatives
 
 A ChatGPT review posted on the pull request was checked against this checkout. Its reviewer could not clone the repository and read pages cached three days earlier, so its code claims were verified before use. Adopted: separating research from request assembly, moving artifact decoding out of presentation, "configured is not verified" for #15, classifying all 216 tier selections, keeping the no-overwrite hard-link write, correcting the original-character wording and the development-loop restart cost. Rejected:

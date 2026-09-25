@@ -35,9 +35,15 @@ function sourceRequest(): AuthorRequest {
   };
 }
 
-test('bundled Profiles validate and reproduce the rules of the existing presets', async () => {
-  for (const profile of bundledProfiles) assert.deepEqual(await validateProfile(profile), profile);
-  assert.equal(bundledProfiles[0], defaultUnitProfile);
+test('the single bundled Profile and the CLI qualitative Profile validate and reproduce the old presets', async () => {
+  assert.deepEqual(bundledProfiles, [defaultUnitProfile]);
+  for (const profile of [defaultUnitProfile, qualitativeUnitProfile])
+    assert.deepEqual(await validateProfile(profile), profile);
+  const scale = defaultUnitProfile.mechanicsDefinition!.profile.referenceScale!;
+  assert.deepEqual(
+    [scale.startingHealth, scale.baseCost, scale.baseRange, scale.incrementalUpgradeCosts],
+    [150, 200, 32, [140, 200, 320, 1800, 15000]],
+  );
 
   const numerical = applyProfile(sourceRequest(), defaultUnitProfile);
   const preset = applyDefaultProfile(sourceRequest());

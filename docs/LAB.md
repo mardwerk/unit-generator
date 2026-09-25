@@ -14,7 +14,7 @@ Open `http://127.0.0.1:4317`. Use `--port 4318` for another port and `--provider
 
 ## Generate a unit
 
-Enter a character name, pick a Profile (the numerical default is preselected) and select Generate. The server looks the character up on Wikipedia (with Wikidata and Fandom for images), asks you to choose when the name is ambiguous, applies the Profile's rules, then drafts, checks and reviews the unit. Missing sources produce an error, never invented canon.
+Enter a character name, pick a Profile (the BTD6-inspired default is preselected) and select Generate. The server looks the character up on Wikipedia (with Wikidata and Fandom for images), asks you to choose when the name is ambiguous, applies the Profile's rules, then drafts, checks and reviews the unit. Missing sources produce an error, never invented canon.
 
 - Ctrl-click or Cmd-click Generate to stay on the create page; several runs can proceed at once, each with its own Stop.
 - Switching to the Library or a run and back keeps the unsent name and inputs. Clear on the form, or New inputs in the revision menu (which asks first), starts over.
@@ -26,7 +26,7 @@ Enter a character name, pick a Profile (the numerical default is preselected) an
 
 ## Profiles
 
-A Profile is the set of rules a unit is generated under: a Definition (numerical or qualitative), its rules text and the task. The **Profiles** tab lists the built-in Profiles, with the numerical one as the read-only default, and the Profiles saved in `<library>/profiles/`. It shows the selected Profile's paths and tiers, prices, stats and limits. **Duplicate** makes an editable copy; saving runs the same checks as preparing a request, so a numerical Profile must keep three paths of five tiers. **Use for new units** selects it on the Generate form.
+A Profile is the set of rules a unit is generated under: a Definition (numerical or qualitative), its rules text and the task. The **Profiles** tab lists the one built-in Profile, the read-only BTD6-inspired default (three paths of five tiers, BTD6 crosspath rules, 150 starting health and Dart Monkey reference costs, damage, rate, range and pierce), and the Profiles saved in `<library>/profiles/`. It shows the selected Profile's paths and tiers, prices, stats and limits. **Duplicate** makes an editable copy; saving runs the same checks as preparing a request, so a numerical Profile must keep three paths of five tiers. **Use for new units** selects it on the Generate form.
 
 ## Settings
 

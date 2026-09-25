@@ -52,12 +52,13 @@ export const defaultUnitProfile: UnitProfile = freeze({
   schemaVersion: '1',
   kind: 'profile',
   id: 'default',
-  name: 'Numerical unit (default)',
+  name: 'BTD6-inspired (default)',
   task: starterAuthoringTask,
   rules: structuredClone(defaultProfile),
   mechanicsDefinition: structuredClone(defaultAuthoringDefinition),
 });
 
+/** Not offered in the web app; kept for `--deliverable concept` and saved qualitative requests. */
 export const qualitativeUnitProfile: UnitProfile = freeze({
   schemaVersion: '1',
   kind: 'profile',
@@ -68,11 +69,8 @@ export const qualitativeUnitProfile: UnitProfile = freeze({
   conceptDefinition: structuredClone(defaultConceptDefinition),
 });
 
-/** Read-only Profiles shipped with the Tool; the first is the stable default. */
-export const bundledProfiles: readonly UnitProfile[] = freeze([
-  defaultUnitProfile,
-  qualitativeUnitProfile,
-]);
+/** The single read-only Profile shipped with the Tool: BTD6-inspired 3×5 with Dart Monkey scale. */
+export const bundledProfiles: readonly UnitProfile[] = freeze([defaultUnitProfile]);
 
 export function profileDeliverable(profile: UnitProfile): 'mechanics' | 'concept' {
   return profile.mechanicsDefinition ? 'mechanics' : 'concept';

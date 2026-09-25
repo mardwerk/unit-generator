@@ -256,7 +256,6 @@ test('the Profiles tab shows the default read-only and draws the path and tier s
   };
   const profiles = [
     { profile: defaultUnitProfile, builtIn: true },
-    { profile: qualitativeUnitProfile, builtIn: true },
     { profile: saved, builtIn: false },
   ];
   const view = (shown: string) =>
@@ -274,7 +273,7 @@ test('the Profiles tab shows the default read-only and draws the path and tier s
       ),
     );
   const $ = view(defaultUnitProfile.id);
-  assert.equal($('.profile-list button').length, 3);
+  assert.equal($('.profile-list button').length, 2);
   assert.match($('.profile-list button').first().text(), /Default, read-only/);
   assert.equal($('.profile-detail .badge').text(), 'Default');
   assert.equal($('.progression-grid thead th').length, 4);
@@ -317,11 +316,6 @@ test('the Profiles tab shows the default read-only and draws the path and tier s
     form('#profile-select option')
       .toArray()
       .map((option) => form(option).text()),
-    [
-      'Rules from imported inputs',
-      defaultUnitProfile.name,
-      qualitativeUnitProfile.name,
-      'My concept rules (saved)',
-    ],
+    ['Rules from imported inputs', 'BTD6-inspired (default)', 'My concept rules (saved)'],
   );
 });
