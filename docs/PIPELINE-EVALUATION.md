@@ -46,7 +46,7 @@ The next narrow representation investigation is the ambiguity between acquisitio
 
 ## Numerical and branch history
 
-September 22 branch update: the completed PR 6 experiment at `3e5d73b` is assessed in [PR6-REVIEW.md](PR6-REVIEW.md). Its reported live successes are separate from the main-branch batches below. This review reproduced 30 focused offline tests and four simulator probes, with no live generation. The probes exposed ignored follow-up behavior and active cadence, so simulator passes are not general runtime validation.
+September 22 branch update: the completed PR 6 experiment at `3e5d73b` is assessed in the retired PR6 review. Its reported live successes are separate from the main-branch batches below. This review reproduced 30 focused offline tests and four simulator probes, with no live generation. The probes exposed ignored follow-up behavior and active cadence, so simulator passes are not general runtime validation.
 
 Historical local batch paths may need restoring from the [verified local archive](LOCAL-ARTIFACTS.md). The latest failure batch remains expanded.
 
@@ -125,7 +125,7 @@ Independent reading found that Rimuru's historical Water Blade subset passed str
 
 The selector now reserves complete compact retrieved technique articles before filling the remaining budget, and repeated passages rank last. Original source IDs and exact text remain unchanged. Offline replay retains all Black Flame behavior and limitations within 96 passages and 8,183 characters. A regression exercises repetitive inventories beside a short technique article. The full suite passed 368 tests; type checking, build, formatting, diff checks and the local HTTP check also passed.
 
-The user clarified that free-model performance, fast generation and a simple architecture are the priorities. The verified GLM Morph preflight was not dispatched, and its unused allocation was released. The [archived generator survey](../research/archive/GENERATOR-SURVEY-2026-09-21.md) informed the proposals at that time; the [current research index](../research/README.md) prioritizes later, better-fitting papers. A four-call decomposition remains a proposal, not an implemented default.
+The user clarified that free-model performance, fast generation and a simple architecture are the priorities. The verified GLM Morph preflight was not dispatched, and its unused allocation was released. The retired September 21 generator survey (planning workspace cold-store) informed the proposals at that time; the [current research index](../research/README.md) prioritizes later, better-fitting papers. A four-call decomposition remains a proposal, not an implemented default.
 
 The next frozen free Mini batch used the repaired source selection and disabled reasoning, matching the local configuration: `final-benchmark-2026-09-21T13-46-22-379Z`. All three failed bounded validation. Rimuru stopped on a nine-entry repertoire against the eight-entry contract even after repair; Luffy retained an inadmissible T3 active follow-up and excess effects; Goku retained duplicate early purchases, a no-op crosspath purchase, missing promised detection and an oversized capstone. Nine calls reported 97,157 input and 24,103 output tokens at $0. Whole-sample times were 89.5, 140.5 and 80.3 seconds. These failures do not justify calling the free route fast, consistent or ready. The next design should reduce redundant model-authored structure and bookkeeping instead of merely selecting a stronger model or adding more stages.
 
@@ -155,8 +155,6 @@ A four-call frozen-input diagnostic in `logic-tuning/production-parity/` returne
 
 The historical catalogue's offline tests resolve all 64 legal selections for each of five recipes, including boosted attacks, for 320 builds. Separate tests cover candidate IDs, code-owned source text, custom-task/rule routing and immutable starter constants. These checks establish declared mechanical consistency. Those v7 source constants are deeply frozen; callers edit cloned requests. That historical verification passed all 300 tests plus formatting, type checking, build and diff checks. No wave, map, economy or gameplay balance simulation was performed. The former 3x capstone specialty gate was an authored convention, and 3x active peak is not 3x average combat output.
 
-Optional Jev ranking also completed all 20 base/pure-path classifications for the five recipes without changing any candidate. Roles are advisory, including mixed generalist, sniper and tank-killer choices. The estimated Typesafe charge was $0.000824082; billed charge was unavailable. The [Jev evaluation](../research/btd6/JEV-BTD6-EVALUATION.md) retains the table and earlier 26-tower evidence. It is not a character-canon or quality score.
-
 ## Earlier experiments and limits
 
 Earlier failures remain part of the evidence. Direct authoring under v5/v6 repeatedly failed current capstone and effect checks after repair, across free Mini, Dots and paid DeepSeek probes. Retained reports are in `logic-tuning/baseline-v5-free/`, `baseline-v5-deepseek/`, `v6-json-mini/` and `v6-dots/`. Their prompts, transports and policies varied, so they do not isolate model effects or provide a matched performance comparison.
@@ -165,7 +163,7 @@ The first complete-recipe experiment, `logic-tuning/reference-mini-first/`, retu
 
 The September 19/20 direct-authoring benchmarks remain archived as `unit-pipeline/final-benchmark-2026-09-19T23-30-20-433Z/`, `2026-09-19T23-48-21-152Z/` and `2026-09-20T00-01-01-445Z/`. Their frozen outcomes were respectively three of six structural passes, two of six with four HTTP 413 failures, and five of six before a later splash guard rejected one retained Goku. Weak capstones, misleading reserves and mismatched themes persisted. These older scales and checks are not current recommendations.
 
-The historical CLI run `cli-pipeline/default-free-2026-09-20T08-12-15Z/` completed Luffy on its first call, then actual CLI check, render and 5,2,0 build. It used `openrouter/free`, routed to Dots, and reported $0 for 4,587 input / 1,653 output tokens. Its old Ink scale is superseded. Earlier recorder defects, timeouts and model-unavailable responses remain in `cli-pipeline/`; failed transport usage is unknown, not observed zero. A large wall-clock discontinuity makes one archived timeout unsuitable for latency comparison. The v4 Miyuki smoke in `current-refinement/` verified generation/ranking integration but still mislabeled a damage path as control. None of these integration successes proves semantic quality.
+The historical CLI run `cli-pipeline/default-free-2026-09-20T08-12-15Z/` completed on its first call, then actual CLI check, render and 5,2,0 build. It used `openrouter/free`, routed to Dots, and reported $0 for 4,587 input / 1,653 output tokens. Its old Ink scale is superseded. Earlier recorder defects, timeouts and model-unavailable responses remain in `cli-pipeline/`; failed transport usage is unknown, not observed zero. A large wall-clock discontinuity makes one archived timeout unsuitable for latency comparison. The v4 Miyuki smoke in `current-refinement/` verified generation integration but still mislabeled a damage path as control. None of these integration successes proves semantic quality.
 
 ## Reproduction
 
@@ -212,7 +210,7 @@ For an explicitly authorized paid benchmark, pass `--model provider/model --max-
 - Historical judgment at that review: keep as an experimental opt-in, preserve
   the default route, keep helpers out of the public API, and separate layout
   validation from numerical/runtime support. The exposed helpers at that head
-  and default-schema defects are assessed in [PR10-REVIEW.md](PR10-REVIEW.md);
+  and default-schema defects are assessed in the retired PR10 review;
   this recorded recommendation is not evidence that isolation was achieved. Apex synthesis
   beyond T5 capstones, unsupported runtime behavior and balance remain
   unvalidated; generated artifacts stay in ignored `.runs/` and are not
@@ -220,7 +218,7 @@ For an explicitly authorized paid benchmark, pass `--model provider/model --max-
 
 
 The September 22 correction replaces the PR-added Luffy fixture and request
-with original public fixtures and `examples/mira-interpretation.request.json`.
+with original public fixtures and `examples/iona.two-path.concept.request.json`.
 The earlier run remains historical evidence of the unpinned route, not a
 published source packet or interpretation experiment. The new example marks
 impact, reach and capacity as proposed groupings rather than source facts.

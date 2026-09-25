@@ -1,12 +1,14 @@
 Bloons TD 6 tower reference
-Compiled 20 September 2026
+Compiled 20 September 2026, slimmed 25 September 2026
 
 FILES
-btd6_towers.xlsx: nine-sheet workbook with filters, price formulas, source URLs and data-quality notes.
 btd6_towers.json: nested tower records, all regular upgrades, ability/control records, Paragon appendix and sources.
-btd6_tower_reference.md: readable reference with all 26 tower profiles and all 390 regular upgrades.
 towerdefense_categories.json: the ten-category choice schema by itself.
-btd6_towers.csv, btd6_upgrades.csv, btd6_abilities.csv: flat tables for import into other tools.
+(Retired September 25, 2026: the xlsx workbook, flat CSVs and readable roster were alternate exports of this JSON. No application code read them. Check the upstream game-data repo below instead of regenerating them.)
+
+UPSTREAM (check here when needed, no dependency)
+https://github.com/Btd6ModHelper/btd6-game-data — per-patch exports from BTD6 Mod Helper: Towers/, Upgrades/, Bloons/, Rounds/, Maps/, Buffs, Bosses, Powers, Knowledge, textTable.json. Verified present 2026-09-25.
+Base statistics in this package already cite its DartMonkey/BoomerangMonkey tower files; Medium prices cite the Cyber Quincy cost table (see MECHANICS.md).
 
 SCOPE
 The 26 unique towers in the supplied roster. Heroes and Powers are not included as tower records.
@@ -41,4 +43,4 @@ The ten categories are editorial and reusable outside BTD6, not official game cl
 Tower-level towerdefense_type is a family default. base_towerdefense_type describes the unupgraded unit. Each path also has a mature-build role.
 Choose a category for the intended build. Keep secondary roles separate rather than forcing a hybrid into an inaccurate permanent classification.
 
-All source URLs and further field notes are inside the JSON and workbook.
+All source URLs and further field notes are inside the JSON.

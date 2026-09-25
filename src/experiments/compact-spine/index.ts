@@ -1,8 +1,8 @@
 import { z } from 'zod';
-import { authorEvidence, type EvidenceSpan } from '../../core/blueprint/evidence.js';
-import { compileBlueprint } from '../../core/blueprint/compile.js';
-import { validateBlueprintRequest } from '../../core/blueprint/validate.js';
-import { providerJsonSchema, countArithmeticGuidance } from '../../core/blueprint/model-output.js';
+import { authorEvidence, type EvidenceSpan } from '../../core/planned-v1/evidence.js';
+import { compileBlueprint } from '../../core/planned-v1/compile.js';
+import { validateBlueprintRequest } from '../../core/planned-v1/validate.js';
+import { providerJsonSchema, countArithmeticGuidance } from '../../core/planned-v1/model-output.js';
 import { checkDraft } from '../../core/check.js';
 import { freeze, verifyPrepared } from '../../core/prepare.js';
 import { ModelExecutionError, stageFailure, type ModelClient } from '../../core/model.js';

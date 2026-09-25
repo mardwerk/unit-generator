@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { authorEvidence, evidenceSpans } from '../src/core/blueprint/evidence.js';
+import { authorEvidence, evidenceSpans } from '../src/core/planned-v1/evidence.js';
 import { miraRequest } from './fixtures/core-fixtures.js';
 import { defaultMechanicsDefinition } from '../src/core/index.js';
 

@@ -3,7 +3,7 @@ import { Check, Circle, LoaderCircle, Play, RotateCcw, Square } from 'lucide-rea
 import type { LabArtifact, LabStage } from '../contracts.js';
 import { requestOf, nextStage } from './artifacts.js';
 import { IconButton } from './ui.js';
-import { formatCost, formatEstimatedCost, summarizeUsage } from '../../presentation/usage.js';
+import { formatCost, summarizeUsage } from '../../presentation/usage.js';
 import { stageNames, type RunningStep } from './use-authoring.js';
 
 export function Progress({
@@ -51,11 +51,6 @@ export function Usage({ artifact }: { artifact: LabArtifact }) {
           </dd>
         </div>
       </dl>
-      {usage.roleCostEstimate !== null && (
-        <p className="muted small">
-          Role ranking estimate: {formatEstimatedCost(usage.roleCostEstimate)}.
-        </p>
-      )}
     </section>
   );
 }

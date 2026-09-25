@@ -11,7 +11,6 @@ import {
   resultSchema,
   reviewDraft,
   type ModelClient,
-  type RoleRankingClient,
 } from '../core/index.js';
 import { verifyPrepared } from '../core/prepare.js';
 import { requestFileSchema } from '../node/request-file.js';
@@ -100,7 +99,6 @@ export async function executeLabOperation(
   input: unknown,
   model: ModelClient,
   signal: AbortSignal,
-  roleRankingClient?: RoleRankingClient,
 ): Promise<unknown> {
   const payload = payloadSchema.parse(input);
   signal.throwIfAborted();
@@ -110,7 +108,6 @@ export async function executeLabOperation(
     case 'draft':
       return draftUnit(preparedSchema.parse(payload.prepared), model, {
         signal,
-        roleRankingClient,
       });
     case 'check':
       return checkDraft(draftArtifactSchema.parse(payload.draft));

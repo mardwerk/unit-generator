@@ -15,18 +15,16 @@ export {
 } from './default-profile.js';
 
 export * from './mechanics/index.js';
-export { definitionProgression, definitionDocument } from './blueprint/definition.js';
-export { compileBlueprint } from './blueprint/compile.js';
+export { definitionProgression, definitionDocument } from './planned-v1/definition.js';
+export { compileBlueprint } from './planned-v1/compile.js';
 
-export * from './roles.js';
-
-export { designPlanSchema, type UnitDesignPlan } from './blueprint/plan-schema.js';
+export { designPlanSchema, type UnitDesignPlan } from './planned-v1/plan-schema.js';
 export {
   designEvaluationSchema,
   evaluateUnitDesign,
   type DesignEvaluation,
-} from './blueprint/design-evaluation.js';
-export { designPlanRequest, decodeDesignPlan } from './blueprint/plan.js';
+} from './planned-v1/design-evaluation.js';
+export { designPlanRequest, decodeDesignPlan } from './planned-v1/plan.js';
 
 export {
   applyConceptProfile,

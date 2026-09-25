@@ -1,5 +1,4 @@
 import { useMemo, useRef, useState, type CSSProperties } from 'react';
-import { BuildRoles } from './build-roles.js';
 import { RefreshCw } from 'lucide-react';
 import type { Finding, UnitCandidate } from '../../core/index.js';
 import type { LabArtifact } from '../contracts.js';
@@ -194,16 +193,6 @@ export function CharacterSheet({
           </header>
           <section className="unit-role">
             <p>{candidate.role}</p>
-            <BuildRoles
-              candidate={candidate}
-              roles={
-                artifact.kind === 'prepared'
-                  ? undefined
-                  : artifact.kind === 'checked'
-                    ? artifact.draft.roles
-                    : artifact.roles
-              }
-            />
           </section>
           <div className="unit-overview">
             {stats && (

@@ -1,6 +1,4 @@
 #!/usr/bin/env node
-import { createRoleRankingClient } from './node/role-ranking.js';
-import { rankUnitRoles } from './core/roles.js';
 import { parseArgs } from 'node:util';
 import { lstat, mkdir, writeFile, link, unlink } from 'node:fs/promises';
 import { dirname, resolve, join } from 'node:path';
@@ -40,7 +38,6 @@ Usage: unit-generator <command> [input.json | "Character name"] [options]
 Commands:
   character Resolve a character name to cited source text and the default definition
   generate  Resolve a name, draft and check a Unit with the default definition
-  rank      Classify a saved Unit base and completed paths without regenerating
   definition Print the default BTD6-inspired mechanics definition (no input)
   build     Resolve a saved Unit at --tiers 5,2,0 without a model call
   prepare   Resolve an input request and record its exact content and hash
@@ -65,7 +62,6 @@ Options:
   --evidence-dir DIR     Retain model attempts here (concept default: .runs/evidence)
   --choice ID            Select a character when name lookup is ambiguous
   --tiers A,B,C          Purchased tiers for build, e.g. 5,2,0
-  --roles MODE           Optional ranking: auto (default), typesafe, openrouter or off
   --repairs COUNT        Design repair attempts: 0, 1 (default), or 2
   --details              Include evidence and technical details with render
   -h, --help             Show this help
@@ -113,7 +109,6 @@ async function writeOutput(file: string, content: string): Promise<void> {
 const commands = [
   'character',
   'generate',
-  'rank',
   'definition',
   'build',
   'prepare',
@@ -154,7 +149,6 @@ function parseInvocation() {
       choice: { type: 'string' },
       tiers: { type: 'string' },
       repairs: { type: 'string' },
-      roles: { type: 'string' },
       help: {
         type: 'boolean',
         short: 'h',
@@ -216,14 +210,6 @@ function parseInvocation() {
     (!['draft', 'author', 'generate'].includes(command) || !/^[0-2]$/.test(values.repairs))
   )
     throw new Error('--repairs must be 0, 1 or 2 with draft, author or generate.');
-  if (
-    values.roles !== undefined &&
-    (!['auto', 'typesafe', 'openrouter', 'off'].includes(values.roles) ||
-      !['draft', 'author', 'generate', 'rank'].includes(command))
-  )
-    throw new Error(
-      '--roles requires auto, typesafe, openrouter or off with draft, author, generate or rank.',
-    );
   if ((values.previous || values.feedback) && !['prepare', 'author'].includes(command)) {
     throw new Error('--previous and --feedback apply only to prepare or author.');
   }
@@ -286,9 +272,6 @@ async function executeCommand(
   const { command, file, values } = invocation;
   const options = {
     signal,
-    roleRankingClient: createRoleRankingClient({
-      env: { ...process.env, ...(values.roles ? { UNIT_ROLE_PROVIDER: values.roles } : {}) },
-    }),
     ...(values.repairs !== undefined ? { maxRepairAttempts: Number(values.repairs) } : {}),
   };
   if (command === 'definition') return defaultAuthoringDefinition;
@@ -346,19 +329,7 @@ async function executeCommand(
   }
   const input = await readJsonFile(file);
   switch (command) {
-    case 'rank': {
-      const view = readArtifactView(input);
-      await verifyPrepared(view.prepared);
-      if (!view.prepared.request.mechanicsDefinition)
-        throw new Error('Role ranking requires a Unit with a structured mechanics definition.');
-      return rankUnitRoles(
-        view.candidate,
-        view.prepared.request.mechanicsDefinition,
-        options.roleRankingClient,
-        signal,
-      );
-    }
-    case 'build': {
+  case 'build': {
       const view = readArtifactView(input);
       await verifyPrepared(view.prepared);
       if (!view.candidate.blueprint || !view.prepared.request.mechanicsDefinition)

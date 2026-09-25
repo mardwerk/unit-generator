@@ -6,7 +6,7 @@ import {
   starterAuthoringTask,
 } from '../src/core/default-profile.js';
 import * as nodeProfile from '../src/node/default-profile.js';
-import { isReferenceAuthoring } from '../src/core/blueprint/reference-authoring.js';
+import { isReferenceAuthoring } from '../src/core/planned-v1/reference-authoring.js';
 import { prepareRequest } from '../src/core/prepare.js';
 import { miraRequest } from './fixtures/core-fixtures.js';
 

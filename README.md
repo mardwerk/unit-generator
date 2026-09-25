@@ -33,9 +33,7 @@ pnpm start --provider codex
 
 Review the sheet and sources, then submit feedback to revise the Unit. Completed generations save to the local library; unfinished work can be saved or exported. Icon placeholders provide image prompts and local PNG destinations. They can also [generate one image through OpenRouter](docs/IMAGE-GENERATION.md) after explicit confirmation, then save and reload it.
 
-The [BTD6-inspired preset](research/btd6/BTD6-UNIT-DESIGN.md) uses focused early upgrades and distinct advanced paths, supported by [six tower references](research/btd6/BTD6-UNIT-EXAMPLES.md). New generations preserve early attack identity, require distinct early purchases and capstones, and permit at most one manual-boost path. Broad role labels may repeat; the default imposes no universal tier-five multiplier or new tier-three operator. See the [research patterns](research/btd6/PATTERNS.md) and [bounded optimization proposal](research/btd6/AUTORESEARCH.md). These authoring checks are not balance certification. The default uses Gold, a 1-health enemy layer and a 1-damage base reference; Health is the shared player life pool, not Unit HP. Values are proposed adaptations, and retrieved sources may be incomplete. Reported cost and token totals appear with each revision; missing usage remains unavailable.
-
-The supplied 26-tower dataset is assessed in the [JEV reference evaluation](research/btd6/JEV-BTD6-EVALUATION.md). Its [compact reference catalogue](research/btd6/btd6-reference-candidates.json) separates supported upgrade patterns, missing values and mechanics that still require Engine work. Optional Jev ranking suggests roles after drafting for the base and three pure tier-five builds. Settings or `--roles auto|typesafe|openrouter|off` selects its connection; missing credentials or provider failure preserves the Unit. Role labels describe a selected build and do not change mechanics. See [CLI configuration](docs/CLI.md).
+The [BTD6-inspired preset](research/btd6/BTD6-UNIT-DESIGN.md) uses focused early upgrades and distinct advanced paths, supported by [six tower references](research/btd6/BTD6-UNIT-EXAMPLES.md) and [research patterns](research/btd6/PATTERNS.md). These authoring checks are not balance certification: values are proposed adaptations and retrieved sources may be incomplete. See [CLI configuration](docs/CLI.md).
 
 For the CLI, start with a character name:
 
@@ -51,16 +49,16 @@ pnpm cli build .runs/luffy.json --tiers 5,2,0
 For explicit source text and custom rules:
 
 ```sh
-pnpm cli author examples/mira.request.json --provider codex --output .runs/mira-v1.json
-pnpm cli render .runs/mira-v1.json --output .runs/mira-v1.md
+pnpm cli author examples/iona.concept.request.json --provider codex --output .runs/iona-v1.json
+pnpm cli render .runs/iona-v1.json --output .runs/iona-v1.md
 ```
 
-Mira is an original public example and needs no private repositories. The result JSON retains inputs, evidence and findings. The default Markdown view shows the Unit kit, restrictions and open decisions; add `render --details` for the expanded evidence and check report. Output files are never overwritten. Inspect findings before accepting content; authoring checks do not simulate gameplay or establish balance.
+Iona is a public example and needs no private repositories. The result JSON retains inputs, evidence and findings. The default Markdown view shows the Unit kit, restrictions and open decisions; add `render --details` for the expanded evidence and check report. Output files are never overwritten. Inspect findings before accepting content; authoring checks do not simulate gameplay or establish balance.
 
 To revise a candidate, supply its Result and explicit feedback:
 
 ```sh
-pnpm cli author examples/mira.request.json --provider codex --previous .runs/mira-v1.json --feedback "Give the support path a clearer team role while preserving personal wall detection." --output .runs/mira-v2.json
+pnpm cli author examples/iona.concept.request.json --provider codex --previous .runs/iona-v1.json --feedback "Give the support path a clearer team role." --output .runs/iona-v2.json
 ```
 
 Read [CLI usage](docs/CLI.md) for independently runnable stages, source files, URLs and Luffy inputs. Local generated content belongs in ignored `.runs/`. UnitLab saves artifacts in a configurable local library and keeps unfinished edits in its browser session; Towerright owns project history and wider evaluation.

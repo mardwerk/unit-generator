@@ -9,7 +9,7 @@ type UsageArtifact = AuthorResult | CheckedArtifact | DraftArtifact | PreparedRe
 type Run = DraftArtifact['run'];
 
 export interface StageUsage {
-  stage: 'Draft' | 'Review' | 'Role ranking';
+  stage: 'Draft' | 'Review';
   run: Pick<Run, 'modelId' | 'usage'> | null;
   status?: 'completed' | 'unavailable';
 }
@@ -23,7 +23,6 @@ export interface UsageSummary {
   stages: StageUsage[];
   cost: UsageTotal;
   tokens: UsageTotal;
-  roleCostEstimate: number | null;
 }
 
 /** Only this revision contributes. Estimates stay separate from reported charges. */
@@ -41,27 +40,11 @@ export function summarizeUsage(artifact: UsageArtifact): UsageSummary {
     { stage: 'Draft', run: draft },
     { stage: 'Review', run: review },
   ];
-  const roles =
-    artifact.kind === 'prepared'
-      ? undefined
-      : artifact.kind === 'checked'
-        ? artifact.draft.roles
-        : artifact.roles;
-  if (roles && roles.status !== 'skipped')
-    stages.push({
-      stage: 'Role ranking',
-      status: roles.status,
-      run: {
-        modelId: roles.provider ?? 'unavailable',
-        ...(roles.usage ? { usage: roles.usage } : {}),
-      },
-    });
   const completed = stages.filter(({ run }) => run !== null);
   return {
     stages,
     cost: total(completed.map(({ run }) => run?.usage?.costUsd ?? null)),
     tokens: total(completed.map(({ run }) => run?.usage?.totalTokens ?? null)),
-    roleCostEstimate: roles?.estimatedCostUsd ?? null,
   };
 }
 
@@ -100,11 +83,7 @@ export function usageSummaryText(summary: UsageSummary): string {
     summary.tokens.value === null
       ? 'Token usage unavailable'
       : `${formatTokens(summary.tokens.value)} tokens${summary.tokens.partial ? ' (partial)' : ''}`;
-  const estimate =
-    summary.roleCostEstimate === null
-      ? ''
-      : ` Role ranking estimate: ${formatEstimatedCost(summary.roleCostEstimate)} (not a reported charge).`;
-  return `Reported cost for this revision: ${cost}; ${tokens}.${estimate}`;
+  return `Reported cost for this revision: ${cost}; ${tokens}.`;
 }
 
 export function stageUsageRows({ run, status }: StageUsage): [string, string][] {

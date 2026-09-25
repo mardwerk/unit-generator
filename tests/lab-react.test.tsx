@@ -148,7 +148,7 @@ test('upgrade layout assigns shared rows by tier number across arbitrary uneven 
   });
 });
 
-test('flow exposes eligible single-stage actions, stop and continuation without a JEV placeholder', async () => {
+test('flow exposes eligible single-stage actions, stop and continuation', async () => {
   const { Workflow } = await import('../src/lab/client/workflow.js');
   const result = await authorUnit(miraRequest(), new FakeModel());
   const prepared = result.prepared;
@@ -169,7 +169,7 @@ test('flow exposes eligible single-stage actions, stop and continuation without 
   assert.match(ready, /aria-label="Run Draft only"/);
   assert.match(ready, /aria-label="Run Check only"[^>]*disabled/);
   assert.match(ready, /Continue/);
-  assert.doesNotMatch(ready, /JEV|Run remaining|Run next/);
+  assert.doesNotMatch(ready, /Run remaining|Run next/);
   const active = render('draft');
   assert.match(active, /> Stop<\/button>/);
   assert.doesNotMatch(active, /id="continue-run"/);

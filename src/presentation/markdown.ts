@@ -2,7 +2,6 @@ import type { Finding, UnitCandidate } from '../core/index.js';
 import { renderDetailed } from './details.js';
 import { escapeMarkdown as text, readArtifactView, type ArtifactView } from './view.js';
 import { usageSummaryText } from './usage.js';
-import { roleRows } from './roles.js';
 
 export interface RenderOptions {
   details?: boolean;
@@ -20,7 +19,6 @@ export function renderArtifact(input: unknown, options: RenderOptions = {}): str
   if (view.prepared.request.deliverable === 'concept') return renderConcept(view);
   return [
     ...unitIntroduction(view),
-    ...suggestedRoles(view),
     ...failedChecks(view.findings),
     ...basicAttack(view.candidate),
     ...upgradePaths(view.candidate),
@@ -292,21 +290,6 @@ function repeatsMechanicDecision(finding: Finding, candidate: UnitCandidate): bo
 function prose(parts: (string | null)[]): string {
   const fields = parts.filter((part): part is string => part !== null).map((part) => part.trim());
   return text([...new Set(fields)].join(' '));
-}
-
-function suggestedRoles(view: ArtifactView): string[] {
-  if (!view.roles || view.roles.status === 'skipped') return [];
-  if (view.roles.status !== 'completed') return [text(view.roles.note), ''];
-  return [
-    'Suggested build roles. Confidence is provider-reported, not verified accuracy.',
-    '',
-    '| Build | Role | Confidence |',
-    '| --- | --- | --- |',
-    ...roleRows(view.roles, view.candidate).map(
-      (row) => `| ${text(row.build)} | ${text(row.role)} | ${row.confidence} |`,
-    ),
-    '',
-  ];
 }
 
 /** The concept sheet contains the design; findings and evidence stay in the detailed report. */

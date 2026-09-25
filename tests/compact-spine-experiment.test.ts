@@ -20,7 +20,7 @@ import {
   type ModelRequest,
   type ModelResponse,
 } from '../src/core/index.js';
-import { authorEvidence } from '../src/core/blueprint/evidence.js';
+import { authorEvidence } from '../src/core/planned-v1/evidence.js';
 import { FakeModel } from './fixtures/core-fixtures.js';
 
 function request(): AuthorRequest {

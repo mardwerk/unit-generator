@@ -2,12 +2,6 @@ import { mkdtemp, readFile, writeFile, rm } from 'node:fs/promises';
 import { join } from 'node:path';
 import { tmpdir } from 'node:os';
 import { interpretationFor } from './fixtures/interpretation-fixtures.js';
-import {
-  roleBuildIds,
-  unitRoles,
-  type RoleRankingClient,
-  type RoleAnswer,
-} from '../src/core/roles.js';
 import { executeLabOperation } from '../src/lab/operations.js';
 import { inputBeforeStage } from '../src/lab/client/stage-input.js';
 import { summarizeUsage } from '../src/presentation/usage.js';
@@ -43,11 +37,11 @@ import {
   decodeBlueprintOutputForDiagnostics,
   modelOutputSchema,
   modelOutputJsonSchema,
-} from '../src/core/blueprint/model-output.js';
-import { authorEvidence, evidenceSpans } from '../src/core/blueprint/evidence.js';
-import { validateBlueprintRequest } from '../src/core/blueprint/validate.js';
-import { targetedTierRepair } from '../src/core/blueprint/repair.js';
-import { wireRepairContext } from '../src/core/blueprint/repair-context.js';
+} from '../src/core/planned-v1/model-output.js';
+import { authorEvidence, evidenceSpans } from '../src/core/planned-v1/evidence.js';
+import { validateBlueprintRequest } from '../src/core/planned-v1/validate.js';
+import { targetedTierRepair } from '../src/core/planned-v1/repair.js';
+import { wireRepairContext } from '../src/core/planned-v1/repair-context.js';
 import { FakeModel, miraCandidate, miraRequest } from './fixtures/core-fixtures.js';
 import { applyDefaultProfile } from '../src/node/default-profile.js';
 
@@ -1064,51 +1058,25 @@ test('a selected budget-valid subset with harmful mechanics is withheld with bot
   assert.equal(model.requests.length, 2);
 });
 
-test('CLI-shared draft and Lab preserve advisory roles, usage and review without reusing them on a new draft', async () => {
+test('CLI-shared draft and Lab preserve usage and review without reusing them on a new draft', async () => {
   const prepared = await prepareRequest(request());
-  let calls = 0;
-  const ranking: RoleRankingClient = {
-    id: 'fixture:roles',
-    async rank(builds) {
-      calls++;
-      assert.equal(builds.length, 4);
-      const probabilities = Object.fromEntries(
-        unitRoles.map((role) => [role, role === 'basic_dps' ? 1 : 0]),
-      ) as RoleAnswer['probabilities'];
-      return {
-        answers: Object.fromEntries(
-          roleBuildIds.map((id) => [id, { role: 'basic_dps', confidence: 0.9, probabilities }]),
-        ) as Record<(typeof roleBuildIds)[number], RoleAnswer>,
-        usage: { ...usage('roles'), costUsd: null },
-        estimatedCostUsd: 0.0000042,
-      };
-    },
-  };
   const model = new ResponseModel([
     { output: blueprint(), usage: usage('draft') },
     { output: { summary: 'Advisory review.', findings: [] }, usage: usage('review') },
     { output: blueprint() },
   ]);
   const draft = draftArtifactSchema.parse(
-    await executeLabOperation('draft', { prepared }, model, new AbortController().signal, ranking),
+    await executeLabOperation('draft', { prepared }, model, new AbortController().signal),
   );
-  assert.equal(calls, 1);
-  assert.equal(draft.roles?.status, 'completed');
   assert.deepEqual(draft.candidate, compileBlueprint(blueprint(), prepared.request));
   const result = await reviewDraft(await checkDraft(draft), model);
-  assert.deepEqual(result.roles, draft.roles);
   const reviewInput = await inputBeforeStage(result, 'review');
   assert.equal(reviewInput?.kind, 'checked');
-  if (reviewInput?.kind === 'checked') assert.deepEqual(reviewInput.draft.roles, draft.roles);
   const totals = summarizeUsage(result);
-  assert.deepEqual(totals.tokens, { value: 420, partial: false });
-  assert.deepEqual(totals.cost, { value: 0.02, partial: true });
-  assert.equal(totals.roleCostEstimate, 0.0000042);
-  assert.match(renderArtifact(result), /Suggested build roles/);
-  assert.match(renderArtifact(result), /not a reported charge/);
+  assert.deepEqual(totals.tokens, { value: 280, partial: false });
+  assert.deepEqual(totals.cost, { value: 0.02, partial: false });
   const rerun = await draftUnit(prepared, model);
-  assert.equal(rerun.roles?.status, 'skipped');
-  assert.equal(calls, 1);
+  assert.deepEqual(rerun.candidate, draft.candidate);
 });
 
 test('fractional projectiles reach repair with actionable arithmetic evidence and remain rejected if unchanged', async () => {
@@ -1445,7 +1413,7 @@ function plannedDesign() {
         ),
       ]),
     ) as NonNullable<
-      import('../src/core/blueprint/plan-schema.js').UnitDesignPlan['upgradeIntents']
+      import('../src/core/planned-v1/plan-schema.js').UnitDesignPlan['upgradeIntents']
     >,
     concept: 'Mira develops her sourced Spark in three directions.',
     signature: { name: 'Spark', sourceIds, adaptation: 'A clear-path energy shot.' },

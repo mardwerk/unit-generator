@@ -116,13 +116,13 @@ experiment.
 
 ## Validation
 
-`examples/mira-interpretation.request.json` is an original public example with
-an explicit interpretation. From the repository root, install dependencies and run
+`examples/iona.two-path.concept.request.json` is a public example with
+an explicit external configuration. From the repository root, install dependencies and run
 `pnpm build` first. Prepare it offline with the following command; use a new output
 path if the destination already exists:
 
 ```sh
-node dist/cli.js prepare examples/mira-interpretation.request.json --preset btd6 --output .runs/mira-interpretation.prepared.json
+node dist/cli.js prepare examples/iona.two-path.concept.request.json --preset btd6 --output .runs/iona-two-path.prepared.json
 ```
 
 Authoring that request with the same preset calls the configured model. No live

@@ -6,7 +6,6 @@ import {
   type Finding,
   type PreparedRequest,
   type UnitCandidate,
-  type UnitRoleRanking,
   type DesignEvaluation,
 } from '../core/index.js';
 import { summarizeUsage, type UsageSummary } from './usage.js';
@@ -19,7 +18,6 @@ export interface ArtifactView {
   resultId: string | null;
   reviewSummary: string | null;
   usage: UsageSummary;
-  roles?: UnitRoleRanking;
   designEvaluation?: DesignEvaluation;
   interpretation?: InterpretationInput;
 }
@@ -41,7 +39,6 @@ export function readArtifactView(input: unknown): ArtifactView {
       ...(result.data.run.draft.designPlan?.interpretation
         ? { interpretation: result.data.run.draft.designPlan.interpretation }
         : {}),
-      ...(result.data.roles ? { roles: result.data.roles } : {}),
     };
   }
   const checked = checkedArtifactSchema.safeParse(input);
@@ -60,7 +57,6 @@ export function readArtifactView(input: unknown): ArtifactView {
       ...(checked.data.draft.run.designPlan?.interpretation
         ? { interpretation: checked.data.draft.run.designPlan.interpretation }
         : {}),
-      ...(checked.data.draft.roles ? { roles: checked.data.draft.roles } : {}),
     };
   }
   const draft = draftArtifactSchema.parse(input);
@@ -76,7 +72,6 @@ export function readArtifactView(input: unknown): ArtifactView {
     ...(draft.run.designPlan?.interpretation
       ? { interpretation: draft.run.designPlan.interpretation }
       : {}),
-    ...(draft.roles ? { roles: draft.roles } : {}),
   };
 }
 

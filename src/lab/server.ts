@@ -291,7 +291,6 @@ export async function startLab(options: LabServerOptions) {
             payload,
             evidence ? evidence.wrap(client) : client,
             controller.signal,
-            provider.roleClient,
           );
           await evidence?.finish(artifact);
         } catch (error) {

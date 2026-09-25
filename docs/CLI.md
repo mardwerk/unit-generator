@@ -34,7 +34,7 @@ pnpm cli author examples/iona.concept.request.json --previous .runs/iona.checked
 
 For stronger replacement coverage, [automatic branch Iona](../examples/iona.automatic.concept.request.json) supplies a complete Definition and Profile with two four-tier branches, no crosspaths and no manual controls. Run it through the same prepare, draft, check and render commands. `--operation adapt` explicitly changes the rules of a prior concept; ordinary redesign and prose-edit reject a changed retained contract. See [Definition compatibility](API.md#concept-definition-compatibility).
 
-Concept requests carry `deliverable: "concept"` and either a `conceptDefinition` with its permitted Profile or explicit `progression` and `conceptRules`. Import a complete external request to change those rules without changing generator code. `--deliverable concept` converts a legacy request to the bundled public concept preset, or preserves an already explicit concept request. Concept requests reject `mechanicsDefinition`; numerical references in supplied text do not change the qualitative deliverable. Concept-to-mechanics formalization is not implemented: supply a separate explicit mechanics request instead of expecting `--deliverable mechanics` to translate behavior. `build` and role ranking still require numerical mechanics.
+Concept requests carry `deliverable: "concept"` and either a `conceptDefinition` with its permitted Profile or explicit `progression` and `conceptRules`. Import a complete external request to change those rules without changing generator code. `--deliverable concept` converts a legacy request to the bundled public concept preset, or preserves an already explicit concept request. Concept requests reject `mechanicsDefinition`; numerical references in supplied text do not change the qualitative deliverable. Concept-to-mechanics formalization is not implemented: supply a separate explicit mechanics request instead of expecting `--deliverable mechanics` to translate behavior. `build` still requires numerical mechanics.
 
 Every concept model operation retains its input, exact prompt/schema, original output, safe settings, usage and outcome in a unique folder under `.runs/evidence`, or the supplied `--evidence-dir`. Failed attempts remain there. Each folder includes an `observations.json` template for predicted scenarios, preservation and acceptance reasons; those fields start unassessed. Evidence files can contain the complete supplied material. Choose an external output directory for external project content. Credentials and raw provider error objects are not retained.
 
@@ -42,21 +42,9 @@ The default concept Markdown is the readable unit sheet. `render --details` incl
 
 ## Numerical generation
 
-`generate` returns a checked artifact using the explicit [BTD6-inspired mechanics definition](MECHANICS.md). The default `planned-v1` route first authors a compact purchase plan, then a numerical blueprint. The model selects source passage IDs; code copies their exact text, verifies the references, resolves all 64 legal builds and compiles the readable kit. Each stage permits one repair of invalid design output by default, receiving its failed checks. `--repairs 0` disables repairs; `--repairs 2` permits two repairs per stage. Default `planned-v1` therefore uses two to four drafting calls, excluding optional role ranking and review. Authentication, rate limits and timeouts stop immediately. Invalid blueprints never become published candidates. This is mechanics validation, not combat simulation or balance approval. Independent semantic `review` remains a separate call so a failed review cannot discard the saved Unit.
+`generate` returns a checked artifact using the explicit [BTD6-inspired mechanics definition](MECHANICS.md). The default `planned-v1` route first authors a compact purchase plan, then a numerical blueprint. The model selects source passage IDs; code copies their exact text, verifies the references, resolves all 64 legal builds and compiles the readable kit. Each stage permits one repair of invalid design output by default, receiving its failed checks. `--repairs 0` disables repairs; `--repairs 2` permits two repairs per stage. Default `planned-v1` therefore uses two to four drafting calls, excluding review. Authentication, rate limits and timeouts stop immediately. Invalid blueprints never become published candidates. This is mechanics validation, not combat simulation or balance approval. Independent semantic `review` remains a separate call so a failed review cannot discard the saved Unit.
 
 The default is `default-td-profile-v9` with definition `btd6-combat-v1`, revision `2026-09-21-design-v9`: Gold currency, a 1-health enemy layer and Dart-based references of 200 Gold, 1 damage, 0.95-second interval, 32 range and 2 pierce. Health means shared player lives, with a 150-Health starter reference. Units have no HP. Explicit older artifacts and custom definitions keep their supplied scale. See [mechanics](MECHANICS.md) for provenance and scope.
-
-`--roles auto|typesafe|openrouter|off` selects optional role ranking after a successful draft. The default comes from `UNIT_ROLE_PROVIDER`, falling back to `auto`. Auto prefers TypeSafe when `TYPESAFE_API_KEY` is available, otherwise it uses an explicitly configured OpenRouter Jev model and key. It does not switch providers after a ranking failure. `TYPESAFE_MODEL` defaults to `jev-1.13.0`. OpenRouter ranking requires both `OPENROUTER_API_KEY` and an explicitly configured `OPENROUTER_JEV_MODEL`; the generation model is a separate setting. Set `OPENROUTER_JEV_MODEL=~typesafe/jev-latest` for the verified latest-family alias, or pin `typesafe/jev-1.13`. OpenRouter ranking calls its [Decisions API](https://openrouter.ai/docs/api/api-reference/alphadecisions/submit-a-decisions-questions-and-answers-request), not chat completions. The alias may advance within the Jev family; pinned versions reject a different release. Neither route substitutes another model on failure.
-
-Ranking inspects the resolved base and three pure tier-five builds. The artifact and rendered Roles panel retain advisory choices separately from mechanics. Missing credentials or provider failure records skipped or unavailable status while preserving the draft; cancellation still stops the operation. TypeSafe's estimated charge remains separate from provider-reported totals. Confidence is a selection signal, not measured accuracy.
-
-To rank a saved Unit without regenerating it:
-
-```sh
-pnpm cli rank .runs/luffy.json --roles typesafe -o .runs/luffy-roles.json
-```
-
-`rank` accepts a draft, checked artifact or final Result with a structured mechanics definition and returns a standalone role-ranking result. It does not replace or modify the saved Unit. `--roles off` returns skipped status without a provider call. The same `--roles` option is available on `draft`, `author` and `generate`; other commands do not accept it.
 
 `build` returns resolved attack stats, cumulative investment, available boosts and upgrade deltas for the three purchased tiers. It uses no model. Invalid combinations such as `5,3,0` are rejected.
 
@@ -88,10 +76,10 @@ pnpm cli prepare my-character.request.json --preset btd6 -o .runs/prepared.json
 The CLI loads optional `.env` settings from its working directory. Existing environment variables take precedence; `--model` overrides `OPENROUTER_MODEL` and `--reasoning` overrides `OPENROUTER_REASONING`. Use [.env.example](../.env.example) for the setting names. Keep real keys in ignored local files.
 
 ```sh
-pnpm cli author examples/mira.request.json -o .runs/mira-v1.json
-pnpm cli render .runs/mira-v1.json -o .runs/mira-v1.md
-pnpm cli render .runs/mira-v1.json --details -o .runs/mira-v1.details.md
-pnpm cli author examples/mira.request.json --previous .runs/mira-v1.json --feedback "Strengthen the support role." -o .runs/mira-v2.json
+pnpm cli author examples/iona.concept.request.json -o .runs/iona-v1.json
+pnpm cli render .runs/iona-v1.json -o .runs/iona-v1.md
+pnpm cli render .runs/iona-v1.json --details -o .runs/iona-v1.details.md
+pnpm cli author examples/iona.concept.request.json --previous .runs/iona-v1.json --feedback "Strengthen the support role." -o .runs/iona-v2.json
 ```
 
 `author` resolves inputs, generates one candidate, checks structural constraints and makes a fresh model call for semantic review. It returns one revision. Definition-backed drafting permits the bounded design repair described above; semantic findings require explicit revision feedback. Revisions receive the full current Request, previous candidate and findings, and explicit feedback. No command looks up a previous run implicitly.
@@ -107,7 +95,7 @@ Exit `0` means the operation completed. Findings may still contain failed or unr
 ## Run each step separately
 
 ```sh
-pnpm cli prepare examples/mira.request.json -o .runs/prepared.json
+pnpm cli prepare examples/iona.concept.request.json -o .runs/prepared.json
 pnpm cli draft .runs/prepared.json -o .runs/draft.json
 pnpm cli check .runs/draft.json -o .runs/checked.json
 pnpm cli review .runs/checked.json -o .runs/result.json
@@ -117,7 +105,7 @@ pnpm cli render .runs/result.json -o .runs/result.md
 | Step | Input and outcome | Model use |
 | --- | --- | --- |
 | `prepare` | Resolve named text, files or URLs. Retain exact text and an input hash. | None. URLs may use the network. |
-| `draft` | Read a prepared Request and return a structured candidate with evidence and open details. | One call for legacy or concept requests; numerical `planned-v1` has two stages, each with bounded repair, plus optional post-draft role ranking. |
+| `draft` | Read a prepared Request and return a structured candidate with evidence and open details. | One call for legacy or concept requests; numerical `planned-v1` has two stages, each with bounded repair. |
 | `check` | Read a draft and return reference, assignment, dependency and supplied progression findings. | None. |
 | `review` | Verify the checked artifact, then review the candidate against the original evidence and decisions. | One fresh selected-provider call. |
 | `render` | Show a draft, checked artifact or Result as a compact Markdown kit. Use `--details` for the expanded report. | None. |
@@ -126,7 +114,7 @@ Each artifact is schema-versioned JSON and can be inspected or saved between ste
 
 ## Supply a character and game rules
 
-The [Mira Request](../examples/mira.request.json) is complete and public. The [source-file template](../examples/source-file.request.json) shows how to supply your own Luffy text, game rules and character decisions. Copy it into a working directory and supply the named files. File references resolve relative to the Request file, not the terminal's current directory.
+The [Iona Request](../examples/iona.concept.request.json) is complete and public. The [source-file template](../examples/source-file.request.json) shows how to supply your own Luffy text, game rules and character decisions. Copy it into a working directory and supply the named files. File references resolve relative to the Request file, not the terminal's current directory.
 
 Each document has `id`, `kind` (`source`, `rules` or `decisions`) and exactly one of `text`, `file` or `url`. `sourceUrl` can attribute pasted or saved text without claiming that the URL was retrieved. Local text and saved HTML are supported.
 

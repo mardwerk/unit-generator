@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { defaultAuthoringDefinition } from '../src/core/default-profile.js';
-import { authorEvidence } from '../src/core/blueprint/evidence.js';
-import { decodeBlueprintOutput } from '../src/core/blueprint/model-output.js';
-import { targetedTierRepair } from '../src/core/blueprint/repair.js';
+import { authorEvidence } from '../src/core/planned-v1/evidence.js';
+import { decodeBlueprintOutput } from '../src/core/planned-v1/model-output.js';
+import { targetedTierRepair } from '../src/core/planned-v1/repair.js';
 import { referenceRecipes } from '../src/core/mechanics/reference-patterns.js';
 import { pathKeys, tierKeys } from '../src/core/mechanics/schemas.js';
 import { miraRequest } from './fixtures/core-fixtures.js';

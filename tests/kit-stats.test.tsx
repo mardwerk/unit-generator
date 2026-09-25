@@ -9,7 +9,7 @@ import {
   type UnitBlueprint,
 } from '../src/core/mechanics/index.js';
 import { kitStats } from '../src/presentation/kit-stats.js';
-import { compileBlueprint } from '../src/core/blueprint/compile.js';
+import { compileBlueprint } from '../src/core/planned-v1/compile.js';
 import { StatValues } from '../src/lab/client/kit-stats.js';
 import { CharacterSheet } from '../src/lab/client/kit.js';
 import { authorUnit } from '../src/core/index.js';

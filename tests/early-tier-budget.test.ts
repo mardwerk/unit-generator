@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { defaultAuthoringDefinition } from '../src/core/default-profile.js';
-import { tierEffectLimit } from '../src/core/blueprint/model-output.js';
+import { tierEffectLimit } from '../src/core/planned-v1/model-output.js';
 import { referenceRecipes } from '../src/core/mechanics/reference-patterns.js';
 import {
   defaultMechanicsDefinition,

@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import { z } from 'zod';
-import { providerJsonSchema } from '../src/core/blueprint/model-output.js';
+import { providerJsonSchema } from '../src/core/planned-v1/model-output.js';
 
 test('provider grammar omits expanding length bounds without changing runtime validation', () => {
   const runtime = z.strictObject({

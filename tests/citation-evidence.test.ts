@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { authorEvidence } from '../src/core/blueprint/evidence.js';
-import { bindDesignPlan, decodeDesignPlan } from '../src/core/blueprint/plan.js';
-import { designPlanSchema } from '../src/core/blueprint/plan-schema.js';
-import { decodeBlueprintOutput } from '../src/core/blueprint/model-output.js';
+import { authorEvidence } from '../src/core/planned-v1/evidence.js';
+import { bindDesignPlan, decodeDesignPlan } from '../src/core/planned-v1/plan.js';
+import { designPlanSchema } from '../src/core/planned-v1/plan-schema.js';
+import { decodeBlueprintOutput } from '../src/core/planned-v1/model-output.js';
 import { referenceRecipes } from '../src/core/mechanics/reference-patterns.js';
 import { pathKeys, tierKeys } from '../src/core/mechanics/schemas.js';
 import { miraRequest } from './fixtures/core-fixtures.js';

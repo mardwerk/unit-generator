@@ -17,11 +17,11 @@ import {
   validateLayoutPlan,
   type LayoutCandidate,
 } from '../src/core/design.js';
-import { designPlanRequest, interpretationCitationIssues } from '../src/core/blueprint/plan.js';
+import { designPlanRequest, interpretationCitationIssues } from '../src/core/planned-v1/plan.js';
 import { defaultMechanicsDefinition } from '../src/core/mechanics/schemas.js';
 import { defaultAuthoringDefinition } from '../src/core/default-profile.js';
 import { definitionProgression, prepareRequest, type AuthorRequest } from '../src/core/index.js';
-import { authorEvidence } from '../src/core/blueprint/evidence.js';
+import { authorEvidence } from '../src/core/planned-v1/evidence.js';
 import { miraLayoutReference, plainSwordsmanReference } from './fixtures/layout-reference.js';
 
 function layoutCandidates(): LayoutCandidate[] {

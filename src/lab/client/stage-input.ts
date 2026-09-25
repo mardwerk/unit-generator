@@ -27,7 +27,6 @@ export async function inputBeforeStage(
             prepared,
             candidate: artifact.candidate,
             run: artifact.run.draft,
-            ...(artifact.roles ? { roles: artifact.roles } : {}),
           };
   if (stage === 'check') return draft;
   if (artifact.kind === 'draft') throw new Error('Check the draft first.');

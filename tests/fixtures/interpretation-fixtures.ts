@@ -1,5 +1,5 @@
 import type { AuthorRequest } from '../../src/core/index.js';
-import { authorEvidence } from '../../src/core/blueprint/evidence.js';
+import { authorEvidence } from '../../src/core/planned-v1/evidence.js';
 
 /** Original Mira fixture interpretation, with opaque IDs to prevent names hiding lost meaning. */
 export function interpretationFor(

@@ -1306,26 +1306,6 @@ dialog::backdrop {
   }
 }
 
-.build-roles table {
-  width: 100%;
-  border-collapse: collapse;
-  font-size: 0.85rem;
-}
-.build-roles th,
-.build-roles td {
-  padding: 0.35rem 0.7rem 0.35rem 0;
-  text-align: left;
-  font-weight: normal;
-}
-.build-roles th {
-  color: var(--muted);
-}
-.build-roles th:last-child,
-.build-roles td:last-child {
-  text-align: right;
-  padding-right: 0;
-}
-
 /* A native details button covers the card; image controls stay independently actionable. */
 .tier-card,
 .ability-card,

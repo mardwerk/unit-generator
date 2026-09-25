@@ -1,5 +1,5 @@
 import { checkConcept } from './concept.js';
-import { interpretationCitationIssues } from './blueprint/plan.js';
+import { interpretationCitationIssues } from './planned-v1/plan.js';
 import {
   draftArtifactSchema,
   type AuthorRequest,
@@ -7,11 +7,11 @@ import {
   type DraftArtifact,
   type Finding,
 } from './schemas.js';
-import { compileBlueprint } from './blueprint/compile.js';
-import { validateBlueprintRequest } from './blueprint/validate.js';
-import { planIntentIssues } from './blueprint/plan-intent.js';
-import { evaluateUnitDesign } from './blueprint/design-evaluation.js';
-import { authorEvidence } from './blueprint/evidence.js';
+import { compileBlueprint } from './planned-v1/compile.js';
+import { validateBlueprintRequest } from './planned-v1/validate.js';
+import { planIntentIssues } from './planned-v1/plan-intent.js';
+import { evaluateUnitDesign } from './planned-v1/design-evaluation.js';
+import { authorEvidence } from './planned-v1/evidence.js';
 import { getRulePack } from './rulepack.js';
 import { validateLayoutPlan } from './design.js';
 import { danglingReferenceEvidence } from './reference.js';

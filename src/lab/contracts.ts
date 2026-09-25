@@ -91,7 +91,6 @@ export interface ProviderState {
   model: string;
   ready: boolean;
   images: { model: string; ready: boolean };
-  ranking: { mode: 'auto' | 'typesafe' | 'openrouter' | 'off'; connection: string | null };
   message: string;
 }
 

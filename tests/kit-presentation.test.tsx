@@ -1,5 +1,3 @@
-import { BuildRoles } from '../src/lab/client/build-roles.js';
-import { roleBuildIds, unitRoles, type UnitRoleRanking } from '../src/core/roles.js';
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
 import { renderToStaticMarkup } from 'react-dom/server';
@@ -156,54 +154,4 @@ test('missing character images offer a text-free portrait prompt and keep the na
   assert.match(prompt, /No text, lettering/);
   assert.ok(prompt.includes('A young fire mage in a red coat.'));
   assert.doesNotMatch(prompt, /reading exactly|1024 by 512|Create .*wordmark/);
-});
-
-test('build role labels are compact, distinguish confidence and suppress unconfigured ranking', () => {
-  const candidate = miraCandidate();
-  const probabilities = Object.fromEntries(
-    unitRoles.map((role) => [role, role === 'basic_dps' ? 1 : 0]),
-  ) as UnitRoleRanking['builds'][number]['probabilities'];
-  const roles: UnitRoleRanking = {
-    status: 'completed',
-    provider: 'fixture:roles',
-    note: 'Advisory',
-    builds: roleBuildIds.map((id, index) => ({
-      id,
-      selection: [index === 1 ? 5 : 0, index === 2 ? 5 : 0, index === 3 ? 5 : 0],
-      role: 'basic_dps',
-      confidence: 0.75,
-      probabilities,
-    })),
-  };
-  const html = renderToStaticMarkup(<BuildRoles candidate={candidate} roles={roles} />);
-  assert.match(html, /Suggested role/);
-  assert.match(html, /75%/);
-  assert.match(html, /not verified accuracy/);
-  assert.match(html, /Base/);
-  assert.equal((html.match(/<tr>/g) ?? []).length, 5);
-  assert.equal(
-    renderToStaticMarkup(
-      <BuildRoles candidate={candidate} roles={{ ...roles, status: 'skipped', builds: [] }} />,
-    ),
-    '',
-  );
-  const failed = renderToStaticMarkup(
-    <BuildRoles candidate={candidate} roles={{ ...roles, status: 'unavailable', builds: [] }} />,
-  );
-  assert.match(failed, /Unit draft is complete/);
-  assert.doesNotMatch(failed, /75%/);
-});
-
-test('the Lab rounds ranking estimates without displaying billing precision as certainty', async () => {
-  const result = structuredClone(await authorUnit(miraRequest(), new FakeModel()));
-  result.roles = {
-    status: 'unavailable',
-    provider: 'fixture',
-    builds: [],
-    note: 'Unavailable',
-    estimatedCostUsd: 0.00018098,
-  };
-  const html = renderToStaticMarkup(<Usage artifact={result} />);
-  assert.match(html, /Role ranking estimate:.*0\.0002/);
-  assert.doesNotMatch(html, /0\.00018098|Separate from reported/);
 });

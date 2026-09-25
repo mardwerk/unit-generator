@@ -103,7 +103,7 @@ export function selectLayout(
  * Callers should edit the returned base/invariants before supplying the record
  * when those defaults do not express their intent.
  * Slots sort alphabetically onto path1 and up, which the plan citation
- * check in blueprint/plan.ts relies on.
+ * check in planned-v1/plan.ts relies on.
  */
 export function planFromLayout(
   reference: ReferencePack,

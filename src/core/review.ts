@@ -1,5 +1,5 @@
 import { z } from 'zod';
-import { blueprintReviewRequest } from './blueprint/review.js';
+import { blueprintReviewRequest } from './planned-v1/review.js';
 import { ModelExecutionError, stageFailure, type ModelClient, type ModelRequest } from './model.js';
 import type { OperationOptions } from './draft.js';
 import {
@@ -46,7 +46,6 @@ export async function reviewDraft(
       candidate: checked.draft.candidate,
       findings: [...checked.findings, ...review.findings],
       reviewSummary: review.summary,
-      ...(checked.draft.roles ? { roles: checked.draft.roles } : {}),
       run: {
         draft: checked.draft.run,
         review: {

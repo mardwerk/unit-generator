@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { attackEvidenceCandidates } from '../src/core/blueprint/attack-evidence.js';
-import { authorEvidence } from '../src/core/blueprint/evidence.js';
+import { attackEvidenceCandidates } from '../src/core/planned-v1/attack-evidence.js';
+import { authorEvidence } from '../src/core/planned-v1/evidence.js';
 import { miraRequest } from './fixtures/core-fixtures.js';
 
 function request(text: string) {

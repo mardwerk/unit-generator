@@ -42,8 +42,7 @@
     "format:check": "prettier --check \"src/**/*.{ts,tsx,html,css}\" \"tests/**/*.{ts,tsx}\" \"scripts/*.mjs\" \"*.json\"",
     "cli": "node dist/cli.js",
     "lab": "node dist/lab/main.js",
-    "start": "node dist/lab/main.js",
-    "eval:intake": "node scripts/evaluate-intake.mjs"
+    "start": "node dist/lab/main.js"
   },
   "dependencies": {
     "@openrouter/sdk": "^1.2.146",

@@ -7,9 +7,9 @@ import {
   decodeReferenceBlueprint,
   isReferenceAuthoring,
   referenceBlueprintRequest,
-} from '../src/core/blueprint/reference-authoring.js';
-import { attackEvidenceCandidates } from '../src/core/blueprint/attack-evidence.js';
-import { validateBlueprintRequest } from '../src/core/blueprint/validate.js';
+} from '../src/core/planned-v1/reference-authoring.js';
+import { attackEvidenceCandidates } from '../src/core/planned-v1/attack-evidence.js';
+import { validateBlueprintRequest } from '../src/core/planned-v1/validate.js';
 import { referenceRecipes } from '../src/core/mechanics/reference-patterns.js';
 import { pathKeys, type UnitBlueprint } from '../src/core/mechanics/schemas.js';
 import {
@@ -19,7 +19,7 @@ import {
   defaultProfile,
 } from '../src/node/default-profile.js';
 import { miraCandidate, miraRequest } from './fixtures/core-fixtures.js';
-import { compileBlueprint } from '../src/core/blueprint/compile.js';
+import { compileBlueprint } from '../src/core/planned-v1/compile.js';
 import { renderArtifact } from '../src/presentation/markdown.js';
 
 const cases = [

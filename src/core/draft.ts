@@ -1,8 +1,7 @@
 import { conceptOutputSchema } from './concept-output.js';
 import { requiredConceptCrosspaths } from './concept.js';
-import { rankUnitRoles, type RoleRankingClient } from './roles.js';
 import { z } from 'zod';
-import { draftBlueprint } from './blueprint/draft.js';
+import { draftBlueprint } from './planned-v1/draft.js';
 import { stageFailure, type ModelClient, type ModelRequest } from './model.js';
 import {
   candidateSchema,
@@ -16,8 +15,6 @@ import { freeze, verifyPrepared } from './prepare.js';
 
 export interface OperationOptions {
   signal?: AbortSignal;
-  /** Optional advisory role classification; never changes the generated mechanics. */
-  roleRankingClient?: RoleRankingClient;
   /** Bounded semantic/structural repair for typed blueprints; no transport retries. */
   maxRepairAttempts?: number;
 }
@@ -31,14 +28,7 @@ export async function draftUnit(
   await verifyPrepared(prepared);
   options.signal?.throwIfAborted();
   if (prepared.request.mechanicsDefinition) {
-    const draft = await draftBlueprint(prepared, model, options);
-    const roles = await rankUnitRoles(
-      draft.candidate,
-      prepared.request.mechanicsDefinition,
-      options.roleRankingClient,
-      options.signal,
-    );
-    return freeze(draftArtifactSchema.parse({ ...draft, roles }));
+    return freeze(await draftBlueprint(prepared, model, options));
   }
   const startedAt = new Date().toISOString();
   let candidate;

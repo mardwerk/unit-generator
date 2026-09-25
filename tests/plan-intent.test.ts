@@ -1,8 +1,8 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { planIntentIssues } from '../src/core/blueprint/plan-intent.js';
-import type { UnitDesignPlan } from '../src/core/blueprint/plan-schema.js';
-import { designPlanSchema } from '../src/core/blueprint/plan-schema.js';
+import { planIntentIssues } from '../src/core/planned-v1/plan-intent.js';
+import type { UnitDesignPlan } from '../src/core/planned-v1/plan-schema.js';
+import { designPlanSchema } from '../src/core/planned-v1/plan-schema.js';
 import {
   checkDraft,
   compileBlueprint,

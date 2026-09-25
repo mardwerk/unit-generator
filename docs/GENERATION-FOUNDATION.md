@@ -2,11 +2,11 @@
 
 This explanation covers the default numerical `planned-v1` route, as inspected September 22, 2026. [API](API.md) owns operation contracts; [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) owns pending work. Qualitative concept rules differ from the numerical policy below.
 
-Generate a recognizable character whose upgrades give a player understandable purchasing choices. Keep model work bounded and inexpensive. The [supplied research](../research/game-design/README.md) informs this foundation: start with the intended decision, specify observable changes and limits, then test the claim. It does not establish BTD6 facts or authorize new Engine behavior.
+Generate a recognizable character whose upgrades give a player understandable purchasing choices. Keep model work bounded and inexpensive. The planning workspace's game-design synthesis (`90-knowledge/game-design/README.md`) informs this foundation: start with the intended decision, specify observable changes and limits, then test the claim. It does not establish BTD6 facts or authorize new Engine behavior.
 
 The design contract is: in this situation, buy this path because it changes this behavior, at this cost, while retaining this weakness. Compiled effects show what changed. Evidence distinguishes a design intention from an observed result.
 
-The [PR comparison](PIPELINE-APPROACHES.md) records which ideas from PR5 through PR8 and the separate anime-to-BTD6 pitch were retained or rejected. The [character design guidance](../research/game-design/CHARACTER-DESIGN-GUIDANCE.md) informs qualitative planning: actual motions and triggers, varied progression, explicit hit capacity and inheritance, six crosspaths and cheap-copy checks. It does not authorize unsupported mechanics or replace the numerical stage required by `planned-v1`. Qualitative concept authoring is a separate supported Deliverable; see [current next work](NEXT-EXPERIMENT.md).
+The [PR comparison](PIPELINE-APPROACHES.md) records which ideas from PR5 through PR8 and the separate anime-to-BTD6 pitch were retained or rejected. The character design guidance (planning workspace `90-knowledge/game-design/CHARACTER-DESIGN-GUIDANCE.md`) informs qualitative planning: actual motions and triggers, varied progression, explicit hit capacity and inheritance, six crosspaths and cheap-copy checks. It does not authorize unsupported mechanics or replace the numerical stage required by `planned-v1`. Qualitative concept authoring is a separate supported Deliverable; see [current next work](NEXT-EXPERIMENT.md).
 
 For example, a precision branch may promise sustained pressure on separated durable enemies. More damage and personal detection can support that adaptation. Calling it an armor-piercing beam cannot grant an undeclared immunity bypass. Its capstone must explain the value of concentrating investment compared with cheaper copies, retaining placement and target-access assumptions.
 
@@ -14,13 +14,13 @@ For example, a precision branch may promise sustained pressure on separated dura
 
 The September 22 design requirement adds an explicit choice of source organization: persistent identity, parallel mastery, successive forms and meaningful limitations. Purchase reasons remain important, but cannot alone distinguish a coherent character from themed stat packages. The [reshape proposal](GENERATOR-RESHAPE.md) describes retaining that choice without mandating another model stage. Its private form policies must remain outside the public default.
 
-The historical [PR 6 branch review](PR6-REVIEW.md) retains source and simulation evidence with evaluator gaps. The merged compact experiment excludes that simulator. Follow [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) for current next work; the previous handoff comparison is historical.
+The historical PR 6 branch review (retired) retains source and simulation evidence with evaluator gaps. The merged compact experiment excludes that simulator. Follow [NEXT-EXPERIMENT.md](NEXT-EXPERIMENT.md) for current next work; the previous handoff comparison is historical.
 
 ## Default numerical pipeline responsibilities
 
 `Evidence + explicit Request → purchase plan → numerical mechanics → compile and check → purchase evidence + Unit`
 
-The default remains `planned-v1`: two normal model calls, each with at most one correction by default. Provider failures are not design-repair opportunities. There is no automatic paid fallback and no required model critic, Jev ranking or image generation. CLI and Lab share the same core. Revisions use the same process and retain confirmed choices.
+The default remains `planned-v1`: two normal model calls, each with at most one correction by default. Provider failures are not design-repair opportunities. There is no automatic paid fallback and no required model critic or image generation. CLI and Lab share the same core. Revisions use the same process and retain confirmed choices.
 
 | Owner | Responsibility |
 | --- | --- |

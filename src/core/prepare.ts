@@ -1,7 +1,7 @@
 import { validateConceptRequest } from './concept.js';
 import { resolveConceptRequest, validateConceptDefinition } from './concept-definition.js';
-import { withDefinitionEvidence, definitionProgression } from './blueprint/definition.js';
-import { authorEvidence } from './blueprint/evidence.js';
+import { withDefinitionEvidence, definitionProgression } from './planned-v1/definition.js';
+import { authorEvidence } from './planned-v1/evidence.js';
 import { getRulePack, type RulePack } from './rulepack.js';
 import { assertReferencePackCoherent, danglingReferenceEvidence } from './reference.js';
 import { validateLayoutPlan } from './design.js';

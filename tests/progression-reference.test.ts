@@ -1,9 +1,9 @@
 import assert from 'node:assert/strict';
 import { readFile } from 'node:fs/promises';
 import test from 'node:test';
-import { retainedProgressionReference } from '../src/core/blueprint/progression-reference.js';
-import { designGuidance } from '../src/core/blueprint/design-guidance.js';
-import { designPlanRequest } from '../src/core/blueprint/plan.js';
+import { retainedProgressionReference } from '../src/core/planned-v1/progression-reference.js';
+import { designGuidance } from '../src/core/planned-v1/design-guidance.js';
+import { designPlanRequest } from '../src/core/planned-v1/plan.js';
 import { defaultAuthoringDefinition } from '../src/core/default-profile.js';
 import { prepareRequest, definitionProgression } from '../src/core/index.js';
 import { miraRequest } from './fixtures/core-fixtures.js';

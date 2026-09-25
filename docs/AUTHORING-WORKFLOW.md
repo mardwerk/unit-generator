@@ -16,7 +16,7 @@ The main readable output is the complete compact kit: role, basic attack, every 
 
 Redesign feedback may rework the entire Unit draft. Confirmed decisions remain binding; unconfirmed arrangements can change to keep the revised Unit coherent. Concept `prose-edit` preserves behavior; changing the retained concept contract requires explicit `adapt`. See [operation contracts](API.md).
 
-A model such as Jev could help identify when a human decision is needed, classify sourced abilities or select among supplied path themes. These remain intake and pre-draft evaluation ideas. The implemented optional Jev integration ranks resolved builds after drafting, independently of these proposals. Decisions need explicit criteria independent of a particular model; a suggested category does not override confirmed choices.
+A model could help identify when a human decision is needed, classify sourced abilities or select among supplied path themes. These remain intake and pre-draft evaluation ideas. Decisions need explicit criteria independent of a particular model; a suggested category does not override confirmed choices.
 
 The latest intake proposal is not implemented:
 
@@ -25,11 +25,7 @@ The latest intake proposal is not implemented:
 3. Retrieve evidence for existing characters and ask about unresolved adaptation choices. For originals, clarify missing identity and primary playstyle. Research can continue between questions; ask only what materially changes the first draft. Q&A options use neutral wording without a recommended or preselected creative choice, and allow a custom answer or uncertainty.
 4. Produce the first connected draft once identity, direction and applicable game rules are sufficiently clear. Keep assumptions and unresolved mechanics visible. A well-specified input can skip Q&A.
 
-A shared intake operation can return a draft-ready brief or the next necessary question. CLI and Lab display the same structured choices and submit explicit answers. Routes can converge on the existing drafting stages; each route does not need its own generator or agent.
-
-The separate [Jev intake experiment](JEV-INTAKE.md) records a September 19 live API check and an evaluation command. It does not yet route users or display probabilities in the Lab. A historical [paired drafting experiment](JEV-DRAFT-EVALUATION.md) compared drafts with and without a Jev-selected role and path package, including quality observations, time and costs.
-
-Optional Jev scores below choices remain an experiment. Each score needs a defined question, such as whether an option matches the supplied description. Classification confidence, source support, rule compatibility and user preference are different things. Do not present a score as the probability that the user will enjoy a design. Whether scores should be visible during neutral Q&A remains open because they can influence the choice. Verify API output semantics and calibration before displaying percentages or selecting automatic-routing thresholds; missing scores remain unavailable. Research and drafting use separate capabilities, with the same explicit inputs and outputs regardless of provider.
+A shared intake operation can return a draft-ready brief or the next necessary question. CLI and Lab display the same structured choices and submit explicit answers. Routes can converge on the existing drafting stages; each route does not need its own generator or agent. Research and drafting use separate capabilities, with the same explicit inputs and outputs regardless of provider.
 
 The September 19 exploration considered a richer mechanics catalog, retrieval, constrained composition and optimization as capabilities that people or agents could use. Explicit inputs may include relevant roster context and balance references; standalone operation does not require sparse context. No catalog representation, embedding model, optimizer or expanded ownership boundary has been selected. Evaluate useful output and total effort before choosing infrastructure.
 

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { defaultAuthoringDefinition } from '../src/core/default-profile.js';
 import { pathKeys, tierKeys } from '../src/core/mechanics/schemas.js';
-import { modelOutputJsonSchema, modelOutputSchema } from '../src/core/blueprint/model-output.js';
+import { modelOutputJsonSchema, modelOutputSchema } from '../src/core/planned-v1/model-output.js';
 import { miraRequest } from './fixtures/core-fixtures.js';
 
 const followUp = {

@@ -1,7 +1,6 @@
-import { designPlanSchema } from './blueprint/plan-schema.js';
+import { designPlanSchema } from './planned-v1/plan-schema.js';
 import { interpretationInputSchema } from './design.js';
-import { designEvaluationSchema } from './blueprint/design-evaluation.js';
-import { unitRoleRankingSchema } from './roles.js';
+import { designEvaluationSchema } from './planned-v1/design-evaluation.js';
 import { z } from 'zod';
 import { blueprintSchema, mechanicsDefinitionSchema } from './mechanics/schemas.js';
 
@@ -366,7 +365,6 @@ export const draftArtifactSchema = z.strictObject({
   prepared: preparedSchema,
   candidate: candidateSchema,
   run: modelRunSchema,
-  roles: unitRoleRankingSchema.optional(),
 });
 
 export const checkedArtifactSchema = z.strictObject({
@@ -394,7 +392,6 @@ export const resultSchema = z.strictObject({
   candidate: candidateSchema,
   findings: z.array(findingSchema),
   reviewSummary: text,
-  roles: unitRoleRankingSchema.optional(),
   run: z.strictObject({
     draft: modelRunSchema,
     review: modelRunSchema,

@@ -15,8 +15,6 @@ export function Settings({
   onClose: () => void;
 }) {
   const [provider, setProvider] = useState<ProviderState['provider']>('openrouter');
-  const [roleMode, setRoleMode] = useState<ProviderState['ranking']['mode']>('auto');
-  const [roleConnection, setRoleConnection] = useState<string | null>(null);
   const [model, setModel] = useState('');
   const [imageModel, setImageModel] = useState('');
   const [key, setKey] = useState('');
@@ -36,8 +34,6 @@ export function Settings({
           setImageModel(state.images.model);
           setReady(state.ready);
           setMessage(state.message);
-          setRoleMode(state.ranking.mode);
-          setRoleConnection(state.ranking.connection);
         }
       })
       .catch((error) => {
@@ -57,7 +53,6 @@ export function Settings({
     try {
       const state = await api<ProviderState>('provider', {
         provider,
-        roleMode,
         ...(imageModel.trim() ? { imageModel: imageModel.trim() } : {}),
         ...(key.trim() ? { apiKey: key.trim() } : {}),
         ...(model.trim() ? { model: model.trim() } : {}),
@@ -67,8 +62,6 @@ export function Settings({
       setMessage(state.message);
       setModel(state.model);
       setImageModel(state.images.model);
-      setRoleMode(state.ranking.mode);
-      setRoleConnection(state.ranking.connection);
     } catch (error) {
       setError(error instanceof Error ? error.message : String(error));
     } finally {
@@ -145,28 +138,6 @@ export function Settings({
             Muse Image is the default, listed at about $0.01 per image. Images use your OpenRouter
             key even when Unit drafting uses Codex. Every image requires confirmation from its icon
             dialog.
-          </p>
-        </Disclosure>
-        <Disclosure title="Optional role ranking">
-          <Field label="Ranking connection">
-            <select
-              value={roleMode}
-              onChange={(e) => setRoleMode(e.target.value as ProviderState['ranking']['mode'])}
-            >
-              <option value="auto">Automatic</option>
-              <option value="typesafe">TypesafeAI</option>
-              <option value="openrouter">OpenRouter JEV</option>
-              <option value="off">Off</option>
-            </select>
-          </Field>
-          <p className="muted small">
-            Labels the base Unit and completed paths. Generation still works without it. Save to
-            apply.
-          </p>
-          <p className="muted small">
-            {roleConnection
-              ? `Saved connection: ${roleConnection}.`
-              : 'No saved ranking connection. Configure TYPESAFE_API_KEY, or OPENROUTER_API_KEY and OPENROUTER_JEV_MODEL, in the local .env file and restart.'}
           </p>
         </Disclosure>
         <button type="button" onClick={() => void saveProvider()}>

@@ -105,22 +105,6 @@ test('a positive reported cost never formats as zero', () => {
   }
 });
 
-test('a failed optional role call remains unavailable and leaves costs partial', async () => {
-  const result = structuredClone(await authorUnit(miraRequest(), new FakeModel()));
-  result.run.draft.usage = usage({ costUsd: 0 });
-  result.run.review.usage = usage({ costUsd: 0 });
-  result.roles = {
-    status: 'unavailable',
-    provider: 'typesafe:jev',
-    builds: [],
-    note: 'Provider unavailable.',
-  };
-  const summary = summarizeUsage(result);
-  assert.deepEqual(summary.cost, { value: 0, partial: true });
-  assert.equal(summary.roleCostEstimate, null);
-  assert.deepEqual(stageUsageRows(summary.stages[2]!)[0], ['Status', 'Unavailable']);
-});
-
 test('small estimates round to one significant digit without changing reported cost precision', () => {
   assert.equal(formatEstimatedCost(0.00018098), '$0.0002 USD');
   assert.equal(formatEstimatedCost(0.00000125), '$0.000001 USD');

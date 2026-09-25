@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { unitSummary, pathSummary } from '../src/core/blueprint/kit-summary.js';
+import { unitSummary, pathSummary } from '../src/core/planned-v1/kit-summary.js';
 import {
   defaultMechanicsDefinition,
   type Attack,

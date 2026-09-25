@@ -1,7 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
-import { planFeasibilityIssues } from '../src/core/blueprint/plan-feasibility.js';
-import { designPlanSchema, type UnitDesignPlan } from '../src/core/blueprint/plan-schema.js';
+import { planFeasibilityIssues } from '../src/core/planned-v1/plan-feasibility.js';
+import { designPlanSchema, type UnitDesignPlan } from '../src/core/planned-v1/plan-schema.js';
 import { defaultMechanicsDefinition, pathKeys, tierKeys } from '../src/core/mechanics/schemas.js';
 
 function fixture() {

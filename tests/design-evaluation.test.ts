@@ -3,7 +3,7 @@ import test from 'node:test';
 import {
   evaluateUnitDesign,
   designEvaluationSchema,
-} from '../src/core/blueprint/design-evaluation.js';
+} from '../src/core/planned-v1/design-evaluation.js';
 import { compareCapstonePurchases } from '../src/core/mechanics/purchase-comparison.js';
 import { referenceRecipes } from '../src/core/mechanics/reference-patterns.js';
 import { validateBlueprint } from '../src/core/mechanics/validate.js';
