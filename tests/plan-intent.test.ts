@@ -12,12 +12,12 @@ import {
   type DraftArtifact,
 } from '../src/core/index.js';
 import { miraRequest } from './fixtures/core-fixtures.js';
-import { referenceRecipes } from '../src/core/mechanics/reference-patterns.js';
+import { validBlueprint } from './fixtures/blueprint.js';
 import { defaultAuthoringDefinition } from '../src/core/default-profile.js';
 import { pathKeys, tierKeys, type UnitBlueprint } from '../src/core/mechanics/schemas.js';
 
 function fixture() {
-  const blueprint = structuredClone(referenceRecipes[0]!.blueprint);
+  const blueprint = validBlueprint();
   const upgradeIntents = {} as NonNullable<UnitDesignPlan['upgradeIntents']>;
   for (const path of pathKeys) {
     upgradeIntents[path] = {} as NonNullable<UnitDesignPlan['upgradeIntents']>['path1'];

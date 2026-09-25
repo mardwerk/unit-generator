@@ -149,26 +149,21 @@ export function modelOutputSchema(request: AuthorRequest) {
 }
 
 /** Inline provider schema. Shared references caused malformed responses in live probes. */
-export function modelOutputJsonSchema(
-  request: AuthorRequest,
-  planned = false,
-): Record<string, unknown> {
+export function modelOutputJsonSchema(request: AuthorRequest): Record<string, unknown> {
   const schema = providerJsonSchema(modelOutputSchema(request));
-  if (planned) {
-    // The retained plan already owns these fields. bindDesignPlan supplies them
-    // before the same strict decoder runs, also for older full-shaped responses.
-    type ObjectSchema = { properties: Record<string, ObjectSchema>; required: string[] };
-    const omit = (node: ObjectSchema, fields: string[]) => {
-      for (const field of fields) delete node.properties[field];
-      node.required = node.required.filter((field) => !fields.includes(field));
-    };
-    const root = schema as unknown as ObjectSchema;
-    const properties = root.properties;
-    omit(root, ['baseSourceIds']);
-    omit(properties.baseAttack!, ['name']);
-    for (const path of pathKeys)
-      omit(properties.paths!.properties[path]!, ['name', 'sourceIds', 'theme', 'rationale']);
-  }
+  // The retained plan already owns these fields. bindDesignPlan supplies them
+  // before the same strict decoder runs, also for older full-shaped responses.
+  type ObjectSchema = { properties: Record<string, ObjectSchema>; required: string[] };
+  const omit = (node: ObjectSchema, fields: string[]) => {
+    for (const field of fields) delete node.properties[field];
+    node.required = node.required.filter((field) => !fields.includes(field));
+  };
+  const root = schema as unknown as ObjectSchema;
+  const properties = root.properties;
+  omit(root, ['baseSourceIds']);
+  omit(properties.baseAttack!, ['name']);
+  for (const path of pathKeys)
+    omit(properties.paths!.properties[path]!, ['name', 'sourceIds', 'theme', 'rationale']);
   return schema;
 }
 

@@ -14,14 +14,13 @@ export const defaultProgression: AuthorRequest['progression'] = {
 /** Fresh authoring opts into design checks; retained definitions keep their original policy. */
 export const defaultAuthoringDefinition: MechanicsDefinition = {
   ...structuredClone(defaultMechanicsDefinition),
-  revision: '2026-09-21-design-v9',
+  revision: '2026-09-25-design-v10',
   rules: {
     ...structuredClone(defaultMechanicsDefinition.rules),
     attackExtensions: ['distinct-volley', 'volley-follow-up'],
   },
   profile: {
     ...structuredClone(defaultMechanicsDefinition.profile),
-    authoringMode: 'planned-v1',
     earlyTierThrough: 2,
     designPolicy: {
       version: '1',
@@ -37,11 +36,11 @@ export const defaultAuthoringDefinition: MechanicsDefinition = {
 };
 
 export const defaultProfile: ResolvedDocument = {
-  id: 'default-td-profile-v9',
+  id: 'default-td-profile-v10',
   kind: 'rules',
   text: [
-    'Experimental BTD6-inspired Tower Defense profile, version 9. Editable starter rules, not Manga Mayhem rules or balance certification. The structured mechanicsDefinition owns executable operators, numerical limits and the starter scale; supplied progression references illustrate that scale, not fixed character kits.',
-    'Use the normal two-call planned-v1 route: first a compact source-backed purchase-plan-v1 contract, then numerical mechanics. The model chooses a recognizable base, three purchasing situations, retained weaknesses and capstone reasons, with one description and typed intent per milestone. Code binds evidence, generates crosspath bookkeeping, resolves costs and arithmetic, checks plan feasibility and every legal build, and reports analytical purchase comparisons. Revisions use the same route.',
+    'Experimental BTD6-inspired Tower Defense profile, version 10. Editable starter rules, not Manga Mayhem rules or balance certification. The structured mechanicsDefinition owns executable operators, numerical limits and the starter scale; supplied progression references illustrate that scale, not fixed character kits.',
+    'Generation makes two model calls: first a compact source-backed purchase-plan-v1 contract, then numerical mechanics. The model chooses a recognizable base, three purchasing situations, retained weaknesses and capstone reasons, with one description and typed intent per milestone. Code binds evidence, generates crosspath bookkeeping, resolves costs and arithmetic, checks plan feasibility and every legal build, and reports analytical purchase comparisons. Revisions use the same route.',
     'Adapt a coherent subset of the supplied character evidence. Respect ownership, prerequisites, story period and source limitations. Reserve or omit unsupported techniques explicitly. Names reflect purchased behavior; citations and names do not prove executable mechanics. One compatible attack must not select an entire generic kit.',
     'A stationary Unit attacks detected enemies in range with a clear delivery path. Detection does not grant delivery access. Use one readable automatic base attack; no manual activation at base. Use Gold for match currency and Health for the shared player life pool, initially 150 Health. Units have no Health or durability. The basic enemy reference has one layer removed by 1 damage. Tough enemies need explicit rules; no enemy layer tree or leak simulation is implemented.',
     'Three paths each have five sequential upgrades. Buy at most two paths, only one above T2. A 3-0-0 build can still buy 3-1-0 then 3-2-0; 3-3-0 and 3-2-1 are illegal. Purchased upgrades stack. T1/T2 preserve the existing attack identity: improve damage, cadence, range, pierce or existing statuses, with personal detection allowed. They introduce no new status, secondary attack, delivery, damage-type access, targeting or multi-shot pattern. Early effect and capability limits come from the Definition and are ceilings, not quotas.',
@@ -53,7 +52,7 @@ export const defaultProfile: ResolvedDocument = {
     'Reference provenance: user-supplied btd6_towers.json, compiled September 20, 2026, SHA256 a2a5e2bb4591a6278f079a6796d06f76428716080bd4a42453f898cb1403f8f6. Base stats cite https://raw.githubusercontent.com/Btd6ModHelper/btd6-game-data/main/Towers/DartMonkey/DartMonkey.json and the corresponding BoomerangMonkey file; Medium prices cite https://raw.githubusercontent.com/hemisemidemipresent/cyberquincy/master/jsons/costs.json. The dataset combines unpinned patches. Missing timings are unknown, not zero. Health and layer references are starter assumptions. Values and prices remain proposed and need playtesting.',
   ].join('\n\n'),
   origin: {
-    location: 'mardwerk-unit:default-td-profile:v9',
+    location: 'mardwerk-unit:default-td-profile:v10',
     access: 'supplied',
     note: 'Bundled starter preset. Edit or replace it in Inputs and rules before preparing a custom Request.',
   },

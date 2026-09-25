@@ -7,12 +7,12 @@ import {
   type Attack,
 } from '../src/core/mechanics/index.js';
 import { defaultAuthoringDefinition } from '../src/core/default-profile.js';
-import { referenceRecipes } from '../src/core/mechanics/reference-patterns.js';
+import { validBlueprint } from './fixtures/blueprint.js';
 import { resolveUnchecked } from '../src/core/mechanics/resolve.js';
 
 const definition = defaultAuthoringDefinition;
 function attack(): Attack {
-  const value = structuredClone(referenceRecipes[0]!.blueprint.baseAttack);
+  const value = validBlueprint().baseAttack;
   value.damageType = 'normal';
   value.stats.damage = 4;
   value.stats.range = 30;
@@ -120,7 +120,7 @@ test('secondary access uses impact-origin obstruction, explicit status inheritan
 });
 
 test('crosspath and boost damage reach secondary hits only in their declared scope', () => {
-  const value = structuredClone(referenceRecipes[0]!.blueprint);
+  const value = validBlueprint();
   value.paths.path2.tiers.tier5.changes = [
     {
       kind: 'followUp',

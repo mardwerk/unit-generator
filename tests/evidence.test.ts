@@ -111,7 +111,6 @@ test('small source sets reach authoring without filtering', () => {
 test('planned evidence caps short wiki fragments while retaining identity, signature and limitations', () => {
   const request = miraRequest();
   request.mechanicsDefinition = structuredClone(defaultMechanicsDefinition);
-  request.mechanicsDefinition.profile.authoringMode = 'planned-v1';
   request.documents[0]!.text = [
     'Mira keeps the old observatory.',
     ...Array.from({ length: 319 }, (_, index) => `Archive entry ${index} lists a festival.`),
@@ -151,7 +150,6 @@ test('planned evidence caps short wiki fragments while retaining identity, signa
 test('planned evidence keeps its character budget even when 96 long passages would exceed it', () => {
   const request = miraRequest();
   request.mechanicsDefinition = structuredClone(defaultMechanicsDefinition);
-  request.mechanicsDefinition.profile.authoringMode = 'planned-v1';
   request.documents[0]!.text = Array.from(
     { length: 120 },
     (_, index) => `Passage ${index} describes ${'the same old village festival '.repeat(12)}.`,
@@ -167,30 +165,9 @@ test('planned evidence keeps its character budget even when 96 long passages wou
     );
 });
 
-test('legacy evidence does not acquire the planned passage cap or relevance bonuses', () => {
-  const request = miraRequest();
-  request.documents[0]!.text = Array.from(
-    { length: 110 },
-    (_, index) => `Festival record number ${index}.`,
-  ).join(' ');
-  assert.equal(authorEvidence(request).length, 110);
-  assert.deepEqual(authorEvidence(request), evidenceSpans(request));
-  request.documents[0]!.text =
-    Array.from({ length: 350 }, (_, index) => `Festival record number ${index}.`).join(' ') +
-    ' Her signature fires a projectile.';
-  const selected = authorEvidence(request);
-  assert.ok(selected.length > 96);
-  assert.equal(
-    selected.some(({ text }) => text.includes('Her signature')),
-    false,
-  );
-  assert.ok(selected.reduce((total, span) => total + span.text.length, 0) <= 6_000);
-});
-
 test('planned evidence keeps technique behavior with ownership and exceptions beside repetitive inventories', () => {
   const request = miraRequest();
   request.mechanicsDefinition = structuredClone(defaultMechanicsDefinition);
-  request.mechanicsDefinition.profile.authoringMode = 'planned-v1';
   request.documents[0]!.text = [
     'Mira keeps the observatory.',
     ...Array.from(

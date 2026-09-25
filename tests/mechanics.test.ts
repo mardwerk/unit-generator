@@ -1,5 +1,7 @@
 import assert from 'node:assert/strict';
 import test from 'node:test';
+import { selectionIssues } from '../src/core/mechanics/resolve.js';
+import { defaultAuthoringDefinition } from '../src/core/default-profile.js';
 import {
   allLegalBuilds,
   assessTarget,
@@ -10,6 +12,7 @@ import {
   resolveBuild,
   tierKeys,
   validateBlueprint,
+  type BuildSelection,
   type Change,
   type UnitBlueprint,
 } from '../src/core/mechanics/index.js';
@@ -494,4 +497,21 @@ test('fractional count multipliers remain valid when every composed count is int
   assert.match(issue.message, /Resolved pierce is 4\.5/);
   assert.match(issue.message, /paths\.path1\.tiers\.tier1\.changes\.0: add 1/);
   assert.match(issue.message, /paths\.path2\.tiers\.tier2\.changes\.0: multiply 1\.5/);
+});
+
+test('a T3 main path still permits later T1 and T2 crosspath purchases but no second advanced or third path', () => {
+  for (const selection of [
+    [3, 0, 0],
+    [3, 1, 0],
+    [3, 2, 0],
+  ] as BuildSelection[]) {
+    assert.deepEqual(selectionIssues(selection, defaultAuthoringDefinition), []);
+  }
+  for (const selection of [
+    [3, 3, 0],
+    [3, 2, 1],
+  ] as BuildSelection[]) {
+    assert.ok(selectionIssues(selection, defaultAuthoringDefinition).length > 0);
+  }
+  assert.equal(allLegalBuilds(defaultAuthoringDefinition).length, 64);
 });

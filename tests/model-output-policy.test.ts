@@ -105,19 +105,17 @@ test('extension availability constrains base and tier grammar without forbidding
   );
 });
 
-test('planned and direct provider grammars expose null-only forbidden active follow-ups', () => {
+test('the provider grammar exposes null-only forbidden active follow-ups', () => {
   const input = request();
   input.mechanicsDefinition.rules.attackExtensions = ['volley-follow-up'];
-  for (const planned of [false, true]) {
-    type Schema = { type?: string; properties: Record<string, Schema>; anyOf?: Schema[] };
-    const schema = modelOutputJsonSchema(input, planned) as Schema;
-    const paths = schema.properties.paths!.properties;
-    for (const path of pathKeys)
-      for (const tier of tierKeys) {
-        const active = paths[path]!.properties.tiers!.properties[tier]!.properties.activeFollowUp!;
-        if (path === 'path2' && (tier === 'tier4' || tier === 'tier5'))
-          assert.ok(active.anyOf?.some((choice) => choice.type === 'object'));
-        else assert.equal(active.type, 'null');
-      }
-  }
+  type Schema = { type?: string; properties: Record<string, Schema>; anyOf?: Schema[] };
+  const schema = modelOutputJsonSchema(input) as Schema;
+  const paths = schema.properties.paths!.properties;
+  for (const path of pathKeys)
+    for (const tier of tierKeys) {
+      const active = paths[path]!.properties.tiers!.properties[tier]!.properties.activeFollowUp!;
+      if (path === 'path2' && (tier === 'tier4' || tier === 'tier5'))
+        assert.ok(active.anyOf?.some((choice) => choice.type === 'object'));
+      else assert.equal(active.type, 'null');
+    }
 });

@@ -1,6 +1,3 @@
-import { executeLabOperation } from '../src/lab/operations.js';
-import { inputBeforeStage } from '../src/lab/client/stage-input.js';
-import { summarizeUsage } from '../src/presentation/usage.js';
 import assert from 'node:assert/strict';
 import test from 'node:test';
 import {
@@ -15,9 +12,6 @@ import {
   pathKeys,
   prepareRequest,
   requestSchema,
-  resolveBuild,
-  resultSchema,
-  reviewDraft,
   tierKeys,
   type AuthorRequest,
   type ModelClient,
@@ -234,79 +228,6 @@ function modelOutput(unit: UnitBlueprint): z.infer<ReturnType<typeof modelOutput
   return output;
 }
 
-test('an explicit strict BTD6 policy rejects repeated early effects and repairs a weak capstone through the shared workflow', async () => {
-  const input = applyDefaultProfile(request());
-  input.mechanicsDefinition!.profile.authoringMode = 'direct';
-  input.mechanicsDefinition!.profile.designPolicy!.minTier5SpecialtyMultiplier = 3;
-  const unit = blueprint();
-  unit.paths.path1.tiers.tier3.changes.push({ kind: 'targeting', target: 'base', value: 'strong' });
-  unit.paths.path2.tiers.tier3.changes.push(
-    { kind: 'stat', target: 'base', stat: 'projectiles', operation: 'add', value: 1 },
-    { kind: 'distribution', target: 'base', value: 'distinct-targets' },
-  );
-  unit.paths.path3.tiers.tier3.changes.push(
-    { kind: 'delivery', target: 'base', value: 'area' },
-    { kind: 'stat', target: 'base', stat: 'splashRadius', operation: 'add', value: 3 },
-  );
-  unit.paths.path1.specialization = 'direct-damage';
-  unit.paths.path2.specialization = 'ability-burst';
-  unit.paths.path3.specialization = 'group-damage';
-  unit.paths.path1.tiers.tier5.changes = [
-    { kind: 'stat', target: 'base', stat: 'damage', operation: 'multiply', value: 3 },
-  ];
-  unit.paths.path2.tiers.tier5.changes = [
-    {
-      kind: 'modifyBoost',
-      target: 'base',
-      stat: 'damageMultiplier',
-      operation: 'multiply',
-      value: 3,
-    },
-  ];
-  unit.paths.path3.tiers.tier5.changes = [
-    { kind: 'stat', target: 'base', stat: 'pierce', operation: 'multiply', value: 3 },
-  ];
-  assert.deepEqual(validateBlueprintRequest(unit, input), []);
-  const weak = structuredClone(unit);
-  weak.paths.path1.tiers.tier5.changes = [
-    { kind: 'stat', target: 'base', stat: 'damage', operation: 'multiply', value: 1.5 },
-  ];
-  weak.paths.path3.tiers.tier1.changes = structuredClone(unit.paths.path1.tiers.tier1.changes);
-  const raw = modelOutput(weak);
-  const valid = modelOutput(unit);
-  const model = new ResponseModel([
-    { output: raw },
-    {
-      output: {
-        paths: {
-          path1: { tiers: { tier5: valid.paths.path1.tiers.tier5 } },
-          path3: {
-            tiers: {
-              tier1: valid.paths.path3.tiers.tier1,
-              tier5: valid.paths.path3.tiers.tier5,
-            },
-          },
-        },
-      },
-    },
-  ]);
-  const draft = await draftUnit(await prepareRequest(input), model);
-  assert.equal(draft.run.attempts?.length, 2);
-  assert.ok(draft.run.attempts?.[0]?.issues.some((issue) => /duplicates path1/.test(issue)));
-  assert.ok(draft.run.attempts?.[0]?.issues.some((issue) => /at least 3x/.test(issue)));
-  assert.equal(draft.candidate.blueprint?.paths.path1.specialization, 'direct-damage');
-  const repairContext = JSON.parse(model.requests[1]!.prompt.split('\n\n')[1]!);
-  assert.deepEqual(repairContext.dependentCapstones, ['path3.tier5']);
-  assert.deepEqual(draft.candidate.blueprint?.paths.path2, unit.paths.path2);
-  assert.deepEqual(draft.candidate.blueprint?.sourceFacts, unit.sourceFacts);
-  assert.ok(model.requests.every((call) => /At most 1 paths/.test(call.prompt)));
-  const checked = await checkDraft(draft);
-  assert.ok(!checked.findings.some((finding) => finding.outcome === 'fail'));
-  const omitted = structuredClone(valid);
-  Reflect.deleteProperty(omitted.paths.path1, 'specialization');
-  assert.equal(modelOutputSchema(input).safeParse(omitted).success, false);
-});
-
 function usage(id: string): ModelUsage {
   return {
     inputTokens: 100,
@@ -343,131 +264,6 @@ class ResponseModel implements ModelClient {
     return copy;
   }
 }
-
-test('typed authoring compiles source-backed mechanics and preserves its definition through review and serialization', async () => {
-  const input = request();
-  const prepared = await prepareRequest(input);
-  const document = definitionDocument(defaultMechanicsDefinition);
-  assert.deepEqual(prepared.request.documents.at(-1), document);
-  assert.deepEqual((await prepareRequest(prepared.request)).request, prepared.request);
-  const model = new ResponseModel([
-    { output: blueprint(), usage: usage('draft') },
-    {
-      output: { summary: 'The scoped draft requires runtime evaluation.', findings: [] },
-      usage: usage('review'),
-    },
-  ]);
-  const draft = await draftUnit(prepared, model);
-  assert.equal(model.requests.length, 1);
-  assert.deepEqual(draft.candidate, compileBlueprint(blueprint(), prepared.request));
-  assert.equal(draft.candidate.paths.length, 3);
-  assert.equal(draft.candidate.paths.flatMap((path) => path.tiers).length, 15);
-  assert.deepEqual(
-    draft.run.attempts?.map(({ purpose, issues }) => ({ purpose, issues })),
-    [{ purpose: 'design', issues: [] }],
-  );
-  assert.equal(
-    draft.candidate.abilities.find((ability) => ability.id === 'path-2-active')?.tier,
-    4,
-  );
-  assert.equal(
-    draft.candidate.abilities.find((ability) => ability.id === 'reserved-1')?.placement,
-    'reserved',
-  );
-  assert.equal(
-    draft.candidate.mechanics.find((mechanic) => mechanic.id === 'proposal-1')?.status,
-    'proposed_extension',
-  );
-  const built = resolveBuild(blueprint(), [2, 5, 0]);
-  const representative = draft.candidate.representativeBuilds.find(
-    (build) => build.name === '2-5-0',
-  )!;
-  assert.ok(representative.rationale.includes(`${built.cumulativeCost} Gold`));
-  assert.match(draft.candidate.paths[1]!.tiers[4]!.benefit, /active damage multiplier 2 to 3/);
-  const checked = await checkDraft(draftArtifactSchema.parse(JSON.parse(JSON.stringify(draft))));
-  assert.ok(
-    checked.findings.some(
-      (finding) =>
-        finding.rule === 'typed-mechanics' &&
-        finding.outcome === 'pass' &&
-        finding.message.includes('64 legal builds'),
-    ),
-  );
-  assert.equal(
-    checked.findings.some((finding) => finding.outcome === 'fail'),
-    false,
-  );
-  const result = await reviewDraft(checked, model);
-  const saved = resultSchema.parse(JSON.parse(JSON.stringify(result)));
-  assert.deepEqual(saved.candidate.blueprint, blueprint());
-  assert.equal(saved.run.draft.usage?.generationId, 'draft');
-  assert.equal(saved.run.review.usage?.generationId, 'review');
-  assert.ok(Object.isFrozen(result.candidate.blueprint));
-  assert.match(model.requests[0]!.prompt, /baseSourceIds/);
-  assert.ok(!model.requests[0]!.prompt.includes(`"id":"${document.id}"`));
-  assert.ok(model.requests[1]!.prompt.includes(document.id));
-});
-
-test('an invalid evidence selection gets one bounded repair and both billed attempts remain inspectable', async () => {
-  const invalid = blueprint();
-  invalid.sourceFacts[0]!.quote = 'Mira can teleport any distance instantly.';
-  const model = new ResponseModel([
-    { output: invalid, usage: usage('first') },
-    { output: blueprint(), usage: usage('second') },
-  ]);
-  const draft = await draftUnit(await prepareRequest(request()), model);
-  assert.equal(model.requests.length, 2);
-  assert.match(model.requests[1]!.prompt, /baseSourceIds/);
-  assert.ok(model.requests[1]!.prompt.includes('invalid-source-id'));
-  assert.deepEqual(
-    draft.run.attempts?.map(({ purpose }) => purpose),
-    ['design', 'repair'],
-  );
-  assert.equal(draft.run.attempts?.[0]?.usage?.generationId, 'first');
-  assert.equal(draft.run.usage?.totalTokens, 280);
-  assert.equal(draft.run.usage?.costUsd, 0.02);
-  assert.equal(draft.run.usage?.generationId, null);
-});
-
-test('unknown usage stays unknown in totals while reported repair usage remains attached', async () => {
-  const model = new ResponseModel([
-    { output: {} },
-    { output: blueprint(), usage: usage('repair') },
-  ]);
-  const draft = await draftUnit(await prepareRequest(request()), model);
-  assert.equal(draft.run.usage?.totalTokens, null);
-  assert.equal(draft.run.usage?.costUsd, null);
-  assert.equal(draft.run.attempts?.[1]?.usage?.costUsd, 0.01);
-});
-
-test('exhausted repair publishes no invalid draft and retains aggregate billed usage', async () => {
-  const model = new ResponseModel([
-    { output: {}, usage: usage('first') },
-    { output: {}, usage: usage('second') },
-    { output: blueprint() },
-  ]);
-  await assert.rejects(draftUnit(await prepareRequest(request()), model), (error) => {
-    assert.ok(error instanceof ModelExecutionError);
-    assert.equal(error.failure?.code, 'MODEL_OUTPUT_INVALID');
-    assert.equal(error.failure?.stage, 'draft');
-    assert.equal(error.usage?.totalTokens, 280);
-    assert.match(error.message, /after 2 attempts/);
-    return true;
-  });
-  assert.equal(model.requests.length, 2);
-  const noRepair = new ResponseModel([{ output: {}, usage: usage('only') }]);
-  await assert.rejects(
-    draftUnit(await prepareRequest(request()), noRepair, { maxRepairAttempts: 0 }),
-    /after 1 attempts/,
-  );
-  assert.equal(noRepair.requests.length, 1);
-  const none = new ResponseModel([]);
-  await assert.rejects(
-    draftUnit(await prepareRequest(request()), none, { maxRepairAttempts: 3 }),
-    /maxRepairAttempts/,
-  );
-  assert.equal(none.requests.length, 0);
-});
 
 test('transport and provider cancellation failures are not retried as design repair', async () => {
   for (const code of ['NETWORK_ERROR', 'CANCELLED', 'AUTHENTICATION', 'RATE_LIMIT'] as const) {
@@ -515,35 +311,6 @@ test('an abort after a billed model response is classified as cancellation and r
     draftUnit(await prepareRequest(request()), preAborted, { signal: AbortSignal.abort() }),
   );
   assert.equal(preAborted.requests.length, 0);
-});
-
-test('check detects edited compiled prose and missing retained blueprints, while review verifies its inputs', async () => {
-  const original = await draftUnit(
-    await prepareRequest(request()),
-    new ResponseModel([{ output: blueprint() }]),
-  );
-  const edited = structuredClone(original);
-  edited.candidate.basicAttack.behavior = 'One million damage and ignored walls.';
-  const checked = await checkDraft(edited);
-  assert.ok(
-    checked.findings.some(
-      (finding) =>
-        finding.outcome === 'fail' &&
-        finding.message.includes('differs from its compiled blueprint'),
-    ),
-  );
-  const omitted = structuredClone(original);
-  delete omitted.candidate.blueprint;
-  assert.ok(
-    (await checkDraft(omitted)).findings.some(
-      (finding) => finding.outcome === 'fail' && finding.subject === 'blueprint',
-    ),
-  );
-  const spoofed = structuredClone(await checkDraft(original));
-  spoofed.findings[0]!.message = 'Changed check result';
-  const reviewer = new ResponseModel([]);
-  await assert.rejects(reviewDraft(spoofed, reviewer), /findings do not match/);
-  assert.equal(reviewer.requests.length, 0);
 });
 
 test('source quoting and constraint coverage reject fabricated references and duplicated constraint claims', () => {
@@ -659,28 +426,6 @@ test('one tier with several operations on the same stat displays its net change 
   assert.match(benefit, /multiply by 1\.5/);
 });
 
-test('compact rendering explains a T4 boost once and distinguishes pulse attacks from projectiles', async () => {
-  const prepared = await prepareRequest(request());
-  const draft = await draftUnit(prepared, new ResponseModel([{ output: blueprint() }]));
-  const tier4 = draft.candidate.paths[1]!.tiers[3]!;
-  const ability = draft.candidate.abilities.find(({ id }) => id === 'path-2-active')!;
-  assert.equal(tier4.benefit, '400 Gold. Unlock Focus.');
-  assert.match(ability.description, /^At tier 4:/);
-  const rendered = renderArtifact(draft);
-  assert.equal(rendered.match(/multiply the purchased attack's damage by 2/g)?.length, 1);
-  assert.match(rendered, /active damage multiplier 2 to 3/);
-  const unit = blueprint();
-  unit.baseAttack.delivery = 'beam';
-  unit.paths.path1.tiers.tier1.changes = [
-    { kind: 'stat', target: 'base', stat: 'projectiles', operation: 'add', value: 1 },
-  ];
-  const candidate = compileBlueprint(unit, request());
-  assert.match(candidate.basicAttack.behavior, /1 pulse\(s\) per attack/);
-  assert.match(candidate.basicAttack.behavior, /selected primary target/);
-  assert.match(candidate.paths[0]!.tiers[0]!.benefit, /pulses per attack 1 to 2/);
-  assert.doesNotMatch(candidate.basicAttack.behavior, /projectile/);
-});
-
 test('provider numeric grammar permits fractions while runtime checks keep positive bounds', () => {
   const schema = modelOutputJsonSchema(request());
   function inspect(value: unknown): void {
@@ -793,98 +538,6 @@ function overloadedTierOutput() {
   output.paths.path1.tiers.tier5.camo = true;
   return output;
 }
-
-test('a five-effect tier receives a bounded model-selected subset schema', async () => {
-  const invalid = overloadedTierOutput();
-  assert.equal(modelOutputSchema(request()).safeParse(invalid).success, true);
-  const patch = { paths: { path1: { tiers: { tier5: { choice: 'option-1' } } } } };
-  const model = new ResponseModel([
-    { output: invalid, usage: usage('design') },
-    { output: patch, usage: usage('patch') },
-  ]);
-  const draft = await draftUnit(await prepareRequest(request()), model);
-  const expected = structuredClone(invalid);
-  expected.paths.path1.tiers.tier5.camo = null;
-  assert.deepEqual(draft.candidate.blueprint, decodeBlueprintOutput(expected, request()));
-  assert.equal(model.requests.length, 2);
-  type Shape = { properties: Record<string, Shape> };
-  const schema = model.requests[1]!.schema as Shape;
-  assert.deepEqual(Object.keys(schema.properties), ['paths']);
-  assert.deepEqual(Object.keys(schema.properties.paths!.properties), ['path1']);
-  assert.deepEqual(
-    Object.keys(schema.properties.paths!.properties.path1!.properties.tiers!.properties),
-    ['tier5'],
-  );
-  const tierSchema = schema.properties.paths!.properties.path1!.properties.tiers!.properties.tier5!;
-  assert.deepEqual(Object.keys(tierSchema.properties), ['choice']);
-  assert.doesNotMatch(model.requests[1]!.prompt, /Fill all three paths/);
-  const ending = JSON.parse(model.requests[1]!.prompt.split('\n\n').at(-1)!);
-  assert.deepEqual(ending.violations, draft.run.attempts![0]!.issues);
-  assert.match(ending.violations[0], /contains 5 effects/);
-  assert.equal(JSON.stringify(schema).includes('exclusiveMinimum'), false);
-  assert.equal(draft.run.usage?.totalTokens, 280);
-  assert.equal(draft.run.usage?.costUsd, 0.02);
-  assert.deepEqual(
-    draft.run.attempts?.map(({ usage }) => usage?.generationId),
-    ['design', 'patch'],
-  );
-  assert.deepEqual(
-    draft.run.attempts?.map(({ purpose }) => purpose),
-    ['design', 'repair'],
-  );
-});
-
-test('targeted patches cannot retain an invalid tier or change unrelated source fields', async () => {
-  const invalid = overloadedTierOutput();
-  const validTier = modelOutput(blueprint()).paths.path1.tiers.tier5;
-  const patches = [
-    { paths: { path1: { tiers: { tier5: invalid.paths.path1.tiers.tier5 } } } },
-    { paths: { path1: { tiers: { tier5: { choice: 'invented-option' } } } } },
-    { paths: { path1: { tiers: { tier5: {} } } } },
-    { paths: { path1: { tiers: { tier5: validTier } } }, baseSourceIds: ['invented'] },
-    {
-      paths: {
-        path1: {
-          tiers: {
-            tier5: {
-              ...validTier,
-              statChanges: [{ stat: 'damage', operation: 'add', value: -100 }],
-            },
-          },
-        },
-      },
-    },
-  ];
-  for (const patch of patches) {
-    const model = new ResponseModel([
-      { output: invalid, usage: usage('first') },
-      { output: patch, usage: usage('second') },
-    ]);
-    await assert.rejects(draftUnit(await prepareRequest(request()), model), (error) => {
-      assert.ok(error instanceof ModelExecutionError);
-      assert.equal(error.failure?.code, 'MODEL_OUTPUT_INVALID');
-      assert.equal(error.usage?.totalTokens, 280);
-      assert.match(error.message, /after 2 attempts/);
-      return true;
-    });
-    assert.equal(model.requests.length, 2);
-  }
-});
-
-test('malformed wire tiers and non-tier issues keep whole-output repair', async () => {
-  const malformed = overloadedTierOutput();
-  malformed.paths.path1.tiers.tier5.statChanges.push({ stat: 'range', operation: 'add', value: 1 });
-  const nonTier = modelOutput(blueprint());
-  nonTier.baseSourceIds = ['invented'];
-  for (const invalid of [malformed, nonTier]) {
-    const model = new ResponseModel([{ output: invalid }, { output: blueprint() }]);
-    const draft = await draftUnit(await prepareRequest(request()), model);
-    assert.deepEqual(draft.candidate.blueprint, blueprint());
-    assert.ok(Object.hasOwn(model.requests[1]!.schema.properties as object, 'baseSourceIds'));
-    assert.match(model.requests[1]!.prompt, /all three paths/);
-    assert.equal(model.requests.length, 2);
-  }
-});
 
 test('wire slow and burn are complete atomic pairs with their real primitive change cost', () => {
   const input = request();
@@ -1034,85 +687,6 @@ test('subset menus respect tighter Definition limits and keep replacement fallba
   );
 });
 
-test('a selected budget-valid subset with harmful mechanics is withheld with both attempts billed', async () => {
-  const invalid = overloadedTierOutput();
-  invalid.paths.path1.tiers.tier5.statChanges[0]!.value = -10000;
-  const model = new ResponseModel([
-    { output: invalid, usage: usage('first') },
-    {
-      output: { paths: { path1: { tiers: { tier5: { choice: 'option-1' } } } } },
-      usage: usage('second'),
-    },
-  ]);
-  await assert.rejects(draftUnit(await prepareRequest(request()), model), (error) => {
-    assert.ok(error instanceof ModelExecutionError);
-    assert.equal(error.failure?.code, 'MODEL_OUTPUT_INVALID');
-    assert.equal(error.usage?.totalTokens, 280);
-    assert.match(error.message, /after 2 attempts/);
-    return true;
-  });
-  assert.equal(model.requests.length, 2);
-});
-
-test('CLI-shared draft and Lab preserve usage and review without reusing them on a new draft', async () => {
-  const prepared = await prepareRequest(request());
-  const model = new ResponseModel([
-    { output: blueprint(), usage: usage('draft') },
-    { output: { summary: 'Advisory review.', findings: [] }, usage: usage('review') },
-    { output: blueprint() },
-  ]);
-  const draft = draftArtifactSchema.parse(
-    await executeLabOperation('draft', { prepared }, model, new AbortController().signal),
-  );
-  assert.deepEqual(draft.candidate, compileBlueprint(blueprint(), prepared.request));
-  const result = await reviewDraft(await checkDraft(draft), model);
-  const reviewInput = await inputBeforeStage(result, 'review');
-  assert.equal(reviewInput?.kind, 'checked');
-  const totals = summarizeUsage(result);
-  assert.deepEqual(totals.tokens, { value: 280, partial: false });
-  assert.deepEqual(totals.cost, { value: 0.02, partial: false });
-  const rerun = await draftUnit(prepared, model);
-  assert.deepEqual(rerun.candidate, draft.candidate);
-});
-
-test('fractional projectiles reach repair with actionable arithmetic evidence and remain rejected if unchanged', async () => {
-  const invalid = blueprint();
-  invalid.paths.path2.tiers.tier2.changes = [
-    { kind: 'stat', target: 'base', stat: 'projectiles', operation: 'multiply', value: 1.5 },
-  ];
-  const corrected = structuredClone(invalid);
-  corrected.paths.path2.tiers.tier2.changes = [
-    { kind: 'stat', target: 'base', stat: 'projectiles', operation: 'add', value: 1 },
-  ];
-  const model = new ResponseModel([{ output: invalid }, { output: corrected }]);
-  const draft = await draftUnit(await prepareRequest(request()), model);
-  assert.match(
-    model.requests[0]!.prompt,
-    /projectiles and pierce must resolve to positive integers/,
-  );
-  assert.match(model.requests[1]!.prompt, /Resolved projectiles is 1\.5/);
-  assert.match(model.requests[1]!.prompt, /paths\.path2\.tiers\.tier2\.changes\.0: multiply 1\.5/);
-  assert.equal(resolveBuild(draft.candidate.blueprint!, [0, 2, 0]).baseAttack.stats.projectiles, 2);
-  assert.equal(draft.run.attempts?.length, 2);
-  const unchanged = new ResponseModel([{ output: invalid }, { output: invalid }]);
-  await assert.rejects(draftUnit(await prepareRequest(request()), unchanged), (error) => {
-    assert.ok(error instanceof ModelExecutionError);
-    assert.match(error.message, /after 2 attempts/);
-    assert.match(error.message, /Resolved projectiles is 1\.5/);
-    assert.match(error.message, /paths\.path2\.tiers\.tier2\.changes\.0: multiply 1\.5\./);
-    assert.match(
-      error.message,
-      /Correct the authored projectiles upgrades so every legal build has a positive whole-number count\./,
-    );
-    assert.match(error.message, /Counts are never rounded\./);
-    assert.match(error.message, /\d+ additional projectiles count checks failed\./);
-    assert.equal(error.message.match(/Resolved projectiles/g)?.length, 1);
-    assert.equal(error.message.match(/paths\.path2\.tiers\.tier2\.changes\.0/g)?.length, 1);
-    assert.ok(error.message.length < 650);
-    return true;
-  });
-});
-
 test('repairing a legacy tier-four boost includes its dependent tier-five replacement', () => {
   const input = request();
   const original = modelOutput(blueprint());
@@ -1151,7 +725,6 @@ test('repairing a legacy tier-four boost includes its dependent tier-five replac
 
 test('policy-dependent capstones always require full replacements rather than implicit budget menus', () => {
   const input = applyDefaultProfile(request());
-  input.mechanicsDefinition!.profile.authoringMode = 'direct';
   input.mechanicsDefinition!.profile.designPolicy!.minTier5SpecialtyMultiplier = 3;
   const unit = blueprint();
   unit.paths.path1.specialization = 'direct-damage';
@@ -1202,7 +775,6 @@ test('policy-dependent capstones always require full replacements rather than im
 
 test('the default schema permits only an optional middle-path boost in drafting and targeted repair', () => {
   const input = applyDefaultProfile(request());
-  input.mechanicsDefinition!.profile.authoringMode = 'direct';
   input.mechanicsDefinition!.profile.designPolicy!.minTier5SpecialtyMultiplier = 3;
   const unit = blueprint();
   unit.paths.path1.specialization = 'direct-damage';
@@ -1271,7 +843,6 @@ test('the default schema permits only an optional middle-path boost in drafting 
 
 test('custom manual slots and explicit legacy policies retain their intended wire behavior', () => {
   const input = applyDefaultProfile(request());
-  input.mechanicsDefinition!.profile.authoringMode = 'direct';
   input.mechanicsDefinition!.profile.designPolicy!.minTier5SpecialtyMultiplier = 3;
   const unit = blueprint();
   unit.paths.path1.specialization = 'direct-damage';
@@ -1296,7 +867,6 @@ test('custom manual slots and explicit legacy policies retain their intended wir
 
 test('targeted repair receives exact source evidence and resolved capstone minima without mutating inputs', () => {
   const input = applyDefaultProfile(request());
-  input.mechanicsDefinition!.profile.authoringMode = 'direct';
   input.mechanicsDefinition!.profile.designPolicy!.minTier5SpecialtyMultiplier = 3;
   const unit = blueprint();
   unit.paths.path1.specialization = 'direct-damage';
@@ -1350,7 +920,6 @@ test('targeted repair receives exact source evidence and resolved capstone minim
 
 test('undecodable repair output safely omits arithmetic context while retaining source evidence', () => {
   const input = applyDefaultProfile(request());
-  input.mechanicsDefinition!.profile.authoringMode = 'direct';
   input.mechanicsDefinition!.profile.designPolicy!.minTier5SpecialtyMultiplier = 3;
   assert.deepEqual(wireRepairContext(null, input), []);
   assert.deepEqual(wireRepairContext({ paths: 'malformed' }, input), []);
@@ -1375,12 +944,6 @@ test('undecodable repair output safely omits arithmetic context while retaining 
   assert.deepEqual(context.evidenceSpans, authorEvidence(input));
   assert.deepEqual(output, before);
 });
-
-function plannedRequest(): AuthorRequest {
-  const input = request();
-  input.mechanicsDefinition!.profile.authoringMode = 'planned-v1';
-  return input;
-}
 
 function plannedDesign() {
   const sourceIds = [authorEvidence(request())[0]!.id];
@@ -1456,7 +1019,7 @@ function plannedDesign() {
 }
 
 test('planned drafting retains character decisions, revision context and each billed call exactly once', async () => {
-  const input = plannedRequest();
+  const input = request();
   input.feedback = 'Keep Spark but clarify the final upgrade purpose.';
   input.constraints.push({ id: 'signature', text: 'Keep the Spark identity.' });
   const plan = plannedDesign();
@@ -1471,7 +1034,6 @@ test('planned drafting retains character decisions, revision context and each bi
   ]);
   const draft = await draftUnit(await prepareRequest(input), model);
   assert.deepEqual(draft.run.designPlan, plan);
-  assert.equal(draft.prepared.request.mechanicsDefinition!.profile.authoringMode, 'planned-v1');
   assert.deepEqual(
     draft.run.attempts?.map(({ purpose }) => purpose),
     ['plan', 'design'],
@@ -1507,7 +1069,7 @@ test('planned mechanics omit code-owned labels and retain verifiable purchase ev
   for (const path of pathKeys)
     for (const field of ['name', 'sourceIds', 'theme', 'rationale']) delete slim.paths[path][field];
   const model = new ResponseModel([{ output: plan }, { output: slim }]);
-  const draft = await draftUnit(await prepareRequest(plannedRequest()), model);
+  const draft = await draftUnit(await prepareRequest(request()), model);
   assert.equal(model.requests.length, 2);
   const grammar = model.requests[1]!.schema as {
     properties: Record<string, { properties: Record<string, unknown> }>;
@@ -1560,7 +1122,7 @@ test('planning source correction is bounded and retains both planning charges be
     { output: plannedDesign(), usage: usage('corrected-plan') },
     { output: blueprint(), usage: usage('mechanics') },
   ]);
-  const draft = await draftUnit(await prepareRequest(plannedRequest()), model);
+  const draft = await draftUnit(await prepareRequest(request()), model);
   assert.deepEqual(
     draft.run.attempts?.map(({ purpose }) => purpose),
     ['plan', 'plan', 'design'],
@@ -1577,7 +1139,7 @@ test('planning source correction is bounded and retains both planning charges be
     { output: invalid, usage: usage('first') },
     { output: invalid, usage: usage('second') },
   ]);
-  await assert.rejects(draftUnit(await prepareRequest(plannedRequest()), exhausted), (error) => {
+  await assert.rejects(draftUnit(await prepareRequest(request()), exhausted), (error) => {
     assert.ok(error instanceof ModelExecutionError);
     assert.equal(error.failure?.code, 'MODEL_OUTPUT_INVALID');
     assert.match(error.message, /design plan could not be validated/);
@@ -1593,7 +1155,7 @@ test('planned mechanics repair and exhausted failure include planning usage once
     { output: {}, usage: usage('bad-mechanics') },
     { output: blueprint(), usage: usage('repair') },
   ]);
-  const draft = await draftUnit(await prepareRequest(plannedRequest()), model);
+  const draft = await draftUnit(await prepareRequest(request()), model);
   assert.deepEqual(
     draft.run.attempts?.map(({ purpose }) => purpose),
     ['plan', 'design', 'repair'],
@@ -1606,7 +1168,7 @@ test('planned mechanics repair and exhausted failure include planning usage once
     { output: {}, usage: usage('first') },
     { output: {}, usage: usage('second') },
   ]);
-  await assert.rejects(draftUnit(await prepareRequest(plannedRequest()), exhausted), (error) => {
+  await assert.rejects(draftUnit(await prepareRequest(request()), exhausted), (error) => {
     assert.ok(error instanceof ModelExecutionError);
     assert.equal(error.usage?.totalTokens, 420);
     assert.equal(error.usage?.costUsd, 0.03);
@@ -1630,7 +1192,7 @@ test('a mechanically valid plan mismatch enters bounded tier repair and retains 
       usage: usage('repair'),
     },
   ]);
-  const draft = await draftUnit(await prepareRequest(plannedRequest()), model);
+  const draft = await draftUnit(await prepareRequest(request()), model);
   assert.deepEqual(
     draft.run.attempts?.map(({ purpose }) => purpose),
     ['plan', 'design', 'repair'],
@@ -1646,7 +1208,7 @@ test('a mechanically valid plan mismatch enters bounded tier repair and retains 
 });
 
 test('one repair receives policy defects and independent plan mismatches together', async () => {
-  const input = plannedRequest();
+  const input = request();
   input.mechanicsDefinition!.profile.designPolicy = {
     version: '1',
     distinctPathSpecializations: false,
@@ -1704,7 +1266,7 @@ test('cancelling a billed planning response never calls mechanics and retains th
     },
   };
   await assert.rejects(
-    draftUnit(await prepareRequest(plannedRequest()), model, { signal: controller.signal }),
+    draftUnit(await prepareRequest(request()), model, { signal: controller.signal }),
     (error) => {
       assert.ok(error instanceof ModelExecutionError);
       assert.equal(error.failure?.code, 'CANCELLED');
@@ -1722,7 +1284,7 @@ test('a billed provider failure after planning retains the total cost of both ca
       failure: { code: 'NETWORK_ERROR', message: 'Provider failed.' },
     }),
   ]);
-  await assert.rejects(draftUnit(await prepareRequest(plannedRequest()), model), (error) => {
+  await assert.rejects(draftUnit(await prepareRequest(request()), model), (error) => {
     assert.ok(error instanceof ModelExecutionError);
     assert.equal(error.failure?.code, 'NETWORK_ERROR');
     assert.equal(error.usage?.totalTokens, 280);
@@ -1733,7 +1295,7 @@ test('a billed provider failure after planning retains the total cost of both ca
 });
 
 test('one bounded repair sees a seven-effect capstone and an independent missing tier-two promise', async () => {
-  const input = plannedRequest();
+  const input = request();
   const plan = plannedDesign();
   plan.upgradeIntents.path1.tier2.improves = ['damage', 'range'];
   const unit = blueprint();

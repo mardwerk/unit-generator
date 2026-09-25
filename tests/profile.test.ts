@@ -47,8 +47,7 @@ test('the single bundled Profile validates, keeps BTD6 reference values and matc
   assert.deepEqual(applied.documents, preset.documents);
   assert.deepEqual(applied.progression, defaultProgression);
   assert.equal(applied.task, defaultUnitProfile.task);
-  const prepared = await prepareRequest(applied);
-  assert.equal(prepared.request.mechanicsDefinition?.profile.authoringMode, 'planned-v1');
+  await prepareRequest(applied);
 });
 
 test('switching Profiles replaces the previous rules instead of mixing them', () => {

@@ -2,7 +2,7 @@ import assert from 'node:assert/strict';
 import test from 'node:test';
 import { defaultAuthoringDefinition } from '../src/core/default-profile.js';
 import { tierEffectLimit } from '../src/core/planned-v1/model-output.js';
-import { referenceRecipes } from '../src/core/mechanics/reference-patterns.js';
+import { validBlueprint } from './fixtures/blueprint.js';
 import {
   defaultMechanicsDefinition,
   mechanicsDefinitionSchema,
@@ -25,7 +25,7 @@ test('legacy omitted early-tier boundary still rejects four effects at tier 3', 
   input.mechanicsDefinition = legacy;
   assert.equal(tierEffectLimit(input, 'tier3'), 3);
   assert.equal(tierEffectLimit(input, 'tier4'), 4);
-  const unit = structuredClone(referenceRecipes[0]!.blueprint);
+  const unit = validBlueprint();
   // This policy-free legacy-shaped definition enables the fixture's explicit
   // extensions, leaving its older change budget as the only differing check.
   legacy.rules.attackExtensions = ['distinct-volley', 'volley-follow-up'];
@@ -42,7 +42,7 @@ test('fresh authoring explicitly allows four tier-3 effects but limits tiers 1 a
   assert.equal(tierEffectLimit(input, 'tier1'), 3);
   assert.equal(tierEffectLimit(input, 'tier2'), 3);
   assert.equal(tierEffectLimit(input, 'tier3'), 4);
-  const unit = structuredClone(referenceRecipes[0]!.blueprint);
+  const unit = validBlueprint();
   unit.paths.path1.tiers.tier3.changes = structuredClone(fourEffects);
   assert.deepEqual(validateBlueprint(unit, input.mechanicsDefinition), []);
   for (const tier of ['tier1', 'tier2'] as const) {

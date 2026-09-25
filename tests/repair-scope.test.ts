@@ -4,7 +4,7 @@ import { defaultAuthoringDefinition } from '../src/core/default-profile.js';
 import { authorEvidence } from '../src/core/planned-v1/evidence.js';
 import { decodeBlueprintOutput } from '../src/core/planned-v1/model-output.js';
 import { targetedTierRepair } from '../src/core/planned-v1/repair.js';
-import { referenceRecipes } from '../src/core/mechanics/reference-patterns.js';
+import { validBlueprint } from './fixtures/blueprint.js';
 import { pathKeys, tierKeys } from '../src/core/mechanics/schemas.js';
 import { miraRequest } from './fixtures/core-fixtures.js';
 
@@ -76,7 +76,7 @@ function fixture() {
     name: request.character.name,
     role: 'Aimed attack.',
     weakness: 'Needs clear delivery.',
-    baseAttack: structuredClone(referenceRecipes[0]!.blueprint.baseAttack),
+    baseAttack: validBlueprint().baseAttack,
     baseSourceIds: sourceIds,
     constraintCoverage: [],
     unsupportedMechanics: [],

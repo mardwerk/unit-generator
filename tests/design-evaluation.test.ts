@@ -5,7 +5,7 @@ import {
   designEvaluationSchema,
 } from '../src/core/planned-v1/design-evaluation.js';
 import { compareCapstonePurchases } from '../src/core/mechanics/purchase-comparison.js';
-import { referenceRecipes } from '../src/core/mechanics/reference-patterns.js';
+import { validBlueprint } from './fixtures/blueprint.js';
 import { validateBlueprint } from '../src/core/mechanics/validate.js';
 import { allLegalBuilds, resolveUnchecked } from '../src/core/mechanics/resolve.js';
 import {
@@ -15,14 +15,14 @@ import {
   tierKeys,
 } from '../src/core/mechanics/schemas.js';
 
-const fixture = () => structuredClone(referenceRecipes[0]!.blueprint);
+const fixture = () => validBlueprint();
 
 test('purchase evidence is stable across reference object property order and artifact normalization', () => {
-  for (const { blueprint } of referenceRecipes)
-    assert.deepEqual(
-      evaluateUnitDesign(blueprint, undefined, defaultMechanicsDefinition),
-      evaluateUnitDesign(blueprintSchema.parse(blueprint), undefined, defaultMechanicsDefinition),
-    );
+  const blueprint = fixture();
+  assert.deepEqual(
+    evaluateUnitDesign(blueprint, undefined, defaultMechanicsDefinition),
+    evaluateUnitDesign(blueprintSchema.parse(blueprint), undefined, defaultMechanicsDefinition),
+  );
 });
 
 test('evaluation computes legal milestone and sequential crosspath purchases without mutating mechanics', () => {

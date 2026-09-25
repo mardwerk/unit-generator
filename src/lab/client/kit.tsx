@@ -466,11 +466,8 @@ export function CharacterSheet({
       </Disclosure>
       <Disclosure title="Effective Request">
         <p>
-          Strategy: {requestOf(artifact).mechanicsDefinition?.profile.authoringMode ?? 'generic'}.
-        </p>
-        <p>
           These are the retained inputs for this artifact. Model identity and usage are recorded in
-          the run; raw attempts are in the local evidence directory.
+          the run.
         </p>
         <pre className="raw-json">{JSON.stringify(requestOf(artifact), null, 2)}</pre>
       </Disclosure>
