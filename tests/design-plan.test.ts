@@ -5,7 +5,11 @@ import test from 'node:test';
 import { prepareRequest, definitionProgression } from '../src/core/index.js';
 import { pathKeys, tierKeys } from '../src/core/mechanics/schemas.js';
 import { authorEvidence } from '../src/core/planned-v1/evidence.js';
-import { bindDesignPlan, decodeDesignPlan, designPlanRequest } from '../src/core/planned-v1/plan.js';
+import {
+  bindDesignPlan,
+  decodeDesignPlan,
+  designPlanRequest,
+} from '../src/core/planned-v1/plan.js';
 import { designPlanSchema, type UnitDesignPlan } from '../src/core/planned-v1/plan-schema.js';
 import { miraCandidate, miraRequest } from './fixtures/core-fixtures.js';
 import { defaultAuthoringDefinition } from '../src/core/default-profile.js';

@@ -5,10 +5,10 @@ Run `pnpm install` and `pnpm build` with Node.js 24 or newer. `pnpm cli --help` 
 ## Generate from a name
 
 ```sh
-pnpm cli generate "Monkey D. Luffy" -o .runs/luffy.json
-pnpm cli render .runs/luffy.json -o .runs/luffy.md
-pnpm cli build .runs/luffy.json --tiers 5,2,0
-pnpm cli review .runs/luffy.json -o .runs/luffy-reviewed.json
+pnpm cli generate "Monkey D. Luffy" -o data/runs/luffy.json
+pnpm cli render data/runs/luffy.json -o data/runs/luffy.md
+pnpm cli build data/runs/luffy.json --tiers 5,2,0
+pnpm cli review data/runs/luffy.json -o data/runs/luffy-reviewed.json
 ```
 
 ## Qualitative concepts
@@ -16,27 +16,27 @@ pnpm cli review .runs/luffy.json -o .runs/luffy-reviewed.json
 Concept mode describes complete behavior without prices or combat magnitudes. It does not require the numerical backend to support every proposed interaction. Choose it explicitly for name-based intake:
 
 ```sh
-pnpm cli generate "Monkey D. Luffy" --deliverable concept -o .runs/luffy-concept.json
-pnpm cli render .runs/luffy-concept.json -o .runs/luffy-concept.md
+pnpm cli generate "Monkey D. Luffy" --deliverable concept -o data/runs/luffy-concept.json
+pnpm cli render data/runs/luffy-concept.json -o data/runs/luffy-concept.md
 ```
 
-For reproducible supplied sources, [Iona](../examples/iona.concept.request.json) uses the public three-path profile. [Two-path Iona](../examples/iona.two-path.concept.request.json) supplies a synthetic ruleset with three tiers, different crosspath limits and a required activation slot. [Rowan](../examples/rowan.concept.request.json) is a second original character. These are source requests, not accepted generated units.
+For reproducible supplied sources, [Wizard Monkey](../data/reference/wizard-monkey.concept.request.json) uses the public three-path profile. These are source requests, not accepted generated units.
 
 ```sh
-pnpm cli prepare examples/iona.concept.request.json -o .runs/iona.prepared.json
-pnpm cli draft .runs/iona.prepared.json --evidence-dir .runs/concept-evidence -o .runs/iona.draft.json
-pnpm cli check .runs/iona.draft.json -o .runs/iona.checked.json
-pnpm cli render .runs/iona.checked.json -o .runs/iona.md
-pnpm cli author examples/iona.concept.request.json --previous .runs/iona.checked.json --operation prose-edit --feedback "Simplify wording while preserving every behavior." -o .runs/iona.revised.json
+pnpm cli prepare data/reference/wizard-monkey.concept.request.json -o data/runs/wizard.prepared.json
+pnpm cli draft data/runs/wizard.prepared.json --evidence-dir data/runs/concept-evidence -o data/runs/wizard.draft.json
+pnpm cli check data/runs/wizard.draft.json -o data/runs/wizard.checked.json
+pnpm cli render data/runs/wizard.checked.json -o data/runs/wizard.md
+pnpm cli author data/reference/wizard-monkey.concept.request.json --previous data/runs/wizard.checked.json --operation prose-edit --feedback "Simplify wording while preserving every behavior." -o data/runs/wizard.revised.json
 ```
 
 `--operation redesign` permits deliberate design changes. `prose-edit` preserves declared structure and asks the model to preserve behavior; free-text equivalence remains a separate review obligation. `author` includes a model review, while `draft` followed by `check` uses one generation call. Concept drafting has no automatic repair loop. Use an explicit revision to address findings. `--repairs` continues to control numerical authoring only.
 
-For stronger replacement coverage, [automatic branch Iona](../examples/iona.automatic.concept.request.json) supplies a complete Definition and Profile with two four-tier branches, no crosspaths and no manual controls. Run it through the same prepare, draft, check and render commands. `--operation adapt` explicitly changes the rules of a prior concept; ordinary redesign and prose-edit reject a changed retained contract. See [Definition compatibility](API.md#concept-definition-compatibility).
+For stronger replacement coverage, [automatic branch Sniper Monkey](../data/reference/sniper-monkey.automatic.concept.request.json) supplies a complete Definition and Profile with three four-tier branches, no crosspaths and no manual controls. Run it through the same prepare, draft, check and render commands. `--operation adapt` explicitly changes the rules of a prior concept; ordinary redesign and prose-edit reject a changed retained contract. See [Definition compatibility](API.md#concept-definition-compatibility).
 
 Concept requests carry `deliverable: "concept"` and either a `conceptDefinition` with its permitted Profile or explicit `progression` and `conceptRules`. Import a complete external request to change those rules without changing generator code. `--deliverable concept` converts a legacy request to the bundled public concept preset, or preserves an already explicit concept request. Concept requests reject `mechanicsDefinition`; numerical references in supplied text do not change the qualitative deliverable. Concept-to-mechanics formalization is not implemented: supply a separate explicit mechanics request instead of expecting `--deliverable mechanics` to translate behavior. `build` still requires numerical mechanics.
 
-Every concept model operation retains its input, exact prompt/schema, original output, safe settings, usage and outcome in a unique folder under `.runs/evidence`, or the supplied `--evidence-dir`. Failed attempts remain there. Each folder includes an `observations.json` template for predicted scenarios, preservation and acceptance reasons; those fields start unassessed. Evidence files can contain the complete supplied material. Choose an external output directory for external project content. Credentials and raw provider error objects are not retained.
+Every concept model operation retains its input, exact prompt/schema, original output, safe settings, usage and outcome in a unique folder under `data/runs/evidence`, or the supplied `--evidence-dir`. Failed attempts remain there. Each folder includes an `observations.json` template for predicted scenarios, preservation and acceptance reasons; those fields start unassessed. Evidence files can contain the complete supplied material. Choose an external output directory for external project content. Credentials and raw provider error objects are not retained.
 
 The default concept Markdown is the readable unit sheet. `render --details` includes source evidence and scoped findings. Structural checks cover declared paths, tiers, activation slots and directional crosspaths. They do not prove the meaning of prose, runtime support, balance or preference. Keep final acceptance separate from a successful command exit.
 
@@ -46,7 +46,7 @@ The default concept Markdown is the readable unit sheet. `render --details` incl
 
 The default is `default-td-profile-v9` with definition `btd6-combat-v1`, revision `2026-09-21-design-v9`: Gold currency, a 1-health enemy layer and Dart-based references of 200 Gold, 1 damage, 0.95-second interval, 32 range and 2 pierce. Health means shared player lives, with a 150-Health starter reference. Units have no HP. Explicit older artifacts and custom definitions keep their supplied scale. See [mechanics](MECHANICS.md) for provenance and scope.
 
-`build` returns resolved attack stats, cumulative investment, available boosts and upgrade deltas for the three purchased tiers. It uses no model. Invalid combinations such as `5,3,0` are rejected.
+  `build` returns resolved attack stats, cumulative investment, available boosts and upgrade deltas for the three purchased tiers. It uses no model. Invalid combinations such as `5,3,0` are rejected.
 
 Repairs replace only failing tiers when the previous response is structurally valid and every issue identifies a tier. Code preserves all unaffected fields and repeats the full checks. Other design errors require a full-output repair within the same attempt limit. Tier 1 and Tier 2 can add only one new capability. The fresh preset allows at most three typed changes at T1/T2 and four at T3 through T5. The older policy-free Definition keeps the three-change limit through T3. A slow or burn includes both magnitude and duration.
 
@@ -55,9 +55,9 @@ An overfilled tier can receive a small choice of existing effects to keep. The m
 For separate stages, `character` saves the retrieved inputs before any generation:
 
 ```sh
-pnpm cli character "Monkey D. Luffy" -o .runs/luffy-input.json
-pnpm cli draft .runs/luffy-input.json -o .runs/luffy-draft.json
-pnpm cli check .runs/luffy-draft.json -o .runs/luffy-checked.json
+pnpm cli character "Monkey D. Luffy" -o data/runs/luffy-input.json
+pnpm cli draft data/runs/luffy-input.json -o data/runs/luffy-draft.json
+pnpm cli check data/runs/luffy-draft.json -o data/runs/luffy-checked.json
 ```
 
 If a name is ambiguous, repeat `character` or `generate` with `--choice ID` from the listed choices. Lookup and image retrieval use network requests; models receive retained source text rather than browsing tools.
@@ -67,8 +67,8 @@ Numerical `planned-v1` selects at most 96 passages and 18,000 source characters;
 `definition` exports the default JSON definition without a model or input file. To use this preset with your own source documents, add `--preset btd6` to `prepare` or `author`. An explicitly conflicting progression is rejected. Existing custom requests without `mechanicsDefinition` keep the earlier prose authoring contract and do not receive typed build guarantees.
 
 ```sh
-pnpm cli definition -o .runs/mechanics.json
-pnpm cli prepare my-character.request.json --preset btd6 -o .runs/prepared.json
+pnpm cli definition -o data/runs/mechanics.json
+pnpm cli prepare my-character.request.json --preset btd6 -o data/runs/prepared.json
 ```
 
 ## Author and revise
@@ -76,10 +76,10 @@ pnpm cli prepare my-character.request.json --preset btd6 -o .runs/prepared.json
 The CLI loads optional `.env` settings from its working directory. Existing environment variables take precedence; `--model` overrides `OPENROUTER_MODEL` and `--reasoning` overrides `OPENROUTER_REASONING`. Use [.env.example](../.env.example) for the setting names. Keep real keys in ignored local files.
 
 ```sh
-pnpm cli author examples/iona.concept.request.json -o .runs/iona-v1.json
-pnpm cli render .runs/iona-v1.json -o .runs/iona-v1.md
-pnpm cli render .runs/iona-v1.json --details -o .runs/iona-v1.details.md
-pnpm cli author examples/iona.concept.request.json --previous .runs/iona-v1.json --feedback "Strengthen the support role." -o .runs/iona-v2.json
+pnpm cli author data/reference/dart-monkey.request.json -o data/runs/dart-v1.json
+pnpm cli render data/runs/dart-v1.json -o data/runs/dart-v1.md
+pnpm cli render data/runs/dart-v1.json --details -o data/runs/dart-v1.details.md
+pnpm cli author data/reference/dart-monkey.request.json --previous data/runs/dart-v1.json --feedback "Strengthen the support role." -o data/runs/dart-v2.json
 ```
 
 `author` resolves inputs, generates one candidate, checks structural constraints and makes a fresh model call for semantic review. It returns one revision. Definition-backed drafting permits the bounded design repair described above; semantic findings require explicit revision feedback. Revisions receive the full current Request, previous candidate and findings, and explicit feedback. No command looks up a previous run implicitly.
@@ -95,11 +95,11 @@ Exit `0` means the operation completed. Findings may still contain failed or unr
 ## Run each step separately
 
 ```sh
-pnpm cli prepare examples/iona.concept.request.json -o .runs/prepared.json
-pnpm cli draft .runs/prepared.json -o .runs/draft.json
-pnpm cli check .runs/draft.json -o .runs/checked.json
-pnpm cli review .runs/checked.json -o .runs/result.json
-pnpm cli render .runs/result.json -o .runs/result.md
+pnpm cli prepare data/reference/dart-monkey.request.json -o data/runs/prepared.json
+pnpm cli draft data/runs/prepared.json -o data/runs/draft.json
+pnpm cli check data/runs/draft.json -o data/runs/checked.json
+pnpm cli review data/runs/checked.json -o data/runs/result.json
+pnpm cli render data/runs/result.json -o data/runs/result.md
 ```
 
 | Step | Input and outcome | Model use |
@@ -114,7 +114,7 @@ Each artifact is schema-versioned JSON and can be inspected or saved between ste
 
 ## Supply a character and game rules
 
-The [Iona Request](../examples/iona.concept.request.json) is complete and public. The [source-file template](../examples/source-file.request.json) shows how to supply your own Luffy text, game rules and character decisions. Copy it into a working directory and supply the named files. File references resolve relative to the Request file, not the terminal's current directory.
+The [Dart Monkey Request](../data/reference/dart-monkey.request.json) is complete and public. The [source-file template](../data/reference/dart-monkey.source-file.request.json) shows how to supply your own tower text, game rules and character decisions.
 
 Each document has `id`, `kind` (`source`, `rules` or `decisions`) and exactly one of `text`, `file` or `url`. `sourceUrl` can attribute pasted or saved text without claiming that the URL was retrieved. Local text and saved HTML are supported.
 

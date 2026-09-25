@@ -60,6 +60,7 @@ const benefits = [
 
 export function conceptCandidate(request: AuthorRequest = conceptRequest()): UnitCandidate {
   const ruleId = request.documents.find((document) => document.kind === 'rules')!.id;
+  const sourceId = request.documents.find((document) => document.kind === 'source')!.id;
   const paths = request.progression!.paths.map((path, index) => ({
     id: path.id,
     name: ['Returning sweep', 'Relay mirror', 'Glass tether'][index] ?? `Path ${index + 1}`,
@@ -83,7 +84,7 @@ export function conceptCandidate(request: AuthorRequest = conceptRequest()): Uni
       benefit:
         benefits[index]?.[tier - 1] ?? 'The disc travels farther while retaining its hit limit.',
       abilityIds: [] as string[],
-      evidence: ['iona-source', ruleId],
+      evidence: [sourceId, ruleId],
     })),
   }));
   const allowed = request.conceptRules!.manualActivation.allowedSlots[0];
@@ -107,7 +108,7 @@ export function conceptCandidate(request: AuthorRequest = conceptRequest()): Uni
           tier: allowed.tiers[0]!,
           mechanicIds: ['disc-budget'],
           prerequisiteAbilityIds: [],
-          evidence: ['iona-source', ruleId],
+          evidence: [sourceId, ruleId],
         },
       ]
     : [];
@@ -131,7 +132,7 @@ export function conceptCandidate(request: AuthorRequest = conceptRequest()): Uni
       limitations:
         'The base return cannot hit an enemy twice, and does not replenish travel or pierce.',
       mechanicIds: ['disc-budget'],
-      evidence: ['iona-source', ruleId],
+      evidence: [sourceId, ruleId],
     },
     paths,
     abilities,
@@ -143,14 +144,14 @@ export function conceptCandidate(request: AuthorRequest = conceptRequest()): Uni
           'A disc retains its remaining travel and hit capacity through redirection. Repeated control from different copies shares a temporary immunity, so one enemy cannot be held indefinitely.',
         status: 'proposed_extension',
         dependencies: [],
-        evidence: ['iona-source', ruleId],
+        evidence: [sourceId, ruleId],
         requiredDecision:
           'Implement projectile budget retention and shared control immunity before runtime evaluation.',
       },
     ],
     sources: [
       {
-        documentId: 'iona-source',
+        documentId: sourceId,
         claims: [
           'Iona throws discs, kicks independently, redirects discs and uses a glass tether.',
         ],

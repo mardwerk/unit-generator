@@ -116,17 +116,17 @@ experiment.
 
 ## Validation
 
-`examples/iona.two-path.concept.request.json` is a public example with
-an explicit external configuration. From the repository root, install dependencies and run
+`data/reference/engineer-monkey.interpretation.request.json` is a BTD6 tower example with
+an explicit interpretation. From the repository root, install dependencies and run
 `pnpm build` first. Prepare it offline with the following command; use a new output
 path if the destination already exists:
 
 ```sh
-node dist/cli.js prepare examples/iona.two-path.concept.request.json --preset btd6 --output .runs/iona-two-path.prepared.json
+node dist/cli.js prepare data/reference/engineer-monkey.interpretation.request.json --preset btd6 --output data/runs/engineer-monkey-interpretation.prepared.json
 ```
 
 Authoring that request with the same preset calls the configured model. No live
-generation of this example is claimed here. The supplied record separates the original fictional brief from
+generation of this example is claimed here. The supplied record separates the BTD6 tower brief from
 proposed gameplay groupings.
 
 Layout helpers are covered offline in `tests/rulepack-layout.test.ts`,

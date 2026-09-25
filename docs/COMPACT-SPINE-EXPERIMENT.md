@@ -8,7 +8,7 @@ The separate interpretation experiment cannot be combined with this route. A Req
 
 ## Run an explicit example
 
-Build with `pnpm build`. The public [request](../examples/compact-spine.request.json) includes an original character, explicit source text, constraints and a numerical Definition using Tokens. It requires no private project. The following example uses the existing Codex login and the configured Codex model. Running it dispatches a model call and allows one repair. It does not overwrite an existing output file.
+Build with `pnpm build`. The public [request](../data/reference/bomb-shooter.compact-spine.request.json) includes a Bomb Shooter brief, explicit source text, constraints and a numerical Definition using Tokens. It requires no private project. The following example uses the existing Codex login and the configured Codex model. Running it dispatches a model call and allows one repair. It does not overwrite an existing output file.
 
 ```sh
 node --input-type=module <<'JS'
@@ -17,10 +17,10 @@ import { prepareRequest } from '@mardwerk/unit-generator';
 import { CodexModelClient, loadRequestFile, createEvidenceRun } from '@mardwerk/unit-generator/node';
 import { draftCompactSpine } from '@mardwerk/unit-generator/experiments/compact-spine';
 
-await mkdir('.runs', { recursive: true });
-const request = await loadRequestFile('examples/compact-spine.request.json');
+await mkdir('data/runs', { recursive: true });
+const request = await loadRequestFile('data/reference/bomb-shooter.compact-spine.request.json');
 const prepared = await prepareRequest(request);
-const run = await createEvidenceRun({ directory: '.runs/evidence', input: prepared });
+const run = await createEvidenceRun({ directory: 'data/runs/evidence', input: prepared });
 let result;
 try {
   result = await draftCompactSpine(
@@ -33,7 +33,7 @@ try {
   throw error;
 }
 await run.finish(result);
-await writeFile('.runs/compact-spine.result.json', JSON.stringify(result, null, 2), { flag: 'wx' });
+await writeFile('data/runs/compact-spine.result.json', JSON.stringify(result, null, 2), { flag: 'wx' });
 JS
 ```
 

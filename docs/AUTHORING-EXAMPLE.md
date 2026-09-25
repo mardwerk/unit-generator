@@ -4,4 +4,4 @@ Original-character authoring — inventing a character and writing explicit game
 
 The previous Mira prose exercise was removed with its example files. Its useful distinctions (detection versus delivery, permanent versus activated effects, confirmed decisions versus proposals) belong to the future compiler spec in the planning workspace, not to this repository's worked examples.
 
-To supply your own character text and game rules today, use the [source-file template](../examples/source-file.request.json): copy it into a working directory and supply the named files. [CLI usage](CLI.md) describes how to submit a Request and inspect its Result.
+To supply your own character text and game rules today, use the [source-file template](../data/reference/dart-monkey.source-file.request.json): copy it into a working directory and supply the named files. [CLI usage](CLI.md) describes how to submit a Request and inspect its Result.

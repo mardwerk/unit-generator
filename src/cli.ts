@@ -30,6 +30,7 @@ import { readArtifactView } from './presentation/view.js';
 import { renderArtifact } from './presentation/markdown.js';
 import { formatCost } from './presentation/usage.js';
 import { createEvidenceRun, type EvidenceRun } from './node/evidence.js';
+import { defaultRunsDir } from './node/paths.js';
 
 const help = `Unit Generator
 
@@ -59,7 +60,7 @@ Options:
   --preset btd6          Apply the default definition to prepare or author
   --deliverable MODE     concept or mechanics for character, generate, prepare or author
   --operation MODE       generate, redesign, prose-edit or adapt for prepare or author
-  --evidence-dir DIR     Retain model attempts here (concept default: .runs/evidence)
+  --evidence-dir DIR     Retain model attempts here (concept default: data/runs/evidence)
   --choice ID            Select a character when name lookup is ambiguous
   --tiers A,B,C          Purchased tiers for build, e.g. 5,2,0
   --repairs COUNT        Design repair attempts: 0, 1 (default), or 2
@@ -329,7 +330,7 @@ async function executeCommand(
   }
   const input = await readJsonFile(file);
   switch (command) {
-  case 'build': {
+    case 'build': {
       const view = readArtifactView(input);
       await verifyPrepared(view.prepared);
       if (!view.candidate.blueprint || !view.prepared.request.mechanicsDefinition)
@@ -393,7 +394,7 @@ async function main(): Promise<void> {
     const client = createModel(invocation.values);
     if (concept || invocation.values['evidence-dir']) {
       evidence = await createEvidenceRun({
-        directory: invocation.values['evidence-dir'] ?? '.runs/evidence',
+        directory: invocation.values['evidence-dir'] ?? join(defaultRunsDir(), 'evidence'),
         input,
         settings: { operation: invocation.command },
       });

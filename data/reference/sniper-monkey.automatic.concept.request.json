@@ -1,0 +1,78 @@
+{
+  "schemaVersion": "1",
+  "task": "Design Sniper Monkey under the automatic-only branch Definition. No crosspath purchases or manual activation.",
+  "character": {
+    "name": "Sniper Monkey",
+    "work": "Bloons TD 6",
+    "scope": "Supplied public brief only"
+  },
+  "documents": [
+    {
+      "id": "sniper-monkey-source",
+      "kind": "source",
+      "sourceUrl": "https://www.bloonswiki.com/Sniper_Monkey_(BTD6)",
+      "text": "Sniper Monkey is a Military tower. Medium placement costs 350. Its base attack shoots one visible target anywhere on the map when line of sight permits, dealing 2 damage about every 1.59 seconds. It initially lacks Camo detection and Lead damage. Full Metal Jacket and Large Calibre raise bullet damage; Deadly Precision adds Ceramic damage. Maim MOAB adds automatic stun against eligible MOAB-class targets; Cripple MOAB extends it and makes targets take extra damage. Night Vision Goggles add Camo detection; Shrapnel Shot releases damaging fragments on hit; Bouncing Bullet chains between targets. Fast Firing lines shorten the attack interval down to Full Auto Rifle. These are observed tower behaviors, not approved generator mechanics."
+    }
+  ],
+  "constraints": [],
+  "progression": null,
+  "previous": null,
+  "feedback": null,
+  "deliverable": "concept",
+  "conceptDefinition": {
+    "schemaVersion": "1",
+    "id": "automatic-branches",
+    "version": "1",
+    "progression": {
+      "paths": [
+        {
+          "id": "heavy",
+          "tiers": [1, 2, 3, 4]
+        },
+        {
+          "id": "rapid",
+          "tiers": [1, 2, 3, 4]
+        },
+        {
+          "id": "chain",
+          "tiers": [1, 2, 3, 4]
+        }
+      ],
+      "maxActivePaths": 1,
+      "maxPathsAboveTier": null,
+      "maxTotalTiers": 4,
+      "allowedTierCombinations": null
+    },
+    "rules": {
+      "manualActivation": {
+        "allowedSlots": [],
+        "required": false
+      },
+      "crosspaths": {
+        "mainFromTier": 2,
+        "secondaryThroughTier": 1,
+        "coverage": "none"
+      },
+      "earlySupport": "bounded"
+    },
+    "guidance": "Choose one branch of four upgrades. All attacks and abilities are automatic. No manual activation or crosspath purchases are permitted. Independent attacks may run on separate cadences. Describe inherited effects and explicit replacements. Units have no personal health; bouncing chains never create unlimited hits. These are qualitative design permissions, not implemented Consumer behavior.",
+    "presentation": {
+      "pathLabel": "Branch"
+    },
+    "profileOptions": {
+      "earlySupport": ["bounded"],
+      "manualActivationRequired": []
+    }
+  },
+  "conceptProfile": {
+    "id": "automatic-example",
+    "version": "1",
+    "definition": {
+      "id": "automatic-branches",
+      "version": "1"
+    },
+    "overrides": {
+      "earlySupport": "bounded"
+    }
+  }
+}

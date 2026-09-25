@@ -4,7 +4,7 @@ Unit Generator turns supplied character evidence and Tower Defense game rules in
 
 The CLI and local [UnitLab](docs/LAB.md) share a [typed generator core](docs/API.md). Applications call it directly with structured inputs and Results. The core has no console, filesystem, subprocess or hidden project history.
 
-For a qualitative design, choose **Qualitative concept** in UnitLab or pass `--deliverable concept` to name-based CLI generation. Concept mode retains independent attacks, interactions, crosspaths and practical limitations without requiring a numerical blueprint. It uses explicit progression and concept rules, supports revisions and records model attempts. See [concept authoring](docs/CLI.md#qualitative-concepts) and the original [Iona example](examples/iona.concept.request.json). Numerical `planned-v1` remains the default.
+For a qualitative design, choose **Qualitative concept** in UnitLab or pass `--deliverable concept` to name-based CLI generation. Concept mode retains independent attacks, interactions, crosspaths and practical limitations without requiring a numerical blueprint. It uses explicit progression and concept rules, supports revisions and records model attempts. See [concept authoring](docs/CLI.md#qualitative-concepts) and the [Wizard Monkey example](data/reference/wizard-monkey.concept.request.json). Numerical `planned-v1` remains the default.
 
 Two separate opt-in experiments are available: a [caller-supplied interpretation](docs/RULEPACK-DESIGN-PLAN.md) on `planned-v1`, and a [compact numerical recipe](docs/COMPACT-SPINE-EXPERIMENT.md) selected through its own API. Neither replaces the default route or establishes better design quality.
 
@@ -39,29 +39,29 @@ For the CLI, start with a character name:
 
 ```sh
 pnpm build
-pnpm cli generate "Monkey D. Luffy" -o .runs/luffy.json
-pnpm cli render .runs/luffy.json -o .runs/luffy.md
-pnpm cli build .runs/luffy.json --tiers 5,2,0
+pnpm cli generate "Monkey D. Luffy" -o data/runs/luffy.json
+pnpm cli render data/runs/luffy.json -o data/runs/luffy.md
+pnpm cli build data/runs/luffy.json --tiers 5,2,0
 ```
 
-`generate` retrieves character evidence, then uses the default `planned-v1` route. One model stage supplies a compact source-backed purchase plan; a second implements numerical mechanics. Code binds names and citations, checks plan feasibility, resolves arithmetic and checks every legal build against its promised changes. Each stage allows one repair by default. The artifact retains `run.designPlan`, analytical `run.designEvaluation`, attempts and reported usage. `render --details` shows purchase comparisons without another model call. Revisions use the same route. `review .runs/luffy.json` adds an optional independent model review. The [mechanics definition](docs/MECHANICS.md) keeps prices, upgrades, crosspaths and boosts explicit. [Evaluations](docs/PIPELINE-EVALUATION.md) record reliability and quality limits.
+`generate` retrieves character evidence, then uses the default `planned-v1` route. One model stage supplies a compact source-backed purchase plan; a second implements numerical mechanics. Code binds names and citations, checks plan feasibility, resolves arithmetic and checks every legal build against its promised changes. Each stage allows one repair by default. The artifact retains `run.designPlan`, analytical `run.designEvaluation`, attempts and reported usage. `render --details` shows purchase comparisons without another model call. Revisions use the same route. `review data/runs/luffy.json` adds an optional independent model review. The [mechanics definition](docs/MECHANICS.md) keeps prices, upgrades, crosspaths and boosts explicit. [Evaluations](docs/PIPELINE-EVALUATION.md) record reliability and quality limits.
 
 For explicit source text and custom rules:
 
 ```sh
-pnpm cli author examples/iona.concept.request.json --provider codex --output .runs/iona-v1.json
-pnpm cli render .runs/iona-v1.json --output .runs/iona-v1.md
+pnpm cli author data/reference/dart-monkey.request.json --provider codex --output data/runs/dart-v1.json
+pnpm cli render data/runs/dart-v1.json --output data/runs/dart-v1.md
 ```
 
-Iona is a public example and needs no private repositories. The result JSON retains inputs, evidence and findings. The default Markdown view shows the Unit kit, restrictions and open decisions; add `render --details` for the expanded evidence and check report. Output files are never overwritten. Inspect findings before accepting content; authoring checks do not simulate gameplay or establish balance.
+Dart Monkey is a BTD6 tower brief and needs no private repositories.
 
 To revise a candidate, supply its Result and explicit feedback:
 
 ```sh
-pnpm cli author examples/iona.concept.request.json --provider codex --previous .runs/iona-v1.json --feedback "Give the support path a clearer team role." --output .runs/iona-v2.json
+pnpm cli author data/reference/dart-monkey.request.json --provider codex --previous data/runs/dart-v1.json --feedback "Give the support path a clearer team role while preserving personal Camo detection." --output data/runs/dart-v2.json
 ```
 
-Read [CLI usage](docs/CLI.md) for independently runnable stages, source files, URLs and Luffy inputs. Local generated content belongs in ignored `.runs/`. UnitLab saves artifacts in a configurable local library and keeps unfinished edits in its browser session; Towerright owns project history and wider evaluation.
+Read [CLI usage](docs/CLI.md) for independently runnable stages, source files, URLs and Luffy inputs. Local generated content belongs in ignored `data/runs/`. UnitLab saves artifacts in a configurable local library and keeps unfinished edits in its browser session; Towerright owns project history and wider evaluation.
 
 The [documentation guide](docs/README.md) separates current contracts and usage from proposals, experiments and historical evidence.
 

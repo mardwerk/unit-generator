@@ -82,10 +82,10 @@ fs.writeFileSync(args[args.indexOf('--output-last-message')+1],JSON.stringify(sc
     assert.deepEqual(revised.candidate, candidate);
     assert.equal(revised.prepared.request.operation, 'prose-edit');
     assert.match(revised.prepared.request.previous.resultId, /^artifact:/);
-    const runs = await readdir(join(directory, '.runs/evidence'));
+    const runs = await readdir(join(directory, 'data/runs/evidence'));
     assert.equal(runs.length, 2);
     for (const name of runs) {
-      const files = await readdir(join(directory, '.runs/evidence', name));
+      const files = await readdir(join(directory, 'data/runs/evidence', name));
       assert.ok(files.includes('input.json'));
       assert.ok(files.includes('manifest.json'));
       assert.ok(files.includes('observations.json'));
