@@ -190,7 +190,7 @@ The docs were rewritten around the recommended structure, treating the old docum
 - **Kept with small edits:** `docs/MECHANICS.md` (the current Engine contract) and `docs/OPENROUTER.md` (agent model policy).
 - **Deleted:** `API.md`, `AUTHORING-EXAMPLE.md`, `AUTHORING-WORKFLOW.md`, `COMPACT-SPINE-EXPERIMENT.md`, `GENERATION-FOUNDATION.md`, `GENERATOR-RESHAPE.md`, `IMAGE-GENERATION.md`, `LOCAL-ARTIFACTS.md`, `NEXT-EXPERIMENT.md`, `PIPELINE-APPROACHES.md`, `PIPELINE-EVALUATION.md`, `PRODUCT.md`, `REFINEMENT.md`, `RULEPACK-DESIGN-PLAN.md`, `TESTING.md`, `docs/README.md` and `src/README.md`. They remain in history at [`9244cd5`](https://github.com/mardwerk/unit-generator/tree/9244cd5/docs); research files that cited them now link there.
 
-Markdown in the root, `docs/` and `src/` drops from about 260 KB to about 100 KB, a third of which is this plan (which can be deleted once the migration is done) and a quarter the Engine contract in `MECHANICS.md`.
+Markdown in the root, `docs/` and `src/` drops from about 260 KB to about 100 KB. About 42 KB of that is this plan, which can be deleted once the migration is done, and 26 KB is the Engine contract in `MECHANICS.md`.
 
 Errors in the old docs that the rewrite removes:
 
