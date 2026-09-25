@@ -184,7 +184,7 @@ A CI check on the esbuild metafile should fail if the bundle contains `src/core`
 
 | Step | Change | Done when |
 | --- | --- | --- |
-| P0.1 | Cuts B1–B14 and repository hygiene B17 | Tests and typecheck pass; about 3,300 source and script lines removed |
+| P0.1 | Cuts B1–B13 and repository hygiene B17 | Tests and typecheck pass; about 3,300 source and script lines removed |
 | P0.2 | Golden corpus: a TS script records, for every example request and fake-model fixture: prepared artifact and hash, each `ModelRequest` (system, prompt, schema), fake responses, draft, checked, result, Markdown (compact and details), 64 builds, API responses. Add a test pinning literal hashes | `contracts/v1/golden/` is committed; a Zod upgrade that changes a hash fails CI |
 | P0.3 | Explicit TS server state: library folder defaults to `data/runs/library` (or `--library DIR`) and `/library/open` switches it in memory only, with no `lab-settings.json`; provider config fixed at startup; `/health` with key descriptor (#15); concept evidence under `<library>/evidence` | Server writes only beneath `--library`; `POST /api/provider` is gone |
 | P0.4 | Client stops executing Engine code: add `render` `view` and `build`; remove `checkDraft`, `conceptContract` and `kitStats` runtime imports | Bundle metafile has no `src/core` or `zod` |
@@ -275,7 +275,7 @@ Follow-up to B1: after it, `use-authoring.ts` still holds two editor models, pre
 | B11 | [mechanics/attack-patterns.ts](../src/core/mechanics/attack-patterns.ts) (`selectVolleyTargets`, `resolveFollowUpHits`) and tests | Runtime targeting helpers for a host; no in-repo consumer; runtime belongs to the Consumer ([CONTEXT.md](../CONTEXT.md)) | Confirm no Consumer or Towerright import ([E.1](#e-unproven-risks)), then delete |
 | B12 | Remaining dead or test-only exports: `withTierDeltas` (no consumer), `formatEstimatedCost` (tests only), unused exported types | Public surface without callers | Run `knip` or `ts-prune` once; delete what it reports that no test needs for behavior |
 | B13 | [scripts/evaluate-unit-pipeline.mjs](../scripts/evaluate-unit-pipeline.mjs) (816 lines) → evaluation workspace | Multi-run studies are Towerright's job; its default corpus `data/runs/pipeline-corpus/manifest.json` and documented `.runs/logic-tuning/*` inputs are not in the repository | In a fresh clone it fails for the missing corpus; after the move, nothing in `src/` or `tests/` references it |
-| B14 | `research/btd6/raw/btd6_towers.json` (1.28 MB) → research workspace (**decision**) | No code or test reads it (only comments cite it); `provenance.json` keeps its SHA-256 and the upstream data repository | `rg btd6_towers src tests` shows comments only; tests pass |
+| B14 | `research/btd6/raw/btd6_towers.json` (1.28 MB) → research workspace (**decided**: the maintainer moves it; outside this plan) | No code or test reads it (only comments cite it); `provenance.json` keeps its SHA-256 and the upstream data repository | `rg btd6_towers src tests` shows comments only; tests pass |
 
 Duplicated business logic to merge, not port twice:
 
@@ -390,12 +390,11 @@ Recorded from Kyle's review of this plan on the pull request, September 25, 2026
 | 6 | Switch writers to `jcs-sha256:` at S10 | [A.6](#a6-serialization-errors-and-versioning) |
 | 7 | One generation route; no named routes such as `planned-v1`. Behavior comes from reusable, interchangeable Profiles with a stable default. The web app gets a Profile Editor tab (visualize, edit, several Profiles, stable default) and a Profile selector on Generate | [A.6b](#a6b-profiles-and-the-single-generation-route), P0.7, B10 |
 | 8 | The library folder is selectable in the web app and defaults to `data/runs/library` | C5, [A.5](#a5-serve-http-api) `/library/open`, P0.3 |
+| 9 | `btd6_towers.json` moves out of the repository; the maintainer handles it | B14 is no longer part of P0.1 |
 
 Still open:
 
 1. **Qualitative output inside the single route.** The numerical and qualitative (concept) deliverables have different outputs and checks. The plan keeps both as Profile options of the one route, with the numerical Profile as the default. The alternative is numerical-only, which deletes about 940 lines of concept code and 1,200 lines of its tests, and with them the only variable-progression output (#4).
-2. **`btd6_towers.json` (B14).** Move the 1.28 MB file to the research workspace, or keep it.
-
 ## G. Rejected alternatives
 
 A ChatGPT review posted on the pull request was checked against this checkout. Its reviewer could not clone the repository and read pages cached three days earlier, so its code claims were verified before use. Adopted: separating research from request assembly, moving artifact decoding out of presentation, "configured is not verified" for #15, classifying all 216 tier selections, keeping the no-overwrite hard-link write, correcting the original-character wording and the development-loop restart cost. Rejected:
