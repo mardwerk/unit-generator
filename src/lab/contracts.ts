@@ -38,30 +38,6 @@ export interface LibraryState {
   entries: LibraryEntry[];
 }
 
-export interface LibrarySaveRequest {
-  artifact: LabArtifact;
-}
-
-export interface LibraryLoadRequest {
-  id: string;
-}
-
-export interface LibraryLoadResponse {
-  artifact: LabArtifact;
-}
-
-export interface LibraryDeleteRequest {
-  ids: string[];
-}
-
-export interface LibraryConfigureRequest {
-  directory: string;
-}
-
-export interface LibraryIconsRequest {
-  artifact: LabArtifact;
-}
-
 export interface LibraryIcon {
   key: string;
   path: string;
@@ -91,6 +67,8 @@ export interface ProviderState {
   model: string;
   ready: boolean;
   images: { model: string; ready: boolean };
+  /** Present means a key is set, not that OpenRouter accepted it. Never the key itself. */
+  key: { configured: boolean; source: 'env' | 'settings' | 'none'; hint: string | null };
   message: string;
 }
 

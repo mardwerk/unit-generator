@@ -146,8 +146,8 @@ Every cut below serves a stateless CLI/API/web Tool or removes weight. Each has 
 
 | # | Cut | Reason | Verification |
 | --- | --- | --- | --- |
-| B1 | Top-level `loadRequest`, `importFile`, `uploadDocuments`, `setName` and `changeInput` in [use-authoring.ts](../src/lab/client/use-authoring.ts) (lines 91, 490–506) | **Confirmed**: the app shell uses only `creation.*` equivalents; `GenerateInputs` receives `AuthoringSession['creation']` | `rg "session\.(loadRequest\|importFile\|uploadDocuments\|setName\|changeInput)" src/lab/client/app.tsx` is empty; `create-navigation` and `lab-client` tests pass |
-| B2 | Six unused interfaces in [contracts.ts](../src/lab/contracts.ts) (`LibrarySaveRequest` … `LibraryIconsRequest`) | **Confirmed**: no reference outside the file. Also shows the HTTP contract is not type-checked between client and server | `pnpm typecheck` |
+| B1 (**done**) | Top-level `loadRequest`, `importFile`, `uploadDocuments`, `setName` and `changeInput` in [use-authoring.ts](../src/lab/client/use-authoring.ts) (lines 91, 490–506) | **Confirmed**: the app shell uses only `creation.*` equivalents; `GenerateInputs` receives `AuthoringSession['creation']` | `rg "session\.(loadRequest\|importFile\|uploadDocuments\|setName\|changeInput)" src/lab/client/app.tsx` is empty; `create-navigation` and `lab-client` tests pass |
+| B2 (**done**) | Six unused interfaces in [contracts.ts](../src/lab/contracts.ts) (`LibrarySaveRequest` … `LibraryIconsRequest`) | **Confirmed**: no reference outside the file. Also shows the HTTP contract is not type-checked between client and server | `pnpm typecheck` |
 
 Follow-up to B1: after it, `use-authoring.ts` still holds two editor models, pre-run `creation` and post-run `input`/`dirty`/`pendingInput`. Merge them when fixing #14.
 
@@ -230,7 +230,7 @@ These are ranked by measured or recorded cost. Each needs its before/after measu
 | 1 | Model latency and failures dominate wall time. Recorded whole-sample times are 23.8–179 s, 6–10 calls per three-sample batch and ≈30k input tokens per sample ([recorded evaluation](https://github.com/mardwerk/unit-generator/blob/9244cd5/docs/PIPELINE-EVALUATION.md), lines 63–67, 122, 130, removed from the tree in this change), against ≈3 ms of Engine checking (**measured**) | Bound review input for concept and legacy reviews, which embed the full `prepared.request` including unabridged documents ([review.ts:147-152](../src/core/review.ts)). Reuse the drafting passage selection. This is a behavior change, so compare it on frozen source packets with the model and settings held fixed | S | From retained artifacts: `run.review.usage.inputTokens` and review wall time, p50/p95 over the same fixed source packets, plus review finding agreement on a paired set |
 | 2 | Cold start for scripted per-stage calls: `cli.ts` imports every adapter (OpenRouter SDK, cheerio, Codex, evidence) even for `render` or `check` | Go binary (S1); interim TS fix is lazy `import()` per command | S (TS) / part of S1 | `hyperfine 'node dist/cli.js render g.json' 'mardwerk-unit render g.json'`, plus `node --cpu-prof` for module-load share |
 | 3 | Client bundle: 914,053 B minified, 236,512 B gzip; Zod 453,334 B and Engine 136,476 B (**measured** with an esbuild metafile) | Remove Engine and Zod from the client (P0.4) | M, part of P0.4 | esbuild `--metafile` totals; Chrome trace "Evaluate Script" at 4× CPU throttle on first load |
-| 4 | Test loop: `pnpm test` deletes `.test-build` and recompiles all of `src` and `tests` with `tsc` on every run | `tsc --incremental` with a persisted build-info file, or run `.ts` tests through Node type stripping and keep `tsc --noEmit` for typecheck | S | `time pnpm test`, split into the compile phase and the `node --test` phase, three runs each |
+| 4 | Test loop: `pnpm test` deletes `.test-build` and recompiles all of `src` and `tests` with `tsc` on every run (**measured**: 34.7 s wall, of which 25.6 s is `node --test`, 443 tests, Node 22) | `tsc --incremental` with a persisted build-info file, or run `.ts` tests through Node type stripping and keep `tsc --noEmit` for typecheck | S | `time pnpm test`, split into the compile phase and the `node --test` phase, three runs each |
 | 5 | Development loop: `pnpm dev` watches all of `src`, so a web-only edit rebuilds and restarts the backend, which interrupts active generations | Interim: restart the server only for backend paths and rebuild the client with esbuild watch. After S9 the Go binary and the web build are separate anyway | S | Backend restarts per web-only edit (target 0) and save-to-visible latency over the same edit sequence |
 | 6 | Research latency: sequential round trips (search, up to three sequential collection fetches at [character-source.ts:210-225](../src/node/character-source.ts), article, then parallel visuals) | Fetch collection candidates concurrently | S | Wall time of `research` against recorded fixtures with injected 200 ms latency per request, and live p50 over ten names |
 
@@ -243,11 +243,11 @@ Measurements were taken on Node 22.22.2 in this review container. Rerun them on 
 | Issue | Where it lands |
 | --- | --- |
 | #4 5×10 progression | After P0.4, add a deterministic 5×10 **concept** fixture (concept progression is already variable) to test layout, focus and export. `health.engine.mechanics` reports 3×5; `prepare` rejects non-3×5 mechanics with `UNSUPPORTED_PROGRESSION`. Drop "role ranking" from the checklist |
-| #9 audit | B1 and B2 verified; B3–B14 continue it |
+| #9 audit | B1 and B2 done in this PR; B3–B13 continue it |
 | #12 Go CLI + `serve` | Section A |
 | #13 single mode + profile editor | P0.5 makes the Profile an explicit `prepare` input; P0.7 adds Profile files, the Profile Editor tab with a stable default, and the Generate selector ([ARCHITECTURE.md](ARCHITECTURE.md#profiles)) |
-| #14 create-view state loss | Client only: `newCreate` ([use-authoring.ts:462](../src/lab/client/use-authoring.ts)) must not reset a non-empty draft; merge the two editor models (B1 follow-up); keep the draft in client storage |
-| #15 key indicator | `/health` `provider.key {configured, source, hint}` computed from startup config; `configured` means present, not verified; never the full key |
+| #14 create-view state loss | Done in this PR: the Generate button and logo only switch views; Clear or a confirmed New inputs starts over; the Inputs panel state lives in the app. Merging the two editor models (B1 follow-up) remains |
+| #15 key indicator | Done in this PR on today's server: provider state carries `key {configured, source, hint}` and Settings shows it; the Go `/health` keeps the same shape |
 
 ## E. Unproven risks
 
@@ -258,7 +258,7 @@ These are observations the review could not prove. Each says what would settle i
 3. **`.runs/` ignore rule.** Maintainers may have `.runs/` in a global excludes file; this checkout does not. Settle with `git check-ignore -v .runs/x` on each machine; fix the repo regardless.
 4. **Free-router reliability.** It is unknown whether `openrouter/free` with `strict` JSON Schema and `requireParameters` routes reliably to models that honour structured output. The recorded failures do not isolate the cause, and agent policy forbids testing the opaque router.
 5. **Hash stability across Zod upgrades.** Zod is `^4.3.6`, installed as 4.6.5. A minor release that changes parse output order or trim behavior would change hashes of saved artifacts; no test would notice until P0.2.
-6. **Node 24 requirement.** `engines` requires Node ≥24, but the APIs seen (`process.loadEnvFile`, `AbortSignal.any`) exist in Node 22. Whether the suite passes on 22 was not run in this review.
+6. **Node 24 requirement.** `engines` requires Node ≥24, but typecheck, all tests and the build pass on Node 22.22.2 in this review, so the requirement may be looser than stated. Nothing here shows whether some runtime path needs 24.
 7. **"The TS CLI does not work properly" (#12).** Not reproduced; the suite was not run in this review. Concrete defects found by reading: `render` skips integrity verification, concept runs write evidence without being asked, and usage errors share exit code 1.
 8. **Long synchronous requests.** Planned-v1 plus review can hold one HTTP request for about 10 minutes. Browser or OS idle limits were not tested.
 9. **Codex CLI drift.** The integration was tested with Codex CLI 0.155.1; current flags and output files may differ.

@@ -22,6 +22,10 @@ export function createDraft(request?: LabRequest): CreateDraft {
     ),
   };
 }
+/** True when the create page holds nothing a user would lose by starting over. */
+export function isEmptyCreateDraft(draft: Pick<CreateDraft, 'name' | 'edited'>): boolean {
+  return !draft.name.trim() && !draft.edited;
+}
 export function nameCreateDraft(draft: CreateDraft, name: string): CreateDraft {
   return {
     ...draft,

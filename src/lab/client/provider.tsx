@@ -18,6 +18,7 @@ export function Settings({
   const [model, setModel] = useState('');
   const [imageModel, setImageModel] = useState('');
   const [key, setKey] = useState('');
+  const [keyState, setKeyState] = useState<ProviderState['key'] | null>(null);
   const [ready, setReady] = useState(false);
   const [message, setMessage] = useState('Loading provider...');
   const [error, setError] = useState('');
@@ -32,6 +33,7 @@ export function Settings({
           setProvider(state.provider);
           setModel(state.model);
           setImageModel(state.images.model);
+          setKeyState(state.key);
           setReady(state.ready);
           setMessage(state.message);
         }
@@ -58,6 +60,7 @@ export function Settings({
         ...(model.trim() ? { model: model.trim() } : {}),
       });
       setKey('');
+      setKeyState(state.key);
       setReady(state.ready);
       setMessage(state.message);
       setModel(state.model);
@@ -105,15 +108,28 @@ export function Settings({
           </select>
         </Field>
         {
-          <Field label="OpenRouter API key">
-            <input
-              type="password"
-              autoComplete="off"
-              value={key}
-              placeholder={ready ? 'Leave blank to keep the current key' : 'Enter an API key'}
-              onChange={(e) => setKey(e.target.value)}
-            />
-          </Field>
+          <>
+            <p id="current-key" className="muted small">
+              {keyState?.configured
+                ? `Current key: ${keyState.hint ?? 'hidden'} (${
+                    keyState.source === 'env'
+                      ? 'from the environment or .env'
+                      : 'entered in Settings'
+                  })`
+                : 'No OpenRouter key configured.'}
+            </p>
+            <Field label="OpenRouter API key">
+              <input
+                type="password"
+                autoComplete="off"
+                value={key}
+                placeholder={
+                  keyState?.configured ? 'Enter a new key to replace it' : 'Enter an API key'
+                }
+                onChange={(e) => setKey(e.target.value)}
+              />
+            </Field>
+          </>
         }
         <Disclosure title="Model">
           <Field label="Model name (optional)">

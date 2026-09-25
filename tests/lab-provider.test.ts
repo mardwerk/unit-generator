@@ -1,6 +1,6 @@
 import assert from 'node:assert/strict';
 import { test } from 'node:test';
-import { LabProvider } from '../src/lab/providers.js';
+import { LabProvider, keyHint } from '../src/lab/providers.js';
 import { startLab } from '../src/lab/server.js';
 import {
   checkDraft,
@@ -29,6 +29,39 @@ test('local provider settings retain keys without returning or serializing them'
     provider.configure({ provider: 'openrouter', model: 'secret/test-private-key' }),
   );
   assert.equal(provider.state.model, 'openrouter/free');
+});
+
+test('provider state names the key source and a masked hint, never the key', () => {
+  const previous = process.env.OPENROUTER_API_KEY;
+  const envKey = `sk-or-v1-378${'a'.repeat(58)}593`;
+  try {
+    process.env.OPENROUTER_API_KEY = envKey;
+    const provider = new LabProvider();
+    assert.deepEqual(provider.state.key, {
+      configured: true,
+      source: 'env',
+      hint: 'sk-or-v1-378...593',
+    });
+    assert.ok(!JSON.stringify(provider.state).includes(envKey));
+    provider.configure({ provider: 'codex' });
+    assert.equal(provider.state.key.source, 'env');
+    provider.configure({ provider: 'openrouter', apiKey: 'short-session-key' });
+    assert.deepEqual(provider.state.key, { configured: true, source: 'settings', hint: null });
+    assert.ok(!JSON.stringify(provider.state).includes('short-session-key'));
+    delete process.env.OPENROUTER_API_KEY;
+    assert.deepEqual(new LabProvider().state.key, {
+      configured: false,
+      source: 'none',
+      hint: null,
+    });
+  } finally {
+    if (previous === undefined) delete process.env.OPENROUTER_API_KEY;
+    else process.env.OPENROUTER_API_KEY = previous;
+  }
+  const generic = 'x'.repeat(29) + 'end';
+  assert.equal(keyHint(generic), 'xxx...end');
+  assert.equal(keyHint('x'.repeat(31)), null);
+  assert.equal(keyHint(''), null);
 });
 
 test('missing OpenRouter credentials allow startup but require setup before a model call', async () => {

@@ -2,7 +2,7 @@ import { useRef, useState } from 'react';
 import { SlidersHorizontal, Upload } from 'lucide-react';
 import type { LabRequest } from '../contracts.js';
 import { api } from './api.js';
-import { generationView } from './create-draft.js';
+import { generationView, isEmptyCreateDraft } from './create-draft.js';
 import { emptyRequest } from './artifacts.js';
 import { RequestEditor } from './editor.js';
 import type { AuthoringSession } from './use-authoring.js';
@@ -11,13 +11,21 @@ export function GenerateInputs({
   session,
   onGenerate,
   onImport,
+  inputsOpen: openInputs,
+  onInputsOpenChange,
 }: {
   session: AuthoringSession['creation'];
   onGenerate: (view: 'generate' | 'unit') => void;
   onImport: () => void;
+  /** Controlled by the app so the panel survives switching views. */
+  inputsOpen?: boolean;
+  onInputsOpenChange?: (open: boolean) => void;
 }) {
   const submitView = useRef<'generate' | 'unit'>('unit');
-  const [inputsOpen, setInputsOpen] = useState(false);
+  const [localInputsOpen, setLocalInputsOpen] = useState(false);
+  const inputsOpen = openInputs ?? localInputsOpen;
+  const setInputsOpen = onInputsOpenChange ?? setLocalInputsOpen;
+  const hasDraft = !isEmptyCreateDraft({ name: session.name, edited: session.usesEditedInputs });
   return (
     <>
       <section className="create-unit" aria-label="Generate a Unit">
@@ -84,7 +92,7 @@ export function GenerateInputs({
             className="text-button"
             aria-expanded={inputsOpen}
             aria-controls="input-editor-panel"
-            onClick={() => setInputsOpen((open) => !open)}
+            onClick={() => setInputsOpen(!inputsOpen)}
           >
             <SlidersHorizontal size={13} /> Inputs and rules
           </button>
@@ -97,6 +105,17 @@ export function GenerateInputs({
           >
             <Upload size={13} /> Import
           </button>
+          {hasDraft && (
+            <button
+              id="clear-create"
+              type="button"
+              className="text-button"
+              disabled={session.busy}
+              onClick={() => session.loadRequest(emptyRequest())}
+            >
+              Clear
+            </button>
+          )}
         </div>
         {session.usesEditedInputs && (
           <p className="muted small">Generate will use your edited inputs and rules.</p>
@@ -115,13 +134,6 @@ export function GenerateInputs({
             onUpload={session.uploadDocuments}
           />
           <div className="button-row">
-            <button
-              type="button"
-              disabled={session.busy}
-              onClick={() => session.loadRequest(emptyRequest())}
-            >
-              Clear inputs
-            </button>
             <button
               type="button"
               disabled={session.busy}

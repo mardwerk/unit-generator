@@ -15,6 +15,7 @@ import { Revisions } from './revisions.js';
 import { Settings } from './provider.js';
 import { Library, useLibrary } from './library.js';
 import { Disclosure, Field, IconButton, download } from './ui.js';
+import { isEmptyCreateDraft } from './create-draft.js';
 
 const improvement =
   'Address the issues in the previous findings. Fix inconsistent identifiers and references. Preserve supplied confirmed decisions and the intended character design. Never invent approvals or evidence to make checks pass. Keep missing game rules explicit and retain a compact complete kit.';
@@ -24,6 +25,7 @@ export function App() {
   const session = useAuthoring(library.save);
   const icons = useUnitIcons(session.artifact, library.directory);
   const [view, setView] = useState<'generate' | 'library' | 'unit'>('generate');
+  const [inputsOpen, setInputsOpen] = useState(false);
   const [inspected, setInspected] = useState<LabArtifact | null>(null);
   const [opening, setOpening] = useState(false);
   const [libraryError, setLibraryError] = useState('');
@@ -44,8 +46,16 @@ export function App() {
     setInspected(null);
     setView('unit');
   }
+  /** Navigation keeps the unsent create draft; only an explicit new draft discards it. */
+  function showCreate() {
+    setView('generate');
+  }
   function newCreate() {
+    const draft = { name: session.creation.name, edited: session.creation.usesEditedInputs };
+    if (!isEmptyCreateDraft(draft) && !window.confirm('Discard the unsent character and inputs?'))
+      return;
     session.newCreate();
+    setInputsOpen(false);
     setView('generate');
   }
 
@@ -112,7 +122,7 @@ export function App() {
             aria-label="mardwerk-unit"
             onClick={(event) => {
               event.preventDefault();
-              newCreate();
+              showCreate();
             }}
           >
             <img src="/mardwerk.png" alt="Mardwerk" width={30} height={36} />
@@ -130,7 +140,7 @@ export function App() {
             label="Generate"
             className={`icon-button nav-button ${view === 'generate' ? 'active' : ''}`}
             aria-current={view === 'generate' ? 'page' : undefined}
-            onClick={newCreate}
+            onClick={showCreate}
           >
             <Plus size={19} />
           </IconButton>
@@ -207,6 +217,8 @@ export function App() {
                 }
               }}
               onImport={() => inputFile.current?.click()}
+              inputsOpen={inputsOpen}
+              onInputsOpenChange={setInputsOpen}
             />
           </div>
         </main>

@@ -17,6 +17,7 @@ Open `http://127.0.0.1:4317`. Use `--port 4318` for another port and `--provider
 Enter a character name and select Generate. The server looks the character up on Wikipedia (with Wikidata and Fandom for images), asks you to choose when the name is ambiguous, applies the default rules, then drafts, checks and reviews the unit. Missing sources produce an error, never invented canon.
 
 - Ctrl-click or Cmd-click Generate to stay on the create page; several runs can proceed at once, each with its own Stop.
+- Switching to the Library or a run and back keeps the unsent name and inputs. Clear on the form, or New inputs in the revision menu (which asks first), starts over.
 - **Inputs and rules** lets you edit or import a request before generating. The Output selector switches between numerical and qualitative output.
 - The sidebar runs each stage (prepare, draft, check, review) separately. Rerunning a stage creates a new revision and keeps the old one. Continue runs the remaining stages; Stop cancels the current one.
 - The unit sheet shows references on the left, the unit in the middle, and stages and usage on the right. Failed checks are listed below the sheet.
@@ -25,7 +26,7 @@ Enter a character name and select Generate. The server looks the character up on
 
 ## Settings
 
-- **Provider.** OpenRouter is the default and uses `openrouter/free` (free models only, no paid fallback). A key is required even for free models: set `OPENROUTER_API_KEY` in `.env` or enter it in Settings, where it stays in server memory and never enters an artifact. Local Codex is the alternative.
+- **Provider.** OpenRouter is the default and uses `openrouter/free` (free models only, no paid fallback). A key is required even for free models: set `OPENROUTER_API_KEY` in `.env` or enter it in Settings, where it stays in server memory and never enters an artifact. Settings shows which key is in use, masked (for example `sk-or-v1-378...593`), and whether it came from the environment or `.env` or was entered in Settings; "configured" does not mean OpenRouter accepted it. Local Codex is the alternative.
 - **Library folder.** Defaults to `data/runs/library`; the choice is currently saved in `data/runs/lab-settings.json`. Both are ignored by Git.
 
 ## Library

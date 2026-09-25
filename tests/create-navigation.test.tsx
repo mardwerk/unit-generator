@@ -7,6 +7,7 @@ import { Revisions } from '../src/lab/client/revisions.js';
 import {
   createDraft,
   generationView,
+  isEmptyCreateDraft,
   nameCreateDraft,
   snapshotCreateDraft,
 } from '../src/lab/client/create-draft.js';
@@ -187,4 +188,54 @@ test('New inputs opens fresh creation without selecting or copying the current r
   change({ target: { value: 'current' } });
   assert.deepEqual(selected, ['current']);
   assert.equal(opened, 1);
+});
+
+test('an unsent create draft survives view switches and only an explicit action clears it', () => {
+  assert.equal(isEmptyCreateDraft(createDraft()), true);
+  assert.equal(isEmptyCreateDraft(nameCreateDraft(createDraft(), '  ')), true);
+  const named = nameCreateDraft(createDraft(), 'Monkey D. Luffy');
+  assert.equal(isEmptyCreateDraft(named), false);
+  assert.equal(isEmptyCreateDraft(createDraft(miraRequest())), false);
+  const creation: AuthoringSession['creation'] = {
+    name: named.name,
+    input: named.input,
+    usesEditedInputs: false,
+    busy: false,
+    generationBusy: false,
+    error: '',
+    setName: () => {},
+    setDeliverable: () => {},
+    changeInput: () => {},
+    loadRequest: () => {},
+    load: async () => {},
+    uploadDocuments: async () => {},
+  };
+  const render = (inputsOpen: boolean) =>
+    load(
+      renderToStaticMarkup(
+        <GenerateInputs
+          session={creation}
+          onGenerate={() => {}}
+          onImport={() => {}}
+          inputsOpen={inputsOpen}
+          onInputsOpenChange={() => {}}
+        />,
+      ),
+    );
+  const closed = render(false);
+  assert.equal(closed('#character-name').attr('value'), 'Monkey D. Luffy');
+  assert.equal(closed('#clear-create').length, 1);
+  assert.equal(closed('#input-editor-panel').length, 0);
+  // The app owns the panel state, so it is still open after returning from another view.
+  assert.equal(render(true)('#input-editor-panel').length, 1);
+  const empty = load(
+    renderToStaticMarkup(
+      <GenerateInputs
+        session={{ ...creation, name: '' }}
+        onGenerate={() => {}}
+        onImport={() => {}}
+      />,
+    ),
+  );
+  assert.equal(empty('#clear-create').length, 0);
 });

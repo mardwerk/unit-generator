@@ -88,20 +88,6 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
       );
     else setPendingInput(request);
   }
-  function loadRequest(request: LabRequest) {
-    try {
-      retainEditor();
-    } catch (error) {
-      reportError(error);
-      return;
-    }
-    focus(null);
-    setPendingInput(request);
-    setInput(editRequest(request));
-    setName(request.character.name);
-    setDirty(true);
-    setStatus('Inputs loaded. Prepare is ready.');
-  }
   function addArtifact(value: LabArtifact) {
     retainEditor();
     const revision: Revision = {
@@ -277,36 +263,8 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
       setBusy(false);
     }
   }
-  async function uploadDocuments(files: File[]) {
-    await load(async () => {
-      const documents = await Promise.all(
-        files.map(async (file) => ({
-          id: file.name,
-          kind: 'source' as const,
-          mode: 'text' as const,
-          text: await file.text(),
-          url: '',
-        })),
-      );
-      setInput({ ...input, documents: [...input.documents, ...documents] });
-      setDirty(true);
-    });
-  }
   async function inspect(value: unknown, editable = false) {
     return api<InspectedInput>('inspect', { artifact: value, editable });
-  }
-  async function importFile(file: File) {
-    await load(async () => {
-      const value: unknown = JSON.parse(await file.text());
-      if (typeof value === 'object' && value !== null && 'unitLabSession' in value)
-        await importSession(value);
-      else {
-        const checked = await inspect(value);
-        if (checked.kind === 'request') loadRequest(checked.artifact);
-        else addArtifact(checked.artifact);
-      }
-      setStatus('Saved work loaded. No model calls were made.');
-    });
   }
   async function importSession(value: object) {
     const saved = value as {
@@ -487,23 +445,12 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
     reportError,
     setStatus,
     setNeedsProvider,
-    setName: (value: string) => {
-      setName(value);
-    },
-    changeInput: (value: EditorInput) => {
-      setInput(value);
-      setName(value.character.name);
-      setDirty(true);
-    },
     generate,
     run,
     runStage,
     findReferences: () => generate(undefined, false),
     revise,
     select,
-    importFile,
-    uploadDocuments,
-    loadRequest,
     addArtifact,
     load,
     stop: (id = selectedRef.current) => {

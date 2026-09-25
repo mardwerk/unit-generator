@@ -14,9 +14,16 @@ const settingsSchema = z.strictObject({
 
 export type ProviderSettings = z.infer<typeof settingsSchema>;
 
+/** A recognizable fragment of a long key, matching the OpenRouter dashboard; short keys stay hidden. */
+export function keyHint(key: string): string | null {
+  if (key.length < 32) return null;
+  return `${key.slice(0, key.startsWith('sk-or-v1-') ? 12 : 3)}...${key.slice(-3)}`;
+}
+
 /** One local server's connection. Secrets are never part of authoring artifacts. */
 export class LabProvider {
   #key: string;
+  #keySource: ProviderState['key']['source'];
   #provider: ProviderSettings['provider'] = 'openrouter';
   #model = OPENROUTER_FREE_MODEL;
   #client!: ModelClient;
@@ -24,6 +31,7 @@ export class LabProvider {
 
   constructor(settings: ProviderSettings = { provider: 'openrouter' }) {
     this.#key = process.env.OPENROUTER_API_KEY?.trim() ?? '';
+    this.#keySource = this.#key ? 'env' : 'none';
     this.configure(settings);
   }
 
@@ -42,6 +50,7 @@ export class LabProvider {
       model: this.#model,
       ready,
       images: { model: this.#imageModel, ready: Boolean(this.#key) },
+      key: { configured: Boolean(this.#key), source: this.#keySource, hint: keyHint(this.#key) },
       message:
         this.#provider === 'codex'
           ? 'Uses your existing local Codex configuration and login.'
@@ -68,6 +77,7 @@ export class LabProvider {
         ? new OpenRouterModelClient({ apiKey: key, model })
         : new CodexModelClient(model ? { model } : {});
     this.#key = key;
+    if (settings.apiKey) this.#keySource = 'settings';
     this.#provider = settings.provider;
     this.#model = model;
     this.#client = client;
