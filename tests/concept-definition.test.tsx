@@ -21,7 +21,7 @@ import { conceptCandidate, conceptRequest } from './fixtures/concept-fixtures.js
 import { FakeModel } from './fixtures/core-fixtures.js';
 
 async function automaticRequest() {
-  return loadRequestFile('examples/iona.automatic.concept.request.json');
+  return loadRequestFile('data/reference/sniper-monkey.automatic.concept.request.json');
 }
 
 test('a permitted Profile choice changes the applicable activation check', async () => {
@@ -179,11 +179,16 @@ test('Definition authority rejects undeclared overrides, incompatible revisions 
     /Progression conflicts/,
   );
   const drift = structuredClone(prepared.request);
-  drift.conceptRules!.manualActivation.allowedSlots = [{ pathId: 'sweep', tiers: [4] }];
+  drift.conceptRules!.manualActivation.allowedSlots = [{ pathId: 'heavy', tiers: [4] }];
   await assert.rejects(prepareRequest(drift), /rules conflict/);
   const candidate = conceptCandidate(prepared.request);
   candidate.abilities = [
-    { ...conceptCandidate().abilities[0]!, pathId: 'sweep', tier: 4, evidence: ['iona-source'] },
+    {
+      ...conceptCandidate().abilities[0]!,
+      pathId: 'heavy',
+      tier: 4,
+      evidence: ['sniper-monkey-source'],
+    },
   ];
   candidate.paths[0]!.tiers[3]!.abilityIds = [candidate.abilities[0]!.id];
   const draft = await draftUnit(prepared, new FakeModel([candidate]));
@@ -218,8 +223,8 @@ test('same-version content changes require explicit adaptation and retain a cons
       name: 'Now invalid capstone',
       rationale: 'Was legal under the prior purchase limit.',
       selections: [
-        { pathId: 'sweep', tier: 4 },
-        { pathId: 'relay', tier: 0 },
+        { pathId: 'heavy', tier: 4 },
+        { pathId: 'rapid', tier: 0 },
       ],
     },
   ];

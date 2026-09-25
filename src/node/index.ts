@@ -17,6 +17,7 @@ export {
   type OpenRouterOptions,
 } from './openrouter.js';
 export { loadDocument, type DocumentSpec, type LoadDocumentOptions } from './sources.js';
+export { defaultDataDir, defaultRunsDir } from './paths.js';
 export {
   loadRequestFile,
   readJsonFile,

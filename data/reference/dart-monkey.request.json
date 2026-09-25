@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "1",
+  "task": "Design a connected Unit for Dart Monkey with a basic attack, all three upgrade paths, abilities, mechanics requirements and representative legal builds. Preserve the confirmed BTD6 upgrade list. Explain the difference between detection and damage-type permission. Propose unspecified tuning without inventing confirmed decisions or balance values.",
+  "character": {
+    "name": "Dart Monkey",
+    "work": "Bloons TD 6",
+    "scope": "Supplied public brief only. No external canon or research."
+  },
+  "documents": [
+    {
+      "id": "dart-monkey-brief",
+      "kind": "source",
+      "sourceUrl": "https://www.bloonswiki.com/Dart_Monkey_(BTD6)",
+      "text": "Dart Monkey is a Primary tower. Medium placement costs 200. Its base attack throws one dart per attack about every 0.95 seconds at range 32, dealing 1 damage with pierce 2. It has no Camo detection and cannot damage Lead. Top path (Sharp Shots 140, Razor Sharp Shots 200, Spike-o-pult 320, Juggernaut 1800, Ultra-Juggernaut 15000) converts darts into rebounding spiked balls with Lead damage and Ceramic and Fortified bonuses. Middle path (Quick Shots 100, Very Quick Shots 190, Triple Shot 450, Super Monkey Fan Club 7200, Plasma Monkey Fan Club 45000) adds attack speed, triple darts, then a temporary transformation of eligible nearby Dart Monkeys. Bottom path (Long Range Darts 90, Enhanced Eyesight 200, Crossbow 575, Sharp Shooter 2050, Crossbow Master 21500) adds range, personal Camo detection, then a long-range crossbow with automatic critical shots."
+    },
+    {
+      "id": "example-rules",
+      "kind": "rules",
+      "text": "A Tower Defense Unit has three upgrade paths with five sequential tiers each. A placed Unit may purchase at most two paths; at most one path may exceed tier 2. Attacks require a detected target within attack range. Camo targets need a detection permission; Lead and Frozen targets need a damage-type permission. Detection does not grant damage-type permission and damage-type permission does not grant detection. Numerical ranges, damage, cooldowns and costs beyond the brief are intentionally unspecified. Propose roles and behaviors without claiming combat validation."
+    }
+  ],
+  "constraints": [
+    {
+      "id": "personal-detection",
+      "text": "Personal Camo detection arrives only through Enhanced Eyesight on the bottom path. There is no allied revealing."
+    },
+    {
+      "id": "lead-permission",
+      "text": "Lead damage arrives only through the Juggernaut line on the top path. Attack speed and range purchases do not grant it."
+    },
+    {
+      "id": "fan-club-eligibility",
+      "text": "The Fan Club transformation affects only eligible nearby Dart Monkeys and excludes catapult and crossbow specialists. The transformed weapon is the active attack form during the window."
+    }
+  ],
+  "progression": {
+    "paths": [
+      { "id": "juggernaut", "tiers": [1, 2, 3, 4, 5] },
+      { "id": "fan-club", "tiers": [1, 2, 3, 4, 5] },
+      { "id": "crossbow", "tiers": [1, 2, 3, 4, 5] }
+    ],
+    "maxActivePaths": 2,
+    "maxPathsAboveTier": { "tier": 2, "count": 1 },
+    "maxTotalTiers": null,
+    "allowedTierCombinations": null
+  },
+  "previous": null,
+  "feedback": null
+}

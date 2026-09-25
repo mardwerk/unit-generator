@@ -31,7 +31,10 @@ async function main() {
   }
   const example = requestFileSchema.parse(
     JSON.parse(
-      await readFile(new URL('../../examples/iona.concept.request.json', import.meta.url), 'utf8'),
+      await readFile(
+        new URL('../../data/reference/dart-monkey.request.json', import.meta.url),
+        'utf8',
+      ),
     ),
   );
   const provider = new LabProvider({

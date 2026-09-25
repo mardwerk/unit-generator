@@ -1,22 +1,23 @@
 {
   "schemaVersion": "1",
-  "task": "Adapt the supplied original courier brief into a numerical proposed Unit. Use only the supplied Definition. Treat the selected spine as optional numerical guidance. Preserve finite hit capacity and clear delivery.",
+  "task": "Adapt the supplied Bomb Shooter brief into a numerical proposed Unit. Use only the supplied Definition. Treat the selected spine as optional numerical guidance. Preserve finite hit capacity and clear delivery.",
   "character": {
-    "name": "Tavi",
-    "work": "Original public courier brief",
-    "scope": "Supplied fictional source only"
+    "name": "Bomb Shooter",
+    "work": "Bloons TD 6",
+    "scope": "Supplied brief only"
   },
   "documents": [
     {
-      "id": "tavi-source",
+      "id": "bomb-shooter-source",
       "kind": "source",
-      "text": "Tavi throws bright glass discs at visible targets. With careful aim, a disc can reach distant targets along a clear route. A disc can pass through a finite group of enemies before losing its cutting edge."
+      "sourceUrl": "https://www.bloonswiki.com/Bomb_Shooter_(BTD6)",
+      "text": "Bomb Shooter is a Primary tower. Medium placement costs 375. Its base attack launches one bomb about every 1.5 seconds at range 40, dealing 1 damage with pierce 22 through its explosion. Bigger Bombs and Heavy Bombs grow the explosion; Really Big Bombs add knockback. Bloon Impact stuns ordinary targets; Bloon Crush extends the stun to MOAB-class targets with high damage. MOAB Mauler adds bonus damage against MOAB-class targets. Frag Bombs release damaging fragments; Cluster Bombs replace them with secondary explosions; Recursive Cluster adds another generation every second attack."
     }
   ],
   "constraints": [
     {
-      "id": "finite-disc",
-      "text": "Every disc has finite hit capacity; wider coverage cannot grant unlimited hits."
+      "id": "finite-blast",
+      "text": "Every explosion has finite hit capacity; wider coverage cannot grant unlimited hits."
     }
   ],
   "mechanicsDefinition": {

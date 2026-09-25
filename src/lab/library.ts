@@ -4,6 +4,7 @@ import { link, mkdir, open, readdir, realpath, rename, unlink, writeFile } from 
 import { dirname, join, resolve } from 'node:path';
 import { z } from 'zod';
 import type { LabArtifact, LibraryEntry, LibraryState } from './contracts.js';
+import { defaultRunsDir } from '../node/paths.js';
 import { inspectInput } from './operations.js';
 import {
   libraryIcons,
@@ -88,8 +89,10 @@ export class LabLibrary {
   ) {}
 
   static async open(options: { settingsFile?: string; defaultDirectory?: string } = {}) {
-    const settingsFile = resolve(options.settingsFile ?? '.runs/lab-settings.json');
-    let directory = resolve(options.defaultDirectory ?? '.runs/library');
+    const settingsFile = resolve(
+      options.settingsFile ?? join(defaultRunsDir(), 'lab-settings.json'),
+    );
+    let directory = resolve(options.defaultDirectory ?? join(defaultRunsDir(), 'library'));
     try {
       directory = resolve(settingsSchema.parse(await readManagedJson(settingsFile)).directory);
     } catch (error) {

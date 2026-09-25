@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1",
+  "task": "Design Wizard Monkey using the supplied qualitative rules.",
+  "character": {
+    "name": "Wizard Monkey",
+    "work": "Bloons TD 6",
+    "scope": "Supplied public brief only"
+  },
+  "documents": [
+    {
+      "id": "wizard-monkey-source",
+      "kind": "source",
+      "sourceUrl": "https://www.bloonswiki.com/Wizard_Monkey_(BTD6)",
+      "text": "Wizard Monkey is a Magic tower. Medium placement costs 250. Its base attack fires a small piercing energy bolt that can hit Frozen but fails against Purple. Guided Magic lets bolts seek targets and pass through obstacles. Fireball adds a separately timed explosive fireball; Wall of Fire places a persistent track hazard; Dragon's Breath adds sustained flames and improves the earlier fire attacks. Summon Phoenix is a manual ability creating a temporary flying attacker with map-wide reach. Shimmer is an automatic pulse that removes Camo from affected targets without granting allied detection. Necromancer stores recent pops in a graveyard and sends undead attackers along the track. These are observed tower behaviors, not approved generator mechanics."
+    },
+    {
+      "id": "default-concept-profile-v1",
+      "kind": "rules",
+      "text": "Public qualitative concept profile, version 1. A stationary unit attacks detected enemies using a stated delivery and targeting rule. Detection alone does not grant attack delivery access. Units have no personal health or durability.\n\nThe supplied progression and conceptRules govern purchases, manual activation and crosspath coverage. Purchased effects remain unless explicitly replaced. Independent attacks, support and interactions may be proposed without requiring numerical backend operators. Proposed behavior is not an implemented runtime mechanic.\n\nEarly purchases may improve stats or add bounded utility. Advanced paths should offer different attack behaviors, placement choices, timing, targets or team interactions. An independent attack need not depend on the primary attack connecting. Do not replace a behavior with a simpler numerical effect merely because it is easier to implement.\n\nFor every new attack explain its qualitative hit capacity, targeting, cadence, travel and material restrictions. A summoned attacker has its own origin, reach and detection; it does not inherit every modifier of its summoner. Repeated control must state how multiple copies interact."
+    }
+  ],
+  "constraints": [],
+  "progression": {
+    "paths": [
+      { "id": "arcane", "tiers": [1, 2, 3, 4, 5] },
+      { "id": "fire", "tiers": [1, 2, 3, 4, 5] },
+      { "id": "shimmer", "tiers": [1, 2, 3, 4, 5] }
+    ],
+    "maxActivePaths": 2,
+    "maxPathsAboveTier": {
+      "tier": 2,
+      "count": 1
+    },
+    "maxTotalTiers": null,
+    "allowedTierCombinations": null
+  },
+  "previous": null,
+  "feedback": null,
+  "deliverable": "concept",
+  "conceptRules": {
+    "id": "public-concept",
+    "version": "1",
+    "manualActivation": {
+      "allowedSlots": [
+        {
+          "pathId": "fire",
+          "tiers": [4, 5]
+        }
+      ],
+      "required": false
+    },
+    "crosspaths": {
+      "mainFromTier": 3,
+      "secondaryThroughTier": 2,
+      "coverage": "all-legal-pairs"
+    },
+    "earlySupport": "bounded"
+  }
+}

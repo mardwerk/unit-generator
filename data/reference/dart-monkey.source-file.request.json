@@ -1,0 +1,23 @@
+{
+  "schemaVersion": "1",
+  "task": "Create a connected Unit from the supplied tower text and game rules. Preserve confirmed decisions, distinguish proposed adaptations and expose missing mechanics. Do not invent a progression structure when the rules do not define one.",
+  "character": {
+    "name": "Dart Monkey",
+    "work": "Bloons TD 6",
+    "scope": "Use the supplied game decisions. Any unselected ruleset remains open."
+  },
+  "documents": [
+    {
+      "id": "character-source",
+      "kind": "source",
+      "file": "dart-monkey.txt",
+      "sourceUrl": "https://www.bloonswiki.com/Dart_Monkey_(BTD6)"
+    },
+    { "id": "game-rules", "kind": "rules", "file": "game-rules.md" },
+    { "id": "character-decisions", "kind": "decisions", "file": "character-decisions.md" }
+  ],
+  "constraints": [],
+  "progression": null,
+  "previous": null,
+  "feedback": null
+}

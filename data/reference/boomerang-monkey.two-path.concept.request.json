@@ -1,16 +1,17 @@
 {
   "schemaVersion": "1",
-  "task": "Design Iona using the supplied qualitative rules.",
+  "task": "Design Boomerang Monkey using the supplied qualitative rules.",
   "character": {
-    "name": "Iona",
-    "work": "Original glass courier brief",
+    "name": "Boomerang Monkey",
+    "work": "Bloons TD 6",
     "scope": "Supplied public brief only"
   },
   "documents": [
     {
-      "id": "iona-source",
+      "id": "boomerang-monkey-source",
       "kind": "source",
-      "text": "Iona throws glass discs, sweeps nearby enemies with a separate kick while a disc is away, redirects passing allied discs with a held mirror and uses a glass tether to briefly restrain an enemy. These are invented source abilities, not approved game mechanics."
+      "sourceUrl": "https://www.bloonswiki.com/Boomerang_Monkey_(BTD6)",
+      "text": "Boomerang Monkey is a Primary tower. Medium placement costs 315. Its base attack throws a piercing boomerang along a curved outward and returning trajectory about every 1.2 seconds at range 43 with pierce 4. It cannot initially detect Camo or damage Lead or Frozen. Glaive Ricochet converts the attack into a chain that seeks subsequent targets and can traverse obstacles. Turbo Charge is a manual temporary boost to attack speed and damage; Perma Charge makes extreme speed permanent while retaining a temporary damage activation. Kylie Boomerang replaces the curved throw with a heavy straight-line projectile. MOAB Press adds a separately timed automatic knockback projectile against eligible blimps. These are observed tower behaviors, not approved generator mechanics."
     },
     {
       "id": "two-path-rules",
@@ -23,19 +24,11 @@
     "paths": [
       {
         "id": "reach",
-        "tiers": [
-          1,
-          2,
-          3
-        ]
+        "tiers": [1, 2, 3]
       },
       {
         "id": "hold",
-        "tiers": [
-          1,
-          2,
-          3
-        ]
+        "tiers": [1, 2, 3]
       }
     ],
     "maxActivePaths": 2,
@@ -56,10 +49,7 @@
       "allowedSlots": [
         {
           "pathId": "reach",
-          "tiers": [
-            2,
-            3
-          ]
+          "tiers": [2, 3]
         }
       ],
       "required": true
