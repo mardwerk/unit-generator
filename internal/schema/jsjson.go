@@ -300,7 +300,14 @@ func fromReflect(v reflect.Value) any {
 	panic(fmt.Sprintf("schema: unsupported value %s", v.Type()))
 }
 
+type absenter interface{ IsAbsent() bool }
+
 func isEmpty(v reflect.Value) bool {
+	if v.CanInterface() {
+		if a, ok := v.Interface().(absenter); ok {
+			return a.IsAbsent()
+		}
+	}
 	switch v.Kind() {
 	case reflect.Pointer, reflect.Interface, reflect.Map, reflect.Slice:
 		return v.IsNil()
@@ -314,3 +321,48 @@ func isEmpty(v reflect.Value) bool {
 
 // validUTF8 reports whether s is valid UTF-8 (JSON text must be).
 func validUTF8(s string) bool { return utf8.ValidString(s) }
+
+// Canonical renders a value like JSON.stringify but with object keys sorted,
+// so two values compare equal when JSON.stringify would agree up to key order.
+func Canonical(value any) string {
+	var b strings.Builder
+	canonical(&b, value)
+	return b.String()
+}
+
+func canonical(b *strings.Builder, value any) {
+	switch v := value.(type) {
+	case *Object:
+		keys := v.Keys()
+		sort.Strings(keys)
+		b.WriteByte('{')
+		first := true
+		for _, key := range keys {
+			item := v.values[key]
+			if item == missing {
+				continue
+			}
+			if !first {
+				b.WriteByte(',')
+			}
+			first = false
+			writeString(b, key)
+			b.WriteByte(':')
+			canonical(b, item)
+		}
+		b.WriteByte('}')
+	case []any:
+		b.WriteByte('[')
+		for i, item := range v {
+			if i > 0 {
+				b.WriteByte(',')
+			}
+			canonical(b, item)
+		}
+		b.WriteByte(']')
+	case nil, bool, float64, string:
+		writeJSON(b, v)
+	default:
+		canonical(b, FromGoValue(v))
+	}
+}

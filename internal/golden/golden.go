@@ -10,8 +10,6 @@ import (
 	"os"
 	"path/filepath"
 	"runtime"
-	"sort"
-	"strings"
 
 	s "github.com/mardwerk/unit-generator/internal/schema"
 )
@@ -57,41 +55,7 @@ func Hash(value any) string {
 }
 
 // Canonical renders a value with sorted keys, for order-insensitive comparison.
-func Canonical(value any) string {
-	var b strings.Builder
-	canonical(&b, value)
-	return b.String()
-}
-
-func canonical(b *strings.Builder, value any) {
-	switch v := value.(type) {
-	case *s.Object:
-		keys := v.Keys()
-		sort.Strings(keys)
-		b.WriteByte('{')
-		for i, key := range keys {
-			if i > 0 {
-				b.WriteByte(',')
-			}
-			item, _ := v.Get(key)
-			b.WriteString(s.Stringify(key))
-			b.WriteByte(':')
-			canonical(b, item)
-		}
-		b.WriteByte('}')
-	case []any:
-		b.WriteByte('[')
-		for i, item := range v {
-			if i > 0 {
-				b.WriteByte(',')
-			}
-			canonical(b, item)
-		}
-		b.WriteByte(']')
-	default:
-		b.WriteString(s.Stringify(v))
-	}
-}
+func Canonical(value any) string { return s.Canonical(value) }
 
 // Get follows a path of keys and indices.
 func Get(value any, path ...any) any {
