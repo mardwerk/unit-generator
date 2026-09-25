@@ -17,7 +17,7 @@ import { prepareRequest } from '@mardwerk/unit-generator';
 import { CodexModelClient, loadRequestFile, createEvidenceRun } from '@mardwerk/unit-generator/node';
 import { draftCompactSpine } from '@mardwerk/unit-generator/experiments/compact-spine';
 
-await mkdir('.runs', { recursive: true });
+await mkdir('data/runs', { recursive: true });
 const request = await loadRequestFile('data/reference/bomb-shooter.compact-spine.request.json');
 const prepared = await prepareRequest(request);
 const run = await createEvidenceRun({ directory: 'data/runs/evidence', input: prepared });

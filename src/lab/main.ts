@@ -1,7 +1,10 @@
 #!/usr/bin/env node
 import { parseArgs } from 'node:util';
 import { readFile } from 'node:fs/promises';
+import { isAbsolute, resolve } from 'node:path';
+import { fileURLToPath } from 'node:url';
 import { requestFileSchema } from '../node/request-file.js';
+import { defaultDataDir } from '../node/paths.js';
 import { startLab } from './server.js';
 import { LabProvider } from './providers.js';
 import { loadLocalEnvironment } from '../node/environment.js';
@@ -29,14 +32,13 @@ async function main() {
   if (!Number.isInteger(port) || port < 1 || port > 65535) {
     throw new Error('--port must be an integer from 1 to 65535.');
   }
-  const example = requestFileSchema.parse(
-    JSON.parse(
-      await readFile(
-        new URL('../../data/reference/dart-monkey.request.json', import.meta.url),
-        'utf8',
-      ),
-    ),
-  );
+  const dataDir = defaultDataDir();
+  const seedPath = isAbsolute(dataDir)
+    ? resolve(dataDir, 'reference/dart-monkey.request.json')
+    : fileURLToPath(
+        new URL(`../../${dataDir}/reference/dart-monkey.request.json`, import.meta.url),
+      );
+  const example = requestFileSchema.parse(JSON.parse(await readFile(seedPath, 'utf8')));
   const provider = new LabProvider({
     provider: (values.provider as 'openrouter' | 'codex') ?? 'openrouter',
     ...(values.model ? { model: values.model } : {}),

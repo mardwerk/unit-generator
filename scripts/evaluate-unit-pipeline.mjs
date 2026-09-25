@@ -1,5 +1,5 @@
 import { mkdir, readFile, writeFile, copyFile } from 'node:fs/promises';
-import { resolve, relative } from 'node:path';
+import { resolve, relative, join } from 'node:path';
 import { fileURLToPath, pathToFileURL } from 'node:url';
 import { parseArgs } from 'node:util';
 import { createHash } from 'node:crypto';
@@ -63,7 +63,7 @@ async function readRecordedBody(response) {
 
 async function main() {
   process.chdir(fileURLToPath(new URL('../', import.meta.url)));
-  const runsDir = process.env.UNIT_RUNS_DIR ?? 'data/runs';
+  const runsDir = process.env.UNIT_RUNS_DIR ?? join(process.env.UNIT_DATA_DIR ?? 'data', 'runs');
   const flags = parseArgs({
     options: {
       corpus: { type: 'string', default: `${runsDir}/pipeline-corpus/manifest.json` },
