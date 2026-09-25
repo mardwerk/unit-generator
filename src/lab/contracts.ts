@@ -1,5 +1,6 @@
 import type { z } from 'zod';
 import type {
+  UnitProfile,
   AuthorResult,
   CheckedArtifact,
   DraftArtifact,
@@ -36,6 +37,17 @@ export interface LibraryEntry {
 export interface LibraryState {
   directory: string;
   entries: LibraryEntry[];
+}
+
+/** Bundled Profiles are read-only; saved Profiles live beneath `<library>/profiles/`. */
+export interface ProfileEntry {
+  profile: UnitProfile;
+  builtIn: boolean;
+}
+
+export interface ProfilesState {
+  directory: string;
+  profiles: ProfileEntry[];
 }
 
 export interface LibraryIcon {

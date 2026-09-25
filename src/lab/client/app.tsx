@@ -1,5 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
-import { Settings as SettingsIcon, Library as LibraryIcon, Plus, UserRound } from 'lucide-react';
+import {
+  Settings as SettingsIcon,
+  Library as LibraryIcon,
+  Layers,
+  Plus,
+  UserRound,
+} from 'lucide-react';
 import type { LabArtifact, LibraryEntry } from '../contracts.js';
 import { api } from './api.js';
 import { candidateOf, requestOf } from './artifacts.js';
@@ -14,6 +20,7 @@ import { CharacterChoices, GenerateInputs } from './generate-inputs.js';
 import { Revisions } from './revisions.js';
 import { Settings } from './provider.js';
 import { Library, useLibrary } from './library.js';
+import { ProfilesView, useProfiles } from './profiles.js';
 import { Disclosure, Field, IconButton, download } from './ui.js';
 import { isEmptyCreateDraft } from './create-draft.js';
 
@@ -24,7 +31,8 @@ export function App() {
   const library = useLibrary();
   const session = useAuthoring(library.save);
   const icons = useUnitIcons(session.artifact, library.directory);
-  const [view, setView] = useState<'generate' | 'library' | 'unit'>('generate');
+  const [view, setView] = useState<'generate' | 'library' | 'profiles' | 'unit'>('generate');
+  const profiles = useProfiles(library.directory);
   const [inputsOpen, setInputsOpen] = useState(false);
   const [inspected, setInspected] = useState<LabArtifact | null>(null);
   const [opening, setOpening] = useState(false);
@@ -157,6 +165,15 @@ export function App() {
             <LibraryIcon size={19} />
           </IconButton>
           <IconButton
+            id="open-profiles"
+            label="Profiles"
+            className={`icon-button nav-button ${view === 'profiles' ? 'active' : ''}`}
+            aria-current={view === 'profiles' ? 'page' : undefined}
+            onClick={() => setView('profiles')}
+          >
+            <Layers size={19} />
+          </IconButton>
+          <IconButton
             id="open-unit"
             label="Unit"
             className={`icon-button nav-button ${view === 'unit' ? 'active' : ''}`}
@@ -205,6 +222,22 @@ export function App() {
             </p>
           )}
         </>
+      ) : view === 'profiles' ? (
+        <ProfilesView
+          profiles={profiles.profiles}
+          directory={profiles.directory}
+          error={profiles.error}
+          selectedId={session.creation.profile?.id ?? null}
+          onUse={(profile) => {
+            session.creation.setProfile(profile);
+            setView('generate');
+          }}
+          onSave={async (profile) => {
+            await profiles.save(profile);
+            if (session.creation.profile?.id === profile.id) session.creation.setProfile(profile);
+          }}
+          onDelete={(id) => profiles.remove(id)}
+        />
       ) : view === 'generate' ? (
         <main className="create-workspace">
           <div className="create-column">
@@ -219,6 +252,7 @@ export function App() {
               onImport={() => inputFile.current?.click()}
               inputsOpen={inputsOpen}
               onInputsOpenChange={setInputsOpen}
+              profiles={profiles.profiles}
             />
           </div>
         </main>

@@ -3,7 +3,14 @@ import { mkdir, mkdtemp, readFile, readdir, rm, symlink, writeFile } from 'node:
 import { tmpdir } from 'node:os';
 import { dirname, join } from 'node:path';
 import { test } from 'node:test';
-import { checkDraft, draftUnit, prepareRequest, reviewDraft } from '../src/core/index.js';
+import {
+  bundledProfiles,
+  checkDraft,
+  defaultUnitProfile,
+  draftUnit,
+  prepareRequest,
+  reviewDraft,
+} from '../src/core/index.js';
 import type { LibraryEntry, LibraryIconsResponse, LibraryState } from '../src/lab/contracts.js';
 import { LabLibrary } from '../src/lab/library.js';
 import { startLab } from '../src/lab/server.js';
@@ -264,6 +271,48 @@ test('icon provisioning rejects symlinked asset folders', async () => {
     const draft = await draftUnit(await prepareRequest(miraRequest()), new FakeModel());
     await assert.rejects(library.icons(draft), /real directories/);
     assert.deepEqual(await readdir(external), []);
+  } finally {
+    await cleanup();
+  }
+});
+
+test('saved Profiles live beneath the library, are validated, and never replace bundled ones', async () => {
+  const { library, options, cleanup } = await fixture();
+  try {
+    const initial = await library.profiles();
+    assert.deepEqual(
+      initial.profiles.map(({ profile, builtIn }) => [profile.id, builtIn]),
+      bundledProfiles.map((profile) => [profile.id, true]),
+    );
+    const copy = {
+      ...structuredClone(defaultUnitProfile),
+      id: 'quick-copy',
+      name: 'Quick copy',
+      rules: { ...structuredClone(defaultUnitProfile.rules), id: 'profile:quick-copy' },
+    };
+    const saved = await library.saveProfile(copy);
+    assert.deepEqual(saved.profiles.at(-1), { profile: copy, builtIn: false });
+    const file = join(options.defaultDirectory, 'profiles', 'quick-copy.json');
+    assert.deepEqual(JSON.parse(await readFile(file, 'utf8')), copy);
+    const renamed = { ...copy, name: 'Quick copy, edited' };
+    assert.equal((await library.saveProfile(renamed)).profiles.at(-1)?.profile.name, renamed.name);
+
+    await assert.rejects(library.saveProfile(structuredClone(defaultUnitProfile)), /read-only/);
+    await assert.rejects(
+      library.saveProfile({ ...copy, id: 'other-id' }),
+      /rules document must have the ID profile:other-id/,
+    );
+    const { mechanicsDefinition: _removed, ...invalid } = copy;
+    await assert.rejects(library.saveProfile(invalid));
+    await assert.rejects(library.deleteProfile(defaultUnitProfile.id), /cannot be deleted/);
+
+    await writeFile(join(options.defaultDirectory, 'profiles', 'broken.json'), '{');
+    await symlink(file, join(options.defaultDirectory, 'profiles', 'linked.json'));
+    assert.equal((await library.profiles()).profiles.length, bundledProfiles.length + 1);
+
+    const afterDelete = await library.deleteProfile('quick-copy');
+    assert.equal(afterDelete.profiles.length, bundledProfiles.length);
+    await assert.rejects(library.deleteProfile('quick-copy'));
   } finally {
     await cleanup();
   }

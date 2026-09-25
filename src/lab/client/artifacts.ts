@@ -1,4 +1,4 @@
-import type { AuthorRequest, Finding, UnitCandidate } from '../../core/index.js';
+import type { AuthorRequest, Finding, UnitCandidate, UnitProfile } from '../../core/index.js';
 import type { LabArtifact, LabRequest, LabStage } from '../contracts.js';
 
 export interface Revision {
@@ -7,6 +7,8 @@ export interface Revision {
   createdAt: string;
   request: LabRequest;
   artifact: LabArtifact | null;
+  /** The Profile a name lookup runs under, until the lookup has prepared a request. */
+  profile?: UnitProfile;
 }
 
 export function emptyRequest(): LabRequest {

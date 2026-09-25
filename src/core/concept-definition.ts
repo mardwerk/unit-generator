@@ -1,8 +1,41 @@
 import { conceptDesignGuidance, conceptSkillVersion } from './concept-guidance.js';
-import type { AuthorRequest, ConceptContract, ConceptRules } from './schemas.js';
+import type {
+  AuthorRequest,
+  ConceptContract,
+  ConceptDefinition,
+  ConceptProfile,
+  ConceptRules,
+} from './schemas.js';
 
 function same(a: unknown, b: unknown): boolean {
   return JSON.stringify(a) === JSON.stringify(b);
+}
+
+/** Concept rules a Definition yields under an optional Profile. Undeclared overrides fail. */
+export function conceptRulesFor(
+  definition: ConceptDefinition,
+  profile?: ConceptProfile,
+): ConceptRules {
+  const rules: ConceptRules = {
+    id: definition.id,
+    version: definition.version,
+    ...structuredClone(definition.rules),
+  };
+  if (!profile) return rules;
+  if (!same(profile.definition, { id: definition.id, version: definition.version }))
+    throw new Error('The concept Profile targets a different Definition revision.');
+  const { earlySupport, manualActivationRequired } = profile.overrides;
+  if (earlySupport !== undefined) {
+    if (!definition.profileOptions.earlySupport.includes(earlySupport))
+      throw new Error('The Definition does not permit this earlySupport Profile override.');
+    rules.earlySupport = earlySupport;
+  }
+  if (manualActivationRequired !== undefined) {
+    if (!definition.profileOptions.manualActivationRequired.includes(manualActivationRequired))
+      throw new Error('The Definition does not permit this manual activation Profile override.');
+    rules.manualActivation.required = manualActivationRequired;
+  }
+  return rules;
 }
 
 /** Resolve supported declarative variation once. Explicit conflicts never select a winner. */
@@ -13,29 +46,7 @@ export function resolveConceptRequest(request: AuthorRequest): AuthorRequest {
     throw new Error('A concept Profile requires its complete conceptDefinition.');
   let resolved = request;
   if (definition) {
-    const rules: ConceptRules = {
-      id: definition.id,
-      version: definition.version,
-      ...structuredClone(definition.rules),
-    };
-    const profile = request.conceptProfile;
-    if (profile) {
-      if (!same(profile.definition, { id: definition.id, version: definition.version }))
-        throw new Error('The concept Profile targets a different Definition revision.');
-      const { earlySupport, manualActivationRequired } = profile.overrides;
-      if (earlySupport !== undefined) {
-        if (!definition.profileOptions.earlySupport.includes(earlySupport))
-          throw new Error('The Definition does not permit this earlySupport Profile override.');
-        rules.earlySupport = earlySupport;
-      }
-      if (manualActivationRequired !== undefined) {
-        if (!definition.profileOptions.manualActivationRequired.includes(manualActivationRequired))
-          throw new Error(
-            'The Definition does not permit this manual activation Profile override.',
-          );
-        rules.manualActivation.required = manualActivationRequired;
-      }
-    }
+    const rules = conceptRulesFor(definition, request.conceptProfile);
     if (request.progression && !same(request.progression, definition.progression))
       throw new Error('Progression conflicts with the selected concept Definition.');
     if (request.conceptRules && !same(request.conceptRules, rules))

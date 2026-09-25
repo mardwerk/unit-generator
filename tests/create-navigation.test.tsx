@@ -16,8 +16,10 @@ import { emptyRequest } from '../src/lab/client/artifacts.js';
 import { App } from '../src/lab/client/app.js';
 import { GenerateInputs, CharacterChoices } from '../src/lab/client/generate-inputs.js';
 import { Activity } from '../src/lab/client/activity.js';
+import { ProfilesView } from '../src/lab/client/profiles.js';
 import type { AuthoringSession } from '../src/lab/client/use-authoring.js';
 import { miraRequest } from './fixtures/core-fixtures.js';
+import { defaultUnitProfile, qualitativeUnitProfile } from '../src/core/index.js';
 
 test('a new create draft is independent of the current run and imported rules survive naming', () => {
   const request = miraRequest();
@@ -52,8 +54,11 @@ test('the create page contains fresh input controls without output or workflow',
     ).length,
     0,
   );
-  assert.equal($('.topbar-nav button').length, 3);
-  assert.equal($('.topbar-nav svg[width="19"][height="19"]').length, 3);
+  assert.equal($('.topbar-nav button').length, 4);
+  assert.equal($('.topbar-nav svg[width="19"][height="19"]').length, 4);
+  assert.equal($('#open-profiles').length, 1);
+  assert.equal($('#profile-select option:checked').attr('value'), defaultUnitProfile.id);
+  assert.equal($('.create-workspace select[aria-label="Output"]').length, 0);
   assert.equal($('.topbar-actions #open-settings').length, 1);
   assert.match($('#generate').attr('title')!, /Ctrl-click/);
   assert.match($('.generation-hint').text(), /Cmd-click/);
@@ -69,7 +74,8 @@ test('run activity stays accessible before a revision exists and choices are sep
     generationBusy: false,
     error: '',
     setName: () => {},
-    setDeliverable: () => {},
+    profile: defaultUnitProfile,
+    setProfile: () => {},
     changeInput: () => {},
     loadRequest: () => {},
     load: async () => {},
@@ -123,7 +129,8 @@ test('background generation keeps creation and import available for another inde
     generationBusy: true,
     error: '',
     setName: () => {},
-    setDeliverable: () => {},
+    profile: defaultUnitProfile,
+    setProfile: () => {},
     changeInput: () => {},
     loadRequest: () => {},
     load: async () => {},
@@ -204,7 +211,8 @@ test('an unsent create draft survives view switches and only an explicit action 
     generationBusy: false,
     error: '',
     setName: () => {},
-    setDeliverable: () => {},
+    profile: defaultUnitProfile,
+    setProfile: () => {},
     changeInput: () => {},
     loadRequest: () => {},
     load: async () => {},
@@ -238,4 +246,82 @@ test('an unsent create draft survives view switches and only an explicit action 
     ),
   );
   assert.equal(empty('#clear-create').length, 0);
+});
+
+test('the Profiles tab shows the default read-only and draws the path and tier shape', () => {
+  const saved = {
+    ...structuredClone(qualitativeUnitProfile),
+    id: 'my-concept',
+    name: 'My concept rules',
+  };
+  const profiles = [
+    { profile: defaultUnitProfile, builtIn: true },
+    { profile: qualitativeUnitProfile, builtIn: true },
+    { profile: saved, builtIn: false },
+  ];
+  const view = (shown: string) =>
+    load(
+      renderToStaticMarkup(
+        <ProfilesView
+          profiles={profiles}
+          directory="/tmp/library"
+          error=""
+          selectedId={shown}
+          onUse={() => {}}
+          onSave={async () => {}}
+          onDelete={async () => {}}
+        />,
+      ),
+    );
+  const $ = view(defaultUnitProfile.id);
+  assert.equal($('.profile-list button').length, 3);
+  assert.match($('.profile-list button').first().text(), /Default, read-only/);
+  assert.equal($('.profile-detail .badge').text(), 'Default');
+  assert.equal($('.progression-grid thead th').length, 4);
+  assert.equal($('.progression-grid tbody tr').length, 5);
+  assert.match($('.profile-facts').text(), /Gold/);
+  assert.equal($('.profile-detail button:contains("Delete")').length, 0);
+  assert.equal($('.profile-detail button:contains("Duplicate")').length, 1);
+  const own = view('my-concept');
+  assert.match(own('.profile-detail').text(), /Qualitative concept/);
+  assert.equal(own('.profile-detail button:contains("Delete")').length, 1);
+  assert.equal(own('.profile-detail button:contains("Use for new units")').is('[disabled]'), true);
+
+  const draft = createDraft();
+  const creation: AuthoringSession['creation'] = {
+    name: '',
+    input: draft.input,
+    usesEditedInputs: false,
+    busy: false,
+    generationBusy: false,
+    error: '',
+    setName: () => {},
+    profile: null,
+    setProfile: () => {},
+    changeInput: () => {},
+    loadRequest: () => {},
+    load: async () => {},
+    uploadDocuments: async () => {},
+  };
+  const form = load(
+    renderToStaticMarkup(
+      <GenerateInputs
+        session={creation}
+        onGenerate={() => {}}
+        onImport={() => {}}
+        profiles={profiles}
+      />,
+    ),
+  );
+  assert.deepEqual(
+    form('#profile-select option')
+      .toArray()
+      .map((option) => form(option).text()),
+    [
+      'Rules from imported inputs',
+      defaultUnitProfile.name,
+      qualitativeUnitProfile.name,
+      'My concept rules (saved)',
+    ],
+  );
 });

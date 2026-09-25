@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { Plus, Upload, Trash2 } from 'lucide-react';
 import { Disclosure, Field, IconButton } from './ui.js';
-import { selectDeliverable, type DocumentInput, type EditorInput } from './editor-state.js';
+import type { DocumentInput, EditorInput } from './editor-state.js';
 
 export function RequestEditor({
   value,
@@ -26,23 +26,10 @@ export function RequestEditor({
     });
   return (
     <fieldset id="request-editor" disabled={disabled}>
-      <Field label="Output preset">
-        <select
-          value={value.base.deliverable ?? (definition ? 'mechanics' : '')}
-          onChange={(e) =>
-            onChange(selectDeliverable(value, e.target.value as 'concept' | 'mechanics'))
-          }
-        >
-          <option value="" disabled>
-            Legacy supplied rules
-          </option>
-          <option value="mechanics">Numerical unit</option>
-          <option value="concept">Qualitative concept</option>
-        </select>
-      </Field>
       <p className="muted small">
-        Switching presets replaces progression and bundled rules and starts a new design. Import a
-        request to use an external ruleset.
+        Rules and progression come from the Profile chosen on the Generate form. Choosing another
+        Profile replaces them and starts a new design; imported requests keep their own rules until
+        then.
       </p>
       {value.base.deliverable === 'concept' && value.base.previous && (
         <Field label="Revision type">

@@ -35,4 +35,15 @@ export {
 } from './concept-profile.js';
 export { conceptSkillVersion, conceptDesignGuidance } from './concept-guidance.js';
 export { requiredConceptCrosspaths } from './concept.js';
-export { conceptContract, conceptContractChanges } from './concept-definition.js';
+export { conceptContract, conceptContractChanges, conceptRulesFor } from './concept-definition.js';
+export {
+  unitProfileSchema,
+  type UnitProfile,
+  defaultUnitProfile,
+  qualitativeUnitProfile,
+  bundledProfiles,
+  profileDeliverable,
+  profileProgression,
+  applyProfile,
+  validateProfile,
+} from './profile.js';

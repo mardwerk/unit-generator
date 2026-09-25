@@ -14,11 +14,13 @@ import {
   sessionSnapshot,
   type Revision,
 } from './artifacts.js';
-import { editRequest, readEditor, selectDeliverable, type EditorInput } from './editor-state.js';
+import { editRequest, readEditor, selectProfile, type EditorInput } from './editor-state.js';
+import { defaultUnitProfile, qualitativeUnitProfile, type UnitProfile } from '../../core/index.js';
 
 import {
   createDraft,
   nameCreateDraft,
+  requestForDraft,
   snapshotCreateDraft,
   type CreateDraft,
 } from './create-draft.js';
@@ -104,13 +106,19 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
     setDirty(false);
     return revision;
   }
-  function insertRevision(request: LabRequest, value: LabArtifact | null, foreground = true) {
+  function insertRevision(
+    request: LabRequest,
+    value: LabArtifact | null,
+    foreground = true,
+    profile?: UnitProfile,
+  ) {
     const revision: Revision = {
       id: crypto.randomUUID(),
       label: request.character.name || 'Untitled Unit',
       createdAt: new Date().toISOString(),
       request: structuredClone(request),
       artifact: value,
+      ...(profile ? { profile } : {}),
     };
     setRevisions((previous) => [...previous, revision]);
     if (foreground) {
@@ -130,7 +138,7 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
     const query = (fresh?.name ?? name).trim();
     if (!query) return;
     if (fresh ? fresh.edited : usesEditedInputs) {
-      await run(remaining, fresh ? readEditor(fresh.input) : undefined, foreground);
+      await run(remaining, fresh ? requestForDraft(fresh) : undefined, foreground);
       return;
     }
     if (!fresh && selected && manager.busy(selected.id)) return;
@@ -144,13 +152,16 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
     const revision =
       !fresh && choice !== undefined && selected
         ? selected
-        : insertRevision(request, null, foreground);
+        : insertRevision(request, null, foreground, fresh?.profile ?? undefined);
+    const profile =
+      revision.profile ??
+      (revision.request.deliverable === 'concept' ? qualitativeUnitProfile : undefined);
     await manager.start(revision, {
       remaining,
       lookup: {
         name: query,
         ...(choice === undefined ? {} : { choice }),
-        ...(revision.request.deliverable ? { deliverable: revision.request.deliverable } : {}),
+        ...(profile ? { profile } : {}),
       },
     });
   }
@@ -352,7 +363,10 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
         destination = 'unit';
       } else {
         const checked = await inspect(value);
-        if (checked.kind === 'request') setCreation(createDraft(checked.artifact));
+        if (checked.kind === 'request')
+          setCreation((draft) =>
+            createDraft(checked.artifact, draft.profile ?? defaultUnitProfile),
+          );
         else {
           addArtifact(checked.artifact);
           destination = 'unit';
@@ -393,11 +407,23 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
       generationBusy: jobs.some((entry) => entry.state === 'running'),
       error: createError,
       setName: (value: string) => setCreation((draft) => nameCreateDraft(draft, value)),
-      setDeliverable: (deliverable: 'concept' | 'mechanics') =>
-        setCreation((draft) => ({ ...draft, input: selectDeliverable(draft.input, deliverable) })),
+      profile: creation.profile,
+      /** Name-only drafts send the Profile with the lookup; edited inputs take its rules now. */
+      setProfile: (profile: UnitProfile) =>
+        setCreation((draft) =>
+          draft.edited
+            ? { ...draft, profile, input: selectProfile(draft.input, profile) }
+            : { ...draft, profile },
+        ),
       changeInput: (value: EditorInput) =>
-        setCreation({ name: value.character.name, input: value, edited: true }),
-      loadRequest: (request: LabRequest) => setCreation(createDraft(request)),
+        setCreation((draft) => ({
+          ...draft,
+          name: value.character.name,
+          input: value,
+          edited: true,
+        })),
+      loadRequest: (request: LabRequest) =>
+        setCreation((draft) => createDraft(request, draft.profile ?? defaultUnitProfile)),
       load: loadCreate,
       uploadDocuments: (files: File[]) =>
         loadCreate(async () => {
@@ -419,7 +445,7 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
     },
     newCreate: () => {
       if (createLoading.current) return;
-      setCreation(createDraft());
+      setCreation((draft) => createDraft(undefined, draft.profile ?? defaultUnitProfile));
       setCreateError('');
     },
     importCreateFile,

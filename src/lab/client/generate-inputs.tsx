@@ -1,6 +1,7 @@
 import { useRef, useState } from 'react';
 import { SlidersHorizontal, Upload } from 'lucide-react';
-import type { LabRequest } from '../contracts.js';
+import type { LabRequest, ProfileEntry } from '../contracts.js';
+import { bundledProfiles } from '../../core/index.js';
 import { api } from './api.js';
 import { generationView, isEmptyCreateDraft } from './create-draft.js';
 import { emptyRequest } from './artifacts.js';
@@ -13,6 +14,7 @@ export function GenerateInputs({
   onImport,
   inputsOpen: openInputs,
   onInputsOpenChange,
+  profiles = bundledProfiles.map((profile) => ({ profile, builtIn: true })),
 }: {
   session: AuthoringSession['creation'];
   onGenerate: (view: 'generate' | 'unit') => void;
@@ -20,6 +22,8 @@ export function GenerateInputs({
   /** Controlled by the app so the panel survives switching views. */
   inputsOpen?: boolean;
   onInputsOpenChange?: (open: boolean) => void;
+  /** Bundled and saved Profiles; the first is the default. */
+  profiles?: ProfileEntry[];
 }) {
   const submitView = useRef<'generate' | 'unit'>('unit');
   const [localInputsOpen, setLocalInputsOpen] = useState(false);
@@ -52,15 +56,26 @@ export function GenerateInputs({
             />
           </label>
           <label className="field">
-            <span>Output</span>
+            <span>Profile</span>
             <select
-              aria-label="Output"
-              value={session.input.base.deliverable ?? 'mechanics'}
-              onChange={(e) => session.setDeliverable(e.target.value as 'concept' | 'mechanics')}
-              disabled={session.busy || session.usesEditedInputs}
+              id="profile-select"
+              value={session.profile?.id ?? ''}
+              onChange={(e) => {
+                const entry = profiles.find(({ profile }) => profile.id === e.target.value);
+                if (entry) session.setProfile(entry.profile);
+              }}
+              disabled={session.busy}
             >
-              <option value="mechanics">Numerical unit</option>
-              <option value="concept">Qualitative concept</option>
+              {!session.profile && (
+                <option value="" disabled>
+                  Rules from imported inputs
+                </option>
+              )}
+              {profiles.map(({ profile, builtIn }) => (
+                <option key={profile.id} value={profile.id}>
+                  {builtIn ? profile.name : `${profile.name} (saved)`}
+                </option>
+              ))}
             </select>
           </label>
           <button

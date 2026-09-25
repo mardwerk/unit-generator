@@ -1,4 +1,4 @@
-import type { PreparedRequest } from '../../core/index.js';
+import type { PreparedRequest, UnitProfile } from '../../core/index.js';
 import type { LabArtifact, LabStage, ProviderState } from '../contracts.js';
 import { LabApiError, type api } from './api.js';
 import { formatCost } from '../../presentation/usage.js';
@@ -67,7 +67,7 @@ export class AuthoringJobs {
     initial: Revision,
     options: {
       remaining: boolean;
-      lookup?: { name: string; choice?: number; deliverable?: 'concept' | 'mechanics' };
+      lookup?: { name: string; choice?: number; profile?: UnitProfile };
       before?: () => Promise<Revision>;
     },
   ): Promise<void> {

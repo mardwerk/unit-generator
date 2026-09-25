@@ -1,9 +1,26 @@
 import { createHash, randomUUID } from 'node:crypto';
 import { constants } from 'node:fs';
-import { link, mkdir, open, readdir, realpath, rename, unlink, writeFile } from 'node:fs/promises';
+import {
+  link,
+  lstat,
+  mkdir,
+  open,
+  readdir,
+  realpath,
+  rename,
+  unlink,
+  writeFile,
+} from 'node:fs/promises';
 import { dirname, join, resolve } from 'node:path';
 import { z } from 'zod';
-import type { LabArtifact, LibraryEntry, LibraryState } from './contracts.js';
+import type {
+  LabArtifact,
+  LibraryEntry,
+  LibraryState,
+  ProfileEntry,
+  ProfilesState,
+} from './contracts.js';
+import { bundledProfiles, unitProfileSchema, validateProfile } from '../core/index.js';
 import { defaultRunsDir } from '../node/paths.js';
 import { inspectInput } from './operations.js';
 import {
@@ -26,6 +43,8 @@ const settingsSchema = z.strictObject({
   directory: z.string().min(1),
 });
 const managedName = /^unitlab-([a-f0-9]{64})\.json$/;
+const profileName = /^([a-z0-9][a-z0-9-]{0,62})\.json$/;
+const bundledIds = new Set(bundledProfiles.map((profile) => profile.id));
 const maxFileBytes = 32_000_000;
 
 function isMissing(error: unknown): boolean {
@@ -206,6 +225,74 @@ export class LabLibrary {
     return this.serial(async () =>
       saveLibraryIcon(this.directory, await validArtifact(input), key, png, receipt),
     );
+  }
+
+  private profileFile(id: string): string {
+    if (!profileName.test(`${id}.json`)) throw new Error('Unknown Profile.');
+    return join(this.directory, 'profiles', `${id}.json`);
+  }
+
+  private async listProfiles(): Promise<ProfilesState> {
+    const profiles: ProfileEntry[] = bundledProfiles.map((profile) => ({
+      profile,
+      builtIn: true,
+    }));
+    let files: string[] = [];
+    try {
+      files = await readdir(join(this.directory, 'profiles'));
+    } catch (error) {
+      if (!isMissing(error)) throw error;
+    }
+    for (const name of files.sort()) {
+      const id = profileName.exec(name)?.[1];
+      if (!id || bundledIds.has(id)) continue;
+      try {
+        const profile = unitProfileSchema.parse(await readManagedJson(this.profileFile(id)));
+        if (profile.id === id) profiles.push({ profile, builtIn: false });
+      } catch {
+        // Unrelated, damaged and symlinked files are not Profiles.
+      }
+    }
+    return { directory: this.directory, profiles };
+  }
+
+  profiles(): Promise<ProfilesState> {
+    return this.serial(() => this.listProfiles());
+  }
+
+  /** Saving runs the same checks as preparing a request under the Profile. */
+  saveProfile(input: unknown): Promise<ProfilesState> {
+    return this.serial(async () => {
+      const profile = await validateProfile(input);
+      if (bundledIds.has(profile.id))
+        throw new Error('Bundled Profiles are read-only. Save a copy under a new ID.');
+      if (profile.rules.id !== `profile:${profile.id}`)
+        throw new Error(`A saved Profile's rules document must have the ID profile:${profile.id}.`);
+      const file = this.profileFile(profile.id);
+      await mkdir(dirname(file), { recursive: true });
+      const temporary = join(dirname(file), `.profile-${randomUUID()}.tmp`);
+      await writeFile(temporary, JSON.stringify(profile, null, 2) + '\n', {
+        flag: 'wx',
+        mode: 0o600,
+      });
+      try {
+        await rename(temporary, file);
+      } catch (error) {
+        await unlink(temporary);
+        throw error;
+      }
+      return this.listProfiles();
+    });
+  }
+
+  deleteProfile(id: string): Promise<ProfilesState> {
+    return this.serial(async () => {
+      if (bundledIds.has(id)) throw new Error('Bundled Profiles cannot be deleted.');
+      const file = this.profileFile(id);
+      if (!(await lstat(file)).isFile()) throw new Error('Unknown Profile.');
+      await unlink(file);
+      return this.listProfiles();
+    });
   }
 
   delete(ids: string[]): Promise<LibraryState> {

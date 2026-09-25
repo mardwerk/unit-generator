@@ -15,7 +15,7 @@ import { imagePrompt } from '../presentation/image-prompts.js';
 import { readArtifactView } from '../presentation/view.js';
 import { LabLibrary } from './library.js';
 import { createEvidenceRun } from '../node/evidence.js';
-import { preparedSchema, checkedArtifactSchema } from '../core/index.js';
+import { preparedSchema, checkedArtifactSchema, unitProfileSchema } from '../core/index.js';
 
 const maxRequestBytes = 32_000_000;
 const operations = new Set([
@@ -35,11 +35,14 @@ const operations = new Set([
   'library/portrait',
   'library/portrait/get',
   'library/icon/generate',
+  'profiles/save',
+  'profiles/delete',
 ]);
 const characterInput = z.strictObject({
   name: z.string().trim().min(1).max(120),
   choice: z.number().int().positive().optional(),
   deliverable: z.enum(['concept', 'mechanics']).optional(),
+  profile: unitProfileSchema.optional(),
 });
 
 class HttpError extends Error {
@@ -126,6 +129,9 @@ export async function startLab(options: LabServerOptions) {
     }
     if (request.method === 'GET' && pathname === '/api/library') {
       return json(response, 200, await library.state());
+    }
+    if (request.method === 'GET' && pathname === '/api/profiles') {
+      return json(response, 200, await library.profiles());
     }
     const operation = pathname.slice('/api/'.length);
     if (!operations.has(operation)) {
@@ -254,11 +260,17 @@ export async function startLab(options: LabServerOptions) {
         if (activeModelStages > 0)
           throw new HttpError(409, 'BUSY', 'Wait for the current model stage to finish.');
         artifact = provider.configure(payload);
+      } else if (operation === 'profiles/save') {
+        const { profile } = z.strictObject({ profile: z.unknown() }).parse(payload);
+        artifact = await library.saveProfile(profile);
+      } else if (operation === 'profiles/delete') {
+        const { id } = z.strictObject({ id: z.string() }).parse(payload);
+        artifact = await library.deleteProfile(id);
       } else if (operation === 'character') {
-        const { name, choice, deliverable } = characterInput.parse(payload);
+        const { name, choice, deliverable, profile } = characterInput.parse(payload);
         artifact = await (options.characterLookup ?? prepareCharacter)(name, {
           choice,
-          ...(deliverable ? { deliverable } : {}),
+          ...(profile ? { profile } : deliverable ? { deliverable } : {}),
           signal: controller.signal,
         });
       } else {

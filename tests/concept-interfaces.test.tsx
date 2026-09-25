@@ -8,7 +8,13 @@ import { promisify } from 'node:util';
 import { test } from 'node:test';
 import { renderToStaticMarkup } from 'react-dom/server';
 import { load } from 'cheerio';
-import { prepareRequest, type DraftArtifact, type CheckedArtifact } from '../src/core/index.js';
+import {
+  defaultUnitProfile,
+  prepareRequest,
+  qualitativeUnitProfile,
+  type DraftArtifact,
+  type CheckedArtifact,
+} from '../src/core/index.js';
 import {
   conceptRequest,
   conceptCandidate,
@@ -17,7 +23,7 @@ import {
 import { FakeModel } from './fixtures/core-fixtures.js';
 import { startLab } from '../src/lab/server.js';
 import { LabLibrary } from '../src/lab/library.js';
-import { editRequest, readEditor, selectDeliverable } from '../src/lab/client/editor-state.js';
+import { editRequest, readEditor, selectProfile } from '../src/lab/client/editor-state.js';
 import { CharacterSheet } from '../src/lab/client/kit.js';
 import { compareGameplay } from '../src/lab/client/kit-comparison.js';
 import { emptyRequest } from '../src/lab/client/artifacts.js';
@@ -161,7 +167,7 @@ test('UnitLab saves and reloads both concept rulesets and retains failed model o
 });
 
 test('concept editor and sheet preserve complete prose, external policy and revision differences', async () => {
-  const preset = selectDeliverable(editRequest(emptyRequest()), 'concept');
+  const preset = selectProfile(editRequest(emptyRequest()), qualitativeUnitProfile);
   const selected = readEditor(preset);
   assert.equal(selected.deliverable, 'concept');
   assert.ok(selected.conceptRules);
@@ -181,7 +187,7 @@ test('concept editor and sheet preserve complete prose, external policy and revi
     },
     feedback: 'Edit wording only.',
   });
-  const numerical = readEditor(selectDeliverable(revisionEditor, 'mechanics'));
+  const numerical = readEditor(selectProfile(revisionEditor, defaultUnitProfile));
   assert.equal(numerical.previous, null);
   assert.equal(numerical.feedback, null);
   assert.equal(numerical.operation, 'generate');

@@ -1,16 +1,14 @@
 import { z } from 'zod';
 import {
-  applyConceptProfile,
+  applyProfile,
+  defaultUnitProfile,
   prepareRequest,
+  qualitativeUnitProfile,
+  starterAuthoringTask,
   type AuthorRequest,
   type PreparedRequest,
+  type UnitProfile,
 } from '../core/index.js';
-import {
-  defaultProfile,
-  starterAuthoringTask,
-  defaultProgression,
-  defaultAuthoringDefinition,
-} from './default-profile.js';
 import { readResponseText } from './source-retrieval.js';
 import { gatherCharacterVisuals } from './character-visuals.js';
 
@@ -34,6 +32,8 @@ export type CharacterPreparation =
   PreparedRequest | { kind: 'choices'; choices: CharacterChoice[] };
 
 interface LookupOptions {
+  /** The Profile to generate under. Without one, `deliverable` picks a bundled Profile. */
+  profile?: UnitProfile;
   deliverable?: 'concept' | 'mechanics';
   choice?: number;
   signal?: AbortSignal;
@@ -297,17 +297,14 @@ export async function prepareCharacter(
         },
       },
       ...sourceDocuments,
-      defaultProfile,
     ],
     constraints: [],
-    progression: defaultProgression,
-    mechanicsDefinition: defaultAuthoringDefinition,
+    progression: null,
     previous: null,
     feedback: null,
   };
-  return prepareRequest(
-    options.deliverable === 'concept'
-      ? applyConceptProfile(request)
-      : { ...request, ...(options.deliverable ? { deliverable: options.deliverable } : {}) },
-  );
+  const profile =
+    options.profile ??
+    (options.deliverable === 'concept' ? qualitativeUnitProfile : defaultUnitProfile);
+  return prepareRequest(applyProfile(request, profile));
 }

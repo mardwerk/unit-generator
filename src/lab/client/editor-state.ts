@@ -1,17 +1,6 @@
 import type { LabDocument, LabRequest } from '../contracts.js';
 import type { ResolvedDocument } from '../../core/index.js';
-import {
-  defaultConceptRules,
-  defaultConceptDefinition,
-  defaultConceptProfile,
-  conceptAuthoringTask,
-} from '../../core/index.js';
-import {
-  defaultProfile,
-  defaultProgression,
-  defaultAuthoringDefinition,
-  starterAuthoringTask,
-} from '../../core/default-profile.js';
+import { applyProfile, defaultConceptProfile, type UnitProfile } from '../../core/index.js';
 
 export interface DocumentInput {
   id: string;
@@ -148,52 +137,12 @@ export function readEditor(input: EditorInput): LabRequest {
   };
 }
 
-/** Explicitly select a bundled preset; imported rules remain intact until the user switches. */
-export function selectDeliverable(
-  input: EditorInput,
-  deliverable: 'concept' | 'mechanics',
-): EditorInput {
-  const request = readEditor(input);
-  if (request.deliverable === deliverable) return input;
-  const {
-    mechanicsDefinition,
-    conceptRules: _rules,
-    conceptDefinition: _definition,
-    conceptProfile: _profile,
-    conceptSkill: _skill,
-    ...base
-  } = request;
-  const documents = request.documents.filter(
-    (doc) =>
-      !/^default-td-profile-v[0-9]+$/.test(doc.id) &&
-      doc.id !== defaultConceptProfile.id &&
-      !doc.id.startsWith('concept-definition:') &&
-      doc.id !== (mechanicsDefinition ? `mechanics:${mechanicsDefinition.id}` : ''),
-  );
+/** Choosing a Profile replaces the rules and starts a new design; imported rules stay until then. */
+export function selectProfile(input: EditorInput, profile: UnitProfile): EditorInput {
   return editRequest({
-    ...base,
-    deliverable,
+    ...applyProfile(readEditor(input), profile),
     operation: 'generate',
     previous: null,
     feedback: null,
-    task:
-      !request.task ||
-      request.task === starterAuthoringTask ||
-      request.task === conceptAuthoringTask
-        ? deliverable === 'concept'
-          ? conceptAuthoringTask
-          : starterAuthoringTask
-        : request.task,
-    progression: structuredClone(defaultProgression),
-    documents: [
-      ...documents,
-      structuredClone(deliverable === 'concept' ? defaultConceptProfile : defaultProfile),
-    ],
-    ...(deliverable === 'concept'
-      ? {
-          conceptRules: structuredClone(defaultConceptRules),
-          conceptDefinition: structuredClone(defaultConceptDefinition),
-        }
-      : { mechanicsDefinition: structuredClone(defaultAuthoringDefinition) }),
   });
 }

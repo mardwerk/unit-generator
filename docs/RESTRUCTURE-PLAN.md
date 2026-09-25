@@ -81,7 +81,7 @@ The Go layout, CLI commands, HTTP API, Profiles, library and contracts are in [A
 | P0.4 | Client stops executing Engine code: add `render` `view` and `build`; remove `checkDraft`, `conceptContract` and `kitStats` runtime imports | Bundle metafile has no `src/core` or `zod` |
 | P0.5 | Separate `research` from `prepare` (C9); profile becomes an explicit `prepare` input | `/character` returns sources; #13's profile tab can drive `prepare` |
 | P0.6 | Adopt the endpoint shapes of [ARCHITECTURE.md](ARCHITECTURE.md#http-api) in the TypeScript server under `/api/v1` | The web client uses only `/api/v1` |
-| P0.7 | Single route and Profiles ([ARCHITECTURE.md](ARCHITECTURE.md#profiles)): retire `direct` and `authoringMode`; Profile files, `/profiles` routes, Profile Editor tab, Generate selector | Output selector gone; the default Profile cannot be edited; saving a non-3×5 numerical Profile fails |
+| P0.7 | Single route and Profiles ([ARCHITECTURE.md](ARCHITECTURE.md#profiles)): Profile files, `/profiles` routes, Profile Editor tab and Generate selector are **done in this PR**; retiring `direct` and `authoringMode` remains (B10) | Output selector gone; the default Profile cannot be edited; saving a non-3×5 numerical Profile fails |
 
 After Phase 0 the TypeScript server already has the target contract, and `serve` only has to replace it.
 
@@ -245,7 +245,7 @@ Measurements were taken on Node 22.22.2 in this review container. Rerun them on 
 | #4 5×10 progression | After P0.4, add a deterministic 5×10 **concept** fixture (concept progression is already variable) to test layout, focus and export. `health.engine.mechanics` reports 3×5; `prepare` rejects non-3×5 mechanics with `UNSUPPORTED_PROGRESSION`. Drop "role ranking" from the checklist |
 | #9 audit | B1 and B2 done in this PR; B3–B13 continue it |
 | #12 Go CLI + `serve` | Section A |
-| #13 single mode + profile editor | P0.5 makes the Profile an explicit `prepare` input; P0.7 adds Profile files, the Profile Editor tab with a stable default, and the Generate selector ([ARCHITECTURE.md](ARCHITECTURE.md#profiles)) |
+| #13 single mode + profile editor | Done in this PR on today's server: core `applyProfile`, bundled read-only default plus a qualitative Profile, saved Profiles in the library, a Profiles tab and a Generate selector. Remaining: P0.5 moves Profile application fully to `prepare`, B10 retires `direct` |
 | #14 create-view state loss | Done in this PR: the Generate button and logo only switch views; Clear or a confirmed New inputs starts over; the Inputs panel state lives in the app. Merging the two editor models (B1 follow-up) remains |
 | #15 key indicator | Done in this PR on today's server: provider state carries `key {configured, source, hint}` and Settings shows it; the Go `/health` keeps the same shape |
 
