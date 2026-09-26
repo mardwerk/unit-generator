@@ -32,15 +32,8 @@ var (
 		"none", "manual-boost", "follow-up", "active-follow-up", "camo", "distinct-volley", "splash",
 		"slow", "burn", "stun", "delivery-change", "damage-type-change", "targeting-change",
 	}
-	UpgradeIntentSchema = s.StrictObject(
-		s.F("improves", s.Array(s.Enum(Improvements...)).Max(4)),
-		s.F("unlock", s.Enum(Unlocks...)),
-	)
-	pathIntents = s.StrictObject(
-		s.F("tier1", UpgradeIntentSchema), s.F("tier2", UpgradeIntentSchema), s.F("tier3", UpgradeIntentSchema),
-		s.F("tier4", UpgradeIntentSchema), s.F("tier5", UpgradeIntentSchema),
-	)
-	UpgradeIntentsSchema = s.StrictObject(s.F("path1", pathIntents), s.F("path2", pathIntents), s.F("path3", pathIntents))
+	UpgradeIntentSchema  = upgradeIntentSchema(s.Enum(Improvements...), s.Enum(Unlocks...))
+	UpgradeIntentsSchema = upgradeIntentsSchema(UpgradeIntentSchema)
 
 	// DesignPlanSchema is a retained design proposal, not evidence its mechanics run.
 	DesignPlanSchema = s.StrictObject(
@@ -57,55 +50,126 @@ var (
 
 	letter = regexp.MustCompile(`\p{L}`)
 
-	// DesignPlanAuthoringSchema adds a small lexical floor that catches empty
-	// placeholder output, not strategic quality.
-	DesignPlanAuthoringSchema = DesignPlanSchema.Extend(s.F("upgradeIntents", UpgradeIntentsSchema)).SuperRefine(
-		func(plan *s.Object, add func(path []any, message string)) {
-			var inspect func(value any, path []any)
-			inspect = func(value any, path []any) {
-				if len(path) > 0 && path[0] == "upgradeIntents" {
-					return
-				}
-				switch v := value.(type) {
-				case string:
-					last := any(nil)
-					if len(path) > 0 {
-						last = path[len(path)-1]
-					}
-					if last == "name" || last == "path" || containsKey(path, "sourceIds") {
-						return
-					}
-					// Every letter belongs to a word-like segment, so this matches
-					// the original letters-and-words test.
-					if len(letter.FindAllString(v, 4)) < 4 {
-						add(path, "Describe the proposed behavior or limitation in words, not punctuation or numeric placeholders.")
-					}
-				case []any:
-					for i, item := range v {
-						inspect(item, appendPath(path, i))
-					}
-				case *s.Object:
-					for _, key := range v.Keys() {
-						item, _ := v.Get(key)
-						inspect(item, appendPath(path, key))
-					}
-				}
-			}
-			inspect(plan, nil)
-			intents, _ := plan.Get("upgradeIntents")
-			for _, path := range mechanics.PathKeys {
-				p, _ := intents.(*s.Object).Get(path)
-				for _, tier := range mechanics.TierKeys {
-					t, _ := p.(*s.Object).Get(tier)
-					improves, _ := t.(*s.Object).Get("improves")
-					unlock, _ := t.(*s.Object).Get("unlock")
-					if len(improves.([]any)) == 0 && unlock == "none" {
-						add([]any{"upgradeIntents", path, tier}, "Declare at least one supported improvement or unlock for this milestone.")
-					}
-				}
-			}
-		})
+	// DesignPlanAuthoringSchema is the plan a model authors, held to
+	// planAuthoringFloor.
+	DesignPlanAuthoringSchema = DesignPlanSchema.Extend(s.F("upgradeIntents", UpgradeIntentsSchema)).SuperRefine(planAuthoringFloor)
 )
+
+// DesignPlanAuthoringSchemaFor is the authoring schema under a Definition.
+func DesignPlanAuthoringSchemaFor(d *mechanics.Definition) *s.ObjectSchema {
+	if d == nil || !d.IsV2() {
+		return DesignPlanAuthoringSchema
+	}
+	return DesignPlanSchema.Extend(s.F("upgradeIntents", UpgradeIntentsSchemaFor(d))).SuperRefine(planAuthoringFloor)
+}
+
+// planAuthoringFloor adds a small lexical floor that catches empty
+// placeholder output, not strategic quality.
+func planAuthoringFloor(plan *s.Object, add func(path []any, message string)) {
+	var inspect func(value any, path []any)
+	inspect = func(value any, path []any) {
+		if len(path) > 0 && path[0] == "upgradeIntents" {
+			return
+		}
+		switch v := value.(type) {
+		case string:
+			last := any(nil)
+			if len(path) > 0 {
+				last = path[len(path)-1]
+			}
+			if last == "name" || last == "path" || containsKey(path, "sourceIds") {
+				return
+			}
+			// Every letter belongs to a word-like segment, so this matches
+			// the original letters-and-words test.
+			if len(letter.FindAllString(v, 4)) < 4 {
+				add(path, "Describe the proposed behavior or limitation in words, not punctuation or numeric placeholders.")
+			}
+		case []any:
+			for i, item := range v {
+				inspect(item, appendPath(path, i))
+			}
+		case *s.Object:
+			for _, key := range v.Keys() {
+				item, _ := v.Get(key)
+				inspect(item, appendPath(path, key))
+			}
+		}
+	}
+	inspect(plan, nil)
+	intents, _ := plan.Get("upgradeIntents")
+	for _, path := range mechanics.PathKeys {
+		p, _ := intents.(*s.Object).Get(path)
+		for _, tier := range mechanics.TierKeys {
+			t, _ := p.(*s.Object).Get(tier)
+			improves, _ := t.(*s.Object).Get("improves")
+			unlock, _ := t.(*s.Object).Get("unlock")
+			if len(improves.([]any)) == 0 && unlock == "none" {
+				add([]any{"upgradeIntents", path, tier}, "Declare at least one supported improvement or unlock for this milestone.")
+			}
+		}
+	}
+}
+
+func upgradeIntentSchema(improvement, unlock s.Schema) *s.ObjectSchema {
+	return s.StrictObject(s.F("improves", s.Array(improvement).Max(4)), s.F("unlock", unlock))
+}
+
+func upgradeIntentsSchema(intent s.Schema) *s.ObjectSchema {
+	path := s.StrictObject(
+		s.F("tier1", intent), s.F("tier2", intent), s.F("tier3", intent), s.F("tier4", intent), s.F("tier5", intent),
+	)
+	return s.StrictObject(s.F("path1", path), s.F("path2", path), s.F("path3", path))
+}
+
+// Plan promises of a version 2 Definition: the core dimensions, each status
+// effect as an improvement and an unlock, and each detection trait as an
+// unlock. They replace version 1's slow, burn, stun and camo.
+var (
+	coreImprovements  = []string{"damage", "attack-rate", "range", "pierce", "projectiles", "splash"}
+	boostImprovements = []string{"follow-up", "active-damage", "active-attack-rate", "active-duration", "active-frequency"}
+)
+
+// ImprovementsFor lists the improvements a Definition's plans may promise.
+func ImprovementsFor(d *mechanics.Definition) []string {
+	if d == nil || !d.IsV2() {
+		return Improvements
+	}
+	out := append([]string{}, coreImprovements...)
+	for _, effect := range d.Vocabulary.StatusEffects {
+		out = append(out, effect.ID)
+	}
+	return append(out, boostImprovements...)
+}
+
+// UnlocksFor lists the unlocks a Definition's plans may promise.
+func UnlocksFor(d *mechanics.Definition) []string {
+	if d == nil || !d.IsV2() {
+		return Unlocks
+	}
+	out := []string{"none", "manual-boost", "follow-up", "active-follow-up"}
+	for _, trait := range d.Vocabulary.Detection {
+		out = append(out, trait.ID)
+	}
+	out = append(out, "distinct-volley", "splash")
+	for _, effect := range d.Vocabulary.StatusEffects {
+		out = append(out, effect.ID)
+	}
+	return append(out, "delivery-change", "damage-type-change", "targeting-change")
+}
+
+// UpgradeIntentsSchemaFor is the promise schema under a Definition. For a
+// version 2 Definition given as nil (reading artifacts), any well-formed ID.
+func UpgradeIntentsSchemaFor(d *mechanics.Definition) *s.ObjectSchema {
+	if d == nil {
+		id := s.String().Regex(`^[a-z][a-z0-9-]{0,39}$`, "Use a promise ID of this Definition.")
+		return upgradeIntentsSchema(upgradeIntentSchema(id, id))
+	}
+	if !d.IsV2() {
+		return UpgradeIntentsSchema
+	}
+	return upgradeIntentsSchema(upgradeIntentSchema(s.Enum(ImprovementsFor(d)...), s.Enum(UnlocksFor(d)...)))
+}
 
 func containsKey(path []any, key string) bool {
 	for _, p := range path {

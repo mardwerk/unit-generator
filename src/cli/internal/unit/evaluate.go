@@ -43,11 +43,11 @@ func selectionValue(sel m.Selection) []any {
 	return []any{float64(sel[0]), float64(sel[1]), float64(sel[2])}
 }
 
-func compareBuilds(blueprint *m.Blueprint, from, to m.Selection) *s.Object {
+func compareBuilds(blueprint *m.Blueprint, from, to m.Selection, vocabulary *m.Vocabulary) *s.Object {
 	before := m.ResolveUnchecked(blueprint, from)
 	after := m.ResolveUnchecked(blueprint, to)
-	a := m.PurchaseMetrics(before)
-	b := m.PurchaseMetrics(after)
+	a := m.PurchaseMetricsWith(before, vocabulary)
+	b := m.PurchaseMetricsWith(after, vocabulary)
 	deltas := s.NewObject()
 	keys := a.Keys()
 	for _, key := range b.Keys() {
@@ -73,16 +73,20 @@ func compareBuilds(blueprint *m.Blueprint, from, to m.Selection) *s.Object {
 		deltas.Set(key, s.NewObject().Set("before", prior).Set("after", next).Set("change", change))
 	}
 	changes := []any{}
-	for _, key := range []string{"delivery", "damageType", "targeting", "camo", "distribution", "followUp"} {
-		x, y := attackCapability(before.BaseAttack, key), attackCapability(after.BaseAttack, key)
-		if jsonOrNull(x) != jsonOrNull(y) {
-			changes = append(changes, fmt.Sprintf("%s: %s → %s", key, jsonOrNull(x), jsonOrNull(y)))
+	if after.BaseAttack.IsV2() {
+		changes = append(changes, statusChanges(before.BaseAttack, after.BaseAttack)...)
+	} else {
+		for _, key := range []string{"delivery", "damageType", "targeting", "camo", "distribution", "followUp"} {
+			x, y := attackCapability(before.BaseAttack, key), attackCapability(after.BaseAttack, key)
+			if jsonOrNull(x) != jsonOrNull(y) {
+				changes = append(changes, fmt.Sprintf("%s: %s → %s", key, jsonOrNull(x), jsonOrNull(y)))
+			}
 		}
-	}
-	for _, key := range []string{"splashRadius", "slowPercent", "slowSeconds", "burnDamagePerSecond", "burnSeconds", "stunSeconds", "pierce", "projectiles", "damage"} {
-		prior, next := before.BaseAttack.Stats.Get(key), after.BaseAttack.Stats.Get(key)
-		if prior != next {
-			changes = append(changes, fmt.Sprintf("%s: %s → %s", key, s.FormatNumber(prior), s.FormatNumber(next)))
+		for _, key := range []string{"splashRadius", "slowPercent", "slowSeconds", "burnDamagePerSecond", "burnSeconds", "stunSeconds", "pierce", "projectiles", "damage"} {
+			prior, next := before.BaseAttack.Stats.Get(key), after.BaseAttack.Stats.Get(key)
+			if prior != next {
+				changes = append(changes, fmt.Sprintf("%s: %s → %s", key, s.FormatNumber(prior), s.FormatNumber(next)))
+			}
 		}
 	}
 	for _, ability := range after.Abilities {
@@ -125,17 +129,60 @@ func compareBuilds(blueprint *m.Blueprint, from, to m.Selection) *s.Object {
 		Set("capabilityChanges", changes)
 }
 
+// statusChanges lists a version 2 purchase's capability changes: attack
+// properties, detection, core stats and each status effect's numbers.
+func statusChanges(before, after m.Attack) []any {
+	var changes []any
+	for _, key := range []string{"delivery", "damageType", "targeting", "detects", "distribution", "followUp"} {
+		var x, y any
+		if key == "detects" {
+			x, y = before.DetectionTraits(), after.DetectionTraits()
+		} else {
+			x, y = attackCapability(before, key), attackCapability(after, key)
+		}
+		if jsonOrNull(x) != jsonOrNull(y) {
+			changes = append(changes, fmt.Sprintf("%s: %s → %s", key, jsonOrNull(x), jsonOrNull(y)))
+		}
+	}
+	for _, key := range []string{"splashRadius", "pierce", "projectiles", "damage"} {
+		prior, next := before.Stats.Get(key), after.Stats.Get(key)
+		if prior != next {
+			changes = append(changes, fmt.Sprintf("%s: %s → %s", key, s.FormatNumber(prior), s.FormatNumber(next)))
+		}
+	}
+	effects := map[string]bool{}
+	var order []string
+	for _, status := range append(before.AppliedStatuses(), after.AppliedStatuses()...) {
+		if !effects[status.Effect] {
+			effects[status.Effect] = true
+			order = append(order, status.Effect)
+		}
+	}
+	for _, effect := range order {
+		prior, _ := before.Status(effect)
+		next, _ := after.Status(effect)
+		if prior.Strength() != next.Strength() {
+			changes = append(changes, fmt.Sprintf("%s magnitude: %s → %s", effect, s.FormatNumber(prior.Strength()), s.FormatNumber(next.Strength())))
+		}
+		if prior.Seconds != next.Seconds {
+			changes = append(changes, fmt.Sprintf("%s seconds: %s → %s", effect, s.FormatNumber(prior.Seconds), s.FormatNumber(next.Seconds)))
+		}
+	}
+	return changes
+}
+
 // EvaluateUnitDesign computes analytical purchase evidence for valid mechanics.
 func EvaluateUnitDesign(input m.Blueprint, plan *DesignPlan, definition m.Definition) (*s.Object, error) {
 	var blueprint m.Blueprint
-	if err := s.ParseInto(m.BlueprintSchema, s.FromGoValue(input), &blueprint); err != nil {
+	if err := s.ParseInto(m.BlueprintSchemaFor(definition), s.FromGoValue(input), &blueprint); err != nil {
 		return nil, err
 	}
+	vocabulary := definition.Terms()
 	legal := map[m.Selection]bool{}
 	for _, sel := range m.AllLegalBuilds(definition) {
 		legal[sel] = true
 	}
-	capstones := m.CompareCapstonePurchases(&blueprint)
+	capstones := m.CompareCapstonePurchasesWith(&blueprint, &vocabulary)
 	var sourceClaims any
 	if plan != nil {
 		sourceClaims = s.NewObject().
@@ -150,7 +197,7 @@ func EvaluateUnitDesign(input m.Blueprint, plan *DesignPlan, definition m.Defini
 			var from, to m.Selection
 			from[index], to[index] = tier-1, tier
 			if legal[from] && legal[to] {
-				milestones = append(milestones, compareBuilds(&blueprint, from, to))
+				milestones = append(milestones, compareBuilds(&blueprint, from, to, &vocabulary))
 			}
 		}
 		crosspaths := []any{}
@@ -165,7 +212,7 @@ func EvaluateUnitDesign(input m.Blueprint, plan *DesignPlan, definition m.Defini
 					from[secondary], to[secondary] = tier-1, tier
 					if legal[from] && legal[to] {
 						entry := s.NewObject().Set("secondaryPath", secondaryPath).Set("tier", float64(tier))
-						compared := compareBuilds(&blueprint, from, to)
+						compared := compareBuilds(&blueprint, from, to, &vocabulary)
 						for _, key := range compared.Keys() {
 							v, _ := compared.Get(key)
 							entry.Set(key, v)

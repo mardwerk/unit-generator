@@ -63,12 +63,13 @@ func (a Artifact) Candidate() (unit.Candidate, bool) {
 	return unit.Candidate{}, false
 }
 
-var schemas = map[string]s.Schema{
-	"sources":  research.SourcesSchema,
-	"prepared": unit.PreparedSchema,
-	"draft":    unit.DraftSchema,
-	"checked":  unit.CheckedSchema,
-	"result":   unit.ResultSchema,
+// schemas holds each kind's version 1 and version 2 schema.
+var schemas = map[string][2]s.Schema{
+	"sources":  {research.SourcesSchema, research.SourcesSchema},
+	"prepared": {unit.PreparedSchema, unit.PreparedSchemaV2},
+	"draft":    {unit.DraftSchema, unit.DraftSchemaV2},
+	"checked":  {unit.CheckedSchema, unit.CheckedSchemaV2},
+	"result":   {unit.ResultSchema, unit.ResultSchemaV2},
 }
 
 // ErrNotArtifact means the value is an editable request or unknown input.
@@ -82,11 +83,11 @@ func Inspect(value any) (Artifact, error) {
 	}
 	kind, _ := object.Get("kind")
 	name, _ := kind.(string)
-	schema, ok := schemas[name]
+	versions, ok := schemas[name]
 	if !ok {
 		return Artifact{}, ErrNotArtifact
 	}
-	parsed, issues := s.Parse(schema, value)
+	parsed, issues := s.Parse(unit.Versioned(value, versions[0], versions[1]), value)
 	if len(issues) > 0 {
 		return Artifact{}, &s.Error{Issues: issues}
 	}

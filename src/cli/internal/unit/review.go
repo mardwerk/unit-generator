@@ -12,13 +12,13 @@ import (
 // ParseChecked validates a checked artifact value.
 func ParseChecked(value any) (Checked, error) {
 	var c Checked
-	return c, s.ParseInto(CheckedSchema, value, &c)
+	return c, s.ParseInto(Versioned(value, CheckedSchema, CheckedSchemaV2), value, &c)
 }
 
 // ParseResult validates a Result value.
 func ParseResult(value any) (Result, error) {
 	var r Result
-	return r, s.ParseInto(ResultSchema, value, &r)
+	return r, s.ParseInto(Versioned(value, ResultSchema, ResultSchemaV2), value, &r)
 }
 
 // ErrNoBlueprint means an older prose draft reached a stage that needs typed mechanics.
@@ -56,7 +56,12 @@ func BlueprintReviewRequest(checked Checked) ModelRequest {
 	}
 	comparisons := []any{}
 	if blueprint != nil {
-		comparisons = m.CompareCapstonePurchases(blueprint)
+		var vocabulary *m.Vocabulary
+		if d := request.MechanicsDefinition; d != nil {
+			terms := d.Terms()
+			vocabulary = &terms
+		}
+		comparisons = m.CompareCapstonePurchasesWith(blueprint, vocabulary)
 	}
 	context.Set("purchaseComparisons", comparisons).
 		Set("character", s.FromGoValue(request.Character)).
@@ -125,7 +130,11 @@ func BlueprintReviewRequest(checked Checked) ModelRequest {
 		}
 	}
 	context.Set("deterministicFindings", s.FromGoValue(failed))
-	prompt := []string{reviewLine27, reviewLine28, reviewLine29, reviewLine30, reviewLine31, reviewLine32, reviewLine33, reviewLine34, reviewLine35, s.Stringify(context)}
+	statuses := reviewLine33
+	if isV2(request) {
+		statuses = reviewStatusesV2
+	}
+	prompt := []string{reviewLine27, reviewLine28, reviewLine29, reviewLine30, reviewLine31, reviewLine32, statuses, reviewLine34, reviewLine35, s.Stringify(context)}
 	return ModelRequest{System: reviewLine25, Prompt: strings.Join(prompt, "\n\n"), Schema: s.JSONSchema(schema)}
 }
 
@@ -190,7 +199,7 @@ func ReviewDraft(ctx context.Context, input Checked, model Model, options Option
 		return Result{}, StageFailure(err, "review", usage, errors.As(err, &validation))
 	}
 	result := Result{
-		SchemaVersion: "1", Kind: "result", ID: options.id(),
+		SchemaVersion: checked.SchemaVersion, Kind: "result", ID: options.id(),
 		Prepared: checked.Draft.Prepared, Candidate: checked.Draft.Candidate,
 		Findings:      append(append([]Finding{}, checked.Findings...), review.Findings...),
 		ReviewSummary: review.Summary,
@@ -199,7 +208,8 @@ func ReviewDraft(ctx context.Context, input Checked, model Model, options Option
 			Review: Run{ID: options.id(), ModelID: model.ID(), StartedAt: startedAt, CompletedAt: options.now(), Usage: usage},
 		},
 	}
-	if err := s.ParseInto(ResultSchema, s.FromGoValue(result), &result); err != nil {
+	value := s.FromGoValue(result)
+	if err := s.ParseInto(Versioned(value, ResultSchema, ResultSchemaV2), value, &result); err != nil {
 		return Result{}, err
 	}
 	return result, nil

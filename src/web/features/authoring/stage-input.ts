@@ -23,7 +23,7 @@ export async function inputBeforeStage(
       : artifact.kind === 'checked'
         ? artifact.draft
         : {
-            schemaVersion: '1',
+            schemaVersion: artifact.schemaVersion,
             kind: 'draft',
             prepared,
             candidate: artifact.candidate,

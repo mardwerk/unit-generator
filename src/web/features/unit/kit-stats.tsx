@@ -13,6 +13,7 @@ import {
   Eye,
   Sparkles,
   MoveUpRight,
+  ShieldOff,
   type LucideIcon,
 } from 'lucide-react';
 import type { StatChange } from '../../api/contract.js';
@@ -46,9 +47,12 @@ export const statLabels = {
 } as const;
 export type StatKey = keyof typeof statLabels;
 
-export function statValue(key: StatKey, value: string | number): string {
+export function statValue(key: StatKey, value: string | number, unit?: string): string {
   if (typeof value === 'string') return value;
   const number = Number(value.toFixed(4)).toString();
+  if (unit === 's') return `${number} s`;
+  if (unit === 'percent') return `${number}%`;
+  if (unit) return `${number} ${unit}`;
   if (key.endsWith('Seconds')) return `${number} s`;
   if (key === 'slowPercent') return `${number}%`;
   if (key.endsWith('Multiplier')) return `×${number}`;
@@ -81,6 +85,16 @@ const icons: Record<StatKey, LucideIcon> = {
   followUp: Sparkles,
   activeFollowUp: Sparkles,
 };
+
+/** Profile-defined status effects and detection traits are drawn by kind. */
+const kindIcons: Record<NonNullable<StatChange['kind']>, LucideIcon> = {
+  moveSpeed: Snowflake,
+  damageOverTime: Flame,
+  disable: Zap,
+  damageTaken: ShieldOff,
+  custom: Sparkles,
+  detection: Eye,
+};
 export function Cost({ value, currency }: { value: number; currency: string }) {
   return (
     <span
@@ -98,8 +112,8 @@ export function StatValues({ changes }: { changes: StatChange[] }) {
     <ul className="kit-stats relative z-[2] mt-2 grid gap-1.5 text-xs">
       {changes.map((change) => {
         const key = change.key as StatKey;
-        const Icon = icons[key];
-        const label = statLabels[key];
+        const Icon = (change.kind && kindIcons[change.kind]) ?? icons[key] ?? Sparkles;
+        const label = change.label ?? statLabels[key] ?? change.key;
         return (
           <li
             key={change.key}
@@ -114,14 +128,14 @@ export function StatValues({ changes }: { changes: StatChange[] }) {
                 <>
                   <span className="text-destructive">
                     <span className="sr-only">Previous: </span>
-                    {statValue(key, change.before)}
+                    {statValue(key, change.before, change.unit)}
                   </span>
                   <ArrowRight className="size-3" aria-hidden="true" />
                 </>
               )}
               <span className={cn(change.before !== undefined && 'text-success')}>
                 <span className="sr-only">{change.before === undefined ? '' : 'New: '}</span>
-                {statValue(key, change.after)}
+                {statValue(key, change.after, change.unit)}
               </span>
             </span>
             {(change.key === 'intervalSeconds' || change.key === 'intervalMultiplier') &&

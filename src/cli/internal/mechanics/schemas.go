@@ -2,7 +2,12 @@
 // Definition contract, build resolution, legality, validation and design policy.
 package mechanics
 
-import s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
+import (
+	"strconv"
+	"strings"
+
+	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
+)
 
 // PathKeys and TierKeys name the fixed 3 paths × 5 tiers.
 var (
@@ -195,4 +200,187 @@ func tiersOf(tier s.Schema) *s.ObjectSchema {
 
 func pathsOf(path s.Schema) *s.ObjectSchema {
 	return s.StrictObject(s.F("path1", path), s.F("path2", path), s.F("path3", path))
+}
+
+// Version 2 schemas take their IDs from a vocabulary. Given nil they accept
+// any well-formed ID, for reading artifacts whose Definition is checked
+// separately.
+func vocabularyIDs(v *Vocabulary, list func(*Vocabulary) []string) s.Schema {
+	if v == nil {
+		return vocabularyID
+	}
+	return s.Enum(list(v)...)
+}
+
+func damageTypeIDs(v *Vocabulary) []string {
+	var out []string
+	for _, t := range v.DamageTypes {
+		out = append(out, t.ID)
+	}
+	return out
+}
+
+func termIDs(terms []Term) []string {
+	var out []string
+	for _, t := range terms {
+		out = append(out, t.ID)
+	}
+	return out
+}
+
+func effectIDs(v *Vocabulary) []string {
+	var out []string
+	for _, e := range v.StatusEffects {
+		out = append(out, e.ID)
+	}
+	return out
+}
+
+// DamageTypeSchemaV2, TargetingSchemaV2, DetectionSchemaV2 and
+// EffectSchemaV2 are the vocabulary's IDs.
+func DamageTypeSchemaV2(v *Vocabulary) s.Schema { return vocabularyIDs(v, damageTypeIDs) }
+func TargetingSchemaV2(v *Vocabulary) s.Schema {
+	return vocabularyIDs(v, func(v *Vocabulary) []string { return termIDs(v.Targeting) })
+}
+func DetectionSchemaV2(v *Vocabulary) s.Schema {
+	return vocabularyIDs(v, func(v *Vocabulary) []string { return termIDs(v.Detection) })
+}
+func EffectSchemaV2(v *Vocabulary) s.Schema { return vocabularyIDs(v, effectIDs) }
+
+var (
+	// CoreStatsSchema is a version 2 attack's stats.
+	CoreStatsSchema = AttackStatsSchema.Omit("slowPercent", "slowSeconds", "burnDamagePerSecond", "burnSeconds", "stunSeconds")
+	// StatusFieldSchema names a resolvable number of an applied status.
+	StatusFieldSchema = enum(StatusFields)
+)
+
+// StatusApplicationSchema is one applied status effect.
+func StatusApplicationSchema(v *Vocabulary) *s.ObjectSchema {
+	return s.StrictObject(
+		s.F("effect", EffectSchemaV2(v)),
+		s.F("magnitude", s.Optional(nonnegative())),
+		s.F("seconds", nonnegative()),
+	)
+}
+
+// AttackSchemaV2 is a version 2 attack.
+func AttackSchemaV2(v *Vocabulary) *s.ObjectSchema {
+	return s.StrictObject(
+		s.F("name", text()),
+		s.F("cost", positive()),
+		s.F("delivery", DeliverySchema),
+		s.F("damageType", DamageTypeSchemaV2(v)),
+		s.F("targeting", TargetingSchemaV2(v)),
+		s.F("detects", s.Array(DetectionSchemaV2(v)).Max(8)),
+		s.F("stats", CoreStatsSchema),
+		s.F("statuses", s.Array(StatusApplicationSchema(v)).Max(16)),
+		s.F("distribution", s.Optional(DistributionSchema)),
+		s.F("followUp", s.Optional(FollowUpSchema)),
+	)
+}
+
+// ChangeSchemaV2 is one typed effect of a version 2 upgrade: core stats,
+// status fields and detection replace the version 1 stats and camo.
+func ChangeSchemaV2(v *Vocabulary) s.Schema {
+	return s.DiscriminatedUnion("kind",
+		s.StrictObject(s.F("kind", lit("stat")), s.F("target", lit("base")), s.F("stat", enum(CoreStatKeys)), s.F("operation", OperationSchema), s.F("value", s.Number())),
+		s.StrictObject(s.F("kind", lit("status")), s.F("target", lit("base")), s.F("effect", EffectSchemaV2(v)), s.F("field", StatusFieldSchema), s.F("operation", OperationSchema), s.F("value", s.Number())),
+		s.StrictObject(s.F("kind", lit("detection")), s.F("target", lit("base")), s.F("trait", DetectionSchemaV2(v)), s.F("value", s.Bool())),
+		s.StrictObject(s.F("kind", lit("delivery")), s.F("target", lit("base")), s.F("value", DeliverySchema)),
+		s.StrictObject(s.F("kind", lit("damageType")), s.F("target", lit("base")), s.F("value", DamageTypeSchemaV2(v))),
+		s.StrictObject(s.F("kind", lit("targeting")), s.F("target", lit("base")), s.F("value", TargetingSchemaV2(v))),
+		s.StrictObject(s.F("kind", lit("distribution")), s.F("target", lit("base")), s.F("value", DistributionSchema)),
+		s.StrictObject(s.F("kind", lit("followUp")), s.F("target", s.Enum("base", "boost")), s.F("value", FollowUpSchema)),
+		s.StrictObject(s.F("kind", lit("unlockBoost")), s.F("target", lit("base")), s.F("boost", BoostSchema)),
+		s.StrictObject(s.F("kind", lit("modifyBoost")), s.F("target", lit("base")), s.F("stat", enum(BoostStatKeys)), s.F("operation", OperationSchema), s.F("value", s.Number())),
+	)
+}
+
+func blueprintSchemaV2(v *Vocabulary, maxChanges int) *s.ObjectSchema {
+	changes := s.Array(ChangeSchemaV2(v)).Min(1).Max(maxChanges)
+	if maxChanges > 4 {
+		changes = s.Array(ChangeSchemaV2(v)).Max(maxChanges)
+	}
+	tier := tierSchema.Extend(s.F("changes", changes))
+	return BlueprintSchema.Extend(
+		s.F("baseAttack", AttackSchemaV2(v)),
+		s.F("paths", pathsOf(PathSchema.Extend(s.F("tiers", tiersOf(tier))))),
+	)
+}
+
+// BlueprintSchemaV2 is a version 2 blueprint; DiagnosticBlueprintSchemaV2
+// keeps over-budget tiers inspectable, like its version 1 counterpart.
+func BlueprintSchemaV2(v *Vocabulary) *s.ObjectSchema           { return blueprintSchemaV2(v, 4) }
+func DiagnosticBlueprintSchemaV2(v *Vocabulary) *s.ObjectSchema { return blueprintSchemaV2(v, 20) }
+
+// BlueprintSchemaFor and DiagnosticBlueprintSchemaFor pick the blueprint
+// schema a Definition's units use.
+func BlueprintSchemaFor(d Definition) *s.ObjectSchema {
+	if d.IsV2() {
+		return BlueprintSchemaV2(d.Vocabulary)
+	}
+	return BlueprintSchema
+}
+
+func DiagnosticBlueprintSchemaFor(d Definition) *s.ObjectSchema {
+	if d.IsV2() {
+		return DiagnosticBlueprintSchemaV2(d.Vocabulary)
+	}
+	return DiagnosticBlueprintSchema
+}
+
+// AttackSchemaFor is the attack schema of a Definition's units.
+func AttackSchemaFor(d Definition) *s.ObjectSchema {
+	if d.IsV2() {
+		return AttackSchemaV2(d.Vocabulary)
+	}
+	return AttackSchema
+}
+
+// DefinitionV2Schema is a version 2 Definition: version 1 without the fixed
+// rules a vocabulary replaces, plus the vocabulary.
+var DefinitionV2Schema = s.StrictObject(
+	s.F("version", lit("2")),
+	s.F("id", text()),
+	s.F("revision", text()),
+	s.F("label", text()),
+	s.F("balanceStatus", lit("experimental-starter-scale")),
+	s.F("progression", MechanicsDefinitionSchema.Shape("progression")),
+	s.F("rules", MechanicsDefinitionSchema.Shape("rules").(*s.ObjectSchema).Omit(legacyRules...)),
+	s.F("vocabulary", VocabularySchema),
+	s.F("profile", MechanicsDefinitionSchema.Shape("profile")),
+).SuperRefine(func(value *s.Object, add func(path []any, message string)) {
+	raw, _ := value.Get("vocabulary")
+	var vocabulary Vocabulary
+	if err := s.ToGo(raw, &vocabulary); err != nil {
+		add([]any{"vocabulary"}, err.Error())
+		return
+	}
+	for _, issue := range VocabularyIssues(vocabulary) {
+		add(issuePath(issue.Path), issue.Message)
+	}
+})
+
+// issuePath splits a dotted issue path, turning indices into numbers.
+func issuePath(path string) []any {
+	var out []any
+	for _, part := range strings.Split(path, ".") {
+		if n, err := strconv.Atoi(part); err == nil {
+			out = append(out, n)
+		} else {
+			out = append(out, part)
+		}
+	}
+	return out
+}
+
+// DefinitionSchemaOf picks the schema for a Definition value by its version.
+// Anything but version "2" is checked as version 1, as it always was.
+func DefinitionSchemaOf(value any) *s.ObjectSchema {
+	if o, ok := value.(*s.Object); ok {
+		if version, _ := o.Get("version"); version == "2" {
+			return DefinitionV2Schema
+		}
+	}
+	return MechanicsDefinitionSchema
 }

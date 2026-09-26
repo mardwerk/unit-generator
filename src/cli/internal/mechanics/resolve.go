@@ -3,6 +3,7 @@ package mechanics
 import (
 	"fmt"
 	"math"
+	"sort"
 	"strings"
 
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
@@ -172,6 +173,9 @@ func ResolveUnchecked(blueprint *Blueprint, selection Selection) Build {
 			}
 		}
 	}
+	if attack.IsV2() {
+		resolveV2(&attack, changes)
+	}
 	abilities := []ResolvedAbility{}
 	for pathIndex, path := range PathKeys {
 		var local []Change
@@ -223,12 +227,123 @@ func ResolveUnchecked(blueprint *Blueprint, selection Selection) Build {
 	return Build{Selection: selection, BaseAttack: attack, Abilities: abilities, CumulativeCost: cost}
 }
 
+// resolveV2 applies status and detection changes. Each status field
+// resolves like a stat; the lists are sorted by ID so equal builds compare
+// equal whatever the purchase order.
+func resolveV2(attack *Attack, changes []Change) {
+	base := map[string]StatusApplication{}
+	var effects []string
+	seen := map[string]bool{}
+	note := func(effect string) {
+		if !seen[effect] {
+			seen[effect] = true
+			effects = append(effects, effect)
+		}
+	}
+	for _, status := range *attack.Statuses {
+		base[status.Effect] = status
+		note(status.Effect)
+	}
+	detected := map[string]bool{}
+	for _, trait := range *attack.Detects {
+		detected[trait] = true
+	}
+	for _, c := range changes {
+		switch c.Kind {
+		case "status":
+			note(c.Effect)
+		case "detection":
+			detected[c.Trait] = c.Bool
+		}
+	}
+	sort.Strings(effects)
+	statuses := []StatusApplication{}
+	for _, effect := range effects {
+		initial := base[effect]
+		var magnitudes, seconds []Change
+		for _, c := range changes {
+			if c.Kind == "status" && c.Effect == effect {
+				if c.Field == "magnitude" {
+					magnitudes = append(magnitudes, c)
+				} else {
+					seconds = append(seconds, c)
+				}
+			}
+		}
+		status := StatusApplication{Effect: effect, Seconds: calculate(initial.Seconds, seconds)}
+		if initial.Magnitude != nil || len(magnitudes) > 0 {
+			magnitude := calculate(initial.Strength(), magnitudes)
+			status.Magnitude = &magnitude
+		}
+		if status.Seconds != 0 || status.Strength() != 0 {
+			statuses = append(statuses, status)
+		}
+	}
+	traits := []string{}
+	for trait, on := range detected {
+		if on {
+			traits = append(traits, trait)
+		}
+	}
+	sort.Strings(traits)
+	attack.Statuses, attack.Detects = &statuses, &traits
+}
+
+// statusIssues checks a version 2 attack's statuses against the vocabulary.
+func statusIssues(attack Attack, definition Definition, add func(path, message string), path string) {
+	vocabulary := definition.Terms()
+	seen := map[string]bool{}
+	for index, status := range attack.AppliedStatuses() {
+		at := fmt.Sprintf("%s.statuses.%d", path, index)
+		effect, ok := vocabulary.Effect(status.Effect)
+		if !ok {
+			add(at+".effect", status.Effect+" is not a status effect of this Definition.")
+			continue
+		}
+		if seen[effect.ID] {
+			add(at+".effect", "Each status effect may appear once per attack.")
+		}
+		seen[effect.ID] = true
+		switch {
+		case effect.Magnitude == nil && status.Magnitude != nil:
+			add(at+".magnitude", effect.Name+" has no magnitude.")
+		case effect.Magnitude != nil && effect.Kind != KindCustom && status.Magnitude == nil:
+			add(at+".magnitude", effect.Name+" needs a magnitude.")
+		}
+		if status.Seconds <= 0 || (status.Magnitude != nil && *status.Magnitude <= 0) {
+			message := effect.Name + " requires a positive duration."
+			if status.Magnitude != nil {
+				message = effect.Name + " requires both a positive magnitude and duration."
+			}
+			add(at, message)
+		}
+		if status.Seconds > effect.MaxSeconds {
+			add(at+".seconds", fmt.Sprintf("%s lasts at most %s s in this Definition.", effect.Name, s.FormatNumber(effect.MaxSeconds)))
+		}
+		if m := effect.Magnitude; m != nil && status.Magnitude != nil && *status.Magnitude > 0 {
+			if *status.Magnitude < m.Min || *status.Magnitude > m.Max {
+				add(at+".magnitude", fmt.Sprintf("%s magnitude must be from %s to %s %s.", effect.Name, s.FormatNumber(m.Min), s.FormatNumber(m.Max), m.Unit))
+			}
+		}
+		if status.Seconds > definition.Profile.MaxStatValue || status.Strength() > definition.Profile.MaxStatValue {
+			add(at, "Exceeds the Definition stat ceiling.")
+		}
+	}
+	traits := map[string]bool{}
+	for index, trait := range attack.DetectionTraits() {
+		if traits[trait] {
+			add(fmt.Sprintf("%s.detects.%d", path, index), "Each detection trait may appear once per attack.")
+		}
+		traits[trait] = true
+	}
+}
+
 // ResolvedIssues checks the values of a resolved build.
 func ResolvedIssues(build Build, definition Definition, prefix string, blueprint *Blueprint) []Issue {
 	var issues []Issue
 	add := func(path, message string) { issues = append(issues, Issue{prefix + "." + path, message}) }
 	checkAttack := func(attack Attack, path string) {
-		_, parseIssues := s.Parse(AttackSchema, s.FromGoValue(attack))
+		_, parseIssues := s.Parse(AttackSchemaFor(definition), s.FromGoValue(attack))
 		for _, issue := range parseIssues {
 			stat := ""
 			if len(issue.Path) >= 2 && issue.Path[0] == "stats" {
@@ -285,14 +400,21 @@ func ResolvedIssues(build Build, definition Definition, prefix string, blueprint
 				add(path+".followUp.damageMultiplier", "Resolved secondary damage exceeds the Definition stat ceiling.")
 			}
 		}
-		if (st.SlowPercent > 0) != (st.SlowSeconds > 0) {
-			add(path+".stats.slowSeconds", "Slow requires both a positive percent and duration.")
-		}
-		if (st.BurnDamagePerSecond > 0) != (st.BurnSeconds > 0) {
-			add(path+".stats.burnSeconds", "Burn requires both positive damage per second and duration.")
-		}
-		if st.Damage == 0 && st.BurnDamagePerSecond == 0 && st.SlowPercent == 0 && st.StunSeconds == 0 {
-			add(path, "An attack must supply damage, burn, slow or stun.")
+		if attack.IsV2() {
+			statusIssues(attack, definition, add, path)
+			if st.Damage == 0 && len(attack.AppliedStatuses()) == 0 {
+				add(path, "An attack must supply damage or a status effect.")
+			}
+		} else {
+			if (st.SlowPercent > 0) != (st.SlowSeconds > 0) {
+				add(path+".stats.slowSeconds", "Slow requires both a positive percent and duration.")
+			}
+			if (st.BurnDamagePerSecond > 0) != (st.BurnSeconds > 0) {
+				add(path+".stats.burnSeconds", "Burn requires both positive damage per second and duration.")
+			}
+			if st.Damage == 0 && st.BurnDamagePerSecond == 0 && st.SlowPercent == 0 && st.StunSeconds == 0 {
+				add(path, "An attack must supply damage, burn, slow or stun.")
+			}
 		}
 		if attack.Delivery == "area" && st.SplashRadius <= 0 {
 			add(path+".stats.splashRadius", "Area delivery requires a positive splash radius.")
@@ -393,4 +515,58 @@ func AssessTarget(attack Attack, camo, obstructed bool, properties []string, def
 		CanSlow:   eligible && attack.Stats.SlowPercent > 0 && !has(rules.SlowImmune),
 		CanStun:   eligible && attack.Stats.StunSeconds > 0 && !has(rules.StunImmune),
 	}
+}
+
+// TargetEffects is static target eligibility under a version 2 Definition.
+// Statuses lists, in effect ID order, the attack's status effects the target
+// receives.
+type TargetEffects struct {
+	Detected  bool     `json:"detected"`
+	Reachable bool     `json:"reachable"`
+	CanDamage bool     `json:"canDamage"`
+	Statuses  []string `json:"statuses"`
+}
+
+// AssessTargetEffects is AssessTarget for any Definition. hidden names the
+// target's detection traits (such as camo); the attack must detect each one.
+// A status needs a positive magnitude, or a positive duration when its effect
+// has none, and a target without the effect's immunities. Damage over time is
+// damage of the attack, so the damage type's immunities also block it.
+func AssessTargetEffects(attack Attack, hidden []string, obstructed bool, properties []string, definition Definition) TargetEffects {
+	vocabulary := definition.Terms()
+	has := func(list []string) bool {
+		for _, a := range list {
+			for _, b := range properties {
+				if a == b {
+					return true
+				}
+			}
+		}
+		return false
+	}
+	detected := true
+	for _, trait := range hidden {
+		detected = detected && attack.DetectsTrait(trait)
+	}
+	reachable := !obstructed
+	eligible := detected && reachable
+	damageType, _ := vocabulary.DamageType(attack.DamageType)
+	immune := has(damageType.IneffectiveAgainst)
+	out := TargetEffects{Detected: detected, Reachable: reachable, CanDamage: eligible && !immune && attack.Stats.Damage > 0, Statuses: []string{}}
+	for _, status := range attack.AppliedStatuses() {
+		effect, ok := vocabulary.Effect(status.Effect)
+		strength := status.Seconds
+		if effect.Magnitude != nil {
+			strength = status.Strength()
+		}
+		if !ok || !eligible || strength <= 0 || has(effect.Immune) || (effect.Kind == KindDamageOverTime && immune) {
+			continue
+		}
+		out.Statuses = append(out.Statuses, status.Effect)
+		if effect.Kind == KindDamageOverTime {
+			out.CanDamage = true
+		}
+	}
+	sort.Strings(out.Statuses)
+	return out
 }

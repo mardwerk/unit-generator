@@ -292,11 +292,12 @@ export function CharacterSheet({
               </div>
               {stats && (
                 <StatValues
-                  changes={
-                    Object.entries(stats.base.stats)
+                  changes={[
+                    ...(Object.entries(stats.base.stats)
                       .filter(([key, value]) => value > 0 || key === 'damage')
-                      .map(([key, after]) => ({ key, after })) as StatChange[]
-                  }
+                      .map(([key, after]) => ({ key, after })) as StatChange[]),
+                    ...(stats.baseEffects ?? []),
+                  ]}
                 />
               )}
               <CardOpen

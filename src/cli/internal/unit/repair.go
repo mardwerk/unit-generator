@@ -11,6 +11,10 @@ import (
 
 var nullableEffects = []string{"slow", "burn", "camo", "delivery", "damageType", "targeting", "unlockBoost", "distribution", "followUp", "activeFollowUp"}
 
+// nullableEffectsV2 are a version 2 wire tier's nullable effects; its
+// statuses list is grouped per entry.
+var nullableEffectsV2 = []string{"detect", "delivery", "damageType", "targeting", "unlockBoost", "distribution", "followUp", "activeFollowUp"}
+
 type subset struct {
 	id   string
 	keep []string
@@ -31,7 +35,19 @@ func budgetSubsets(tier *s.Object, limit int) []subset {
 	for i := range field(tier, "boostChanges").([]any) {
 		groups = append(groups, group{fmt.Sprintf("boostChanges.%d", i), 1})
 	}
-	for _, key := range nullableEffects {
+	v2 := tier.Has("statuses")
+	nullable := nullableEffects
+	if v2 {
+		nullable = nullableEffectsV2
+		for i, status := range field(tier, "statuses").([]any) {
+			cost := 1
+			if present(status.(*s.Object), "magnitude") {
+				cost = 2
+			}
+			groups = append(groups, group{fmt.Sprintf("statuses.%d", i), cost})
+		}
+	}
+	for _, key := range nullable {
 		if present(tier, key) {
 			cost := 1
 			if key == "slow" || key == "burn" {
@@ -92,8 +108,11 @@ func budgetSubsets(tier *s.Object, limit int) []subset {
 		}
 		filter("statChanges")
 		filter("boostChanges")
-		for _, key := range nullableEffects {
-			if !kept[key] {
+		if v2 {
+			filter("statuses")
+		}
+		for _, key := range nullable {
+			if !kept[key] && (!v2 || selected.Has(key)) {
 				selected.Set(key, nil)
 			}
 		}
@@ -262,7 +281,12 @@ func TargetedTierRepair(request *Request, previous any, issues []string) (*TierR
 	for i, issue := range issues {
 		violations[i] = issue
 	}
-	prompt := []string{repairLine136, s.Stringify(context), repairLine155, CountArithmeticGuidance, repairLine157}
+	budget := repairLine155
+	if isV2(request) {
+		budget = repairBudgetV2
+	}
+	prompt := []string{repairLine136, s.Stringify(context), budget, CountArithmeticGuidance, repairLine157}
+	prompt = append(prompt, VocabularyGuidance(request)...)
 	prompt = append(prompt, DesignGuidance(request)...)
 	prompt = append(prompt, s.Stringify(s.NewObject().Set("violations", violations)))
 	return &TierRepair{

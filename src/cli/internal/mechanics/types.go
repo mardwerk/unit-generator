@@ -8,6 +8,8 @@ import (
 )
 
 // Definition is a mechanics Definition: the executable rules a unit follows.
+// Version "1" fixes damage types, targeting, Camo and slow, burn and stun;
+// version "2" declares them in Vocabulary.
 type Definition struct {
 	Version       string                `json:"version"`
 	ID            string                `json:"id"`
@@ -16,8 +18,31 @@ type Definition struct {
 	BalanceStatus string                `json:"balanceStatus"`
 	Progression   DefinitionProgression `json:"progression"`
 	Rules         Rules                 `json:"rules"`
+	Vocabulary    *Vocabulary           `json:"vocabulary,omitempty"`
 	Profile       DefinitionProfile     `json:"profile"`
 }
+
+// definitionFields has Definition's fields without its JSON methods.
+type definitionFields Definition
+
+// legacyRules are the version 1 rules a vocabulary replaces.
+var legacyRules = []string{"detection", "slowStacking", "burnStacking", "stunStacking", "damageImmunities", "slowImmune", "stunImmune"}
+
+// JSONValue writes version 1 as it always was and version 2 without the
+// fixed rules its vocabulary replaces.
+func (d Definition) JSONValue() any {
+	out := s.FromGoValue(definitionFields(d)).(*s.Object)
+	if d.IsV2() {
+		rules, _ := out.Get("rules")
+		for _, key := range legacyRules {
+			rules.(*s.Object).Delete(key)
+		}
+	}
+	return out
+}
+
+// MarshalJSON writes the Definition's JSON form.
+func (d Definition) MarshalJSON() ([]byte, error) { return []byte(s.Stringify(d.JSONValue())), nil }
 
 // DefinitionProgression is the fixed 3×5 shape and its crosspath limits.
 type DefinitionProgression struct {
@@ -222,17 +247,77 @@ type FollowUp struct {
 	InheritStatuses  bool    `json:"inheritStatuses"`
 }
 
-// Attack is the unit's automatic attack.
+// Attack is the unit's automatic attack. A version 1 attack has Camo and
+// the slow, burn and stun stats; a version 2 attack has Detects and
+// Statuses instead (both non-nil) and only the core stats.
 type Attack struct {
-	Name         string      `json:"name"`
-	Cost         float64     `json:"cost"`
-	Delivery     string      `json:"delivery"`
-	DamageType   string      `json:"damageType"`
-	Targeting    string      `json:"targeting"`
-	Camo         bool        `json:"camo"`
-	Stats        AttackStats `json:"stats"`
-	Distribution string      `json:"distribution,omitempty"`
-	FollowUp     *FollowUp   `json:"followUp,omitempty"`
+	Name         string
+	Cost         float64
+	Delivery     string
+	DamageType   string
+	Targeting    string
+	Camo         bool
+	Detects      *[]string
+	Stats        AttackStats
+	Statuses     *[]StatusApplication
+	Distribution string
+	FollowUp     *FollowUp
+}
+
+// IsV2 reports a version 2 attack.
+func (a Attack) IsV2() bool { return a.Statuses != nil }
+
+// AppliedStatuses lists the status effects the attack applies: version 2's
+// list, or version 1's slow, burn and stun in that order.
+func (a Attack) AppliedStatuses() []StatusApplication {
+	if a.IsV2() {
+		return *a.Statuses
+	}
+	st := a.Stats
+	var out []StatusApplication
+	if st.SlowPercent != 0 || st.SlowSeconds != 0 {
+		magnitude := st.SlowPercent
+		out = append(out, StatusApplication{Effect: "slow", Magnitude: &magnitude, Seconds: st.SlowSeconds})
+	}
+	if st.BurnDamagePerSecond != 0 || st.BurnSeconds != 0 {
+		magnitude := st.BurnDamagePerSecond
+		out = append(out, StatusApplication{Effect: "burn", Magnitude: &magnitude, Seconds: st.BurnSeconds})
+	}
+	if st.StunSeconds != 0 {
+		out = append(out, StatusApplication{Effect: "stun", Seconds: st.StunSeconds})
+	}
+	return out
+}
+
+// Status returns the applied status effect with the given ID.
+func (a Attack) Status(effect string) (StatusApplication, bool) {
+	for _, status := range a.AppliedStatuses() {
+		if status.Effect == effect {
+			return status, true
+		}
+	}
+	return StatusApplication{}, false
+}
+
+// DetectionTraits lists the hidden traits the attack detects.
+func (a Attack) DetectionTraits() []string {
+	if a.IsV2() {
+		return *a.Detects
+	}
+	if a.Camo {
+		return []string{"camo"}
+	}
+	return nil
+}
+
+// Detects reports whether the attack detects a hidden trait.
+func (a Attack) DetectsTrait(trait string) bool {
+	for _, t := range a.DetectionTraits() {
+		if t == trait {
+			return true
+		}
+	}
+	return false
 }
 
 // Clone copies an attack.
@@ -241,7 +326,84 @@ func (a Attack) Clone() Attack {
 		f := *a.FollowUp
 		a.FollowUp = &f
 	}
+	if a.Detects != nil {
+		detects := append([]string{}, *a.Detects...)
+		a.Detects = &detects
+	}
+	if a.Statuses != nil {
+		statuses := make([]StatusApplication, len(*a.Statuses))
+		for i, status := range *a.Statuses {
+			if status.Magnitude != nil {
+				magnitude := *status.Magnitude
+				status.Magnitude = &magnitude
+			}
+			statuses[i] = status
+		}
+		a.Statuses = &statuses
+	}
 	return a
+}
+
+// JSONValue writes the attack in its version's form, in contract key order.
+func (a Attack) JSONValue() any {
+	out := s.NewObject().Set("name", a.Name).Set("cost", a.Cost).Set("delivery", a.Delivery).
+		Set("damageType", a.DamageType).Set("targeting", a.Targeting)
+	if a.IsV2() {
+		detects := []any{}
+		for _, trait := range a.DetectionTraits() {
+			detects = append(detects, trait)
+		}
+		stats := s.NewObject()
+		for _, key := range CoreStatKeys {
+			stats.Set(key, a.Stats.Get(key))
+		}
+		out.Set("detects", detects).Set("stats", stats).Set("statuses", s.FromGoValue(*a.Statuses))
+	} else {
+		out.Set("camo", a.Camo).Set("stats", s.FromGoValue(a.Stats))
+	}
+	if a.Distribution != "" {
+		out.Set("distribution", a.Distribution)
+	}
+	if a.FollowUp != nil {
+		out.Set("followUp", s.FromGoValue(a.FollowUp))
+	}
+	return out
+}
+
+// MarshalJSON writes the attack's JSON form.
+func (a Attack) MarshalJSON() ([]byte, error) { return []byte(s.Stringify(a.JSONValue())), nil }
+
+// UnmarshalJSON reads either version; "statuses" marks version 2.
+func (a *Attack) UnmarshalJSON(data []byte) error {
+	var raw struct {
+		Name         string               `json:"name"`
+		Cost         float64              `json:"cost"`
+		Delivery     string               `json:"delivery"`
+		DamageType   string               `json:"damageType"`
+		Targeting    string               `json:"targeting"`
+		Camo         bool                 `json:"camo"`
+		Detects      *[]string            `json:"detects"`
+		Stats        AttackStats          `json:"stats"`
+		Statuses     *[]StatusApplication `json:"statuses"`
+		Distribution string               `json:"distribution"`
+		FollowUp     *FollowUp            `json:"followUp"`
+	}
+	if err := json.Unmarshal(data, &raw); err != nil {
+		return err
+	}
+	*a = Attack{
+		Name: raw.Name, Cost: raw.Cost, Delivery: raw.Delivery, DamageType: raw.DamageType, Targeting: raw.Targeting,
+		Camo: raw.Camo, Stats: raw.Stats, Distribution: raw.Distribution, FollowUp: raw.FollowUp,
+	}
+	if raw.Statuses != nil {
+		a.Statuses = raw.Statuses
+		detects := []string{}
+		if raw.Detects != nil {
+			detects = *raw.Detects
+		}
+		a.Detects = &detects
+	}
+	return nil
 }
 
 // Boost is a temporary manual boost of the purchased attack.
@@ -277,13 +439,17 @@ func (b *Boost) ptr(key string) *float64 {
 }
 
 // Change is one typed effect of an upgrade. Kind selects which fields apply:
-// stat and modifyBoost use Stat, Operation and Number; camo uses Bool;
-// delivery, damageType, targeting and distribution use Text; followUp uses
-// FollowUp; unlockBoost uses Boost.
+// stat and modifyBoost use Stat, Operation and Number; status (version 2)
+// uses Effect, Field, Operation and Number; camo uses Bool; detection
+// (version 2) uses Trait and Bool; delivery, damageType, targeting and
+// distribution use Text; followUp uses FollowUp; unlockBoost uses Boost.
 type Change struct {
 	Kind      string
 	Target    string
 	Stat      string
+	Effect    string
+	Field     string
+	Trait     string
 	Operation string
 	Number    float64
 	Bool      bool
@@ -298,6 +464,10 @@ func (c Change) JSONValue() any {
 	switch c.Kind {
 	case "stat", "modifyBoost":
 		o.Set("stat", c.Stat).Set("operation", c.Operation).Set("value", c.Number)
+	case "status":
+		o.Set("effect", c.Effect).Set("field", c.Field).Set("operation", c.Operation).Set("value", c.Number)
+	case "detection":
+		o.Set("trait", c.Trait).Set("value", c.Bool)
 	case "camo":
 		o.Set("value", c.Bool)
 	case "followUp":
@@ -319,6 +489,9 @@ func (c *Change) UnmarshalJSON(data []byte) error {
 		Kind      string          `json:"kind"`
 		Target    string          `json:"target"`
 		Stat      string          `json:"stat"`
+		Effect    string          `json:"effect"`
+		Field     string          `json:"field"`
+		Trait     string          `json:"trait"`
 		Operation string          `json:"operation"`
 		Value     json.RawMessage `json:"value"`
 		Boost     *Boost          `json:"boost"`
@@ -326,11 +499,11 @@ func (c *Change) UnmarshalJSON(data []byte) error {
 	if err := json.Unmarshal(data, &raw); err != nil {
 		return err
 	}
-	*c = Change{Kind: raw.Kind, Target: raw.Target, Stat: raw.Stat, Operation: raw.Operation, Boost: raw.Boost}
+	*c = Change{Kind: raw.Kind, Target: raw.Target, Stat: raw.Stat, Effect: raw.Effect, Field: raw.Field, Trait: raw.Trait, Operation: raw.Operation, Boost: raw.Boost}
 	switch raw.Kind {
-	case "stat", "modifyBoost":
+	case "stat", "modifyBoost", "status":
 		return json.Unmarshal(raw.Value, &c.Number)
-	case "camo":
+	case "camo", "detection":
 		return json.Unmarshal(raw.Value, &c.Bool)
 	case "followUp":
 		c.FollowUp = &FollowUp{}

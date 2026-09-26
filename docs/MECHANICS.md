@@ -18,7 +18,7 @@ The bundled Definition and Profile are built into the binary: `mardwerk-unit def
 
 ## Default authoring policy
 
-The bundled Profile (`default`) and `definition` use the authoring Definition `2026-09-25-design-v10`. Its optional `profile.designPolicy` adds design gates to the existing combat DSL. Previously saved and custom Definitions without this field retain their original validation; the policy-free combat baseline (`mechanics.DefaultDefinition`, revision `2026-09-20`) is what resolution uses when no Definition is given.
+The bundled Profile (`default`) and `definition` use the authoring Definition `2026-09-26-design-v11`, a [version 2 Definition](#profile-defined-vocabulary-version-2) whose vocabulary names the starter's slow, burn, stun, damage types, targeting and Camo detection and behaves exactly as the version 1 starter. A second read-only Profile, `stacking-example`, adds stacking poison and bleed. Its optional `profile.designPolicy` adds design gates to the existing combat DSL. Previously saved and custom Definitions without this field retain their original validation; the policy-free combat baseline (`mechanics.DefaultDefinition`, revision `2026-09-20`) is what resolution uses when no Definition is given.
 
 - Every path declares a `specialization`: `direct-damage`, `group-damage`, `attack-speed`, `control`, `range` or `ability-burst`. Broad specialties may repeat when purchasing reasons differ. The default preserves basic-attack identity through T1/T2. T3 establishes the branch commitment without requiring a new operator. T4 develops that specialization; T5 is its ultimate version. T5 can deepen existing behavior without adding another subsystem.
 - Resolved T1 behavior must differ between paths. Renaming, repricing or writing equivalent add/set/multiply expressions does not evade the check. Pure T5 builds must also differ after removing names and costs.
@@ -43,7 +43,7 @@ The compiler derives the visible role, path summaries and tier benefits from res
 
 Paths use the required object keys `path1`, `path2` and `path3`. Every path supplies required `tier1` through `tier5` keys. An upgrade has a name, positive incremental cost and one to four typed changes in the schema. The fresh Profile limits T1/T2 to three changes; the policy-free baseline applies that limit through T3. Later tiers allow four. A legal build includes every preceding tier on each selected path. The default permits at most two purchased paths. Buying T3 commits that path as the main path: the other purchased path may still buy T1 and T2, but cannot buy T3. The third path remains unavailable. If no secondary path has been purchased yet, either remaining path can fill that slot through T2. There are exactly 64 builds: the base, 15 single-path builds and 48 two-path builds. This includes `2-2-0`, all six fully developed crosspaths and intermediate purchases. Neither `3-3-0` nor `1-1-1` is legal.
 
-The base attack has a name, positive purchase cost, delivery (`projectile`, `instant`, `area` or `beam`), damage type (`sharp`, `normal`, `explosive` or `energy`), target priority (`first`, `last`, `close` or `strong`), a Camo detection flag and the following numeric stats:
+Under a version 1 Definition, the base attack has a name, positive purchase cost, delivery (`projectile`, `instant`, `area` or `beam`), damage type (`sharp`, `normal`, `explosive` or `energy`), target priority (`first`, `last`, `close` or `strong`), a Camo detection flag and the following numeric stats. A version 2 Definition keeps the first six stats and takes the rest from its [vocabulary](#profile-defined-vocabulary-version-2):
 
 | Stat | Contract |
 | --- | --- |
@@ -98,6 +98,36 @@ Control eligibility is separate from damage eligibility. The starter excludes Bl
 
 Slow uses the strongest applicable percentage and refreshes its duration. Burn uses the strongest applicable rate and refreshes its duration. Stun refreshes its duration. Reapplication does not add durations or create additive stacks. This declares an adaptation contract; the module does not schedule status ticks or resolve overlapping live actors.
 
+## Profile-defined vocabulary (version 2)
+
+A version 1 Definition fixes the lists above: seven enemy properties, four damage types and targeting modes, Camo detection, and slow, burn and stun. A Definition with `version: "2"` declares them in a `vocabulary` instead, so a Profile can define its own effects. It drops the fixed rules (`detection`, `slowStacking`, `burnStacking`, `stunStacking`, `damageImmunities`, `slowImmune`, `stunImmune`) and keeps the rest. Delivery, the operators, the progression shape and boosts stay fixed; changing those still needs an Engine change.
+
+| Vocabulary list | Entry |
+| --- | --- |
+| `enemyProperties` | `{id, name, description}`: what an enemy can be, such as Lead or Boss. |
+| `damageTypes` | `{id, name, description, ineffectiveAgainst}`: the properties this type cannot damage. |
+| `targeting` | `{id, name, description}`: a target priority. |
+| `detection` | `{id, name, description}`: a hidden trait, such as Camo. An attack targets a hidden enemy only when it detects every trait the enemy has. A trait is not also an enemy property. |
+| `statusEffects` | A status effect, below. |
+
+A status effect has an `id`, `name`, `aliases` (other words a source may use for it), a `kind`, a `description`, a `magnitude` (`{unit, min, max}`, or `null`), `maxSeconds`, `stacking` and `immune` (enemy properties it does not affect). The kinds are:
+
+| Kind | Magnitude | Meaning |
+| --- | --- | --- |
+| `moveSpeed` | Required; `percent` is at most 100 | Slows movement. |
+| `damageOverTime` | Required, in `damage/s` | Damages each second. It is damage of the attack, so the damage type's immunities also block it. |
+| `disable` | None | Stops the enemy, like a stun. |
+| `damageTaken` | Required | Makes the enemy take more damage. |
+| `custom` | Optional | Any other effect; the Engine only checks its bounds. |
+
+`stacking` is `{maxStacks, refresh, maxMagnitude}`. `refresh` is `reset` (each application resets every stack's duration), `extend` (each application adds duration, not strength) or `independent` (each stack keeps its own duration). `maxMagnitude`, when set, caps the combined magnitude of all stacks, for example a poison that stacks five times but never exceeds 10 damage/s. Validation rejects duplicate or reserved IDs (the Engine's own words, such as `damage` or `splash`), unknown property references, aliases that name two effects, a magnitude on a `disable` effect, a missing one elsewhere except on `custom`, and a `maxMagnitude` below the minimum magnitude, on an effect without a magnitude or on `extend` stacking, where it has no effect.
+
+A version 2 attack has `detects` (the traits it detects), the six core stats and `statuses`, a list of `{effect, magnitude, seconds}` sorted by effect ID; `magnitude` is absent for an effect without one. Every status needs a positive duration within `maxSeconds` and a magnitude within its bounds. Upgrades change them with `{kind: "status", target: "base", effect, field, operation, value}`, where `field` is `magnitude` or `seconds` and the operations resolve like stats, and `{kind: "detection", target: "base", trait, value}`. A status resolved to zero is removed. The damage type and targeting take vocabulary IDs. The early-identity rule and the capability budget treat each status effect and detection trait as a capability, like slow and Camo.
+
+The metrics measure stacking. A single-stack effect sustains `magnitude × min(1, seconds / interval)`. An `extend` effect gains duration, not strength. A `reset` effect whose duration covers the attack interval reaches `magnitude × maxStacks`; below that it acts once. An `independent` effect holds `magnitude × min(maxStacks, seconds / interval)`. `maxMagnitude` caps the result. Direct damage adds every damage-over-time effect this way; control reports the coverage of each movement, disable and damage-taken effect. `mechanics.Sustained(effect, status, interval)` computes this value. `AssessTargetEffects(attack, hidden, obstructed, properties, definition)` is `AssessTarget` for any Definition: it takes the target's hidden traits and returns the status effect IDs the target receives.
+
+Contract version 2 is a separate artifact version. A request, prepared request, draft, checked draft, Result and Profile carry `schemaVersion: "2"` exactly when their Definition is version 2, and each reader chooses the schema from that field. Version 1 artifacts stay readable and resolve as before. `UpgradeDefinition` translates a version 1 Definition into a version 2 one with the same limits; the tests translate every recorded version 1 blueprint and check that validity, metrics and capstone comparisons are identical. The prompts list the vocabulary with IDs, names, aliases, bounds and stacking, so the model maps source wording to an effect or reports it as unsupported.
+
 ## Checks and limits
 
 Validation checks all legal builds and every immediately preceding purchase. It rejects nonfinite or invalid stats, nonpositive intervals or ranges, fractional counts, malformed status pairs, area delivery without an area, attacks with no contribution, negative or ineffective boosts, invalid durations, forbidden early activation, missing boost prerequisites, invalid source indices, ineffective upgrades and exceeded Definition limits. Numeric multipliers must be positive. Negative additions are permitted only when every resulting legal build remains valid. Every upgrade must improve at least one supported dimension in every legal build: a larger damage, range, target count, projectile count or control magnitude/duration; a smaller attack interval; new Camo access; or an owned or improved boost. Boost interval multiplier and cooldown improve when reduced, while its other numeric fields improve when increased. Changed damage type, delivery or target priority is accepted as a potentially meaningful qualitative change. A purchase that only reduces or preserves these dimensions is rejected separately from a no-op. Splash radius does not count as a benefit when the resulting pierce remains one, because the primary target already consumes the entire target cap. An increased boost damage multiplier does not count when direct damage remains zero. These guards reject ineffective parameter changes without estimating combat balance. Mixed benefits and drawbacks are allowed; this does not establish that their tradeoff or price is balanced. Values are not rounded or clamped to hide invalid input.
@@ -108,7 +138,7 @@ The Definition fixes this version's supported arithmetic, scope, readiness and s
 
 The mechanics tests replay every recorded call of the former TypeScript implementation ([parity corpus](../testdata/parity/README.md)), covering crosspath inheritance, deterministic arithmetic, all 64 selections, invalid combinations, temporary boosts, target eligibility and design-policy metrics. Passing these checks establishes static consistency within the supplied contract. Character fidelity, strategic usefulness, runtime implementation and game-wide balance require separate evidence and review.
 
-The bundled rules document `default-td-profile-v10` uses a 1-health enemy layer and Dart reference values of 200 Gold, 1 damage, a 0.95-second interval, 32 range and 2 pierce. Dart top-path incremental prices are 140, 200, 320, 1,800 and 15,000 Gold. Boomerang provides a second reference: 315 Gold, 1 damage, 4 pierce, a 1.2-second interval and 43 range. These guide proposed values rather than fixing every character's kit.
+The bundled rules document `default-td-profile-v11` uses a 1-health enemy layer and Dart reference values of 200 Gold, 1 damage, a 0.95-second interval, 32 range and 2 pierce. Dart top-path incremental prices are 140, 200, 320, 1,800 and 15,000 Gold. Boomerang provides a second reference: 315 Gold, 1 damage, 4 pierce, a 1.2-second interval and 43 range. These guide proposed values rather than fixing every character's kit.
 
 Gold is the user's label for BTD6-like cash. Health is the shared player life pool, with a 150-Health starter assumption. Units have no HP. The 1-health layer and life pool are design references; enemy layer trees, leak simulation and runtime durability were not added.
 

@@ -45,8 +45,12 @@ func pureSelection(index, tier int) m.Selection {
 	return sel
 }
 
-// AttackDescription describes a resolved attack for players.
-func AttackDescription(attack m.Attack) string {
+// AttackDescription describes a resolved version 1 attack for players.
+func AttackDescription(attack m.Attack) string { return attackDescription(attack, nil) }
+
+// attackDescription describes an attack; version 2 statuses take their
+// names and units from the vocabulary.
+func attackDescription(attack m.Attack, vocabulary *m.Vocabulary) string {
 	st := attack.Stats
 	hit := "pulse"
 	if attack.Delivery == "projectile" {
@@ -65,26 +69,89 @@ func AttackDescription(attack m.Attack) string {
 	if st.SplashRadius != 0 && !math.IsNaN(st.SplashRadius) {
 		effects = append(effects, num(st.SplashRadius)+" map-unit splash radius")
 	}
-	if st.SlowPercent != 0 && !math.IsNaN(st.SlowPercent) {
-		effects = append(effects, fmt.Sprintf("%s%% slow for %s s", num(st.SlowPercent), num(st.SlowSeconds)))
-	}
-	if st.BurnDamagePerSecond != 0 && !math.IsNaN(st.BurnDamagePerSecond) {
-		effects = append(effects, fmt.Sprintf("%s burn damage/s for %s s", num(st.BurnDamagePerSecond), num(st.BurnSeconds)))
-	}
-	if st.StunSeconds != 0 && !math.IsNaN(st.StunSeconds) {
-		effects = append(effects, num(st.StunSeconds)+" s stun")
+	if attack.IsV2() {
+		for _, status := range attack.AppliedStatuses() {
+			effects = append(effects, statusText(status, vocabulary))
+		}
+	} else {
+		if st.SlowPercent != 0 && !math.IsNaN(st.SlowPercent) {
+			effects = append(effects, fmt.Sprintf("%s%% slow for %s s", num(st.SlowPercent), num(st.SlowSeconds)))
+		}
+		if st.BurnDamagePerSecond != 0 && !math.IsNaN(st.BurnDamagePerSecond) {
+			effects = append(effects, fmt.Sprintf("%s burn damage/s for %s s", num(st.BurnDamagePerSecond), num(st.BurnSeconds)))
+		}
+		if st.StunSeconds != 0 && !math.IsNaN(st.StunSeconds) {
+			effects = append(effects, num(st.StunSeconds)+" s stun")
+		}
 	}
 	if attack.FollowUp != nil {
-		effects = append(effects, FollowUpDescription(*attack.FollowUp))
+		effects = append(effects, followUpDescription(*attack.FollowUp, attack.IsV2()))
 	}
 	return strings.Join(effects, "; ") + "."
 }
 
-// FollowUpDescription describes a bounded follow-up.
-func FollowUpDescription(effect m.FollowUp) string {
+// effectOf is a status effect's vocabulary entry, or a bare one named by ID.
+func effectOf(id string, vocabulary *m.Vocabulary) m.StatusEffect {
+	if vocabulary != nil {
+		if effect, ok := vocabulary.Effect(id); ok {
+			return effect
+		}
+	}
+	return m.StatusEffect{ID: id, Name: id, Stacking: m.Stacking{MaxStacks: 1}}
+}
+
+// termName is a vocabulary term's name, or its ID.
+func termName(id string, terms []m.Term) string {
+	for _, term := range terms {
+		if term.ID == id && term.Name != "" {
+			return term.Name
+		}
+	}
+	return id
+}
+
+// magnitudeText writes a magnitude with its unit: "30%" or "5 damage/s".
+func magnitudeText(value float64, effect m.StatusEffect) string {
+	if effect.Magnitude == nil || effect.Magnitude.Unit == "percent" {
+		return num(value) + "%"
+	}
+	return num(value) + " " + effect.Magnitude.Unit
+}
+
+// statusText describes an applied status effect, with its stacking.
+func statusText(status m.StatusApplication, vocabulary *m.Vocabulary) string {
+	effect := effectOf(status.Effect, vocabulary)
+	text := num(status.Seconds) + " s " + effect.Name
+	if status.Magnitude != nil {
+		text = fmt.Sprintf("%s %s for %s s", magnitudeText(*status.Magnitude, effect), effect.Name, num(status.Seconds))
+	}
+	if stacks := effect.Stacking.MaxStacks; stacks > 1 {
+		refresh := map[string]string{
+			m.RefreshReset:       "each hit restarts every stack",
+			m.RefreshExtend:      "each hit extends the duration",
+			m.RefreshIndependent: "each stack lasts on its own",
+		}[effect.Stacking.Refresh]
+		text += fmt.Sprintf(", stacking up to %d times (%s)", stacks, refresh)
+	}
+	if limit := effect.Stacking.MaxMagnitude; limit != nil {
+		text += ", at most " + magnitudeText(*limit, effect) + " combined"
+	}
+	return text
+}
+
+// FollowUpDescription describes a bounded follow-up of a version 1 attack.
+func FollowUpDescription(effect m.FollowUp) string { return followUpDescription(effect, false) }
+
+func followUpDescription(effect m.FollowUp, v2 bool) string {
 	inherit := "No inherited burn, slow or stun."
 	if effect.InheritStatuses {
 		inherit = "Inherits purchased burn, slow and stun."
+	}
+	if v2 {
+		inherit = "No inherited status effects."
+		if effect.InheritStatuses {
+			inherit = "Inherits the purchased status effects."
+		}
 	}
 	return fmt.Sprintf("%s: after a primary volley hits, strike up to %s other detected enemies within %s map units of the primary impact, nearest first, once each for %sx the purchased hit damage. Excludes every enemy hit by the primary volley. %s Same damage type and clear-path requirement; no inherited splash, pierce, additional volleys or recursive follow-ups",
 		effect.Name, s.FormatNumber(effect.Count), num(effect.Radius), num(effect.DamageMultiplier), inherit)
@@ -110,13 +177,18 @@ func operationDescription(c m.Change) string {
 	return "set baseline to " + num(c.Number)
 }
 
-func changeDescriptions(changes []m.Change, before, after m.ResolvedBuild) []string {
+func changeDescriptions(changes []m.Change, before, after m.ResolvedBuild, vocabulary *m.Vocabulary) []string {
 	var order []string
 	groups := map[string][]m.Change{}
 	for _, c := range changes {
 		key := c.Kind + "." + c.Target
-		if c.Kind == "stat" || c.Kind == "modifyBoost" {
+		switch c.Kind {
+		case "stat", "modifyBoost":
 			key = c.Kind + "." + c.Stat
+		case "status":
+			key = c.Kind + "." + c.Effect + "." + c.Field
+		case "detection":
+			key = c.Kind + "." + c.Trait
 		}
 		if _, ok := groups[key]; !ok {
 			order = append(order, key)
@@ -129,7 +201,7 @@ func changeDescriptions(changes []m.Change, before, after m.ResolvedBuild) []str
 		change := group[len(group)-1]
 		var effects []string
 		for _, entry := range group {
-			if entry.Kind == "stat" || entry.Kind == "modifyBoost" {
+			if entry.Kind == "stat" || entry.Kind == "modifyBoost" || entry.Kind == "status" {
 				effects = append(effects, operationDescription(entry))
 			}
 		}
@@ -141,6 +213,26 @@ func changeDescriptions(changes []m.Change, before, after m.ResolvedBuild) []str
 				label = "pulses per attack"
 			}
 			out = append(out, fmt.Sprintf("%s %s to %s (%s)", label, num(before.BaseAttack.Stats.Get(change.Stat)), num(after.BaseAttack.Stats.Get(change.Stat)), joined))
+		case "status":
+			effect := effectOf(change.Effect, vocabulary)
+			prior, _ := before.BaseAttack.Status(change.Effect)
+			next, _ := after.BaseAttack.Status(change.Effect)
+			if change.Field == "magnitude" {
+				out = append(out, fmt.Sprintf("%s %s to %s (%s)", effect.Name, magnitudeText(prior.Strength(), effect), magnitudeText(next.Strength(), effect), joined))
+			} else {
+				out = append(out, fmt.Sprintf("%s duration (s) %s to %s (%s)", effect.Name, num(prior.Seconds), num(next.Seconds), joined))
+			}
+		case "detection":
+			var terms []m.Term
+			if vocabulary != nil {
+				terms = vocabulary.Detection
+			}
+			name := termName(change.Trait, terms)
+			if change.Bool {
+				out = append(out, "Detect "+name+" enemies; delivery still requires a clear path")
+			} else {
+				out = append(out, "Remove "+name+" detection")
+			}
 		case "unlockBoost":
 			out = append(out, "Unlock "+change.Boost.Name)
 		case "followUp":
@@ -148,7 +240,7 @@ func changeDescriptions(changes []m.Change, before, after m.ResolvedBuild) []str
 			if change.Target == "boost" {
 				prefix = "While the manual boost is active only: "
 			}
-			out = append(out, prefix+FollowUpDescription(*change.FollowUp))
+			out = append(out, prefix+followUpDescription(*change.FollowUp, after.BaseAttack.IsV2()))
 		case "distribution":
 			if change.Text == "distinct-targets" {
 				out = append(out, "Volley now targets distinct detected enemies in range, primary first then nearest to the primary; one projectile per target, unused shots are lost")
@@ -192,11 +284,27 @@ func attackField(a m.Attack, kind string) string {
 func UnitSummary(attack m.Attack, definition m.Definition) string {
 	shape := map[string]string{"projectile": "projectile", "instant": "instant-hit", "area": "area", "beam": "pulsed beam"}[attack.Delivery]
 	limits := []string{"Requires a clear delivery path."}
-	if !attack.Camo {
-		limits = append(limits, "Starts without Camo detection.")
-	}
-	if immunities := definition.Rules.DamageImmunities.For(attack.DamageType); len(immunities) > 0 {
-		limits = append(limits, "Base damage cannot affect "+strings.Join(immunities, ", ")+" enemies.")
+	if attack.IsV2() && definition.IsV2() {
+		vocabulary := definition.Vocabulary
+		for _, trait := range vocabulary.Detection {
+			if !attack.DetectsTrait(trait.ID) {
+				limits = append(limits, "Starts without "+trait.Name+" detection.")
+			}
+		}
+		if damageType, ok := vocabulary.DamageType(attack.DamageType); ok && len(damageType.IneffectiveAgainst) > 0 {
+			var names []string
+			for _, property := range damageType.IneffectiveAgainst {
+				names = append(names, termName(property, vocabulary.EnemyProperties))
+			}
+			limits = append(limits, "Base damage cannot affect "+strings.Join(names, ", ")+" enemies.")
+		}
+	} else {
+		if !attack.Camo {
+			limits = append(limits, "Starts without Camo detection.")
+		}
+		if immunities := definition.Rules.DamageImmunities.For(attack.DamageType); len(immunities) > 0 {
+			limits = append(limits, "Base damage cannot affect "+strings.Join(immunities, ", ")+" enemies.")
+		}
 	}
 	targets := "Multiple-target"
 	if attack.Stats.Pierce == 1 {
@@ -205,8 +313,61 @@ func UnitSummary(attack m.Attack, definition m.Definition) string {
 	return fmt.Sprintf("%s %s attacker. %s", targets, shape, strings.Join(limits, " "))
 }
 
-// PathSummary describes what a pure tier 5 build changes.
-func PathSummary(base m.Attack, build m.ResolvedBuild) string {
+// PathSummary describes what a pure tier 5 build of a version 1 unit changes.
+func PathSummary(base m.Attack, build m.ResolvedBuild) string { return pathSummary(base, build, nil) }
+
+// statusSummary names a version 2 path's status gains and losses: control
+// kinds read as enemy control, damage over time and other kinds by name.
+func statusSummary(base, after m.Attack, vocabulary *m.Vocabulary) (gains, losses []string) {
+	control := func(kind string) bool {
+		return kind == m.KindMoveSpeed || kind == m.KindDisable
+	}
+	var gainedControl, lostControl bool
+	seen := map[string]bool{}
+	for _, status := range append(base.AppliedStatuses(), after.AppliedStatuses()...) {
+		if seen[status.Effect] {
+			continue
+		}
+		seen[status.Effect] = true
+		effect := effectOf(status.Effect, vocabulary)
+		prior, _ := base.Status(status.Effect)
+		next, _ := after.Status(status.Effect)
+		up := next.Strength() > prior.Strength() || next.Seconds > prior.Seconds
+		down := next.Strength() < prior.Strength() || next.Seconds < prior.Seconds
+		switch {
+		case control(effect.Kind):
+			gainedControl = gainedControl || up
+			lostControl = lostControl || down
+		case up:
+			gains = append(gains, strings.ToLower(effect.Name))
+		case down:
+			losses = append(losses, "reduced "+strings.ToLower(effect.Name))
+		}
+	}
+	if gainedControl {
+		gains = append([]string{"enemy control"}, gains...)
+	}
+	if lostControl {
+		losses = append([]string{"reduced enemy control"}, losses...)
+	}
+	var terms []m.Term
+	if vocabulary != nil {
+		terms = vocabulary.Detection
+	}
+	for _, trait := range after.DetectionTraits() {
+		if !base.DetectsTrait(trait) {
+			gains = append(gains, termName(trait, terms)+" detection")
+		}
+	}
+	for _, trait := range base.DetectionTraits() {
+		if !after.DetectsTrait(trait) {
+			losses = append(losses, "loss of "+termName(trait, terms)+" detection")
+		}
+	}
+	return gains, losses
+}
+
+func pathSummary(base m.Attack, build m.ResolvedBuild, vocabulary *m.Vocabulary) string {
 	after := build.BaseAttack
 	a, b := after.Stats, base.Stats
 	var changed []string
@@ -238,14 +399,19 @@ func PathSummary(base m.Attack, build m.ResolvedBuild) string {
 	if a.Range > b.Range {
 		changed = append(changed, "longer reach")
 	}
-	if a.SlowPercent > b.SlowPercent || a.SlowSeconds > b.SlowSeconds || a.StunSeconds > b.StunSeconds {
-		changed = append(changed, "enemy control")
-	}
-	if a.BurnDamagePerSecond > b.BurnDamagePerSecond || a.BurnSeconds > b.BurnSeconds {
-		changed = append(changed, "burn damage")
-	}
-	if after.Camo && !base.Camo {
-		changed = append(changed, "Camo detection")
+	statusGains, statusLosses := statusSummary(base, after, vocabulary)
+	if after.IsV2() {
+		changed = append(changed, statusGains...)
+	} else {
+		if a.SlowPercent > b.SlowPercent || a.SlowSeconds > b.SlowSeconds || a.StunSeconds > b.StunSeconds {
+			changed = append(changed, "enemy control")
+		}
+		if a.BurnDamagePerSecond > b.BurnDamagePerSecond || a.BurnSeconds > b.BurnSeconds {
+			changed = append(changed, "burn damage")
+		}
+		if after.Camo && !base.Camo {
+			changed = append(changed, "Camo detection")
+		}
 	}
 	if after.DamageType != base.DamageType {
 		changed = append(changed, after.DamageType+" damage")
@@ -279,14 +445,18 @@ func PathSummary(base m.Attack, build m.ResolvedBuild) string {
 	if a.SplashRadius < b.SplashRadius {
 		drawbacks = append(drawbacks, "smaller splash area")
 	}
-	if a.SlowPercent < b.SlowPercent || a.SlowSeconds < b.SlowSeconds || a.StunSeconds < b.StunSeconds {
-		drawbacks = append(drawbacks, "reduced enemy control")
-	}
-	if a.BurnDamagePerSecond < b.BurnDamagePerSecond || a.BurnSeconds < b.BurnSeconds {
-		drawbacks = append(drawbacks, "reduced burn damage")
-	}
-	if base.Camo && !after.Camo {
-		drawbacks = append(drawbacks, "loss of Camo detection")
+	if after.IsV2() {
+		drawbacks = append(drawbacks, statusLosses...)
+	} else {
+		if a.SlowPercent < b.SlowPercent || a.SlowSeconds < b.SlowSeconds || a.StunSeconds < b.StunSeconds {
+			drawbacks = append(drawbacks, "reduced enemy control")
+		}
+		if a.BurnDamagePerSecond < b.BurnDamagePerSecond || a.BurnSeconds < b.BurnSeconds {
+			drawbacks = append(drawbacks, "reduced burn damage")
+		}
+		if base.Camo && !after.Camo {
+			drawbacks = append(drawbacks, "loss of Camo detection")
+		}
 	}
 	out := strings.ToUpper(text[:1]) + text[1:] + "."
 	if len(drawbacks) > 0 {
@@ -322,6 +492,10 @@ func CompileBlueprint(blueprint m.Blueprint, request Request) (Candidate, error)
 		return Candidate{}, &m.ValidationError{Issues: issues}
 	}
 	resolve := func(sel m.Selection) m.ResolvedBuild { return m.WithTierDeltas(&blueprint, sel) }
+	var vocabulary *m.Vocabulary
+	if definition.IsV2() {
+		vocabulary = definition.Vocabulary
+	}
 	rule := ruleDoc.ID
 	var docIDs []string
 	for _, fact := range blueprint.SourceFacts {
@@ -380,13 +554,13 @@ func CompileBlueprint(blueprint m.Blueprint, request Request) (Candidate, error)
 			}
 			tiers = append(tiers, CandidateTier{
 				Tier: level, Name: tier.Name, Status: "proposed", DecisionRefs: []string{},
-				Benefit:    fmt.Sprintf("%s %s. %s.", num(tier.Cost), definition.Profile.Currency, strings.Join(changeDescriptions(tier.Changes, before, after), "; ")),
+				Benefit:    fmt.Sprintf("%s %s. %s.", num(tier.Cost), definition.Profile.Currency, strings.Join(changeDescriptions(tier.Changes, before, after, vocabulary), "; ")),
 				AbilityIDs: abilityIDs, Evidence: pathEvidence,
 			})
 		}
 		paths = append(paths, CandidatePath{
 			ID: pathID, Name: path.Name,
-			Theme: PathSummary(blueprint.BaseAttack, resolve(pureSelection(index, 5))),
+			Theme: pathSummary(blueprint.BaseAttack, resolve(pureSelection(index, 5)), vocabulary),
 			Tiers: tiers,
 		})
 	}
@@ -482,20 +656,41 @@ func CompileBlueprint(blueprint m.Blueprint, request Request) (Candidate, error)
 			Evidence: []string{source.DocumentID},
 		})
 	}
-	camo := "cannot detect camo"
+	detection := "; cannot detect camo"
 	if blueprint.BaseAttack.Camo {
-		camo = "detects camo"
+		detection = "; detects camo"
+	}
+	damageType := blueprint.BaseAttack.DamageType
+	if vocabulary != nil {
+		detection = ""
+		var detected, missing []string
+		for _, trait := range vocabulary.Detection {
+			if blueprint.BaseAttack.DetectsTrait(trait.ID) {
+				detected = append(detected, trait.Name)
+			} else {
+				missing = append(missing, trait.Name)
+			}
+		}
+		if len(detected) > 0 {
+			detection += "; detects " + strings.Join(detected, ", ")
+		}
+		if len(missing) > 0 {
+			detection += "; cannot detect " + strings.Join(missing, ", ")
+		}
+		if t, ok := vocabulary.DamageType(damageType); ok {
+			damageType = t.Name
+		}
 	}
 	bp := blueprint
 	candidate := Candidate{
-		SchemaVersion: "1",
+		SchemaVersion: VersionOf(&definition),
 		Character:     request.Character,
 		Role:          UnitSummary(blueprint.BaseAttack, definition),
 		BasicAttack: BasicAttack{
 			Name: blueprint.BaseAttack.Name, Status: "proposed", DecisionRefs: []string{},
-			Behavior:    fmt.Sprintf("Placement: %s %s. %s", num(blueprint.BaseAttack.Cost), definition.Profile.Currency, AttackDescription(blueprint.BaseAttack)),
-			Delivery:    fmt.Sprintf("%s; %s damage; clear delivery path required.", blueprint.BaseAttack.Delivery, blueprint.BaseAttack.DamageType),
-			Targeting:   fmt.Sprintf("%s; %s.", blueprint.BaseAttack.Targeting, camo),
+			Behavior:    fmt.Sprintf("Placement: %s %s. %s", num(blueprint.BaseAttack.Cost), definition.Profile.Currency, attackDescription(blueprint.BaseAttack, vocabulary)),
+			Delivery:    fmt.Sprintf("%s; %s damage; clear delivery path required.", blueprint.BaseAttack.Delivery, damageType),
+			Targeting:   fmt.Sprintf("%s%s.", blueprint.BaseAttack.Targeting, detection),
 			Limitations: limitations, MechanicIDs: []string{"dsl-attack"}, Evidence: evidence,
 		},
 		Paths:                paths,
@@ -513,5 +708,5 @@ func CompileBlueprint(blueprint m.Blueprint, request Request) (Candidate, error)
 // ParseCandidate validates a candidate value and decodes it.
 func ParseCandidate(value any) (Candidate, error) {
 	var c Candidate
-	return c, s.ParseInto(CandidateSchema, value, &c)
+	return c, s.ParseInto(Versioned(value, CandidateSchema, CandidateSchemaV2), value, &c)
 }

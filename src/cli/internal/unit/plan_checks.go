@@ -81,12 +81,46 @@ var unlockCapabilities = map[string]bool{
 	"distinct-volley": true, "splash": true, "slow": true, "burn": true, "stun": true,
 }
 
-func minimumEffects(intent UpgradeIntent) int {
+// coreUnlocks and corePromises are the promises every Definition shares; a
+// version 2 Definition adds its status effects and detection traits.
+var (
+	coreUnlocks = map[string]bool{
+		"none": true, "manual-boost": true, "follow-up": true, "active-follow-up": true, "distinct-volley": true,
+		"splash": true, "delivery-change": true, "damage-type-change": true, "targeting-change": true,
+	}
+	corePromises = map[string]bool{
+		"damage": true, "attack-rate": true, "range": true, "pierce": true, "projectiles": true, "splash": true,
+		"follow-up": true, "active-damage": true, "active-attack-rate": true, "active-duration": true, "active-frequency": true,
+	}
+)
+
+// isCapabilityUnlock reports an unlock that adds a capability, which a path
+// can unlock only once. Changing delivery, damage type or targeting is not one.
+func isCapabilityUnlock(d m.Definition, unlock string) bool {
+	if !d.IsV2() {
+		return unlockCapabilities[unlock]
+	}
+	switch unlock {
+	case "none", "delivery-change", "damage-type-change", "targeting-change":
+		return false
+	}
+	return true
+}
+
+func minimumEffects(intent UpgradeIntent, d m.Definition) int {
 	effects := map[string]int{}
 	add := func(key string) {
-		if key == "slow" || key == "burn" {
+		switch {
+		case !d.IsV2() && (key == "slow" || key == "burn"):
 			effects[key] = 2
-		} else {
+		case d.IsV2() && !corePromises[key] && !coreUnlocks[key]:
+			// A status with a magnitude needs a magnitude and a duration change.
+			if effect, ok := d.Vocabulary.Effect(key); ok && effect.Magnitude != nil {
+				effects[key] = 2
+			} else {
+				effects[key] = 1
+			}
+		default:
 			effects[key] = 1
 		}
 	}
@@ -146,7 +180,7 @@ func PlanFeasibilityIssues(plan DesignPlan, definition m.Definition) []m.Issue {
 			if needsBoost && (index+1 < boostTier || intents.At(boostTier).Unlock != "manual-boost") {
 				report(fmt.Sprintf("Active improvements and active-follow-up require an explicitly planned same-path manual-boost at %s. The base attack and another path's boost cannot supply it.", boostKey))
 			}
-			if unlockCapabilities[intent.Unlock] {
+			if isCapabilityUnlock(definition, intent.Unlock) {
 				if previous, ok := unlocked[intent.Unlock]; ok {
 					report(fmt.Sprintf("Cannot unlock %s again after %s on the same path without a disable intent. Describe development of the existing capability as an improvement.", intent.Unlock, previous))
 				} else {
@@ -158,8 +192,12 @@ func PlanFeasibilityIssues(plan DesignPlan, definition m.Definition) []m.Issue {
 			if index+1 <= profile.EarlyThrough() {
 				limit = min(profile.EarlyTierMaxChanges, profile.MaxChangesPerTier)
 			}
-			if minimum := minimumEffects(*intent); minimum > limit {
-				report(fmt.Sprintf("These promises require at least %d primitive effects, exceeding the Definition's %d-effect budget. Slow and burn each require two wire stat changes; overlapping improvements and unlocks are counted once. Reduce the promised dimensions or move a purchase to another tier.", minimum, limit))
+			if minimum := minimumEffects(*intent, definition); minimum > limit {
+				pairs := "Slow and burn each require two wire stat changes"
+				if definition.IsV2() {
+					pairs = "A status effect with a magnitude requires two changes, magnitude and duration"
+				}
+				report(fmt.Sprintf("These promises require at least %d primitive effects, exceeding the Definition's %d-effect budget. %s; overlapping improvements and unlocks are counted once. Reduce the promised dimensions or move a purchase to another tier.", minimum, limit, pairs))
 			}
 		}
 	}
@@ -171,6 +209,10 @@ func PlanFeasibilityIssues(plan DesignPlan, definition m.Definition) []m.Issue {
 func measures(build m.Build, path string, dimension string) []float64 {
 	attack := build.BaseAttack
 	st := attack.Stats
+	if attack.IsV2() && !corePromises[dimension] {
+		status, _ := attack.Status(dimension)
+		return []float64{status.Strength(), status.Seconds}
+	}
 	var active *m.ResolvedAbility
 	for i := range build.Abilities {
 		if build.Abilities[i].Path == path {
@@ -253,6 +295,14 @@ func hasAbility(build m.Build, path string, withFollowUp bool) bool {
 func unlockedIntent(before, after m.Build, intent string, pathIndex, tier int, blueprint *m.Blueprint, definition m.Definition) bool {
 	a, b := before.BaseAttack, after.BaseAttack
 	path := m.PathKeys[pathIndex]
+	if b.IsV2() && !coreUnlocks[intent] {
+		if !a.DetectsTrait(intent) && b.DetectsTrait(intent) {
+			return true
+		}
+		_, had := a.Status(intent)
+		_, has := b.Status(intent)
+		return !had && has
+	}
 	switch intent {
 	case "none":
 		return true

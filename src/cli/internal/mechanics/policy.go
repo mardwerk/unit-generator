@@ -13,56 +13,130 @@ func atLeast(value, minimum float64) bool {
 	return value >= minimum || math.Abs(value-minimum) <= 1e-12*math.Max(1, minimum)
 }
 
-func directDamage(attack Attack) float64 {
+// Sustained is an effect's combined magnitude when an attack reapplies it
+// every interval. Resetting stacks build up to the limit once the duration
+// covers the interval; independent stacks are limited by duration over
+// interval; extending adds duration, not magnitude. The stacked cap, when
+// set, bounds the total. With one stack this is magnitude × uptime.
+func Sustained(effect StatusEffect, status StatusApplication, interval float64) float64 {
+	ratio := status.Seconds / interval
+	stacks := float64(effect.Stacking.MaxStacks)
+	var total float64
+	switch {
+	case stacks <= 1 || effect.Stacking.Refresh == RefreshExtend:
+		total = status.Strength() * math.Min(1, ratio)
+	case effect.Stacking.Refresh == RefreshReset && ratio >= 1:
+		total = status.Strength() * stacks
+	default:
+		total = status.Strength() * math.Min(stacks, ratio)
+	}
+	if limit := effect.Stacking.MaxMagnitude; limit != nil {
+		total = math.Min(total, *limit)
+	}
+	return total
+}
+
+// damageOverTime is the sustained damage per second of a version 2
+// attack's damage-over-time effects.
+func damageOverTime(attack Attack, vocabulary *Vocabulary) float64 {
+	total := 0.0
+	if vocabulary == nil {
+		return total
+	}
+	for _, status := range attack.AppliedStatuses() {
+		if effect, ok := vocabulary.Effect(status.Effect); ok && effect.Kind == KindDamageOverTime {
+			total += Sustained(effect, status, attack.Stats.IntervalSeconds)
+		}
+	}
+	return total
+}
+
+func directDamage(attack Attack, vocabulary *Vocabulary) float64 {
 	st := attack.Stats
 	count := st.Projectiles
 	if attack.Distribution == "distinct-targets" {
 		count = 1
 	}
+	if attack.IsV2() {
+		return (st.Damage*count)/st.IntervalSeconds + damageOverTime(attack, vocabulary)
+	}
 	return (st.Damage*count)/st.IntervalSeconds + st.BurnDamagePerSecond*math.Min(1, st.BurnSeconds/st.IntervalSeconds)
 }
 
-func groupDamage(attack Attack) float64 {
+func groupDamage(attack Attack, vocabulary *Vocabulary) float64 {
 	st := attack.Stats
 	spread := 1.0
 	if attack.Distribution == "distinct-targets" {
 		spread = st.Projectiles
 	}
-	direct := directDamage(attack) * st.Pierce * spread
+	direct := directDamage(attack, vocabulary) * st.Pierce * spread
 	secondary := 0.0
 	if f := attack.FollowUp; f != nil {
 		inherited := 0.0
 		if f.InheritStatuses {
-			inherited = st.BurnDamagePerSecond * math.Min(1, st.BurnSeconds/st.IntervalSeconds)
+			if attack.IsV2() {
+				inherited = damageOverTime(attack, vocabulary)
+			} else {
+				inherited = st.BurnDamagePerSecond * math.Min(1, st.BurnSeconds/st.IntervalSeconds)
+			}
 		}
 		secondary = f.Count * ((st.Damage*f.DamageMultiplier)/st.IntervalSeconds + inherited)
 	}
 	return direct + secondary
 }
 
-// SpecialtyMetrics are capacity heuristics for a pure build, in insertion order.
+// SpecialtyMetrics are capacity heuristics for a pure build, in insertion
+// order, for version 1 builds. Version 2 builds need their vocabulary:
+// see SpecialtyMetricsWith.
 func SpecialtyMetrics(build Build, specialization string) *s.Object {
+	return SpecialtyMetricsWith(build, specialization, nil)
+}
+
+// SpecialtyMetricsWith measures a build with its Definition's vocabulary.
+// Control counts every movement, disable and damage-taken effect of the
+// vocabulary, zero when the attack does not apply it.
+func SpecialtyMetricsWith(build Build, specialization string, vocabulary *Vocabulary) *s.Object {
 	st := build.BaseAttack.Stats
 	out := s.NewObject()
 	switch specialization {
 	case "direct-damage":
-		out.Set("direct damage rate", directDamage(build.BaseAttack))
+		out.Set("direct damage rate", directDamage(build.BaseAttack, vocabulary))
 	case "group-damage":
-		out.Set("group damage rate upper bound", groupDamage(build.BaseAttack))
+		out.Set("group damage rate upper bound", groupDamage(build.BaseAttack, vocabulary))
 	case "attack-speed":
 		out.Set("attacks per second", 1/st.IntervalSeconds)
 	case "range":
 		out.Set("range", st.Range)
 	case "control":
-		out.Set("slow coverage upper bound", st.SlowPercent*math.Min(1, st.SlowSeconds/st.IntervalSeconds)*st.Pierce)
-		out.Set("stun coverage upper bound", math.Min(1, st.StunSeconds/st.IntervalSeconds)*st.Pierce)
+		if !build.BaseAttack.IsV2() {
+			out.Set("slow coverage upper bound", st.SlowPercent*math.Min(1, st.SlowSeconds/st.IntervalSeconds)*st.Pierce)
+			out.Set("stun coverage upper bound", math.Min(1, st.StunSeconds/st.IntervalSeconds)*st.Pierce)
+			break
+		}
+		if vocabulary == nil {
+			break
+		}
+		for _, effect := range vocabulary.StatusEffects {
+			if effect.Kind != KindMoveSpeed && effect.Kind != KindDisable && effect.Kind != KindDamageTaken {
+				continue
+			}
+			coverage := 0.0
+			if status, ok := build.BaseAttack.Status(effect.ID); ok {
+				if effect.Kind == KindDisable {
+					coverage = math.Min(1, status.Seconds/st.IntervalSeconds)
+				} else {
+					coverage = Sustained(effect, status, st.IntervalSeconds)
+				}
+			}
+			out.Set(effect.ID+" coverage upper bound", coverage*st.Pierce)
+		}
 	case "ability-burst":
 		if len(build.Abilities) == 0 {
 			return out
 		}
 		a := build.Abilities[0]
-		out.Set("active peak direct damage rate", directDamage(a.BoostedAttack))
-		out.Set("active peak group damage rate upper bound", groupDamage(a.BoostedAttack))
+		out.Set("active peak direct damage rate", directDamage(a.BoostedAttack, vocabulary))
+		out.Set("active peak group damage rate upper bound", groupDamage(a.BoostedAttack, vocabulary))
 		out.Set("active duty fraction", math.Min(1, a.DurationSeconds/a.CooldownSeconds))
 	}
 	return out
@@ -76,6 +150,13 @@ func attackBehavior(attack Attack) []any {
 	var follow any
 	if f := attack.FollowUp; f != nil {
 		follow = []any{f.Count, f.DamageMultiplier, f.Radius, f.InheritStatuses}
+	}
+	if attack.IsV2() {
+		out := []any{attack.Delivery, attack.DamageType, attack.Targeting, s.FromGoValue(attack.DetectionTraits()), distribution, follow}
+		for _, stat := range CoreStatKeys {
+			out = append(out, attack.Stats.Get(stat))
+		}
+		return append(out, s.FromGoValue(attack.AppliedStatuses()))
 	}
 	out := []any{attack.Delivery, attack.DamageType, attack.Targeting, attack.Camo, distribution, follow}
 	for _, stat := range StatKeys {
@@ -105,6 +186,13 @@ func HasBehaviorTransition(before, after Build) bool {
 	for _, key := range []string{"splashRadius", "slowPercent", "burnDamagePerSecond", "stunSeconds"} {
 		if a.Stats.Get(key) == 0 && b.Stats.Get(key) > 0 {
 			return true
+		}
+	}
+	if b.IsV2() {
+		for _, status := range b.AppliedStatuses() {
+			if _, ok := a.Status(status.Effect); !ok {
+				return true
+			}
 		}
 	}
 	for _, ability := range after.Abilities {
@@ -209,8 +297,9 @@ func DesignPolicyIssues(blueprint *Blueprint, definition Definition) []Issue {
 			continue
 		}
 		minimum := *policy.MinTier5SpecialtyMultiplier
-		before := SpecialtyMetrics(tier4, specialization)
-		after := SpecialtyMetrics(tier5, specialization)
+		vocabulary := definition.Terms()
+		before := SpecialtyMetricsWith(tier4, specialization, &vocabulary)
+		after := SpecialtyMetricsWith(tier5, specialization, &vocabulary)
 		type ratio struct {
 			metric string
 			value  float64
@@ -265,15 +354,19 @@ func DesignPolicyIssues(blueprint *Blueprint, definition Definition) []Issue {
 
 func finite(x float64) bool { return !math.IsNaN(x) && !math.IsInf(x, 0) }
 
-// PurchaseMetrics are analytic capacities of a build, not measured combat output.
-func PurchaseMetrics(build Build) *s.Object {
+// PurchaseMetrics are analytic capacities of a version 1 build, not
+// measured combat output. Version 2 builds use PurchaseMetricsWith.
+func PurchaseMetrics(build Build) *s.Object { return PurchaseMetricsWith(build, nil) }
+
+// PurchaseMetricsWith measures a build with its Definition's vocabulary.
+func PurchaseMetricsWith(build Build, vocabulary *Vocabulary) *s.Object {
 	out := s.NewObject()
 	parts := []string{"direct-damage", "group-damage", "control", "range", "attack-speed"}
 	if len(build.Abilities) > 0 {
 		parts = append(parts, "ability-burst")
 	}
 	for _, part := range parts {
-		m := SpecialtyMetrics(build, part)
+		m := SpecialtyMetricsWith(build, part, vocabulary)
 		for _, key := range m.Keys() {
 			v, _ := m.Get(key)
 			if f := v.(float64); finite(f) {
@@ -286,8 +379,14 @@ func PurchaseMetrics(build Build) *s.Object {
 	return out
 }
 
-// CompareCapstonePurchases compares each path's tier 4 and tier 5 purchases.
+// CompareCapstonePurchases compares each path's tier 4 and tier 5
+// purchases of a version 1 blueprint; see CompareCapstonePurchasesWith.
 func CompareCapstonePurchases(blueprint *Blueprint) []any {
+	return CompareCapstonePurchasesWith(blueprint, nil)
+}
+
+// CompareCapstonePurchasesWith compares capstones with a vocabulary.
+func CompareCapstonePurchasesWith(blueprint *Blueprint, vocabulary *Vocabulary) []any {
 	var out []any
 	for index, path := range PathKeys {
 		selection := Selection{}
@@ -303,7 +402,7 @@ func CompareCapstonePurchases(blueprint *Blueprint) []any {
 		if finite(ratio) {
 			count = math.Floor(ratio)
 		}
-		metrics := PurchaseMetrics(before)
+		metrics := PurchaseMetricsWith(before, vocabulary)
 		bounds := s.NewObject()
 		if count != nil {
 			for _, key := range []string{"direct damage rate", "group damage rate upper bound"} {
@@ -322,7 +421,7 @@ func CompareCapstonePurchases(blueprint *Blueprint) []any {
 		out = append(out, s.NewObject().
 			Set("path", path).
 			Set("tier4", s.NewObject().Set("totalGold", before.CumulativeCost).Set("metrics", metrics)).
-			Set("tier5", s.NewObject().Set("totalGold", after.CumulativeCost).Set("metrics", PurchaseMetrics(after))).
+			Set("tier5", s.NewObject().Set("totalGold", after.CumulativeCost).Set("metrics", PurchaseMetricsWith(after, vocabulary))).
 			Set("tier4CopiesAtTier5Budget", count).
 			Set("sameBudgetTier4Copies", s.NewObject().Set("count", count).Set("additiveThroughputUpperBounds", bounds).Set("perCopyMetrics", metrics)).
 			Set("assumption", "Ideal sustained access to eligible targets. Group/control metrics are capacity upper bounds; active peaks are not sustained output. Copy throughput assumes independent target access and extra placement space; range, attack frequency, control coverage and active duty are per-copy values, not summed. A zero-cost tier-four build has no finite budget-limited copy count. Null metrics or counts are unavailable because the calculation has no finite numeric result. No waves, buffs, geometry, actual crowd density or balance are simulated."))

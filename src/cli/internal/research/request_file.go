@@ -11,10 +11,17 @@ import (
 )
 
 // RequestFileSchema is a request whose documents are explicit inputs.
-var RequestFileSchema = unit.RequestSchema.Omit("documents").Extend(
-	s.F("documents", s.Array(DocumentSpecSchema).Min(1)),
-	s.F("previousResultFile", s.Optional(s.String().Min(1))),
-)
+var RequestFileSchema = requestFile(unit.RequestSchema)
+
+// RequestFileSchemaV2 is RequestFileSchema under a version 2 Definition.
+var RequestFileSchemaV2 = requestFile(unit.RequestSchemaV2)
+
+func requestFile(request *s.ObjectSchema) *s.ObjectSchema {
+	return request.Omit("documents").Extend(
+		s.F("documents", s.Array(DocumentSpecSchema).Min(1)),
+		s.F("previousResultFile", s.Optional(s.String().Min(1))),
+	)
+}
 
 // ReadJSONFile reads only the named regular JSON file, up to 32 MB.
 func ReadJSONFile(path string) (any, error) {
@@ -73,7 +80,8 @@ func (r *Researcher) LoadRequestFile(ctx context.Context, path string) (RequestF
 	if err != nil {
 		return RequestFile{}, err
 	}
-	parsed, issues := s.Parse(RequestFileSchema, WithRequestDefaults(raw))
+	value := WithRequestDefaults(raw)
+	parsed, issues := s.Parse(unit.Versioned(value, RequestFileSchema, RequestFileSchemaV2), value)
 	if len(issues) > 0 {
 		return RequestFile{}, &s.Error{Issues: issues}
 	}

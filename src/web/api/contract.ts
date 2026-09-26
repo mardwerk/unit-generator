@@ -56,19 +56,65 @@ export interface ReferenceScale {
   incrementalUpgradeCosts: number[];
 }
 
+/** Contract version 2 artifacts carry a Definition with a vocabulary. */
+export type SchemaVersion = '1' | '2';
+
+/** A named ID of a version 2 vocabulary. */
+export interface Term {
+  id: string;
+  name: string;
+  description: string;
+}
+
+export interface DamageType extends Term {
+  /** Enemy properties this damage type cannot damage. */
+  ineffectiveAgainst: string[];
+}
+
+export type EffectKind = 'moveSpeed' | 'damageOverTime' | 'disable' | 'damageTaken' | 'custom';
+
+/** A Profile-defined status effect: its bounds, duration limit, stacking and immunities. */
+export interface StatusEffect {
+  id: string;
+  name: string;
+  aliases: string[];
+  kind: EffectKind;
+  description: string;
+  magnitude: { unit: string; min: number; max: number } | null;
+  maxSeconds: number;
+  stacking: {
+    maxStacks: number;
+    refresh: 'reset' | 'extend' | 'independent';
+    /** Cap on the combined magnitude of all stacks. */
+    maxMagnitude: number | null;
+  };
+  immune: string[];
+}
+
+export interface Vocabulary {
+  enemyProperties: Term[];
+  damageTypes: DamageType[];
+  targeting: Term[];
+  detection: Term[];
+  statusEffects: StatusEffect[];
+}
+
 /** The numerical rules a unit is generated under. Only display fields are typed. */
 export interface MechanicsDefinition {
-  version: string;
+  version: '1' | '2';
   id: string;
   revision: string;
   label: string;
   balanceStatus: string;
   progression: unknown;
   rules: unknown;
+  /** Version 2 only. */
+  vocabulary?: Vocabulary;
   profile: {
     currency: string;
     designPolicy?: { manualAbilityPath?: string | null } & Record<string, unknown>;
     referenceScale?: ReferenceScale;
+    maxStatValue: number;
     maxChangesPerTier: number;
     earlyTierMaxChanges: number;
   } & Record<string, unknown>;
@@ -156,7 +202,7 @@ export interface UnitCandidate {
 }
 
 export interface AuthorRequest {
-  schemaVersion: '1';
+  schemaVersion: SchemaVersion;
   task: string;
   deliverable?: string;
   operation?: string;
@@ -170,7 +216,7 @@ export interface AuthorRequest {
 }
 
 export interface PreparedRequest {
-  schemaVersion: '1';
+  schemaVersion: SchemaVersion;
   kind: 'prepared';
   inputHash: string;
   request: AuthorRequest;
@@ -211,7 +257,7 @@ export interface ModelRun {
 }
 
 export interface DraftArtifact {
-  schemaVersion: '1';
+  schemaVersion: SchemaVersion;
   kind: 'draft';
   prepared: PreparedRequest;
   candidate: UnitCandidate;
@@ -219,14 +265,14 @@ export interface DraftArtifact {
 }
 
 export interface CheckedArtifact {
-  schemaVersion: '1';
+  schemaVersion: SchemaVersion;
   kind: 'checked';
   draft: DraftArtifact;
   findings: Finding[];
 }
 
 export interface AuthorResult {
-  schemaVersion: '1';
+  schemaVersion: SchemaVersion;
   kind: 'result';
   id: string;
   prepared: PreparedRequest;
@@ -237,7 +283,7 @@ export interface AuthorResult {
 }
 
 export interface UnitProfile {
-  schemaVersion: '1';
+  schemaVersion: SchemaVersion;
   kind: 'profile';
   id: string;
   name: string;
@@ -360,9 +406,16 @@ export interface IconGenerationResponse {
   usage?: ModelUsage;
 }
 
-/** One visible difference a purchase makes, from /api/v1/view. */
+/**
+ * One visible difference a purchase makes, from /api/v1/view. Version 2
+ * status effects and detection traits come with their vocabulary label, the
+ * unit of the number and the effect kind ('detection' for a trait).
+ */
 export interface StatChange {
   key: string;
+  label?: string;
+  unit?: string;
+  kind?: EffectKind | 'detection';
   before?: number | string;
   after: number | string;
   improvement?: boolean;
@@ -371,6 +424,8 @@ export interface StatChange {
 export interface KitStats {
   /** The resolved base attack. */
   base: { name: string; cost: number; stats: Record<string, number> } & Record<string, unknown>;
+  /** The version 2 base attack's status effects and detection traits. */
+  baseEffects?: StatChange[];
   /** Keyed "path-N:T". */
   tiers: Record<string, { cost: number; changes: StatChange[] }>;
 }

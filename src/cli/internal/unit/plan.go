@@ -47,14 +47,14 @@ func PurchasePlanOutputSchema(request *Request) *s.ObjectSchema {
 		atTier := func(tier int) s.Schema {
 			active := allowsBoost && tier >= rules.ManualBoostUnlockTier
 			var unlocks []string
-			for _, unlock := range Unlocks {
+			for _, unlock := range UnlocksFor(definition) {
 				ok := true
 				switch {
 				case unlock == "manual-boost":
 					ok = allowsBoost && tier == rules.ManualBoostUnlockTier
 				case unlock == "active-follow-up":
 					ok = active && tier > rules.ManualBoostUnlockTier && rules.HasExtension("volley-follow-up")
-				case tier <= 2 && policy != nil && policy.PreserveEarlyAttackIdentity != nil && *policy.PreserveEarlyAttackIdentity && !earlyIdentityUnlocks[unlock]:
+				case tier <= 2 && policy != nil && policy.PreserveEarlyAttackIdentity != nil && *policy.PreserveEarlyAttackIdentity && !earlyIdentityAllowed(definition, unlock):
 					ok = false
 				case unlock == "distinct-volley":
 					ok = rules.HasExtension("distinct-volley")
@@ -66,7 +66,7 @@ func PurchasePlanOutputSchema(request *Request) *s.ObjectSchema {
 				}
 			}
 			var improvements []string
-			for _, dimension := range Improvements {
+			for _, dimension := range ImprovementsFor(definition) {
 				if (!strings.HasPrefix(dimension, "active-") || active) && (dimension != "follow-up" || rules.HasExtension("volley-follow-up")) {
 					improvements = append(improvements, dimension)
 				}
@@ -278,14 +278,54 @@ func DesignPlanRequest(prepared Prepared) (ModelRequest, error) {
 	parts := []string{
 		fmt.Sprintf("Requested character: %s. The context below supplies %d selected evidence passages for this character. Read those passages before choosing powers; selection is bounded and does not establish complete source coverage.", s.Stringify(request.Character.Name), len(evidence)),
 	}
-	parts = append(parts, planGuidance[:len(planGuidance)-1]...)
-	parts = append(parts, progressionReference, planGuidance[len(planGuidance)-1], s.Stringify(context))
+	guidance := planGuidance
+	if isV2(request) {
+		guidance = append([]string{}, planGuidance...)
+		for i, line := range guidance {
+			guidance[i] = strings.Replace(line, "slow and burn each need two primitive changes", "a status effect with a magnitude needs two primitive changes", 1)
+		}
+		// The vocabulary summary goes before the closing guidance line.
+		last := guidance[len(guidance)-1]
+		guidance = append(append(guidance[:len(guidance)-1], VocabularyGuidance(request)...), last)
+	}
+	parts = append(parts, guidance[:len(guidance)-1]...)
+	parts = append(parts, progressionReference, guidance[len(guidance)-1], s.Stringify(context))
 	return ModelRequest{System: planSystem, Prompt: strings.Join(parts, "\n\n"), Schema: schema}, nil
 }
 
 var earlyIdentityBlocked = map[string]bool{
 	"follow-up": true, "distinct-volley": true, "splash": true, "slow": true, "burn": true, "stun": true,
 	"delivery-change": true, "damage-type-change": true, "targeting-change": true,
+}
+
+// earlyIdentityAllowed reports an unlock that keeps a T1/T2 attack's
+// identity: none, or personal detection of a hidden trait.
+func earlyIdentityAllowed(d *m.Definition, unlock string) bool {
+	if d == nil || !d.IsV2() {
+		return earlyIdentityUnlocks[unlock]
+	}
+	return unlock == "none" || isDetection(d, unlock)
+}
+
+// earlyIdentityBreaking reports an unlock that changes a T1/T2 attack's
+// identity: a new status, attack pattern, delivery, targeting or damage type.
+func earlyIdentityBreaking(d *m.Definition, unlock string) bool {
+	if d == nil || !d.IsV2() {
+		return earlyIdentityBlocked[unlock]
+	}
+	if _, ok := d.Vocabulary.Effect(unlock); ok {
+		return true
+	}
+	return earlyIdentityBlocked[unlock] && unlock != "slow" && unlock != "burn" && unlock != "stun"
+}
+
+func isDetection(d *m.Definition, id string) bool {
+	for _, trait := range d.Vocabulary.Detection {
+		if trait.ID == id {
+			return true
+		}
+	}
+	return false
 }
 
 // DecodeDesignPlan validates a plan's joins and structural choices.
@@ -296,7 +336,7 @@ func DecodeDesignPlan(output any, request *Request) (DesignPlan, error) {
 		return DesignPlan{}, err
 	}
 	var plan DesignPlan
-	if err := s.ParseInto(DesignPlanAuthoringSchema, expanded, &plan); err != nil {
+	if err := s.ParseInto(DesignPlanAuthoringSchemaFor(request.MechanicsDefinition), expanded, &plan); err != nil {
 		return DesignPlan{}, err
 	}
 	evidence := map[string]EvidenceSpan{}
@@ -373,8 +413,12 @@ func DecodeDesignPlan(output any, request *Request) (DesignPlan, error) {
 					}
 				}
 			}
-			if number <= 2 && policy != nil && policy.PreserveEarlyAttackIdentity != nil && *policy.PreserveEarlyAttackIdentity && earlyIdentityBlocked[intent.Unlock] {
-				issue("T1 and T2 must preserve the existing attack identity. New statuses, attack patterns, delivery, targeting and damage-type access must wait until T3; personal Camo detection and improvements to existing effects remain allowed.")
+			if number <= 2 && policy != nil && policy.PreserveEarlyAttackIdentity != nil && *policy.PreserveEarlyAttackIdentity && earlyIdentityBreaking(request.MechanicsDefinition, intent.Unlock) {
+				detection := "personal Camo detection"
+				if d := request.MechanicsDefinition; d != nil && d.IsV2() {
+					detection = "personal detection"
+				}
+				issue("T1 and T2 must preserve the existing attack identity. New statuses, attack patterns, delivery, targeting and damage-type access must wait until T3; " + detection + " and improvements to existing effects remain allowed.")
 			}
 			if intent.Unlock == "manual-boost" && number != boostTier {
 				issue(fmt.Sprintf("Manual boost unlocks are supported only at tier %d.", boostTier))
@@ -427,7 +471,11 @@ func DecodeDesignPlan(output any, request *Request) (DesignPlan, error) {
 		plan.ScopeLimits = []string{}
 	}
 	var retained DesignPlan
-	if err := s.ParseInto(DesignPlanSchema, s.FromGoValue(plan), &retained); err != nil {
+	retainedSchema := DesignPlanSchema
+	if d := request.MechanicsDefinition; d != nil && d.IsV2() {
+		retainedSchema = DesignPlanSchemaV2
+	}
+	if err := s.ParseInto(retainedSchema, s.FromGoValue(plan), &retained); err != nil {
 		return DesignPlan{}, err
 	}
 	return retained, nil

@@ -274,10 +274,11 @@ func draftBlueprint(ctx context.Context, prepared Prepared, model Model, options
 			}
 			planCopy := plan
 			d := Draft{
-				SchemaVersion: "1", Kind: "draft", Prepared: prepared, Candidate: candidate,
+				SchemaVersion: prepared.SchemaVersion, Kind: "draft", Prepared: prepared, Candidate: candidate,
 				Run: Run{ID: options.id(), ModelID: model.ID(), StartedAt: startedAt, CompletedAt: options.now(), DesignPlan: &planCopy, DesignEvaluation: evaluation},
 			}
-			if err := s.ParseInto(DraftSchema, s.FromGoValue(d), &d); err != nil {
+			value := s.FromGoValue(d)
+			if err := s.ParseInto(Versioned(value, DraftSchema, DraftSchemaV2), value, &d); err != nil {
 				return Draft{}, fail(err, usage, true, purpose)
 			}
 			checked, err := CheckDraft(d)
@@ -346,9 +347,14 @@ func blueprintRequest(prepared Prepared, previous any, issues []string, plan Des
 		Set("previous", previousValue(request)).
 		Set("previousFindings", previousFindings(request)).
 		Set("feedback", nullableString(request.Feedback))
-	prompt := []string{draftLine354, draftLine355, draftLine356, draftLine357, draftLine358, draftLine359, draftLine360, draftLine361, draftLine362, CountArithmeticGuidance}
+	budget, form, example := draftLine359, draftLine360, draftLine366
+	if isV2(request) {
+		budget, form, example = draftStatusBudgetV2, draftStatusFormV2, draftExampleV2
+	}
+	prompt := []string{draftLine354, draftLine355, draftLine356, draftLine357, draftLine358, budget, form, draftLine361, draftLine362, CountArithmeticGuidance}
+	prompt = append(prompt, VocabularyGuidance(request)...)
 	prompt = append(prompt, DesignGuidance(request)...)
-	prompt = append(prompt, draftLine365, draftLine366, draftLine367, s.Stringify(context))
+	prompt = append(prompt, draftLine365, example, draftLine367, s.Stringify(context))
 	if previous != nil {
 		shown := issues
 		if len(shown) > 20 {
@@ -366,5 +372,5 @@ func blueprintRequest(prepared Prepared, previous any, issues []string, plan Des
 // ParsePrepared validates a prepared request value.
 func ParsePrepared(value any) (Prepared, error) {
 	var p Prepared
-	return p, s.ParseInto(PreparedSchema, value, &p)
+	return p, s.ParseInto(Versioned(value, PreparedSchema, PreparedSchemaV2), value, &p)
 }
