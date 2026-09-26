@@ -45,23 +45,8 @@ func selectionArg(entry *s.Object, i int) (Selection, bool) {
 }
 
 func each(t *testing.T, name string, fn func(t *testing.T, entry *s.Object)) {
-	entries, err := parity.Entries(name)
-	if err != nil {
-		t.Fatal(err)
-	}
-	failures := 0
-	for _, entry := range entries {
-		if args, _ := entry.Get("args"); parity.NonFinite(args) {
-			continue
-		}
-		ok := t.Run(name, func(t *testing.T) { fn(t, entry) })
-		if !ok {
-			failures++
-			if failures > 5 {
-				t.Fatalf("stopping after %d failing %s cases", failures, name)
-			}
-		}
-	}
+	t.Helper()
+	parity.Each(t, name, fn)
 }
 
 func TestAllLegalBuildsParity(t *testing.T) {
