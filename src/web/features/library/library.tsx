@@ -1,6 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ImageOff, Trash2, Archive, FolderOpen } from 'lucide-react';
-import type { LabArtifact, LibraryEntry, LibraryState } from '../../api/contract.js';
+import type {
+  LabArtifact,
+  LibraryEntry,
+  LibraryMigration,
+  LibraryState,
+} from '../../api/contract.js';
 import { api } from '../../api/client.js';
 import { Alert } from '../../ui/alert.js';
 import { Badge } from '../../ui/badge.js';
@@ -31,11 +36,26 @@ export function useLibrary() {
   }, [refresh]);
   const save = useCallback(
     async (artifact: LabArtifact) => {
-      await api<LibraryEntry>('library/save', { artifact });
+      const entry = await api<LibraryEntry>('library/save', { artifact });
       await refresh();
+      return entry;
     },
     [refresh],
   );
+  async function migrate() {
+    setPending(true);
+    setError('');
+    try {
+      const value = await api<LibraryMigration>('library/migrate', {});
+      setState(value.state);
+      return value;
+    } catch (error) {
+      setError(error instanceof Error ? error.message : String(error));
+      return null;
+    } finally {
+      setPending(false);
+    }
+  }
   async function configure(directory: string) {
     const value = await api<LibraryState>('library/configure', { directory });
     setState(value);
@@ -54,7 +74,7 @@ export function useLibrary() {
       setPending(false);
     }
   }
-  return { ...state, error, pending, refresh, save, configure, remove };
+  return { ...state, error, pending, refresh, save, configure, remove, migrate };
 }
 export type GenerationLibrary = ReturnType<typeof useLibrary>;
 
@@ -133,6 +153,8 @@ export function Library({
   onOpen: (entry: LibraryEntry) => void;
 }) {
   const [query, setQuery] = useState('');
+  const [arranged, setArranged] = useState('');
+  const legacy = library.entries.filter((entry) => !entry.path.includes('/'));
   const [deletion, setDeletion] = useState<{ title: string; entries: LibraryEntry[] } | null>(null);
   // Researched Sources are reusable inputs, not units, so they get their own shelf.
   const [shelf, setShelf] = useState<Shelf>('units');
@@ -192,6 +214,31 @@ export function Library({
         <FolderOpen className="size-3.5" />
         {library.directory || 'Loading folder...'}
       </p>
+      {legacy.length > 0 && (
+        <Alert className="mb-6">
+          <p>
+            {legacy.length} saved {legacy.length === 1 ? 'file is' : 'files are'} still at the top
+            of the library folder. Arranging moves each record, its render and its icons into its
+            work and character folder; files it cannot place stay where they are.
+          </p>
+          <Button
+            className="mt-2"
+            size="sm"
+            disabled={busy || library.pending}
+            onClick={() =>
+              void library.migrate().then((done) => {
+                if (done)
+                  setArranged(
+                    `Moved ${done.records.length} records and ${done.assets.length} asset files; kept ${done.kept.length}.`,
+                  );
+              })
+            }
+          >
+            Arrange by source and character
+          </Button>
+        </Alert>
+      )}
+      {arranged && <p className="mb-6 text-xs text-muted-foreground">{arranged}</p>}
       <label className="mb-6 block max-w-[340px]">
         <span className="sr-only">Find saved character</span>
         <Input
@@ -230,6 +277,9 @@ export function Library({
                           ? 'Researched sources'
                           : entry.kind}{' '}
                       · {new Date(entry.savedAt).toLocaleString()}
+                    </small>
+                    <small className="mt-1 block font-mono text-[10px] [overflow-wrap:anywhere] text-muted-foreground">
+                      {entry.path}
                     </small>
                   </button>
                   <IconButton

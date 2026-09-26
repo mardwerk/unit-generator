@@ -331,12 +331,25 @@ export interface LibraryEntry {
   kind: LabArtifact['kind'] | 'sources';
   character: Character;
   artifactId: string;
+  /**
+   * The record file relative to the library folder: work/character/file, or
+   * unitlab-<id>.json for a record saved before that layout.
+   */
+  path: string;
   portrait?: { url: string; caption: string; sourceUrl?: string };
 }
 
 export interface LibraryState {
   directory: string;
   entries: LibraryEntry[];
+}
+
+/** What library/migrate moved into work and character folders and what it kept. */
+export interface LibraryMigration {
+  records: string[];
+  assets: string[];
+  kept: string[];
+  state: LibraryState;
 }
 
 /** Bundled Profiles are read-only; saved Profiles live in the Profiles folder. */

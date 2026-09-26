@@ -104,9 +104,16 @@ func TestStagesSerializeReloadAndRender(t *testing.T) {
 	}
 	var entry map[string]any
 	_ = json.Unmarshal([]byte(saved), &entry)
+	if path, _ := entry["path"].(string); !strings.HasSuffix(path, ".result."+entry["id"].(string)[:12]+".json") || strings.Count(path, "/") != 2 {
+		t.Errorf("saved to %q, not a work and character folder", path)
+	}
 	listing, _, _ := cli(t, "library")
 	if !strings.Contains(listing, entry["id"].(string)) {
 		t.Error("the saved Result is not listed")
+	}
+	migrated, _, err := cli(t, "library", "migrate")
+	if err != nil || !strings.Contains(migrated, `"records": []`) {
+		t.Errorf("migrate %v: %s", err, migrated)
 	}
 	if _, _, err := cli(t, "library", "delete", entry["id"].(string)); err != nil {
 		t.Error(err)

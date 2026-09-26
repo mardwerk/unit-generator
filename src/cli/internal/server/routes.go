@@ -187,6 +187,12 @@ func (srv *Server) posts() map[string]post {
 			}
 			return srv.config.Library.Delete(ids)
 		}},
+		"library/migrate": {run: func(_ context.Context, body *s.Object) (any, error) {
+			if err := only(body); err != nil {
+				return nil, err
+			}
+			return srv.config.Library.Migrate()
+		}},
 		"library/configure": {run: func(_ context.Context, body *s.Object) (any, error) {
 			if srv.busy() {
 				return nil, fail(409, "BUSY", "Wait for model stages before changing the library.")

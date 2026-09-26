@@ -502,8 +502,10 @@ func (in *invocation) manageLibrary() (any, error) {
 		return lib.Load(in.extra[0])
 	case action == "delete" && len(in.extra) > 0:
 		return lib.Delete(in.extra)
+	case action == "migrate" && len(in.extra) == 0:
+		return lib.Migrate()
 	}
-	return nil, errors.New("Use library list, library save FILE, library load ID or library delete ID...")
+	return nil, errors.New("Use library list, library save FILE, library load ID, library delete ID... or library migrate")
 }
 
 // serve runs the web app until interrupted.

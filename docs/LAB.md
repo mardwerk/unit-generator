@@ -38,13 +38,28 @@ Profiles saved by earlier versions lived in `data/runs/library/profiles`; move t
 
 ## Library
 
-Completed Results and researched Sources are saved automatically; earlier stages can be saved with Save to library. Entries are `unitlab-<content hash>.json` files with a Markdown render beside each unit, grouped by series with portraits. The **Units** tab lists generated units; the **Research** tab lists saved Sources, and opening one prepares it under the selected Profile without researching again. Clean up and Clear act on the open tab and touch only those managed files.
+Completed Results and researched Sources are saved automatically; earlier stages can be saved with Save to library, and the status line then names the file it wrote. Each character has a folder under its work, both named readably:
+
+```text
+data/runs/library/
+  bloons-td-6/                                  the work (anime, game or other source)
+    dart-monkey/                                the character
+      character.json                            the exact name and work this folder belongs to
+      dart-monkey.sources.1a2b3c4d5e6f.json     researched Sources
+      dart-monkey.result.0eb43da91c2f.json      a reviewed unit (one file per stage and revision)
+      dart-monkey.result.0eb43da91c2f.md        its Markdown render
+      assets/                                   icons, image receipts and the portrait choice
+```
+
+The 12 hex digits are the start of the record's SHA-256 identity, so stages and revisions never share a file, and the library still recognizes a record by that identity, not by its name. Names are reduced to lowercase letters and digits joined by hyphens; a character whose name reduces to a folder that another character already owns gets `<name>-<hash>` instead, so similar names never share a folder. Library cards show each record's path. The **Units** tab lists generated units grouped by work with portraits; the **Research** tab lists saved Sources, and opening one prepares it under the selected Profile without researching again. Clean up and Clear act on the open tab and remove only those record files and their renders; character folders, markers and icons stay.
+
+Records saved by earlier versions (`unitlab-<id>.json` at the top of the library, icons under `assets/unit-<hash>`) stay readable and are listed with their old path. **Arrange by source and character** (or `mardwerk-unit library migrate`) moves them into their folders, keeping each record's identity and saved time; a file is removed only after its copy reads back intact, and anything it cannot place stays where it is.
 
 Below each unit sheet, Save to library stores it, and the Export menu downloads it as JSON (compatible with the CLI), Markdown, or a session file that keeps unsaved editor content. With more than one revision, the revision and comparison selectors appear above them.
 
 ## Icons and portraits
 
-Every attack, upgrade and ability has an icon placeholder with a copyable image prompt (and a Codex prompt that saves the PNG) and a fixed PNG destination under the library's `assets` folder. You can also generate one icon through OpenRouter after an explicit confirmation that names the model, the estimated price and the destination. The default image model is `meta/muse-image` (about $0.01 per image; `OPENROUTER_IMAGE_MODEL` changes it). There are no retries or fallbacks. Results are validated and converted to PNG (8 MB limit), and the reported cost is kept beside the image. A gallery image can be chosen as the unit's portrait; that preference never changes the unit or its hash.
+Every attack, upgrade and ability has an icon placeholder with a copyable image prompt (and a Codex prompt that saves the PNG) and a fixed PNG destination in the character's `assets` folder. You can also generate one icon through OpenRouter after an explicit confirmation that names the model, the estimated price and the destination. The default image model is `meta/muse-image` (about $0.01 per image; `OPENROUTER_IMAGE_MODEL` changes it). There are no retries or fallbacks. Results are validated and converted to PNG (8 MB limit), and the reported cost is kept beside the image. A gallery image can be chosen as the unit's portrait; that preference never changes the unit or its hash.
 
 ## Security
 

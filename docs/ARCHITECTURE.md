@@ -38,7 +38,7 @@ The numerical Engine supports exactly 3 paths × 5 tiers. Other shapes need an e
 | `render` | `render` | Markdown, the web view (usage, per-tier stats, purchase sentences, crosspath builds, revision notes), icon subjects and prompts | Model calls, validation decisions |
 | `provider` | `provider` | Model and image calls behind `unit.Model`, `.env` reading, key hints | Deciding what to generate |
 | `research` | `research` | Character lookup, source text and images as Sources; explicit document inputs of request files | Applying a Profile |
-| `library` | `library` | Managed files in the library folder; saved Profiles in the Profiles folder | Reading anything else, saving implicitly |
+| `library` | `library` | Managed files in the library folder, arranged by work and character; saved Profiles in the Profiles folder | Reading anything else, saving implicitly |
 | `evidence` | `evidence` | Exact model inputs and raw outputs, with `--evidence-dir` only | Anything without that flag |
 | CLI | `src/cli` (main) | Arguments, explicit input and output files, exit codes | Business rules |
 | `serve` | `server` | Local HTTP routes, session token, host and origin checks, embedded web assets | Jobs, runs or resumable state |
@@ -71,7 +71,7 @@ Legacy fields: `authoringMode`, `deliverable` and `operation` in older artifacts
 
 ## Library
 
-Saved work lives only in a library folder, `data/runs/library` by default. It is set with `--library DIR`, or switched from the web app's Settings; the web app records that choice in `data/runs/lab-settings.json`. Switching is refused while a model stage runs. Each record is `unitlab-<SHA-256 of the artifact>.json`, and each unit also gets a `unitlab-<id>.md` render. Icons, image receipts and portrait choices live under `assets/`. The server never saves on its own: the web client saves Sources after research and Results when a run completes, and the CLI saves only with `library save`.
+Saved work lives only in a library folder, `data/runs/library` by default. It is set with `--library DIR`, or switched from the web app's Settings; the web app records that choice in `data/runs/lab-settings.json`. Switching is refused while a model stage runs. Records are arranged by source and character: `<work>/<character>/<character>.<stage>.<id>.json`, where `<work>` and `<character>` are readable slugs, `<stage>` is `sources`, `prepared`, `draft`, `checked` or `result` and `<id>` the first 12 hex digits of the artifact's SHA-256 (all 64 if two collide). Each unit also gets a `.md` render beside it, and the character's icons, image receipts and portrait choice live in its `assets/` folder. A `character.json` marker records the exact name and work of each character folder; a character whose slug another identity owns gets `<character>-<hash>`. Slugs keep only letters and digits, so no name can leave the library, and every folder below the library root must be a real directory. The API and listing still identify records by the full SHA-256, which also deduplicates saves. Records from earlier versions (`unitlab-<id>.json` at the root, assets under `assets/unit-<hash>`) stay readable; `library migrate` moves them on request. The server never saves on its own: the web client saves Sources after research and Results when a run completes, and the CLI saves only with `library save`.
 
 ## CLI
 
@@ -99,7 +99,8 @@ Exit codes: `0` the operation completed (findings may still fail), `1` failure. 
 | `POST /view` | `{artifact}` | `{view, stats?, purchases?, crosspaths?, revision?}`: usage summary, design evaluation, per-tier stat changes, purchase sentences by build code, every legal two-path build and, for a revision, its mechanics and wording changes |
 | `GET /profiles`, `POST /profiles/save`, `POST /profiles/delete` | –, `{profile}`, `{id}` | `{directory, profiles: [{profile, builtIn, progression}]}` |
 | `POST /profiles/apply` | `{request, profileId?\|profile?}` | the edited request under that Profile |
-| `GET /library`, `POST /library/configure` | –, `{directory}` | `{directory, entries}` |
+| `GET /library`, `POST /library/configure` | –, `{directory}` | `{directory, entries}`; each entry has its record `path` relative to the folder |
+| `POST /library/migrate` | `{}` | `{records, assets, kept, state}`: records and asset files moved into work and character folders, and files left in place |
 | `POST /library/save`, `/load`, `/delete` | `{artifact}`, `{id}`, `{ids}` | entry, `{artifact}`, listing |
 | `POST /library/icons` | `{artifact}` | `{directory, icons, portrait?}`; each icon carries its image and Codex prompts |
 | `POST /library/portrait/get`, `/library/portrait` | `{artifact}`, `{artifact, referenceId}` | `{portrait?}` |

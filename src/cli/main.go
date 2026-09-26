@@ -39,8 +39,10 @@ Reading and storage:
   inspect FILE             Identify and validate a saved file
   definition               Print the default mechanics Definition
   profiles                 List bundled and saved Profiles
-  library [list|save FILE|load ID|delete ID...]
-                           Manage the local library
+  library [list|save FILE|load ID|delete ID...|migrate]
+                           Manage the local library, arranged as
+                           WORK/CHARACTER/CHARACTER.STAGE.ID.json; migrate
+                           moves records saved before that layout
   serve                    Start the local web app
 
 Options:

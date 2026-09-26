@@ -23,7 +23,7 @@ go build -o mardwerk-unit ./src/cli
 | `inspect FILE` | → kind, validity and character of a saved file | none |
 | `definition` | → the bundled mechanics Definition | none |
 | `profiles` | → the bundled and saved Profiles | none |
-| `library [list]`, `library save FILE`, `library load ID`, `library delete ID...` | the local library | none |
+| `library [list]`, `library save FILE`, `library load ID`, `library delete ID...`, `library migrate` | the local library, arranged as `WORK/CHARACTER/CHARACTER.STAGE.ID.json` ([LAB.md](LAB.md#library)); `migrate` moves records saved before that layout | none |
 | `serve` | the local web app ([LAB.md](LAB.md)) | per request |
 
 Drafting makes a planning call and a mechanics call, each allowed one repair by default (`--repairs 0|1|2`).

@@ -201,9 +201,15 @@ func TestStagesRunThroughTheAPI(t *testing.T) {
 		t.Errorf("view has %d early and %d advanced builds", len(early), len(advanced))
 	}
 	entry := h.post("library/save", map[string]any{"artifact": result})
+	if path, _ := at(entry, "path").(string); strings.Count(path, "/") != 2 || !strings.Contains(path, ".result.") {
+		t.Errorf("saved to %q, not a work and character folder", path)
+	}
 	listing := h.post("library/load", map[string]any{"id": at(entry, "id")})
 	if s.Canonical(at(listing, "artifact")) != s.Canonical(result) {
 		t.Error("library round trip changed the Result")
+	}
+	if moved, _ := at(h.post("library/migrate", map[string]any{}), "records").([]any); len(moved) != 0 {
+		t.Errorf("migrate moved %v from a library without legacy records", moved)
 	}
 	revision := s.Clone(request).(*s.Object).
 		Set("previous", s.NewObject().Set("resultId", at(result, "id")).Set("draft", at(result, "candidate")).Set("findings", at(result, "findings"))).

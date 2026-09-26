@@ -125,8 +125,8 @@ export function App() {
   async function save() {
     if (!session.artifact) return;
     await session.load(async () => {
-      await library.save(session.artifact!);
-      session.setStatus('Saved to your local library.');
+      const entry = await library.save(session.artifact!);
+      session.setStatus(`Saved to ${library.directory}/${entry.path}.`);
     });
   }
   return (
