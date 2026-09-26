@@ -1,6 +1,9 @@
-import { Download, FileJson, FileText, Save } from 'lucide-react';
+import { Save } from 'lucide-react';
 import { candidateOf } from '../../api/artifacts.js';
-import { Field } from '../../ui/legacy.js';
+import { Button } from '../../ui/button.js';
+import { Field } from '../../ui/field.js';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select.js';
+import { ExportMenu } from './export-menu.js';
 import type { AuthoringSession } from '../authoring/use-authoring.js';
 
 export function Revisions({
@@ -18,81 +21,73 @@ export function Revisions({
 }) {
   const current = candidateOf(session.artifact);
   if (!session.revisions.length) return null;
+  const comparable = session.revisions.filter(
+    (entry) => entry.id !== session.selectedId && candidateOf(entry.artifact),
+  );
   return (
-    <div className="revision-panel">
+    <div className="mt-4">
       {session.revisions.length > 1 && (
-        <div className="revision-toolbar">
-          <Field label="Current revision">
-            <select
-              id="revision-select"
-              value={session.selectedId ?? ''}
-              onChange={(e) => {
-                if (!e.target.value) onNewInputs();
-                else session.select(e.target.value);
+        <div className="flex flex-wrap gap-3">
+          <Field label="Current revision" className="my-0 min-w-[150px] flex-1">
+            <Select
+              value={session.selectedId ?? 'new'}
+              onValueChange={(value) => {
+                if (value === 'new') onNewInputs();
+                else session.select(value);
               }}
             >
-              <option value="">New inputs</option>
-              {session.revisions.map((revision, index) => (
-                <option value={revision.id} key={revision.id}>
-                  {index + 1}. {revision.label} ({revision.artifact?.kind ?? 'inputs'})
-                </option>
-              ))}
-            </select>
-          </Field>
-          <Field label="Compare with">
-            <select
-              id="compare-select"
-              value={session.comparisonId}
-              onChange={(e) => session.setComparisonId(e.target.value)}
-            >
-              <option value="">No comparison</option>
-              {session.revisions
-                .filter((entry) => entry.id !== session.selectedId && candidateOf(entry.artifact))
-                .map((entry) => (
-                  <option value={entry.id} key={entry.id}>
-                    {entry.label} ({entry.artifact?.kind})
-                  </option>
+              <SelectTrigger id="revision-select" size="sm">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="new">New inputs</SelectItem>
+                {session.revisions.map((revision, index) => (
+                  <SelectItem value={revision.id} key={revision.id}>
+                    {index + 1}. {revision.label} ({revision.artifact?.kind ?? 'inputs'})
+                  </SelectItem>
                 ))}
-            </select>
+              </SelectContent>
+            </Select>
+          </Field>
+          <Field label="Compare with" className="my-0 min-w-[150px] flex-1">
+            <Select
+              value={session.comparisonId || 'none'}
+              onValueChange={(value) => session.setComparisonId(value === 'none' ? '' : value)}
+            >
+              <SelectTrigger id="compare-select" size="sm">
+                <SelectValue />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectItem value="none">No comparison</SelectItem>
+                {comparable.map((entry) => (
+                  <SelectItem value={entry.id} key={entry.id}>
+                    {entry.label} ({entry.artifact?.kind})
+                  </SelectItem>
+                ))}
+              </SelectContent>
+            </Select>
           </Field>
         </div>
       )}
-      <div className="input-actions export-actions" aria-label="Save and export">
-        <button
-          type="button"
-          className="text-button"
+      <div
+        className="export-actions mt-2 flex flex-wrap items-center gap-1"
+        aria-label="Save and export"
+      >
+        <Button
+          id="save-to-library"
+          variant="ghost"
+          size="xs"
           disabled={session.busy || !session.artifact}
           onClick={onSave}
         >
-          <Save size={13} /> Save to library
-        </button>
-        <button
-          type="button"
-          className="text-button"
+          <Save /> Save to library
+        </Button>
+        <ExportMenu
           disabled={session.busy || !session.artifact}
-          title="Download the artifact as JSON (the CLI reads it)"
-          onClick={() => onExport(false)}
-        >
-          <FileJson size={13} /> JSON
-        </button>
-        <button
-          type="button"
-          className="text-button"
-          disabled={session.busy || !current}
-          title="Download the unit sheet as Markdown"
-          onClick={() => onExport(true)}
-        >
-          <FileText size={13} /> Markdown
-        </button>
-        <button
-          type="button"
-          className="text-button"
-          disabled={session.busy}
-          title="Download every revision of this session, including unsaved edits"
-          onClick={onExportSession}
-        >
-          <Download size={13} /> Session
-        </button>
+          onJson={() => onExport(false)}
+          onMarkdown={current ? () => onExport(true) : undefined}
+          onSession={onExportSession}
+        />
       </div>
     </div>
   );

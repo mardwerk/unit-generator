@@ -3,7 +3,14 @@ import { KeyRound } from 'lucide-react';
 import type { KeyState, ProviderState } from '../../api/contract.js';
 import type { GenerationLibrary } from '../library/library.js';
 import { api } from '../../api/client.js';
-import { Field, Disclosure, Modal } from '../../ui/legacy.js';
+import { Alert } from '../../ui/alert.js';
+import { Button } from '../../ui/button.js';
+import { Modal } from '../../ui/dialog.js';
+import { Disclosure } from '../../ui/disclosure.js';
+import { Field } from '../../ui/field.js';
+import { Input } from '../../ui/input.js';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select.js';
+import { cn } from '../../ui/utils.js';
 
 const keySources: Record<KeyState['source'], string> = {
   'env-file': 'from .env',
@@ -36,10 +43,14 @@ export function KeyStatus({ state, onOpen }: { state: ProviderState | null; onOp
   const { key } = state;
   const missing = !key.configured && state.provider === 'openrouter';
   return (
-    <button
+    <Button
       id="key-status"
-      type="button"
-      className={`text-button key-status${missing ? ' missing' : ''}`}
+      variant="ghost"
+      size="xs"
+      className={cn(
+        'max-w-[190px] font-mono',
+        missing && 'font-sans text-warning hover:text-warning',
+      )}
       title={`${state.model || 'Codex configuration'} via ${
         state.provider === 'openrouter' ? 'OpenRouter' : 'Local Codex'
       }. ${
@@ -49,10 +60,12 @@ export function KeyStatus({ state, onOpen }: { state: ProviderState | null; onOp
       } Open Settings to change them.`}
       onClick={onOpen}
     >
-      <KeyRound size={13} aria-hidden="true" />
+      <KeyRound aria-hidden="true" />
       <span className="sr-only">OpenRouter key: </span>
-      <span className="key-status-text">{key.configured ? (key.hint ?? 'set') : 'No API key'}</span>
-    </button>
+      <span className="hidden truncate sm:inline">
+        {key.configured ? (key.hint ?? 'set') : 'No API key'}
+      </span>
+    </Button>
   );
 }
 
@@ -137,13 +150,13 @@ export function Settings({
   }
   return (
     <Modal title="Settings" id="settings-dialog" onClose={onClose}>
-      <fieldset disabled={disabled || pending} id="provider-settings">
-        <h3>Model provider</h3>
+      <fieldset disabled={disabled || pending} id="provider-settings" className="min-w-0">
+        <h3 className="mb-1 text-sm font-semibold">Model provider</h3>
         <Field label="Connection">
-          <select
+          <Select
             value={provider}
-            onChange={(e) => {
-              const value = e.target.value as ProviderState['provider'];
+            onValueChange={(next) => {
+              const value = next as ProviderState['provider'];
               setProvider(value);
               setModel(value === 'openrouter' ? 'openrouter/free' : '');
               setKey('');
@@ -155,13 +168,25 @@ export function Settings({
               );
             }}
           >
-            <option value="openrouter">OpenRouter</option>
-            <option value="codex">Local Codex</option>
-          </select>
+            <SelectTrigger id="provider-select">
+              <SelectValue />
+            </SelectTrigger>
+            <SelectContent>
+              <SelectItem
+                value="openrouter"
+                description="Free models with a key, paid models by ID"
+              >
+                OpenRouter
+              </SelectItem>
+              <SelectItem value="codex" description="Your existing Codex login">
+                Local Codex
+              </SelectItem>
+            </SelectContent>
+          </Select>
         </Field>
         {
           <>
-            <p id="current-key" className="muted small">
+            <p id="current-key" className="font-mono text-xs text-muted-foreground">
               {keyState?.configured
                 ? `Current key: ${keyState.hint ?? 'set (too short to show a fragment)'} (${
                     keySources[keyState.source]
@@ -169,7 +194,7 @@ export function Settings({
                 : 'No OpenRouter key configured.'}
             </p>
             <Field label="OpenRouter API key">
-              <input
+              <Input
                 type="password"
                 autoComplete="off"
                 value={key}
@@ -183,7 +208,7 @@ export function Settings({
         }
         <Disclosure title="Model">
           <Field label="Model name (optional)">
-            <input
+            <Input
               value={model}
               placeholder={
                 provider === 'openrouter' ? 'openrouter/free' : 'Use Codex configuration'
@@ -194,50 +219,47 @@ export function Settings({
         </Disclosure>
         <Disclosure title="Image generation">
           <Field label="OpenRouter image model">
-            <input
+            <Input
               value={imageModel}
               onChange={(e) => setImageModel(e.target.value)}
               placeholder="meta/muse-image"
             />
           </Field>
-          <p className="muted small">
+          <p className="text-xs text-muted-foreground">
             Muse Image is the default, listed at about $0.01 per image. Images use your OpenRouter
             key even when Unit drafting uses Codex. Every image requires confirmation from its icon
             dialog.
           </p>
         </Disclosure>
-        <button type="button" onClick={() => void saveProvider()}>
+        <Button variant="primary" onClick={() => void saveProvider()}>
           Save provider
-        </button>
-        <p className="muted small" role="status">
+        </Button>
+        <p className="mt-2 text-xs text-muted-foreground" role="status">
           {message}
         </p>
       </fieldset>
-      <fieldset disabled={disabled || pending} className="folder-settings">
-        <h3>Local library</h3>
+      <fieldset disabled={disabled || pending} className="mt-6 min-w-0 border-t border-border pt-5">
+        <h3 className="mb-1 text-sm font-semibold">Local library</h3>
         <Field label="Library folder">
-          <input
+          <Input
+            className="font-mono text-xs"
             value={directory}
             onChange={(e) => setDirectory(e.target.value)}
             spellCheck={false}
           />
         </Field>
-        <p className="muted small">
+        <p className="text-xs text-muted-foreground">
           Completed generations are saved here automatically. Changing this folder does not move
           existing files.
         </p>
-        <button type="button" onClick={() => void saveFolder()}>
+        <Button className="mt-3" onClick={() => void saveFolder()}>
           Use folder
-        </button>
-        <p className="muted small" role="status">
+        </Button>
+        <p className="mt-2 text-xs text-muted-foreground" role="status">
           {folderMessage}
         </p>
       </fieldset>
-      {error && (
-        <p className="error" role="alert">
-          {error}
-        </p>
-      )}
+      {error && <Alert>{error}</Alert>}
     </Modal>
   );
 }

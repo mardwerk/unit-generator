@@ -2,7 +2,10 @@ import { useEffect, useState } from 'react';
 import { Check, Circle, LoaderCircle, Play, RotateCcw, Square } from 'lucide-react';
 import type { LabArtifact, LabStage } from '../../api/contract.js';
 import { requestOf, nextStage } from '../../api/artifacts.js';
-import { IconButton } from '../../ui/legacy.js';
+import { Alert } from '../../ui/alert.js';
+import { Button } from '../../ui/button.js';
+import { IconButton } from '../../ui/icon-button.js';
+import { cn } from '../../ui/utils.js';
 import { formatCost, summarizeUsage } from '../../api/usage.js';
 import { stageNames, type RunningStep } from '../authoring/use-authoring.js';
 
@@ -24,7 +27,7 @@ export function Progress({
   }, [running, startedAt]);
   if (!running && !status) return null;
   return (
-    <p id="operation-status" className="muted small" role="status">
+    <p id="operation-status" className="mt-3 text-xs text-muted-foreground" role="status">
       {running
         ? `${running === 'character' ? 'Finding character and references' : stageNames[running]}, ${Math.max(0, Math.floor((now - startedAt) / 1000))}s`
         : status}
@@ -34,26 +37,49 @@ export function Progress({
 export function Usage({ artifact }: { artifact: LabArtifact }) {
   const usage = summarizeUsage(artifact);
   return (
-    <section className="usage-panel" aria-label="Generation usage">
-      <dl className="usage-overview">
+    <section className="mt-auto pt-10 text-muted-foreground" aria-label="Generation usage">
+      <dl className="flex gap-10 text-xs sm:gap-6">
         <div>
-          <dt>Reported cost</dt>
-          <dd>
+          <dt className="text-[11px]">Reported cost</dt>
+          <dd className="mt-1 text-foreground tabular-nums">
             {formatCost(usage.cost.value)}
-            {usage.cost.partial && usage.cost.value !== null && <small>Partial</small>}
+            {usage.cost.partial && usage.cost.value !== null && (
+              <small className="block text-[11px] text-muted-foreground">Partial</small>
+            )}
           </dd>
         </div>
         <div>
-          <dt>Total tokens</dt>
-          <dd>
+          <dt className="text-[11px]">Total tokens</dt>
+          <dd className="mt-1 text-foreground tabular-nums">
             {usage.tokens.value?.toLocaleString('en-US') ?? 'Unavailable'}
-            {usage.tokens.partial && usage.tokens.value !== null && <small>Partial</small>}
+            {usage.tokens.partial && usage.tokens.value !== null && (
+              <small className="block text-[11px] text-muted-foreground">Partial</small>
+            )}
           </dd>
         </div>
       </dl>
     </section>
   );
 }
+const stageItem = 'stage-line relative flex items-start gap-2.5 pb-5 text-muted-foreground';
+const stageTitle = 'block text-sm text-foreground';
+const stageDetail = 'mt-0.5 block text-xs leading-normal text-muted-foreground';
+
+function StageIcon({ outcome }: { outcome: 'running' | 'completed' | 'pending' }) {
+  const className = cn(
+    'mt-0.5 size-4',
+    outcome === 'completed' && 'text-success',
+    outcome === 'running' && 'animate-spin text-link motion-reduce:animate-none',
+  );
+  return outcome === 'running' ? (
+    <LoaderCircle className={className} />
+  ) : outcome === 'completed' ? (
+    <Check className={className} />
+  ) : (
+    <Circle className={className} />
+  );
+}
+
 export function Workflow({
   artifact,
   running = null,
@@ -85,13 +111,11 @@ export function Workflow({
     : -1;
   const next = dirty ? 'prepare' : nextStage(artifact);
   return (
-    <aside className="workflow-panel" aria-label="Generation details">
+    <aside className="flex flex-1 flex-col" aria-label="Generation details">
       <section>
-        <div className="panel-heading">
-          <h2>Generation flow</h2>
-        </div>
+        <h2 className="mb-5 text-base font-semibold">Generation flow</h2>
         <Progress running={running} startedAt={startedAt} status={status} />
-        <p className="route-label">
+        <p className="mt-3 pb-3 text-xs text-muted-foreground">
           {request?.previous
             ? 'Feedback revision'
             : retrieved
@@ -100,18 +124,16 @@ export function Workflow({
                 ? 'Supplied brief'
                 : 'Character name'}
         </p>
-        <ol className="stages">
-          <li className={running === 'character' ? 'running' : request ? 'completed' : ''}>
-            {running === 'character' ? (
-              <LoaderCircle className="spinning" size={16} />
-            ) : request ? (
-              <Check size={16} />
-            ) : (
-              <Circle size={16} />
-            )}
-            <div>
-              <span>{retrieved || !request ? 'Find references' : 'Use supplied sources'}</span>
-              <small>
+        <ol className="my-4 grid grid-cols-2 gap-x-4 sm:block">
+          <li className={stageItem}>
+            <StageIcon
+              outcome={running === 'character' ? 'running' : request ? 'completed' : 'pending'}
+            />
+            <div className="min-w-0 flex-1">
+              <span className={stageTitle}>
+                {retrieved || !request ? 'Find references' : 'Use supplied sources'}
+              </span>
+              <small className={stageDetail}>
                 {running === 'character'
                   ? 'Searching text and images'
                   : request
@@ -122,10 +144,11 @@ export function Workflow({
             {onReferences && (
               <IconButton
                 label={request ? 'Find references again' : 'Find references only'}
+                size="icon-sm"
                 disabled={busy}
                 onClick={onReferences}
               >
-                {request ? <RotateCcw size={14} /> : <Play size={14} />}
+                {request ? <RotateCcw className="size-3.5" /> : <Play className="size-3.5" />}
               </IconButton>
             )}
           </li>
@@ -136,19 +159,14 @@ export function Workflow({
               <li
                 id={`stage-${stage}`}
                 key={stage}
-                className={outcome}
+                className={stageItem}
+                data-outcome={outcome}
                 aria-label={`${stageNames[stage]}: ${outcome}`}
               >
-                {outcome === 'running' ? (
-                  <LoaderCircle size={16} className="spinning" />
-                ) : outcome === 'completed' ? (
-                  <Check size={16} />
-                ) : (
-                  <Circle size={16} />
-                )}
-                <div>
-                  <span>{stageNames[stage]}</span>
-                  <small>
+                <StageIcon outcome={outcome} />
+                <div className="min-w-0 flex-1">
+                  <span className={stageTitle}>{stageNames[stage]}</span>
+                  <small className={stageDetail}>
                     {
                       {
                         prepare: 'Resolve sources and game rules',
@@ -162,26 +180,33 @@ export function Workflow({
                 {onStage && (
                   <IconButton
                     label={`${outcome === 'completed' ? 'Rerun' : 'Run'} ${stageNames[stage]} only`}
+                    size="icon-sm"
                     disabled={busy || (dirty ? stage !== 'prepare' : index > finished + 1)}
                     onClick={() => onStage(stage)}
                   >
-                    {outcome === 'completed' ? <RotateCcw size={14} /> : <Play size={14} />}
+                    {outcome === 'completed' ? (
+                      <RotateCcw className="size-3.5" />
+                    ) : (
+                      <Play className="size-3.5" />
+                    )}
                   </IconButton>
                 )}
               </li>
             );
           })}
         </ol>
-        {dirty && artifact && <p className="notice">Edited inputs will start a new revision.</p>}
-        <div className="stage-actions">
+        {dirty && artifact && (
+          <Alert variant="warning">Edited inputs will start a new revision.</Alert>
+        )}
+        <div className="mt-5 mb-2 flex flex-col gap-1.5">
           {running && onStop ? (
-            <button type="button" onClick={onStop}>
-              <Square size={14} /> Stop
-            </button>
+            <Button onClick={onStop}>
+              <Square className="size-3.5" /> Stop
+            </Button>
           ) : next && onRun ? (
-            <button type="button" id="continue-run" disabled={busy} onClick={() => onRun(true)}>
-              <Play size={14} /> Continue
-            </button>
+            <Button id="continue-run" variant="primary" disabled={busy} onClick={() => onRun(true)}>
+              <Play className="size-3.5" /> Continue
+            </Button>
           ) : null}
         </div>
       </section>

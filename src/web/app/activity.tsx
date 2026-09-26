@@ -1,7 +1,8 @@
 import { Check, CircleAlert, LoaderCircle, Square } from 'lucide-react';
 import type { AuthoringSession } from '../features/authoring/use-authoring.js';
 import { stageNames } from '../features/authoring/use-authoring.js';
-import { IconButton } from '../ui/legacy.js';
+import { Button } from '../ui/button.js';
+import { IconButton } from '../ui/icon-button.js';
 
 export function Activity({
   session,
@@ -16,7 +17,10 @@ export function Activity({
   const visible = jobs.filter((job) => away || job.state === 'running' || job.state === 'waiting');
   if (!visible.length) return null;
   return (
-    <div className="global-activity" aria-label="Generation activity">
+    <div
+      className="order-3 flex w-full min-w-0 flex-wrap items-center gap-1 sm:order-none sm:w-auto sm:flex-nowrap"
+      aria-label="Generation activity"
+    >
       {visible.map((job) => {
         const active = job.state === 'running';
         const label = active
@@ -33,28 +37,41 @@ export function Activity({
               waiting: 'Needs your input',
             }[job.state];
         return (
-          <span key={job.id} className="global-activity">
-            <button
-              type="button"
-              className="activity-link"
+          <span
+            key={job.id}
+            className="global-activity flex min-w-0 flex-1 items-center gap-1 sm:flex-none"
+          >
+            <Button
+              variant="ghost"
+              size="sm"
+              className="activity-link min-w-0 flex-1 justify-start text-xs text-foreground sm:flex-none"
               onClick={() => onOpen(job.id)}
               title="View generation"
             >
               {active ? (
-                <LoaderCircle size={15} className="spinning" />
+                <LoaderCircle className="size-[15px] animate-spin text-link motion-reduce:animate-none" />
               ) : job.state === 'finished' ? (
-                <Check size={15} />
+                <Check className="size-[15px] text-success" />
               ) : (
-                <CircleAlert size={15} />
+                <CircleAlert className="size-[15px] text-warning" />
               )}
-              <span className="activity-name">{job.name}</span>
-              <span className="activity-stage" role="status">
+              <span className="truncate sm:max-w-[100px] min-[1201px]:max-w-[220px]">
+                {job.name}
+              </span>
+              <span
+                className="whitespace-nowrap text-muted-foreground sm:hidden min-[1201px]:inline"
+                role="status"
+              >
                 {label}
               </span>
-            </button>
+            </Button>
             {active && (
-              <IconButton label={`Stop ${job.name}`} onClick={() => session.stop(job.id)}>
-                <Square size={13} />
+              <IconButton
+                label={`Stop ${job.name}`}
+                size="icon-sm"
+                onClick={() => session.stop(job.id)}
+              >
+                <Square className="size-3" />
               </IconButton>
             )}
           </span>

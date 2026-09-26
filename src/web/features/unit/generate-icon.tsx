@@ -8,6 +8,8 @@ import type {
 } from '../../api/contract.js';
 import { api, LabApiError } from '../../api/client.js';
 import { formatCost } from '../../api/usage.js';
+import { Alert } from '../../ui/alert.js';
+import { Button } from '../../ui/button.js';
 
 /** Opening a placeholder only loads settings. A separate confirmation submits one paid request. */
 export function GenerateIcon({
@@ -77,10 +79,11 @@ export function GenerateIcon({
     }
   }
   return (
-    <section aria-label="Generate icon">
+    <section className="mt-3" aria-label="Generate icon">
       {!confirming && (
-        <button
-          type="button"
+        <Button
+          variant="primary"
+          size="sm"
           disabled={!artifact || !settings?.ready || pending}
           onClick={() => {
             setConfirming(true);
@@ -88,53 +91,57 @@ export function GenerateIcon({
             setError('');
           }}
         >
-          {pending ? <LoaderCircle size={15} className="spinning" /> : <ImagePlus size={15} />}
+          {pending ? (
+            <LoaderCircle className="size-3.5 animate-spin motion-reduce:animate-none" />
+          ) : (
+            <ImagePlus className="size-3.5" />
+          )}
           {pending
             ? 'Generating image...'
             : `Generate with ${settings?.model ?? 'configured model'}`}
-        </button>
+        </Button>
       )}
       {settings && !settings.ready && (
-        <p className="muted small">
+        <p className="mt-2 text-xs text-muted-foreground">
           Add a valid OpenRouter key in Settings to generate images here. Copying prompts is always
           available.
         </p>
       )}
       {confirming && (
-        <div role="group" aria-label="Confirm image generation">
+        <div
+          role="group"
+          className="rounded-lg border border-border bg-muted/40 p-3"
+          aria-label="Confirm image generation"
+        >
           <p>Generate one square PNG with {settings?.model} through OpenRouter?</p>
-          <p className="muted small">
+          <p className="mt-2 text-xs text-muted-foreground">
             {settings?.model === 'meta/muse-image'
               ? 'Square character art. OpenRouter lists about $0.01 per image. Final billing comes from OpenRouter.'
               : settings?.model === 'openai/gpt-image-1-mini'
                 ? 'Low quality, 1024 by 1024. About $0.005 per image plus prompt tokens. Final billing comes from OpenRouter.'
                 : 'Square output. Pricing is model-dependent and is not available here. This request may incur a charge.'}
           </p>
-          <p className="muted small">
+          <p className="mt-2 text-xs text-muted-foreground">
             The image will be saved to the destination below
             {reference.dataUrl ? ', replacing the current icon' : ''}. Charges can apply if you
             close this dialog after submission.
           </p>
-          <div className="button-row">
-            <button type="button" onClick={() => void generate()}>
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <Button variant="primary" size="sm" onClick={() => void generate()}>
               Confirm and generate
-            </button>
-            <button type="button" className="secondary" onClick={() => setConfirming(false)}>
+            </Button>
+            <Button size="sm" onClick={() => setConfirming(false)}>
               Cancel
-            </button>
+            </Button>
           </div>
         </div>
       )}
       {message && (
-        <p role="status" className="muted small">
+        <p role="status" className="mt-2 text-xs text-muted-foreground">
           {message}
         </p>
       )}
-      {error && (
-        <p role="alert" className="error">
-          {error}
-        </p>
-      )}
+      {error && <Alert>{error}</Alert>}
     </section>
   );
 }

@@ -1,0 +1,138 @@
+/* Tailwind entry for the web app. Sources are listed explicitly so the
+   build never scans dist/ or node_modules/. */
+@import 'tailwindcss' source(none);
+@import 'tw-animate-css';
+@source '../app';
+@source '../features';
+@source '../ui';
+
+@custom-variant dark (&:is(.dark *));
+
+/* The dark palette the app has always used, in shadcn/ui token names. */
+:root {
+  color-scheme: dark;
+  --radius: 0.4rem;
+  --canvas: #0a0a0a;
+  --background: #111111;
+  --foreground: #ededed;
+  --card: #111111;
+  --card-foreground: #ededed;
+  --popover: #161616;
+  --popover-foreground: #ededed;
+  --primary: #346bf1;
+  --primary-foreground: #ffffff;
+  --secondary: #181818;
+  --secondary-foreground: #ededed;
+  --muted: #181818;
+  --muted-foreground: #999999;
+  --accent: #1f1f1f;
+  --accent-foreground: #ededed;
+  --destructive: #ff888a;
+  --destructive-surface: #301719;
+  --warning: #e9bb61;
+  --warning-surface: #2c2314;
+  --success: #8bd6aa;
+  --success-surface: #16291f;
+  --link: #91b3ff;
+  --border: #252525;
+  --input: #343434;
+  --ring: #346bf1;
+}
+
+/* Breakpoints where the unit workspace changes its columns. */
+@theme {
+  --breakpoint-sm: 601px;
+  --breakpoint-md: 851px;
+  --breakpoint-lg: 1101px;
+  --breakpoint-xl: 1400px;
+}
+
+@theme inline {
+  --font-sans: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Consolas, monospace;
+  --radius-sm: calc(var(--radius) - 2px);
+  --radius-md: var(--radius);
+  --radius-lg: calc(var(--radius) + 2px);
+  --radius-xl: calc(var(--radius) + 6px);
+  --color-canvas: var(--canvas);
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-card: var(--card);
+  --color-card-foreground: var(--card-foreground);
+  --color-popover: var(--popover);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-primary: var(--primary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-secondary: var(--secondary);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-muted: var(--muted);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-accent: var(--accent);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-destructive: var(--destructive);
+  --color-destructive-surface: var(--destructive-surface);
+  --color-warning: var(--warning);
+  --color-warning-surface: var(--warning-surface);
+  --color-success: var(--success);
+  --color-success-surface: var(--success-surface);
+  --color-link: var(--link);
+  --color-border: var(--border);
+  --color-input: var(--input);
+  --color-ring: var(--ring);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/60;
+  }
+  body {
+    @apply bg-background text-foreground font-sans text-sm leading-relaxed antialiased;
+  }
+  a {
+    @apply text-link hover:underline;
+  }
+  svg {
+    @apply shrink-0;
+  }
+  [id^='ability-'] {
+    scroll-margin-top: 85px;
+  }
+}
+
+/* The kit sheet lines up the tiers of all paths on wide screens. Utilities
+   cannot express the subgrid with per-element row variables readably. */
+@media (min-width: 1400px) {
+  .upgrade-paths {
+    grid-template-columns: repeat(var(--path-count), minmax(230px, 1fr));
+    column-gap: 24px;
+    row-gap: 0;
+    overflow-x: auto;
+  }
+  .path-section {
+    display: grid;
+    grid-template-rows: subgrid;
+    grid-row: 1 / span var(--path-rows);
+  }
+  .path-heading {
+    grid-row: 1;
+  }
+  .tier-card {
+    grid-row: var(--tier-row);
+    align-content: start;
+  }
+}
+
+/* The stage timeline draws a line between stage icons. */
+.stage-line:not(:last-child)::after {
+  content: '';
+  position: absolute;
+  left: 7px;
+  top: 21px;
+  bottom: 5px;
+  border-left: 1px solid var(--border);
+}
+@media (max-width: 600px) {
+  .stage-line::after {
+    display: none;
+  }
+}

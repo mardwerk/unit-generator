@@ -1,6 +1,12 @@
 import { useRef } from 'react';
 import { Plus, Upload, Trash2 } from 'lucide-react';
-import { Disclosure, Field, IconButton } from '../../ui/legacy.js';
+import { Alert } from '../../ui/alert.js';
+import { Button } from '../../ui/button.js';
+import { Disclosure } from '../../ui/disclosure.js';
+import { Field } from '../../ui/field.js';
+import { IconButton } from '../../ui/icon-button.js';
+import { Input, Textarea } from '../../ui/input.js';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select.js';
 import type { DocumentInput, EditorInput } from './editor-state.js';
 
 export function RequestEditor({
@@ -25,15 +31,15 @@ export function RequestEditor({
       ),
     });
   return (
-    <fieldset id="request-editor" disabled={disabled}>
-      <p className="muted small">
+    <fieldset id="request-editor" className="min-w-0" disabled={disabled}>
+      <p className="text-xs text-muted-foreground">
         Rules and progression come from the Profile chosen on the Generate form. Choosing another
         Profile replaces them and starts a new design; imported requests keep their own rules until
         then.
       </p>
-      <h3>Character brief</h3>
+      <h3 className="mt-5 mb-2 text-sm font-semibold">Character brief</h3>
       <Field label="Character name">
-        <input
+        <Input
           value={value.character.name}
           onChange={(e) =>
             onChange({ ...value, character: { ...value.character, name: e.target.value } })
@@ -41,7 +47,7 @@ export function RequestEditor({
         />
       </Field>
       <Field label="Source work">
-        <input
+        <Input
           value={value.character.work}
           onChange={(e) =>
             onChange({ ...value, character: { ...value.character, work: e.target.value } })
@@ -49,7 +55,7 @@ export function RequestEditor({
         />
       </Field>
       <Field label="Story period and source scope">
-        <textarea
+        <Textarea
           rows={2}
           value={value.character.scope}
           onChange={(e) =>
@@ -58,33 +64,39 @@ export function RequestEditor({
         />
       </Field>
       <Field label="What should this Unit do?">
-        <textarea
+        <Textarea
           rows={3}
           value={value.task}
           onChange={(e) => onChange({ ...value, task: e.target.value })}
         />
       </Field>
-      <h3>Sources and game rules</h3>
-      <p className="muted small">
+      <h3 className="mt-6 mb-1 text-sm font-semibold">Sources and game rules</h3>
+      <p className="text-xs text-muted-foreground">
         Supply evidence and governing rules. URLs are retrieved during Prepare.
       </p>
       {value.documents.map((doc, index) =>
         doc.id === generatedEvidenceId ? (
-          <details className="document-editor" key={index}>
-            <summary>{doc.id} (generated rules)</summary>
-            <p className="muted small">
+          <Disclosure
+            bare
+            className="my-0 border-b border-border"
+            key={index}
+            title={`${doc.id} (generated rules)`}
+          >
+            <p className="text-xs text-muted-foreground">
               This evidence is generated from the mechanics Definition and cannot be edited here.
             </p>
             <Field label="Generated mechanics rules">
-              <textarea rows={5} value={doc.text} readOnly />
+              <Textarea rows={5} value={doc.text} readOnly />
             </Field>
-          </details>
+          </Disclosure>
         ) : (
-          <details className="document-editor" key={index}>
-            <summary>
-              {doc.id || `Document ${index + 1}`} ({doc.kind})
-            </summary>
-            <div className="document-heading">
+          <Disclosure
+            bare
+            className="my-0 border-b border-border"
+            key={index}
+            title={`${doc.id || `Document ${index + 1}`} (${doc.kind})`}
+          >
+            <div className="flex items-center justify-between gap-3 text-xs">
               <span>Document {index + 1}</span>
               <IconButton
                 label={`Remove document ${index + 1}`}
@@ -92,41 +104,51 @@ export function RequestEditor({
                   onChange({ ...value, documents: value.documents.filter((_, i) => i !== index) })
                 }
               >
-                <Trash2 size={16} />
+                <Trash2 />
               </IconButton>
             </div>
             <Field label="Document ID">
-              <input
+              <Input
                 value={doc.id}
                 onChange={(e) => changeDocument(index, { id: e.target.value })}
               />
             </Field>
             <Field label="Kind">
-              <select
+              <Select
                 value={doc.kind}
-                onChange={(e) =>
-                  changeDocument(index, { kind: e.target.value as DocumentInput['kind'] })
+                onValueChange={(kind) =>
+                  changeDocument(index, { kind: kind as DocumentInput['kind'] })
                 }
               >
-                <option value="source">Character source</option>
-                <option value="rules">Game rules</option>
-                <option value="decisions">Confirmed decisions</option>
-              </select>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="source">Character source</SelectItem>
+                  <SelectItem value="rules">Game rules</SelectItem>
+                  <SelectItem value="decisions">Confirmed decisions</SelectItem>
+                </SelectContent>
+              </Select>
             </Field>
             <Field label="Input">
-              <select
+              <Select
                 value={doc.mode}
-                onChange={(e) =>
-                  changeDocument(index, { mode: e.target.value as DocumentInput['mode'] })
+                onValueChange={(mode) =>
+                  changeDocument(index, { mode: mode as DocumentInput['mode'] })
                 }
               >
-                <option value="text">Supplied text</option>
-                <option value="url">Retrieve URL</option>
-              </select>
+                <SelectTrigger>
+                  <SelectValue />
+                </SelectTrigger>
+                <SelectContent>
+                  <SelectItem value="text">Supplied text</SelectItem>
+                  <SelectItem value="url">Retrieve URL</SelectItem>
+                </SelectContent>
+              </Select>
             </Field>
             {doc.mode === 'text' ? (
               <Field label="Document text">
-                <textarea
+                <Textarea
                   rows={5}
                   value={doc.text}
                   onChange={(e) => changeDocument(index, { text: e.target.value })}
@@ -134,7 +156,7 @@ export function RequestEditor({
               </Field>
             ) : (
               <Field label="Source URL">
-                <input
+                <Input
                   type="url"
                   value={doc.url}
                   onChange={(e) => changeDocument(index, { url: e.target.value })}
@@ -142,23 +164,23 @@ export function RequestEditor({
               </Field>
             )}
             {doc.missingFile && (
-              <p className="notice">
+              <Alert variant="warning">
                 This request references {doc.missingFile}. Paste or upload its text. The browser
                 cannot read server files.
-              </p>
+              </Alert>
             )}
             {doc.original && (
-              <p className="muted small">
+              <p className="text-xs text-muted-foreground">
                 Recorded provenance: {doc.original.origin.access}. Edited text is recorded as
                 supplied evidence.
               </p>
             )}
-          </details>
+          </Disclosure>
         ),
       )}
-      <div className="button-row">
-        <button
-          type="button"
+      <div className="mt-3 flex flex-wrap items-center gap-2">
+        <Button
+          size="sm"
           onClick={() =>
             onChange({
               ...value,
@@ -175,11 +197,11 @@ export function RequestEditor({
             })
           }
         >
-          <Plus size={14} /> Add document
-        </button>
-        <button type="button" onClick={() => upload.current?.click()}>
-          <Upload size={14} /> Upload text
-        </button>
+          <Plus /> Add document
+        </Button>
+        <Button size="sm" onClick={() => upload.current?.click()}>
+          <Upload /> Upload text
+        </Button>
       </div>
       <input
         ref={upload}
@@ -194,15 +216,15 @@ export function RequestEditor({
       />
       <Disclosure title="Confirmed choices and progression">
         <Field label="Constraints (JSON array)">
-          <textarea
-            className="code-input"
+          <Textarea
+            className="font-mono text-xs"
             rows={6}
             value={value.constraints}
             onChange={(e) => onChange({ ...value, constraints: e.target.value })}
           />
         </Field>
         {definition && (
-          <p className="muted small">
+          <p className="text-xs text-muted-foreground">
             Progression follows the mechanics Definition. To customize these rules, import a request
             with an edited Definition and matching progression.
           </p>
@@ -214,8 +236,8 @@ export function RequestEditor({
               : 'Progression (JSON object or null)'
           }
         >
-          <textarea
-            className="code-input"
+          <Textarea
+            className="font-mono text-xs"
             rows={8}
             value={value.progression}
             readOnly={Boolean(definition)}
@@ -226,7 +248,9 @@ export function RequestEditor({
         </Field>
       </Disclosure>
       {value.base.previous && (
-        <p className="muted small">Prior result and revision feedback are included.</p>
+        <p className="text-xs text-muted-foreground">
+          Prior result and revision feedback are included.
+        </p>
       )}
     </fieldset>
   );

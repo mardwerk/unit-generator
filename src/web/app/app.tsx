@@ -1,15 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
-import {
-  Settings as SettingsIcon,
-  Library as LibraryIcon,
-  Layers,
-  Plus,
-  UserRound,
-} from 'lucide-react';
 import type { LabArtifact, LibraryEntry, Sources } from '../api/contract.js';
 import { api } from '../api/client.js';
 import { candidateOf, requestOf } from '../api/artifacts.js';
 import { Activity } from './activity.js';
+import { Topbar, type View } from './topbar.js';
 import { SavedUnit } from '../features/unit/saved-unit.js';
 import { useAuthoring } from '../features/authoring/use-authoring.js';
 import { useUnitIcons } from '../features/unit/icon-prompts.js';
@@ -21,8 +15,14 @@ import { Revisions } from '../features/unit/revisions.js';
 import { KeyStatus, Settings, useProvider } from '../features/settings/settings.js';
 import { Library, useLibrary } from '../features/library/library.js';
 import { ProfilesView, useProfiles } from '../features/profiles/profiles.js';
-import { Disclosure, Field, IconButton, download } from '../ui/legacy.js';
+import { UnitWorkspace } from '../features/unit/workspace.js';
 import { isEmptyCreateDraft } from '../features/generate/create-draft.js';
+import { Alert } from '../ui/alert.js';
+import { Button } from '../ui/button.js';
+import { Disclosure } from '../ui/disclosure.js';
+import { Field } from '../ui/field.js';
+import { Textarea } from '../ui/input.js';
+import { download } from '../ui/utils.js';
 
 const improvement =
   'Address the issues in the previous findings. Fix inconsistent identifiers and references. Preserve supplied confirmed decisions and the intended character design. Never invent approvals or evidence to make checks pass. Keep missing game rules explicit and retain a compact complete kit.';
@@ -31,7 +31,7 @@ export function App() {
   const library = useLibrary();
   const session = useAuthoring(library.save);
   const icons = useUnitIcons(session.artifact, library.directory);
-  const [view, setView] = useState<'generate' | 'library' | 'profiles' | 'unit'>('generate');
+  const [view, setView] = useState<View>('generate');
   const profiles = useProfiles();
   const [inputsOpen, setInputsOpen] = useState(false);
   const [inspected, setInspected] = useState<LabArtifact | null>(null);
@@ -131,79 +131,31 @@ export function App() {
   }
   return (
     <>
-      <header className="topbar">
-        <div className="topbar-brand">
-          <a
-            className="brand"
-            href="#"
-            aria-label="mardwerk-unit"
-            onClick={(event) => {
-              event.preventDefault();
-              showCreate();
-            }}
-          >
-            <img src="/mardwerk.png" alt="Mardwerk" width={30} height={36} />
-            <h1>mardwerk-unit</h1>
-          </a>
+      <Topbar
+        view={view}
+        unitDisabled={!session.revisions.length && !session.job && !inspected}
+        activity={
           <Activity
             session={session}
             away={view !== 'unit' || Boolean(inspected)}
             onOpen={openGeneration}
           />
-        </div>
-        <nav className="topbar-nav" aria-label="Workspace">
-          <IconButton
-            id="open-create"
-            label="Generate"
-            className={`icon-button nav-button ${view === 'generate' ? 'active' : ''}`}
-            aria-current={view === 'generate' ? 'page' : undefined}
-            onClick={showCreate}
-          >
-            <Plus size={19} />
-          </IconButton>
-          <IconButton
-            id="open-library"
-            label="Library"
-            className={`icon-button nav-button ${view === 'library' ? 'active' : ''}`}
-            aria-current={view === 'library' ? 'page' : undefined}
-            onClick={() => {
-              setView('library');
-              void library.refresh().catch(session.reportError);
-            }}
-          >
-            <LibraryIcon size={19} />
-          </IconButton>
-          <IconButton
-            id="open-profiles"
-            label="Profiles"
-            className={`icon-button nav-button ${view === 'profiles' ? 'active' : ''}`}
-            aria-current={view === 'profiles' ? 'page' : undefined}
-            onClick={() => setView('profiles')}
-          >
-            <Layers size={19} />
-          </IconButton>
-          <IconButton
-            id="open-unit"
-            label="Unit"
-            className={`icon-button nav-button ${view === 'unit' ? 'active' : ''}`}
-            aria-current={view === 'unit' ? 'page' : undefined}
-            disabled={!session.revisions.length && !session.job && !inspected}
-            onClick={() => {
-              if (session.job?.state === 'running' || session.job?.state === 'waiting')
-                setInspected(null);
-              setView('unit');
-            }}
-          >
-            <UserRound size={19} />
-          </IconButton>
-        </nav>
-        <div className="topbar-actions">
-          <KeyStatus state={provider} onOpen={() => setSettings(true)} />
-          <IconButton id="open-settings" label="Settings" onClick={() => setSettings(true)}>
-            <SettingsIcon size={19} />
-          </IconButton>
-        </div>
-      </header>
+        }
+        status={<KeyStatus state={provider} onOpen={() => setSettings(true)} />}
+        onHome={showCreate}
+        onSettings={() => setSettings(true)}
+        onView={(next) => {
+          if (next === 'generate') showCreate();
+          else if (next === 'library') {
+            setView('library');
+            void library.refresh().catch(session.reportError);
+          } else if (next === 'unit') {
+            if (session.job?.state === 'running' || session.job?.state === 'waiting')
+              setInspected(null);
+            setView('unit');
+          } else setView(next);
+        }}
+      />
       <input
         id="file-input"
         ref={inputFile}
@@ -226,11 +178,7 @@ export function App() {
             busy={opening || library.pending}
             onOpen={(entry) => void openEntry(entry)}
           />
-          {libraryError && (
-            <p className="error library-error" role="alert">
-              {libraryError}
-            </p>
-          )}
+          {libraryError && <Alert className="mx-8 my-5">{libraryError}</Alert>}
         </>
       ) : view === 'profiles' ? (
         <ProfilesView
@@ -251,8 +199,8 @@ export function App() {
           onDelete={(id) => profiles.remove(id)}
         />
       ) : view === 'generate' ? (
-        <main className="create-workspace">
-          <div className="create-column">
+        <main className="px-[18px] py-10 sm:px-6 sm:py-[70px]">
+          <div className="mx-auto max-w-[900px]">
             <GenerateInputs
               session={session.creation}
               onGenerate={(destination) => {
@@ -286,111 +234,106 @@ export function App() {
           }}
         />
       ) : (
-        <main className="workspace">
-          <Gallery artifact={session.running === 'character' ? null : flowArtifact} />
-          <div className="sheet-column">
-            {session.error && (
-              <p id="error" className="error" role="alert">
-                {session.error}
-              </p>
-            )}
-            <CharacterChoices session={session} />
-            {view === 'unit' && (
-              <>
-                {previous && current && <Comparison previous={previous} current={current} />}
-                {session.artifact ? (
-                  <CharacterSheet
-                    artifact={session.artifact}
-                    icons={icons}
-                    busy={session.busy}
-                    onImprove={() => session.revise(improvement)}
-                    onContinue={() => void session.run(true)}
-                  />
-                ) : null}
-                <Revisions
-                  session={session}
-                  onSave={() => void save()}
-                  onExport={(markdown) => void exportArtifact(markdown)}
-                  onExportSession={exportSession}
-                  onNewInputs={newCreate}
-                />
-                {current && (
-                  <Disclosure title="Revise this Unit" className="feedback-panel">
-                    <button
-                      type="button"
-                      disabled={session.busy || session.dirty}
-                      onClick={() => void session.runStage('draft')}
-                    >
-                      Rerun frozen inputs
-                    </button>
-                    <p className="muted small">
-                      Reuse retained sources, rules and guidance. The currently selected model is
-                      recorded on the new run.
-                    </p>
-                    <Field label="What should change?">
-                      <textarea
-                        id="feedback"
-                        rows={3}
-                        value={feedback}
-                        disabled={session.busy}
-                        onChange={(e) => setFeedback(e.target.value)}
-                      />
-                    </Field>
-                    <button
-                      id="revise"
-                      type="button"
-                      className="primary"
-                      disabled={session.busy}
-                      onClick={() => session.revise(feedback)}
-                    >
-                      Generate revision
-                    </button>
-                  </Disclosure>
-                )}
-              </>
-            )}
-          </div>
-          <Workflow
-            artifact={flowArtifact}
-            running={session.running}
-            status={session.status}
-            startedAt={session.startedAt}
-            dirty={session.dirty}
-            busy={session.busy}
-            onRun={
-              !flowArtifact && session.job && !session.choices.length
-                ? () => void session.generate()
-                : hasInputs
-                  ? (remaining) => {
+        <UnitWorkspace
+          gallery={<Gallery artifact={session.running === 'character' ? null : flowArtifact} />}
+          workflow={
+            <Workflow
+              artifact={flowArtifact}
+              running={session.running}
+              status={session.status}
+              startedAt={session.startedAt}
+              dirty={session.dirty}
+              busy={session.busy}
+              onRun={
+                !flowArtifact && session.job && !session.choices.length
+                  ? () => void session.generate()
+                  : hasInputs
+                    ? (remaining) => {
+                        setInspected(null);
+                        void session.run(remaining);
+                      }
+                    : undefined
+              }
+              onStage={
+                hasInputs
+                  ? (stage) => {
                       setInspected(null);
-                      void session.run(remaining);
+                      void session.runStage(stage);
                     }
                   : undefined
-            }
-            onStage={
-              hasInputs
-                ? (stage) => {
-                    setInspected(null);
-                    void session.runStage(stage);
-                  }
-                : undefined
-            }
-            onStop={session.stop}
-            onReferences={
-              session.name.trim() &&
-              !session.usesEditedInputs &&
-              (!flowArtifact ||
-                requestOf(flowArtifact).documents.some(
-                  (doc) => doc.kind === 'source' && doc.origin.access === 'retrieved',
-                ))
-                ? () => {
-                    setInspected(null);
-                    void session.findReferences();
-                  }
-                : undefined
-            }
-          />
-        </main>
+              }
+              onStop={session.stop}
+              onReferences={
+                session.name.trim() &&
+                !session.usesEditedInputs &&
+                (!flowArtifact ||
+                  requestOf(flowArtifact).documents.some(
+                    (doc) => doc.kind === 'source' && doc.origin.access === 'retrieved',
+                  ))
+                  ? () => {
+                      setInspected(null);
+                      void session.findReferences();
+                    }
+                  : undefined
+              }
+            />
+          }
+        >
+          {session.error && <Alert id="error">{session.error}</Alert>}
+          <CharacterChoices session={session} />
+          {view === 'unit' && (
+            <>
+              {previous && current && <Comparison previous={previous} current={current} />}
+              {session.artifact ? (
+                <CharacterSheet
+                  artifact={session.artifact}
+                  icons={icons}
+                  busy={session.busy}
+                  onImprove={() => session.revise(improvement)}
+                  onContinue={() => void session.run(true)}
+                />
+              ) : null}
+              <Revisions
+                session={session}
+                onSave={() => void save()}
+                onExport={(markdown) => void exportArtifact(markdown)}
+                onExportSession={exportSession}
+                onNewInputs={newCreate}
+              />
+              {current && (
+                <Disclosure title="Revise this Unit" className="mt-6">
+                  <Button
+                    disabled={session.busy || session.dirty}
+                    onClick={() => void session.runStage('draft')}
+                  >
+                    Rerun frozen inputs
+                  </Button>
+                  <p className="my-2 text-xs text-muted-foreground">
+                    Reuse retained sources, rules and guidance. The currently selected model is
+                    recorded on the new run.
+                  </p>
+                  <Field label="What should change?">
+                    <Textarea
+                      id="feedback"
+                      rows={3}
+                      value={feedback}
+                      disabled={session.busy}
+                      onChange={(e) => setFeedback(e.target.value)}
+                    />
+                  </Field>
+                  <Button
+                    id="revise"
+                    variant="primary"
+                    disabled={session.busy}
+                    onClick={() => session.revise(feedback)}
+                  >
+                    Generate revision
+                  </Button>
+                </Disclosure>
+              )}
+            </>
+          )}
+        </UnitWorkspace>
       )}
       {settings && (
         <Settings disabled={session.busy} library={library} onClose={() => setSettings(false)} />

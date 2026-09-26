@@ -1,11 +1,15 @@
 import { useRef, useState } from 'react';
-import { ChevronDown, Layers, SlidersHorizontal, Upload } from 'lucide-react';
+import { Layers, SlidersHorizontal, Upload, X } from 'lucide-react';
 import type { LabRequest, ProfileEntry } from '../../api/contract.js';
 import { api } from '../../api/client.js';
 import { generationView, isEmptyCreateDraft } from './create-draft.js';
 import { emptyRequest } from '../../api/artifacts.js';
 import { RequestEditor } from './editor.js';
 import type { AuthoringSession } from '../authoring/use-authoring.js';
+import { Alert } from '../../ui/alert.js';
+import { Button } from '../../ui/button.js';
+import { Input } from '../../ui/input.js';
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '../../ui/select.js';
 
 export function GenerateInputs({
   session,
@@ -37,10 +41,10 @@ export function GenerateInputs({
     profiles.find(({ profile }) => profile.id === profileId)?.profile.name ?? 'Imported rules';
   return (
     <>
-      <section className="create-unit" aria-label="Generate a Unit">
+      <section className="mx-auto mb-4 max-w-[680px]" aria-label="Generate a Unit">
         <form
           id="generate-form"
-          className="generate-form"
+          className="flex flex-wrap items-end gap-2 sm:flex-nowrap"
           onSubmit={(e) => {
             e.preventDefault();
             const view = submitView.current;
@@ -48,10 +52,11 @@ export function GenerateInputs({
             onGenerate(view);
           }}
         >
-          <label className="field">
+          <label className="flex min-w-0 flex-1 basis-full flex-col gap-1.5 text-xs text-muted-foreground sm:basis-auto">
             <span>Character name</span>
-            <input
+            <Input
               id="character-name"
+              className="h-11 text-base"
               placeholder="Who are we creating?"
               autoComplete="off"
               required
@@ -60,10 +65,12 @@ export function GenerateInputs({
               disabled={session.busy}
             />
           </label>
-          <button
+          <Button
             id="generate"
             type="submit"
-            className="primary"
+            variant="primary"
+            size="lg"
+            className="flex-1 sm:flex-none"
             disabled={session.busy}
             title="Generate a Unit. Ctrl-click or Cmd-click to stay on this page."
             onClick={(event) => {
@@ -71,82 +78,87 @@ export function GenerateInputs({
             }}
           >
             Generate
-          </button>
+          </Button>
         </form>
-        <p className="generation-hint muted small">
+        <p className="my-2 text-xs text-muted-foreground">
           {session.generationBusy
             ? 'Generate another Unit while the other runs continue.'
             : 'Ctrl-click or Cmd-click Generate to stay here.'}
         </p>
-        {session.error && (
-          <p className="error" role="alert">
-            {session.error}
-          </p>
-        )}
-        <div className="input-actions">
-          <label className="profile-picker" title={`Profile: ${profileName}`}>
-            <Layers size={13} aria-hidden="true" className="profile-picker-icon" />
-            <span className="sr-only">Profile</span>
-            <select
+        {session.error && <Alert>{session.error}</Alert>}
+        <div className="mt-2 flex flex-wrap items-center gap-1">
+          <Select
+            value={profileId}
+            onValueChange={(value) => {
+              const entry = profiles.find(({ profile }) => profile.id === value);
+              if (entry) session.setProfile(entry);
+            }}
+            disabled={session.busy || profiles.length === 0}
+          >
+            <SelectTrigger
               id="profile-select"
-              value={profileId}
-              onChange={(e) => {
-                const entry = profiles.find(({ profile }) => profile.id === e.target.value);
-                if (entry) session.setProfile(entry);
-              }}
-              disabled={session.busy || profiles.length === 0}
+              size="ghost"
+              aria-label="Profile"
+              title={`Profile: ${profileName}`}
+              className="max-w-[260px]"
             >
-              {(importedRules || profiles.length === 0) && (
-                <option value="" disabled>
-                  {profiles.length === 0 ? 'Loading Profiles...' : 'Imported rules'}
-                </option>
-              )}
+              <Layers className="size-3.5" />
+              <SelectValue
+                placeholder={profiles.length === 0 ? 'Loading Profiles...' : 'Imported rules'}
+              />
+            </SelectTrigger>
+            <SelectContent align="start" className="min-w-[240px]">
               {profiles.map(({ profile, builtIn }) => (
-                <option key={profile.id} value={profile.id}>
-                  {builtIn ? profile.name : `${profile.name} (saved)`}
-                </option>
+                <SelectItem
+                  key={profile.id}
+                  value={profile.id}
+                  description={builtIn ? 'Built in' : 'Saved Profile'}
+                >
+                  {profile.name}
+                </SelectItem>
               ))}
-            </select>
-            <ChevronDown size={13} aria-hidden="true" className="profile-picker-chevron" />
-          </label>
-          <button
-            type="button"
-            className="text-button"
+            </SelectContent>
+          </Select>
+          <Button
+            variant="ghost"
+            size="xs"
             aria-expanded={inputsOpen}
             aria-controls="input-editor-panel"
             onClick={() => setInputsOpen(!inputsOpen)}
           >
-            <SlidersHorizontal size={13} /> Inputs and rules
-          </button>
-          <button
+            <SlidersHorizontal /> Inputs and rules
+          </Button>
+          <Button
             id="import-file"
-            type="button"
-            className="text-button"
+            variant="ghost"
+            size="xs"
             disabled={session.busy}
             onClick={onImport}
           >
-            <Upload size={13} /> Import
-          </button>
+            <Upload /> Import
+          </Button>
           {hasDraft && (
-            <button
+            <Button
               id="clear-create"
-              type="button"
-              className="text-button"
+              variant="ghost"
+              size="xs"
               disabled={session.busy}
               onClick={() => session.loadRequest(emptyRequest())}
             >
-              Clear
-            </button>
+              <X /> Clear
+            </Button>
           )}
         </div>
         {session.usesEditedInputs && (
-          <p className="muted small">Generate will use your edited inputs and rules.</p>
+          <p className="my-2 text-xs text-muted-foreground">
+            Generate will use your edited inputs and rules.
+          </p>
         )}
       </section>
       {inputsOpen && (
         <section
           id="input-editor-panel"
-          className="input-editor-panel"
+          className="mx-auto max-w-[900px] rounded-xl border border-border bg-card p-5"
           aria-label="Inputs and rules"
         >
           <RequestEditor
@@ -155,16 +167,15 @@ export function GenerateInputs({
             disabled={session.busy}
             onUpload={session.uploadDocuments}
           />
-          <div className="button-row">
-            <button
-              type="button"
+          <div className="mt-3 flex flex-wrap items-center gap-2">
+            <Button
               disabled={session.busy}
               onClick={() =>
                 void session.load(async () => session.loadRequest(await api<LabRequest>('example')))
               }
             >
               Load sample inputs
-            </button>
+            </Button>
           </div>
         </section>
       )}
@@ -175,19 +186,18 @@ export function GenerateInputs({
 export function CharacterChoices({ session }: { session: AuthoringSession }) {
   if (!session.choices.length) return null;
   return (
-    <section id="source-choices" aria-label="Choose a character">
-      <p className="muted">Which character?</p>
+    <section id="source-choices" className="my-4 grid gap-2" aria-label="Choose a character">
+      <p className="text-muted-foreground">Which character?</p>
       {session.choices.map((choice) => (
-        <button
-          type="button"
-          className="source-option"
+        <Button
           key={choice.id}
+          className="source-option h-auto flex-col items-start gap-0.5 px-3 py-2.5 text-left whitespace-normal"
           disabled={session.busy}
           onClick={() => void session.generate(choice.id)}
         >
           {choice.name}
-          <small>{choice.description}</small>
-        </button>
+          <small className="text-xs font-normal text-muted-foreground">{choice.description}</small>
+        </Button>
       ))}
     </section>
   );

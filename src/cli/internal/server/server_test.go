@@ -87,7 +87,7 @@ func recorded(t *testing.T) (*s.Object, []any) {
 }
 
 var page = fstest.MapFS{
-	"index.html":   {Data: []byte(`<!doctype html><meta name="unitlab-session" content="__UNITLAB_SESSION__"><title>t</title>`)},
+	"index.html":   {Data: []byte(`<!doctype html><meta name="unitlab-session" content="__UNITLAB_SESSION__"><meta name="unitlab-style-nonce" content="__UNITLAB_STYLE_NONCE__"><title>t</title>`)},
 	"app.js":       {Data: []byte("console.log(1)")},
 	"styles.css":   {Data: []byte("body{}")},
 	"mardwerk.png": {Data: []byte("\x89PNG")},
@@ -245,6 +245,7 @@ func TestPrepareKeepsProvenanceAndRefusesServerFiles(t *testing.T) {
 
 func TestThePageCarriesTheSessionAndOperationsNeedIt(t *testing.T) {
 	h := start(t, &scripted{}, nil)
+	nonces := map[string]bool{}
 	for _, path := range []string{"/", "/index.html"} {
 		response, err := http.Get(h.server.Origin() + path)
 		if err != nil {
@@ -255,6 +256,19 @@ func TestThePageCarriesTheSessionAndOperationsNeedIt(t *testing.T) {
 		token := regexp.MustCompile(`<meta name="unitlab-session" content="([a-f0-9]{64})"`).FindSubmatch(html)
 		if response.StatusCode != 200 || response.Header.Get("Cache-Control") != "no-store" || token == nil || string(token[1]) != h.server.Token() {
 			t.Errorf("%s: %d %s", path, response.StatusCode, html)
+		}
+		// Each page load gets its own style nonce, and the policy names it.
+		nonce := regexp.MustCompile(`<meta name="unitlab-style-nonce" content="([a-f0-9]{32})"`).FindSubmatch(html)
+		if nonce == nil || nonces[string(nonce[1])] || !strings.Contains(response.Header.Get("Content-Security-Policy"), "style-src 'self' 'nonce-"+string(nonce[1])+"';") {
+			t.Errorf("%s: style nonce %q, policy %q", path, nonce, response.Header.Get("Content-Security-Policy"))
+		} else {
+			nonces[string(nonce[1])] = true
+		}
+	}
+	if api, _ := http.Get(h.server.Origin() + "/api/v1/provider"); api != nil {
+		api.Body.Close()
+		if policy := api.Header.Get("Content-Security-Policy"); strings.Contains(policy, "nonce-") || !strings.Contains(policy, "script-src 'self';") {
+			t.Errorf("API policy %q", policy)
 		}
 	}
 	foreign, _ := http.NewRequest(http.MethodGet, h.url, nil)

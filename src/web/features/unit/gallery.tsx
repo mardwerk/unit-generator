@@ -3,19 +3,29 @@ import { ImageOff, ExternalLink } from 'lucide-react';
 import type { LabArtifact } from '../../api/contract.js';
 import type { VisualReference } from '../../api/contract.js';
 import { requestOf } from '../../api/artifacts.js';
-import { Disclosure, safeUrl } from '../../ui/legacy.js';
+import { Alert } from '../../ui/alert.js';
+import { Button } from '../../ui/button.js';
+import { Disclosure } from '../../ui/disclosure.js';
+import { cn, safeUrl } from '../../ui/utils.js';
 import { api } from '../../api/client.js';
 import { isFullBodyReference } from './portraits.js';
 import { visualReferencesOf } from './visual-references.js';
 
-function SourceImage({ reference }: { reference: VisualReference }) {
+function SourceImage({
+  reference,
+  compact = false,
+}: {
+  reference: VisualReference;
+  compact?: boolean;
+}) {
   const [failed, setFailed] = useState(false);
   return failed ? (
-    <span className="visual-fallback">
-      <ImageOff size={24} /> Image unavailable
+    <span className="flex flex-col items-center gap-2.5 p-1 text-center text-[11px] text-muted-foreground">
+      <ImageOff className="size-6" /> {!compact && 'Image unavailable'}
     </span>
   ) : (
     <img
+      className="size-full object-contain"
       src={safeUrl(reference.url)}
       alt={reference.caption}
       loading="lazy"
@@ -58,25 +68,26 @@ export function Gallery({ artifact }: { artifact: LabArtifact | null }) {
     return () => abort.abort();
   }, [artifact]);
   const active = references.find((ref) => ref.id === selection) ?? references[0];
+  if (!active && !notes.length) return null;
   return (
-    <aside className="gallery-panel" aria-label="Source images and poses">
+    <aside aria-label="Source images and poses">
       {active ? (
         <>
-          <figure className="reference-hero">
+          <figure>
             <a
               href={safeUrl(active.sourceUrl)}
               target="_blank"
               rel="noreferrer"
-              className="reference-image"
+              className="flex h-[260px] items-center justify-center overflow-hidden md:h-[200px] lg:h-[clamp(280px,25vw,420px)]"
               aria-label={`${active.caption}. Open source.`}
             >
               <SourceImage key={active.url} reference={active} />
             </a>
-            <figcaption>
-              <p>{active.caption}</p>
-              <button
-                type="button"
-                className="gallery-portrait-action"
+            <figcaption className="mt-2.5 mb-4 text-[13px] [overflow-wrap:anywhere]">
+              <p className="my-1">{active.caption}</p>
+              <Button
+                size="xs"
+                className="my-2 mr-2.5"
                 disabled={savingPortrait || active.id === portraitId}
                 onClick={() => {
                   setSavingPortrait(true);
@@ -104,48 +115,51 @@ export function Gallery({ artifact }: { artifact: LabArtifact | null }) {
                   : savingPortrait
                     ? 'Saving portrait...'
                     : 'Use as portrait'}
-              </button>
-              {portraitError && (
-                <p role="alert" className="error">
-                  {portraitError}
-                </p>
-              )}
+              </Button>
+              {portraitError && <Alert>{portraitError}</Alert>}
               <a
                 href={safeUrl(active.sourceUrl)}
                 target="_blank"
                 rel="noreferrer"
-                className="source-link"
+                className="inline-flex items-center gap-1 text-xs"
               >
-                View source <ExternalLink size={12} />
+                View source <ExternalLink className="size-3" />
               </a>
             </figcaption>
           </figure>
-          <div className="gallery-thumbnails" aria-label="Choose reference image">
+          <div
+            className="grid grid-cols-4 gap-1.5 sm:grid-cols-5 md:grid-cols-3"
+            aria-label="Choose reference image"
+          >
             {references.map((reference, index) => (
               <button
                 key={reference.id}
                 type="button"
+                className={cn(
+                  'flex h-[75px] cursor-pointer items-center justify-center overflow-hidden rounded-md border border-transparent p-0.5 transition-colors hover:bg-accent md:h-[50px] lg:h-[100px]',
+                  reference.id === active.id && 'border-link',
+                )}
                 aria-label={`Reference ${index + 1}: ${reference.caption}`}
                 aria-pressed={reference.id === active.id}
                 onClick={() => setSelection(reference.id)}
               >
-                <SourceImage reference={reference} />
+                <SourceImage reference={reference} compact />
               </button>
             ))}
           </div>
-          <Disclosure title="Image credits">
-            <p className="muted small">{active.attribution}</p>
+          <Disclosure bare title="Image credits">
+            <p className="text-xs text-muted-foreground">{active.attribution}</p>
             {notes
               .filter((note) => /full.body/i.test(note))
               .map((note) => (
-                <p className="muted small" key={note}>
+                <p className="mt-2 text-xs text-muted-foreground" key={note}>
                   {note}
                 </p>
               ))}
           </Disclosure>
         </>
       ) : (
-        notes.length > 0 && <p className="gallery-empty">No reference images found.</p>
+        <p className="text-xs text-muted-foreground">No reference images found.</p>
       )}
     </aside>
   );

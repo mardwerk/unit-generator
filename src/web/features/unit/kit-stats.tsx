@@ -16,6 +16,7 @@ import {
   type LucideIcon,
 } from 'lucide-react';
 import type { StatChange } from '../../api/contract.js';
+import { cn } from '../../ui/utils.js';
 
 export const statLabels = {
   damage: 'Damage',
@@ -83,49 +84,61 @@ const icons: Record<StatKey, LucideIcon> = {
 export function Cost({ value, currency }: { value: number; currency: string }) {
   return (
     <span
-      className="kit-cost"
+      className="kit-cost my-1.5 inline-flex items-center gap-1 text-[13px] text-warning tabular-nums"
       title={`${currency}: purchase cost`}
       aria-label={`${currency} ${value}`}
     >
-      <Coins size={15} aria-hidden="true" />
+      <Coins className="size-[15px]" aria-hidden="true" />
       <span>{value.toLocaleString('en-US')}</span>
     </span>
   );
 }
 export function StatValues({ changes }: { changes: StatChange[] }) {
   return (
-    <ul className="kit-stats">
+    <ul className="kit-stats relative z-[2] mt-2 grid gap-1.5 text-xs">
       {changes.map((change) => {
         const key = change.key as StatKey;
         const Icon = icons[key];
         const label = statLabels[key];
         return (
-          <li key={change.key} title={label} data-improvement={change.improvement}>
-            <Icon size={15} aria-hidden="true" />
-            <span className="stat-label">{label}</span>
-            <span className="stat-values">
+          <li
+            key={change.key}
+            className="flex flex-wrap items-center gap-1.5"
+            title={label}
+            data-improvement={change.improvement}
+          >
+            <Icon className="size-[15px] text-muted-foreground" aria-hidden="true" />
+            <span className="text-muted-foreground">{label}</span>
+            <span className="inline-flex flex-wrap items-center gap-1.5 tabular-nums">
               {change.before !== undefined && (
                 <>
-                  <span className="stat-before">
+                  <span className="text-destructive">
                     <span className="sr-only">Previous: </span>
                     {statValue(key, change.before)}
                   </span>
-                  <ArrowRight size={12} aria-hidden="true" />
+                  <ArrowRight className="size-3" aria-hidden="true" />
                 </>
               )}
-              <span className={change.before === undefined ? 'stat-current' : 'stat-after'}>
+              <span className={cn(change.before !== undefined && 'text-success')}>
                 <span className="sr-only">{change.before === undefined ? '' : 'New: '}</span>
                 {statValue(key, change.after)}
               </span>
             </span>
             {(change.key === 'intervalSeconds' || change.key === 'intervalMultiplier') &&
               change.improvement !== undefined && (
-                <span className="stat-effect">{change.improvement ? 'Faster' : 'Slower'}</span>
+                <span
+                  className={cn(
+                    'text-[11px] text-muted-foreground',
+                    change.improvement === false && 'text-warning',
+                  )}
+                >
+                  {change.improvement ? 'Faster' : 'Slower'}
+                </span>
               )}
             {change.improvement === false &&
               change.key !== 'intervalSeconds' &&
               change.key !== 'intervalMultiplier' && (
-                <span className="stat-effect">
+                <span className="text-[11px] text-warning">
                   {change.key === 'cooldownSeconds' ? 'Longer wait' : 'Reduced'}
                 </span>
               )}

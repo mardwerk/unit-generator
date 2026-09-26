@@ -2,7 +2,13 @@ import { useCallback, useEffect, useState } from 'react';
 import { ImageOff, Trash2, Archive, FolderOpen } from 'lucide-react';
 import type { LabArtifact, LibraryEntry, LibraryState } from '../../api/contract.js';
 import { api } from '../../api/client.js';
-import { Modal, IconButton } from '../../ui/legacy.js';
+import { Alert } from '../../ui/alert.js';
+import { Badge } from '../../ui/badge.js';
+import { Button } from '../../ui/button.js';
+import { Modal } from '../../ui/dialog.js';
+import { IconButton } from '../../ui/icon-button.js';
+import { Input } from '../../ui/input.js';
+import { Tabs, TabsList, TabsTrigger } from '../../ui/tabs.js';
 
 export function useLibrary() {
   const [state, setState] = useState<LibraryState>({ directory: '', entries: [] });
@@ -74,7 +80,7 @@ function LibraryPortrait({ entry }: { entry: LibraryEntry }) {
   useEffect(() => setFailed(false), [entry.portrait?.url]);
   return entry.portrait && !failed ? (
     <img
-      className="library-portrait"
+      className="size-[72px] rounded-lg bg-muted object-cover object-[center_20%]"
       src={entry.portrait.url}
       alt={entry.character.name}
       title={entry.portrait.caption}
@@ -84,8 +90,11 @@ function LibraryPortrait({ entry }: { entry: LibraryEntry }) {
       onError={() => setFailed(true)}
     />
   ) : (
-    <span className="library-portrait" aria-label="No portrait available">
-      <ImageOff size={24} />
+    <span
+      className="flex size-[72px] items-center justify-center rounded-lg bg-muted text-muted-foreground"
+      aria-label="No portrait available"
+    >
+      <ImageOff className="size-6" />
     </span>
   );
 }
@@ -148,79 +157,73 @@ export function Library({
     groups.set(key, group);
   }
   return (
-    <main className="library-view">
-      <div className="library-heading">
+    <main className="mx-auto max-w-[1400px] px-[18px] py-6 sm:px-8 sm:py-10">
+      <div className="flex flex-wrap items-center justify-between gap-4">
         <div>
-          <h2>Your library</h2>
-          <p className="muted">{shelves[shelf].description}</p>
+          <h2 className="text-2xl font-semibold tracking-tight">Your library</h2>
+          <p className="mt-1 text-muted-foreground">{shelves[shelf].description}</p>
         </div>
-        <div className="button-row">
-          <button
-            type="button"
+        <div className="flex flex-wrap items-center gap-2">
+          <Button
             disabled={busy || !obsolete.length}
             onClick={() => setDeletion({ title: 'Clean up older revisions', entries: obsolete })}
           >
-            <Archive size={15} /> Clean up
-          </button>
-          <button
-            type="button"
+            <Archive className="size-[15px]" /> Clean up
+          </Button>
+          <Button
             disabled={busy || !shelved.length}
             onClick={() => setDeletion({ title: shelves[shelf].clear, entries: shelved })}
           >
-            <Trash2 size={15} /> {shelves[shelf].clear}
-          </button>
+            <Trash2 className="size-[15px]" /> {shelves[shelf].clear}
+          </Button>
         </div>
       </div>
-      <div className="library-tabs" role="tablist" aria-label="Library shelves">
-        {(Object.keys(shelves) as Shelf[]).map((name) => (
-          <button
-            key={name}
-            id={`library-${name}`}
-            type="button"
-            role="tab"
-            aria-selected={shelf === name}
-            className={shelf === name ? 'active' : ''}
-            onClick={() => setShelf(name)}
-          >
-            {shelves[name].label} <span className="library-tab-count">{counts[name]}</span>
-          </button>
-        ))}
-      </div>
-      <p className="library-directory">
-        <FolderOpen size={14} />
+      <Tabs value={shelf} onValueChange={(value) => setShelf(value as Shelf)} className="mt-5">
+        <TabsList aria-label="Library shelves">
+          {(Object.keys(shelves) as Shelf[]).map((name) => (
+            <TabsTrigger key={name} id={`library-${name}`} value={name}>
+              {shelves[name].label}
+              <Badge className="min-w-5 justify-center rounded-full">{counts[name]}</Badge>
+            </TabsTrigger>
+          ))}
+        </TabsList>
+      </Tabs>
+      <p className="mt-4 mb-6 flex items-center gap-2 font-mono text-xs [overflow-wrap:anywhere] text-muted-foreground">
+        <FolderOpen className="size-3.5" />
         {library.directory || 'Loading folder...'}
       </p>
-      <label className="field library-search">
+      <label className="mb-6 block max-w-[340px]">
         <span className="sr-only">Find saved character</span>
-        <input
+        <Input
           type="search"
           placeholder="Find a character"
           value={query}
           onChange={(e) => setQuery(e.target.value)}
         />
       </label>
-      {library.error && (
-        <p className="error" role="alert">
-          {library.error}
-        </p>
-      )}
+      {library.error && <Alert>{library.error}</Alert>}
       {[...groups.values()]
         .sort((a, b) => a.work.localeCompare(b.work))
         .map((group) => (
-          <section className="library-work-group" key={group.work} aria-label={group.work}>
-            <h3 className="library-work-heading">{group.work}</h3>
-            <div className="library-grid">
+          <section className="mt-8 first-of-type:mt-0" key={group.work} aria-label={group.work}>
+            <h3 className="mb-3.5 text-lg font-semibold">{group.work}</h3>
+            <div className="grid grid-cols-[repeat(auto-fill,minmax(250px,1fr))] gap-4">
               {group.entries.map((entry) => (
-                <article className="library-card" key={entry.id}>
+                <article
+                  className="library-card relative rounded-xl border border-border bg-card transition-colors hover:border-input"
+                  key={entry.id}
+                >
                   <button
                     type="button"
-                    className="library-open"
+                    className="library-open block min-h-[170px] w-full cursor-pointer rounded-xl p-6 text-left transition-colors outline-none hover:bg-accent/60 focus-visible:ring-2 focus-visible:ring-ring/60 disabled:cursor-default disabled:opacity-60"
                     disabled={busy}
                     onClick={() => onOpen(entry)}
                   >
                     <LibraryPortrait entry={entry} />
-                    <h4>{entry.character.name}</h4>
-                    <small>
+                    <h4 className="mt-3.5 mb-1 pr-2.5 text-base font-semibold">
+                      {entry.character.name}
+                    </h4>
+                    <small className="text-[11px] text-muted-foreground">
                       {entry.kind === 'result'
                         ? 'Reviewed draft'
                         : entry.kind === 'sources'
@@ -231,10 +234,12 @@ export function Library({
                   </button>
                   <IconButton
                     label={`Delete saved ${entry.character.name}`}
+                    size="icon-sm"
+                    className="absolute top-2 right-2"
                     disabled={busy}
                     onClick={() => setDeletion({ title: `Delete ${noun[0]}`, entries: [entry] })}
                   >
-                    <Trash2 size={15} />
+                    <Trash2 className="size-[15px]" />
                   </IconButton>
                 </article>
               ))}
@@ -242,7 +247,7 @@ export function Library({
           </section>
         ))}
       {!entries.length && (
-        <p className="library-empty muted">
+        <p className="max-w-[430px] py-10 text-muted-foreground">
           {shelved.length ? 'No saved characters match.' : shelves[shelf].empty}
         </p>
       )}
@@ -259,29 +264,30 @@ export function Library({
             from this library?
           </p>
           {deletion.title.startsWith('Clean') && (
-            <p className="muted small">
+            <p className="mt-2 text-xs text-muted-foreground">
               Keeps the most recently saved revision at each stage for every character and source
               scope.
             </p>
           )}
-          <ul className="deletion-preview">
+          <ul className="my-3 max-h-[250px] list-disc overflow-auto pl-5 text-[13px]">
             {deletion.entries.map((entry) => (
-              <li key={entry.id}>
+              <li className="my-2" key={entry.id}>
                 {entry.character.name}{' '}
-                <span className="muted small">{new Date(entry.savedAt).toLocaleString()}</span>
+                <span className="text-xs text-muted-foreground">
+                  {new Date(entry.savedAt).toLocaleString()}
+                </span>
               </li>
             ))}
           </ul>
-          <p className="muted small">
+          <p className="text-xs text-muted-foreground">
             This removes the saved files. Icon images and other files in the folder are kept.
           </p>
-          <div className="button-row">
-            <button type="button" disabled={library.pending} onClick={() => setDeletion(null)}>
+          <div className="mt-4 flex flex-wrap justify-end gap-2">
+            <Button disabled={library.pending} onClick={() => setDeletion(null)}>
               Cancel
-            </button>
-            <button
-              type="button"
-              className="danger-button"
+            </Button>
+            <Button
+              variant="destructive"
               disabled={library.pending}
               onClick={() => {
                 void library.remove(deletion.entries.map((entry) => entry.id)).then((done) => {
@@ -290,13 +296,9 @@ export function Library({
               }}
             >
               Delete {deletion.entries.length} {deletion.entries.length === 1 ? noun[0] : noun[1]}
-            </button>
+            </Button>
           </div>
-          {library.error && (
-            <p className="error" role="alert">
-              {library.error}
-            </p>
-          )}
+          {library.error && <Alert>{library.error}</Alert>}
         </Modal>
       )}
     </main>

@@ -3,7 +3,12 @@ import { Copy, ImagePlus, RefreshCw } from 'lucide-react';
 import type { LabArtifact, LibraryIcon, LibraryIconsResponse } from '../../api/contract.js';
 import { candidateOf } from '../../api/artifacts.js';
 import { api } from '../../api/client.js';
-import { Modal, Field } from '../../ui/legacy.js';
+import { Alert } from '../../ui/alert.js';
+import { Button } from '../../ui/button.js';
+import { Modal } from '../../ui/dialog.js';
+import { Field } from '../../ui/field.js';
+import { Input, Textarea } from '../../ui/input.js';
+import { cn } from '../../ui/utils.js';
 import { GenerateIcon } from './generate-icon.js';
 
 export function useUnitIcons(artifact: LabArtifact | null, directory: string) {
@@ -77,7 +82,11 @@ export function KitIcon({
     <>
       <button
         type="button"
-        className={kind === 'portrait' ? 'kit-icon unit-portrait' : 'kit-icon'}
+        className={cn(
+          'kit-icon relative z-[2] flex shrink-0 cursor-pointer items-center justify-center overflow-hidden rounded-md border border-dashed border-input bg-background text-muted-foreground transition-colors hover:border-muted-foreground hover:text-foreground focus-visible:ring-2 focus-visible:ring-ring/60 focus-visible:outline-none',
+          kind === 'portrait' ? 'size-24 rounded-lg' : 'size-[38px]',
+          reference?.dataUrl && !failed && 'border-transparent bg-transparent',
+        )}
         aria-label={`${reference?.dataUrl ? 'View or replace' : 'Create'} ${kind === 'portrait' ? 'portrait' : 'icon'} for ${label}`}
         onClick={() => {
           setOpen(true);
@@ -85,9 +94,14 @@ export function KitIcon({
         }}
       >
         {reference?.dataUrl && !failed ? (
-          <img src={reference.dataUrl} alt="" onError={() => setFailed(true)} />
+          <img
+            className="size-full object-contain"
+            src={reference.dataUrl}
+            alt=""
+            onError={() => setFailed(true)}
+          />
         ) : (
-          <ImagePlus size={kind === 'portrait' ? 24 : 19} />
+          <ImagePlus className={kind === 'portrait' ? 'size-6' : 'size-[19px]'} />
         )}
       </button>
       {open && (
@@ -95,7 +109,7 @@ export function KitIcon({
           title={`${label} ${kind === 'portrait' ? 'portrait' : 'icon'}`}
           onClose={() => setOpen(false)}
         >
-          <p className="muted small">
+          <p className="text-xs text-muted-foreground">
             Image prompt works in any image generator. Codex prompt also saves the PNG to its chosen
             destination.
           </p>
@@ -107,42 +121,47 @@ export function KitIcon({
                 reference={reference}
                 onSaved={icons.refresh}
               />
-              <div className="button-row">
-                <button type="button" onClick={() => copy('image')}>
-                  <Copy size={15} /> Copy image prompt
-                </button>
-                <button type="button" onClick={() => copy('codex')}>
-                  <Copy size={15} /> Copy Codex prompt
-                </button>
+              <div className="mt-4 flex flex-wrap items-center gap-2">
+                <Button size="sm" onClick={() => copy('image')}>
+                  <Copy className="size-3.5" /> Copy image prompt
+                </Button>
+                <Button size="sm" onClick={() => copy('codex')}>
+                  <Copy className="size-3.5" /> Copy Codex prompt
+                </Button>
               </div>
-              <p role="status" className="muted small">
+              <p role="status" className="mt-2 text-xs text-muted-foreground">
                 {message}
               </p>
               <Field label={mode === 'image' ? 'Image prompt' : 'Codex prompt'}>
-                <textarea rows={9} value={mode === 'image' ? imageOnly : codex} readOnly />
+                <Textarea
+                  className="font-mono text-xs"
+                  rows={9}
+                  value={mode === 'image' ? imageOnly : codex}
+                  readOnly
+                />
               </Field>
               <Field label="Save PNG to">
-                <input value={reference.path} readOnly />
+                <Input className="font-mono text-xs" value={reference.path} readOnly />
               </Field>
-              {reference.note && <p className="notice">{reference.note}</p>}
+              {reference.note && <Alert variant="warning">{reference.note}</Alert>}
               {failed && (
-                <p className="notice">
+                <Alert variant="warning">
                   This PNG could not be displayed. Replace the file, then reload the icon.
-                </p>
+                </Alert>
               )}
-              <div className="button-row">
-                <button type="button" onClick={icons.refresh}>
-                  <RefreshCw size={15} /> Reload icon
-                </button>
-              </div>
+              <Button size="sm" onClick={icons.refresh}>
+                <RefreshCw className="size-3.5" /> Reload icon
+              </Button>
             </>
           ) : (
             <>
-              <p className="muted small">{icons.error || 'Preparing the icon destination...'}</p>
+              <p className="text-xs text-muted-foreground">
+                {icons.error || 'Preparing the icon destination...'}
+              </p>
               {icons.error && (
-                <button type="button" onClick={icons.refresh}>
+                <Button size="sm" onClick={icons.refresh}>
                   Retry
-                </button>
+                </Button>
               )}
             </>
           )}

@@ -2,7 +2,13 @@ import { useEffect, useState } from 'react';
 import { Copy, FolderOpen, Pencil, Play, Trash2 } from 'lucide-react';
 import type { ProfileEntry, ProfilesState, Progression, UnitProfile } from '../../api/contract.js';
 import { api } from '../../api/client.js';
-import { Disclosure, Field } from '../../ui/legacy.js';
+import { Alert } from '../../ui/alert.js';
+import { Badge } from '../../ui/badge.js';
+import { Button } from '../../ui/button.js';
+import { Disclosure } from '../../ui/disclosure.js';
+import { Field } from '../../ui/field.js';
+import { Input, Textarea } from '../../ui/input.js';
+import { cn } from '../../ui/utils.js';
 
 /** The server lists the bundled Profile first, then the saved ones from its Profiles folder. */
 export function useProfiles() {
@@ -62,8 +68,11 @@ function savedRules(id: string, text: string): UnitProfile['rules'] {
 export function ProgressionGrid({ progression }: { progression: Progression }) {
   const tiers = Math.max(...progression.paths.map((path) => Math.max(...path.tiers)));
   return (
-    <figure className="progression-figure">
-      <table className="progression-grid" aria-label="Paths and tiers">
+    <figure className="my-3">
+      <table
+        className="border-collapse text-[13px] [&_td]:border [&_td]:border-border [&_td]:px-3 [&_td]:py-1 [&_td]:text-center [&_td]:text-primary [&_th]:border [&_th]:border-border [&_th]:px-3 [&_th]:py-1 [&_th]:font-medium [&_th]:text-muted-foreground"
+        aria-label="Paths and tiers"
+      >
         <thead>
           <tr>
             <th scope="col">Tier</th>
@@ -85,7 +94,7 @@ export function ProgressionGrid({ progression }: { progression: Progression }) {
           ))}
         </tbody>
       </table>
-      <figcaption className="muted small">
+      <figcaption className="mt-2 text-xs text-muted-foreground">
         Buy up to {progression.maxActivePaths} of {progression.paths.length} paths
         {progression.maxPathsAboveTier
           ? `; at most ${progression.maxPathsAboveTier.count} above T${progression.maxPathsAboveTier.tier}`
@@ -121,11 +130,11 @@ function Facts({ profile }: { profile: UnitProfile }) {
       policy.manualAbilityPath ? `${policy.manualAbilityPath} only` : 'not allowed',
     ]);
   return (
-    <dl className="profile-facts">
+    <dl className="my-4 grid gap-x-6 gap-y-2.5 text-[13px] sm:grid-cols-[max-content_1fr]">
       {facts.map(([term, value]) => (
-        <div key={term}>
-          <dt>{term}</dt>
-          <dd>{value}</dd>
+        <div className="contents" key={term}>
+          <dt className="text-muted-foreground">{term}</dt>
+          <dd className="[overflow-wrap:anywhere]">{value}</dd>
         </div>
       ))}
     </dl>
@@ -182,49 +191,43 @@ function ProfileEditor({
   return (
     <form
       id="profile-editor"
-      className="profile-editor"
       onSubmit={(event) => {
         event.preventDefault();
         void save();
       }}
     >
-      <fieldset disabled={saving}>
+      <fieldset className="min-w-0" disabled={saving}>
         <Field label="ID">
-          <input value={id} readOnly={!isNew} onChange={(e) => setId(e.target.value)} required />
+          <Input value={id} readOnly={!isNew} onChange={(e) => setId(e.target.value)} required />
         </Field>
         <Field label="Name">
-          <input value={name} onChange={(e) => setName(e.target.value)} required />
+          <Input value={name} onChange={(e) => setName(e.target.value)} required />
         </Field>
         <Field label="Task">
-          <textarea rows={4} value={task} onChange={(e) => setTask(e.target.value)} required />
+          <Textarea rows={4} value={task} onChange={(e) => setTask(e.target.value)} required />
         </Field>
         <Field label="Rules text">
-          <textarea rows={10} value={rules} onChange={(e) => setRules(e.target.value)} required />
+          <Textarea rows={10} value={rules} onChange={(e) => setRules(e.target.value)} required />
         </Field>
         <Field label="Mechanics Definition (JSON)">
-          <textarea
+          <Textarea
+            className="font-mono text-xs"
             rows={12}
             spellCheck={false}
             value={definition}
             onChange={(e) => setDefinition(e.target.value)}
           />
         </Field>
-        <p className="muted small">
+        <p className="text-xs text-muted-foreground">
           Saving runs the same checks as preparing a request. The numerical Engine supports three
           paths of five tiers only.
         </p>
-        {error && (
-          <p className="error" role="alert">
-            {error}
-          </p>
-        )}
-        <div className="button-row">
-          <button type="submit" className="primary">
+        {error && <Alert>{error}</Alert>}
+        <div className="mt-3 flex flex-wrap items-center gap-2">
+          <Button type="submit" variant="primary">
             Save Profile
-          </button>
-          <button type="button" onClick={onCancel}>
-            Cancel
-          </button>
+          </Button>
+          <Button onClick={onCancel}>Cancel</Button>
         </div>
       </fieldset>
     </form>
@@ -254,14 +257,12 @@ export function ProfilesView({
   const shown = profiles.find(({ profile }) => profile.id === shownId) ?? profiles[0];
   if (!shown)
     return (
-      <main className="library-view profiles-view">
-        <h2>Profiles</h2>
+      <main className="mx-auto max-w-[1400px] px-[18px] py-6 sm:px-8 sm:py-10">
+        <h2 className="text-2xl font-semibold tracking-tight">Profiles</h2>
         {error ? (
-          <p className="error" role="alert">
-            {error}
-          </p>
+          <Alert>{error}</Alert>
         ) : (
-          <p className="muted">Loading Profiles...</p>
+          <p className="text-muted-foreground">Loading Profiles...</p>
         )}
       </main>
     );
@@ -280,49 +281,48 @@ export function ProfilesView({
     });
   };
   return (
-    <main className="library-view profiles-view">
-      <div className="library-heading">
-        <div>
-          <h2>Profiles</h2>
-          <p className="muted">
-            A Profile holds the rules a unit is generated under. The default is read-only; copy it
-            to make your own.
-          </p>
-        </div>
-      </div>
+    <main className="mx-auto max-w-[1400px] px-[18px] py-6 sm:px-8 sm:py-10">
+      <h2 className="text-2xl font-semibold tracking-tight">Profiles</h2>
+      <p className="mt-1 text-muted-foreground">
+        A Profile holds the rules a unit is generated under. The default is read-only; copy it to
+        make your own.
+      </p>
       {directory && (
-        <p className="library-directory">
-          <FolderOpen size={14} />
+        <p className="mt-4 mb-6 flex items-center gap-2 font-mono text-xs [overflow-wrap:anywhere] text-muted-foreground">
+          <FolderOpen className="size-3.5" />
           {directory}
         </p>
       )}
-      {(error || actionError) && (
-        <p className="error" role="alert">
-          {actionError || error}
-        </p>
-      )}
-      <div className="profiles-layout">
-        <nav className="profile-list" aria-label="Profiles">
+      {(error || actionError) && <Alert>{actionError || error}</Alert>}
+      <div className="grid items-start gap-5 md:grid-cols-[minmax(180px,260px)_1fr]">
+        <nav className="flex flex-col gap-1.5" aria-label="Profiles">
           {profiles.map(({ profile, builtIn }, index) => (
             <button
               type="button"
               key={profile.id}
               aria-current={profile.id === shown.profile.id ? 'true' : undefined}
+              className={cn(
+                'flex cursor-pointer flex-col items-start gap-0.5 rounded-lg border border-border px-3 py-2.5 text-left transition-colors outline-none hover:bg-accent focus-visible:ring-2 focus-visible:ring-ring/60',
+                profile.id === shown.profile.id && 'border-primary bg-accent',
+              )}
               onClick={() => {
                 setShownId(profile.id);
                 setEditing(null);
                 setActionError('');
               }}
             >
-              <strong>{profile.name}</strong>
-              <span className="muted small">
+              <strong className="text-[13px] font-semibold">{profile.name}</strong>
+              <span className="text-xs text-muted-foreground">
                 {builtIn ? (index === 0 ? 'Default, read-only' : 'Built in, read-only') : 'Saved'}
                 {profile.id === selectedId ? ' · used for new units' : ''}
               </span>
             </button>
           ))}
         </nav>
-        <section className="profile-detail" aria-label={shown.profile.name}>
+        <section
+          className="min-w-0 rounded-xl border border-border bg-card p-5"
+          aria-label={shown.profile.name}
+        >
           {editing ? (
             <ProfileEditor
               key={editing.profile.id}
@@ -337,10 +337,12 @@ export function ProfilesView({
             />
           ) : (
             <>
-              <h3>
-                {shown.profile.name} {isDefault && <span className="badge confirmed">Default</span>}
+              <h3 className="flex items-center gap-2 text-base font-semibold">
+                {shown.profile.name} {isDefault && <Badge variant="success">Default</Badge>}
               </h3>
-              <p className="muted small">Prices and stats are checked by the Engine.</p>
+              <p className="mt-1 text-xs text-muted-foreground">
+                Prices and stats are checked by the Engine.
+              </p>
               <ProgressionGrid progression={shown.progression} />
               <Facts profile={shown.profile} />
               <Disclosure title="Task">
@@ -348,31 +350,29 @@ export function ProfilesView({
               </Disclosure>
               <Disclosure title="Rules text">
                 {shown.profile.rules.text.split(/\n{2,}/).map((paragraph, index) => (
-                  <p key={index}>{paragraph}</p>
+                  <p className="my-2" key={index}>
+                    {paragraph}
+                  </p>
                 ))}
               </Disclosure>
-              <div className="button-row">
-                <button
-                  type="button"
-                  className="primary"
+              <div className="flex flex-wrap items-center gap-2">
+                <Button
+                  variant="primary"
                   disabled={shown.profile.id === selectedId}
                   onClick={() => onUse(shown)}
                 >
-                  <Play size={15} /> Use for new units
-                </button>
-                <button type="button" onClick={duplicate}>
-                  <Copy size={15} /> Duplicate
-                </button>
+                  <Play className="size-[15px]" /> Use for new units
+                </Button>
+                <Button onClick={duplicate}>
+                  <Copy className="size-[15px]" /> Duplicate
+                </Button>
                 {!shown.builtIn && (
                   <>
-                    <button
-                      type="button"
-                      onClick={() => setEditing({ profile: shown.profile, isNew: false })}
-                    >
-                      <Pencil size={15} /> Edit
-                    </button>
-                    <button
-                      type="button"
+                    <Button onClick={() => setEditing({ profile: shown.profile, isNew: false })}>
+                      <Pencil className="size-[15px]" /> Edit
+                    </Button>
+                    <Button
+                      variant="destructive"
                       onClick={() => {
                         if (!window.confirm(`Delete the Profile "${shown.profile.name}"?`)) return;
                         setActionError('');
@@ -385,8 +385,8 @@ export function ProfilesView({
                           );
                       }}
                     >
-                      <Trash2 size={15} /> Delete
-                    </button>
+                      <Trash2 className="size-[15px]" /> Delete
+                    </Button>
                   </>
                 )}
               </div>

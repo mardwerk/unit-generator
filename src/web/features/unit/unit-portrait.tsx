@@ -2,7 +2,7 @@ import { useState } from 'react';
 import { ImagePlus } from 'lucide-react';
 import type { UnitCandidate, VisualReference } from '../../api/contract.js';
 import { KitIcon, type UnitIcons } from './icon-prompts.js';
-import { safeUrl } from '../../ui/legacy.js';
+import { safeUrl } from '../../ui/utils.js';
 import { rankedPortraits } from './portraits.js';
 
 export function UnitPortrait({
@@ -22,7 +22,7 @@ export function UnitPortrait({
   if (reference)
     return (
       <a
-        className="unit-portrait"
+        className="flex size-24 shrink-0 items-center justify-center"
         href={safeUrl(reference.sourceUrl)}
         target="_blank"
         rel="noreferrer"
@@ -30,6 +30,7 @@ export function UnitPortrait({
         aria-label={`Image source for ${candidate.character.name}`}
       >
         <img
+          className="size-full rounded-lg object-cover object-[center_20%]"
           src={safeUrl(reference.url)}
           alt={candidate.character.name}
           referrerPolicy="no-referrer"
@@ -40,8 +41,11 @@ export function UnitPortrait({
   return icons ? (
     <KitIcon iconKey="unit-portrait" label={candidate.character.name} icons={icons} />
   ) : (
-    <span className="unit-portrait" aria-label="No character image">
-      <ImagePlus size={24} />
+    <span
+      className="flex size-24 shrink-0 items-center justify-center rounded-lg bg-muted text-muted-foreground"
+      aria-label="No character image"
+    >
+      <ImagePlus className="size-6" />
     </span>
   );
 }

@@ -40,7 +40,7 @@ Profiles saved by earlier versions lived in `data/runs/library/profiles`; move t
 
 Completed Results and researched Sources are saved automatically; earlier stages can be saved with Save to library. Entries are `unitlab-<content hash>.json` files with a Markdown render beside each unit, grouped by series with portraits. The **Units** tab lists generated units; the **Research** tab lists saved Sources, and opening one prepares it under the selected Profile without researching again. Clean up and Clear act on the open tab and touch only those managed files.
 
-Below each unit sheet, a row of buttons saves it to the library or downloads it as JSON (compatible with the CLI), Markdown, or a session file that keeps unsaved editor content. With more than one revision, the row also offers the revision and comparison selectors.
+Below each unit sheet, Save to library stores it, and the Export menu downloads it as JSON (compatible with the CLI), Markdown, or a session file that keeps unsaved editor content. With more than one revision, the revision and comparison selectors appear above them.
 
 ## Icons and portraits
 

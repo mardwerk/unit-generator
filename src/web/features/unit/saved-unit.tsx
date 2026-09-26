@@ -7,7 +7,11 @@ import { useUnitIcons } from './icon-prompts.js';
 import { Gallery } from './gallery.js';
 import { CharacterSheet } from './kit.js';
 import { Workflow } from './workflow.js';
-import { Disclosure, download } from '../../ui/legacy.js';
+import { UnitWorkspace } from './workspace.js';
+import { ExportMenu } from './export-menu.js';
+import { Alert } from '../../ui/alert.js';
+import { Button } from '../../ui/button.js';
+import { download } from '../../ui/utils.js';
 
 /** Inspection owns no authoring state, so an in-flight job cannot replace this sheet. */
 export function SavedUnit({
@@ -40,42 +44,29 @@ export function SavedUnit({
     }
   }
   return (
-    <main className="workspace">
-      <Gallery artifact={artifact} />
-      <div className="sheet-column">
-        <div className="button-row saved-actions">
-          <button type="button" className="text-button" onClick={onBack}>
-            <ArrowLeft size={15} /> Library
-          </button>
-          <button
-            type="button"
-            disabled={busy}
-            onClick={onEdit}
-            title={busy ? 'Finish or stop the active generation first' : undefined}
-          >
-            <Pencil size={14} /> Edit this Unit
-          </button>
-        </div>
-        {error && (
-          <p className="error" role="alert">
-            {error}
-          </p>
-        )}
-        <CharacterSheet artifact={artifact} icons={icons} busy={busy} />
-        <Disclosure title="Exports" className="revision-panel">
-          <div className="button-row export-actions">
-            <button type="button" onClick={() => void exportArtifact(false)}>
-              JSON
-            </button>
-            {candidateOf(artifact) && (
-              <button type="button" onClick={() => void exportArtifact(true)}>
-                Markdown
-              </button>
-            )}
-          </div>
-        </Disclosure>
+    <UnitWorkspace
+      gallery={<Gallery artifact={artifact} />}
+      workflow={<Workflow artifact={artifact} />}
+    >
+      <div className="flex flex-wrap items-center gap-2">
+        <Button variant="ghost" size="sm" onClick={onBack}>
+          <ArrowLeft /> Library
+        </Button>
+        <Button
+          size="sm"
+          disabled={busy}
+          onClick={onEdit}
+          title={busy ? 'Finish or stop the active generation first' : undefined}
+        >
+          <Pencil className="size-3.5" /> Edit this Unit
+        </Button>
+        <ExportMenu
+          onJson={() => void exportArtifact(false)}
+          onMarkdown={candidateOf(artifact) ? () => void exportArtifact(true) : undefined}
+        />
       </div>
-      <Workflow artifact={artifact} />
-    </main>
+      {error && <Alert>{error}</Alert>}
+      <CharacterSheet artifact={artifact} icons={icons} busy={busy} />
+    </UnitWorkspace>
   );
 }

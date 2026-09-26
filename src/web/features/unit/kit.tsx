@@ -1,10 +1,15 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
+import type { VariantProps } from 'class-variance-authority';
 import { RefreshCw } from 'lucide-react';
 import type { Finding, UnitCandidate } from '../../api/contract.js';
 import type { LabArtifact } from '../../api/contract.js';
 import { candidateOf, findingsOf, requestOf } from '../../api/artifacts.js';
 import { compareGameplay } from './kit-comparison.js';
-import { Disclosure, Modal, safeUrl } from '../../ui/legacy.js';
+import { Badge, badgeVariants } from '../../ui/badge.js';
+import { Button } from '../../ui/button.js';
+import { Modal } from '../../ui/dialog.js';
+import { Disclosure } from '../../ui/disclosure.js';
+import { cn, safeUrl } from '../../ui/utils.js';
 import { KitIcon, type UnitIcons } from './icon-prompts.js';
 import { UnitPortrait } from './unit-portrait.js';
 import { visualReferencesOf } from './visual-references.js';
@@ -32,11 +37,46 @@ function useKitStats(artifact: LabArtifact): KitStats | undefined {
 }
 
 type Ability = UnitCandidate['abilities'][number];
-function Badge({ value }: { value: string }) {
-  return <span className={`badge ${value}`}>{value.replaceAll('_', ' ')}</span>;
+
+const statusTone: Record<string, VariantProps<typeof badgeVariants>['variant']> = {
+  open: 'warning',
+  unresolved: 'warning',
+  unspecified: 'warning',
+  proposed_extension: 'warning',
+  not_checked: 'warning',
+  fail: 'danger',
+  unsupported: 'danger',
+  removed: 'danger',
+  pass: 'success',
+  confirmed: 'success',
+  added: 'success',
+};
+function Status({ value }: { value: string }) {
+  return <Badge variant={statusTone[value] ?? 'default'}>{value.replaceAll('_', ' ')}</Badge>;
 }
 function Prose({ parts }: { parts: (string | null | undefined)[] }) {
-  return <p>{[...new Set(parts.filter(Boolean))].join(' ')}</p>;
+  return <p className="my-2">{[...new Set(parts.filter(Boolean))].join(' ')}</p>;
+}
+const entryHeading = 'flex flex-wrap items-center gap-2';
+const cardHeading = 'mb-3 flex items-center gap-2 text-xs font-medium text-muted-foreground';
+/** A card whose whole surface opens its details; icons and stats stay clickable on their own. */
+const openableCard = 'relative isolate cursor-pointer transition-colors hover:bg-accent/50';
+const preformatted =
+  'max-h-[450px] overflow-auto rounded-md bg-muted/60 p-3 font-mono text-xs leading-normal whitespace-pre-wrap [overflow-wrap:anywhere]';
+
+function CardOpen({ label, title, onOpen }: { label: string; title?: string; onOpen: () => void }) {
+  return (
+    <button
+      type="button"
+      className="card-open absolute inset-0 z-[1] size-full cursor-pointer rounded-md outline-none focus-visible:ring-2 focus-visible:ring-ring/60"
+      aria-haspopup="dialog"
+      aria-label={label}
+      title={title}
+      onClick={onOpen}
+    >
+      <span className="sr-only">Open details</span>
+    </button>
+  );
 }
 function Behavior({ ability, abilities }: { ability: Ability; abilities: Map<string, Ability> }) {
   const rows = [
@@ -52,13 +92,13 @@ function Behavior({ ability, abilities }: { ability: Ability; abilities: Map<str
     ],
   ];
   return (
-    <dl className="behavior">
+    <dl className="text-[13px]">
       {rows
         .filter(([, value]) => value)
         .map(([label, value]) => (
-          <div key={label}>
-            <dt>{label}</dt>
-            <dd>{value}</dd>
+          <div className="my-2" key={label}>
+            <dt className="text-muted-foreground">{label}</dt>
+            <dd className="[overflow-wrap:anywhere]">{value}</dd>
           </div>
         ))}
     </dl>
@@ -66,19 +106,27 @@ function Behavior({ ability, abilities }: { ability: Ability; abilities: Map<str
 }
 function FindingCard({ finding }: { finding: Finding }) {
   return (
-    <article className={`finding ${finding.outcome}`}>
-      <div className="entry-heading">
-        <Badge value={finding.outcome} />
-        <span className="small muted">
+    <article
+      className={cn(
+        'my-3.5 border-l-2 border-border bg-muted/40 p-3 text-[13px]',
+        finding.outcome === 'fail' && 'border-destructive',
+        finding.outcome === 'unresolved' && 'border-warning',
+      )}
+    >
+      <div className={entryHeading}>
+        <Status value={finding.outcome} />
+        <span className="text-xs text-muted-foreground">
           {finding.method === 'model' ? 'Model review' : 'Structural check'}
         </span>
       </div>
-      <h4>{finding.subject}</h4>
-      <p>{finding.message}</p>
-      {finding.action && <p className="decision">{finding.action}</p>}
-      <Disclosure title="Rule and evidence">
+      <h4 className="mt-2 font-semibold [overflow-wrap:anywhere]">{finding.subject}</h4>
+      <p className="my-2">{finding.message}</p>
+      {finding.action && <p className="my-2 text-warning">{finding.action}</p>}
+      <Disclosure bare className="my-1" title="Rule and evidence">
         <p>{finding.rule}</p>
-        <p className="muted small">Evidence: {finding.evidence.join(', ') || 'None declared'}</p>
+        <p className="mt-2 text-xs text-muted-foreground">
+          Evidence: {finding.evidence.join(', ') || 'None declared'}
+        </p>
       </Disclosure>
     </article>
   );
@@ -98,7 +146,9 @@ export function CharacterSheet({
   onContinue?: () => void;
   icons?: UnitIcons;
 }) {
-  const report = useRef<HTMLDetailsElement>(null);
+  const report = useRef<HTMLDivElement>(null);
+  const reportTrigger = useRef<HTMLButtonElement>(null);
+  const [reportOpen, setReportOpen] = useState(false);
   const candidate = candidateOf(artifact);
   const definition = requestOf(artifact).mechanicsDefinition;
   const stats = useKitStats(artifact);
@@ -134,17 +184,21 @@ export function CharacterSheet({
         <Modal title={detail.title} onClose={() => setDetail(null)}>
           {detail.cost !== undefined && <Cost value={detail.cost} currency={currency} />}
           {detail.changes && <StatValues changes={detail.changes} />}
-          {detail.description && <p>{detail.description}</p>}
+          {detail.description && <p className="my-2">{detail.description}</p>}
           {detail.abilityIds.map((id) => {
             const ability = abilities.get(id);
             return ability ? (
-              <section key={id} className="ability-detail">
-                {ability.name !== detail.title && <h3>{ability.name}</h3>}
-                <div className="entry-heading">
-                  <Badge value={ability.status} />
-                  <Badge value={ability.placement} />
+              <section key={id} className="mt-5">
+                {ability.name !== detail.title && (
+                  <h3 className="mb-2 text-sm font-semibold">{ability.name}</h3>
+                )}
+                <div className={entryHeading}>
+                  <Status value={ability.status} />
+                  <Status value={ability.placement} />
                 </div>
-                {ability.description !== detail.description && <p>{ability.description}</p>}
+                {ability.description !== detail.description && (
+                  <p className="my-2">{ability.description}</p>
+                )}
                 <Behavior ability={ability} abilities={abilities} />
               </section>
             ) : (
@@ -155,75 +209,77 @@ export function CharacterSheet({
       )}
       {candidate ? (
         <article className="character-sheet" aria-label={`${candidate.character.name} Unit`}>
-          <header className="sheet-heading">
-            <div className="unit-identity">
+          <header className="mt-6 border-b border-border pb-2">
+            <div className="flex items-center gap-[18px]">
               <UnitPortrait
                 candidate={candidate}
                 references={visualReferencesOf(artifact)}
                 icons={icons}
               />
-              <div>
-                <h2>{candidate.character.name}</h2>
-                <p className="source-work">{candidate.character.work}</p>
-                <div className="unit-meta">
-                  <Badge value="proposed design" />
-                </div>
+              <div className="min-w-0">
+                <h2 className="text-[1.6rem] font-semibold tracking-tight [overflow-wrap:anywhere]">
+                  {candidate.character.name}
+                </h2>
+                <p className="my-2 text-[13px] text-muted-foreground">{candidate.character.work}</p>
+                <Status value="proposed design" />
               </div>
             </div>
-            <div className="draft-status">
+            <div className="mt-3.5 mb-1.5 flex flex-wrap items-center gap-x-2 gap-y-1 text-xs text-muted-foreground">
               <span>{failures.length ? 'Draft needs another pass.' : status}</span>
-              <button
-                type="button"
-                className="text-button"
+              <Button
+                variant="link"
+                size="xs"
                 onClick={() => {
-                  if (report.current) {
-                    report.current.open = true;
-                    report.current.scrollIntoView({ block: 'start' });
-                    report.current.querySelector('summary')?.focus();
-                  }
+                  setReportOpen(true);
+                  requestAnimationFrame(() => {
+                    report.current?.scrollIntoView({ block: 'start' });
+                    reportTrigger.current?.focus();
+                  });
                 }}
               >
                 View checks
-              </button>
+              </Button>
               {failures.length > 0 && (artifact.kind === 'result' ? onImprove : onContinue) && (
-                <button
-                  type="button"
+                <Button
+                  size="xs"
                   data-draft-action
                   disabled={busy}
                   onClick={artifact.kind === 'result' ? onImprove : onContinue}
                 >
-                  <RefreshCw size={13} />{' '}
+                  <RefreshCw />
                   {artifact.kind === 'result' ? 'Try improving draft' : 'Finish review'}
-                </button>
+                </Button>
               )}
             </div>
           </header>
-          <section className="unit-role">
-            <p>{candidate.role}</p>
-          </section>
-          <div className="unit-overview">
+          <p className="mt-5 text-[15px]">{candidate.role}</p>
+          <div className="my-6 grid gap-4 md:grid-cols-2 [&>:only-child]:col-span-full">
             {stats && (
-              <section className="general-information">
-                <h3>General information</h3>
-                <dl>
-                  <div>
-                    <dt>Purchase cost</dt>
-                    <dd>
-                      <Cost value={stats.base.cost} currency={currency} />
-                    </dd>
-                  </div>
+              <section className="rounded-lg border border-border bg-card p-[18px]">
+                <h3 className={cardHeading}>General information</h3>
+                <dl className="text-[13px]">
+                  <dt className="text-muted-foreground">Purchase cost</dt>
+                  <dd className="mt-1">
+                    <Cost value={stats.base.cost} currency={currency} />
+                  </dd>
                 </dl>
               </section>
             )}
             <section
-              className="basic-attack"
+              className={cn(
+                'basic-attack rounded-lg border border-border bg-card p-[18px]',
+                openableCard,
+              )}
               onClick={(event) => {
-                if (event.target instanceof Element && !event.target.closest('button, dialog'))
+                if (
+                  event.target instanceof Element &&
+                  !event.target.closest('button, [role=dialog]')
+                )
                   event.currentTarget.querySelector<HTMLButtonElement>('.card-open')?.click();
               }}
             >
-              <h3>Basic attack</h3>
-              <div className="entry-heading">
+              <h3 className={cardHeading}>Basic attack</h3>
+              <div className={entryHeading}>
                 {icons && (
                   <KitIcon
                     iconKey="basic-attack"
@@ -231,8 +287,8 @@ export function CharacterSheet({
                     icons={icons}
                   />
                 )}
-                <h4>{candidate.basicAttack.name}</h4>
-                <Badge value={candidate.basicAttack.status} />
+                <h4 className="font-semibold">{candidate.basicAttack.name}</h4>
+                <Status value={candidate.basicAttack.status} />
               </div>
               {stats && (
                 <StatValues
@@ -243,12 +299,9 @@ export function CharacterSheet({
                   }
                 />
               )}
-              <button
-                type="button"
-                className="card-open"
-                aria-haspopup="dialog"
-                aria-label={`Open details for ${candidate.basicAttack.name}`}
-                onClick={() =>
+              <CardOpen
+                label={`Open details for ${candidate.basicAttack.name}`}
+                onOpen={() =>
                   setDetail({
                     title: candidate.basicAttack.name,
                     description: [
@@ -262,13 +315,11 @@ export function CharacterSheet({
                     abilityIds: [],
                   })
                 }
-              >
-                <span className="sr-only">Open details</span>
-              </button>
+              />
             </section>
           </div>
           <div
-            className="upgrade-paths"
+            className="upgrade-paths grid gap-[18px]"
             style={
               {
                 '--path-count': candidate.paths.length,
@@ -277,10 +328,10 @@ export function CharacterSheet({
             }
           >
             {candidate.paths.map((path) => (
-              <section className="path-section" key={path.id}>
+              <section className="path-section min-w-0" key={path.id}>
                 <header className="path-heading">
-                  <h3>{path.name}</h3>
-                  <p className="path-theme">{path.theme}</p>
+                  <h3 className="mt-2.5 mb-1 text-base font-semibold">{path.name}</h3>
+                  <p className="mb-4 text-[13px] text-muted-foreground">{path.theme}</p>
                 </header>
                 {path.tiers.map((tier) => {
                   const tierStats = stats?.tiers[tierStatKey(path.id, tier.tier)];
@@ -297,17 +348,22 @@ export function CharacterSheet({
                       onClick={(event) => {
                         if (
                           !(event.target instanceof Element) ||
-                          !event.target.closest('button, dialog')
+                          !event.target.closest('button, [role=dialog]')
                         )
                           openTier();
                       }}
-                      className="tier-card"
+                      className={cn(
+                        'tier-card grid grid-cols-[25px_minmax(0,1fr)] gap-2.5 border-t border-border px-1.5 py-4',
+                        openableCard,
+                      )}
                       key={tier.tier}
                       style={{ '--tier-row': tierNumbers.indexOf(tier.tier) + 2 } as CSSProperties}
                     >
-                      <span className="tier-number">{tier.tier}</span>
-                      <div className="tier-content">
-                        <div className="entry-heading">
+                      <span className="mt-px grid size-[22px] place-items-center rounded-[5px] border border-border font-mono text-[11px] text-muted-foreground">
+                        {tier.tier}
+                      </span>
+                      <div className="min-w-0">
+                        <div className={entryHeading}>
                           {icons && (
                             <KitIcon
                               iconKey={`tier:${path.id}:${tier.tier}`}
@@ -315,8 +371,8 @@ export function CharacterSheet({
                               icons={icons}
                             />
                           )}
-                          <h4>{tier.name}</h4>
-                          {tier.status !== 'proposed' && <Badge value={tier.status} />}
+                          <h4 className="font-semibold">{tier.name}</h4>
+                          {tier.status !== 'proposed' && <Status value={tier.status} />}
                         </div>
                         {tierStats ? (
                           <>
@@ -324,22 +380,17 @@ export function CharacterSheet({
                             <StatValues changes={tierStats.changes} />
                           </>
                         ) : (
-                          <p className="tier-change">{tier.benefit}</p>
+                          <p className="my-2 text-[13px]">{tier.benefit}</p>
                         )}
-                        <button
-                          type="button"
-                          className="card-open"
-                          aria-haspopup="dialog"
-                          aria-label={`Open details for ${path.name}, tier ${tier.tier}: ${tier.name}`}
+                        <CardOpen
+                          label={`Open details for ${path.name}, tier ${tier.tier}: ${tier.name}`}
                           title={
                             tierStats
                               ? 'Compared with the previous tier on this path, without crosspath upgrades.'
                               : undefined
                           }
-                          onClick={openTier}
-                        >
-                          <span className="sr-only">Open details</span>
-                        </button>
+                          onOpen={openTier}
+                        />
                       </div>
                     </article>
                   );
@@ -349,10 +400,13 @@ export function CharacterSheet({
           </div>
           {remaining.length > 0 && (
             <section>
-              <h3>Forms and other abilities</h3>
+              <h3 className="mt-6 mb-2.5 text-sm font-semibold">Forms and other abilities</h3>
               {remaining.map((ability) => (
-                <article className="ability-card" key={ability.id}>
-                  <div className="entry-heading">
+                <article
+                  className={cn('border-b border-border px-1.5 py-4', openableCard)}
+                  key={ability.id}
+                >
+                  <div className={entryHeading}>
                     {icons && (
                       <KitIcon
                         iconKey={`ability:${ability.id}`}
@@ -360,21 +414,16 @@ export function CharacterSheet({
                         icons={icons}
                       />
                     )}
-                    <h4>{ability.name}</h4>
-                    <Badge value={ability.status} />
-                    <Badge value={ability.placement} />
+                    <h4 className="font-semibold">{ability.name}</h4>
+                    <Status value={ability.status} />
+                    <Status value={ability.placement} />
                   </div>
-                  <button
-                    type="button"
-                    className="card-open"
-                    aria-haspopup="dialog"
-                    aria-label={`Open details for ${ability.name}`}
-                    onClick={() =>
+                  <CardOpen
+                    label={`Open details for ${ability.name}`}
+                    onOpen={() =>
                       setDetail({ title: ability.name, description: '', abilityIds: [ability.id] })
                     }
-                  >
-                    <span className="sr-only">Open details</span>
-                  </button>
+                  />
                 </article>
               ))}
             </section>
@@ -384,17 +433,19 @@ export function CharacterSheet({
               title={`Shared rules and mechanic proposals (${candidate.mechanics.length})`}
             >
               {candidate.mechanics.map((mechanic) => (
-                <article className="rule-entry" key={mechanic.id}>
-                  <div className="entry-heading">
-                    <h4>{mechanic.name}</h4>
-                    <Badge value={mechanic.status} />
+                <article className="my-4 text-[13px]" key={mechanic.id}>
+                  <div className={entryHeading}>
+                    <h4 className="font-semibold">{mechanic.name}</h4>
+                    <Status value={mechanic.status} />
                   </div>
-                  <p>{mechanic.behavior}</p>
+                  <p className="my-2">{mechanic.behavior}</p>
                   {mechanic.requiredDecision && (
-                    <p className="decision">Decision needed: {mechanic.requiredDecision}</p>
+                    <p className="my-2 text-warning">
+                      Decision needed: {mechanic.requiredDecision}
+                    </p>
                   )}
                   {mechanic.dependencies.length > 0 && (
-                    <p className="muted small">
+                    <p className="text-xs text-muted-foreground">
                       Depends on:{' '}
                       {mechanic.dependencies
                         .map(
@@ -409,29 +460,34 @@ export function CharacterSheet({
           )}
           {candidate.unresolvedQuestions.length > 0 && (
             <Disclosure title={`Decisions still needed (${candidate.unresolvedQuestions.length})`}>
-              <ul className="questions">
+              <ul className="list-disc pl-5">
                 {candidate.unresolvedQuestions.map((question) => (
-                  <li key={question.id}>
+                  <li className="my-3.5" key={question.id}>
                     <p>{question.question}</p>
-                    <p className="muted small">Affects: {question.affected}</p>
+                    <p className="mt-1 text-xs text-muted-foreground">
+                      Affects: {question.affected}
+                    </p>
                   </li>
                 ))}
               </ul>
             </Disclosure>
           )}
-          <details className="check-report" ref={report}>
-            <summary>
-              Checks and review ({failures.length} failed, {unresolved.length} unresolved,{' '}
-              {unchecked.length} not checked)
-            </summary>
-            <p>{status} These checks assess the draft, not your input.</p>
+          <Disclosure
+            ref={report}
+            triggerRef={reportTrigger}
+            open={reportOpen}
+            onOpenChange={setReportOpen}
+            className="check-report scroll-mt-[85px]"
+            title={`Checks and review (${failures.length} failed, ${unresolved.length} unresolved, ${unchecked.length} not checked)`}
+          >
+            <p className="my-2">{status} These checks assess the draft, not your input.</p>
             {failures.length > 0 && (
-              <p>
+              <p className="my-2">
                 The generator returned inconsistencies or unsupported claims. Try improving the
                 draft to create a revision. Missing rules may still need a design decision.
               </p>
             )}
-            {artifact.kind === 'result' && <p>{artifact.reviewSummary}</p>}
+            {artifact.kind === 'result' && <p className="my-2">{artifact.reviewSummary}</p>}
             {[...failures, ...unresolved, ...unchecked].map((finding, i) => (
               <FindingCard key={i} finding={finding} />
             ))}
@@ -442,19 +498,25 @@ export function CharacterSheet({
                   <FindingCard key={i} finding={finding} />
                 ))}
             </Disclosure>
-          </details>
+          </Disclosure>
         </article>
       ) : (
-        <div className="empty-state">
-          <h2>{requestOf(artifact).character.name}</h2>
-          <p>Sources and rules are prepared. The Unit draft is next.</p>
+        <div className="max-w-[470px] py-9 sm:py-16">
+          <h2 className="text-[1.7rem] font-medium tracking-tight">
+            {requestOf(artifact).character.name}
+          </h2>
+          <p className="my-2 text-[15px]">
+            Sources and rules are prepared. The Unit draft is next.
+          </p>
         </div>
       )}
       <Disclosure title="Sources and evidence">
-        {candidate && <p className="muted small">Source scope: {candidate.character.scope}</p>}
+        {candidate && (
+          <p className="text-xs text-muted-foreground">Source scope: {candidate.character.scope}</p>
+        )}
         {requestOf(artifact).documents.map((document) => (
           <Disclosure key={document.id} title={`${document.id} (${document.kind})`}>
-            <p className="small">
+            <p className="text-xs">
               {document.origin.access}:{' '}
               {safeUrl(document.origin.location) ? (
                 <a href={safeUrl(document.origin.location)} target="_blank" rel="noreferrer">
@@ -464,25 +526,25 @@ export function CharacterSheet({
                 document.origin.location
               )}
             </p>
-            <p className="muted small">{document.origin.note}</p>
+            <p className="my-2 text-xs text-muted-foreground">{document.origin.note}</p>
             {candidate?.sources
               .filter((source) => source.documentId === document.id)
               .map((source, i) => (
                 <Prose key={i} parts={[source.claims.join(' '), `Limits: ${source.limitations}`]} />
               ))}
-            <pre className="document-text">{document.text}</pre>
+            <pre className={preformatted}>{document.text}</pre>
           </Disclosure>
         ))}
       </Disclosure>
       <Disclosure title="Effective Request">
-        <p>
+        <p className="mb-2">
           These are the retained inputs for this artifact. Model identity and usage are recorded in
           the run.
         </p>
-        <pre className="raw-json">{JSON.stringify(requestOf(artifact), null, 2)}</pre>
+        <pre className={preformatted}>{JSON.stringify(requestOf(artifact), null, 2)}</pre>
       </Disclosure>
       <Disclosure title="Raw artifact JSON">
-        <pre className="raw-json">{JSON.stringify(artifact, null, 2)}</pre>
+        <pre className={preformatted}>{JSON.stringify(artifact, null, 2)}</pre>
       </Disclosure>
     </div>
   );
@@ -497,31 +559,74 @@ export function Comparison({
 }) {
   const changes = compareGameplay(previous, current);
   return (
-    <section className="comparison-panel">
-      <h2>What changed</h2>
-      <p className="muted small">
+    <section className="my-4 rounded-lg border border-border p-4">
+      <h2 className="text-lg font-semibold">What changed</h2>
+      <p className="mt-1 text-xs text-muted-foreground">
         {changes.length
           ? `${changes.length} ${changes.length === 1 ? 'change' : 'changes'}.`
           : 'No gameplay text changed. Evidence and internal references remain in the saved artifacts.'}
       </p>
       {changes.length > 0 && (
-        <div className="gameplay-changes">
+        <div className="mt-2">
           {changes.map((change, i) => (
-            <article className="change-card" key={i}>
-              <div className="entry-heading">
-                <Badge value={change.kind} />
-                <h4>
+            <article className="border-t border-border py-3" key={i}>
+              <div className={entryHeading}>
+                <Status value={change.kind} />
+                <h4 className="font-semibold">
                   {change.section}: {change.name}
                 </h4>
               </div>
-              <div className={`change-values ${change.kind}`}>
-                {change.kind !== 'added' && <h5>Previous</h5>}
-                {change.kind !== 'removed' && <h5>Current</h5>}
+              <div
+                className={cn(
+                  'grid grid-cols-1 gap-x-3',
+                  change.kind === 'changed' && 'sm:grid-cols-2',
+                )}
+              >
+                {change.kind !== 'added' && (
+                  <h5
+                    className={cn(
+                      'mt-3 text-xs font-medium text-muted-foreground',
+                      change.kind === 'changed' && 'max-sm:hidden',
+                    )}
+                  >
+                    Previous
+                  </h5>
+                )}
+                {change.kind !== 'removed' && (
+                  <h5
+                    className={cn(
+                      'mt-3 text-xs font-medium text-muted-foreground',
+                      change.kind === 'changed' && 'max-sm:hidden',
+                    )}
+                  >
+                    Current
+                  </h5>
+                )}
                 {change.fields.map((field) => (
-                  <div className="change-row" key={field.name}>
-                    <p className="change-label">{field.name}</p>
-                    {field.before !== null && <p className="before">{field.before || 'None'}</p>}
-                    {field.after !== null && <p className="after">{field.after || 'None'}</p>}
+                  <div className="contents" key={field.name}>
+                    <p className="col-span-full mt-2 text-xs text-muted-foreground">{field.name}</p>
+                    {field.before !== null && (
+                      <p
+                        className={cn(
+                          'mt-1 rounded bg-destructive-surface p-2 text-xs whitespace-pre-wrap text-destructive [overflow-wrap:anywhere]',
+                          change.kind === 'changed' &&
+                            "max-sm:before:font-semibold max-sm:before:content-['Previous:_']",
+                        )}
+                      >
+                        {field.before || 'None'}
+                      </p>
+                    )}
+                    {field.after !== null && (
+                      <p
+                        className={cn(
+                          'mt-1 rounded bg-success-surface p-2 text-xs whitespace-pre-wrap text-success [overflow-wrap:anywhere]',
+                          change.kind === 'changed' &&
+                            "max-sm:before:font-semibold max-sm:before:content-['Current:_']",
+                        )}
+                      >
+                        {field.after || 'None'}
+                      </p>
+                    )}
                   </div>
                 ))}
               </div>
