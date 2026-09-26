@@ -30,7 +30,7 @@ import {
 } from '../generate/create-draft.js';
 
 /** Browser session ownership. Every stage receives an explicit artifact through the HTTP adapter. */
-export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void>) {
+export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<unknown>) {
   const [creation, setCreation] = useState(() => createDraft());
   const [createError, setCreateError] = useState('');
   const [createBusy, setCreateBusy] = useState(false);
@@ -66,7 +66,9 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
           setDirty(false);
         }
       },
-      complete: (value) => completeRef.current(value),
+      complete: async (value) => {
+        await completeRef.current(value);
+      },
       needsProvider: () => setNeedsProvider(true),
     });
   const manager = managerRef.current;

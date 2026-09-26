@@ -194,6 +194,10 @@ func checkConstraintCoverage(candidate Candidate, request Request, report report
 
 // ---- dependencies ----
 
+// UnsupportedMechanicRule marks the finding for each behavior a unit needs
+// but its Definition cannot express.
+const UnsupportedMechanicRule = "unsupported-mechanic"
+
 func checkDependencies(candidate Candidate, request Request, report reporter) {
 	documents := index(request.Documents, func(d Document) string { return d.ID })
 	abilities := index(candidate.Abilities, func(a Ability) string { return a.ID })
@@ -210,9 +214,15 @@ func checkDependencies(candidate Candidate, request Request, report reporter) {
 			}
 		}
 		if mechanic.Status != "specified" {
-			category := "missing_specification"
-			if mechanic.Status == "unsupported" {
+			category, rule := "missing_specification", "declared-mechanic-support"
+			message := "Mechanic is declared " + mechanic.Status + "; its behavior is not mechanically validated."
+			switch mechanic.Status {
+			case "unsupported":
 				category = "unsupported"
+			case "proposed_extension":
+				// A blueprint proposal names behavior the Definition cannot express.
+				category, rule = "unsupported", UnsupportedMechanicRule
+				message = "Unsupported mechanic " + mechanic.Name + ": the Definition cannot express it, so no build grants it."
 			}
 			action := "Resolve the mechanic definition or capability gap."
 			if mechanic.RequiredDecision != nil {
@@ -225,9 +235,8 @@ func checkDependencies(candidate Candidate, request Request, report reporter) {
 				}
 			}
 			report(checkFinding{
-				Category: category, Outcome: "unresolved", Subject: "mechanic." + mechanic.ID, Rule: "declared-mechanic-support",
-				Message: "Mechanic is declared " + mechanic.Status + "; its behavior is not mechanically validated.",
-				Action:  act(action), Evidence: evidence,
+				Category: category, Outcome: "unresolved", Subject: "mechanic." + mechanic.ID, Rule: rule,
+				Message: message, Action: act(action), Evidence: evidence,
 			})
 		}
 		if mechanic.Status == "specified" {

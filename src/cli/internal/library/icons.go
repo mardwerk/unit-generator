@@ -54,36 +54,38 @@ type Icons struct {
 	Portrait  *unit.VisualReference `json:"portrait,omitempty"`
 }
 
-// unitDirectory is the asset folder of a character, shared by revisions.
-func unitDirectory(library string, artifact Artifact, create bool) (string, error) {
-	character := artifact.Character()
-	id := hash(s.Stringify([]any{character.Name, character.Work, character.Scope}))
-	if create {
-		if err := os.MkdirAll(library, 0o755); err != nil {
-			return "", err
-		}
-	}
-	root, err := filepath.EvalSymlinks(library)
+// assetDirectory is a character's asset folder in its library folder,
+// shared by its stages and revisions.
+func assetDirectory(root string, artifact Artifact, create bool) (string, error) {
+	directory, err := characterDirectory(root, artifact.Character(), create)
 	if err != nil {
 		return "", err
 	}
-	assets := filepath.Join(root, "assets")
-	directory := filepath.Join(assets, "unit-"+id)
-	for _, path := range []string{assets, directory} {
-		if create {
-			if err := os.Mkdir(path, 0o755); err != nil && !errors.Is(err, os.ErrExist) {
-				return "", err
-			}
-		}
-		info, err := os.Lstat(path)
-		if err != nil {
-			return "", err
-		}
-		if !info.IsDir() {
-			return "", errors.New("Icon folders must be real directories, not symbolic links.")
-		}
+	assets := filepath.Join(directory, assetsDir)
+	return assets, realDirectory(assets, create)
+}
+
+// legacyAssetDirectory is the asset folder the character used before the
+// source and character layout, when it still exists as a real directory.
+func legacyAssetDirectory(root string, artifact Artifact) (string, bool) {
+	directory := legacyAssets(root, artifact.Character())
+	if realDirectory(filepath.Dir(directory), false) != nil || realDirectory(directory, false) != nil {
+		return "", false
 	}
-	return directory, nil
+	return directory, true
+}
+
+// readAsset reads a PNG from the character's folder, falling back to its
+// older asset folder so earlier icons stay visible.
+func readAsset(root string, artifact Artifact, directory, name string) ([]byte, error) {
+	content, err := readPNG(filepath.Join(directory, name))
+	if err != nil || content != nil {
+		return content, err
+	}
+	if legacy, ok := legacyAssetDirectory(root, artifact); ok {
+		return readPNG(filepath.Join(legacy, name))
+	}
+	return nil, nil
 }
 
 // readPNG returns a regular PNG file's bytes, or nil when it is absent.
@@ -122,11 +124,15 @@ func (l *Library) icons(artifact Artifact) (Icons, error) {
 	if !ok {
 		return Icons{Directory: l.directory, Icons: []Icon{}}, nil
 	}
-	directory, err := unitDirectory(l.directory, artifact, true)
+	root, err := l.root(true)
 	if err != nil {
 		return Icons{}, err
 	}
-	out := Icons{Directory: directory, Icons: []Icon{}, Portrait: portraitReference(l.directory, artifact)}
+	directory, err := assetDirectory(root, artifact, true)
+	if err != nil {
+		return Icons{}, err
+	}
+	out := Icons{Directory: directory, Icons: []Icon{}, Portrait: portraitReference(root, artifact)}
 	encoded := 0
 	seen := map[string]bool{}
 	for _, subject := range render.IconSubjects(candidate) {
@@ -134,10 +140,11 @@ func (l *Library) icons(artifact Artifact) (Icons, error) {
 			continue
 		}
 		seen[subject.Key] = true
-		icon := Icon{Key: subject.Key, Label: subject.Label, Kind: subject.Kind, Description: subject.Description, Path: filepath.Join(directory, "icon-"+hash(subject.Key)+".png")}
+		name := "icon-" + hash(subject.Key) + ".png"
+		icon := Icon{Key: subject.Key, Label: subject.Label, Kind: subject.Kind, Description: subject.Description, Path: filepath.Join(directory, name)}
 		icon.ImagePrompt = render.ImagePrompt(candidate, subject, 512)
 		icon.CodexPrompt = render.CodexIconPrompt(candidate, subject, icon.Path)
-		content, err := readPNG(icon.Path)
+		content, err := readAsset(root, artifact, directory, name)
 		switch {
 		case err != nil:
 			icon.Note = err.Error()
@@ -228,8 +235,15 @@ func visualReferences(artifact Artifact) []unit.VisualReference {
 }
 
 // portraitReference is the chosen portrait, or the best-ranked source image.
-func portraitReference(library string, artifact Artifact) *unit.VisualReference {
-	if directory, err := unitDirectory(library, artifact, false); err == nil {
+func portraitReference(root string, artifact Artifact) *unit.VisualReference {
+	var directories []string
+	if directory, err := assetDirectory(root, artifact, false); err == nil {
+		directories = append(directories, directory)
+	}
+	if legacy, ok := legacyAssetDirectory(root, artifact); ok {
+		directories = append(directories, legacy)
+	}
+	for _, directory := range directories {
 		path := filepath.Join(directory, "portrait.json")
 		if info, err := os.Lstat(path); err == nil && info.Mode().IsRegular() && info.Size() <= maxPortraitJSON {
 			if content, err := os.ReadFile(path); err == nil {
@@ -257,7 +271,12 @@ func (l *Library) Portrait(value any) (*unit.VisualReference, error) {
 	if err != nil {
 		return nil, err
 	}
-	return portraitReference(l.directory, artifact), nil
+	root, err := l.root(false)
+	if err != nil {
+		// Without a library folder only source portraits remain.
+		root = l.directory
+	}
+	return portraitReference(root, artifact), nil
 }
 
 // SetPortrait chooses one of the character's source images as its portrait.
@@ -282,7 +301,11 @@ func (l *Library) SetPortrait(value any, referenceID string) (*unit.VisualRefere
 	if len(content) > maxPortraitJSON {
 		return nil, errors.New("Portrait preference exceeds its limit.")
 	}
-	directory, err := unitDirectory(l.directory, artifact, true)
+	root, err := l.root(true)
+	if err != nil {
+		return nil, err
+	}
+	directory, err := assetDirectory(root, artifact, true)
 	if err != nil {
 		return nil, err
 	}
@@ -299,15 +322,15 @@ func (l *Library) SetPortrait(value any, referenceID string) (*unit.VisualRefere
 
 // listingPortrait is one small picture per listed unit: the portrait
 // reference, else a thumbnail of a generated portrait icon.
-func listingPortrait(library string, artifact Artifact) *Portrait {
-	if reference := portraitReference(library, artifact); reference != nil {
+func listingPortrait(root string, artifact Artifact) *Portrait {
+	if reference := portraitReference(root, artifact); reference != nil {
 		return &Portrait{URL: reference.URL, SourceURL: reference.SourceURL, Caption: reference.Caption}
 	}
-	directory, err := unitDirectory(library, artifact, false)
+	directory, err := assetDirectory(root, artifact, false)
 	if err != nil {
-		return nil
+		directory = ""
 	}
-	content, err := readPNG(filepath.Join(directory, "icon-"+hash("unit-portrait")+".png"))
+	content, err := readAsset(root, artifact, directory, "icon-"+hash("unit-portrait")+".png")
 	if err != nil || content == nil {
 		return nil
 	}

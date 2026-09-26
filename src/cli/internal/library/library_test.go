@@ -9,32 +9,20 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/mardwerk/unit-generator/src/cli/internal/parity"
+	"github.com/mardwerk/unit-generator/src/cli/internal/fixture"
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
 	"github.com/mardwerk/unit-generator/src/cli/internal/unit"
 )
 
-// stages returns a prepared request, draft, checked draft and Result of one
-// recorded planned-route review.
+// stages returns the scripted fixture's prepared request, draft, checked
+// draft and Result.
 func stages(t *testing.T) []any {
 	t.Helper()
-	entries, err := parity.Entries("reviewDraft")
+	built, err := fixture.Build()
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, entry := range entries {
-		result, ok := parity.Output(entry)
-		checked := parity.Arg(entry, 0).(*s.Object)
-		draft, _ := checked.Get("draft")
-		candidate, _ := draft.(*s.Object).Get("candidate")
-		if _, planned := candidate.(*s.Object).Get("blueprint"); !ok || !planned {
-			continue
-		}
-		prepared, _ := draft.(*s.Object).Get("prepared")
-		return []any{prepared, draft, checked, result}
-	}
-	t.Fatal("no recorded review")
-	return nil
+	return built.Values()
 }
 
 func open(t *testing.T) (*Library, string) {
@@ -75,7 +63,7 @@ func TestLibrarySavesEveryStageOnceAndRestoresIt(t *testing.T) {
 		}
 		loaded, err := library.Load(entries[0].ID)
 		// Saving keeps the content; keys follow the contract order.
-		if err != nil || parity.Canonical(loaded) != parity.Canonical(artifact) || s.Stringify(artifact) != before {
+		if err != nil || s.Canonical(loaded) != s.Canonical(artifact) || s.Stringify(artifact) != before {
 			t.Errorf("load changed the %v artifact: %v", kind, err)
 		}
 	}
@@ -85,7 +73,7 @@ func TestLibrarySavesEveryStageOnceAndRestoresIt(t *testing.T) {
 	if s.Stringify(s.FromGoValue(first)) != s.Stringify(s.FromGoValue(second)) || len(first.Entries) != 4 {
 		t.Errorf("reopened %d entries", len(second.Entries))
 	}
-	files, _ := filepath.Glob(filepath.Join(root, "library", "unitlab-*"))
+	files, _ := filepath.Glob(filepath.Join(root, "library", "bloons-td-6", "dart-monkey", "dart-monkey.*"))
 	json, markdown := 0, 0
 	for _, file := range files {
 		switch filepath.Ext(file) {
@@ -133,7 +121,7 @@ func TestConfigurePersistsAndLeavesTheOldLibrary(t *testing.T) {
 	if reopened.Directory() != alternate {
 		t.Errorf("reopened at %s", reopened.Directory())
 	}
-	if _, err := os.Stat(filepath.Join(root, "library", "unitlab-"+saved.ID+".json")); err != nil {
+	if _, err := os.Stat(filepath.Join(root, "library", filepath.FromSlash(saved.Path))); err != nil {
 		t.Error("the old library changed")
 	}
 	_, _ = library.Save(prepared)
@@ -182,7 +170,7 @@ func TestTamperedDocumentsAreNeitherLoadedNorReplaced(t *testing.T) {
 	library, root := open(t)
 	prepared := stages(t)[0]
 	entry, _ := library.Save(prepared)
-	path := filepath.Join(root, "library", "unitlab-"+entry.ID+".json")
+	path := filepath.Join(root, "library", filepath.FromSlash(entry.Path))
 	content, _ := os.ReadFile(path)
 	tampered := strings.Replace(string(content), `"id": "`+entry.ID+`"`, `"id": "`+strings.Repeat("2", 64)+`"`, 1)
 	_ = os.WriteFile(path, []byte(tampered), 0o600)
@@ -261,16 +249,26 @@ func TestIconPathsAreContainedStableAndBounded(t *testing.T) {
 }
 
 func TestIconsRejectLinkedAssetFolders(t *testing.T) {
-	library, root := open(t)
-	external := filepath.Join(root, "outside")
-	_ = os.Mkdir(external, 0o755)
-	_ = os.MkdirAll(filepath.Join(root, "library"), 0o755)
-	_ = os.Symlink(external, filepath.Join(root, "library", "assets"))
-	if _, err := library.Icons(stages(t)[1]); err == nil || !strings.Contains(err.Error(), "real directories") {
-		t.Errorf("err %v", err)
-	}
-	if entries, _ := os.ReadDir(external); len(entries) != 0 {
-		t.Error("wrote through the link")
+	for _, linked := range []string{"bloons-td-6", filepath.Join("bloons-td-6", "dart-monkey", "assets")} {
+		library, root := open(t)
+		external := filepath.Join(root, "outside")
+		_ = os.Mkdir(external, 0o755)
+		if linked != "bloons-td-6" {
+			if _, err := library.Save(stages(t)[0]); err != nil {
+				t.Fatal(err)
+			}
+		}
+		_ = os.MkdirAll(filepath.Join(root, "library", filepath.Dir(linked)), 0o755)
+		_ = os.Symlink(external, filepath.Join(root, "library", linked))
+		if _, err := library.Icons(stages(t)[1]); err == nil || !strings.Contains(err.Error(), "real directories") {
+			t.Errorf("%s: err %v", linked, err)
+		}
+		if _, err := library.Save(stages(t)[1]); linked == "bloons-td-6" && (err == nil || !strings.Contains(err.Error(), "real directories")) {
+			t.Errorf("saved through a linked work folder: %v", err)
+		}
+		if entries, _ := os.ReadDir(external); len(entries) != 0 {
+			t.Errorf("%s: wrote through the link", linked)
+		}
 	}
 }
 

@@ -54,7 +54,8 @@ func tierOutputFor(d *m.Definition) *s.ObjectSchema {
 		return tierOutput
 	}
 	v := d.Vocabulary
-	statuses := s.Array(wireStatusSchema(v)).Max(4)
+	budget := d.Profile.MaxChangesPerTier
+	statuses := s.Array(wireStatusSchema(v)).Max(budget)
 	if len(v.StatusEffects) == 0 {
 		statuses = s.Array(wireStatusSchema(v)).Max(0)
 	}
@@ -65,7 +66,7 @@ func tierOutputFor(d *m.Definition) *s.ObjectSchema {
 	return s.StrictObject(
 		s.F("name", s.String().Min(1).Max(80)),
 		s.F("cost", s.Number().Positive()),
-		s.F("statChanges", s.Array(s.StrictObject(s.F("stat", s.Enum(m.CoreStatKeys...)), s.F("operation", m.OperationSchema), s.F("value", s.Number()))).Max(4)),
+		s.F("statChanges", s.Array(s.StrictObject(s.F("stat", s.Enum(m.CoreStatKeys...)), s.F("operation", m.OperationSchema), s.F("value", s.Number()))).Max(budget)),
 		s.F("statuses", statuses),
 		s.F("detect", detect),
 		s.F("delivery", s.Nullable(m.DeliverySchema)),
@@ -135,6 +136,9 @@ func ModelOutputSchema(request *Request) (*s.ObjectSchema, error) {
 			boosts := wireBoostChanges.Max(0)
 			if allowsBoost && tier == modifyTier {
 				boosts = wireBoostChanges
+				if definition != nil && definition.IsV2() {
+					boosts = wireBoostChanges.Max(definition.Profile.MaxChangesPerTier)
+				}
 			}
 			return tierOutputFor(definition).Extend(
 				s.F("distribution", distribution), s.F("followUp", followUp), s.F("activeFollowUp", active),
@@ -255,6 +259,16 @@ func ModelOutputJSONSchema(request *Request) (*s.Object, error) {
 		omit(node.(*s.Object), "name", "sourceIds", "theme", "rationale")
 	}
 	return root, nil
+}
+
+// budgetSentence states the Definition's change budget per purchase.
+func budgetSentence(request *Request) string {
+	early, later := TierEffectLimit(request, "tier1"), TierEffectLimit(request, "tier5")
+	through := 3
+	if d := request.MechanicsDefinition; d != nil {
+		through = d.Profile.EarlyThrough()
+	}
+	return fmt.Sprintf("Tier1 to Tier%d allow 1 to %d primitive changes total; Tier%d to Tier5 allow up to %d.", through, early, through+1, later)
 }
 
 // TierEffectLimit is the effect budget of a tier.

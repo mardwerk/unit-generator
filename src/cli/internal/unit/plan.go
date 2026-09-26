@@ -18,17 +18,29 @@ type ModelRequest struct {
 
 var (
 	milestoneSchema = UpgradeIntentSchema.Extend(s.F("change", s.String().Trim().Min(1).Max(800)))
-	purchaseBranch  = planBranch.Omit("crosspaths", "referenceExample").Extend(s.F("milestones", s.StrictObject(
-		s.F("tier1", milestoneSchema), s.F("tier2", milestoneSchema), s.F("tier3", milestoneSchema), s.F("tier4", milestoneSchema), s.F("tier5", milestoneSchema),
-	)))
+	purchaseBranch  = purchaseBranchOf(milestoneSchema)
 	// PurchasePlanSchema is the compact plan the model returns: one description
 	// and one checkable promise per purchase.
-	PurchasePlanSchema = DesignPlanSchema.Omit("upgradeIntents").Extend(
-		s.F("contract", s.Literal("purchase-plan-v1")),
-		s.F("paths", s.StrictObject(s.F("path1", purchaseBranch), s.F("path2", purchaseBranch), s.F("path3", purchaseBranch))),
-	)
+	PurchasePlanSchema = purchasePlanOf(purchaseBranch)
+	// purchasePlanSchemaV2 accepts any well-formed promise ID, so a version 2
+	// Definition's status effects and detection traits survive expansion;
+	// DecodeDesignPlan then holds them to the Definition's vocabulary.
+	purchasePlanSchemaV2 = purchasePlanOf(purchaseBranchOf(upgradeIntentSchema(promiseID, promiseID).Extend(s.F("change", s.String().Trim().Min(1).Max(800)))))
 	earlyIdentityUnlocks = map[string]bool{"none": true, "camo": true}
 )
+
+func purchaseBranchOf(milestone s.Schema) *s.ObjectSchema {
+	return planBranch.Omit("crosspaths", "referenceExample").Extend(s.F("milestones", s.StrictObject(
+		s.F("tier1", milestone), s.F("tier2", milestone), s.F("tier3", milestone), s.F("tier4", milestone), s.F("tier5", milestone),
+	)))
+}
+
+func purchasePlanOf(branch s.Schema) *s.ObjectSchema {
+	return DesignPlanSchema.Omit("upgradeIntents").Extend(
+		s.F("contract", s.Literal("purchase-plan-v1")),
+		s.F("paths", s.StrictObject(s.F("path1", branch), s.F("path2", branch), s.F("path3", branch))),
+	)
+}
 
 // PurchasePlanOutputSchema narrows the compact plan to what the Definition supports.
 func PurchasePlanOutputSchema(request *Request) *s.ObjectSchema {
@@ -89,17 +101,29 @@ func earlyPurchases(branch *s.Object) string {
 	if s.UTF16Len(summary) <= 800 {
 		return summary
 	}
-	return "Proposed contributions are the secondary path T1 and T2 milestones. Consult resolved purchase evidence for their actual effects."
+	return "Proposed contributions are the side path's first and second purchases. Consult resolved purchase evidence for their actual effects."
 }
 
 // ExpandPurchasePlan turns a compact plan into the retained plan shape.
 // Other values pass through unchanged.
 func ExpandPurchasePlan(output any) (any, error) {
+	return expandPurchasePlan(output, PurchasePlanSchema)
+}
+
+// ExpandPurchasePlanFor expands a compact plan written under a Definition.
+func ExpandPurchasePlanFor(output any, definition *m.Definition) (any, error) {
+	if definition != nil && definition.IsV2() {
+		return expandPurchasePlan(output, purchasePlanSchemaV2)
+	}
+	return expandPurchasePlan(output, PurchasePlanSchema)
+}
+
+func expandPurchasePlan(output any, schema s.Schema) (any, error) {
 	obj, ok := output.(*s.Object)
 	if !ok || !obj.Has("contract") || obj.Has("upgradeIntents") {
 		return output, nil
 	}
-	wireValue, issues := s.Parse(PurchasePlanSchema, output)
+	wireValue, issues := s.Parse(schema, output)
 	if len(issues) > 0 {
 		return nil, &s.Error{Issues: issues}
 	}
@@ -138,7 +162,7 @@ func ExpandPurchasePlan(output any) (any, error) {
 			}
 		}
 		expanded.Set("crosspaths", crosspaths)
-		expanded.Set("referenceExample", "BTD6 progression and tradeoffs inform this proposal; the supplied Definition alone authorizes mechanics.")
+		expanded.Set("referenceExample", "The Profile's scale references inform this proposal; the supplied Definition alone authorizes mechanics.")
 		paths.Set(path, expanded)
 		intents.Set(path, pathIntents)
 	}
@@ -255,7 +279,6 @@ func DesignPlanRequest(prepared Prepared) (ModelRequest, error) {
 			origins = append(origins, s.NewObject().Set("id", d.ID).Set("origin", s.FromGoValue(d.Origin)))
 		}
 	}
-	examples, _ := s.Decode([]byte(workedExamplesJSON))
 	context := s.NewObject().
 		Set("character", s.FromGoValue(request.Character)).
 		Set("task", request.Task).
@@ -273,8 +296,7 @@ func DesignPlanRequest(prepared Prepared) (ModelRequest, error) {
 			Set("note", "Selection is bounded. Do not claim exhaustive repertoire coverage.")).
 		Set("previous", previousValue(request)).
 		Set("previousFindings", previousFindings(request)).
-		Set("feedback", nullableString(request.Feedback)).
-		Set("workedExamples", examples)
+		Set("feedback", nullableString(request.Feedback))
 	parts := []string{
 		fmt.Sprintf("Requested character: %s. The context below supplies %d selected evidence passages for this character. Read those passages before choosing powers; selection is bounded and does not establish complete source coverage.", s.Stringify(request.Character.Name), len(evidence)),
 	}
@@ -288,8 +310,13 @@ func DesignPlanRequest(prepared Prepared) (ModelRequest, error) {
 		last := guidance[len(guidance)-1]
 		guidance = append(append(guidance[:len(guidance)-1], VocabularyGuidance(request)...), last)
 	}
-	parts = append(parts, guidance[:len(guidance)-1]...)
-	parts = append(parts, progressionReference, guidance[len(guidance)-1], s.Stringify(context))
+	if d := request.MechanicsDefinition; d != nil && d.Profile.DesignPolicy != nil && d.Profile.DesignPolicy.RequireTier3BehaviorChange != nil && *d.Profile.DesignPolicy.RequireTier3BehaviorChange {
+		// The requirement goes before the closing guidance line.
+		last := guidance[len(guidance)-1]
+		guidance = append(append(append([]string{}, guidance[:len(guidance)-1]...), planTier3Behavior), last)
+	}
+	parts = append(parts, guidance...)
+	parts = append(parts, s.Stringify(context))
 	return ModelRequest{System: planSystem, Prompt: strings.Join(parts, "\n\n"), Schema: schema}, nil
 }
 
@@ -331,7 +358,7 @@ func isDetection(d *m.Definition, id string) bool {
 // DecodeDesignPlan validates a plan's joins and structural choices.
 // Source interpretation remains a review obligation.
 func DecodeDesignPlan(output any, request *Request) (DesignPlan, error) {
-	expanded, err := ExpandPurchasePlan(output)
+	expanded, err := ExpandPurchasePlanFor(output, request.MechanicsDefinition)
 	if err != nil {
 		return DesignPlan{}, err
 	}
@@ -418,7 +445,7 @@ func DecodeDesignPlan(output any, request *Request) (DesignPlan, error) {
 				if d := request.MechanicsDefinition; d != nil && d.IsV2() {
 					detection = "personal detection"
 				}
-				issue("T1 and T2 must preserve the existing attack identity. New statuses, attack patterns, delivery, targeting and damage-type access must wait until T3; " + detection + " and improvements to existing effects remain allowed.")
+				issue(BuildCode(pathIndex, number) + " must preserve the existing attack identity: the first and second purchase of a path add no new status, attack pattern, delivery, targeting or damage-type access before the third; " + detection + " and improvements to existing effects remain allowed.")
 			}
 			if intent.Unlock == "manual-boost" && number != boostTier {
 				issue(fmt.Sprintf("Manual boost unlocks are supported only at tier %d.", boostTier))

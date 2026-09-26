@@ -15,8 +15,8 @@ import (
 	"testing"
 	"testing/fstest"
 
+	"github.com/mardwerk/unit-generator/src/cli/internal/fixture"
 	"github.com/mardwerk/unit-generator/src/cli/internal/library"
-	"github.com/mardwerk/unit-generator/src/cli/internal/parity"
 	"github.com/mardwerk/unit-generator/src/cli/internal/provider"
 	"github.com/mardwerk/unit-generator/src/cli/internal/research"
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
@@ -51,39 +51,35 @@ func (m *scripted) Generate(ctx context.Context, _ unit.ModelRequest) (unit.Mode
 	return unit.ModelResponse{Output: s.Clone(output)}, nil
 }
 
-// recorded returns a recorded request with the model outputs of its
-// planned draft and review.
+// recorded returns the scripted fixture's request, prepared under the
+// default Profile, and the model outputs of its plan, mechanics and review.
 func recorded(t *testing.T) (*s.Object, []any) {
 	t.Helper()
-	drafts, _ := parity.Entries("draftUnit")
-	reviews, _ := parity.Entries("reviewDraft")
-	outputs := func(entry *s.Object) []any {
-		model, _ := entry.Get("model")
-		exchanges, _ := model.(*s.Object).Get("exchanges")
-		var out []any
-		for _, exchange := range exchanges.([]any) {
-			response, _ := exchange.(*s.Object).Get("response")
-			output, _ := response.(*s.Object).Get("output")
-			out = append(out, output)
-		}
-		return out
+	prepared, err := fixture.Prepare()
+	if err != nil {
+		t.Fatal(err)
 	}
-	for _, review := range reviews {
-		if _, ok := parity.Output(review); !ok {
-			continue
+	var outputs []any
+	for _, name := range []string{"plan", "mechanics", "review"} {
+		output, err := fixture.JSON(name)
+		if err != nil {
+			t.Fatal(err)
 		}
-		runID := parity.Get(parity.Arg(review, 0), "draft", "run", "id")
-		for _, draft := range drafts {
-			output, ok := parity.Output(draft)
-			if !ok || parity.Get(output, "run", "id") != runID || len(outputs(draft)) != 2 {
-				continue
-			}
-			request := parity.Get(parity.Arg(draft, 0), "request").(*s.Object)
-			return request, append(outputs(draft), outputs(review)...)
-		}
+		outputs = append(outputs, output)
 	}
-	t.Fatal("no recorded run")
-	return nil, nil
+	return s.FromGoValue(prepared.Request).(*s.Object), outputs
+}
+
+// at reads a key path from a JSON value; nil when absent.
+func at(value any, path ...string) any {
+	for _, key := range path {
+		object, ok := value.(*s.Object)
+		if !ok {
+			return nil
+		}
+		value, _ = object.Get(key)
+	}
+	return value
 }
 
 var page = fstest.MapFS{
@@ -187,7 +183,7 @@ func TestStagesRunThroughTheAPI(t *testing.T) {
 		t.Fatalf("result %v", kind)
 	}
 	imported := h.post("inspect", map[string]any{"artifact": result})
-	if kind, _ := imported.Get("kind"); kind != "result" || parity.Canonical(parity.Get(imported, "artifact")) != parity.Canonical(result) {
+	if kind, _ := imported.Get("kind"); kind != "result" || s.Canonical(at(imported, "artifact")) != s.Canonical(result) {
 		t.Error("inspect changed the Result")
 	}
 	markdown := h.post("render", map[string]any{"artifact": result})
@@ -195,19 +191,34 @@ func TestStagesRunThroughTheAPI(t *testing.T) {
 		t.Errorf("markdown %v", text)
 	}
 	view := h.post("view", map[string]any{"artifact": result})
-	if !view.Has("stats") || parity.Get(view, "view", "kind") != "result" {
+	if !view.Has("stats") || at(view, "view", "kind") != "result" {
 		t.Errorf("view %s", s.Stringify(view)[:200])
 	}
+	early, _ := at(view, "crosspaths", "early").([]any)
+	advanced, _ := at(view, "crosspaths", "advanced").([]any)
+	purchases, _ := view.Get("purchases")
+	if base, _ := at(view, "base", "text").(string); !strings.HasPrefix(base, "Placement costs 200 Gold.") || at(view, "base", "code") != "0-0-0" {
+		t.Errorf("view base %q", base)
+	}
+	if len(early) != 12 || len(advanced) != 36 || len(purchases.([]any)) != 3 || view.Has("revision") {
+		t.Errorf("view has %d early and %d advanced builds", len(early), len(advanced))
+	}
 	entry := h.post("library/save", map[string]any{"artifact": result})
-	listing := h.post("library/load", map[string]any{"id": parity.Get(entry, "id")})
-	if parity.Canonical(parity.Get(listing, "artifact")) != parity.Canonical(result) {
+	if path, _ := at(entry, "path").(string); strings.Count(path, "/") != 2 || !strings.Contains(path, ".result.") {
+		t.Errorf("saved to %q, not a work and character folder", path)
+	}
+	listing := h.post("library/load", map[string]any{"id": at(entry, "id")})
+	if s.Canonical(at(listing, "artifact")) != s.Canonical(result) {
 		t.Error("library round trip changed the Result")
 	}
+	if moved, _ := at(h.post("library/migrate", map[string]any{}), "records").([]any); len(moved) != 0 {
+		t.Errorf("migrate moved %v from a library without legacy records", moved)
+	}
 	revision := s.Clone(request).(*s.Object).
-		Set("previous", s.NewObject().Set("resultId", parity.Get(result, "id")).Set("draft", parity.Get(result, "candidate")).Set("findings", parity.Get(result, "findings"))).
+		Set("previous", s.NewObject().Set("resultId", at(result, "id")).Set("draft", at(result, "candidate")).Set("findings", at(result, "findings"))).
 		Set("feedback", "Prioritize support while preserving confirmed decisions.")
 	next := h.post("prepare", map[string]any{"request": revision})
-	if parity.Get(next, "request", "previous", "resultId") != parity.Get(result, "id") {
+	if at(next, "request", "previous", "resultId") != at(result, "id") {
 		t.Error("the revision lost its previous Result")
 	}
 }
@@ -219,8 +230,8 @@ func TestPrepareKeepsProvenanceAndRefusesServerFiles(t *testing.T) {
 	first := documents.([]any)[0]
 	mixed := s.Clone(request).(*s.Object).Set("documents", []any{first, s.NewObject().Set("id", "new-rules").Set("kind", "rules").Set("text", "Explicit additional rules.")})
 	prepared := h.post("prepare", map[string]any{"request": mixed})
-	resolved := parity.Get(prepared, "request", "documents").([]any)
-	if parity.Canonical(parity.Get(resolved[0], "origin")) != parity.Canonical(parity.Get(first, "origin")) || parity.Get(resolved[1], "origin", "access") != "supplied" {
+	resolved := at(prepared, "request", "documents").([]any)
+	if s.Canonical(at(resolved[0], "origin")) != s.Canonical(at(first, "origin")) || at(resolved[1], "origin", "access") != "supplied" {
 		t.Error("provenance changed")
 	}
 	for _, unsafe := range []*s.Object{
@@ -233,7 +244,7 @@ func TestPrepareKeepsProvenanceAndRefusesServerFiles(t *testing.T) {
 		}
 	}
 	tampered := s.Clone(prepared).(*s.Object)
-	parity.Get(tampered, "request").(*s.Object).Set("task", "Different input without a new preparation.")
+	at(tampered, "request").(*s.Object).Set("task", "Different input without a new preparation.")
 	status, value := h.call(http.MethodPost, "inspect", map[string]any{"artifact": tampered}, nil)
 	if _, message := errorOf(value); status != 400 || !strings.Contains(message, "hash") {
 		t.Errorf("inspect %d %s", status, message)
@@ -332,7 +343,7 @@ func TestEditableInputsAreNotExecutableRequests(t *testing.T) {
 		Set("documents", []any{s.NewObject().Set("id", "").Set("kind", "source").Set("url", "unfinished URL")}).
 		Set("constraints", s.NewObject().Set("unfinished", true))
 	restored := h.post("inspect", map[string]any{"artifact": unfinished, "editable": true})
-	if kind, _ := restored.Get("kind"); kind != "request" || parity.Canonical(parity.Get(restored, "artifact")) != parity.Canonical(unfinished) {
+	if kind, _ := restored.Get("kind"); kind != "request" || s.Canonical(at(restored, "artifact")) != s.Canonical(unfinished) {
 		t.Error("the editable request changed")
 	}
 	for _, body := range []map[string]any{
@@ -360,16 +371,16 @@ func TestHealthShowsTheMaskedKeyFromEnvFile(t *testing.T) {
 	})
 	status, health := h.call(http.MethodGet, "health", nil, nil)
 	raw := s.Stringify(health)
-	if status != 200 || parity.Get(health, "key", "source") != "env-file" || parity.Get(health, "key", "hint") != "sk-or-v1-000...abc" ||
-		parity.Get(health, "key", "configured") != true || parity.Get(health, "provider", "ready") != true || strings.Contains(raw, key) {
+	if status != 200 || at(health, "key", "source") != "env-file" || at(health, "key", "hint") != "sk-or-v1-000...abc" ||
+		at(health, "key", "configured") != true || at(health, "provider", "ready") != true || strings.Contains(raw, key) {
 		t.Errorf("health %s", raw)
 	}
 	state := h.post("provider", map[string]any{"provider": "codex"})
-	if state.Has("apiKey") || strings.Contains(s.Stringify(state), key) || parity.Get(state, "key", "source") != "env-file" {
+	if state.Has("apiKey") || strings.Contains(s.Stringify(state), key) || at(state, "key", "source") != "env-file" {
 		t.Errorf("state %s", s.Stringify(state))
 	}
 	state = h.post("provider", map[string]any{"provider": "openrouter", "apiKey": "entered-" + strings.Repeat("x", 40)})
-	if parity.Get(state, "key", "source") != "settings" || strings.Contains(s.Stringify(state), "entered-") {
+	if at(state, "key", "source") != "settings" || strings.Contains(s.Stringify(state), "entered-") {
 		t.Errorf("state %s", s.Stringify(state))
 	}
 }
@@ -414,7 +425,7 @@ func TestModelFailuresReturnSafeFactsAndUsage(t *testing.T) {
 	status, value := h.call(http.MethodPost, "draft", map[string]any{"prepared": prepared}, nil)
 	code, message := errorOf(value)
 	if status != 502 || code != unit.CodeRateLimit || strings.Contains(s.Stringify(value), "PRIVATE") || !strings.Contains(message, "rate limit") ||
-		parity.Get(value, "error", "usage", "costUsd") != 0.002 || parity.Get(value, "error", "details", "stage") != "draft" {
+		at(value, "error", "usage", "costUsd") != 0.002 || at(value, "error", "details", "stage") != "draft" {
 		t.Errorf("%d %s", status, s.Stringify(value))
 	}
 }
@@ -444,7 +455,7 @@ func TestIconGenerationNeedsConfirmationModelAndDestination(t *testing.T) {
 	h := start(t, &scripted{outputs: outputs}, func(config *Config) { config.TestImages = images })
 	draft := h.post("draft", map[string]any{"prepared": h.post("prepare", map[string]any{"request": request})})
 	icons := h.post("library/icons", map[string]any{"artifact": draft})
-	first := parity.Get(icons, "icons").([]any)[1].(*s.Object)
+	first := at(icons, "icons").([]any)[1].(*s.Object)
 	key, _ := first.Get("key")
 	destination, _ := first.Get("path")
 	base := map[string]any{"artifact": draft, "iconKey": key, "model": "meta/muse-image", "confirmed": true, "destination": destination}
@@ -473,10 +484,10 @@ func TestIconGenerationNeedsConfirmationModelAndDestination(t *testing.T) {
 		t.Fatalf("a rejected request generated %d images", images.calls)
 	}
 	generated := h.post("library/icon/generate", base)
-	if images.calls != 1 || parity.Get(generated, "usage", "costUsd") != 0.004 || !strings.HasPrefix(parity.Get(generated, "icons", "icons").([]any)[1].(*s.Object).Keys()[0], "key") {
+	if images.calls != 1 || at(generated, "usage", "costUsd") != 0.004 || !strings.HasPrefix(at(generated, "icons", "icons").([]any)[1].(*s.Object).Keys()[0], "key") {
 		t.Errorf("generated %s", s.Stringify(generated)[:200])
 	}
-	if data := parity.Get(parity.Get(generated, "icons", "icons").([]any)[1], "dataUrl"); data == nil {
+	if data := at(at(generated, "icons", "icons").([]any)[1], "dataUrl"); data == nil {
 		t.Error("the new icon is not shown")
 	}
 }
@@ -496,7 +507,7 @@ func TestResearchReturnsReusableSources(t *testing.T) {
 		t.Fatalf("sources %s", s.Stringify(sources))
 	}
 	prepared := h.post("prepare", map[string]any{"sources": sources, "profileId": unit.DefaultProfile().ID})
-	if parity.Get(prepared, "request", "character", "name") != "Monkey D. Luffy" {
+	if at(prepared, "request", "character", "name") != "Monkey D. Luffy" {
 		t.Error("sources did not prepare")
 	}
 	legacy := h.post("character", map[string]any{"name": "Luffy"})

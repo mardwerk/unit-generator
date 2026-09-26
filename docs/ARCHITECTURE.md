@@ -35,10 +35,10 @@ The numerical Engine supports exactly 3 paths × 5 tiers. Other shapes need an e
 | --- | --- | --- | --- |
 | Engine | `unit`, `mechanics` | Contract types and schemas, preparation and hashing, drafting (plan, mechanics, repair), checks, review, mechanics resolution | File or network access, environment reads, history |
 | Schema layer | `schema` | The contract DSL: strict parsing with Zod-compatible issues, JSON Schema for providers, JavaScript-compatible JSON | Business rules |
-| `render` | `render` | Markdown, the web view (usage, per-tier stats), icon subjects and prompts | Model calls, validation decisions |
+| `render` | `render` | Markdown, the web view (usage, per-tier stats, purchase sentences, crosspath builds, revision notes), icon subjects and prompts | Model calls, validation decisions |
 | `provider` | `provider` | Model and image calls behind `unit.Model`, `.env` reading, key hints | Deciding what to generate |
 | `research` | `research` | Character lookup, source text and images as Sources; explicit document inputs of request files | Applying a Profile |
-| `library` | `library` | Managed files in the library folder; saved Profiles in the Profiles folder | Reading anything else, saving implicitly |
+| `library` | `library` | Managed files in the library folder, arranged by work and character; saved Profiles in the Profiles folder | Reading anything else, saving implicitly |
 | `evidence` | `evidence` | Exact model inputs and raw outputs, with `--evidence-dir` only | Anything without that flag |
 | CLI | `src/cli` (main) | Arguments, explicit input and output files, exit codes | Business rules |
 | `serve` | `server` | Local HTTP routes, session token, host and origin checks, embedded web assets | Jobs, runs or resumable state |
@@ -55,7 +55,7 @@ There is one route; the Profile supplies the rules it follows.
 3. `draft` makes a planning call and a mechanics call. Each has a bounded repair budget (0–2, default 1). Code binds the plan, resolves the mechanics and validates every legal build. Invalid output is never published.
 4. `check` re-runs the deterministic checks on a draft.
 5. `review` asks a separate model call for a semantic review.
-6. `render` produces Markdown or view data.
+6. `render` produces Markdown or view data. The unit sheet starts with the character name and `0-0-0`, names each purchase by build code (`3-x-x`, `x-4-x`, `x-x-5`) with the exact numbers of its resolved mechanics, lists every legal two-path build (under the default, 12 early and 36 advanced) with what each path adds to the other, and holds nothing else: no checks, costs, unsupported or reserved lists, default targeting or absent detection. A revision adds patch notes that keep changed mechanics apart from renamed purchases. Every sentence and number comes from resolving the blueprint; the plan's purchase reasons, weaknesses and capstone notes are private design checks and are not printed. `--details` (and the web app's panels) carry the diagnostics: provenance, review status, findings including unsupported mechanics, usage and evidence.
 
 Every stage is a separate operation that receives the previous artifact explicitly. Nothing depends on an earlier call's presence in memory or on disk. A revision (`edit`, or Edit in the web app) prepares the previous unit, its findings and the feedback into a new request; there is no automatic review-and-redraft loop.
 
@@ -64,14 +64,14 @@ Legacy fields: `authoringMode`, `deliverable` and `operation` in older artifacts
 ## Profiles
 
 - **Profile file.** One JSON document holding the Definition, the rules text and the task. `prepare` copies the Profile's content into the request, so the hash covers it and reloading an artifact never looks a Profile up by ID.
-- **Bundled default.** `default`, BTD6-inspired: three paths of five tiers, BTD6 crosspath rules, and Dart Monkey reference costs, damage, rate, range and pierce. It is built into the binary and read-only; editing starts from a copy.
+- **Bundled default.** `default`, BTD6-inspired: three paths of five tiers, BTD6 crosspath rules, the character design rules and scale references for several roles, pinned to btd6-atlas capture 56.3 ([BTD6 reference](BTD6-REFERENCE.md)). It is built into the binary and read-only; editing starts from a copy.
 - **Saved Profiles.** `<id>.json` files in the Profiles folder (`data/profiles`, `--profiles DIR`), separate from generated runs. Saving runs the same validation as `prepare`, and a saved Profile's rules document must have the ID `profile:<id>`.
 - **Web app.** The Profiles tab lists the default and saved Profiles, shows paths × tiers, prices and limits, and edits copies. The Generate form has a compact Profile dropdown with the default preselected.
 - **CLI.** `--profile ID`; without it, the bundled default.
 
 ## Library
 
-Saved work lives only in a library folder, `data/runs/library` by default. It is set with `--library DIR`, or switched from the web app's Settings; the web app records that choice in `data/runs/lab-settings.json`. Switching is refused while a model stage runs. Each record is `unitlab-<SHA-256 of the artifact>.json`, and each unit also gets a `unitlab-<id>.md` render. Icons, image receipts and portrait choices live under `assets/`. The server never saves on its own: the web client saves Sources after research and Results when a run completes, and the CLI saves only with `library save`.
+Saved work lives only in a library folder, `data/runs/library` by default. It is set with `--library DIR`, or switched from the web app's Settings; the web app records that choice in `data/runs/lab-settings.json`. Switching is refused while a model stage runs. Records are arranged by source and character: `<work>/<character>/<character>.<stage>.<id>.json`, where `<work>` and `<character>` are readable slugs, `<stage>` is `sources`, `prepared`, `draft`, `checked` or `result` and `<id>` the first 12 hex digits of the artifact's SHA-256 (all 64 if two collide). Each unit also gets a `.md` render beside it, and the character's icons, image receipts and portrait choice live in its `assets/` folder. A `character.json` marker records the exact name and work of each character folder; a character whose slug another identity owns gets `<character>-<hash>`. Slugs keep only letters and digits, so no name can leave the library, and every folder below the library root must be a real directory. The API and listing still identify records by the full SHA-256, which also deduplicates saves. Records from earlier versions (`unitlab-<id>.json` at the root, assets under `assets/unit-<hash>`) stay readable; `library migrate` moves them on request. The server never saves on its own: the web client saves Sources after research and Results when a run completes, and the CLI saves only with `library save`.
 
 ## CLI
 
@@ -96,10 +96,11 @@ Exit codes: `0` the operation completed (findings may still fail), `1` failure. 
 | `POST /review` | `{checked}` | Result |
 | `POST /inspect` | `{artifact, editable?}` | `{kind, artifact}` |
 | `POST /render` | `{artifact, details?}` | `{markdown}` |
-| `POST /view` | `{artifact}` | `{view, stats?}`: usage summary, design evaluation and per-tier stat changes |
+| `POST /view` | `{artifact}` | `{view, base?, stats?, purchases?, crosspaths?, revision?}`: usage summary, design evaluation, the `0-0-0` description, per-tier stat changes, purchase sentences by build code, every legal two-path build and, for a revision, its mechanics and wording changes |
 | `GET /profiles`, `POST /profiles/save`, `POST /profiles/delete` | –, `{profile}`, `{id}` | `{directory, profiles: [{profile, builtIn, progression}]}` |
 | `POST /profiles/apply` | `{request, profileId?\|profile?}` | the edited request under that Profile |
-| `GET /library`, `POST /library/configure` | –, `{directory}` | `{directory, entries}` |
+| `GET /library`, `POST /library/configure` | –, `{directory}` | `{directory, entries}`; each entry has its record `path` relative to the folder |
+| `POST /library/migrate` | `{}` | `{records, assets, kept, state}`: records and asset files moved into work and character folders, and files left in place |
 | `POST /library/save`, `/load`, `/delete` | `{artifact}`, `{id}`, `{ids}` | entry, `{artifact}`, listing |
 | `POST /library/icons` | `{artifact}` | `{directory, icons, portrait?}`; each icon carries its image and Codex prompts |
 | `POST /library/portrait/get`, `/library/portrait` | `{artifact}`, `{artifact, referenceId}` | `{portrait?}` |
@@ -128,9 +129,8 @@ src/cli/internal/research/     character lookup, Sources, explicit documents and
 src/cli/internal/library/      library folder and Profiles folder
 src/cli/internal/evidence/     --evidence-dir records
 src/cli/internal/server/       serve: routes and security checks
-src/cli/internal/parity/       test helper: reads testdata/parity
+src/cli/internal/fixture/      test helper: a scripted reference unit run through every stage
 src/web/                       web client: app/, features/, ui/, api/ (React), public/, dist/ (embedded), build.mjs
-testdata/parity/               recorded TypeScript behavior the Go tests replay
 ```
 
 Go dependencies: `golang.org/x/text` (NFKC and NFKD), `github.com/clipperhouse/uax29` (sentence segmentation of evidence), `github.com/PuerkitoBio/goquery` (HTML), `golang.org/x/image` (WebP decoding, thumbnails) and `github.com/BurntSushi/toml` (Codex configuration).

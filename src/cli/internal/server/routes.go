@@ -122,8 +122,21 @@ func (srv *Server) posts() map[string]post {
 				return nil, err
 			}
 			out := s.NewObject().Set("view", s.FromGoValue(view))
-			if stats := render.Stats(view.Candidate, view.Prepared.Request.MechanicsDefinition); stats != nil {
+			definition := view.Prepared.Request.MechanicsDefinition
+			if stats := render.Stats(view.Candidate, definition); stats != nil {
 				out.Set("stats", s.FromGoValue(stats))
+			}
+			if base := render.Base(view.Candidate, definition); base != nil {
+				out.Set("base", s.FromGoValue(base))
+			}
+			if purchases := render.Purchases(view.Candidate, definition); purchases != nil {
+				out.Set("purchases", s.FromGoValue(purchases))
+			}
+			if crosspaths := render.ResolveCrosspaths(view.Candidate, definition); crosspaths != nil {
+				out.Set("crosspaths", s.FromGoValue(crosspaths))
+			}
+			if revision := render.Revision(view); revision != nil {
+				out.Set("revision", s.FromGoValue(revision))
 			}
 			return out, nil
 		}},
@@ -176,6 +189,12 @@ func (srv *Server) posts() map[string]post {
 				return nil, errors.New("ids: expected an array of library IDs")
 			}
 			return srv.config.Library.Delete(ids)
+		}},
+		"library/migrate": {run: func(_ context.Context, body *s.Object) (any, error) {
+			if err := only(body); err != nil {
+				return nil, err
+			}
+			return srv.config.Library.Migrate()
 		}},
 		"library/configure": {run: func(_ context.Context, body *s.Object) (any, error) {
 			if srv.busy() {

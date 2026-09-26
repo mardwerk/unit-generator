@@ -39,13 +39,17 @@ Reading and storage:
   inspect FILE             Identify and validate a saved file
   definition               Print the default mechanics Definition
   profiles                 List bundled and saved Profiles
-  library [list|save FILE|load ID|delete ID...]
-                           Manage the local library
+  library [list|save FILE|load ID|delete ID...|migrate]
+                           Manage the local library, arranged as
+                           WORK/CHARACTER/CHARACTER.STAGE.ID.json; migrate
+                           moves records saved before that layout
   serve                    Start the local web app
 
 Options:
   -o, --output FILE        Write a new file; existing files are never replaced
-  --profile ID             Profile to prepare under (default: the bundled one)
+  --profile ID             Profile to prepare under; Sources default to the
+                           bundled one, a request file without a Definition
+                           needs it to be drafted
   --profiles DIR           Saved Profiles (default: data/profiles)
   --library DIR            Library folder (default: data/runs/library)
   --previous FILE          Prior Result for prepare or author (request files)

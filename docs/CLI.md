@@ -18,12 +18,12 @@ go build -o mardwerk-unit ./src/cli
 | `draft PREPARED` | → draft | 2–6 |
 | `check DRAFT` | → checked artifact with deterministic findings | none |
 | `review CHECKED` | → Result with a model review | 1 |
-| `render ARTIFACT` | → Markdown unit sheet; `--details` adds purchases, usage, evidence and findings | none |
+| `render ARTIFACT` | → Markdown unit sheet: `0-0-0`, each purchase by build code, every crosspath build and, for a revision, patch notes; `--details` renders the diagnostics instead: provenance, review status, findings (including unsupported mechanics), purchase evidence, usage and evidence | none |
 | `build ARTIFACT --tiers 5,2,0` | → resolved stats and costs for one purchased build | none |
 | `inspect FILE` | → kind, validity and character of a saved file | none |
 | `definition` | → the bundled mechanics Definition | none |
 | `profiles` | → the bundled and saved Profiles | none |
-| `library [list]`, `library save FILE`, `library load ID`, `library delete ID...` | the local library | none |
+| `library [list]`, `library save FILE`, `library load ID`, `library delete ID...`, `library migrate` | the local library, arranged as `WORK/CHARACTER/CHARACTER.STAGE.ID.json` ([LAB.md](LAB.md#library)); `migrate` moves records saved before that layout | none |
 | `serve` | the local web app ([LAB.md](LAB.md)) | per request |
 
 Drafting makes a planning call and a mechanics call, each allowed one repair by default (`--repairs 0|1|2`).
@@ -33,7 +33,7 @@ Drafting makes a planning call and a mechanics call, each allowed one repair by 
 | Option | Applies to | Meaning |
 | --- | --- | --- |
 | `-o, --output FILE` | all but `serve` | Write a new file; an existing file is never replaced |
-| `--profile ID` | `prepare`, `generate`, `author` | The Profile to prepare under (default: the bundled `default`) |
+| `--profile ID` | `prepare`, `generate`, `author` | The Profile to prepare under. Sources default to the bundled `default`; a request file is prepared as written unless this is given |
 | `--profiles DIR` | `prepare`, `generate`, `author`, `profiles`, `serve` | Saved Profiles (default `data/profiles`) |
 | `--library DIR` | `library`, `serve` | Library folder (default `data/runs/library`) |
 | `--provider openrouter\|codex` | model commands, `serve` | OpenRouter (default) or an existing Codex login |
@@ -44,7 +44,7 @@ Drafting makes a planning call and a mechanics call, each allowed one repair by 
 | `--repairs 0\|1\|2` | `draft`, `generate`, `author`, `edit` | Repair budget per model stage |
 | `--evidence-dir DIR` | `draft`, `generate`, `author`, `edit`, `review` | Keep exact model inputs and raw outputs |
 | `--tiers A,B,C` | `build` | Purchased tiers, each 0–5 |
-| `--details` | `render` | Expanded report |
+| `--details` | `render` | Diagnostics report instead of the unit sheet |
 | `--port PORT` | `serve` | Port (default 4317) |
 
 ## Examples
@@ -64,7 +64,7 @@ mardwerk-unit check data/runs/draft.json -o data/runs/checked.json
 
 ## Request files
 
-A request file has `schemaVersion: "1"` (or `"2"` when it carries a version 2 [mechanics Definition](MECHANICS.md#profile-defined-vocabulary-version-2)), a `task`, the character (`name`, `work`, `scope`) and a list of documents. Each document has an `id`, a `kind` (`source`, `rules` or `decisions`) and exactly one of `text`, `file` or `url`; `sourceUrl` attributes pasted text. File paths resolve relative to the request file. `constraints` lists confirmed decisions by ID. Examples are in [data/reference](../data/reference); [dart-monkey.source-file.request.json](../data/reference/dart-monkey.source-file.request.json) is a template for your own text.
+A request file has `schemaVersion: "1"` (or `"2"` when it carries a version 2 [mechanics Definition](MECHANICS.md#profile-defined-vocabulary-version-2)), a `task`, the character (`name`, `work`, `scope`) and a list of documents. Each document has an `id`, a `kind` (`source`, `rules` or `decisions`) and exactly one of `text`, `file` or `url`; `sourceUrl` attributes pasted text. File paths resolve relative to the request file. `constraints` lists confirmed decisions by ID. Examples are in [data/reference](../data/reference): [dart-monkey.request.json](../data/reference/dart-monkey.request.json) is a brief written from the pinned btd6-atlas capture, and [dart-monkey.source-file.request.json](../data/reference/dart-monkey.source-file.request.json) is a template for your own text.
 
 A request needs a mechanics Definition to be drafted. Prepare a request file with `--profile` (for example `--profile default`): the Profile replaces its task, progression, Definition and rules document and keeps its character, sources, decisions and revision context. `prepare` prints a note when the result has no Definition.
 

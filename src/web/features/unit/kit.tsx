@@ -12,29 +12,34 @@ import { Disclosure } from '../../ui/disclosure.js';
 import { cn, safeUrl } from '../../ui/utils.js';
 import { KitIcon, type UnitIcons } from './icon-prompts.js';
 import { UnitPortrait } from './unit-portrait.js';
+import { CrosspathOverview } from './crosspaths.js';
 import { visualReferencesOf } from './visual-references.js';
 import { api } from '../../api/client.js';
-import { tierStatKey, type KitStats, type StatChange, type UnitView } from '../../api/contract.js';
+import { buildCode, tierStatKey, type StatChange, type UnitView } from '../../api/contract.js';
 import { Cost, StatValues } from './kit-stats.js';
 
-/** Resolved stats come from the server; without them the kit shows authored prose. */
-function useKitStats(artifact: LabArtifact): KitStats | undefined {
-  const [loaded, setLoaded] = useState<{ artifact: LabArtifact; stats?: KitStats } | null>(null);
+/**
+ * Resolved stats, purchase sentences, crosspath builds and revision notes come
+ * from the server; without them the kit shows authored prose.
+ */
+function useUnitView(artifact: LabArtifact): UnitView | undefined {
+  const [loaded, setLoaded] = useState<{ artifact: LabArtifact; view?: UnitView } | null>(null);
   useEffect(() => {
     if (!candidateOf(artifact)) return;
     const abort = new AbortController();
     void api<UnitView>('view', { artifact }, abort.signal)
       .then((value) => {
-        if (!abort.signal.aborted)
-          setLoaded({ artifact, ...(value.stats ? { stats: value.stats } : {}) });
+        if (!abort.signal.aborted) setLoaded({ artifact, view: value });
       })
       .catch(() => {
         if (!abort.signal.aborted) setLoaded({ artifact });
       });
     return () => abort.abort();
   }, [artifact]);
-  return loaded?.artifact === artifact ? loaded.stats : undefined;
+  return loaded?.artifact === artifact ? loaded.view : undefined;
 }
+
+const pathPositions = ['Top', 'Middle', 'Bottom'];
 
 type Ability = UnitCandidate['abilities'][number];
 
@@ -151,7 +156,9 @@ export function CharacterSheet({
   const [reportOpen, setReportOpen] = useState(false);
   const candidate = candidateOf(artifact);
   const definition = requestOf(artifact).mechanicsDefinition;
-  const stats = useKitStats(artifact);
+  const unitView = useUnitView(artifact);
+  const stats = unitView?.stats;
+  const purchases = unitView?.purchases;
   const currency = definition?.profile.currency ?? 'Gold';
   const findings = findingsOf(artifact);
   const failures = findings.filter((f) => f.outcome === 'fail');
@@ -171,7 +178,14 @@ export function CharacterSheet({
   const assigned = new Set(
     candidate?.paths.flatMap((path) => path.tiers.flatMap((tier) => tier.abilityIds)),
   );
-  const remaining = candidate?.abilities.filter((ability) => !assigned.has(ability.id)) ?? [];
+  // A unit sheet shows what the unit does; reserved and omitted techniques
+  // stay with the mechanic proposals below it.
+  const remaining =
+    candidate?.abilities.filter(
+      (ability) =>
+        !assigned.has(ability.id) &&
+        !(unitView?.purchases && ['reserved', 'omitted'].includes(ability.placement)),
+    ) ?? [];
   const status =
     artifact.kind === 'draft'
       ? 'Draft only. Checks and review have not run.'
@@ -252,7 +266,7 @@ export function CharacterSheet({
               )}
             </div>
           </header>
-          <p className="mt-5 text-[15px]">{candidate.role}</p>
+          <p className="mt-5 text-[15px]">{unitView?.base?.text ?? candidate.role}</p>
           <div className="my-6 grid gap-4 md:grid-cols-2 [&>:only-child]:col-span-full">
             {stats && (
               <section className="rounded-lg border border-border bg-card p-[18px]">
@@ -278,7 +292,9 @@ export function CharacterSheet({
                   event.currentTarget.querySelector<HTMLButtonElement>('.card-open')?.click();
               }}
             >
-              <h3 className={cardHeading}>Basic attack</h3>
+              <h3 className={cardHeading}>
+                {unitView?.base ? `${unitView.base.code} basic attack` : 'Basic attack'}
+              </h3>
               <div className={entryHeading}>
                 {icons && (
                   <KitIcon
@@ -328,18 +344,32 @@ export function CharacterSheet({
               } as CSSProperties
             }
           >
-            {candidate.paths.map((path) => (
+            {candidate.paths.map((path, pathIndex) => (
               <section className="path-section min-w-0" key={path.id}>
                 <header className="path-heading">
-                  <h3 className="mt-2.5 mb-1 text-base font-semibold">{path.name}</h3>
+                  <h3 className="mt-2.5 mb-1 text-base font-semibold">
+                    {candidate.paths.length === 3 && (
+                      <span className="text-muted-foreground">
+                        {pathPositions[pathIndex]} path:{' '}
+                      </span>
+                    )}
+                    {path.name}
+                  </h3>
                   <p className="mb-4 text-[13px] text-muted-foreground">{path.theme}</p>
                 </header>
                 {path.tiers.map((tier) => {
                   const tierStats = stats?.tiers[tierStatKey(path.id, tier.tier)];
+                  const code =
+                    candidate.paths.length === 3
+                      ? buildCode(pathIndex, tier.tier)
+                      : String(tier.tier);
+                  const effects = purchases?.[pathIndex]?.purchases.find(
+                    (purchase) => purchase.code === code,
+                  )?.effects;
                   const openTier = () =>
                     setDetail({
-                      title: tier.name,
-                      description: tier.benefit,
+                      title: `${code} ${tier.name}`,
+                      description: effects?.join(' ') ?? tier.benefit,
                       abilityIds: tier.abilityIds,
                       changes: tierStats?.changes,
                       cost: tierStats?.cost,
@@ -354,14 +384,14 @@ export function CharacterSheet({
                           openTier();
                       }}
                       className={cn(
-                        'tier-card grid grid-cols-[25px_minmax(0,1fr)] gap-2.5 border-t border-border px-1.5 py-4',
+                        'tier-card grid grid-cols-[auto_minmax(0,1fr)] gap-2.5 border-t border-border px-1.5 py-4',
                         openableCard,
                       )}
                       key={tier.tier}
                       style={{ '--tier-row': tierNumbers.indexOf(tier.tier) + 2 } as CSSProperties}
                     >
-                      <span className="mt-px grid size-[22px] place-items-center rounded-[5px] border border-border font-mono text-[11px] text-muted-foreground">
-                        {tier.tier}
+                      <span className="mt-px grid h-[22px] min-w-[22px] place-items-center rounded-[5px] border border-border px-1 font-mono text-[11px] whitespace-nowrap text-muted-foreground">
+                        {code}
                       </span>
                       <div className="min-w-0">
                         <div className={entryHeading}>
@@ -384,7 +414,7 @@ export function CharacterSheet({
                           <p className="my-2 text-[13px]">{tier.benefit}</p>
                         )}
                         <CardOpen
-                          label={`Open details for ${path.name}, tier ${tier.tier}: ${tier.name}`}
+                          label={`Open details for ${path.name}, ${code}: ${tier.name}`}
                           title={
                             tierStats
                               ? 'Compared with the previous tier on this path, without crosspath upgrades.'
@@ -399,6 +429,45 @@ export function CharacterSheet({
               </section>
             ))}
           </div>
+          {unitView?.crosspaths && (
+            <CrosspathOverview crosspaths={unitView.crosspaths} currency={currency} />
+          )}
+          {unitView?.revision && (
+            <Disclosure title="Patch notes">
+              <h4 className="mt-2 text-sm font-semibold">Mechanics</h4>
+              {unitView.revision.mechanics.length ? (
+                <ul className="list-disc pl-5 text-[13px]">
+                  {unitView.revision.mechanics.map((change, i) => (
+                    <li className="my-1" key={i}>
+                      {change}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="my-1 text-[13px]">
+                  No purchase, price or unsupported mechanic changed.
+                </p>
+              )}
+              <p className="my-2 text-xs text-muted-foreground">
+                Resolved differently: {unitView.revision.changedBuilds.length} legal builds
+                {unitView.revision.changedBuilds.length > 0 &&
+                  ` (${unitView.revision.changedBuilds.join(', ')})`}
+                .
+              </p>
+              <h4 className="mt-3 text-sm font-semibold">Wording</h4>
+              {unitView.revision.wording.length ? (
+                <ul className="list-disc pl-5 text-[13px]">
+                  {unitView.revision.wording.map((change, i) => (
+                    <li className="my-1" key={i}>
+                      {change}
+                    </li>
+                  ))}
+                </ul>
+              ) : (
+                <p className="my-1 text-[13px]">No names changed.</p>
+              )}
+            </Disclosure>
+          )}
           {remaining.length > 0 && (
             <section>
               <h3 className="mt-6 mb-2.5 text-sm font-semibold">Forms and other abilities</h3>

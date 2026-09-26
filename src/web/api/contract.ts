@@ -331,12 +331,25 @@ export interface LibraryEntry {
   kind: LabArtifact['kind'] | 'sources';
   character: Character;
   artifactId: string;
+  /**
+   * The record file relative to the library folder: work/character/file, or
+   * unitlab-<id>.json for a record saved before that layout.
+   */
+  path: string;
   portrait?: { url: string; caption: string; sourceUrl?: string };
 }
 
 export interface LibraryState {
   directory: string;
   entries: LibraryEntry[];
+}
+
+/** What library/migrate moved into work and character folders and what it kept. */
+export interface LibraryMigration {
+  records: string[];
+  assets: string[];
+  kept: string[];
+  state: LibraryState;
 }
 
 /** Bundled Profiles are read-only; saved Profiles live in the Profiles folder. */
@@ -430,9 +443,59 @@ export interface KitStats {
   tiers: Record<string, { cost: number; changes: StatChange[] }>;
 }
 
+/** One purchase in build-code notation with its resolved effects, from /api/v1/view. */
+export interface Purchase {
+  code: string;
+  name: string;
+  cost: number;
+  effects: string[];
+}
+
+export interface PathPurchases {
+  position: string;
+  name: string;
+  purchases: Purchase[];
+}
+
+/** One resolved two-path build: what each path adds and the resulting attack. */
+export interface BuildRow {
+  code: string;
+  cost: number;
+  contributions: { from: string; changes: string[] }[];
+  attack: string;
+  active?: string;
+}
+
+export interface Crosspaths {
+  early: BuildRow[];
+  advanced: BuildRow[];
+}
+
+/** A revision's changes against the unit it revised. */
+export interface RevisionNotes {
+  mechanics: string[];
+  wording: string[];
+  changedBuilds: string[];
+}
+
+/** 0-0-0 as the unit sheet describes it: price and attack in sentences. */
+export interface BaseUnit {
+  code: string;
+  name: string;
+  text: string;
+}
+
 export interface UnitView {
   view: { kind: LabArtifact['kind']; designEvaluation?: unknown };
+  base?: BaseUnit;
   stats?: KitStats;
+  purchases?: PathPurchases[];
+  crosspaths?: Crosspaths;
+  revision?: RevisionNotes;
 }
+
+/** A purchase in top-middle-bottom notation: the second path's tier 4 is x-4-x. */
+export const buildCode = (pathIndex: number, tier: number) =>
+  [0, 1, 2].map((i) => (i === pathIndex ? String(tier) : 'x')).join('-');
 
 export const tierStatKey = (pathId: string, tier: number) => `${pathId}:${tier}`;

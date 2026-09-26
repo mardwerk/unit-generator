@@ -8,15 +8,20 @@ func strPtr(v string) *string     { return &v }
 func floatPtr(v float64) *float64 { return &v }
 
 // DefaultAuthoringDefinition is the bundled Definition used for new units:
-// the base scale with attack extensions, a two-tier early budget, the
+// the base scale with attack extensions, a two-tier early budget, five
+// changes per later purchase, the
 // BTD6-inspired design policy and a version 2 vocabulary. The vocabulary
 // names the base scale's slow, burn, stun, damage types, targeting and Camo
-// detection, so it behaves exactly as the version 1 starter.
+// detection, so it behaves exactly as the version 1 starter. Its scale and
+// the rules document's references come from btd6-atlas capture 56.3.
 func DefaultAuthoringDefinition() mechanics.Definition {
 	d := mechanics.DefaultDefinition()
+	d.Label = "BTD6-inspired Gold and Health starter, btd6-atlas 56.3 scale"
 	extensions := []string{"distinct-volley", "volley-follow-up"}
 	d.Rules.AttackExtensions = &extensions
 	d.Profile.EarlyTierThrough = intPtr(2)
+	// Real upgrades such as Crossbow Master change five properties.
+	d.Profile.MaxChangesPerTier = 5
 	d.Profile.DesignPolicy = &mechanics.DesignPolicy{
 		Version:                     "1",
 		DistinctPathSpecializations: false,

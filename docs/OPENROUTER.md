@@ -32,6 +32,7 @@ Free model IDs checked against OpenRouter's catalogue on September 22, 2026. Ver
 | Paid text generation | `meta/muse-spark-1.3-contributor` |
 | Paid text generation | `z-ai/glm-5.3-flash` |
 | Paid text generation | `openai/gpt-5.6-luna` |
+| Paid text generation | `openai/gpt-6-luna` (approved by the user on 2026-09-26 for Default Profile testing on [#27](https://github.com/mardwerk/unit-generator/pull/27)) |
 | Image generation | `meta/muse-image` |
 | Image generation | `bytedance-seed/seedream-5-0-lite` |
 | Image generation | `x-ai/grok-imagine-image-2.0` |

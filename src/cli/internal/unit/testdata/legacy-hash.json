@@ -1,0 +1,75 @@
+{
+  "note": "A request and the sha256: input hash the retired TypeScript Tool wrote for it. Saved prepared requests with this hash form must keep verifying.",
+  "hash": "sha256:211ba9cf6bf848474ac28f2f33a4754686c977597c1fa3d3d7e9c59dc35ae5db",
+  "request": {
+    "schemaVersion": "1",
+    "task": "Propose Mira, preserve personal wall detection and the ordinary clear-path Spark rule. Leave missing tier effects explicit.",
+    "character": {
+      "name": "Mira",
+      "work": "Original fixture",
+      "scope": "Supplied original character brief only"
+    },
+    "documents": [
+      {
+        "id": "E1",
+        "kind": "source",
+        "text": "Mira senses presences behind walls and fires a Spark at one target. No through-wall delivery is established.",
+        "origin": {
+          "location": "mira-brief-v1",
+          "access": "supplied",
+          "note": "Invented test character, no external canon claimed."
+        }
+      },
+      {
+        "id": "R1",
+        "kind": "rules",
+        "text": "Three paths with five tiers. At most two paths are purchased, at most one exceeds tier 2. Spark requires a detected target in range and a clear projectile path. Perception changes no delivery rule.",
+        "origin": {
+          "location": "mira-rules-v1",
+          "access": "supplied",
+          "note": null
+        }
+      },
+      {
+        "id": "D1",
+        "kind": "decisions",
+        "text": "Perception tier 2 grants permanent personal wall detection within detection range, without activation or allied detection.",
+        "origin": {
+          "location": "mira-decisions-v1",
+          "access": "supplied",
+          "note": null
+        }
+      }
+    ],
+    "constraints": [
+      {
+        "id": "permanent-perception",
+        "text": "Perception tier 2 is permanent, personal and requires no activation."
+      }
+    ],
+    "progression": {
+      "paths": [
+        {
+          "id": "focus",
+          "tiers": [
+            1,
+            2
+          ]
+        }
+      ],
+      "maxActivePaths": 1,
+      "maxPathsAboveTier": null,
+      "maxTotalTiers": 2,
+      "allowedTierCombinations": [
+        [
+          0
+        ],
+        [
+          2
+        ]
+      ]
+    },
+    "previous": null,
+    "feedback": null
+  }
+}

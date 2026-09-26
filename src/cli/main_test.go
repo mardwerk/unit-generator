@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mardwerk/unit-generator/src/cli/internal/parity"
+	"github.com/mardwerk/unit-generator/src/cli/internal/fixture"
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
 	"github.com/mardwerk/unit-generator/src/cli/internal/server"
 )
@@ -32,23 +32,17 @@ func scratch(t *testing.T) string {
 	return dir
 }
 
-// recordedFiles writes a recorded planned draft and its reviewed Result.
+// recordedFiles writes the scripted fixture's draft and its reviewed Result.
 func recordedFiles(t *testing.T, dir string) (string, string) {
 	t.Helper()
-	entries, _ := parity.Entries("reviewDraft")
-	for _, entry := range entries {
-		result, ok := parity.Output(entry)
-		draft := parity.Get(parity.Arg(entry, 0), "draft")
-		if !ok || parity.Get(draft, "candidate", "blueprint") == nil {
-			continue
-		}
-		draftFile, resultFile := filepath.Join(dir, "draft.json"), filepath.Join(dir, "result.json")
-		_ = os.WriteFile(draftFile, []byte(s.Stringify(draft)), 0o600)
-		_ = os.WriteFile(resultFile, []byte(s.Stringify(result)), 0o600)
-		return draftFile, resultFile
+	stages, err := fixture.Build()
+	if err != nil {
+		t.Fatal(err)
 	}
-	t.Fatal("no recorded review")
-	return "", ""
+	draftFile, resultFile := filepath.Join(dir, "draft.json"), filepath.Join(dir, "result.json")
+	_ = os.WriteFile(draftFile, []byte(s.Stringify(s.FromGoValue(stages.Draft))), 0o600)
+	_ = os.WriteFile(resultFile, []byte(s.Stringify(s.FromGoValue(stages.Result))), 0o600)
+	return draftFile, resultFile
 }
 
 func TestOfflineCommandsIgnoreModelSettings(t *testing.T) {
@@ -90,11 +84,11 @@ func TestStagesSerializeReloadAndRender(t *testing.T) {
 		t.Fatalf("inspect %v", err)
 	}
 	rendered, _, err := cli(t, "render", result)
-	if err != nil || !strings.HasPrefix(rendered, "# ") || !strings.Contains(rendered, "Structural checks and model review complete") {
+	if err != nil || !strings.HasPrefix(rendered, "# ") || !strings.Contains(rendered, "## 0-0-0: ") || strings.Contains(rendered, "Structural checks") {
 		t.Fatalf("render %v", err)
 	}
 	detailed, _, err := cli(t, "render", result, "--details")
-	if err != nil || !strings.Contains(detailed, "Deterministic checks:") || !strings.Contains(detailed, "## Evidence") {
+	if err != nil || !strings.Contains(detailed, "Deterministic checks:") || !strings.Contains(detailed, "## Evidence") || !strings.Contains(detailed, "Structural checks and model review complete") {
 		t.Fatalf("details %v", err)
 	}
 	build, _, err := cli(t, "build", result, "--tiers", "5,2,0")
@@ -110,9 +104,16 @@ func TestStagesSerializeReloadAndRender(t *testing.T) {
 	}
 	var entry map[string]any
 	_ = json.Unmarshal([]byte(saved), &entry)
+	if path, _ := entry["path"].(string); !strings.HasSuffix(path, ".result."+entry["id"].(string)[:12]+".json") || strings.Count(path, "/") != 2 {
+		t.Errorf("saved to %q, not a work and character folder", path)
+	}
 	listing, _, _ := cli(t, "library")
 	if !strings.Contains(listing, entry["id"].(string)) {
 		t.Error("the saved Result is not listed")
+	}
+	migrated, _, err := cli(t, "library", "migrate")
+	if err != nil || !strings.Contains(migrated, `"records": []`) {
+		t.Errorf("migrate %v: %s", err, migrated)
 	}
 	if _, _, err := cli(t, "library", "delete", entry["id"].(string)); err != nil {
 		t.Error(err)

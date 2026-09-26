@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"strings"
 
+	m "github.com/mardwerk/unit-generator/src/cli/internal/mechanics"
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
 	"github.com/mardwerk/unit-generator/src/cli/internal/unit"
 )
@@ -23,8 +24,27 @@ func Markdown(value any, details bool) (string, error) {
 	return Compact(view), nil
 }
 
-// Compact renders the kit a reader needs first.
+// Compact renders the unit sheet only: the character name and
+// 0-0-0, each purchase by build code with its exact numbers and every
+// crosspath build, then patch notes when the unit revises an earlier
+// Result. Checks, findings, unsupported mechanics, reserved techniques,
+// usage and provenance are diagnostics, which Detailed renders.
 func Compact(view View) string {
+	sh := newSheet(view.Candidate.Blueprint, view.Prepared.Request.MechanicsDefinition)
+	if sh == nil {
+		return compactProse(view)
+	}
+	var lines []string
+	lines = append(lines, "# "+Escape(view.Candidate.Character.Name), "")
+	lines = append(lines, sh.baseSection()...)
+	lines = append(lines, sh.pathSections()...)
+	lines = append(lines, sh.crosspathSection()...)
+	lines = append(lines, patchNotes(Revision(view))...)
+	return strings.TrimRight(strings.Join(lines, "\n"), "\n") + "\n"
+}
+
+// compactProse renders a unit without typed mechanics from its prose.
+func compactProse(view View) string {
 	var lines []string
 	lines = append(lines, unitIntroduction(view)...)
 	lines = append(lines, failedChecks(view.Findings)...)
@@ -35,6 +55,78 @@ func Compact(view View) string {
 	lines = append(lines, nextDecisions(view)...)
 	lines = append(lines, "Use `render --details` for evidence, reference IDs, build examples and detailed findings.", "")
 	return strings.Join(lines, "\n")
+}
+
+func (sh *sheet) baseSection() []string {
+	base := sh.resolve(m.Selection{}).BaseAttack
+	return []string{"## 0-0-0: " + Escape(base.Name), "", Escape(sh.baseText(base)), ""}
+}
+
+func (sh *sheet) pathSections() []string {
+	var lines []string
+	for _, path := range sh.purchases() {
+		lines = append(lines, "## "+path.Position+" path: "+Escape(path.Name), "")
+		for _, purchase := range path.Purchases {
+			lines = append(lines, "**"+purchase.Code+" "+Escape(purchase.Name)+"** ("+sh.money(purchase.Cost)+"). "+Escape(strings.Join(purchase.Effects, " ")), "")
+		}
+	}
+	return lines
+}
+
+func (sh *sheet) crosspathSection() []string {
+	crosspaths := sh.crosspaths()
+	early, advanced := len(crosspaths.Early), len(crosspaths.Advanced)
+	lines := []string{
+		"## Crosspaths", "",
+		fmt.Sprintf("A Unit can combine two paths: %d early builds keep both at their first or second purchase, and %d advanced builds take one further. Each row shows what each path's purchases add to the other and the resulting attack.", early, advanced), "",
+		fmt.Sprintf("### Early builds (%d)", early), "",
+	}
+	lines = append(lines, crosspathTable(crosspaths.Early, sh)...)
+	lines = append(lines, fmt.Sprintf("### Advanced builds (%d)", advanced), "")
+	return append(lines, crosspathTable(crosspaths.Advanced, sh)...)
+}
+
+func crosspathTable(rows []BuildRow, sh *sheet) []string {
+	lines := []string{"| Build | Total | Added by the other path | Resulting attack |", "| --- | --- | --- | --- |"}
+	for _, row := range rows {
+		var added []string
+		for _, contribution := range row.Contributions {
+			added = append(added, contribution.From+": "+strings.Join(contribution.Changes, ", "))
+		}
+		result := row.Attack
+		if row.Active != "" {
+			result += ". Active Ability: " + row.Active
+		}
+		lines = append(lines, "| "+row.Code+" | "+sh.money(row.Cost)+" | "+Escape(strings.Join(added, "; "))+" | "+Escape(result)+" |")
+	}
+	return append(lines, "")
+}
+
+// patchNotes lists what a revision changed, mechanics apart from wording.
+func patchNotes(notes *RevisionNotes) []string {
+	if notes == nil {
+		return nil
+	}
+	lines := []string{"## Patch notes", "", "### Mechanics", ""}
+	if len(notes.Mechanics) == 0 {
+		lines = append(lines, "No purchase, price or unsupported mechanic changed.")
+	}
+	for _, change := range notes.Mechanics {
+		lines = append(lines, "- "+Escape(change))
+	}
+	lines = append(lines, "", fmt.Sprintf("Resolved differently: %d legal builds", len(notes.ChangedBuilds)))
+	if len(notes.ChangedBuilds) > 0 {
+		lines[len(lines)-1] += " (" + strings.Join(notes.ChangedBuilds, ", ") + ")"
+	}
+	lines[len(lines)-1] += "."
+	lines = append(lines, "", "### Wording", "")
+	if len(notes.Wording) == 0 {
+		lines = append(lines, "No names changed.")
+	}
+	for _, change := range notes.Wording {
+		lines = append(lines, "- "+Escape(change))
+	}
+	return append(lines, "")
 }
 
 func unitIntroduction(view View) []string {
@@ -291,14 +383,13 @@ func standaloneOpenFindings(view View) []string {
 }
 
 func repeatsMechanicDecision(finding unit.Finding, candidate unit.Candidate) bool {
-	if finding.Method != "deterministic" || finding.Rule != "declared-mechanic-support" {
+	if finding.Method != "deterministic" || (finding.Rule != "declared-mechanic-support" && finding.Rule != unit.UnsupportedMechanicRule) {
 		return false
 	}
 	for _, mechanic := range candidate.Mechanics {
 		if finding.Subject == "mechanic."+mechanic.ID &&
 			mechanic.RequiredDecision != nil &&
-			finding.Action != nil && *finding.Action == *mechanic.RequiredDecision &&
-			finding.Message == "Mechanic is declared "+mechanic.Status+"; its behavior is not mechanically validated." {
+			finding.Action != nil && *finding.Action == *mechanic.RequiredDecision {
 			return true
 		}
 	}

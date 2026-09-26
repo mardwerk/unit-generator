@@ -36,13 +36,16 @@ type Portrait struct {
 	SourceURL string `json:"sourceUrl,omitempty"`
 }
 
-// Entry is one saved artifact in the listing.
+// Entry is one saved artifact in the listing. Path is the record file,
+// relative to the library folder with forward slashes: work/character/file,
+// or unitlab-<id>.json for a record saved before that layout.
 type Entry struct {
 	ID         string         `json:"id"`
 	SavedAt    string         `json:"savedAt"`
 	Kind       string         `json:"kind"`
 	Character  unit.Character `json:"character"`
 	ArtifactID string         `json:"artifactId"`
+	Path       string         `json:"path"`
 	Portrait   *Portrait      `json:"portrait,omitempty"`
 }
 
@@ -119,20 +122,15 @@ func readManaged(path string) (any, error) {
 	return s.Decode(content)
 }
 
-func (l *Library) filename(id, extension string) string {
-	return filepath.Join(l.directory, "unitlab-"+id+extension)
-}
-
 type record struct {
-	id, savedAt string
-	artifact    Artifact
+	id, savedAt, path string
+	artifact          Artifact
 }
 
-func (l *Library) read(id string) (record, error) {
-	if !libraryID.MatchString(id) {
-		return record{}, errors.New("Unknown library document.")
-	}
-	raw, err := readManaged(l.filename(id, ".json"))
+// readRecord reads and verifies the record file at path. id, when given,
+// must match.
+func readRecord(path, id string) (record, error) {
+	raw, err := readManaged(path)
 	if err != nil {
 		return record{}, err
 	}
@@ -142,17 +140,62 @@ func (l *Library) read(id string) (record, error) {
 	savedAt, _ := object.Get("savedAt")
 	value, hasArtifact := object.Get("artifact")
 	at, _ := savedAt.(string)
-	if !ok || version != 1.0 || savedID != id || !hasArtifact || object.Len() != 4 || !isTimestamp(at) {
+	savedText, _ := savedID.(string)
+	if !ok || version != 1.0 || !libraryID.MatchString(savedText) || (id != "" && savedText != id) || !hasArtifact || object.Len() != 4 || !isTimestamp(at) {
 		return record{}, errors.New("Library document is not a UnitLab record.")
 	}
 	artifact, err := Inspect(value)
 	if err != nil {
 		return record{}, err
 	}
-	if artifact.ID() != id {
+	if artifact.ID() != savedText {
 		return record{}, errors.New("Library document content does not match its saved identifier.")
 	}
-	return record{id: id, savedAt: at, artifact: artifact}, nil
+	if match := recordName.FindStringSubmatch(filepath.Base(path)); match != nil && (!strings.HasPrefix(savedText, match[2]) || match[1] != artifact.Kind) {
+		return record{}, errors.New("Library document name does not match its content.")
+	}
+	return record{id: savedText, savedAt: at, path: path, artifact: artifact}, nil
+}
+
+// locate finds the record file of an ID: in the source and character layout
+// or, for older records, at the library root.
+func locate(root, id string) (string, error) {
+	if !libraryID.MatchString(id) {
+		return "", errors.New("Unknown library document.")
+	}
+	legacy := legacyPath(root, id)
+	if _, err := os.Lstat(legacy); err == nil {
+		return legacy, nil
+	}
+	damaged := ""
+	for _, path := range recordPaths(root) {
+		if match := recordName.FindStringSubmatch(filepath.Base(path)); match != nil && strings.HasPrefix(id, match[2]) {
+			r, err := readRecord(path, "")
+			if err == nil && r.id == id {
+				return path, nil
+			}
+			if err != nil {
+				damaged = path
+			}
+		}
+	}
+	if damaged != "" {
+		// A damaged record under this identifier is reported, never replaced.
+		return damaged, nil
+	}
+	return "", os.ErrNotExist
+}
+
+func (l *Library) read(id string) (record, error) {
+	root, err := l.root(false)
+	if err != nil {
+		return record{}, err
+	}
+	path, err := locate(root, id)
+	if err != nil {
+		return record{}, err
+	}
+	return readRecord(path, id)
 }
 
 func isTimestamp(value string) bool {
@@ -160,31 +203,46 @@ func isTimestamp(value string) bool {
 	return err == nil
 }
 
-func (l *Library) entry(r record) Entry {
-	return Entry{ID: r.id, SavedAt: r.savedAt, Kind: r.artifact.Kind, Character: r.artifact.Character(), ArtifactID: r.artifact.artifactID(r.id)}
+func (l *Library) entry(root string, r record) Entry {
+	path, err := filepath.Rel(root, r.path)
+	if err != nil {
+		path = filepath.Base(r.path)
+	}
+	return Entry{ID: r.id, SavedAt: r.savedAt, Kind: r.artifact.Kind, Character: r.artifact.Character(), ArtifactID: r.artifact.artifactID(r.id), Path: filepath.ToSlash(path)}
 }
 
 func (l *Library) list() (State, error) {
 	state := State{Directory: l.directory, Entries: []Entry{}}
-	files, err := os.ReadDir(l.directory)
+	root, err := l.root(false)
 	if errors.Is(err, os.ErrNotExist) {
 		return state, nil
 	}
 	if err != nil {
 		return State{}, err
 	}
+	files, err := os.ReadDir(root)
+	if err != nil {
+		return State{}, err
+	}
+	var paths []string
 	for _, file := range files {
-		match := managedName.FindStringSubmatch(file.Name())
-		if match == nil {
-			continue
+		if managedName.MatchString(file.Name()) {
+			paths = append(paths, filepath.Join(root, file.Name()))
 		}
+	}
+	seen := map[string]bool{}
+	for _, path := range append(paths, recordPaths(root)...) {
 		// Unrelated, damaged and linked files are never listed or deletable.
-		r, err := l.read(match[1])
-		if err != nil {
+		r, err := readRecord(path, "")
+		if err != nil || seen[r.id] {
 			continue
 		}
-		entry := l.entry(r)
-		entry.Portrait = listingPortrait(l.directory, r.artifact)
+		if match := managedName.FindStringSubmatch(filepath.Base(path)); match != nil && match[1] != r.id {
+			continue
+		}
+		seen[r.id] = true
+		entry := l.entry(root, r)
+		entry.Portrait = listingPortrait(root, r.artifact)
 		state.Entries = append(state.Entries, entry)
 	}
 	sort.SliceStable(state.Entries, func(i, j int) bool {
@@ -204,8 +262,9 @@ func (l *Library) State() (State, error) {
 	return l.list()
 }
 
-// Save stores an artifact once, with the Markdown render of a unit next to
-// it. Saving the same artifact again returns the existing entry.
+// Save stores an artifact once in its character's folder, with the Markdown
+// render of a unit next to it. Saving the same artifact again returns the
+// existing entry, wherever it is stored.
 func (l *Library) Save(value any) (Entry, error) {
 	l.mu.Lock()
 	defer l.mu.Unlock()
@@ -214,34 +273,55 @@ func (l *Library) Save(value any) (Entry, error) {
 		return Entry{}, err
 	}
 	id := artifact.ID()
-	if existing, err := l.read(id); err == nil {
-		return l.entry(existing), nil
+	root, err := l.root(true)
+	if err != nil {
+		return Entry{}, err
+	}
+	if path, err := locate(root, id); err == nil {
+		existing, err := readRecord(path, id)
+		if err != nil {
+			return Entry{}, err
+		}
+		return l.entry(root, existing), nil
 	} else if !errors.Is(err, os.ErrNotExist) {
 		return Entry{}, err
 	}
-	r := record{id: id, savedAt: time.Now().UTC().Format("2006-01-02T15:04:05.000Z"), artifact: artifact}
-	content := s.Indent(s.NewObject().Set("unitLabLibrary", 1.0).Set("id", id).Set("savedAt", r.savedAt).Set("artifact", artifact.Value)) + "\n"
+	savedAt := time.Now().UTC().Format("2006-01-02T15:04:05.000Z")
+	return l.store(root, artifact, savedAt)
+}
+
+// store writes a new record for an artifact in its character folder.
+func (l *Library) store(root string, artifact Artifact, savedAt string) (Entry, error) {
+	id := artifact.ID()
+	content := s.Indent(s.NewObject().Set("unitLabLibrary", 1.0).Set("id", id).Set("savedAt", savedAt).Set("artifact", artifact.Value)) + "\n"
 	if len(content) > maxFileBytes {
 		return Entry{}, errors.New("Library artifact exceeds 32 MB.")
 	}
-	if err := os.MkdirAll(l.directory, 0o755); err != nil {
+	character := artifact.Character()
+	directory, err := characterDirectory(root, character, true)
+	if err != nil {
 		return Entry{}, err
+	}
+	path := recordFile(directory, character, artifact.Kind, id, false)
+	if _, err := os.Lstat(path); err == nil {
+		// Another record shares the short identifier: use the full one.
+		path = recordFile(directory, character, artifact.Kind, id, true)
 	}
 	if _, ok := artifact.Candidate(); ok {
 		if markdown, err := render.Markdown(artifact.Value, false); err == nil {
 			// The render is a convenience copy; the JSON record is authoritative.
-			_ = publish(l.filename(id, ".md"), []byte(markdown))
+			_ = publish(strings.TrimSuffix(path, ".json")+".md", []byte(markdown))
 		}
 	}
-	if err := publish(l.filename(id, ".json"), []byte(content)); err != nil {
+	if err := publish(path, []byte(content)); err != nil {
 		if errors.Is(err, os.ErrExist) {
-			if existing, err := l.read(id); err == nil {
-				return l.entry(existing), nil
+			if existing, err := readRecord(path, id); err == nil {
+				return l.entry(root, existing), nil
 			}
 		}
 		return Entry{}, err
 	}
-	return l.entry(r), nil
+	return l.entry(root, record{id: id, savedAt: savedAt, path: path, artifact: artifact}), nil
 }
 
 // publish writes a complete file under its final name without replacing an
@@ -289,16 +369,20 @@ func (l *Library) Delete(ids []string) (State, error) {
 			selected = append(selected, id)
 		}
 	}
+	var records []record
 	for _, id := range selected {
-		if _, err := l.read(id); err != nil {
+		r, err := l.read(id)
+		if err != nil {
 			return State{}, err
 		}
+		records = append(records, r)
 	}
-	for _, id := range selected {
-		if err := os.Remove(l.filename(id, ".json")); err != nil {
+	// The character folder, its marker and its icons stay.
+	for _, r := range records {
+		if err := os.Remove(r.path); err != nil {
 			return State{}, err
 		}
-		_ = os.Remove(l.filename(id, ".md"))
+		_ = os.Remove(strings.TrimSuffix(r.path, ".json") + ".md")
 	}
 	return l.list()
 }

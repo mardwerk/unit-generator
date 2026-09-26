@@ -1,0 +1,57 @@
+{
+  "name": "Dart Monkey",
+  "role": "Cheap single dart thrower that commits to pierce, attack speed or long range precision.",
+  "weakness": "The base dart pierces two enemies, cannot see Camo and cannot damage Lead.",
+  "constraintCoverage": [
+    { "constraintId": "personal-detection", "implementation": "Only x-x-2 Enhanced Eyesight adds Camo detection, to this Unit's own attack." },
+    { "constraintId": "lead-permission", "implementation": "Only 4-x-x Juggernaut and x-x-5 Crossbow Master switch to normal damage, which can hit Lead." },
+    { "constraintId": "fan-club-scope", "implementation": "x-4-x unlocks this Unit's own frenzy as a manual boost; transforming other Dart Monkeys is listed as an unsupported mechanic." }
+  ],
+  "baseAttack": {
+    "cost": 200,
+    "delivery": "projectile",
+    "damageType": "sharp",
+    "targeting": "first",
+    "detects": [],
+    "stats": { "damage": 1, "intervalSeconds": 0.95, "range": 32, "pierce": 2, "projectiles": 1, "splashRadius": 0 },
+    "statuses": []
+  },
+  "paths": {
+    "path1": {
+      "specialization": "group-damage",
+      "tiers": {
+        "tier1": { "name": "Sharp Shots", "cost": 140, "statChanges": [{ "stat": "pierce", "operation": "add", "value": 1 }], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "unlockBoost": null, "boostChanges": [] },
+        "tier2": { "name": "Razor Sharp Shots", "cost": 200, "statChanges": [{ "stat": "pierce", "operation": "add", "value": 2 }], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "unlockBoost": null, "boostChanges": [] },
+        "tier3": { "name": "Spike-o-pult", "cost": 320, "statChanges": [{ "stat": "damage", "operation": "add", "value": 1 }, { "stat": "pierce", "operation": "add", "value": 13 }, { "stat": "range", "operation": "add", "value": 4.8 }, { "stat": "intervalSeconds", "operation": "add", "value": 0.2 }], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "unlockBoost": null, "boostChanges": [] },
+        "tier4": { "name": "Juggernaut", "cost": 1800, "statChanges": [{ "stat": "pierce", "operation": "add", "value": 42 }, { "stat": "intervalSeconds", "operation": "add", "value": -0.15 }], "statuses": [], "detect": null, "delivery": null, "damageType": "normal", "targeting": null, "unlockBoost": null, "boostChanges": [] },
+        "tier5": { "name": "Ultra-Juggernaut", "cost": 15000, "statChanges": [{ "stat": "damage", "operation": "add", "value": 3 }, { "stat": "pierce", "operation": "add", "value": 150 }], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "followUp": { "name": "Split Balls", "count": 12, "damageMultiplier": 0.4, "radius": 20, "inheritStatuses": false }, "unlockBoost": null, "boostChanges": [] }
+      }
+    },
+    "path2": {
+      "specialization": "ability-burst",
+      "tiers": {
+        "tier1": { "name": "Quick Shots", "cost": 100, "statChanges": [{ "stat": "intervalSeconds", "operation": "multiply", "value": 0.85 }], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "unlockBoost": null, "boostChanges": [] },
+        "tier2": { "name": "Very Quick Shots", "cost": 190, "statChanges": [{ "stat": "intervalSeconds", "operation": "multiply", "value": 0.79 }], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "unlockBoost": null, "boostChanges": [] },
+        "tier3": { "name": "Triple Shot", "cost": 450, "statChanges": [{ "stat": "projectiles", "operation": "add", "value": 2 }, { "stat": "intervalSeconds", "operation": "multiply", "value": 0.75 }], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "unlockBoost": null, "boostChanges": [] },
+        "tier4": { "name": "Super Monkey Fan Club", "cost": 7200, "statChanges": [{ "stat": "intervalSeconds", "operation": "multiply", "value": 0.5 }], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "unlockBoost": { "name": "Fan Club Frenzy", "durationSeconds": 15, "cooldownSeconds": 50, "damageMultiplier": 1, "intervalMultiplier": 0.0625, "rangeBonus": 8 }, "boostChanges": [] },
+        "tier5": { "name": "Plasma Monkey Fan Club", "cost": 45000, "statChanges": [], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "unlockBoost": null, "boostChanges": [{ "stat": "damageMultiplier", "operation": "set", "value": 2 }, { "stat": "durationSeconds", "operation": "add", "value": 5 }] }
+      }
+    },
+    "path3": {
+      "specialization": "direct-damage",
+      "tiers": {
+        "tier1": { "name": "Long Range Darts", "cost": 90, "statChanges": [{ "stat": "range", "operation": "add", "value": 8 }], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "unlockBoost": null, "boostChanges": [] },
+        "tier2": { "name": "Enhanced Eyesight", "cost": 200, "statChanges": [{ "stat": "range", "operation": "add", "value": 8 }], "statuses": [], "detect": "camo", "delivery": null, "damageType": null, "targeting": null, "unlockBoost": null, "boostChanges": [] },
+        "tier3": { "name": "Crossbow", "cost": 575, "statChanges": [{ "stat": "damage", "operation": "add", "value": 2 }, { "stat": "pierce", "operation": "add", "value": 2 }, { "stat": "range", "operation": "add", "value": 12 }], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "unlockBoost": null, "boostChanges": [] },
+        "tier4": { "name": "Sharp Shooter", "cost": 2050, "statChanges": [{ "stat": "damage", "operation": "add", "value": 3 }, { "stat": "intervalSeconds", "operation": "multiply", "value": 0.5 }], "statuses": [], "detect": null, "delivery": null, "damageType": null, "targeting": null, "unlockBoost": null, "boostChanges": [] },
+        "tier5": { "name": "Crossbow Master", "cost": 21500, "statChanges": [{ "stat": "damage", "operation": "add", "value": 2 }, { "stat": "intervalSeconds", "operation": "multiply", "value": 0.5 }, { "stat": "pierce", "operation": "add", "value": 4 }], "statuses": [], "detect": null, "delivery": null, "damageType": "normal", "targeting": null, "unlockBoost": null, "boostChanges": [] }
+      }
+    }
+  },
+  "unsupportedMechanics": [
+    { "name": "Allied Fan Club transformation", "reason": "Super and Plasma Monkey Fan Club transform up to 10 or 20 nearby Dart Monkeys; the Definition has no operator that changes other Units." },
+    { "name": "Critical shot counter", "reason": "Sharp Shooter and Crossbow Master deal a critical hit every tenth or fifth shot; the Definition has no shot counter." },
+    { "name": "Rebound, knockback and enemy-class bonuses", "reason": "Spike-o-pult and Juggernaut rebound off obstacles, knock light enemies back and add Ceramic, Fortified and Lead bonuses; none of these has an operator." }
+  ],
+  "reservedTechniques": []
+}

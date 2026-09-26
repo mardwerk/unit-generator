@@ -155,12 +155,79 @@ func minimumEffects(intent UpgradeIntent, d m.Definition) int {
 	return total
 }
 
+// promiseGroups joins promises that one change can satisfy together: a
+// damage change also raises active and follow-up damage, and an interval
+// change also speeds the active window.
+var promiseGroups = map[string]string{
+	"active-damage": "damage", "follow-up": "damage", "active-attack-rate": "attack-rate",
+}
+
+// independentPromises counts a milestone's promises that need separate
+// changes, with its unlock as one more.
+func independentPromises(intent UpgradeIntent) int {
+	groups := map[string]bool{}
+	for _, dimension := range intent.Improves {
+		if group, ok := promiseGroups[dimension]; ok {
+			dimension = group
+		}
+		groups[dimension] = true
+	}
+	if intent.Unlock != "none" {
+		groups["unlock:"+intent.Unlock] = true
+	}
+	return len(groups)
+}
+
+// developingTiers are the purchases that must develop a path, not repeat a
+// single stat: the fourth and fifth.
+var developingTiers = []int{4, 5}
+
+// addsBehavior reports a third-purchase promise that adds behavior or access
+// rather than larger numbers: an unlock other than a targeting change, or
+// more projectiles. The mechanics check confirms it in the resolved builds.
+func addsBehavior(intent UpgradeIntent) bool {
+	if intent.Unlock != "none" && intent.Unlock != "targeting-change" {
+		return true
+	}
+	for _, dimension := range intent.Improves {
+		if dimension == "projectiles" {
+			return true
+		}
+	}
+	return false
+}
+
 // PlanFeasibilityIssues rejects contradictions in a plan's explicit promises.
+// Under a design policy it also rejects a fourth or fifth purchase that
+// promises a single dimension, such as a token damage step. Plans are checked
+// when they are authored; saved drafts keep the promises they were made with.
 func PlanFeasibilityIssues(plan DesignPlan, definition m.Definition) []m.Issue {
 	if plan.UpgradeIntents == nil {
 		return nil
 	}
 	var issues []m.Issue
+	if policy := definition.Profile.DesignPolicy; policy != nil && policy.RequireTier3BehaviorChange != nil && *policy.RequireTier3BehaviorChange {
+		for pathIndex, path := range m.PathKeys {
+			if !addsBehavior(*plan.UpgradeIntents.At(pathIndex).At(3)) {
+				issues = append(issues, m.Issue{
+					Path:    "upgradeIntents." + path + ".tier3",
+					Message: fmt.Sprintf("%s must add a supported behavior or access, not only larger numbers: promise an unlock other than targeting-change, such as a new delivery, distinct-volley with more than one projectile, splash, a status effect, follow-up, damage-type-change or a detection trait, or promise projectiles while the path fires one projectile.", BuildCode(pathIndex, 3)),
+				})
+			}
+		}
+	}
+	if definition.Profile.DesignPolicy != nil {
+		for pathIndex, path := range m.PathKeys {
+			for _, tier := range developingTiers {
+				if independentPromises(*plan.UpgradeIntents.At(pathIndex).At(tier)) < 2 {
+					issues = append(issues, m.Issue{
+						Path:    "upgradeIntents." + path + "." + m.TierKeys[tier-1],
+						Message: fmt.Sprintf("%s must promise at least two independent dimensions or an unlock. Damage, active damage and follow-up damage count once, as do attack rate and active attack rate; a purchase that only raises ordinary damage is a token step. Develop, add or replace behavior, access, capacity or uptime.", BuildCode(pathIndex, tier)),
+					})
+				}
+			}
+		}
+	}
 	boostTier := definition.Rules.ManualBoostUnlockTier
 	boostKey := m.TierKeys[boostTier-1]
 	for pathIndex, path := range m.PathKeys {
@@ -315,7 +382,8 @@ func unlockedIntent(before, after m.Build, intent string, pathIndex, tier int, b
 	case "camo":
 		return !a.Camo && b.Camo
 	case "distinct-volley":
-		return a.Distribution != "distinct-targets" && b.Distribution == "distinct-targets"
+		// Distinct targets change nothing for a single projectile.
+		return a.Distribution != "distinct-targets" && b.Distribution == "distinct-targets" && b.Stats.Projectiles > 1
 	case "splash":
 		return a.Stats.SplashRadius == 0 && b.Stats.SplashRadius > 0
 	case "slow":

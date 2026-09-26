@@ -281,16 +281,16 @@ func TargetedTierRepair(request *Request, previous any, issues []string) (*TierR
 	for i, issue := range issues {
 		violations[i] = issue
 	}
-	budget := repairLine155
+	budget := repairBudget
 	if isV2(request) {
 		budget = repairBudgetV2
 	}
-	prompt := []string{repairLine136, s.Stringify(context), budget, CountArithmeticGuidance, repairLine157}
+	prompt := []string{repairScope, s.Stringify(context), budget, CountArithmeticGuidance, repairCapstone, draftPromises}
 	prompt = append(prompt, VocabularyGuidance(request)...)
 	prompt = append(prompt, DesignGuidance(request)...)
 	prompt = append(prompt, s.Stringify(s.NewObject().Set("violations", violations)))
 	return &TierRepair{
-		Request: ModelRequest{System: repairLine134, Prompt: strings.Join(prompt, "\n\n"), Schema: ProviderJSONSchema(schema)},
+		Request: ModelRequest{System: repairSystem, Prompt: strings.Join(prompt, "\n\n"), Schema: ProviderJSONSchema(schema)},
 		Apply: func(patch any) (*s.Object, error) {
 			replacementValue, issues := s.Parse(schema, patch)
 			if len(issues) > 0 {
