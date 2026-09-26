@@ -307,6 +307,13 @@ export function App() {
                     onContinue={() => void session.run(true)}
                   />
                 ) : null}
+                <Revisions
+                  session={session}
+                  onSave={() => void save()}
+                  onExport={(markdown) => void exportArtifact(markdown)}
+                  onExportSession={exportSession}
+                  onNewInputs={newCreate}
+                />
                 {current && (
                   <Disclosure title="Revise this Unit" className="feedback-panel">
                     <button
@@ -340,13 +347,6 @@ export function App() {
                     </button>
                   </Disclosure>
                 )}
-                <Revisions
-                  session={session}
-                  onSave={() => void save()}
-                  onExport={(markdown) => void exportArtifact(markdown)}
-                  onExportSession={exportSession}
-                  onNewInputs={newCreate}
-                />
               </>
             )}
           </div>

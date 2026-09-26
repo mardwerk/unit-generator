@@ -432,11 +432,7 @@ details[open] > summary {
   font-size: 0.8rem;
 }
 .revision-panel {
-  margin: 0 0 24px;
-  border: 0;
-  border-bottom: 1px solid var(--border);
-  border-radius: 0;
-  padding: 0;
+  margin: 16px 0 0;
 }
 .revision-toolbar {
   display: flex;
@@ -448,7 +444,7 @@ details[open] > summary {
   min-width: 150px;
 }
 .export-actions {
-  margin: 6px 0;
+  margin: 6px 0 0;
 }
 .source-option {
   display: block;
@@ -926,6 +922,38 @@ dialog::backdrop {
 }
 .library-heading h2 {
   font-size: 1.7rem;
+}
+.library-tabs {
+  display: flex;
+  gap: 4px;
+  margin: 18px 0 4px;
+  border-bottom: 1px solid var(--border);
+}
+.library-tabs button {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  margin-bottom: -1px;
+  padding: 7px 12px;
+  border: 0;
+  border-bottom: 2px solid transparent;
+  border-radius: 0;
+  background: transparent;
+  color: var(--muted);
+}
+.library-tabs button:hover {
+  color: var(--text);
+}
+.library-tabs button.active {
+  border-bottom-color: var(--accent);
+  color: var(--text);
+}
+.library-tab-count {
+  min-width: 20px;
+  padding: 0 6px;
+  border-radius: 999px;
+  background: var(--raised);
+  font-size: 0.72rem;
 }
 .library-directory {
   display: flex;

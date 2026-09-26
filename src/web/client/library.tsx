@@ -90,6 +90,30 @@ function LibraryPortrait({ entry }: { entry: LibraryEntry }) {
   );
 }
 
+type Shelf = 'units' | 'research';
+
+const shelves: Record<
+  Shelf,
+  { label: string; description: string; clear: string; empty: string; noun: [string, string] }
+> = {
+  units: {
+    label: 'Units',
+    description: 'Generated units saved on this computer.',
+    clear: 'Clear units',
+    empty:
+      'Your completed generations will appear here. You can also save an unfinished draft from its sheet.',
+    noun: ['saved unit', 'saved units'],
+  },
+  research: {
+    label: 'Research',
+    description:
+      'Researched Sources, reusable under any Profile. Opening one prepares it under the selected Profile without researching again.',
+    clear: 'Clear research',
+    empty: 'Research is saved here when you generate from a character name.',
+    noun: ['research entry', 'research entries'],
+  },
+};
+
 export function Library({
   library,
   busy,
@@ -101,8 +125,18 @@ export function Library({
 }) {
   const [query, setQuery] = useState('');
   const [deletion, setDeletion] = useState<{ title: string; entries: LibraryEntry[] } | null>(null);
-  const obsolete = olderRevisions(library.entries);
-  const entries = library.entries.filter((entry) =>
+  // Researched Sources are reusable inputs, not units, so they get their own shelf.
+  const [shelf, setShelf] = useState<Shelf>('units');
+  const onShelf = (entry: LibraryEntry, name: Shelf) =>
+    (entry.kind === 'sources') === (name === 'research');
+  const shelved = library.entries.filter((entry) => onShelf(entry, shelf));
+  const counts = {
+    units: library.entries.filter((entry) => onShelf(entry, 'units')).length,
+    research: library.entries.filter((entry) => onShelf(entry, 'research')).length,
+  };
+  const noun = shelves[shelf].noun;
+  const obsolete = olderRevisions(shelved);
+  const entries = shelved.filter((entry) =>
     `${entry.character.name} ${entry.character.work}`.toLowerCase().includes(query.toLowerCase()),
   );
   const groups = new Map<string, { work: string; entries: LibraryEntry[] }>();
@@ -118,10 +152,7 @@ export function Library({
       <div className="library-heading">
         <div>
           <h2>Your library</h2>
-          <p className="muted">
-            {library.entries.length} saved generation{library.entries.length === 1 ? '' : 's'} on
-            this computer.
-          </p>
+          <p className="muted">{shelves[shelf].description}</p>
         </div>
         <div className="button-row">
           <button
@@ -133,12 +164,27 @@ export function Library({
           </button>
           <button
             type="button"
-            disabled={busy || !library.entries.length}
-            onClick={() => setDeletion({ title: 'Clear library', entries: library.entries })}
+            disabled={busy || !shelved.length}
+            onClick={() => setDeletion({ title: shelves[shelf].clear, entries: shelved })}
           >
-            <Trash2 size={15} /> Clear library
+            <Trash2 size={15} /> {shelves[shelf].clear}
           </button>
         </div>
+      </div>
+      <div className="library-tabs" role="tablist" aria-label="Library shelves">
+        {(Object.keys(shelves) as Shelf[]).map((name) => (
+          <button
+            key={name}
+            id={`library-${name}`}
+            type="button"
+            role="tab"
+            aria-selected={shelf === name}
+            className={shelf === name ? 'active' : ''}
+            onClick={() => setShelf(name)}
+          >
+            {shelves[name].label} <span className="library-tab-count">{counts[name]}</span>
+          </button>
+        ))}
       </div>
       <p className="library-directory">
         <FolderOpen size={14} />
@@ -186,9 +232,7 @@ export function Library({
                   <IconButton
                     label={`Delete saved ${entry.character.name}`}
                     disabled={busy}
-                    onClick={() =>
-                      setDeletion({ title: 'Delete saved generation', entries: [entry] })
-                    }
+                    onClick={() => setDeletion({ title: `Delete ${noun[0]}`, entries: [entry] })}
                   >
                     <Trash2 size={15} />
                   </IconButton>
@@ -199,9 +243,7 @@ export function Library({
         ))}
       {!entries.length && (
         <p className="library-empty muted">
-          {library.entries.length
-            ? 'No saved characters match.'
-            : 'Your completed generations will appear here. You can also save an unfinished draft from its sheet.'}
+          {shelved.length ? 'No saved characters match.' : shelves[shelf].empty}
         </p>
       )}
       {deletion && (
@@ -213,8 +255,8 @@ export function Library({
           }}
         >
           <p>
-            Delete {deletion.entries.length} saved generation
-            {deletion.entries.length === 1 ? '' : 's'} from this library?
+            Delete {deletion.entries.length} {deletion.entries.length === 1 ? noun[0] : noun[1]}{' '}
+            from this library?
           </p>
           {deletion.title.startsWith('Clean') && (
             <p className="muted small">
@@ -231,8 +273,7 @@ export function Library({
             ))}
           </ul>
           <p className="muted small">
-            This removes the saved generation files. Icon images and other files in the folder are
-            kept.
+            This removes the saved files. Icon images and other files in the folder are kept.
           </p>
           <div className="button-row">
             <button type="button" disabled={library.pending} onClick={() => setDeletion(null)}>
@@ -248,8 +289,7 @@ export function Library({
                 });
               }}
             >
-              Delete {deletion.entries.length} saved{' '}
-              {deletion.entries.length === 1 ? 'generation' : 'generations'}
+              Delete {deletion.entries.length} {deletion.entries.length === 1 ? noun[0] : noun[1]}
             </button>
           </div>
           {library.error && (
