@@ -6,7 +6,7 @@ Checks show that a unit follows its Profile's rules. They do not show that it is
 
 ## What a unit looks like
 
-This excerpt is from a real run, not a mock-up. Profile: the bundled Default Profile (rules `default-td-profile-v12`, Definition `btd6-combat-v1`). Input: the Dart Monkey brief in [data/reference](data/reference/dart-monkey.request.json), written from the pinned btd6-atlas capture. Model: a relay, not a live provider. The Engine's prompts went through the Codex adapter to a stand-in executable, and Claude subagents answered them ([evaluation](docs/PROFILE-EVALUATION.md)). The full sheet has all 15 purchases and 48 crosspaths: [dart-monkey.result.md](data/reference/captures/dart-monkey.result.md).
+This excerpt is from a real run, not a mock-up. Profile: the bundled Default Profile as of commit `0eb43da` (rules `default-td-profile-v12`, Definition `btd6-combat-v1`); later versions also require a behavior at every third purchase. Input: the Dart Monkey brief in [data/reference](data/reference/dart-monkey.request.json), written from the pinned btd6-atlas capture. Model: a relay, not a live provider. The Engine's prompts went through the Codex adapter to a stand-in executable, and Claude subagents answered them ([evaluation](docs/PROFILE-EVALUATION.md)). The full sheet has all 15 purchases and 48 crosspaths: [dart-monkey.result.md](data/reference/captures/dart-monkey.result.md).
 
 > **Dart Monkey**
 >

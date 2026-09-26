@@ -28,6 +28,7 @@ func DefaultAuthoringDefinition() mechanics.Definition {
 		DistinctFirstUpgrades:       true,
 		DistinctCapstones:           true,
 		PreserveEarlyAttackIdentity: boolPtr(true),
+		RequireTier3BehaviorChange:  boolPtr(true),
 		MaxManualAbilityPaths:       1,
 		ManualAbilityPath:           mechanics.NullableString{Present: true, Value: "path2"},
 		Tier5Uniqueness:             "one-per-player-unit-type-and-path",

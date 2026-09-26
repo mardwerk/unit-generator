@@ -17,7 +17,7 @@ Runs:
 2. **Revision** of run 1 at commit `a9ea6e5`: `edit` with the feedback quoted below. Result: [dart-monkey.revision.json](../data/reference/captures/dart-monkey.revision.json) ([sheet](../data/reference/captures/dart-monkey.revision.md)).
 3. **Before**: the same brief on `main` at `01000bf`, whose bundled default is rules `default-td-profile-v11`. Result: [dart-monkey.v11.result.json](../data/reference/captures/dart-monkey.v11.result.json) ([sheet](../data/reference/captures/dart-monkey.v11.result.md)).
 
-Commits after these runs changed the renderer, one rules sentence about rendered output, the name Cold Snap in a scale reference, prompt lines stating length limits and how plan promises are checked, and the change budget (four to five changes per later purchase). Each artifact keeps the exact rules text and Definition it was prepared with.
+Commits after these runs changed the renderer, one rules sentence about rendered output, the name Cold Snap in a scale reference, prompt lines stating length limits and how plan promises are checked, the change budget (four to five changes per later purchase) and, in rules `default-td-profile-v13`, a required behavior or access at every third purchase. Under v13 the stat-only Spike-o-pult and Crossbow of these runs would be rejected at the plan. Each artifact keeps the exact rules text and Definition it was prepared with.
 
 ## Generation against the atlas
 

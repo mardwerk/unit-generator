@@ -9,7 +9,8 @@ import (
 )
 
 // stackingBlueprint is a version 2 blueprint whose path1 adds poison at
-// Tier3 and strengthens it at Tier4, and whose path3 detects Camo at Tier1.
+// Tier3 and strengthens it at Tier4, whose other paths add weaker poison at
+// Tier3, and whose path3 detects Camo at Tier1.
 func stackingBlueprint(t *testing.T, definition mechanics.Definition) *mechanics.Blueprint {
 	t.Helper()
 	change := func(stat string, value float64) any {
@@ -31,6 +32,9 @@ func stackingBlueprint(t *testing.T, definition mechanics.Definition) *mechanics
 				changes = append(changes, status("magnitude", 3))
 			case index == 2 && tier == 1:
 				changes = []any{camo}
+			case tier == 3:
+				// The third purchase adds a behavior, as the policy requires.
+				changes = append(changes, status("magnitude", 1), status("seconds", 2))
 			}
 			tiers.Set("tier"+itoa(tier), s.NewObject().Set("name", "Tier "+itoa(tier)).Set("cost", float64(100*tier)).Set("changes", changes))
 		}

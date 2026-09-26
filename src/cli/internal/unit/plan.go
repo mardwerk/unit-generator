@@ -310,6 +310,11 @@ func DesignPlanRequest(prepared Prepared) (ModelRequest, error) {
 		last := guidance[len(guidance)-1]
 		guidance = append(append(guidance[:len(guidance)-1], VocabularyGuidance(request)...), last)
 	}
+	if d := request.MechanicsDefinition; d != nil && d.Profile.DesignPolicy != nil && d.Profile.DesignPolicy.RequireTier3BehaviorChange != nil && *d.Profile.DesignPolicy.RequireTier3BehaviorChange {
+		// The requirement goes before the closing guidance line.
+		last := guidance[len(guidance)-1]
+		guidance = append(append(append([]string{}, guidance[:len(guidance)-1]...), planTier3Behavior), last)
+	}
 	parts = append(parts, guidance...)
 	parts = append(parts, s.Stringify(context))
 	return ModelRequest{System: planSystem, Prompt: strings.Join(parts, "\n\n"), Schema: schema}, nil

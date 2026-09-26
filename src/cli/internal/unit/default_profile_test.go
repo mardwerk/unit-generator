@@ -176,3 +176,28 @@ func TestTheDefinitionProfileSetsTheChangeBudget(t *testing.T) {
 		t.Error("a Definition exceeded the change limit")
 	}
 }
+
+// Under the Default Profile the third purchase of every path adds a
+// supported behavior or access; larger numbers or a targeting change alone
+// are rejected when the plan is authored.
+func TestPlansRequireABehaviorAtTheThirdPurchase(t *testing.T) {
+	prepared, err := fixture.Prepare()
+	if err != nil {
+		t.Fatal(err)
+	}
+	for unlock, rejected := range map[string]bool{"none": true, "targeting-change": true, "splash": false, "damage-type-change": false} {
+		plan := recordedOutput(t, "plan")
+		at(plan, "paths", "path3", "milestones", "tier3").(*s.Object).Set("improves", []any{"damage", "range"}).Set("unlock", unlock)
+		_, err := unit.DecodeDesignPlan(plan, &prepared.Request)
+		if got := err != nil && strings.Contains(err.Error(), "x-x-3 must add a supported behavior or access"); got != rejected {
+			t.Errorf("unlock %s: %v", unlock, err)
+		}
+	}
+	plan := recordedOutput(t, "plan")
+	if request, err := unit.DesignPlanRequest(prepared); err != nil || !strings.Contains(request.Prompt, "This Profile requires the third purchase of every path to add a supported behavior or access") {
+		t.Errorf("the plan prompt does not state the requirement: %v", err)
+	}
+	if _, err := unit.DecodeDesignPlan(plan, &prepared.Request); err != nil {
+		t.Fatalf("the fixture plan was rejected: %v", err)
+	}
+}

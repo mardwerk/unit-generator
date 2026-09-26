@@ -12,7 +12,7 @@ const atlasCapture = "btd6-atlas capture 56.3, Steam build 24829026, repository 
 
 // defaultRulesSections are the paragraphs of the bundled rules document.
 var defaultRulesSections = []string{
-	"Character Tower Defense rules, version 12, for the BTD6-inspired default Profile. Editable starter rules, not Manga Mayhem rules, BTD6 canon or balance certification. The structured mechanicsDefinition owns executable operators, numerical limits and the starter scale. The atlas references below show scale and progression shape; they are not kits to copy.",
+	"Character Tower Defense rules, version 13, for the BTD6-inspired default Profile. Editable starter rules, not Manga Mayhem rules, BTD6 canon or balance certification. The structured mechanicsDefinition owns executable operators, numerical limits and the starter scale. The atlas references below show scale and progression shape; they are not kits to copy.",
 
 	"Source fidelity. Adapt the character's sourced attacks, weapons, forms, sensory powers and interactions. Respect ownership, prerequisites and story period: another actor using a power does not establish that this character owns it, and former or conditional powers keep their limits. Keep invented Tower Defense interactions separate from canon claims. A revision that only edits wording keeps every supplied mechanic; a redesign names each deliberate change and never resolves a contradiction silently.",
 
@@ -20,7 +20,7 @@ var defaultRulesSections = []string{
 
 	"Activation. Only the middle path may have a player-activated ability, first at x-4-x; top and bottom stay automatic, and choosing a targeting priority is not an activation. In this Definition the ability is one manual boost of the Unit's purchased attack: x-4-x unlocks it and x-5-x may modify that same boost. A second x-5-x Active, a ground-targeted strike, a separate Active attack, allied restoration and dispels cannot be expressed. Record them as unsupported mechanics and keep them out of names and wording.",
 
-	"Purchase roles. The first and second purchase of each path are small readable foundations that stay useful as crosspaths: they improve the existing attack and may add personal detection, never a broad all-source damage buff. The third purchase creates a reason to commit: a new behavior, a substantial improvement or a narrower job. The fourth and fifth develop, add or replace behavior, access, capacity or uptime as the path's role requires; they need not add a subsystem each time, but a fifth purchase that only raises ordinary damage is a token step, not a capstone. Keep the three paths behaviorally distinct and use no universal capstone multiplier.",
+	"Purchase roles. The first and second purchase of each path are small readable foundations that stay useful as crosspaths: they improve the existing attack and may add personal detection, never a broad all-source damage buff. The third purchase creates a reason to commit by adding a supported behavior or access: a new delivery, a distinct-target volley, more projectiles, splash, a status effect, a bounded follow-up, a new damage type or a new detection trait, chosen from the character; larger numbers or a targeting change alone are not enough. The fourth and fifth develop, add or replace behavior, access, capacity or uptime as the path's role requires; they need not add a subsystem each time, but a fifth purchase that only raises ordinary damage is a token step, not a capstone. Keep the three paths behaviorally distinct and use no universal capstone multiplier.",
 
 	"Actions. For every changed action state its trigger, target, delivery, timing, effect, inheritance and limit. Say adds when behavior coexists and replaces only when the earlier behavior stops. Do not invent shared cooldowns or suppress independent behavior. A transformation says what changes and what happens when it ends. Preserve the selected targeting and normal movement prediction of enemy-targeted attacks; ground-targeted effects are distinct. Damage, width, projectile count, area and pierce are separate properties. Chains, explosions, fragments, return passes and control need bounded hit capacity and a stated repeat-hit or pierce-refresh rule. Bound support and control by eligibility, capacity, locality or downtime; no unbounded multi-copy support or control loops.",
 
@@ -62,8 +62,8 @@ var defaultRulesSections = []string{
 // defaultRulesText is the bundled rules document text.
 var defaultRulesText = strings.Join(defaultRulesSections, "\n\n")
 
-const defaultRulesID = "default-td-profile-v12"
-const defaultRulesLocation = "mardwerk-unit:default-td-profile:v12"
+const defaultRulesID = "default-td-profile-v13"
+const defaultRulesLocation = "mardwerk-unit:default-td-profile:v13"
 const defaultRulesNote = "Bundled starter preset. Edit or replace it in Inputs and rules before preparing a custom Request."
 const defaultProfileName = "BTD6-inspired (default)"
 const defaultAuthoringRevision = "2026-09-26-atlas-56.3-v13"

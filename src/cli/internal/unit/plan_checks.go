@@ -182,6 +182,21 @@ func independentPromises(intent UpgradeIntent) int {
 // single stat: the fourth and fifth.
 var developingTiers = []int{4, 5}
 
+// addsBehavior reports a third-purchase promise that adds behavior or access
+// rather than larger numbers: an unlock other than a targeting change, or
+// more projectiles. The mechanics check confirms it in the resolved builds.
+func addsBehavior(intent UpgradeIntent) bool {
+	if intent.Unlock != "none" && intent.Unlock != "targeting-change" {
+		return true
+	}
+	for _, dimension := range intent.Improves {
+		if dimension == "projectiles" {
+			return true
+		}
+	}
+	return false
+}
+
 // PlanFeasibilityIssues rejects contradictions in a plan's explicit promises.
 // Under a design policy it also rejects a fourth or fifth purchase that
 // promises a single dimension, such as a token damage step. Plans are checked
@@ -191,6 +206,16 @@ func PlanFeasibilityIssues(plan DesignPlan, definition m.Definition) []m.Issue {
 		return nil
 	}
 	var issues []m.Issue
+	if policy := definition.Profile.DesignPolicy; policy != nil && policy.RequireTier3BehaviorChange != nil && *policy.RequireTier3BehaviorChange {
+		for pathIndex, path := range m.PathKeys {
+			if !addsBehavior(*plan.UpgradeIntents.At(pathIndex).At(3)) {
+				issues = append(issues, m.Issue{
+					Path:    "upgradeIntents." + path + ".tier3",
+					Message: fmt.Sprintf("%s must add a supported behavior or access, not only larger numbers: promise an unlock other than targeting-change, such as a new delivery, distinct-volley, splash, a status effect, follow-up, damage-type-change or a detection trait, or promise projectiles while the path fires one projectile.", BuildCode(pathIndex, 3)),
+				})
+			}
+		}
+	}
 	if definition.Profile.DesignPolicy != nil {
 		for pathIndex, path := range m.PathKeys {
 			for _, tier := range developingTiers {

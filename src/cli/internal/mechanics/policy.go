@@ -180,6 +180,16 @@ func HasBehaviorTransition(before, after Build) bool {
 	if a.FollowUp == nil && b.FollowUp != nil {
 		return true
 	}
+	// New access is a behavior too: a damage type that hurts other enemies,
+	// or a newly detected trait.
+	if a.DamageType != b.DamageType {
+		return true
+	}
+	for _, trait := range b.DetectionTraits() {
+		if !a.DetectsTrait(trait) {
+			return true
+		}
+	}
 	if a.Stats.Projectiles == 1 && b.Stats.Projectiles > 1 {
 		return true
 	}
@@ -260,7 +270,7 @@ func DesignPolicyIssues(blueprint *Blueprint, definition Definition) []Issue {
 			required *bool
 		}{{3, policy.RequireTier3BehaviorChange}, {5, policy.RequireTier5BehaviorChange}} {
 			if req.required != nil && *req.required && !HasBehaviorTransition(pureBuild(blueprint, index, req.tier-1), pureBuild(blueprint, index, req.tier)) {
-				issues = append(issues, Issue{fmt.Sprintf("%s.tiers.tier%d", prefix, req.tier), fmt.Sprintf("Tier %d must introduce a supported attack behavior, such as a new delivery, distinct-target volley, status, splash or bounded follow-up. Increasing existing numbers or changing a name alone is insufficient.", req.tier)})
+				issues = append(issues, Issue{fmt.Sprintf("%s.tiers.tier%d", prefix, req.tier), fmt.Sprintf("Tier %d must introduce a supported attack behavior or access, such as a new delivery, distinct-target volley, more than one projectile, status, splash, bounded follow-up, damage type or detected trait. Increasing existing numbers or changing a name alone is insufficient.", req.tier)})
 			}
 		}
 		for _, check := range []struct {

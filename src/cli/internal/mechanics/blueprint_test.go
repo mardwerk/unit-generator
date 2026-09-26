@@ -276,3 +276,25 @@ func TestSetterKeepsCrosspathMultipliers(t *testing.T) {
 		}
 	}
 }
+
+// A new damage type or detected trait is new access, which counts as a
+// behavior transition; a larger number alone does not.
+func TestAccessChangesAreBehaviorTransitions(t *testing.T) {
+	base := Build{BaseAttack: Attack{Delivery: "projectile", DamageType: "sharp", Targeting: "first", Stats: AttackStats{Damage: 1, IntervalSeconds: 1, Range: 10, Pierce: 1, Projectiles: 1}}}
+	for name, change := range map[string]func(*Attack){
+		"damage type": func(a *Attack) { a.DamageType = "normal" },
+		"camo":        func(a *Attack) { a.Camo = true },
+		"splash":      func(a *Attack) { a.Stats.SplashRadius = 5 },
+	} {
+		after := Build{BaseAttack: base.BaseAttack.Clone()}
+		change(&after.BaseAttack)
+		if !HasBehaviorTransition(base, after) {
+			t.Errorf("%s is not a behavior transition", name)
+		}
+	}
+	after := Build{BaseAttack: base.BaseAttack.Clone()}
+	after.BaseAttack.Stats.Damage = 5
+	if HasBehaviorTransition(base, after) {
+		t.Error("more damage counted as a behavior transition")
+	}
+}
