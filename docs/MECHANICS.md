@@ -2,9 +2,9 @@
 
 This is the contract of the current numerical Engine (`src/cli/internal/mechanics`): three paths of five tiers. Shared forms, stamina, Apex purchases and other progression shapes are not supported and need an explicit Engine change. Every draft follows the one generation route in [ARCHITECTURE.md](ARCHITECTURE.md#generation-route).
 
-The mechanics module resolves purchased Unit builds and checks their declared behavior. It does not simulate combat, waves, travel, enemy layers, map geometry, runtime cooldowns or balance. Its explicit Definition is a small, experimental combat vocabulary inspired by the [ordinary BTD6 design reference](../research/btd6/BTD6-UNIT-DESIGN.md) and [tower examples](../research/btd6/BTD6-UNIT-EXAMPLES.md). It does not reproduce BTD6's numerical balance or complete damage table.
+The mechanics module resolves purchased Unit builds and checks their declared behavior. It does not simulate combat, waves, travel, enemy layers, map geometry, runtime cooldowns or balance. Its explicit Definition is a small, experimental combat vocabulary inspired by ordinary BTD6 towers; [BTD6 facts](../research/BTD6-REFERENCE.md) live in btd6-atlas. It does not reproduce BTD6's numerical balance or complete damage table.
 
-The supplied 26-tower dataset is reference data, not a loadable mechanics Definition. It distinguishes a supported operation's shape from missing numerical values, unspecified behavior and unsupported operators. No advisory label can authorize a mechanic or fill a missing value.
+BTD6 tower data, whether the retired 26-tower dataset or btd6-atlas, is reference data, not a loadable mechanics Definition. It distinguishes a supported operation's shape from missing numerical values, unspecified behavior and unsupported operators. No advisory label can authorize a mechanic or fill a missing value.
 
 ## Source-backed starter authoring
 
@@ -29,7 +29,7 @@ Direct damage rate is `damage × primaryProjectiles / interval + burnDamagePerSe
 
 `tier5Uniqueness: one-per-player-unit-type-and-path` records the deployment contract: one T5 of a given type and path across that player's placed copies, with different paths permitted on separate copies. This is distinct from one copy's crosspath legality. The generator has no roster state and cannot enforce scene ownership; the consumer must implement it. Support, income, new actors and access-based capstones outside the current vocabulary require explicit extensions rather than invented damage to pass a proxy gate.
 
-Research evidence and the limits of these conventions are in [Patterns](../research/btd6/PATTERNS.md). The [AutoResearch proposal](../research/btd6/AUTORESEARCH.md) describes bounded candidate search and independent evaluation; autonomous search is not implemented or run by default.
+These conventions came from the retired September 20 pattern analysis ([BTD6 reference](../research/BTD6-REFERENCE.md)). The [AutoResearch proposal](../research/AUTORESEARCH.md) describes bounded candidate search and independent evaluation; autonomous search is not implemented or run by default.
 
 Targeted repair preserves unrelated tiers and includes dependent capstones in the same model call. Under this policy, repairing T1 through T4 also includes that path's T5 so its relative payoff can be corrected. For legacy Definitions, repairing T4 includes T5 when it modifies the earlier boost. Dependent capstones require complete replacements, including valid prerequisites; the default budget remains one repair.
 
@@ -112,7 +112,7 @@ The bundled rules document `default-td-profile-v10` uses a 1-health enemy layer 
 
 Gold is the user's label for BTD6-like cash. Health is the shared player life pool, with a 150-Health starter assumption. Units have no HP. The 1-health layer and life pool are design references; enemy layer trees, leak simulation and runtime durability were not added.
 
-The profile records provenance from the supplied `btd6_towers.json`, compiled September 20, 2026, SHA-256 `a2a5e2bb4591a6278f079a6796d06f76428716080bd4a42453f898cb1403f8f6`. Base statistics cite [Dart game data](https://raw.githubusercontent.com/Btd6ModHelper/btd6-game-data/main/Towers/DartMonkey/DartMonkey.json) and the corresponding Boomerang file; Medium prices cite [Cyber Quincy costs](https://raw.githubusercontent.com/hemisemidemipresent/cyberquincy/master/jsons/costs.json). The dataset combines unpinned patches; missing values remain unknown.
+The profile records provenance from the supplied `btd6_towers.json`, compiled September 20, 2026, SHA-256 `a2a5e2bb4591a6278f079a6796d06f76428716080bd4a42453f898cb1403f8f6`; that package is retired and kept in history ([BTD6 reference](../research/BTD6-REFERENCE.md)), and new values come from btd6-atlas. Base statistics cite [Dart game data](https://raw.githubusercontent.com/Btd6ModHelper/btd6-game-data/main/Towers/DartMonkey/DartMonkey.json) and the corresponding Boomerang file; Medium prices cite [Cyber Quincy costs](https://raw.githubusercontent.com/hemisemidemipresent/cyberquincy/master/jsons/costs.json). The dataset combines unpinned patches; missing values remain unknown.
 
 Before changing defaults, the exact previous Ink ruleset and v3 profile were preserved in the private Towerright checkout at `profiles/unit-generator-ink-v3/`, with `ruleset.json`, `provenance.json` and `README.md`. Public contributors do not need that repository. Existing artifacts and custom Requests retain their explicit Definitions; applying a Profile is an explicit replacement, not an artifact migration.
 
