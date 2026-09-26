@@ -82,11 +82,14 @@ func TestPromptsSeparatePrivateChecksFromOutput(t *testing.T) {
 			"buyFor, weakness and capstoneValue are private design checks and never appear in the unit description",
 			"Name every purchase by build code", "a purchase that only raises damage is a token step",
 			"A second Active at the fifth purchase", "12 early and 36 advanced crosspath builds",
+			"more shots per attack to projectiles, heavier hits to damage",
 		}},
 		"mechanics": {mechanics, []string{
 			"Refer to purchases by build code", "The boost is the only activated ability this Definition expresses",
 			"List in unsupportedMechanics", "a fifth purchase that only raises ordinary damage is a token step",
 			"No universal capstone multiplier applies", "Role scales from the rules document's btd6-atlas 56.3 references",
+			"Code checks each milestone's improves and unlock in every legal build", "more projectiles do not count",
+			"Tier1 to Tier2 allow 1 to 3 primitive changes total; Tier3 to Tier5 allow up to 5.",
 		}},
 		"review": {review, []string{
 			"Check privately and report only concrete problems", "Findings are review data kept apart from the unit description",

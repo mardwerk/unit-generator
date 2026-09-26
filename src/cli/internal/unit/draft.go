@@ -352,7 +352,7 @@ func blueprintRequest(prepared Prepared, previous any, issues []string, plan Des
 		budget, form, example = draftStatusBudgetV2, draftStatusFormV2, draftExampleV2
 	}
 	budget = fmt.Sprintf(budget, budgetSentence(request))
-	prompt := []string{draftPlan, draftStyle, draftOwnership, draftShape, draftTruth, budget, form, draftArithmetic, draftExtensions, CountArithmeticGuidance}
+	prompt := []string{draftPlan, draftPromises, draftStyle, draftOwnership, draftShape, draftTruth, budget, form, draftArithmetic, draftExtensions, CountArithmeticGuidance}
 	prompt = append(prompt, VocabularyGuidance(request)...)
 	prompt = append(prompt, DesignGuidance(request)...)
 	prompt = append(prompt, draftBoost, example, draftUnsupported, s.Stringify(context))

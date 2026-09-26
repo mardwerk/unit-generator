@@ -285,7 +285,7 @@ func TargetedTierRepair(request *Request, previous any, issues []string) (*TierR
 	if isV2(request) {
 		budget = repairBudgetV2
 	}
-	prompt := []string{repairScope, s.Stringify(context), budget, CountArithmeticGuidance, repairCapstone}
+	prompt := []string{repairScope, s.Stringify(context), budget, CountArithmeticGuidance, repairCapstone, draftPromises}
 	prompt = append(prompt, VocabularyGuidance(request)...)
 	prompt = append(prompt, DesignGuidance(request)...)
 	prompt = append(prompt, s.Stringify(s.NewObject().Set("violations", violations)))

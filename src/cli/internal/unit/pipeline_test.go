@@ -141,7 +141,7 @@ func TestTargetedRepairKeepsOtherTiers(t *testing.T) {
 	if err != nil {
 		t.Fatalf("draft: %v", err)
 	}
-	if len(model.Requests) != 3 || !strings.Contains(model.Requests[2].Prompt, "effectSubsetChoices") {
+	if len(model.Requests) != 3 || !strings.Contains(model.Requests[2].Prompt, "effectSubsetChoices") || !strings.Contains(model.Requests[2].Prompt, "Code checks each milestone's improves and unlock") {
 		t.Fatalf("expected a subset repair, got %d calls", len(model.Requests))
 	}
 	kept := draft.Candidate.Blueprint.Paths.Path1.Tiers.Tier1.Changes
