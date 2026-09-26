@@ -17,7 +17,7 @@ Runs:
 2. **Revision** of run 1 at commit `a9ea6e5`: `edit` with the feedback quoted below. Result: [dart-monkey.revision.json](../data/reference/captures/dart-monkey.revision.json) ([sheet](../data/reference/captures/dart-monkey.revision.md)).
 3. **Before**: the same brief on `main` at `01000bf`, whose bundled default is rules `default-td-profile-v11`. Result: [dart-monkey.v11.result.json](../data/reference/captures/dart-monkey.v11.result.json) ([sheet](../data/reference/captures/dart-monkey.v11.result.md)).
 
-Commits after these runs changed only the renderer, one rules sentence about rendered output, the name Cold Snap in a scale reference, and a prompt line stating length limits. Each artifact keeps the exact rules text it was prepared with.
+Commits after these runs changed the renderer, one rules sentence about rendered output, the name Cold Snap in a scale reference, prompt lines stating length limits and how plan promises are checked, and the change budget (four to five changes per later purchase). Each artifact keeps the exact rules text and Definition it was prepared with.
 
 ## Generation against the atlas
 
@@ -31,7 +31,7 @@ Values are the pure build of each purchase (for example `0-0-5`), compared with 
 | 0-4-0 | 7200; 0.239 s; for 15 s every 50 s, up to 10 nearby Dart Monkeys attack about 16 times as often | 6000; 0.2392 s; an Active Ability boosting this Unit's own attack, interval ×0.0625 for 15 s every 50 s | Price lowered because only the Unit's own share of the ability is modeled. The allied transformation is unsupported. |
 | 0-5-0 | 45000; allies gain 1 damage and 3 pierce | 25000; +3 pierce on every dart; boost damage ×2 | The boost cannot carry pierce, so the pierce became permanent. |
 | 0-0-1 to 0-0-4 | 90, 200, 575, 2050 | Same prices and numbers, Camo at 0-0-2 | Sharp Shooter's critical shots are unsupported. |
-| 0-0-5 | 21500; 8 damage, 0.2375 s, pierce 8, range 80, every type | 16000; 8 damage, 0.2375 s, pierce 4, range 80, Normal | Pierce 8 dropped: a purchase may change at most four properties, and Crossbow Master changes five. Critical shots are unsupported. |
+| 0-0-5 | 21500; 8 damage, 0.2375 s, pierce 8, range 80, every type | 16000; 8 damage, 0.2375 s, pierce 4, range 80, Normal | Pierce 8 dropped: that Definition allowed four changes per purchase, and Crossbow Master changes five. Critical shots are unsupported. |
 
 Twelve of fifteen prices match the atlas. Ten purchases match every listed number, three are within 0.3 percent (rounded multipliers), and two differ (0-5-0 and 0-0-5). All 64 legal builds resolve, and the sheet lists all 12 early and 36 advanced crosspaths.
 
@@ -47,7 +47,7 @@ Engine route: plan and mechanics were valid on their first calls, then the revie
 
 Patch notes (from the [sheet](../data/reference/captures/dart-monkey.revision.md)): under Mechanics, the three prices and the new x-x-5; under Wording, no names changed. Five builds resolve differently: 0-0-5, 0-1-5, 0-2-5, 1-0-5 and 2-0-5, exactly the builds with Crossbow Master. The other 59 legal builds, including the other 43 crosspaths, the Fan Club boost (15 s, recharging after 50 s, interval ×0.0625) and every other purchase, are unchanged.
 
-One loss the feedback did not ask for: adding pierce 8 at x-x-5 meant dropping its +2 damage to stay within four changes per purchase, so 0-0-5 deals 6 damage instead of 8. The model disclosed this in the plan and the reserved techniques.
+One loss the feedback did not ask for: adding pierce 8 at x-x-5 meant dropping its +2 damage to stay within that Definition's four changes per purchase, so 0-0-5 deals 6 damage instead of 8. The model disclosed this in the plan and the reserved techniques.
 
 Model review (a model judgment): feedback applied and constraints preserved (pass); the x-x-5 damage trade and x-5-x against six x-4-x copies at 45,000 Gold (unresolved); and a plan sentence saying the split balls skip only the primary target, while the follow-up skips every enemy the ball already hit (fail, info).
 
@@ -76,10 +76,10 @@ Both runs spent one retry on the same hidden 300-character limit, which the prom
 ## What remains
 
 - **Capstone payoff.** Every review questioned x-5-x against x-4-x: in v12 runs several x-4-x copies beat one x-5-x on the measured rates, and in v11 x-5-x changed only the boost window. The Profile asks the model to weigh copies privately but requires no ratio, and no universal multiplier was added.
-- **Four changes per purchase.** The limit dropped either Crossbow Master's damage or its pierce in every run. Raising it changes the blueprint and Definition schemas and needs an owner decision.
+- **Four changes per purchase.** The limit dropped either Crossbow Master's damage or its pierce in every run. The budget is now the Definition profile's `maxChangesPerTier` rather than a schema limit, and the Default Profile sets five (Definition revision `2026-09-26-atlas-56.3-v13`); these captures predate that.
 - **Boost strength.** Applying the allies' 16 times factor to the Unit's own attack made x-4-x its strongest single-target option.
 
-The Definition has one automatic attack with bounded follow-ups, one Active Ability, a boost of that attack, on the middle path and at most four changes per purchase. Behavior it cannot express is reported as an unsupported-mechanic finding and never granted by a name or a stat: allied buffs and transformations, enemy-class damage bonuses, critical-shot counters, rebounds, knockback, shot arcs, boost-only pierce and effects on other placed Units. See [MECHANICS.md](MECHANICS.md#default-authoring-policy) and the departures in [BTD6-REFERENCE.md](BTD6-REFERENCE.md#deliberate-departures-from-btd6).
+The Definition has one automatic attack with bounded follow-ups, one Active Ability, a boost of that attack, on the middle path and a change budget per purchase set by its Definition profile. Behavior it cannot express is reported as an unsupported-mechanic finding and never granted by a name or a stat: allied buffs and transformations, enemy-class damage bonuses, critical-shot counters, rebounds, knockback, shot arcs, boost-only pierce and effects on other placed Units. See [MECHANICS.md](MECHANICS.md#default-authoring-policy) and the departures in [BTD6-REFERENCE.md](BTD6-REFERENCE.md#deliberate-departures-from-btd6).
 
 ## The Tatsuya candidate
 

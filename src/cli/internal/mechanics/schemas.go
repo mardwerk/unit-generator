@@ -296,9 +296,14 @@ func ChangeSchemaV2(v *Vocabulary) s.Schema {
 	)
 }
 
-func blueprintSchemaV2(v *Vocabulary, maxChanges int) *s.ObjectSchema {
+// MaxChangesLimit bounds the change budget a version 2 Definition profile
+// may set. The Definition's own maxChangesPerTier is the budget; validation
+// enforces it.
+const MaxChangesLimit = 8
+
+func blueprintSchemaV2(v *Vocabulary, maxChanges int, diagnostic bool) *s.ObjectSchema {
 	changes := s.Array(ChangeSchemaV2(v)).Min(1).Max(maxChanges)
-	if maxChanges > 4 {
+	if diagnostic {
 		changes = s.Array(ChangeSchemaV2(v)).Max(maxChanges)
 	}
 	tier := tierSchema.Extend(s.F("changes", changes))
@@ -310,8 +315,14 @@ func blueprintSchemaV2(v *Vocabulary, maxChanges int) *s.ObjectSchema {
 
 // BlueprintSchemaV2 is a version 2 blueprint; DiagnosticBlueprintSchemaV2
 // keeps over-budget tiers inspectable, like its version 1 counterpart.
-func BlueprintSchemaV2(v *Vocabulary) *s.ObjectSchema           { return blueprintSchemaV2(v, 4) }
-func DiagnosticBlueprintSchemaV2(v *Vocabulary) *s.ObjectSchema { return blueprintSchemaV2(v, 20) }
+// A tier may hold up to MaxChangesLimit changes structurally; the
+// Definition profile's maxChangesPerTier is checked by ValidateBlueprint.
+func BlueprintSchemaV2(v *Vocabulary) *s.ObjectSchema {
+	return blueprintSchemaV2(v, MaxChangesLimit, false)
+}
+func DiagnosticBlueprintSchemaV2(v *Vocabulary) *s.ObjectSchema {
+	return blueprintSchemaV2(v, 20, true)
+}
 
 // BlueprintSchemaFor and DiagnosticBlueprintSchemaFor pick the blueprint
 // schema a Definition's units use.
@@ -348,7 +359,11 @@ var DefinitionV2Schema = s.StrictObject(
 	s.F("progression", MechanicsDefinitionSchema.Shape("progression")),
 	s.F("rules", MechanicsDefinitionSchema.Shape("rules").(*s.ObjectSchema).Omit(legacyRules...)),
 	s.F("vocabulary", VocabularySchema),
-	s.F("profile", MechanicsDefinitionSchema.Shape("profile")),
+	// A version 2 Definition profile sets its own change budget.
+	s.F("profile", MechanicsDefinitionSchema.Shape("profile").(*s.ObjectSchema).Extend(
+		s.F("maxChangesPerTier", s.Int().Min(1).Max(MaxChangesLimit)),
+		s.F("earlyTierMaxChanges", s.Int().Min(1).Max(MaxChangesLimit)),
+	)),
 ).SuperRefine(func(value *s.Object, add func(path []any, message string)) {
 	raw, _ := value.Get("vocabulary")
 	var vocabulary Vocabulary

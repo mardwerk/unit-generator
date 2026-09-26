@@ -2,10 +2,12 @@ package unit_test
 
 import (
 	"context"
+	"fmt"
 	"strings"
 	"testing"
 
 	"github.com/mardwerk/unit-generator/src/cli/internal/fixture"
+	m "github.com/mardwerk/unit-generator/src/cli/internal/mechanics"
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
 	"github.com/mardwerk/unit-generator/src/cli/internal/unit"
 )
@@ -43,7 +45,7 @@ func TestDefaultProfileCitesThePinnedAtlasCapture(t *testing.T) {
 		}
 	}
 	definition := profile.MechanicsDefinition
-	if definition.Revision != "2026-09-26-atlas-56.3-v12" || !strings.Contains(definition.Label, "btd6-atlas 56.3") {
+	if definition.Revision != "2026-09-26-atlas-56.3-v13" || !strings.Contains(definition.Label, "btd6-atlas 56.3") || definition.Profile.MaxChangesPerTier != 5 {
 		t.Errorf("Definition %s %q", definition.Revision, definition.Label)
 	}
 	if scale := definition.Profile.ReferenceScale; scale.BaseCost != 200 || scale.BaseDamage != 1 || scale.BaseIntervalSeconds != 0.95 || scale.BaseRange != 32 || scale.BasePierce != 2 ||
@@ -140,5 +142,34 @@ func TestUnsupportedMechanicsAreFindings(t *testing.T) {
 	}
 	if len(names) != 3 || !strings.Contains(names[1], "Unsupported mechanic Critical shot counter") {
 		t.Errorf("unsupported findings %v", names)
+	}
+}
+
+// The change budget belongs to the Definition profile: the Default Profile
+// allows the five changes of a real Crossbow Master, a Definition that sets
+// four rejects them, and no version 2 Definition may exceed the limit.
+func TestTheDefinitionProfileSetsTheChangeBudget(t *testing.T) {
+	stages, err := fixture.Build()
+	if err != nil {
+		t.Fatal(err)
+	}
+	blueprint := *stages.Result.Candidate.Blueprint
+	tier := &blueprint.Paths.Path3.Tiers.Tier5
+	tier.Changes = append(append([]m.Change(nil), tier.Changes...), m.Change{Kind: "stat", Target: "base", Stat: "range", Operation: "add", Number: 20})
+	if len(tier.Changes) != 5 {
+		t.Fatalf("x-x-5 has %d changes", len(tier.Changes))
+	}
+	definition := unit.DefaultAuthoringDefinition()
+	if issues := m.ValidateBlueprint(s.FromGoValue(blueprint), s.FromGoValue(definition)); len(issues) > 0 {
+		t.Errorf("five changes rejected under the Default Profile: %v", issues)
+	}
+	definition.Profile.MaxChangesPerTier = 4
+	issues := m.ValidateBlueprint(s.FromGoValue(blueprint), s.FromGoValue(definition))
+	if len(issues) == 0 || !strings.Contains(fmt.Sprint(issues), "Exceeds the Definition change budget.") {
+		t.Errorf("five changes accepted under a four-change Definition: %v", issues)
+	}
+	definition.Profile.MaxChangesPerTier = m.MaxChangesLimit + 1
+	if _, issues := s.Parse(m.DefinitionV2Schema, s.FromGoValue(definition)); len(issues) == 0 {
+		t.Error("a Definition exceeded the change limit")
 	}
 }
