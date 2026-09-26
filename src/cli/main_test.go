@@ -182,19 +182,25 @@ func TestModelCommandsNeedAKeyAndReportIt(t *testing.T) {
 	}
 }
 
-func TestServeNamesTheMaskedKeyAndWhereItCameFrom(t *testing.T) {
+func TestServeNamesTheModelAndTheMaskedKeyAndWhereItCameFrom(t *testing.T) {
 	hint := "sk-or-v1-abc...xyz"
-	envFile, _ := filepath.Abs(".env")
+	missing, _ := filepath.Abs(".env")
+	envFile := "/work/.env"
+	openrouter := func(key server.KeyState) server.ProviderState {
+		return server.ProviderState{Provider: "openrouter", Model: "openai/gpt-6-luna", Key: key}
+	}
 	for _, test := range []struct {
-		key  server.KeyState
-		want string
+		state   server.ProviderState
+		envFile string
+		want    string
 	}{
-		{server.KeyState{Configured: true, Source: "env-file", Hint: &hint}, "OpenRouter key: sk-or-v1-abc...xyz (from " + envFile + ")"},
-		{server.KeyState{Configured: true, Source: "env", Hint: &hint}, "OpenRouter key: sk-or-v1-abc...xyz (from the OPENROUTER_API_KEY environment variable)"},
-		{server.KeyState{Configured: true, Source: "env-file"}, "OpenRouter key: set (too short to show a fragment) (from " + envFile + ")"},
-		{server.KeyState{Source: "none"}, "OpenRouter key: none. Add OPENROUTER_API_KEY to " + envFile + ", set it in the environment, or enter it in Settings."},
+		{openrouter(server.KeyState{Configured: true, Source: "env-file", Hint: &hint}), envFile, "Model: openai/gpt-6-luna (OpenRouter)\nOpenRouter key: sk-or-v1-abc...xyz (from /work/.env)"},
+		{openrouter(server.KeyState{Configured: true, Source: "env", Hint: &hint}), "", "Model: openai/gpt-6-luna (OpenRouter)\nOpenRouter key: sk-or-v1-abc...xyz (from the OPENROUTER_API_KEY environment variable)"},
+		{openrouter(server.KeyState{Configured: true, Source: "env-file"}), envFile, "Model: openai/gpt-6-luna (OpenRouter)\nOpenRouter key: set (too short to show a fragment) (from /work/.env)"},
+		{openrouter(server.KeyState{Source: "none"}), envFile, "Model: openai/gpt-6-luna (OpenRouter)\nOpenRouter key: none. /work/.env has no OPENROUTER_API_KEY; add it there, set it in the environment, or enter it in Settings."},
+		{server.ProviderState{Provider: "codex", Key: server.KeyState{Source: "none"}}, "", "Model: from the Codex configuration (Local Codex)\nOpenRouter key: none. There is no " + missing + "; add OPENROUTER_API_KEY there, set it in the environment, or enter it in Settings."},
 	} {
-		if got := keyLine(test.key); got != test.want {
+		if got := connectionLines(test.state, test.envFile); got != test.want {
 			t.Errorf("got %q, want %q", got, test.want)
 		}
 	}

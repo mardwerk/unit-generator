@@ -532,17 +532,27 @@ func (in *invocation) serve(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	fmt.Fprintf(in.stdout, "mardwerk-unit is ready: %s\n%s\nKeep this terminal open.\n", url, keyLine(srv.Provider().Key))
+	fmt.Fprintf(in.stdout, "mardwerk-unit is ready: %s\n%s\nKeep this terminal open.\n", url, connectionLines(srv.Provider(), in.env.File()))
 	<-ctx.Done()
 	return srv.Close()
 }
 
-// keyLine names the OpenRouter key serve uses, masked as in Settings, so a
-// missing or unexpected key shows before the page is opened.
-func keyLine(key server.KeyState) string {
-	envFile, _ := filepath.Abs(".env")
+// connectionLines name the model and the OpenRouter key serve uses, the key
+// masked as in Settings, so a missing .env or key shows before the page is
+// opened. envFile is the .env that was read, or "" when there was none.
+func connectionLines(state server.ProviderState, envFile string) string {
+	model := state.Model
+	if model == "" {
+		model = "from the Codex configuration"
+	}
+	lines := "Model: " + model + " (" + map[string]string{"openrouter": "OpenRouter", "codex": "Local Codex"}[state.Provider] + ")\n"
+	key := state.Key
 	if !key.Configured {
-		return "OpenRouter key: none. Add OPENROUTER_API_KEY to " + envFile + ", set it in the environment, or enter it in Settings."
+		if envFile == "" {
+			missing, _ := filepath.Abs(".env")
+			return lines + "OpenRouter key: none. There is no " + missing + "; add OPENROUTER_API_KEY there, set it in the environment, or enter it in Settings."
+		}
+		return lines + "OpenRouter key: none. " + envFile + " has no OPENROUTER_API_KEY; add it there, set it in the environment, or enter it in Settings."
 	}
 	hint := "set (too short to show a fragment)"
 	if key.Hint != nil {
@@ -552,5 +562,5 @@ func keyLine(key server.KeyState) string {
 		provider.SourceEnvFile: envFile,
 		provider.SourceEnv:     "the OPENROUTER_API_KEY environment variable",
 	}[key.Source]
-	return "OpenRouter key: " + hint + " (from " + source + ")"
+	return lines + "OpenRouter key: " + hint + " (from " + source + ")"
 }

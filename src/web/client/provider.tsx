@@ -40,11 +40,13 @@ export function KeyStatus({ state, onOpen }: { state: ProviderState | null; onOp
       id="key-status"
       type="button"
       className={`text-button key-status${missing ? ' missing' : ''}`}
-      title={
+      title={`${state.model || 'Codex configuration'} via ${
+        state.provider === 'openrouter' ? 'OpenRouter' : 'Local Codex'
+      }. ${
         key.configured
-          ? `OpenRouter key ${keySources[key.source]}. Open Settings to change it.`
-          : 'No OpenRouter key configured. Open Settings to add one.'
-      }
+          ? `OpenRouter key ${keySources[key.source]}.`
+          : 'No OpenRouter key configured.'
+      } Open Settings to change them.`}
       onClick={onOpen}
     >
       <KeyRound size={13} aria-hidden="true" />

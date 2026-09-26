@@ -9,7 +9,7 @@ go build -o mardwerk-unit ./src/cli
 ./mardwerk-unit serve
 ```
 
-Open `http://127.0.0.1:4317`. The terminal also shows the OpenRouter key in use, masked, and where it came from. Use `--port 4318` for another port and `--provider codex` to use an existing Codex login instead of OpenRouter. Stopping the server (Ctrl+C) cancels running generations.
+Open `http://127.0.0.1:4317`. The terminal also shows the model and the OpenRouter key in use, the key masked, and the `.env` file or variable they came from. Use `--port 4318` for another port and `--provider codex` to use an existing Codex login instead of OpenRouter. Stopping the server (Ctrl+C) cancels running generations.
 
 When you change the client, rebuild it with `pnpm build` (Node.js 22 or newer) and rebuild the binary; `src/web/dist` is what the binary serves.
 
@@ -33,7 +33,7 @@ Profiles saved by earlier versions lived in `data/runs/library/profiles`; move t
 
 ## Settings
 
-- **Provider.** OpenRouter is the default and uses `openrouter/free` (free models only, no paid fallback). A key is required even for free models: set `OPENROUTER_API_KEY` in `.env` or the environment, or enter it in Settings, where it stays in server memory and never enters an artifact. The top bar shows the key in use, masked (for example `sk-or-v1-378...593`); Settings adds where it came from: `.env`, the environment, or Settings. "Configured" does not mean OpenRouter accepted it. Local Codex is the alternative.
+- **Provider.** OpenRouter is the default and uses `openrouter/free` (free models only, no paid fallback). A key is required even for free models: set `OPENROUTER_API_KEY` in `.env` or the environment, or enter it in Settings, where it stays in server memory and never enters an artifact. The top bar shows the key in use, masked (for example `sk-or-v1-abc...xyz`), with the model in its tooltip; Settings adds where the key came from: `.env`, the environment, or Settings. A configured key is not necessarily one OpenRouter accepts. `OPENROUTER_MODEL` in `.env` sets the model; Settings can change it until the server stops. Local Codex is the alternative.
 - **Library folder.** Defaults to `data/runs/library`; a folder chosen in Settings is recorded in `data/runs/lab-settings.json`. Both are ignored by Git.
 
 ## Library

@@ -4,14 +4,25 @@ import (
 	"bufio"
 	"errors"
 	"os"
+	"path/filepath"
+	"regexp"
+	"strconv"
 	"strings"
+
+	"golang.org/x/text/encoding/unicode"
+	"golang.org/x/text/transform"
 )
 
 // Environment holds settings from the process environment and an optional
 // .env file. Process variables take precedence over the file.
 type Environment struct {
 	file map[string]string
+	path string
 }
+
+// variableName is what a .env line may assign. Anything else, such as a
+// name read in the wrong encoding, is an error rather than a silent miss.
+var variableName = regexp.MustCompile(`^[A-Za-z_][A-Za-z0-9_.-]*$`)
 
 // Where a setting came from.
 const (
@@ -21,39 +32,49 @@ const (
 )
 
 // LoadEnvironment reads path (usually .env in the working directory). A
-// missing file is empty. Errors never quote a line, which may hold a key.
+// missing file is empty. The file is UTF-8, or UTF-16 with a byte-order
+// mark as Windows PowerShell writes it. Errors name the line but never
+// quote it, because it may hold a key.
 func LoadEnvironment(path string) (Environment, error) {
 	env := Environment{file: map[string]string{}}
 	file, err := os.Open(path)
 	if errors.Is(err, os.ErrNotExist) {
 		return env, nil
 	}
+	invalid := func(line string) error {
+		return errors.New("Could not load the local .env file" + line + ". Check its format, encoding and permissions.")
+	}
 	if err != nil {
-		return env, errors.New("Could not load the local .env file. Check its format and permissions.")
+		return env, invalid("")
 	}
 	defer file.Close()
-	scanner := bufio.NewScanner(file)
+	if env.path, err = filepath.Abs(path); err != nil {
+		env.path = path
+	}
+	scanner := bufio.NewScanner(transform.NewReader(file, unicode.BOMOverride(unicode.UTF8.NewDecoder())))
 	scanner.Buffer(make([]byte, 64*1024), 1024*1024)
-	for scanner.Scan() {
-		// Windows editors often start the file with a byte-order mark,
-		// which would otherwise become part of the first name.
-		line := strings.TrimSpace(strings.TrimPrefix(scanner.Text(), "\ufeff"))
+	for number := 1; scanner.Scan(); number++ {
+		line := strings.TrimSpace(scanner.Text())
 		if line == "" || strings.HasPrefix(line, "#") {
 			continue
 		}
 		line = strings.TrimPrefix(line, "export ")
 		name, value, ok := strings.Cut(line, "=")
 		name = strings.TrimSpace(name)
-		if !ok || name == "" || strings.ContainsAny(name, " \t") {
-			return Environment{}, errors.New("Could not load the local .env file. Check its format and permissions.")
+		if !ok || !variableName.MatchString(name) {
+			return Environment{}, invalid(" (line " + strconv.Itoa(number) + ")")
 		}
 		env.file[name] = unquote(strings.TrimSpace(value))
 	}
 	if scanner.Err() != nil {
-		return Environment{}, errors.New("Could not load the local .env file. Check its format and permissions.")
+		return Environment{}, invalid("")
 	}
 	return env, nil
 }
+
+// File is the absolute path of the .env file that was read, or "" when
+// there was none.
+func (e Environment) File() string { return e.path }
 
 func unquote(value string) string {
 	if len(value) >= 2 && (value[0] == '"' || value[0] == '\'' || value[0] == '`') {

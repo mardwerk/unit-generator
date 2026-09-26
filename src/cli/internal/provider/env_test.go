@@ -5,6 +5,7 @@ import (
 	"path/filepath"
 	"strings"
 	"testing"
+	utf16pkg "unicode/utf16"
 )
 
 func TestEnvironmentPrefersProcessVariablesAndNeverQuotesLines(t *testing.T) {
@@ -36,15 +37,50 @@ func TestEnvironmentPrefersProcessVariablesAndNeverQuotesLines(t *testing.T) {
 	if KeyHint("short-secret") != nil {
 		t.Error("short keys stay hidden")
 	}
-	_ = os.WriteFile(path, []byte("\ufeffOPENROUTER_API_KEY="+key+"\r\nOPENROUTER_MODEL=provider/model\r\n"), 0o600)
-	if env, err := LoadEnvironment(path); err != nil || env.Value("OPENROUTER_API_KEY") != key {
-		t.Errorf("a byte-order mark and CRLF line endings hide the key: %v", err)
+	if env.File() != path {
+		t.Errorf("file %q", env.File())
 	}
-	_ = os.WriteFile(path, []byte("SECRET_VALUE without an equals sign\n"), 0o600)
-	if _, err := LoadEnvironment(path); err == nil || strings.Contains(err.Error(), "SECRET") {
+	// Windows editors add a byte-order mark; Windows PowerShell writes UTF-16.
+	windows := "OPENROUTER_API_KEY=" + key + "\r\nOPENROUTER_MODEL=provider/model\r\n"
+	for name, content := range map[string][]byte{
+		"UTF-8 with a byte-order mark": append([]byte("\ufeff"), windows...),
+		"UTF-16LE":                     utf16(windows, false),
+		"UTF-16BE":                     utf16(windows, true),
+	} {
+		_ = os.WriteFile(path, content, 0o600)
+		env, err := LoadEnvironment(path)
+		if err != nil || env.Value("OPENROUTER_API_KEY") != key || env.Value("OPENROUTER_MODEL") != "provider/model" {
+			t.Errorf("%s: %v", name, err)
+		}
+	}
+	// Without a byte-order mark, UTF-16 cannot be told apart; it fails loudly
+	// instead of silently losing every setting.
+	_ = os.WriteFile(path, utf16(windows, false)[2:], 0o600)
+	if _, err := LoadEnvironment(path); err == nil || !strings.Contains(err.Error(), "line 1") {
+		t.Errorf("UTF-16 without a byte-order mark: %v", err)
+	}
+	_ = os.WriteFile(path, []byte("# SECRET_VALUE\nSECRET_VALUE without an equals sign\n"), 0o600)
+	if _, err := LoadEnvironment(path); err == nil || strings.Contains(err.Error(), "SECRET") || !strings.Contains(err.Error(), "line 2") {
 		t.Errorf("error %v", err)
 	}
-	if _, err := LoadEnvironment(filepath.Join(directory, "missing.env")); err != nil {
+	env, err = LoadEnvironment(filepath.Join(directory, "missing.env"))
+	if err != nil || env.File() != "" {
 		t.Errorf("a missing file is empty: %v", err)
 	}
+}
+
+// utf16 encodes text with a byte-order mark, as Windows PowerShell does.
+func utf16(text string, bigEndian bool) []byte {
+	out := []byte{0xff, 0xfe}
+	if bigEndian {
+		out = []byte{0xfe, 0xff}
+	}
+	for _, unit := range utf16pkg.Encode([]rune(text)) {
+		if bigEndian {
+			out = append(out, byte(unit>>8), byte(unit))
+		} else {
+			out = append(out, byte(unit), byte(unit>>8))
+		}
+	}
+	return out
 }
