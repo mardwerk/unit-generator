@@ -60,31 +60,6 @@ export function GenerateInputs({
               disabled={session.busy}
             />
           </label>
-          <label className="profile-picker" title={`Profile: ${profileName}`}>
-            <Layers size={16} aria-hidden="true" className="profile-picker-icon" />
-            <span className="sr-only">Profile</span>
-            <select
-              id="profile-select"
-              value={profileId}
-              onChange={(e) => {
-                const entry = profiles.find(({ profile }) => profile.id === e.target.value);
-                if (entry) session.setProfile(entry);
-              }}
-              disabled={session.busy || profiles.length === 0}
-            >
-              {(importedRules || profiles.length === 0) && (
-                <option value="" disabled>
-                  {profiles.length === 0 ? 'Loading Profiles...' : 'Imported rules'}
-                </option>
-              )}
-              {profiles.map(({ profile, builtIn }) => (
-                <option key={profile.id} value={profile.id}>
-                  {builtIn ? profile.name : `${profile.name} (saved)`}
-                </option>
-              ))}
-            </select>
-            <ChevronDown size={14} aria-hidden="true" className="profile-picker-chevron" />
-          </label>
           <button
             id="generate"
             type="submit"
@@ -109,6 +84,31 @@ export function GenerateInputs({
           </p>
         )}
         <div className="input-actions">
+          <label className="profile-picker" title={`Profile: ${profileName}`}>
+            <Layers size={13} aria-hidden="true" className="profile-picker-icon" />
+            <span className="sr-only">Profile</span>
+            <select
+              id="profile-select"
+              value={profileId}
+              onChange={(e) => {
+                const entry = profiles.find(({ profile }) => profile.id === e.target.value);
+                if (entry) session.setProfile(entry);
+              }}
+              disabled={session.busy || profiles.length === 0}
+            >
+              {(importedRules || profiles.length === 0) && (
+                <option value="" disabled>
+                  {profiles.length === 0 ? 'Loading Profiles...' : 'Imported rules'}
+                </option>
+              )}
+              {profiles.map(({ profile, builtIn }) => (
+                <option key={profile.id} value={profile.id}>
+                  {builtIn ? profile.name : `${profile.name} (saved)`}
+                </option>
+              ))}
+            </select>
+            <ChevronDown size={13} aria-hidden="true" className="profile-picker-chevron" />
+          </label>
           <button
             type="button"
             className="text-button"

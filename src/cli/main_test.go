@@ -11,6 +11,7 @@ import (
 
 	"github.com/mardwerk/unit-generator/src/cli/internal/parity"
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
+	"github.com/mardwerk/unit-generator/src/cli/internal/server"
 )
 
 // cli runs one invocation in a scratch runs folder.
@@ -178,5 +179,23 @@ func TestModelCommandsNeedAKeyAndReportIt(t *testing.T) {
 	}
 	if _, _, err := cli(t, "draft", prepared, "--provider", "codex", "--codex", filepath.Join(dir, "no-codex"), "--timeout", "5"); err == nil || !strings.Contains(err.Error(), "could not start") {
 		t.Errorf("codex: %v", err)
+	}
+}
+
+func TestServeNamesTheMaskedKeyAndWhereItCameFrom(t *testing.T) {
+	hint := "sk-or-v1-abc...xyz"
+	envFile, _ := filepath.Abs(".env")
+	for _, test := range []struct {
+		key  server.KeyState
+		want string
+	}{
+		{server.KeyState{Configured: true, Source: "env-file", Hint: &hint}, "OpenRouter key: sk-or-v1-abc...xyz (from " + envFile + ")"},
+		{server.KeyState{Configured: true, Source: "env", Hint: &hint}, "OpenRouter key: sk-or-v1-abc...xyz (from the OPENROUTER_API_KEY environment variable)"},
+		{server.KeyState{Configured: true, Source: "env-file"}, "OpenRouter key: set (too short to show a fragment) (from " + envFile + ")"},
+		{server.KeyState{Source: "none"}, "OpenRouter key: none. Add OPENROUTER_API_KEY to " + envFile + ", set it in the environment, or enter it in Settings."},
+	} {
+		if got := keyLine(test.key); got != test.want {
+			t.Errorf("got %q, want %q", got, test.want)
+		}
 	}
 }

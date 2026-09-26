@@ -74,4 +74,4 @@ Without `-o`, stdout carries the complete JSON artifact (Markdown for `render`) 
 
 Model inputs and raw outputs are recorded only with `--evidence-dir`: each run gets a new folder with the input, a manifest (the binary's build and SHA-256), every request, raw answer, output and outcome.
 
-Configuration: existing environment variables win over `.env` in the working directory; command-line options win over both. `UNIT_DATA_DIR` moves `data/`, and `UNIT_RUNS_DIR` moves `data/runs/`. Credentials never enter artifacts. Agents must follow [OPENROUTER.md](OPENROUTER.md).
+Configuration: existing environment variables win over `.env` in the working directory; command-line options win over both. `serve` prints the OpenRouter key it uses, masked, and the file or variable it came from. `UNIT_DATA_DIR` moves `data/`, and `UNIT_RUNS_DIR` moves `data/runs/`. Credentials never enter artifacts. Agents must follow [OPENROUTER.md](OPENROUTER.md).

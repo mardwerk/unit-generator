@@ -18,7 +18,7 @@ import { CharacterSheet, Comparison } from './kit.js';
 import { Workflow } from './workflow.js';
 import { CharacterChoices, GenerateInputs } from './generate-inputs.js';
 import { Revisions } from './revisions.js';
-import { Settings } from './provider.js';
+import { KeyStatus, Settings, useProvider } from './provider.js';
 import { Library, useLibrary } from './library.js';
 import { ProfilesView, useProfiles } from './profiles.js';
 import { Disclosure, Field, IconButton, download } from './ui.js';
@@ -38,6 +38,7 @@ export function App() {
   const [opening, setOpening] = useState(false);
   const [libraryError, setLibraryError] = useState('');
   const [settings, setSettings] = useState(false);
+  const provider = useProvider(settings);
   const [feedback, setFeedback] = useState('');
   const inputFile = useRef<HTMLInputElement>(null);
   const previous = candidateOf(
@@ -197,6 +198,7 @@ export function App() {
           </IconButton>
         </nav>
         <div className="topbar-actions">
+          <KeyStatus state={provider} onOpen={() => setSettings(true)} />
           <IconButton id="open-settings" label="Settings" onClick={() => setSettings(true)}>
             <SettingsIcon size={19} />
           </IconButton>

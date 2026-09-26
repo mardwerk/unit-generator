@@ -532,7 +532,25 @@ func (in *invocation) serve(ctx context.Context) error {
 	if err != nil {
 		return err
 	}
-	fmt.Fprintf(in.stdout, "mardwerk-unit is ready: %s\nKeep this terminal open.\n", url)
+	fmt.Fprintf(in.stdout, "mardwerk-unit is ready: %s\n%s\nKeep this terminal open.\n", url, keyLine(srv.Provider().Key))
 	<-ctx.Done()
 	return srv.Close()
+}
+
+// keyLine names the OpenRouter key serve uses, masked as in Settings, so a
+// missing or unexpected key shows before the page is opened.
+func keyLine(key server.KeyState) string {
+	envFile, _ := filepath.Abs(".env")
+	if !key.Configured {
+		return "OpenRouter key: none. Add OPENROUTER_API_KEY to " + envFile + ", set it in the environment, or enter it in Settings."
+	}
+	hint := "set (too short to show a fragment)"
+	if key.Hint != nil {
+		hint = *key.Hint
+	}
+	source := map[string]string{
+		provider.SourceEnvFile: envFile,
+		provider.SourceEnv:     "the OPENROUTER_API_KEY environment variable",
+	}[key.Source]
+	return "OpenRouter key: " + hint + " (from " + source + ")"
 }

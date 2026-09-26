@@ -99,6 +99,9 @@ func (srv *Server) Listen(port int) (string, error) {
 	return srv.origin + "/", nil
 }
 
+// Provider is the model connection as GET /api/v1/provider reports it.
+func (srv *Server) Provider() ProviderState { return srv.connection.state() }
+
 // Token is the session token API calls must present.
 func (srv *Server) Token() string { return srv.token }
 

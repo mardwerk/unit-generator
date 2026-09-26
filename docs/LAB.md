@@ -9,13 +9,13 @@ go build -o mardwerk-unit ./src/cli
 ./mardwerk-unit serve
 ```
 
-Open `http://127.0.0.1:4317`. Use `--port 4318` for another port and `--provider codex` to use an existing Codex login instead of OpenRouter. Stopping the server (Ctrl+C) cancels running generations.
+Open `http://127.0.0.1:4317`. The terminal also shows the OpenRouter key in use, masked, and where it came from. Use `--port 4318` for another port and `--provider codex` to use an existing Codex login instead of OpenRouter. Stopping the server (Ctrl+C) cancels running generations.
 
 When you change the client, rebuild it with `pnpm build` (Node.js 22 or newer) and rebuild the binary; `src/web/dist` is what the binary serves.
 
 ## Generate a unit
 
-Enter a character name, pick a Profile in the dropdown next to the name (the BTD6-inspired default is preselected) and select Generate. The server looks the character up on Wikipedia (with Wikidata and Fandom for text and images) and asks you to choose when the name is ambiguous. It saves the found Sources to your library, prepares them under the Profile, then drafts, checks and reviews the unit. Missing sources produce an error, never invented canon.
+Enter a character name and select Generate. The Profile dropdown below the name, beside Inputs and rules and Import, picks the rules; the BTD6-inspired default is preselected. The server looks the character up on Wikipedia (with Wikidata and Fandom for text and images) and asks you to choose when the name is ambiguous. It saves the found Sources to your library, prepares them under the Profile, then drafts, checks and reviews the unit. Missing sources produce an error, never invented canon.
 
 - Starting a generation clears the name field and hides earlier failed or stopped runs from the activity bar; their revisions stay available.
 - Ctrl-click or Cmd-click Generate to stay on the create page; several runs can proceed at once, each with its own Stop.
@@ -33,7 +33,7 @@ Profiles saved by earlier versions lived in `data/runs/library/profiles`; move t
 
 ## Settings
 
-- **Provider.** OpenRouter is the default and uses `openrouter/free` (free models only, no paid fallback). A key is required even for free models: set `OPENROUTER_API_KEY` in `.env` or the environment, or enter it in Settings, where it stays in server memory and never enters an artifact. Settings shows the key in use, masked (for example `sk-or-v1-378...593`), and where it came from: `.env`, the environment, or Settings. "Configured" does not mean OpenRouter accepted it. Local Codex is the alternative.
+- **Provider.** OpenRouter is the default and uses `openrouter/free` (free models only, no paid fallback). A key is required even for free models: set `OPENROUTER_API_KEY` in `.env` or the environment, or enter it in Settings, where it stays in server memory and never enters an artifact. The top bar shows the key in use, masked (for example `sk-or-v1-378...593`); Settings adds where it came from: `.env`, the environment, or Settings. "Configured" does not mean OpenRouter accepted it. Local Codex is the alternative.
 - **Library folder.** Defaults to `data/runs/library`; a folder chosen in Settings is recorded in `data/runs/lab-settings.json`. Both are ignored by Git.
 
 ## Library

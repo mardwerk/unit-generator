@@ -1,8 +1,58 @@
 import { useEffect, useState } from 'react';
-import type { ProviderState } from './contract.js';
+import { KeyRound } from 'lucide-react';
+import type { KeyState, ProviderState } from './contract.js';
 import type { GenerationLibrary } from './library.js';
 import { api } from './api.js';
 import { Field, Disclosure, Modal } from './ui.js';
+
+const keySources: Record<KeyState['source'], string> = {
+  'env-file': 'from .env',
+  env: 'from the OPENROUTER_API_KEY environment variable',
+  settings: 'entered in Settings',
+  none: '',
+};
+
+/** The provider state the server reports, refreshed whenever Settings closes. */
+export function useProvider(settingsOpen: boolean): ProviderState | null {
+  const [state, setState] = useState<ProviderState | null>(null);
+  useEffect(() => {
+    if (settingsOpen) return;
+    let active = true;
+    void api<ProviderState>('provider')
+      .then((next) => {
+        if (active) setState(next);
+      })
+      .catch(() => undefined);
+    return () => {
+      active = false;
+    };
+  }, [settingsOpen]);
+  return state;
+}
+
+/** The masked key in use, visible without opening Settings. */
+export function KeyStatus({ state, onOpen }: { state: ProviderState | null; onOpen: () => void }) {
+  if (!state) return null;
+  const { key } = state;
+  const missing = !key.configured && state.provider === 'openrouter';
+  return (
+    <button
+      id="key-status"
+      type="button"
+      className={`text-button key-status${missing ? ' missing' : ''}`}
+      title={
+        key.configured
+          ? `OpenRouter key ${keySources[key.source]}. Open Settings to change it.`
+          : 'No OpenRouter key configured. Open Settings to add one.'
+      }
+      onClick={onOpen}
+    >
+      <KeyRound size={13} aria-hidden="true" />
+      <span className="sr-only">OpenRouter key: </span>
+      <span className="key-status-text">{key.configured ? (key.hint ?? 'set') : 'No API key'}</span>
+    </button>
+  );
+}
 
 /** Keys are submitted to the local server and never included in saved authoring work. */
 export function Settings({
@@ -112,12 +162,7 @@ export function Settings({
             <p id="current-key" className="muted small">
               {keyState?.configured
                 ? `Current key: ${keyState.hint ?? 'set (too short to show a fragment)'} (${
-                    {
-                      'env-file': 'from .env',
-                      env: 'from the OPENROUTER_API_KEY environment variable',
-                      settings: 'entered in Settings',
-                      none: '',
-                    }[keyState.source]
+                    keySources[keyState.source]
                   })`
                 : 'No OpenRouter key configured.'}
             </p>

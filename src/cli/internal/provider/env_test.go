@@ -36,6 +36,10 @@ func TestEnvironmentPrefersProcessVariablesAndNeverQuotesLines(t *testing.T) {
 	if KeyHint("short-secret") != nil {
 		t.Error("short keys stay hidden")
 	}
+	_ = os.WriteFile(path, []byte("\ufeffOPENROUTER_API_KEY="+key+"\r\nOPENROUTER_MODEL=provider/model\r\n"), 0o600)
+	if env, err := LoadEnvironment(path); err != nil || env.Value("OPENROUTER_API_KEY") != key {
+		t.Errorf("a byte-order mark and CRLF line endings hide the key: %v", err)
+	}
 	_ = os.WriteFile(path, []byte("SECRET_VALUE without an equals sign\n"), 0o600)
 	if _, err := LoadEnvironment(path); err == nil || strings.Contains(err.Error(), "SECRET") {
 		t.Errorf("error %v", err)

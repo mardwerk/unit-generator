@@ -178,6 +178,22 @@ a:hover {
 .topbar-actions {
   justify-self: end;
 }
+button.key-status {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  max-width: 190px;
+  font-family: ui-monospace, monospace;
+}
+.key-status-text {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+button.key-status.missing {
+  color: var(--warning);
+  font-family: inherit;
+}
 .topbar .topbar-nav {
   justify-self: center;
   margin: 0;
@@ -267,17 +283,14 @@ button.nav-button.active {
 .generate-form button {
   min-height: 43px;
 }
-/* A compact Profile dropdown that lines up with the name field and Generate. */
+/* The Profile dropdown sits with Inputs and rules and Import, styled like them. */
 .profile-picker {
   position: relative;
   display: inline-flex;
   align-items: center;
-  flex: 0 1 auto;
-  max-width: 210px;
-  min-height: 43px;
-  border: 1px solid var(--input-border);
+  max-width: 260px;
+  min-height: 28px;
   border-radius: 6px;
-  background: var(--surface);
   color: var(--muted);
 }
 .profile-picker:hover {
@@ -293,21 +306,25 @@ button.nav-button.active {
   pointer-events: none;
 }
 .profile-picker-icon {
-  left: 11px;
+  left: 5px;
 }
 .profile-picker-chevron {
-  right: 10px;
+  right: 5px;
 }
 .profile-picker select {
   appearance: none;
-  min-height: 41px;
-  padding: 0 30px 0 34px;
+  min-height: 28px;
+  max-width: 100%;
+  padding: 3px 22px 3px 23px;
   border: 0;
   background: transparent;
-  color: var(--text);
-  font-size: 0.85rem;
+  color: var(--muted);
+  font-size: 0.8rem;
   text-overflow: ellipsis;
   cursor: pointer;
+}
+.profile-picker:hover select {
+  color: var(--text);
 }
 .profile-picker select:focus {
   outline: none;
@@ -322,6 +339,8 @@ button.nav-button.active {
 }
 .input-actions {
   display: flex;
+  flex-wrap: wrap;
+  align-items: center;
   gap: 8px;
   margin-top: 8px;
 }
@@ -1061,10 +1080,6 @@ dialog::backdrop {
   .generate-form .field {
     flex-basis: 100%;
   }
-  .generate-form .profile-picker {
-    flex: 1;
-    max-width: none;
-  }
 }
 @media (max-width: 850px) {
   .workspace {
@@ -1314,6 +1329,9 @@ dialog::backdrop {
     grid-column: 2;
     grid-row: 1;
   }
+  .key-status-text {
+    display: none;
+  }
   .topbar .topbar-nav {
     grid-column: 1 / -1;
     grid-row: 2;
@@ -1544,17 +1562,5 @@ button.card-open:hover:not(:disabled) {
 @media (max-width: 760px) {
   .profiles-layout {
     grid-template-columns: 1fr;
-  }
-}
-@media (max-width: 600px) {
-  .generate-form {
-    flex-wrap: wrap;
-  }
-  .generate-form .field {
-    flex-basis: 100%;
-  }
-  .generate-form .profile-picker {
-    flex: 1;
-    max-width: none;
   }
 }
