@@ -13,7 +13,7 @@ Every BTD6 value in this repository comes from capture **56.3, Steam build 24829
 | Consumer | BTD6 values | Files |
 | --- | --- | --- |
 | `src/cli/internal/mechanics/defaults.go` | The Definition's reference scale: Dart Monkey 0-0-0 price, damage, interval, range and pierce, and its top-path purchase prices | `Towers/DartMonkey/DartMonkey.json`; `Upgrades/Sharp Shots.json`, `Razor Sharp Shots.json`, `Spike-o-pult.json`, `Juggernaut.json`, `Ultra-Juggernaut.json` |
-| `src/cli/internal/unit/defaults_text.go` | The default rules document (`default-td-profile-v12`): scale references for group capacity, precision, attack speed with an allied or a self active, single target with blimp control, control, burst and support, and the roster price bands | `Towers/DartMonkey/DartMonkey-{100..500,010..050,001..005}.json`, `Towers/BoomerangMonkey/BoomerangMonkey{,-010..-050}.json`, `Towers/SniperMonkey/SniperMonkey{,-100..-500}.json`, `Towers/IceMonkey/IceMonkey{,-100..-500}.json`, `Towers/TackShooter/TackShooter{,-010..-050}.json`, `Towers/MonkeyVillage/MonkeyVillage{,-100,-200,-020}.json`, the matching `Upgrades/` files, and `patterns/towers.md` and `patterns/progression.md` at the same revision |
+| `src/cli/internal/unit/defaults_text.go` | The default rules document (`default-td-profile-v12`): scale references for group capacity, precision, attack speed with an allied or a self Active Ability, single target with blimp control, control, burst and support, and the roster price bands | `Towers/DartMonkey/DartMonkey-{100..500,010..050,001..005}.json`, `Towers/BoomerangMonkey/BoomerangMonkey{,-010..-050}.json`, `Towers/SniperMonkey/SniperMonkey{,-100..-500}.json`, `Towers/IceMonkey/IceMonkey{,-100..-500}.json`, `Towers/TackShooter/TackShooter{,-010..-050}.json`, `Towers/MonkeyVillage/MonkeyVillage{,-100,-200,-020}.json`, the matching `Upgrades/` files, and `patterns/towers.md` and `patterns/progression.md` at the same revision |
 | `data/reference/dart-monkey.request.json` | A Dart Monkey brief: every purchase, price and supported number of the three paths | `Towers/DartMonkey/` and the matching `Upgrades/` files |
 | `src/cli/internal/fixture/testdata/` | The scripted test unit, written from that brief | as above |
 
@@ -42,7 +42,7 @@ The default Profile follows BTD6 closely: the same 3 × 5 purchase structure, cr
 | Area | BTD6 | Default Profile |
 | --- | --- | --- |
 | Match | Cash, lives and a bloon layer tree | Gold and a shared Health pool of 150; the basic enemy has one layer and no layer tree or leak simulation exists |
-| Activated abilities | On the middle fourth purchase of 25 of 26 towers, and on one top and one bottom fourth purchase in the roster | Only the middle path, first at `x-4-x`; one manual boost of the purchased attack, which `x-5-x` may modify |
+| Active Abilities | On the middle fourth purchase of 25 of 26 towers, and on one top and one bottom fourth purchase in the roster | Only the middle path, first at `x-4-x`; one Active Ability, a boost of the purchased attack, which `x-5-x` may modify |
 | Attacks | Several attacks, sub-towers and separate ability attacks per tower | One automatic attack with bounded follow-ups and distinct-target volleys |
 | Allied effects | Buffs, shared detection and transformations of nearby towers | Unsupported; only the Unit's own attack changes |
 | Damage modifiers | Bonuses against Ceramic, Fortified, MOAB-class and other tags, critical-hit counters, rebounds, knockback, shot arcs | Unsupported; listed as unsupported mechanics, never folded into ordinary damage |

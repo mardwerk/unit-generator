@@ -22,10 +22,15 @@ Each term has one meaning here. Use it only with that meaning and do not substit
 | Artifact | Any of the above saved as versioned JSON. |
 | Finding | One recorded issue or observation: what it concerns, how it was established (deterministic or model), severity and outcome (`pass`, `fail`, `unresolved`, `not_checked`). |
 | Candidate | The readable unit, with its blueprint when mechanics are typed. Drafts, checked artifacts and Results each carry one. |
+| Unit sheet | The rendered unit: its name, `0-0-0`, each purchase by build code with exact numbers, every crosspath and, for a revision, patch notes. Findings, usage and provenance are rendered apart from it (`render --details`). |
+| Patch notes | The changes a revision made: changed mechanics and the builds they affect, apart from renamed purchases. |
 | Run | The record of one model stage inside a Draft or Result: model, timing and usage. |
 | Active Ability | An ability that the unit's owner activates manually. The design policy calls it a manual ability (`manualAbilityPath`, `maxManualAbilityPaths`); those field names stay. |
+| Build code | A purchase or build written top-middle-bottom. `0-0-0` is the base unit; `x-4-x` is the middle path's fourth purchase, where `x` means unspecified; `1-2-0` is a concrete build. |
+| Crosspath | A legal build that buys two paths. Under the default Definition there are 12 early crosspaths, with both paths at their first or second purchase, and 36 advanced ones, with one path further. |
 | Mechanic proposal | A suggested addition to a Definition. It is not an approved rule and does not mean the Engine supports it. |
-| Library | The folder, chosen by the user (`data/runs/library` by default), where saved Sources, artifacts with their Markdown, icons and portraits live. The CLI and `serve` write it; nothing else is stored. |
+| Unsupported mechanic | Behavior a unit's sources call for that its Definition cannot express. It is recorded as a Mechanic proposal and reported as an `unsupported-mechanic` Finding; no build grants it. |
+| Library | The folder, chosen by the user (`data/runs/library` by default), where saved Sources, artifacts with their Markdown, icons and portraits live, arranged by work and character. The CLI and `serve` write it; nothing else is stored. |
 | Consumer | The game or runtime that executes generated units. |
 | Towerright | The separate project that owns project history, multi-tool orchestration, wider evaluation and acceptance. |
 

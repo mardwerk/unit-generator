@@ -1,3 +1,6 @@
 # Build output, rewritten by pnpm build.
 src/web/dist/
 pnpm-lock.yaml
+
+# Engine artifacts kept exactly as the Engine wrote them.
+data/reference/captures/

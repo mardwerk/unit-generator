@@ -20,7 +20,7 @@ This excerpt is from a real run, not a mock-up. Profile: the bundled Default Pro
 >
 > *Middle path: Quick Shots*
 >
-> **x-4-x Super Monkey Fan Club** (6,000 Gold). Shortens the attack interval from 0.4784 s to 0.2392 s (×0.5). Adds Super Monkey Surge, this Unit's manual ability: for 15 s it multiplies its interval by 0.0625, so the attack deals 1 damage every 0.015 s at range 32. It is ready on purchase, recharges 50 s after activation and cannot reactivate while active; it grants no separate attack.
+> **x-4-x Super Monkey Fan Club** (6,000 Gold). Shortens the attack interval from 0.4784 s to 0.2392 s (×0.5). Adds Super Monkey Surge, this Unit's Active Ability: for 15 s it multiplies its interval by 0.0625, so the attack deals 1 damage every 0.015 s at range 32. It is ready on purchase, recharges 50 s after activation and cannot reactivate while active; it grants no separate attack.
 >
 > *Bottom path: Crossbow*
 >
@@ -28,7 +28,7 @@ This excerpt is from a real run, not a mock-up. Profile: the bundled Default Pro
 >
 > *Crosspaths: 12 early and 36 advanced builds, for example*
 >
-> **1-4-0** (7,080 Gold). Added by the other path: 1-x-x: pierce 2 → 3, during Super Monkey Surge: pierce 2 → 3. Resulting attack: 3 projectiles every 0.2392 s, 1 Sharp damage, pierce 3, range 32. Active: Super Monkey Surge for 15 s every 50 s: 3 projectiles every 0.015 s, 1 Sharp damage, pierce 3, range 32.
+> **1-4-0** (7,080 Gold). Added by the other path: 1-x-x: pierce 2 → 3, during Super Monkey Surge: pierce 2 → 3. Resulting attack: 3 projectiles every 0.2392 s, 1 Sharp damage, pierce 3, range 32. Active Ability: Super Monkey Surge for 15 s every 50 s: 3 projectiles every 0.015 s, 1 Sharp damage, pierce 3, range 32.
 
 Every number comes from resolving the typed mechanics, and the crosspath lines are computed, not written by the model. In the same run the model review reported three concerns, all on the middle path: the fifth purchase's pierce applies outside the boost, the boost borrows a factor the source gives to allied towers, and one x-5-x does not beat several x-4-x copies. Three prices also differ from the source (x-4-x 7,200, x-5-x 45,000, x-x-5 21,500 Gold). A [revision](data/reference/captures/dart-monkey.revision.md) restored them and x-x-5's pierce 8 without touching the other purchases or crosspaths; because a purchase may change at most four properties, x-x-5 lost its +2 damage in exchange. What the Definition cannot express (rebounds, knockback, critical shots, allied transformations) is reported as unsupported mechanics in the diagnostics (`render --details`), not granted by any build.
 
@@ -72,7 +72,7 @@ More in [CLI.md](docs/CLI.md) (commands and request files), [LAB.md](docs/LAB.md
 
 A Profile holds the task, the rules document and the mechanics Definition: currency, starter scale, limits, and the status effects, damage types, targeting and detection a unit may use.
 
-- **Default Profile.** Bundled and selected unless you pick another. It follows Bloons TD 6 closely: three paths of five, the BTD6 crosspath rule, Medium prices, damage types that cannot hurt some enemies, and Camo detection. Only the middle path may have an activated ability, first at `x-4-x`. Its scale references come from real towers in [btd6-atlas](https://github.com/KyleDerZweite/btd6-atlas) capture 56.3 (Steam build 24829026, revision `a380413`), cited by file. [BTD6-REFERENCE.md](docs/BTD6-REFERENCE.md) lists the files, how values were read, and the deliberate departures from BTD6. Atlas data is CC BY-NC 4.0.
+- **Default Profile.** Bundled and selected unless you pick another. It follows Bloons TD 6 closely: three paths of five, the BTD6 crosspath rule, Medium prices, damage types that cannot hurt some enemies, and Camo detection. Only the middle path may have an Active Ability, first at `x-4-x`. Its scale references come from real towers in [btd6-atlas](https://github.com/KyleDerZweite/btd6-atlas) capture 56.3 (Steam build 24829026, revision `a380413`), cited by file. [BTD6-REFERENCE.md](docs/BTD6-REFERENCE.md) lists the files, how values were read, and the deliberate departures from BTD6. Atlas data is CC BY-NC 4.0.
 - **Other Profiles.** Saved Profiles live in `data/profiles` and are selected with `--profile ID` or in the web app. They can rename the currency and define their own status effects, damage types, targeting and detection. The MangaMayhem Profile ships separately and is selected the same way. Its special forms and status effects on placed Units are not implemented in this Engine yet.
 
 ## Where saved work goes

@@ -101,12 +101,12 @@ func TestUnitSheetUsesBuildCodesAndEveryCrosspath(t *testing.T) {
 		"Gold and Health starter", "cannot target", "clear path", "First targeting", "damage by 1 ", "USD", "render --details",
 	} {
 		if strings.Contains(compact, diagnostic) {
-			t.Errorf("the unit description shows %q", diagnostic)
+			t.Errorf("the unit sheet shows %q", diagnostic)
 		}
 	}
 	for _, want := range []string{
 		"## Top path: Juggernaut Line", "**3-x-x Spike-o-pult** (320 Gold). Raises damage from 1 to 2 (+1).",
-		"**x-4-x Super Monkey Fan Club** (7,200 Gold).", "Adds Fan Club Frenzy, this Unit's manual ability: for 15 s it multiplies its interval by 0.0625 and adds 8 range",
+		"**x-4-x Super Monkey Fan Club** (7,200 Gold).", "Adds Fan Club Frenzy, this Unit's Active Ability: for 15 s it multiplies its interval by 0.0625 and adds 8 range",
 		"**x-x-5 Crossbow Master** (21,500 Gold).", "Switches damage from Sharp to Normal.",
 		"### Early builds (12)", "### Advanced builds (36)",
 	} {

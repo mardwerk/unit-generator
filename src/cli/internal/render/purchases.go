@@ -379,7 +379,7 @@ func (sh *sheet) purchaseEffects(changes []m.Change, before, after m.Build) []st
 			}
 		case "followUp":
 			if change.Target == "boost" {
-				name := "the manual ability"
+				name := "the Active Ability"
 				if ability := newAbilityOrLast(after); ability != nil {
 					name = ability.Name
 				}
@@ -432,7 +432,8 @@ func boostChange(name, stat string, before, after float64) string {
 	return numberChange(name+"'s range bonus", "", before, after, false, "")
 }
 
-// abilitySentence describes the manual boost a purchase unlocks.
+// abilitySentence describes the Active Ability a purchase unlocks: a boost
+// of the purchased attack.
 func (sh *sheet) abilitySentence(ability m.ResolvedAbility) string {
 	boosted := ability.BoostedAttack.Stats
 	var effects []string
@@ -448,7 +449,7 @@ func (sh *sheet) abilitySentence(ability m.ResolvedAbility) string {
 	if len(effects) == 0 {
 		effects = append(effects, "leaves the purchased attack unchanged")
 	}
-	return fmt.Sprintf("Adds %s, this Unit's manual ability: for %s s it %s, so the attack deals %s damage every %s s at range %s. It is ready on purchase, recharges %s s after activation and cannot reactivate while active; it grants no separate attack.",
+	return fmt.Sprintf("Adds %s, this Unit's Active Ability: for %s s it %s, so the attack deals %s damage every %s s at range %s. It is ready on purchase, recharges %s s after activation and cannot reactivate while active; it grants no separate attack.",
 		ability.Name, decimal(ability.DurationSeconds), joinAnd(effects),
 		decimal(boosted.Damage), decimal(boosted.IntervalSeconds), decimal(boosted.Range), decimal(ability.CooldownSeconds))
 }

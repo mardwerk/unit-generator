@@ -28,7 +28,7 @@ Values are the pure build of each purchase (for example `0-0-5`), compared with 
 | 0-0-0 | 200; 1 damage, 0.95 s, range 32, pierce 2, Sharp | Same | |
 | 1-0-0 to 5-0-0 | 140, 200, 320, 1800, 15000 | Same prices and numbers | Spike-o-pult's rebound and Frozen access, Juggernaut's knockback and class bonuses, and Ultra-Juggernaut's two rings of six balls are unsupported. The split becomes a bounded follow-up on up to 12 enemies within 12. |
 | 0-1-0 to 0-3-0 | 100, 190, 450; 0.8075 s, 0.6365 s, three darts every 0.477 s | Same prices; 0.8075 s, 0.6379 s, three darts every 0.4784 s | Multipliers rounded to two digits (×0.79, ×0.75), within 0.3 percent. The 30 degree arc is unsupported. |
-| 0-4-0 | 7200; 0.239 s; for 15 s every 50 s, up to 10 nearby Dart Monkeys attack about 16 times as often | 6000; 0.2392 s; a manual boost of this Unit's own attack, interval ×0.0625 for 15 s every 50 s | Price lowered because only the Unit's own share of the ability is modeled. The allied transformation is unsupported. |
+| 0-4-0 | 7200; 0.239 s; for 15 s every 50 s, up to 10 nearby Dart Monkeys attack about 16 times as often | 6000; 0.2392 s; an Active Ability boosting this Unit's own attack, interval ×0.0625 for 15 s every 50 s | Price lowered because only the Unit's own share of the ability is modeled. The allied transformation is unsupported. |
 | 0-5-0 | 45000; allies gain 1 damage and 3 pierce | 25000; +3 pierce on every dart; boost damage ×2 | The boost cannot carry pierce, so the pierce became permanent. |
 | 0-0-1 to 0-0-4 | 90, 200, 575, 2050 | Same prices and numbers, Camo at 0-0-2 | Sharp Shooter's critical shots are unsupported. |
 | 0-0-5 | 21500; 8 damage, 0.2375 s, pierce 8, range 80, every type | 16000; 8 damage, 0.2375 s, pierce 4, range 80, Normal | Pierce 8 dropped: a purchase may change at most four properties, and Crossbow Master changes five. Critical shots are unsupported. |
@@ -79,7 +79,7 @@ Both runs spent one retry on the same hidden 300-character limit, which the prom
 - **Four changes per purchase.** The limit dropped either Crossbow Master's damage or its pierce in every run. Raising it changes the blueprint and Definition schemas and needs an owner decision.
 - **Boost strength.** Applying the allies' 16 times factor to the Unit's own attack made x-4-x its strongest single-target option.
 
-The Definition has one automatic attack with bounded follow-ups, one manual boost on the middle path and at most four changes per purchase. Behavior it cannot express is reported as an unsupported-mechanic finding and never granted by a name or a stat: allied buffs and transformations, enemy-class damage bonuses, critical-shot counters, rebounds, knockback, shot arcs, boost-only pierce and effects on other placed Units. See [MECHANICS.md](MECHANICS.md#default-authoring-policy) and the departures in [BTD6-REFERENCE.md](BTD6-REFERENCE.md#deliberate-departures-from-btd6).
+The Definition has one automatic attack with bounded follow-ups, one Active Ability, a boost of that attack, on the middle path and at most four changes per purchase. Behavior it cannot express is reported as an unsupported-mechanic finding and never granted by a name or a stat: allied buffs and transformations, enemy-class damage bonuses, critical-shot counters, rebounds, knockback, shot arcs, boost-only pierce and effects on other placed Units. See [MECHANICS.md](MECHANICS.md#default-authoring-policy) and the departures in [BTD6-REFERENCE.md](BTD6-REFERENCE.md#deliberate-departures-from-btd6).
 
 ## The Tatsuya candidate
 
@@ -94,10 +94,10 @@ The candidate in [#21](https://github.com/mardwerk/unit-generator/issues/21) is 
 | Magazine of six salvos, 4 s reload, 0.3 s acquisition | Unsupported: magazines, reloads and acquisition delays |
 | Armor-only bonus, shield bypass and shattering | Unsupported: no armor or shield layer; ordinary damage never stands in for them |
 | Self-Regrowth, allied restoration, Gram dispel | Unsupported: restoration and cleansing; placed Units have no statuses in this Definition |
-| Middle 4: ground-targeted Decomposition Field; middle 5: a second Active | Unsupported: the only Active is one boost of the Unit's own attack |
+| Middle 4: ground-targeted Decomposition Field; middle 5: a second Active Ability | Unsupported: the only Active Ability is one boost of the Unit's own attack |
 | Bottom 2: wall detection and wall delivery | Unsupported: Camo is the only detection trait |
 
-The candidate's lesson, coherent scale and distinct mechanics per path, applies to both Profiles. Representing it needs Profile-selected Engine capabilities (magazines, armor and shields, restoration, separate Actives, placed-Unit statuses) rather than more Default rules.
+The candidate's lesson, coherent scale and distinct mechanics per path, applies to both Profiles. Representing it needs Profile-selected Engine capabilities (magazines, armor and shields, restoration, separate Active Abilities, placed-Unit statuses) rather than more Default rules.
 
 ## Not covered
 

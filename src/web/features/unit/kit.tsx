@@ -86,7 +86,9 @@ function CrosspathTable({
                 </td>
                 <td className="py-1.5">
                   <p>{row.attack}</p>
-                  {row.active && <p className="text-muted-foreground">Active: {row.active}</p>}
+                  {row.active && (
+                    <p className="text-muted-foreground">Active Ability: {row.active}</p>
+                  )}
                 </td>
               </tr>
             ))}

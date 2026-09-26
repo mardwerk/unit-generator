@@ -24,7 +24,7 @@ func Markdown(value any, details bool) (string, error) {
 	return Compact(view), nil
 }
 
-// Compact renders the unit description only: the character name and
+// Compact renders the unit sheet only: the character name and
 // 0-0-0, each purchase by build code with its exact numbers and every
 // crosspath build, then patch notes when the unit revises an earlier
 // Result. Checks, findings, unsupported mechanics, reserved techniques,
@@ -96,7 +96,7 @@ func crosspathTable(rows []BuildRow, sh *sheet) []string {
 		}
 		result := row.Attack
 		if row.Active != "" {
-			result += ". Active: " + row.Active
+			result += ". Active Ability: " + row.Active
 		}
 		lines = append(lines, "| "+row.Code+" | "+sh.money(row.Cost)+" | "+Escape(strings.Join(added, "; "))+" | "+Escape(result)+" |")
 	}
