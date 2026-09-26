@@ -6,7 +6,7 @@ ignored; everything else is committed.
 
 | Path | Content |
 | --- | --- |
-| `reference/` | BTD6 towers as request files, ready for `prepare --profile default`, `author` and `draft`: a Dart Monkey brief written from btd6-atlas capture 56.3 (see [BTD6-REFERENCE.md](../research/BTD6-REFERENCE.md)) and a template for your own text. These are source requests, not accepted generated units. |
+| `reference/` | BTD6 towers as request files, ready for `prepare --profile default`, `author` and `draft`: a Dart Monkey brief written from btd6-atlas capture 56.3 (see [BTD6-REFERENCE.md](../docs/BTD6-REFERENCE.md)) and a template for your own text. These are source requests, not accepted generated units. |
 | `profiles/` | Saved Profiles, one `<id>.json` each, written by the web app's Profiles tab. Created on first save. Change it with `--profiles DIR`. |
 | `runs/` | Default local output for generations, evidence, the library (`runs/library`) and the web app's library setting (`runs/lab-settings.json`). Ignored by Git except `.gitkeep`. Change it with `UNIT_RUNS_DIR`. |
 

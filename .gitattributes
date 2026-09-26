@@ -1,5 +1,2 @@
-# Preserve the original research attachment, including Markdown hard-break spaces.
-research/game-design/user-supplied-natural-language-design.txt whitespace=-blank-at-eol
-
 # Build output: bundled dependencies keep whitespace inside their strings.
 src/web/dist/** -whitespace linguist-generated

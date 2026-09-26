@@ -64,7 +64,7 @@ Legacy fields: `authoringMode`, `deliverable` and `operation` in older artifacts
 ## Profiles
 
 - **Profile file.** One JSON document holding the Definition, the rules text and the task. `prepare` copies the Profile's content into the request, so the hash covers it and reloading an artifact never looks a Profile up by ID.
-- **Bundled default.** `default`, BTD6-inspired: three paths of five tiers, BTD6 crosspath rules, the character design rules and scale references for several roles, pinned to btd6-atlas capture 56.3 ([BTD6 reference](../research/BTD6-REFERENCE.md)). It is built into the binary and read-only; editing starts from a copy.
+- **Bundled default.** `default`, BTD6-inspired: three paths of five tiers, BTD6 crosspath rules, the character design rules and scale references for several roles, pinned to btd6-atlas capture 56.3 ([BTD6 reference](BTD6-REFERENCE.md)). It is built into the binary and read-only; editing starts from a copy.
 - **Saved Profiles.** `<id>.json` files in the Profiles folder (`data/profiles`, `--profiles DIR`), separate from generated runs. Saving runs the same validation as `prepare`, and a saved Profile's rules document must have the ID `profile:<id>`.
 - **Web app.** The Profiles tab lists the default and saved Profiles, shows paths × tiers, prices and limits, and edits copies. The Generate form has a compact Profile dropdown with the default preselected.
 - **CLI.** `--profile ID`; without it, the bundled default.

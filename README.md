@@ -37,7 +37,6 @@ From the terminal:
 | `src/cli/` | The Go program: the `mardwerk-unit` command and its internal packages |
 | `src/web/` | The web app: React client (`app/`, `features/`, `ui/`, `api/`), static files (`public/`) and the embedded build (`dist/`) |
 | `data/` | Example requests, saved Profiles (`data/profiles`) and local runs (`data/runs`, ignored) |
-| `research/` | Design research and the [BTD6 reference](research/BTD6-REFERENCE.md), which points to btd6-atlas for BTD6 facts |
 
 ## Development
 
@@ -91,6 +90,6 @@ Needs live testing (not possible from the development container):
 | [docs/MECHANICS.md](docs/MECHANICS.md) | What can the numerical Engine resolve and check? |
 | [docs/OPENROUTER.md](docs/OPENROUTER.md) | Which models may agents call? |
 | [AGENTS.md](AGENTS.md) | Rules for contributors and agents |
-| [data/README.md](data/README.md), [research/README.md](research/README.md), [research/BTD6-REFERENCE.md](research/BTD6-REFERENCE.md) | Example requests, Profiles, research material and where BTD6 facts live |
+| [data/README.md](data/README.md), [docs/BTD6-REFERENCE.md](docs/BTD6-REFERENCE.md) | Example requests, Profiles and where BTD6 facts live |
 
 Related repositories: [Map Generator](https://github.com/mardwerk/map-generator) and [organization metadata](https://github.com/mardwerk/.github).
