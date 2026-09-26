@@ -6,7 +6,7 @@ This page records how the Default Profile (rules `default-td-profile-v12`) perfo
 
 | | |
 | --- | --- |
-| Input | [dart-monkey.request.json](../data/reference/dart-monkey.request.json): a Dart Monkey brief written from btd6-atlas capture 56.3, Steam build 24829026, revision `a380413` ([files](../research/BTD6-REFERENCE.md#pinned-capture)). No research step, so every run saw the same evidence. |
+| Input | [dart-monkey.request.json](../data/reference/dart-monkey.request.json): a Dart Monkey brief written from btd6-atlas capture 56.3, Steam build 24829026, revision `a380413` ([files](BTD6-REFERENCE.md#pinned-capture)). No research step, so every run saw the same evidence. |
 | Profile | `--profile default`: Definition `btd6-combat-v1` with the default design policy, rules `default-td-profile-v12` as of each run's commit |
 | Model | A relay. The Codex provider called a stand-in executable that wrote each Engine prompt and output schema to files and waited for an answer file. For every call a fresh Claude subagent read only that prompt and schema and wrote the answer. This exercises the real Engine route (prompts, schemas, retries, checks, review) but is neither OpenRouter nor a live Codex model, so provider behavior is untested. Subagents are outside the [OPENROUTER.md](OPENROUTER.md) model policy. |
 | Repair budget | The default: one targeted repair, one whole-output retry |
@@ -79,7 +79,7 @@ Both runs spent one retry on the same hidden 300-character limit, which the prom
 - **Four changes per purchase.** The limit dropped either Crossbow Master's damage or its pierce in every run. Raising it changes the blueprint and Definition schemas and needs an owner decision.
 - **Boost strength.** Applying the allies' 16 times factor to the Unit's own attack made x-4-x its strongest single-target option.
 
-The Definition has one automatic attack with bounded follow-ups, one manual boost on the middle path and at most four changes per purchase. Behavior it cannot express is reported as an unsupported-mechanic finding and never granted by a name or a stat: allied buffs and transformations, enemy-class damage bonuses, critical-shot counters, rebounds, knockback, shot arcs, boost-only pierce and effects on other placed Units. See [MECHANICS.md](MECHANICS.md#default-authoring-policy) and the departures in [BTD6-REFERENCE.md](../research/BTD6-REFERENCE.md#deliberate-departures-from-btd6).
+The Definition has one automatic attack with bounded follow-ups, one manual boost on the middle path and at most four changes per purchase. Behavior it cannot express is reported as an unsupported-mechanic finding and never granted by a name or a stat: allied buffs and transformations, enemy-class damage bonuses, critical-shot counters, rebounds, knockback, shot arcs, boost-only pierce and effects on other placed Units. See [MECHANICS.md](MECHANICS.md#default-authoring-policy) and the departures in [BTD6-REFERENCE.md](BTD6-REFERENCE.md#deliberate-departures-from-btd6).
 
 ## The Tatsuya candidate
 

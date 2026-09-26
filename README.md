@@ -72,7 +72,7 @@ More in [CLI.md](docs/CLI.md) (commands and request files), [LAB.md](docs/LAB.md
 
 A Profile holds the task, the rules document and the mechanics Definition: currency, starter scale, limits, and the status effects, damage types, targeting and detection a unit may use.
 
-- **Default Profile.** Bundled and selected unless you pick another. It follows Bloons TD 6 closely: three paths of five, the BTD6 crosspath rule, Medium prices, damage types that cannot hurt some enemies, and Camo detection. Only the middle path may have an activated ability, first at `x-4-x`. Its scale references come from real towers in [btd6-atlas](https://github.com/KyleDerZweite/btd6-atlas) capture 56.3 (Steam build 24829026, revision `a380413`), cited by file. [BTD6-REFERENCE.md](research/BTD6-REFERENCE.md) lists the files, how values were read, and the deliberate departures from BTD6. Atlas data is CC BY-NC 4.0.
+- **Default Profile.** Bundled and selected unless you pick another. It follows Bloons TD 6 closely: three paths of five, the BTD6 crosspath rule, Medium prices, damage types that cannot hurt some enemies, and Camo detection. Only the middle path may have an activated ability, first at `x-4-x`. Its scale references come from real towers in [btd6-atlas](https://github.com/KyleDerZweite/btd6-atlas) capture 56.3 (Steam build 24829026, revision `a380413`), cited by file. [BTD6-REFERENCE.md](docs/BTD6-REFERENCE.md) lists the files, how values were read, and the deliberate departures from BTD6. Atlas data is CC BY-NC 4.0.
 - **Other Profiles.** Saved Profiles live in `data/profiles` and are selected with `--profile ID` or in the web app. They can rename the currency and define their own status effects, damage types, targeting and detection. The MangaMayhem Profile ships separately and is selected the same way. Its special forms and status effects on placed Units are not implemented in this Engine yet.
 
 ## Where saved work goes
@@ -145,7 +145,7 @@ Not yet tested live from the development container:
 | [docs/MECHANICS.md](docs/MECHANICS.md) | What can the Engine resolve and check? |
 | [docs/PROFILE-EVALUATION.md](docs/PROFILE-EVALUATION.md) | How did the Default Profile do on real references? |
 | [docs/OPENROUTER.md](docs/OPENROUTER.md) | Which models may agents call? |
-| [research/BTD6-REFERENCE.md](research/BTD6-REFERENCE.md) | Which BTD6 values are used, from which atlas files? |
+| [docs/BTD6-REFERENCE.md](docs/BTD6-REFERENCE.md) | Which BTD6 values are used, from which atlas files? |
 | [data/README.md](data/README.md) | Reference requests, captures and Profiles |
 | [AGENTS.md](AGENTS.md) | Rules for contributors and agents |
 
