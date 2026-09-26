@@ -195,14 +195,21 @@ func (sh *sheet) followUp(f m.FollowUp, damage float64) string {
 }
 
 // attackSentences describe a whole resolved attack, as the base Unit has it.
+// attackSentences describes what an attack does. Defaults the reader need
+// not act on stay internal: the Definition's first targeting priority, the
+// clear-path delivery rule and detection the attack lacks.
 func (sh *sheet) attackSentences(attack m.Attack) []string {
 	st := attack.Stats
-	aim := "the selected target"
+	aim := "its target"
 	if attack.Distribution == "distinct-targets" {
-		aim = "different detected enemies in range, the selected target first; unused shots are lost"
+		aim = "different detected enemies in range, its target first; unused shots are lost"
 	}
-	out := []string{fmt.Sprintf("%s is an automatic %s attack with %s targeting. Every %s s it fires %s %s at %s; each deals %s %s damage to up to %s %s, at range %s.",
-		attack.Name, attack.Delivery, sh.targetingName(attack.Targeting), decimal(st.IntervalSeconds), decimal(st.Projectiles), plural(st.Projectiles, shot(attack), shot(attack)+"s"), aim,
+	targeting := ""
+	if len(sh.vocabulary.Targeting) > 0 && attack.Targeting != sh.vocabulary.Targeting[0].ID {
+		targeting = " with " + sh.targetingName(attack.Targeting) + " targeting"
+	}
+	out := []string{fmt.Sprintf("%s is an automatic %s attack%s. Every %s s it fires %s %s at %s; each deals %s %s damage to up to %s %s, at range %s.",
+		attack.Name, attack.Delivery, targeting, decimal(st.IntervalSeconds), decimal(st.Projectiles), plural(st.Projectiles, shot(attack), shot(attack)+"s"), aim,
 		decimal(st.Damage), sh.damageTypeName(attack.DamageType), decimal(st.Pierce), plural(st.Pierce, "enemy", "enemies"), decimal(st.Range))}
 	if st.SplashRadius > 0 {
 		out = append(out, "Its splash radius is "+decimal(st.SplashRadius)+", shared within the same target cap.")
@@ -217,21 +224,16 @@ func (sh *sheet) attackSentences(attack m.Attack) []string {
 	if attack.FollowUp != nil {
 		out = append(out, capitalized(sh.followUp(*attack.FollowUp, st.Damage))+".")
 	}
-	var detected, hidden []string
+	var detected []string
 	for _, trait := range sh.vocabulary.Detection {
 		if attack.DetectsTrait(trait.ID) {
 			detected = append(detected, sh.detectionName(trait.ID))
-		} else {
-			hidden = append(hidden, sh.detectionName(trait.ID))
 		}
 	}
 	if len(detected) > 0 {
 		out = append(out, "It detects "+joinAnd(detected)+" enemies.")
 	}
-	if len(hidden) > 0 {
-		out = append(out, "It cannot target "+joinAnd(hidden)+" enemies.")
-	}
-	return append(out, sh.immunity(attack.DamageType), "Every delivery needs a clear path.")
+	return append(out, sh.immunity(attack.DamageType))
 }
 
 var statNames = map[string]string{
@@ -359,7 +361,7 @@ func (sh *sheet) purchaseEffects(changes []m.Change, before, after m.Build) []st
 				trait = "camo"
 			}
 			if change.Bool {
-				out = append(out, "Adds "+sh.detectionName(trait)+" detection to this Unit's attack; delivery still needs a clear path.")
+				out = append(out, "Adds "+sh.detectionName(trait)+" detection to this Unit's attack.")
 			} else {
 				out = append(out, "Removes "+sh.detectionName(trait)+" detection.")
 			}
@@ -433,8 +435,21 @@ func boostChange(name, stat string, before, after float64) string {
 // abilitySentence describes the manual boost a purchase unlocks.
 func (sh *sheet) abilitySentence(ability m.ResolvedAbility) string {
 	boosted := ability.BoostedAttack.Stats
-	return fmt.Sprintf("Adds %s, this Unit's manual ability: for %s s it multiplies the purchased attack's damage by %s and its interval by %s and adds %s range, so the attack deals %s damage every %s s at range %s. It is ready on purchase, recharges %s s after activation and cannot reactivate while active; it grants no separate attack.",
-		ability.Name, decimal(ability.DurationSeconds), decimal(ability.DamageMultiplier), decimal(ability.IntervalMultiplier), decimal(ability.RangeBonus),
+	var effects []string
+	if ability.DamageMultiplier != 1 {
+		effects = append(effects, "multiplies the purchased attack's damage by "+decimal(ability.DamageMultiplier))
+	}
+	if ability.IntervalMultiplier != 1 {
+		effects = append(effects, "multiplies its interval by "+decimal(ability.IntervalMultiplier))
+	}
+	if ability.RangeBonus != 0 {
+		effects = append(effects, "adds "+decimal(ability.RangeBonus)+" range")
+	}
+	if len(effects) == 0 {
+		effects = append(effects, "leaves the purchased attack unchanged")
+	}
+	return fmt.Sprintf("Adds %s, this Unit's manual ability: for %s s it %s, so the attack deals %s damage every %s s at range %s. It is ready on purchase, recharges %s s after activation and cannot reactivate while active; it grants no separate attack.",
+		ability.Name, decimal(ability.DurationSeconds), joinAnd(effects),
 		decimal(boosted.Damage), decimal(boosted.IntervalSeconds), decimal(boosted.Range), decimal(ability.CooldownSeconds))
 }
 

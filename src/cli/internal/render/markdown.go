@@ -24,11 +24,11 @@ func Markdown(value any, details bool) (string, error) {
 	return Compact(view), nil
 }
 
-// Compact renders the unit a reader needs first. A unit with typed
-// mechanics reads as a unit sheet: the character name and 0-0-0, each
-// purchase by build code with its exact numbers, every crosspath build and
-// the unsupported mechanics. Checks, usage and open decisions follow in a
-// separate section, apart from the unit description.
+// Compact renders the unit description only: the character name and
+// 0-0-0, each purchase by build code with its exact numbers and every
+// crosspath build, then patch notes when the unit revises an earlier
+// Result. Checks, findings, unsupported mechanics, reserved techniques,
+// usage and provenance are diagnostics, which Detailed renders.
 func Compact(view View) string {
 	sh := newSheet(view.Candidate.Blueprint, view.Prepared.Request.MechanicsDefinition)
 	if sh == nil {
@@ -39,11 +39,8 @@ func Compact(view View) string {
 	lines = append(lines, sh.baseSection()...)
 	lines = append(lines, sh.pathSections()...)
 	lines = append(lines, sh.crosspathSection()...)
-	lines = append(lines, sh.unsupportedSection()...)
-	lines = append(lines, revisionSection(Revision(view))...)
-	lines = append(lines, "---", "")
-	lines = append(lines, artifactSection(view, sh)...)
-	return strings.Join(lines, "\n")
+	lines = append(lines, patchNotes(Revision(view))...)
+	return strings.TrimRight(strings.Join(lines, "\n"), "\n") + "\n"
 }
 
 // compactProse renders a unit without typed mechanics from its prose.
@@ -82,7 +79,7 @@ func (sh *sheet) crosspathSection() []string {
 	early, advanced := len(crosspaths.Early), len(crosspaths.Advanced)
 	lines := []string{
 		"## Crosspaths", "",
-		fmt.Sprintf("Code resolves every legal two-path build: %d early builds where both paths stay at their first or second purchase, and %d advanced builds where one path goes further. Each row shows what each path's purchases add to the other and the resulting attack.", early, advanced), "",
+		fmt.Sprintf("A Unit can combine two paths: %d early builds keep both at their first or second purchase, and %d advanced builds take one further. Each row shows what each path's purchases add to the other and the resulting attack.", early, advanced), "",
 		fmt.Sprintf("### Early builds (%d)", early), "",
 	}
 	lines = append(lines, crosspathTable(crosspaths.Early, sh)...)
@@ -106,30 +103,12 @@ func crosspathTable(rows []BuildRow, sh *sheet) []string {
 	return append(lines, "")
 }
 
-func (sh *sheet) unsupportedSection() []string {
-	var lines []string
-	if proposals := sh.blueprint.Proposals; len(proposals) > 0 {
-		lines = append(lines, "## Unsupported mechanics", "", "No build grants these; the Definition cannot express them.", "")
-		for _, proposal := range proposals {
-			lines = append(lines, "- "+Escape(proposal.Name)+": "+Escape(proposal.Reason))
-		}
-		lines = append(lines, "")
-	}
-	if reserved := sh.blueprint.ReservedTechniques; len(reserved) > 0 {
-		lines = append(lines, "## Reserved techniques", "", "Source techniques left out of this unit.", "")
-		for _, technique := range reserved {
-			lines = append(lines, "- "+Escape(technique.Name)+": "+Escape(technique.Reason))
-		}
-		lines = append(lines, "")
-	}
-	return lines
-}
-
-func revisionSection(notes *RevisionNotes) []string {
+// patchNotes lists what a revision changed, mechanics apart from wording.
+func patchNotes(notes *RevisionNotes) []string {
 	if notes == nil {
 		return nil
 	}
-	lines := []string{"## Revision changes", "", "### Mechanics", ""}
+	lines := []string{"## Patch notes", "", "### Mechanics", ""}
 	if len(notes.Mechanics) == 0 {
 		lines = append(lines, "No purchase, price or unsupported mechanic changed.")
 	}
@@ -149,32 +128,6 @@ func revisionSection(notes *RevisionNotes) []string {
 		lines = append(lines, "- "+Escape(change))
 	}
 	return append(lines, "")
-}
-
-// artifactSection keeps provenance, checks and open decisions apart from
-// the unit description.
-func artifactSection(view View, sh *sheet) []string {
-	request := view.Prepared.Request
-	character := view.Candidate.Character
-	rules := []string{}
-	for _, document := range request.Documents {
-		if document.Kind == "rules" && !strings.HasPrefix(document.ID, "mechanics:") {
-			rules = append(rules, document.ID)
-		}
-	}
-	definition := sh.definition
-	lines := []string{
-		"## About this artifact", "",
-		Escape(character.Work) + ". Scope: " + Escape(character.Scope), "",
-		Escape(fmt.Sprintf("Definition %s, %s, revision %s", definition.Label, definition.ID, definition.Revision)) + ". Rules: " + Escape(strings.Join(rules, ", ")) + ".", "",
-		reviewStatus(view),
-		UsageSummaryText(view.Usage),
-		"Numbers and prices are proposals. Passing checks shows that the unit follows this Definition's rules, not that it is balanced.",
-		"",
-	}
-	lines = append(lines, failedChecks(view.Findings)...)
-	lines = append(lines, nextDecisions(view)...)
-	return append(lines, "Use `render --details` for evidence, findings and purchase evidence.", "")
 }
 
 func unitIntroduction(view View) []string {

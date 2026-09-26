@@ -35,9 +35,17 @@ func describeUnit(view View) []string {
 		"",
 		"Input: `" + prepared.InputHash + "`. " + result,
 		"",
-		Escape(candidate.Role),
-		"",
 	}
+	if definition := prepared.Request.MechanicsDefinition; definition != nil {
+		rules := []string{}
+		for _, document := range prepared.Request.Documents {
+			if document.Kind == "rules" && !strings.HasPrefix(document.ID, "mechanics:") {
+				rules = append(rules, document.ID)
+			}
+		}
+		lines = append(lines, Escape(fmt.Sprintf("Definition %s, %s, revision %s. Rules: %s.", definition.Label, definition.ID, definition.Revision, strings.Join(rules, ", "))), "")
+	}
+	lines = append(lines, Escape(candidate.Role), "")
 	if candidate.Blueprint != nil && candidate.Blueprint.ReferencePattern != nil {
 		pattern := candidate.Blueprint.ReferencePattern
 		lines = append(lines,
@@ -255,7 +263,7 @@ func describeMechanics(view View) []string {
 }
 
 func describeReview(view View) []string {
-	lines := []string{"", "## Review", ""}
+	lines := []string{"", "## Review", "", reviewStatus(view), ""}
 	if view.ReviewSummary != nil && *view.ReviewSummary != "" {
 		lines = append(lines, Escape(*view.ReviewSummary), "")
 	}

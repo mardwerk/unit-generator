@@ -235,8 +235,6 @@ export function CharacterSheet({
     candidate?.paths.flatMap((path) => path.tiers.flatMap((tier) => tier.abilityIds)),
   );
   const remaining = candidate?.abilities.filter((ability) => !assigned.has(ability.id)) ?? [];
-  const unsupported =
-    candidate?.mechanics.filter((mechanic) => mechanic.status === 'proposed_extension') ?? [];
   const status =
     artifact.kind === 'draft'
       ? 'Draft only. Checks and review have not run.'
@@ -478,28 +476,13 @@ export function CharacterSheet({
               </section>
             ))}
           </div>
-          {unsupported.length > 0 && (
-            <section className="mt-6">
-              <h3 className="mb-1 text-sm font-semibold">Unsupported mechanics</h3>
-              <p className="mb-2 text-xs text-muted-foreground">
-                No build grants these; the Definition cannot express them.
-              </p>
-              <ul className="list-disc pl-5 text-[13px]">
-                {unsupported.map((mechanic) => (
-                  <li className="my-1.5" key={mechanic.id}>
-                    <span className="font-medium">{mechanic.name}</span>: {mechanic.behavior}
-                  </li>
-                ))}
-              </ul>
-            </section>
-          )}
           {unitView?.crosspaths && (
             <Disclosure
               title={`Crosspaths (${unitView.crosspaths.early.length} early, ${unitView.crosspaths.advanced.length} advanced builds)`}
             >
               <p className="my-2 text-xs text-muted-foreground">
-                Every legal two-path build, resolved from the typed mechanics: what each path's
-                purchases add to the other and the resulting attack.
+                Every two-path build: what each path's purchases add to the other and the resulting
+                attack.
               </p>
               <CrosspathTable
                 title="Early builds"
@@ -514,7 +497,7 @@ export function CharacterSheet({
             </Disclosure>
           )}
           {unitView?.revision && (
-            <Disclosure title="Revision changes">
+            <Disclosure title="Patch notes">
               <h4 className="mt-2 text-sm font-semibold">Mechanics</h4>
               {unitView.revision.mechanics.length ? (
                 <ul className="list-disc pl-5 text-[13px]">

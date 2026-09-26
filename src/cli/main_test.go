@@ -84,11 +84,11 @@ func TestStagesSerializeReloadAndRender(t *testing.T) {
 		t.Fatalf("inspect %v", err)
 	}
 	rendered, _, err := cli(t, "render", result)
-	if err != nil || !strings.HasPrefix(rendered, "# ") || !strings.Contains(rendered, "Structural checks and model review complete") {
+	if err != nil || !strings.HasPrefix(rendered, "# ") || !strings.Contains(rendered, "## 0-0-0: ") || strings.Contains(rendered, "Structural checks") {
 		t.Fatalf("render %v", err)
 	}
 	detailed, _, err := cli(t, "render", result, "--details")
-	if err != nil || !strings.Contains(detailed, "Deterministic checks:") || !strings.Contains(detailed, "## Evidence") {
+	if err != nil || !strings.Contains(detailed, "Deterministic checks:") || !strings.Contains(detailed, "## Evidence") || !strings.Contains(detailed, "Structural checks and model review complete") {
 		t.Fatalf("details %v", err)
 	}
 	build, _, err := cli(t, "build", result, "--tiers", "5,2,0")

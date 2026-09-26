@@ -29,8 +29,8 @@ func TestMarkdownRendersEveryStage(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		if !strings.HasPrefix(compact, "# Dart Monkey\n") || !strings.Contains(compact, test.status) {
-			t.Errorf("%s compact render:\n%s", test.name, compact)
+		if !strings.HasPrefix(compact, "# Dart Monkey\n") || strings.Contains(compact, test.status) {
+			t.Errorf("%s compact render is not only the unit:\n%s", test.name, compact)
 		}
 		for _, name := range []string{"Juggernaut Line", "Fan Club Line", "Crossbow Line", "Ultra-Juggernaut"} {
 			if !strings.Contains(compact, name) {
@@ -41,7 +41,7 @@ func TestMarkdownRendersEveryStage(t *testing.T) {
 		if err != nil {
 			t.Fatal(err)
 		}
-		for _, section := range []string{"## Evidence", "## Purchase evidence", "## Generation usage", "dart-monkey-atlas-56-3"} {
+		for _, section := range []string{"## Evidence", "## Purchase evidence", "## Generation usage", "dart-monkey-atlas-56-3", "Definition BTD6-inspired Gold and Health starter"} {
 			if !strings.Contains(detailed, section) {
 				t.Errorf("%s details lack %q", test.name, section)
 			}
@@ -78,8 +78,9 @@ func TestViewCarriesStatsForEveryTier(t *testing.T) {
 }
 
 // The unit sheet starts with the name and 0-0-0, names purchases by build
-// code, lists every early and advanced crosspath build and keeps the plan's
-// private purchase notes out.
+// code, lists every early and advanced crosspath build and holds nothing
+// but the unit: no checks, costs, unsupported or reserved lists, defaults
+// or the plan's private purchase notes.
 func TestUnitSheetUsesBuildCodesAndEveryCrosspath(t *testing.T) {
 	stages, err := fixture.Build()
 	if err != nil {
@@ -92,15 +93,20 @@ func TestUnitSheetUsesBuildCodesAndEveryCrosspath(t *testing.T) {
 	if !strings.HasPrefix(compact, "# Dart Monkey\n\n## 0-0-0: Dart Throw\n\nPlacement costs 200 Gold.") {
 		t.Fatalf("the unit does not start with its name and 0-0-0:\n%s", compact[:200])
 	}
-	unitPart, about, found := strings.Cut(compact, "\n---\n")
-	if !found || !strings.Contains(about, "## About this artifact") || !strings.Contains(about, "Structural checks and model review complete") {
-		t.Fatal("checks and provenance are not kept apart from the unit")
+	unitPart := compact
+	for _, diagnostic := range []string{
+		"Structural checks", "## About this artifact", "## Unsupported mechanics", "## Reserved techniques", "Critical shot counter",
+		"Gold and Health starter", "cannot target", "clear path", "First targeting", "damage by 1 ", "USD", "render --details",
+	} {
+		if strings.Contains(compact, diagnostic) {
+			t.Errorf("the unit description shows %q", diagnostic)
+		}
 	}
 	for _, want := range []string{
 		"## Top path: Juggernaut Line", "**3-x-x Spike-o-pult** (320 Gold). Raises damage from 1 to 2 (+1).",
-		"**x-4-x Super Monkey Fan Club** (7,200 Gold).", "Adds Fan Club Frenzy, this Unit's manual ability: for 15 s",
+		"**x-4-x Super Monkey Fan Club** (7,200 Gold).", "Adds Fan Club Frenzy, this Unit's manual ability: for 15 s it multiplies its interval by 0.0625 and adds 8 range",
 		"**x-x-5 Crossbow Master** (21,500 Gold).", "Switches damage from Sharp to Normal.",
-		"### Early builds (12)", "### Advanced builds (36)", "## Unsupported mechanics", "Critical shot counter",
+		"### Early builds (12)", "### Advanced builds (36)",
 	} {
 		if !strings.Contains(unitPart, want) {
 			t.Errorf("the unit lacks %q", want)
@@ -129,6 +135,11 @@ func TestUnitSheetUsesBuildCodesAndEveryCrosspath(t *testing.T) {
 	detailed, _ := render.Markdown(s.FromGoValue(stages.Result), true)
 	if strings.Contains(detailed, plan.Paths.Path1.BuyFor) || strings.Contains(detailed, "Capstone intention") {
 		t.Error("the detailed render prints private purchase notes")
+	}
+	for _, diagnostic := range []string{"Structural checks and model review complete", "Critical shot counter", "Unsupported mechanic"} {
+		if !strings.Contains(detailed, diagnostic) {
+			t.Errorf("the diagnostics lack %q", diagnostic)
+		}
 	}
 	crosspaths := render.ResolveCrosspaths(stages.Result.Candidate, stages.Result.Prepared.Request.MechanicsDefinition)
 	if len(crosspaths.Early) != 12 || len(crosspaths.Advanced) != 36 || crosspaths.Advanced[0].Code != "3-1-0" || crosspaths.Early[0].Code != "1-1-0" {
@@ -179,7 +190,7 @@ func TestRevisionNotesSeparateMechanicsFromWording(t *testing.T) {
 		t.Errorf("notes %+v", notes)
 	}
 	compact, _ := render.Markdown(s.FromGoValue(draft), false)
-	if !strings.Contains(compact, "## Revision changes\n\n### Mechanics\n\n- 3-x-x price 320 Gold to 300 Gold.") || !strings.Contains(compact, "### Wording\n\n- 1-x-x renamed from Sharp Shots to Sharper Shots.") {
+	if !strings.Contains(compact, "## Patch notes\n\n### Mechanics\n\n- 3-x-x price 320 Gold to 300 Gold.") || !strings.Contains(compact, "### Wording\n\n- 1-x-x renamed from Sharp Shots to Sharper Shots.") {
 		t.Error("the render lacks separate revision notes")
 	}
 }

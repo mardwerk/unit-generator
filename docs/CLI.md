@@ -18,7 +18,7 @@ go build -o mardwerk-unit ./src/cli
 | `draft PREPARED` | → draft | 2–6 |
 | `check DRAFT` | → checked artifact with deterministic findings | none |
 | `review CHECKED` | → Result with a model review | 1 |
-| `render ARTIFACT` | → Markdown unit sheet: `0-0-0`, each purchase by build code, every crosspath build, unsupported mechanics, then provenance and checks; `--details` adds purchase evidence, usage, evidence and findings | none |
+| `render ARTIFACT` | → Markdown unit description: `0-0-0`, each purchase by build code, every crosspath build and, for a revision, patch notes; `--details` renders the diagnostics instead: provenance, review status, findings (including unsupported mechanics), purchase evidence, usage and evidence | none |
 | `build ARTIFACT --tiers 5,2,0` | → resolved stats and costs for one purchased build | none |
 | `inspect FILE` | → kind, validity and character of a saved file | none |
 | `definition` | → the bundled mechanics Definition | none |
@@ -44,7 +44,7 @@ Drafting makes a planning call and a mechanics call, each allowed one repair by 
 | `--repairs 0\|1\|2` | `draft`, `generate`, `author`, `edit` | Repair budget per model stage |
 | `--evidence-dir DIR` | `draft`, `generate`, `author`, `edit`, `review` | Keep exact model inputs and raw outputs |
 | `--tiers A,B,C` | `build` | Purchased tiers, each 0–5 |
-| `--details` | `render` | Expanded report |
+| `--details` | `render` | Diagnostics report instead of the unit description |
 | `--port PORT` | `serve` | Port (default 4317) |
 
 ## Examples
