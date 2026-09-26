@@ -1,6 +1,6 @@
 # Unit design research
 
-This index owns Unit Generator research: paper notes that frame representation and evaluation, plus the pointer to BTD6 facts below. Framework notes, the natural-language design synthesis and the September 21 generator survey now live in the planning workspace (knowledge and cold-store); [next generation work](https://github.com/mardwerk/unit-generator/blob/9244cd5/docs/NEXT-EXPERIMENT.md) owns the current roadmap.
+This index owns Unit Generator research: paper notes that frame representation and evaluation, plus the pointer to BTD6 facts below. Framework notes, the natural-language [game-design synthesis](https://github.com/mardwerk/project/blob/main/drafts/90-knowledge/game-design/README.md) and the September 21 generator survey now live in Mardwerk's private archive (knowledge and cold-store); [next generation work](https://github.com/mardwerk/unit-generator/blob/9244cd5/docs/NEXT-EXPERIMENT.md) owns the current roadmap.
 
 The [bounded optimization proposal](AUTORESEARCH.md) describes a future experiment, not an implemented autonomous training loop.
 
