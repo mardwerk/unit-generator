@@ -1,6 +1,6 @@
 # Agent instructions
 
-Read [README.md](README.md), [CONTEXT.md](CONTEXT.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before changing this repository, and [docs/RESTRUCTURE-PLAN.md](docs/RESTRUCTURE-PLAN.md) before structural work. These local documents are the contributor reference; Foundation is private and optional. Documents describe intent and can be wrong; when a document and the code disagree, check the code and fix the document.
+Read [README.md](README.md), [CONTEXT.md](CONTEXT.md) and [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) before changing this repository. These local documents are the contributor reference; Foundation is private and optional. Documents describe intent and can be wrong; when a document and the code disagree, check the code and fix the document.
 
 ## Rules
 
@@ -17,4 +17,4 @@ Before any agent-initiated OpenRouter call, read [OPENROUTER.md](docs/OPENROUTER
 
 ## Completion
 
-Before committing, confirm that a changed operation documents its inputs and outcome, module boundaries remain clear, links resolve or are intentionally external, and `git diff --check` passes.
+Before committing, confirm that a changed operation documents its inputs and outcome, module boundaries remain clear, links resolve or are intentionally external, and `gofmt -l src`, `go vet ./...`, `go test ./...` and `git diff --check` pass. After changing the web client, also run `pnpm typecheck`, `pnpm format:check` and `pnpm build`, and commit `src/web/dist`.

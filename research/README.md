@@ -25,9 +25,9 @@ The BTD6 material is consolidated here:
 
 - [Raw reference package](btd6/raw/btd6_README.txt): the compiled tower/upgrade [JSON](btd6/raw/btd6_towers.json) plus the editorial [role categories](btd6/raw/towerdefense_categories.json). Alternate exports (workbook, CSVs, readable roster) were retired; the upstream [btd6-game-data](https://github.com/Btd6ModHelper/btd6-game-data) repo (Towers/, Upgrades/, Bloons/, Rounds/, Maps/, textTable.json) is the canonical check-when-needed source. No dependency.
 - [Design baseline](btd6/BTD6-UNIT-DESIGN.md) and [six detailed tower examples](btd6/BTD6-UNIT-EXAMPLES.md), retaining the September 20 research and source limitations.
-- [Dart/Boomerang snapshots](btd6/source-snapshots/) retained because offline tests read them; the remaining page snapshots were retired. Snapshots are evidence, not current instructions.
+- [Dart/Boomerang snapshots](btd6/source-snapshots/) retained as source evidence for the bundled Profile's reference scale and for a future quality reference; the remaining page snapshots were retired. Snapshots are evidence, not current instructions.
 - [File provenance with SHA-256 hashes](btd6/provenance.json), covering the current files plus the retired September 20 exports.
 
-Generated runs and live provider responses remain in ignored `.runs/`; they are not source references or public fixtures. Manga Mayhem's [enemy baseline](../../manga-mayhem/docs/BTD6-ENEMY-BASELINE.md) belongs to that sibling project and remains there. That optional local link is intentionally external to this repository.
+Generated runs and live provider responses remain in the ignored `data/runs/`; they are not source references or public fixtures. Manga Mayhem's [enemy baseline](../../manga-mayhem/docs/BTD6-ENEMY-BASELINE.md) belongs to that sibling project and remains there. That optional local link is intentionally external to this repository.
 
 The raw package is a mixed-source reference compiled September 20, 2026, not a pinned current-patch database. Missing values do not mean zero. Consult the source register and limitations before converting any example into executable mechanics. [Current mechanics documentation](../docs/MECHANICS.md) owns implementation guarantees.
