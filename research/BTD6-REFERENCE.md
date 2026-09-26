@@ -4,7 +4,7 @@
 
 BTD6 domain facts live in [btd6-atlas](https://github.com/KyleDerZweite/btd6-atlas), validated against a full 56.3 game capture. Treat it as authoritative for tower roster, tiers, costs, crosspath legality and map geometry. Do not add new BTD6 facts to this repository; add them there.
 
-The atlas keeps each accepted capture under `data/<patch>-build-<id>/` with a manifest, and its derived analyses under `patterns/` (towers, maps and progression). Its exported game data and derived tables are licensed CC BY-NC 4.0, so cite them by capture and file instead of copying them here. The capture manifest's `acceptedBy` field is still empty.
+The atlas keeps each capture under `data/<patch>-build-<id>/` with a manifest, and its derived analyses under `patterns/` (towers, maps and progression). Its exported game data and derived tables are licensed CC BY-NC 4.0, so cite them by patch, build and file instead of copying them here. The pinned capture's manifest has an empty `acceptedBy`: the atlas has not marked it accepted, so pinning it for the default Profile is a proposal that needs the owner's acceptance decision.
 
 ## Pinned capture
 
@@ -19,6 +19,8 @@ Every BTD6 value in this repository comes from capture **56.3, Steam build 24829
 
 The model prompts carry no BTD6 values of their own; they point to the rules document's references.
 
+Names are the display names of the capture's `textTable.json`, which can differ from upgrade IDs and file names: Ice Monkey's second top purchase is the upgrade `Metal Freeze` displayed as Cold Snap, and Bionic Boomerang's file is `Upgrades/Bionc Boomerang.json`. When replacing other hand-compiled values, take names from the text table as well; the retired package below also swapped some names.
+
 ### How the references were read
 
 Values were read from the tower models with a throwaway script, not copied from prose: the `AttackModel` range, each weapon's `rate`, emission count, projectile `pierce` and `DamageModel.damage`, the `immuneBloonProperties` bit mask (Lead 1, Black 2, White 4, Purple 8, Frozen 16), `DamageModifierForTagModel` bonuses, the `FilterInvisibleModel` Camo filter, child projectiles, and `AbilityModel` cooldowns with their behaviors' lifespans. Derived comparisons in the rules document assume a target always in range and ignore enemy-class bonuses unless stated:
@@ -32,6 +34,21 @@ The atlas itself says per-tier DPS modeling is future work and that price ratios
 ### Cross-checks
 
 Medium prices and the local upgrade rule also agree with the reviewed Mardwerk knowledge summary of a September 24 BTD6 price snapshot, which checked every price against this capture ([`knowledge/btd6-snapshot.md`](https://github.com/mardwerk/project/blob/f8b2a47b649f507655ae6a0d4c10fa8850379623/knowledge/btd6-snapshot.md), private and optional). That summary does not validate combat stats or crosspath effects, so none are taken from it. The old default's Perma Charge text (8 extra damage for 15 s) disagrees with this capture's 10.
+
+## Deliberate departures from BTD6
+
+The default Profile follows BTD6 closely: the same 3 × 5 purchase structure, crosspath rule, Medium incremental prices, damage types that cannot hurt listed enemy properties, Camo detection and one placed fifth purchase per path. It departs on purpose where the typed Definition or the design rules differ:
+
+| Area | BTD6 | Default Profile |
+| --- | --- | --- |
+| Match | Cash, lives and a bloon layer tree | Gold and a shared Health pool of 150; the basic enemy has one layer and no layer tree or leak simulation exists |
+| Activated abilities | On the middle fourth purchase of 25 of 26 towers, and on one top and one bottom fourth purchase in the roster | Only the middle path, first at `x-4-x`; one manual boost of the purchased attack, which `x-5-x` may modify |
+| Attacks | Several attacks, sub-towers and separate ability attacks per tower | One automatic attack with bounded follow-ups and distinct-target volleys |
+| Allied effects | Buffs, shared detection and transformations of nearby towers | Unsupported; only the Unit's own attack changes |
+| Damage modifiers | Bonuses against Ceramic, Fortified, MOAB-class and other tags, critical-hit counters, rebounds, knockback, shot arcs | Unsupported; listed as unsupported mechanics, never folded into ordinary damage |
+| Vocabulary | Many damage types and bloon properties | Four damage types (Sharp, Normal, Explosive, Energy), seven enemy properties and the statuses Slow, Burn and Stun |
+
+A generated unit records its own departures from its source as unsupported-mechanic findings.
 
 ## Retired material
 
