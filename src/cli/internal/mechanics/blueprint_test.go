@@ -278,7 +278,8 @@ func TestSetterKeepsCrosspathMultipliers(t *testing.T) {
 }
 
 // A new damage type or detected trait is new access, which counts as a
-// behavior transition; a larger number alone does not.
+// behavior transition; a larger number, a targeting choice or a volley of
+// one projectile does not.
 func TestAccessChangesAreBehaviorTransitions(t *testing.T) {
 	base := Build{BaseAttack: Attack{Delivery: "projectile", DamageType: "sharp", Targeting: "first", Stats: AttackStats{Damage: 1, IntervalSeconds: 1, Range: 10, Pierce: 1, Projectiles: 1}}}
 	for name, change := range map[string]func(*Attack){
@@ -292,9 +293,26 @@ func TestAccessChangesAreBehaviorTransitions(t *testing.T) {
 			t.Errorf("%s is not a behavior transition", name)
 		}
 	}
-	after := Build{BaseAttack: base.BaseAttack.Clone()}
-	after.BaseAttack.Stats.Damage = 5
-	if HasBehaviorTransition(base, after) {
-		t.Error("more damage counted as a behavior transition")
+	for name, change := range map[string]func(*Attack){
+		"more damage":                      func(a *Attack) { a.Stats.Damage = 5 },
+		"targeting":                        func(a *Attack) { a.Targeting = "strong" },
+		"a one-projectile distinct volley": func(a *Attack) { a.Distribution = "distinct-targets" },
+	} {
+		after := Build{BaseAttack: base.BaseAttack.Clone()}
+		change(&after.BaseAttack)
+		if HasBehaviorTransition(base, after) {
+			t.Errorf("%s counted as a behavior transition", name)
+		}
+	}
+	volley := Build{BaseAttack: base.BaseAttack.Clone()}
+	volley.BaseAttack.Distribution, volley.BaseAttack.Stats.Projectiles = "distinct-targets", 3
+	if !HasBehaviorTransition(base, volley) {
+		t.Error("a three-projectile distinct volley is not a behavior transition")
+	}
+	// A distribution change with one projectile is no improvement at all.
+	single := Build{BaseAttack: base.BaseAttack.Clone()}
+	single.BaseAttack.Distribution = "distinct-targets"
+	if hasBenefit(base, single) {
+		t.Error("a one-projectile distinct volley counted as an improvement")
 	}
 }

@@ -121,7 +121,8 @@ func hasBenefit(before, after Build) bool {
 			}
 		}
 	}
-	if prior.Distribution != next.Distribution || (prior.FollowUp == nil && next.FollowUp != nil) {
+	// Distinct targets change nothing while the attack fires one projectile.
+	if (volleyDistribution(prior) != volleyDistribution(next) && next.Stats.Projectiles > 1) || (prior.FollowUp == nil && next.FollowUp != nil) {
 		return true
 	}
 	if prior.FollowUp != nil && next.FollowUp != nil {

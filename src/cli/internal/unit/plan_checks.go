@@ -211,7 +211,7 @@ func PlanFeasibilityIssues(plan DesignPlan, definition m.Definition) []m.Issue {
 			if !addsBehavior(*plan.UpgradeIntents.At(pathIndex).At(3)) {
 				issues = append(issues, m.Issue{
 					Path:    "upgradeIntents." + path + ".tier3",
-					Message: fmt.Sprintf("%s must add a supported behavior or access, not only larger numbers: promise an unlock other than targeting-change, such as a new delivery, distinct-volley, splash, a status effect, follow-up, damage-type-change or a detection trait, or promise projectiles while the path fires one projectile.", BuildCode(pathIndex, 3)),
+					Message: fmt.Sprintf("%s must add a supported behavior or access, not only larger numbers: promise an unlock other than targeting-change, such as a new delivery, distinct-volley with more than one projectile, splash, a status effect, follow-up, damage-type-change or a detection trait, or promise projectiles while the path fires one projectile.", BuildCode(pathIndex, 3)),
 				})
 			}
 		}
@@ -382,7 +382,8 @@ func unlockedIntent(before, after m.Build, intent string, pathIndex, tier int, b
 	case "camo":
 		return !a.Camo && b.Camo
 	case "distinct-volley":
-		return a.Distribution != "distinct-targets" && b.Distribution == "distinct-targets"
+		// Distinct targets change nothing for a single projectile.
+		return a.Distribution != "distinct-targets" && b.Distribution == "distinct-targets" && b.Stats.Projectiles > 1
 	case "splash":
 		return a.Stats.SplashRadius == 0 && b.Stats.SplashRadius > 0
 	case "slow":

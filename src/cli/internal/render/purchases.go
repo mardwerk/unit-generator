@@ -208,9 +208,9 @@ func (sh *sheet) attackSentences(attack m.Attack) []string {
 	if len(sh.vocabulary.Targeting) > 0 && attack.Targeting != sh.vocabulary.Targeting[0].ID {
 		targeting = " with " + sh.targetingName(attack.Targeting) + " targeting"
 	}
-	out := []string{fmt.Sprintf("%s is an automatic %s attack%s. Every %s s it fires %s %s at %s; each deals %s %s damage to up to %s %s, at range %s.",
+	out := []string{fmt.Sprintf("%s is an automatic %s attack%s. Every %s s it fires %s %s at %s; each deals %s %s damage with pierce %s, hitting up to %s %s, at range %s.",
 		attack.Name, attack.Delivery, targeting, decimal(st.IntervalSeconds), decimal(st.Projectiles), plural(st.Projectiles, shot(attack), shot(attack)+"s"), aim,
-		decimal(st.Damage), sh.damageTypeName(attack.DamageType), decimal(st.Pierce), plural(st.Pierce, "enemy", "enemies"), decimal(st.Range))}
+		decimal(st.Damage), sh.damageTypeName(attack.DamageType), decimal(st.Pierce), decimal(st.Pierce), plural(st.Pierce, "enemy", "enemies"), decimal(st.Range))}
 	if st.SplashRadius > 0 {
 		out = append(out, "Its splash radius is "+decimal(st.SplashRadius)+", shared within the same target cap.")
 	}
@@ -245,7 +245,7 @@ var statNames = map[string]string{
 	"splashRadius":        "splash radius",
 	"slowPercent":         "Slow",
 	"slowSeconds":         "Slow duration",
-	"burnDamagePerSecond": "Burn",
+	"burnDamagePerSecond": "Burn damage per second",
 	"burnSeconds":         "Burn duration",
 	"stunSeconds":         "Stun duration",
 }

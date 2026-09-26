@@ -10,7 +10,7 @@ This excerpt is from a real run, not a mock-up. Profile: the bundled Default Pro
 
 > **Dart Monkey**
 >
-> **0-0-0 Dart Throw.** Placement costs 200 Gold. Dart Throw is an automatic projectile attack. Every 0.95 s it fires 1 projectile at its target; each deals 1 Sharp damage to up to 2 enemies, at range 32. Sharp damage cannot hurt Lead and Frozen enemies.
+> **0-0-0 Dart Throw.** Placement costs 200 Gold. Dart Throw is an automatic projectile attack. Every 0.95 s it fires 1 projectile at its target; each deals 1 Sharp damage with pierce 2, hitting up to 2 enemies, at range 32. Sharp damage cannot hurt Lead and Frozen enemies.
 >
 > *Top path: Spiked Ball*
 >

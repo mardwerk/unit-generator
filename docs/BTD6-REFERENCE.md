@@ -4,7 +4,7 @@
 
 BTD6 domain facts live in [btd6-atlas](https://github.com/KyleDerZweite/btd6-atlas), validated against a full 56.3 game capture. Treat it as authoritative for tower roster, tiers, costs, crosspath legality and map geometry. Do not add new BTD6 facts to this repository; add them there.
 
-The atlas keeps each capture under `data/<patch>-build-<id>/` with a manifest, and its derived analyses under `patterns/` (towers, maps and progression). Its exported game data and derived tables are licensed CC BY-NC 4.0, so cite them by patch, build and file instead of copying them here. The pinned capture's manifest has an empty `acceptedBy`: the atlas has not marked it accepted, so pinning it for the default Profile is a proposal that needs the owner's acceptance decision.
+The atlas keeps each capture under `data/<patch>-build-<id>/` with a manifest, and its derived analyses under `patterns/` (towers, maps and progression). Its exported game data and derived tables are licensed CC BY-NC 4.0, so cite them by patch, build and file instead of copying them here. The pinned capture's manifest has an empty `acceptedBy`. The owner accepted capture 56.3 on 2026-09-26 ([#27](https://github.com/mardwerk/unit-generator/pull/27)) as the Default Profile's numerical BTD6 reference only; that does not accept the atlas's incomplete spatial data.
 
 ## Pinned capture
 

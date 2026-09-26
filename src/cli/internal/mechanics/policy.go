@@ -165,16 +165,20 @@ func attackBehavior(attack Attack) []any {
 	return out
 }
 
+// volleyDistribution is an attack's distribution, same-primary when unset.
+func volleyDistribution(attack Attack) string {
+	if attack.Distribution == "" {
+		return "same-primary"
+	}
+	return attack.Distribution
+}
+
 // HasBehaviorTransition reports a new attack shape or capability.
 func HasBehaviorTransition(before, after Build) bool {
 	a, b := before.BaseAttack, after.BaseAttack
-	dist := func(x Attack) string {
-		if x.Distribution == "" {
-			return "same-primary"
-		}
-		return x.Distribution
-	}
-	if a.Delivery != b.Delivery || a.Targeting != b.Targeting || dist(a) != dist(b) {
+	// A targeting priority is the player's choice, not a behavior, and
+	// distinct targets change nothing while the attack fires one projectile.
+	if a.Delivery != b.Delivery || (volleyDistribution(a) != volleyDistribution(b) && b.Stats.Projectiles > 1) {
 		return true
 	}
 	if a.FollowUp == nil && b.FollowUp != nil {
@@ -270,7 +274,7 @@ func DesignPolicyIssues(blueprint *Blueprint, definition Definition) []Issue {
 			required *bool
 		}{{3, policy.RequireTier3BehaviorChange}, {5, policy.RequireTier5BehaviorChange}} {
 			if req.required != nil && *req.required && !HasBehaviorTransition(pureBuild(blueprint, index, req.tier-1), pureBuild(blueprint, index, req.tier)) {
-				issues = append(issues, Issue{fmt.Sprintf("%s.tiers.tier%d", prefix, req.tier), fmt.Sprintf("Tier %d must introduce a supported attack behavior or access, such as a new delivery, distinct-target volley, more than one projectile, status, splash, bounded follow-up, damage type or detected trait. Increasing existing numbers or changing a name alone is insufficient.", req.tier)})
+				issues = append(issues, Issue{fmt.Sprintf("%s.tiers.tier%d", prefix, req.tier), fmt.Sprintf("Tier %d must introduce a supported attack behavior or access, such as a new delivery, a distinct-target volley of more than one projectile, more than one projectile, status, splash, bounded follow-up, damage type or detected trait. Increasing existing numbers, changing targeting or a name, or a change with no effect is insufficient.", req.tier)})
 			}
 		}
 		for _, check := range []struct {
