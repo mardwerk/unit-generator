@@ -12,5 +12,6 @@
     "jsx": "react-jsx",
     "types": []
   },
-  "include": ["client/**/*.ts", "client/**/*.tsx"]
+  "include": ["**/*.ts", "**/*.tsx"],
+  "exclude": ["dist"]
 }

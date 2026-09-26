@@ -1,0 +1,3 @@
+# Build output, rewritten by pnpm build.
+src/web/dist/
+pnpm-lock.yaml

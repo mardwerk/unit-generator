@@ -42,7 +42,7 @@ The numerical Engine supports exactly 3 paths × 5 tiers. Other shapes need an e
 | `evidence` | `evidence` | Exact model inputs and raw outputs, with `--evidence-dir` only | Anything without that flag |
 | CLI | `src/cli` (main) | Arguments, explicit input and output files, exit codes | Business rules |
 | `serve` | `server` | Local HTTP routes, session token, host and origin checks, embedded web assets | Jobs, runs or resumable state |
-| Web client | `src/web/client` | Screens, stage orchestration for the user, unsaved session state | Legality, build resolution, prompts, provider calls, validation |
+| Web client | `src/web` | Screens, stage orchestration for the user, unsaved session state | Legality, build resolution, prompts, provider calls, validation |
 
 Dependencies point inward. `unit` imports `mechanics` and `schema`; `render`, `research`, `library` and `provider` import `unit` for types; the CLI and `server` wire everything together. The Engine's only interface is `unit.Model`, because model execution is its only external boundary.
 
@@ -81,7 +81,7 @@ Exit codes: `0` the operation completed (findings may still fail), `1` failure. 
 
 ## HTTP API
 
-`serve` binds `127.0.0.1` and serves the embedded web client plus the API under `/api/v1`. It injects a fresh session token into the page. Every call must present that token and come from the server's own host and origin; POST calls must also be JSON and stay under the 32 MB body limit. Requests are synchronous and are cancelled when the client disconnects. There are no job, run or history endpoints.
+`serve` binds `127.0.0.1` and serves the embedded web client plus the API under `/api/v1`. It injects a fresh session token into the page. The page's Content-Security-Policy allows scripts only from the server, and styles from the server plus `<style>` elements carrying a nonce that is new on every page load; the component library needs those for scroll locking and select menus. Every call must present that token and come from the server's own host and origin; POST calls must also be JSON and stay under the 32 MB body limit. Requests are synchronous and are cancelled when the client disconnects. There are no job, run or history endpoints.
 
 | Method and path | Body | Response |
 | --- | --- | --- |
@@ -129,7 +129,7 @@ src/cli/internal/library/      library folder and Profiles folder
 src/cli/internal/evidence/     --evidence-dir records
 src/cli/internal/server/       serve: routes and security checks
 src/cli/internal/parity/       test helper: reads testdata/parity
-src/web/                       web client: client/ (React), public/, dist/ (embedded), build.mjs
+src/web/                       web client: app/, features/, ui/, api/ (React), public/, dist/ (embedded), build.mjs
 testdata/parity/               recorded TypeScript behavior the Go tests replay
 ```
 
@@ -137,4 +137,13 @@ Go dependencies: `golang.org/x/text` (NFKC and NFKD), `github.com/clipperhouse/u
 
 ## Web client
 
-The TypeScript client keeps the React screens, the Profiles and Generate tabs, stage orchestration for the user, the current session's unsaved revisions, session import and export, and display-only helpers (portrait ordering, usage formatting, kit comparison). Its types are in `src/web/client/contract.ts`. It contains no Engine code, model prompts, provider calls or validation: the server supplies stats, icon prompts, Profile progressions and Profile application. `pnpm build` writes `src/web/dist`, which is committed so the Go build needs no Node.js.
+The TypeScript client keeps the React screens, the Profiles and Generate tabs, stage orchestration for the user, the current session's unsaved revisions, session import and export, and display-only helpers (portrait ordering, usage formatting, kit comparison). It contains no Engine code, model prompts, provider calls or validation: the server supplies stats, icon prompts, Profile progressions and Profile application.
+
+| Folder | Holds |
+| --- | --- |
+| `src/web/api/` | The HTTP client, the contract types (`contract.ts`) and read-only helpers over artifacts and usage |
+| `src/web/app/` | The entry point, the shell (top bar, activity) and the Tailwind theme (`styles.css`) |
+| `src/web/features/` | One folder per area: `authoring` (session state and stage runs), `generate`, `unit`, `library`, `profiles`, `settings` |
+| `src/web/ui/` | Generic controls in the [shadcn/ui](https://ui.shadcn.com) style: button, input, select, dropdown menu, dialog, tabs, disclosure, tooltip, badge, alert |
+
+Controls are built on [Radix](https://www.radix-ui.com) primitives and styled with [Tailwind CSS](https://tailwindcss.com) utilities; the theme maps the dark palette onto shadcn/ui's color tokens. `ui/` imports nothing unit-specific, so it can move into a shared package once another generator needs it. `pnpm build` compiles the Tailwind CSS and bundles the client into `src/web/dist`, which is committed so the Go build needs no Node.js.

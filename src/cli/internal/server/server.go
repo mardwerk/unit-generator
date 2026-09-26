@@ -131,12 +131,23 @@ func (e *httpError) Error() string { return e.message }
 
 func fail(status int, code, message string) error { return &httpError{status, code, message} }
 
+// policy is the Content-Security-Policy. The page gets a fresh style nonce
+// for the <style> elements its component library injects (scroll locking,
+// select viewports); scripts stay limited to the app's own file.
+func policy(styleNonce string) string {
+	style := "style-src 'self'"
+	if styleNonce != "" {
+		style += " 'nonce-" + styleNonce + "'"
+	}
+	return "default-src 'self'; script-src 'self'; " + style + "; connect-src 'self'; img-src 'self' https: data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'"
+}
+
 func (srv *Server) ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	header := w.Header()
 	header.Set("Cache-Control", "no-store")
 	header.Set("X-Content-Type-Options", "nosniff")
 	header.Set("Referrer-Policy", "no-referrer")
-	header.Set("Content-Security-Policy", "default-src 'self'; script-src 'self'; style-src 'self'; connect-src 'self'; img-src 'self' https: data:; object-src 'none'; base-uri 'none'; frame-ancestors 'none'")
+	header.Set("Content-Security-Policy", policy(""))
 	if err := srv.handle(w, r); err != nil {
 		writeError(w, err)
 	}
@@ -302,7 +313,14 @@ func (srv *Server) asset(w http.ResponseWriter, path string) error {
 	if name == "index.html" {
 		// Only the same-origin page can read this no-store HTML; API calls
 		// still need the token.
-		content = []byte(strings.Replace(string(content), "__UNITLAB_SESSION__", srv.token, 1))
+		nonce := make([]byte, 16)
+		if _, err := rand.Read(nonce); err != nil {
+			return err
+		}
+		styleNonce := hex.EncodeToString(nonce)
+		w.Header().Set("Content-Security-Policy", policy(styleNonce))
+		page := strings.Replace(string(content), "__UNITLAB_SESSION__", srv.token, 1)
+		content = []byte(strings.Replace(page, "__UNITLAB_STYLE_NONCE__", styleNonce, 1))
 	}
 	w.WriteHeader(200)
 	_, err = w.Write(content)

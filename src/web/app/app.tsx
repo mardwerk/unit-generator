@@ -1,0 +1,343 @@
+import { useEffect, useRef, useState } from 'react';
+import type { LabArtifact, LibraryEntry, Sources } from '../api/contract.js';
+import { api } from '../api/client.js';
+import { candidateOf, requestOf } from '../api/artifacts.js';
+import { Activity } from './activity.js';
+import { Topbar, type View } from './topbar.js';
+import { SavedUnit } from '../features/unit/saved-unit.js';
+import { useAuthoring } from '../features/authoring/use-authoring.js';
+import { useUnitIcons } from '../features/unit/icon-prompts.js';
+import { Gallery } from '../features/unit/gallery.js';
+import { CharacterSheet, Comparison } from '../features/unit/kit.js';
+import { Workflow } from '../features/unit/workflow.js';
+import { CharacterChoices, GenerateInputs } from '../features/generate/generate-inputs.js';
+import { Revisions } from '../features/unit/revisions.js';
+import { KeyStatus, Settings, useProvider } from '../features/settings/settings.js';
+import { Library, useLibrary } from '../features/library/library.js';
+import { ProfilesView, useProfiles } from '../features/profiles/profiles.js';
+import { UnitWorkspace } from '../features/unit/workspace.js';
+import { isEmptyCreateDraft } from '../features/generate/create-draft.js';
+import { Alert } from '../ui/alert.js';
+import { Button } from '../ui/button.js';
+import { Disclosure } from '../ui/disclosure.js';
+import { Field } from '../ui/field.js';
+import { Textarea } from '../ui/input.js';
+import { download } from '../ui/utils.js';
+
+const improvement =
+  'Address the issues in the previous findings. Fix inconsistent identifiers and references. Preserve supplied confirmed decisions and the intended character design. Never invent approvals or evidence to make checks pass. Keep missing game rules explicit and retain a compact complete kit.';
+
+export function App() {
+  const library = useLibrary();
+  const session = useAuthoring(library.save);
+  const icons = useUnitIcons(session.artifact, library.directory);
+  const [view, setView] = useState<View>('generate');
+  const profiles = useProfiles();
+  const [inputsOpen, setInputsOpen] = useState(false);
+  const [inspected, setInspected] = useState<LabArtifact | null>(null);
+  const [opening, setOpening] = useState(false);
+  const [libraryError, setLibraryError] = useState('');
+  const [settings, setSettings] = useState(false);
+  const provider = useProvider(settings);
+  const [feedback, setFeedback] = useState('');
+  const inputFile = useRef<HTMLInputElement>(null);
+  const previous = candidateOf(
+    session.revisions.find((entry) => entry.id === session.comparisonId)?.artifact ?? null,
+  );
+  const current = candidateOf(session.artifact);
+  const flowArtifact = session.artifact;
+  const hasInputs = Boolean(session.artifact || session.usesEditedInputs);
+  function openGeneration(id?: string) {
+    if (id) session.select(id);
+    setInspected(null);
+    setView('unit');
+  }
+  /** Navigation keeps the unsent create draft; only an explicit new draft discards it. */
+  function showCreate() {
+    setView('generate');
+  }
+  function newCreate() {
+    const draft = { name: session.creation.name, edited: session.creation.usesEditedInputs };
+    if (!isEmptyCreateDraft(draft) && !window.confirm('Discard the unsent character and inputs?'))
+      return;
+    session.newCreate();
+    setInputsOpen(false);
+    setView('generate');
+  }
+
+  useEffect(() => {
+    if (session.needsProvider) {
+      setSettings(true);
+      session.setNeedsProvider(false);
+    }
+  }, [session.needsProvider]);
+  async function openEntry(entry: LibraryEntry) {
+    setOpening(true);
+    setLibraryError('');
+    try {
+      const { artifact } = await api<{ artifact: LabArtifact | Sources }>('library/load', {
+        id: entry.id,
+      });
+      // Saved research is prepared under the selected Profile, without researching again.
+      const profileId = session.creation.profile?.profile.id;
+      setInspected(
+        artifact.kind === 'sources'
+          ? await api<LabArtifact>('prepare', {
+              sources: artifact,
+              ...(profileId ? { profileId } : {}),
+            })
+          : artifact,
+      );
+      setView('unit');
+    } catch (error) {
+      setLibraryError(error instanceof Error ? error.message : String(error));
+    } finally {
+      setOpening(false);
+    }
+  }
+  function exportSession() {
+    try {
+      download(
+        'mardwerk-unit-session.json',
+        JSON.stringify(session.snapshot(), null, 2),
+        'application/json',
+      );
+    } catch (error) {
+      session.reportError(error);
+    }
+  }
+  async function exportArtifact(markdown: boolean) {
+    if (!session.artifact) return;
+    const name =
+      (current?.character.name ?? session.name).toLowerCase().replace(/[^a-z0-9]+/g, '-') || 'unit';
+    try {
+      if (markdown) {
+        const { markdown } = await api<{ markdown: string }>('render', {
+          artifact: session.artifact,
+        });
+        download(`${name}.md`, markdown, 'text/markdown');
+      } else
+        download(`${name}.json`, JSON.stringify(session.artifact, null, 2), 'application/json');
+    } catch (error) {
+      session.reportError(error);
+    }
+  }
+  async function save() {
+    if (!session.artifact) return;
+    await session.load(async () => {
+      await library.save(session.artifact!);
+      session.setStatus('Saved to your local library.');
+    });
+  }
+  return (
+    <>
+      <Topbar
+        view={view}
+        unitDisabled={!session.revisions.length && !session.job && !inspected}
+        activity={
+          <Activity
+            session={session}
+            away={view !== 'unit' || Boolean(inspected)}
+            onOpen={openGeneration}
+          />
+        }
+        status={<KeyStatus state={provider} onOpen={() => setSettings(true)} />}
+        onHome={showCreate}
+        onSettings={() => setSettings(true)}
+        onView={(next) => {
+          if (next === 'generate') showCreate();
+          else if (next === 'library') {
+            setView('library');
+            void library.refresh().catch(session.reportError);
+          } else if (next === 'unit') {
+            if (session.job?.state === 'running' || session.job?.state === 'waiting')
+              setInspected(null);
+            setView('unit');
+          } else setView(next);
+        }}
+      />
+      <input
+        id="file-input"
+        ref={inputFile}
+        type="file"
+        accept=".json,application/json"
+        hidden
+        onChange={(e) => {
+          const file = e.target.files?.[0];
+          if (file) {
+            setInspected(null);
+            void session.importCreateFile(file).then(setView);
+          }
+          e.target.value = '';
+        }}
+      />
+      {view === 'library' ? (
+        <>
+          <Library
+            library={library}
+            busy={opening || library.pending}
+            onOpen={(entry) => void openEntry(entry)}
+          />
+          {libraryError && <Alert className="mx-8 my-5">{libraryError}</Alert>}
+        </>
+      ) : view === 'profiles' ? (
+        <ProfilesView
+          profiles={profiles.profiles}
+          directory={profiles.directory}
+          error={profiles.error}
+          selectedId={session.creation.profile?.profile.id ?? null}
+          onUse={(profile) => {
+            session.creation.setProfile(profile);
+            setView('generate');
+          }}
+          onSave={async (profile) => {
+            const saved = await profiles.save(profile);
+            const entry = saved.profiles.find((candidate) => candidate.profile.id === profile.id);
+            if (entry && session.creation.profile?.profile.id === profile.id)
+              session.creation.setProfile(entry);
+          }}
+          onDelete={(id) => profiles.remove(id)}
+        />
+      ) : view === 'generate' ? (
+        <main className="px-[18px] py-10 sm:px-6 sm:py-[70px]">
+          <div className="mx-auto max-w-[900px]">
+            <GenerateInputs
+              session={session.creation}
+              onGenerate={(destination) => {
+                if (session.generateCreate(destination === 'unit')) {
+                  if (destination === 'unit') setInspected(null);
+                  setView(destination);
+                }
+              }}
+              onImport={() => inputFile.current?.click()}
+              inputsOpen={inputsOpen}
+              onInputsOpenChange={setInputsOpen}
+              profiles={profiles.profiles}
+            />
+          </div>
+        </main>
+      ) : inspected ? (
+        <SavedUnit
+          artifact={inspected}
+          directory={library.directory}
+          busy={false}
+          onBack={() => setView('library')}
+          onEdit={() => {
+            try {
+              session.addArtifact(inspected);
+              session.setStatus('Opened from your library.');
+              setInspected(null);
+              setView('unit');
+            } catch (error) {
+              session.reportError(error);
+            }
+          }}
+        />
+      ) : (
+        <UnitWorkspace
+          gallery={<Gallery artifact={session.running === 'character' ? null : flowArtifact} />}
+          workflow={
+            <Workflow
+              artifact={flowArtifact}
+              running={session.running}
+              status={session.status}
+              startedAt={session.startedAt}
+              dirty={session.dirty}
+              busy={session.busy}
+              onRun={
+                !flowArtifact && session.job && !session.choices.length
+                  ? () => void session.generate()
+                  : hasInputs
+                    ? (remaining) => {
+                        setInspected(null);
+                        void session.run(remaining);
+                      }
+                    : undefined
+              }
+              onStage={
+                hasInputs
+                  ? (stage) => {
+                      setInspected(null);
+                      void session.runStage(stage);
+                    }
+                  : undefined
+              }
+              onStop={session.stop}
+              onReferences={
+                session.name.trim() &&
+                !session.usesEditedInputs &&
+                (!flowArtifact ||
+                  requestOf(flowArtifact).documents.some(
+                    (doc) => doc.kind === 'source' && doc.origin.access === 'retrieved',
+                  ))
+                  ? () => {
+                      setInspected(null);
+                      void session.findReferences();
+                    }
+                  : undefined
+              }
+            />
+          }
+        >
+          {session.error && <Alert id="error">{session.error}</Alert>}
+          <CharacterChoices session={session} />
+          {view === 'unit' && (
+            <>
+              {previous && current && <Comparison previous={previous} current={current} />}
+              {session.artifact ? (
+                <CharacterSheet
+                  artifact={session.artifact}
+                  icons={icons}
+                  busy={session.busy}
+                  onImprove={() => session.revise(improvement)}
+                  onContinue={() => void session.run(true)}
+                />
+              ) : null}
+              <Revisions
+                session={session}
+                onSave={() => void save()}
+                onExport={(markdown) => void exportArtifact(markdown)}
+                onExportSession={exportSession}
+                onNewInputs={newCreate}
+              />
+              {current && (
+                <Disclosure title="Revise this Unit" className="mt-6">
+                  <Button
+                    disabled={session.busy || session.dirty}
+                    onClick={() => void session.runStage('draft')}
+                  >
+                    Rerun frozen inputs
+                  </Button>
+                  <p className="my-2 text-xs text-muted-foreground">
+                    Reuse retained sources, rules and guidance. The currently selected model is
+                    recorded on the new run.
+                  </p>
+                  <Field label="What should change?">
+                    <Textarea
+                      id="feedback"
+                      rows={3}
+                      value={feedback}
+                      disabled={session.busy}
+                      onChange={(e) => setFeedback(e.target.value)}
+                    />
+                  </Field>
+                  <Button
+                    id="revise"
+                    variant="primary"
+                    disabled={session.busy}
+                    onClick={() => session.revise(feedback)}
+                  >
+                    Generate revision
+                  </Button>
+                </Disclosure>
+              )}
+            </>
+          )}
+        </UnitWorkspace>
+      )}
+      {settings && (
+        <Settings disabled={session.busy} library={library} onClose={() => setSettings(false)} />
+      )}
+    </>
+  );
+}
