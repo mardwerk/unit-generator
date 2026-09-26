@@ -2,6 +2,8 @@ package render_test
 
 import (
 	"context"
+	"os"
+	"path/filepath"
 	"strings"
 	"testing"
 
@@ -192,5 +194,33 @@ func TestRevisionNotesSeparateMechanicsFromWording(t *testing.T) {
 	compact, _ := render.Markdown(s.FromGoValue(draft), false)
 	if !strings.Contains(compact, "## Patch notes\n\n### Mechanics\n\n- 3-x-x price 320 Gold to 300 Gold.") || !strings.Contains(compact, "### Wording\n\n- 1-x-x renamed from Sharp Shots to Sharper Shots.") {
 		t.Error("the render lacks separate revision notes")
+	}
+}
+
+// The reference captures render as committed, so their sheets, and the
+// README excerpt quoted from one, stay current with the renderer. After a
+// deliberate renderer change, render each capture again.
+func TestReferenceCapturesRenderAsCommitted(t *testing.T) {
+	files, _ := filepath.Glob("../../../../data/reference/captures/*.json")
+	if len(files) == 0 {
+		t.Fatal("no reference captures")
+	}
+	for _, file := range files {
+		data, err := os.ReadFile(file)
+		if err != nil {
+			t.Fatal(err)
+		}
+		value, err := s.Decode(data)
+		if err != nil {
+			t.Fatalf("%s: %v", file, err)
+		}
+		rendered, err := render.Markdown(value, false)
+		if err != nil {
+			t.Fatalf("%s: %v", file, err)
+		}
+		committed, err := os.ReadFile(strings.TrimSuffix(file, ".json") + ".md")
+		if err != nil || rendered != string(committed) {
+			t.Errorf("%s no longer renders as its committed sheet; run render on it again", filepath.Base(file))
+		}
 	}
 }

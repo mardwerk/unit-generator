@@ -33,7 +33,7 @@ Drafting makes a planning call and a mechanics call, each allowed one repair by 
 | Option | Applies to | Meaning |
 | --- | --- | --- |
 | `-o, --output FILE` | all but `serve` | Write a new file; an existing file is never replaced |
-| `--profile ID` | `prepare`, `generate`, `author` | The Profile to prepare under (default: the bundled `default`) |
+| `--profile ID` | `prepare`, `generate`, `author` | The Profile to prepare under. Sources default to the bundled `default`; a request file is prepared as written unless this is given |
 | `--profiles DIR` | `prepare`, `generate`, `author`, `profiles`, `serve` | Saved Profiles (default `data/profiles`) |
 | `--library DIR` | `library`, `serve` | Library folder (default `data/runs/library`) |
 | `--provider openrouter\|codex` | model commands, `serve` | OpenRouter (default) or an existing Codex login |
