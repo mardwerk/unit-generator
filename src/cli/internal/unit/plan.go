@@ -101,7 +101,7 @@ func earlyPurchases(branch *s.Object) string {
 	if s.UTF16Len(summary) <= 800 {
 		return summary
 	}
-	return "Proposed contributions are the secondary path T1 and T2 milestones. Consult resolved purchase evidence for their actual effects."
+	return "Proposed contributions are the side path's first and second purchases. Consult resolved purchase evidence for their actual effects."
 }
 
 // ExpandPurchasePlan turns a compact plan into the retained plan shape.
@@ -162,7 +162,7 @@ func expandPurchasePlan(output any, schema s.Schema) (any, error) {
 			}
 		}
 		expanded.Set("crosspaths", crosspaths)
-		expanded.Set("referenceExample", "BTD6 progression and tradeoffs inform this proposal; the supplied Definition alone authorizes mechanics.")
+		expanded.Set("referenceExample", "The Profile's scale references inform this proposal; the supplied Definition alone authorizes mechanics.")
 		paths.Set(path, expanded)
 		intents.Set(path, pathIntents)
 	}
@@ -279,7 +279,6 @@ func DesignPlanRequest(prepared Prepared) (ModelRequest, error) {
 			origins = append(origins, s.NewObject().Set("id", d.ID).Set("origin", s.FromGoValue(d.Origin)))
 		}
 	}
-	examples, _ := s.Decode([]byte(workedExamplesJSON))
 	context := s.NewObject().
 		Set("character", s.FromGoValue(request.Character)).
 		Set("task", request.Task).
@@ -297,8 +296,7 @@ func DesignPlanRequest(prepared Prepared) (ModelRequest, error) {
 			Set("note", "Selection is bounded. Do not claim exhaustive repertoire coverage.")).
 		Set("previous", previousValue(request)).
 		Set("previousFindings", previousFindings(request)).
-		Set("feedback", nullableString(request.Feedback)).
-		Set("workedExamples", examples)
+		Set("feedback", nullableString(request.Feedback))
 	parts := []string{
 		fmt.Sprintf("Requested character: %s. The context below supplies %d selected evidence passages for this character. Read those passages before choosing powers; selection is bounded and does not establish complete source coverage.", s.Stringify(request.Character.Name), len(evidence)),
 	}
@@ -312,8 +310,8 @@ func DesignPlanRequest(prepared Prepared) (ModelRequest, error) {
 		last := guidance[len(guidance)-1]
 		guidance = append(append(guidance[:len(guidance)-1], VocabularyGuidance(request)...), last)
 	}
-	parts = append(parts, guidance[:len(guidance)-1]...)
-	parts = append(parts, progressionReference, guidance[len(guidance)-1], s.Stringify(context))
+	parts = append(parts, guidance...)
+	parts = append(parts, s.Stringify(context))
 	return ModelRequest{System: planSystem, Prompt: strings.Join(parts, "\n\n"), Schema: schema}, nil
 }
 
@@ -442,7 +440,7 @@ func DecodeDesignPlan(output any, request *Request) (DesignPlan, error) {
 				if d := request.MechanicsDefinition; d != nil && d.IsV2() {
 					detection = "personal detection"
 				}
-				issue("T1 and T2 must preserve the existing attack identity. New statuses, attack patterns, delivery, targeting and damage-type access must wait until T3; " + detection + " and improvements to existing effects remain allowed.")
+				issue(BuildCode(pathIndex, number) + " must preserve the existing attack identity: the first and second purchase of a path add no new status, attack pattern, delivery, targeting or damage-type access before the third; " + detection + " and improvements to existing effects remain allowed.")
 			}
 			if intent.Unlock == "manual-boost" && number != boostTier {
 				issue(fmt.Sprintf("Manual boost unlocks are supported only at tier %d.", boostTier))

@@ -5,6 +5,7 @@ import (
 	"strconv"
 	"strings"
 
+	m "github.com/mardwerk/unit-generator/src/cli/internal/mechanics"
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
 	"github.com/mardwerk/unit-generator/src/cli/internal/unit"
 )
@@ -23,8 +24,30 @@ func Markdown(value any, details bool) (string, error) {
 	return Compact(view), nil
 }
 
-// Compact renders the kit a reader needs first.
+// Compact renders the unit a reader needs first. A unit with typed
+// mechanics reads as a unit sheet: the character name and 0-0-0, each
+// purchase by build code with its exact numbers, every crosspath build and
+// the unsupported mechanics. Checks, usage and open decisions follow in a
+// separate section, apart from the unit description.
 func Compact(view View) string {
+	sh := newSheet(view.Candidate.Blueprint, view.Prepared.Request.MechanicsDefinition)
+	if sh == nil {
+		return compactProse(view)
+	}
+	var lines []string
+	lines = append(lines, "# "+Escape(view.Candidate.Character.Name), "")
+	lines = append(lines, sh.baseSection()...)
+	lines = append(lines, sh.pathSections()...)
+	lines = append(lines, sh.crosspathSection()...)
+	lines = append(lines, sh.unsupportedSection()...)
+	lines = append(lines, revisionSection(Revision(view))...)
+	lines = append(lines, "---", "")
+	lines = append(lines, artifactSection(view, sh)...)
+	return strings.Join(lines, "\n")
+}
+
+// compactProse renders a unit without typed mechanics from its prose.
+func compactProse(view View) string {
 	var lines []string
 	lines = append(lines, unitIntroduction(view)...)
 	lines = append(lines, failedChecks(view.Findings)...)
@@ -35,6 +58,123 @@ func Compact(view View) string {
 	lines = append(lines, nextDecisions(view)...)
 	lines = append(lines, "Use `render --details` for evidence, reference IDs, build examples and detailed findings.", "")
 	return strings.Join(lines, "\n")
+}
+
+func (sh *sheet) baseSection() []string {
+	base := sh.resolve(m.Selection{}).BaseAttack
+	text := "Placement costs " + sh.money(base.Cost) + ". " + strings.Join(sh.attackSentences(base), " ")
+	return []string{"## 0-0-0: " + Escape(base.Name), "", Escape(text), ""}
+}
+
+func (sh *sheet) pathSections() []string {
+	var lines []string
+	for _, path := range sh.purchases() {
+		lines = append(lines, "## "+path.Position+" path: "+Escape(path.Name), "")
+		for _, purchase := range path.Purchases {
+			lines = append(lines, "**"+purchase.Code+" "+Escape(purchase.Name)+"** ("+sh.money(purchase.Cost)+"). "+Escape(strings.Join(purchase.Effects, " ")), "")
+		}
+	}
+	return lines
+}
+
+func (sh *sheet) crosspathSection() []string {
+	crosspaths := sh.crosspaths()
+	early, advanced := len(crosspaths.Early), len(crosspaths.Advanced)
+	lines := []string{
+		"## Crosspaths", "",
+		fmt.Sprintf("Code resolves every legal two-path build: %d early builds where both paths stay at their first or second purchase, and %d advanced builds where one path goes further. Each row shows what each path's purchases add to the other and the resulting attack.", early, advanced), "",
+		fmt.Sprintf("### Early builds (%d)", early), "",
+	}
+	lines = append(lines, crosspathTable(crosspaths.Early, sh)...)
+	lines = append(lines, fmt.Sprintf("### Advanced builds (%d)", advanced), "")
+	return append(lines, crosspathTable(crosspaths.Advanced, sh)...)
+}
+
+func crosspathTable(rows []BuildRow, sh *sheet) []string {
+	lines := []string{"| Build | Total | Added by the other path | Resulting attack |", "| --- | --- | --- | --- |"}
+	for _, row := range rows {
+		var added []string
+		for _, contribution := range row.Contributions {
+			added = append(added, contribution.From+": "+strings.Join(contribution.Changes, ", "))
+		}
+		result := row.Attack
+		if row.Active != "" {
+			result += ". Active: " + row.Active
+		}
+		lines = append(lines, "| "+row.Code+" | "+sh.money(row.Cost)+" | "+Escape(strings.Join(added, "; "))+" | "+Escape(result)+" |")
+	}
+	return append(lines, "")
+}
+
+func (sh *sheet) unsupportedSection() []string {
+	var lines []string
+	if proposals := sh.blueprint.Proposals; len(proposals) > 0 {
+		lines = append(lines, "## Unsupported mechanics", "", "No build grants these; the Definition cannot express them.", "")
+		for _, proposal := range proposals {
+			lines = append(lines, "- "+Escape(proposal.Name)+": "+Escape(proposal.Reason))
+		}
+		lines = append(lines, "")
+	}
+	if reserved := sh.blueprint.ReservedTechniques; len(reserved) > 0 {
+		lines = append(lines, "## Reserved techniques", "", "Source techniques left out of this unit.", "")
+		for _, technique := range reserved {
+			lines = append(lines, "- "+Escape(technique.Name)+": "+Escape(technique.Reason))
+		}
+		lines = append(lines, "")
+	}
+	return lines
+}
+
+func revisionSection(notes *RevisionNotes) []string {
+	if notes == nil {
+		return nil
+	}
+	lines := []string{"## Revision changes", "", "### Mechanics", ""}
+	if len(notes.Mechanics) == 0 {
+		lines = append(lines, "No purchase, price or unsupported mechanic changed.")
+	}
+	for _, change := range notes.Mechanics {
+		lines = append(lines, "- "+Escape(change))
+	}
+	lines = append(lines, "", fmt.Sprintf("Resolved differently: %d legal builds", len(notes.ChangedBuilds)))
+	if len(notes.ChangedBuilds) > 0 {
+		lines[len(lines)-1] += " (" + strings.Join(notes.ChangedBuilds, ", ") + ")"
+	}
+	lines[len(lines)-1] += "."
+	lines = append(lines, "", "### Wording", "")
+	if len(notes.Wording) == 0 {
+		lines = append(lines, "No names changed.")
+	}
+	for _, change := range notes.Wording {
+		lines = append(lines, "- "+Escape(change))
+	}
+	return append(lines, "")
+}
+
+// artifactSection keeps provenance, checks and open decisions apart from
+// the unit description.
+func artifactSection(view View, sh *sheet) []string {
+	request := view.Prepared.Request
+	character := view.Candidate.Character
+	rules := []string{}
+	for _, document := range request.Documents {
+		if document.Kind == "rules" && !strings.HasPrefix(document.ID, "mechanics:") {
+			rules = append(rules, document.ID)
+		}
+	}
+	definition := sh.definition
+	lines := []string{
+		"## About this artifact", "",
+		Escape(character.Work) + ". Scope: " + Escape(character.Scope), "",
+		Escape(fmt.Sprintf("Definition %s, %s, revision %s", definition.Label, definition.ID, definition.Revision)) + ". Rules: " + Escape(strings.Join(rules, ", ")) + ".", "",
+		reviewStatus(view),
+		UsageSummaryText(view.Usage),
+		"Numbers and prices are proposals. Passing checks shows that the unit follows this Definition's rules, not that it is balanced.",
+		"",
+	}
+	lines = append(lines, failedChecks(view.Findings)...)
+	lines = append(lines, nextDecisions(view)...)
+	return append(lines, "Use `render --details` for evidence, findings and purchase evidence.", "")
 }
 
 func unitIntroduction(view View) []string {
@@ -291,14 +431,13 @@ func standaloneOpenFindings(view View) []string {
 }
 
 func repeatsMechanicDecision(finding unit.Finding, candidate unit.Candidate) bool {
-	if finding.Method != "deterministic" || finding.Rule != "declared-mechanic-support" {
+	if finding.Method != "deterministic" || (finding.Rule != "declared-mechanic-support" && finding.Rule != unit.UnsupportedMechanicRule) {
 		return false
 	}
 	for _, mechanic := range candidate.Mechanics {
 		if finding.Subject == "mechanic."+mechanic.ID &&
 			mechanic.RequiredDecision != nil &&
-			finding.Action != nil && *finding.Action == *mechanic.RequiredDecision &&
-			finding.Message == "Mechanic is declared "+mechanic.Status+"; its behavior is not mechanically validated." {
+			finding.Action != nil && *finding.Action == *mechanic.RequiredDecision {
 			return true
 		}
 	}

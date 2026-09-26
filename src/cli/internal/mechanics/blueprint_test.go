@@ -242,3 +242,37 @@ func TestCapstoneComparison(t *testing.T) {
 		t.Errorf("copies %v, want %v", count, want)
 	}
 }
+
+// The illustrative Tatsuya candidate's crosspath arithmetic resolves exactly:
+// a middle x-3-x setter replaces the ordinary attack's baseline while the top
+// path's purchased multipliers still apply, so the 1-3-0 sniper strike deals
+// 400 × 1.35 = 540 and the 2-3-0 interval is 3.5 × 2/3. Only the expressible
+// parts are encoded; magazines, acquisition and the Actives are gaps.
+func TestSetterKeepsCrosspathMultipliers(t *testing.T) {
+	blueprint := starter()
+	blueprint.BaseAttack.Delivery, blueprint.BaseAttack.DamageType = "instant", "normal"
+	blueprint.BaseAttack.Stats = AttackStats{Damage: 100, IntervalSeconds: 1.5, Range: 20, Pierce: 1, Projectiles: 1}
+	blueprint.Paths.Path1.Tiers.Tier1.Changes = []Change{stat("damage", "multiply", 1.35)}
+	blueprint.Paths.Path1.Tiers.Tier2.Changes = []Change{stat("intervalSeconds", "multiply", 2.0/3)}
+	blueprint.Paths.Path2.Tiers.Tier1.Changes = []Change{stat("range", "add", 6)}
+	blueprint.Paths.Path2.Tiers.Tier2.Changes = []Change{{Kind: "camo", Target: "base", Bool: true}}
+	// x-3-x sets the baseline to 39 so that x-1-x's +6 gives the sniper's 45.
+	blueprint.Paths.Path2.Tiers.Tier3.Changes = []Change{stat("damage", "set", 400), stat("intervalSeconds", "set", 3.5), stat("range", "set", 39)}
+	for _, test := range []struct {
+		selection Selection
+		damage    float64
+		interval  float64
+		rng       float64
+	}{
+		{Selection{1, 0, 0}, 135, 1.5, 20},
+		{Selection{2, 0, 0}, 135, 1, 20},
+		{Selection{0, 3, 0}, 400, 3.5, 45},
+		{Selection{1, 3, 0}, 540, 3.5, 45},
+		{Selection{2, 3, 0}, 540, 3.5 * 2 / 3, 45},
+	} {
+		attack := ResolveUnchecked(blueprint, test.selection).BaseAttack.Stats
+		if math.Abs(attack.Damage-test.damage) > 1e-9 || math.Abs(attack.IntervalSeconds-test.interval) > 1e-9 || attack.Range != test.rng {
+			t.Errorf("%s: damage %v interval %v range %v", label(test.selection), attack.Damage, attack.IntervalSeconds, attack.Range)
+		}
+	}
+}

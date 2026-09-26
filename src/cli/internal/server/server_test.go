@@ -194,6 +194,12 @@ func TestStagesRunThroughTheAPI(t *testing.T) {
 	if !view.Has("stats") || at(view, "view", "kind") != "result" {
 		t.Errorf("view %s", s.Stringify(view)[:200])
 	}
+	early, _ := at(view, "crosspaths", "early").([]any)
+	advanced, _ := at(view, "crosspaths", "advanced").([]any)
+	purchases, _ := view.Get("purchases")
+	if len(early) != 12 || len(advanced) != 36 || len(purchases.([]any)) != 3 || view.Has("revision") {
+		t.Errorf("view has %d early and %d advanced builds", len(early), len(advanced))
+	}
 	entry := h.post("library/save", map[string]any{"artifact": result})
 	listing := h.post("library/load", map[string]any{"id": at(entry, "id")})
 	if s.Canonical(at(listing, "artifact")) != s.Canonical(result) {

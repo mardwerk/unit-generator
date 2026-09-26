@@ -155,12 +155,54 @@ func minimumEffects(intent UpgradeIntent, d m.Definition) int {
 	return total
 }
 
+// promiseGroups joins promises that one change can satisfy together: a
+// damage change also raises active and follow-up damage, and an interval
+// change also speeds the active window.
+var promiseGroups = map[string]string{
+	"active-damage": "damage", "follow-up": "damage", "active-attack-rate": "attack-rate",
+}
+
+// independentPromises counts a milestone's promises that need separate
+// changes, with its unlock as one more.
+func independentPromises(intent UpgradeIntent) int {
+	groups := map[string]bool{}
+	for _, dimension := range intent.Improves {
+		if group, ok := promiseGroups[dimension]; ok {
+			dimension = group
+		}
+		groups[dimension] = true
+	}
+	if intent.Unlock != "none" {
+		groups["unlock:"+intent.Unlock] = true
+	}
+	return len(groups)
+}
+
+// developingTiers are the purchases that must develop a path, not repeat a
+// single stat: the fourth and fifth.
+var developingTiers = []int{4, 5}
+
 // PlanFeasibilityIssues rejects contradictions in a plan's explicit promises.
+// Under a design policy it also rejects a fourth or fifth purchase that
+// promises a single dimension, such as a token damage step. Plans are checked
+// when they are authored; saved drafts keep the promises they were made with.
 func PlanFeasibilityIssues(plan DesignPlan, definition m.Definition) []m.Issue {
 	if plan.UpgradeIntents == nil {
 		return nil
 	}
 	var issues []m.Issue
+	if definition.Profile.DesignPolicy != nil {
+		for pathIndex, path := range m.PathKeys {
+			for _, tier := range developingTiers {
+				if independentPromises(*plan.UpgradeIntents.At(pathIndex).At(tier)) < 2 {
+					issues = append(issues, m.Issue{
+						Path:    "upgradeIntents." + path + "." + m.TierKeys[tier-1],
+						Message: fmt.Sprintf("%s must promise at least two independent dimensions or an unlock. Damage, active damage and follow-up damage count once, as do attack rate and active attack rate; a purchase that only raises ordinary damage is a token step. Develop, add or replace behavior, access, capacity or uptime.", BuildCode(pathIndex, tier)),
+					})
+				}
+			}
+		}
+	}
 	boostTier := definition.Rules.ManualBoostUnlockTier
 	boostKey := m.TierKeys[boostTier-1]
 	for pathIndex, path := range m.PathKeys {

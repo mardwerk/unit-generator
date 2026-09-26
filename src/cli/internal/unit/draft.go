@@ -343,30 +343,30 @@ func blueprintRequest(prepared Prepared, previous any, issues []string, plan Des
 		Set("sourceScope", s.NewObject().
 			Set("selectedPassages", float64(len(evidence))).
 			Set("availablePassages", float64(len(EvidenceSpans(request)))).
-			Set("note", draftLine344)).
+			Set("note", draftSourceScope)).
 		Set("previous", previousValue(request)).
 		Set("previousFindings", previousFindings(request)).
 		Set("feedback", nullableString(request.Feedback))
-	budget, form, example := draftLine359, draftLine360, draftLine366
+	budget, form, example := draftBudget, draftStatusForm, draftExample
 	if isV2(request) {
 		budget, form, example = draftStatusBudgetV2, draftStatusFormV2, draftExampleV2
 	}
-	prompt := []string{draftLine354, draftLine355, draftLine356, draftLine357, draftLine358, budget, form, draftLine361, draftLine362, CountArithmeticGuidance}
+	prompt := []string{draftPlan, draftStyle, draftOwnership, draftShape, draftTruth, budget, form, draftArithmetic, draftExtensions, CountArithmeticGuidance}
 	prompt = append(prompt, VocabularyGuidance(request)...)
 	prompt = append(prompt, DesignGuidance(request)...)
-	prompt = append(prompt, draftLine365, example, draftLine367, s.Stringify(context))
+	prompt = append(prompt, draftBoost, example, draftUnsupported, s.Stringify(context))
 	if previous != nil {
 		shown := issues
 		if len(shown) > 20 {
 			shown = shown[:20]
 		}
-		prompt = append(prompt, draftLine372, s.Stringify(s.NewObject().Set("issues", stringList(shown)).Set("previous", previous)))
+		prompt = append(prompt, draftRetry, s.Stringify(s.NewObject().Set("issues", stringList(shown)).Set("previous", previous)))
 	}
 	schema, err := ModelOutputJSONSchema(request)
 	if err != nil {
 		return ModelRequest{}, err
 	}
-	return ModelRequest{System: draftLine352, Prompt: strings.Join(prompt, "\n\n"), Schema: schema}, nil
+	return ModelRequest{System: draftSystem, Prompt: strings.Join(prompt, "\n\n"), Schema: schema}, nil
 }
 
 // ParsePrepared validates a prepared request value.

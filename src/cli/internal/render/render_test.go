@@ -1,12 +1,14 @@
 package render_test
 
 import (
+	"context"
 	"strings"
 	"testing"
 
 	"github.com/mardwerk/unit-generator/src/cli/internal/fixture"
 	"github.com/mardwerk/unit-generator/src/cli/internal/render"
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
+	"github.com/mardwerk/unit-generator/src/cli/internal/unit"
 )
 
 func TestMarkdownRendersEveryStage(t *testing.T) {
@@ -72,5 +74,112 @@ func TestViewCarriesStatsForEveryTier(t *testing.T) {
 	}
 	if text := render.UsageSummaryText(view.Usage); text == "" {
 		t.Error("no usage summary")
+	}
+}
+
+// The unit sheet starts with the name and 0-0-0, names purchases by build
+// code, lists every early and advanced crosspath build and keeps the plan's
+// private purchase notes out.
+func TestUnitSheetUsesBuildCodesAndEveryCrosspath(t *testing.T) {
+	stages, err := fixture.Build()
+	if err != nil {
+		t.Fatal(err)
+	}
+	compact, err := render.Markdown(s.FromGoValue(stages.Result), false)
+	if err != nil {
+		t.Fatal(err)
+	}
+	if !strings.HasPrefix(compact, "# Dart Monkey\n\n## 0-0-0: Dart Throw\n\nPlacement costs 200 Gold.") {
+		t.Fatalf("the unit does not start with its name and 0-0-0:\n%s", compact[:200])
+	}
+	unitPart, about, found := strings.Cut(compact, "\n---\n")
+	if !found || !strings.Contains(about, "## About this artifact") || !strings.Contains(about, "Structural checks and model review complete") {
+		t.Fatal("checks and provenance are not kept apart from the unit")
+	}
+	for _, want := range []string{
+		"## Top path: Juggernaut Line", "**3-x-x Spike-o-pult** (320 Gold). Raises damage from 1 to 2 (+1).",
+		"**x-4-x Super Monkey Fan Club** (7,200 Gold).", "Adds Fan Club Frenzy, this Unit's manual ability: for 15 s",
+		"**x-x-5 Crossbow Master** (21,500 Gold).", "Switches damage from Sharp to Normal.",
+		"### Early builds (12)", "### Advanced builds (36)", "## Unsupported mechanics", "Critical shot counter",
+	} {
+		if !strings.Contains(unitPart, want) {
+			t.Errorf("the unit lacks %q", want)
+		}
+	}
+	for _, code := range []string{
+		"1-1-0", "1-2-0", "1-0-1", "1-0-2", "2-1-0", "2-2-0", "2-0-1", "2-0-2", "0-1-1", "0-1-2", "0-2-1", "0-2-2",
+		"3-1-0", "3-2-0", "3-0-1", "3-0-2", "4-1-0", "4-2-0", "4-0-1", "4-0-2", "5-1-0", "5-2-0", "5-0-1", "5-0-2",
+		"1-3-0", "2-3-0", "0-3-1", "0-3-2", "1-4-0", "2-4-0", "0-4-1", "0-4-2", "1-5-0", "2-5-0", "0-5-1", "0-5-2",
+		"1-0-3", "2-0-3", "0-1-3", "0-2-3", "1-0-4", "2-0-4", "0-1-4", "0-2-4", "1-0-5", "2-0-5", "0-1-5", "0-2-5",
+	} {
+		if !strings.Contains(unitPart, "| "+code+" |") {
+			t.Errorf("crosspath %s is missing", code)
+		}
+	}
+	// The side purchase's effect reaches the x-4-x boost window too.
+	if !strings.Contains(unitPart, "| 1-4-0 | 8,280 Gold | 1-x-x: pierce 2 → 3, during Fan Club Frenzy: pierce 2 → 3 |") {
+		t.Error("the 1-4-0 row does not show what the boost window receives")
+	}
+	plan := stages.Result.Run.Draft.DesignPlan
+	for _, private := range []string{plan.Paths.Path1.BuyFor, plan.Paths.Path1.Weakness, plan.Paths.Path1.CapstoneValue, "Tier 1", "T3", "Path 1"} {
+		if strings.Contains(compact, private) {
+			t.Errorf("the render shows %q", private)
+		}
+	}
+	detailed, _ := render.Markdown(s.FromGoValue(stages.Result), true)
+	if strings.Contains(detailed, plan.Paths.Path1.BuyFor) || strings.Contains(detailed, "Capstone intention") {
+		t.Error("the detailed render prints private purchase notes")
+	}
+	crosspaths := render.ResolveCrosspaths(stages.Result.Candidate, stages.Result.Prepared.Request.MechanicsDefinition)
+	if len(crosspaths.Early) != 12 || len(crosspaths.Advanced) != 36 || crosspaths.Advanced[0].Code != "3-1-0" || crosspaths.Early[0].Code != "1-1-0" {
+		t.Errorf("crosspaths %d early, %d advanced", len(crosspaths.Early), len(crosspaths.Advanced))
+	}
+}
+
+// A revision's notes keep changed mechanics apart from renamed purchases.
+func TestRevisionNotesSeparateMechanicsFromWording(t *testing.T) {
+	stages, err := fixture.Build()
+	if err != nil {
+		t.Fatal(err)
+	}
+	request := stages.Prepared.Request
+	feedback := "Rename the first top purchase and make Spike-o-pult cheaper."
+	request.Previous = &unit.Previous{ResultID: stages.Result.ID, Draft: stages.Result.Candidate, Findings: stages.Result.Findings}
+	request.Feedback = &feedback
+	prepared, err := unit.Prepare(s.FromGoValue(request))
+	if err != nil {
+		t.Fatal(err)
+	}
+	mechanics, _ := fixture.JSON("mechanics")
+	tiers := func(o any) *s.Object {
+		paths, _ := o.(*s.Object).Get("paths")
+		path, _ := paths.(*s.Object).Get("path1")
+		value, _ := path.(*s.Object).Get("tiers")
+		return value.(*s.Object)
+	}
+	tier1, _ := tiers(mechanics).Get("tier1")
+	tier1.(*s.Object).Set("name", "Sharper Shots")
+	tier3, _ := tiers(mechanics).Get("tier3")
+	tier3.(*s.Object).Set("cost", 300.0)
+	plan, _ := fixture.JSON("plan")
+	model := &fixture.Model{Outputs: []any{plan, mechanics}}
+	draft, err := unit.DraftUnit(context.Background(), prepared, model, fixture.Options())
+	if err != nil {
+		t.Fatal(err)
+	}
+	view, err := render.ReadView(s.FromGoValue(draft))
+	if err != nil {
+		t.Fatal(err)
+	}
+	notes := render.Revision(view)
+	if notes == nil {
+		t.Fatal("no revision notes")
+	}
+	if strings.Join(notes.Mechanics, "\n") != "3-x-x price 320 Gold to 300 Gold." || strings.Join(notes.Wording, "\n") != "1-x-x renamed from Sharp Shots to Sharper Shots." || len(notes.ChangedBuilds) != 0 {
+		t.Errorf("notes %+v", notes)
+	}
+	compact, _ := render.Markdown(s.FromGoValue(draft), false)
+	if !strings.Contains(compact, "## Revision changes\n\n### Mechanics\n\n- 3-x-x price 320 Gold to 300 Gold.") || !strings.Contains(compact, "### Wording\n\n- 1-x-x renamed from Sharp Shots to Sharper Shots.") {
+		t.Error("the render lacks separate revision notes")
 	}
 }

@@ -5,6 +5,7 @@ import (
 	"strings"
 
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
+	"github.com/mardwerk/unit-generator/src/cli/internal/unit"
 )
 
 // Detailed renders the full reading view: purchases, usage, abilities,
@@ -52,15 +53,15 @@ func describeUnit(view View) []string {
 		"Limits: "+Escape(attack.Limitations), "",
 		"## Upgrade paths", "",
 	)
-	for _, path := range candidate.Paths {
+	for index, path := range candidate.Paths {
 		lines = append(lines,
 			"### "+Escape(path.Name), "",
 			Escape(path.Theme), "",
-			"| Tier | Upgrade | Effect | Status |",
+			"| Build | Upgrade | Effect | Status |",
 			"| --- | --- | --- | --- |",
 		)
 		for _, tier := range path.Tiers {
-			lines = append(lines, fmt.Sprintf("| %d | %s | %s | %s |", tier.Tier, Escape(tier.Name), Escape(tier.Benefit), tier.Status))
+			lines = append(lines, fmt.Sprintf("| %s | %s | %s | %s |", purchaseLabel(len(candidate.Paths), index, tier.Tier), Escape(tier.Name), Escape(tier.Benefit), tier.Status))
 		}
 		lines = append(lines, "")
 	}
@@ -137,15 +138,9 @@ func describePurchases(view View) []string {
 		"",
 	}
 	for _, path := range list(field(evaluation, "paths")) {
+		// The plan's purchase reasons, weaknesses and capstone notes are
+		// private design checks; the JSON artifact keeps them for review.
 		lines = append(lines, "### "+Escape(text(field(path, "name"))), "")
-		if claim := field(path, "purchaseClaim"); claim != nil {
-			lines = append(lines,
-				"Purchase intention: "+Escape(text(field(claim, "buyFor"))),
-				"Retained weakness: "+Escape(text(field(claim, "weakness"))),
-				"Capstone intention: "+Escape(text(field(claim, "capstoneValue"))),
-				"",
-			)
-		}
 		lines = append(lines, "| Purchase | Added "+currency+" | Changed capacities |", "| --- | --- | --- |")
 		purchases := append(append([]any{}, list(field(path, "milestones"))...), list(field(path, "crosspaths"))...)
 		for _, purchase := range purchases {
@@ -321,4 +316,13 @@ func describeEvidence(view View) []string {
 		lines = append(lines, "- "+Escape(source.DocumentID)+": "+Escape(strings.Join(source.Claims, "; "))+" Limits: "+Escape(source.Limitations))
 	}
 	return lines
+}
+
+// purchaseLabel names a purchase by build code when the unit has the three
+// paths build codes describe, and by tier number otherwise.
+func purchaseLabel(paths, index, tier int) string {
+	if paths != 3 || tier < 1 || tier > 9 {
+		return itoa(tier)
+	}
+	return unit.BuildCode(index, tier)
 }

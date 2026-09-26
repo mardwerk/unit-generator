@@ -11,7 +11,7 @@
       "id": "character-source",
       "kind": "source",
       "file": "dart-monkey.txt",
-      "sourceUrl": "https://www.bloonswiki.com/Dart_Monkey_(BTD6)"
+      "sourceUrl": "https://github.com/KyleDerZweite/btd6-atlas/tree/a380413ed809c98654acec7aa37cba40f80bf5c5/data/56.3-build-24829026/game-data/Towers/DartMonkey"
     },
     { "id": "game-rules", "kind": "rules", "file": "game-rules.md" },
     { "id": "character-decisions", "kind": "decisions", "file": "character-decisions.md" }

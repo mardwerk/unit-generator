@@ -122,8 +122,18 @@ func (srv *Server) posts() map[string]post {
 				return nil, err
 			}
 			out := s.NewObject().Set("view", s.FromGoValue(view))
-			if stats := render.Stats(view.Candidate, view.Prepared.Request.MechanicsDefinition); stats != nil {
+			definition := view.Prepared.Request.MechanicsDefinition
+			if stats := render.Stats(view.Candidate, definition); stats != nil {
 				out.Set("stats", s.FromGoValue(stats))
+			}
+			if purchases := render.Purchases(view.Candidate, definition); purchases != nil {
+				out.Set("purchases", s.FromGoValue(purchases))
+			}
+			if crosspaths := render.ResolveCrosspaths(view.Candidate, definition); crosspaths != nil {
+				out.Set("crosspaths", s.FromGoValue(crosspaths))
+			}
+			if revision := render.Revision(view); revision != nil {
+				out.Set("revision", s.FromGoValue(revision))
 			}
 			return out, nil
 		}},

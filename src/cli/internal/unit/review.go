@@ -130,12 +130,12 @@ func BlueprintReviewRequest(checked Checked) ModelRequest {
 		}
 	}
 	context.Set("deterministicFindings", s.FromGoValue(failed))
-	statuses := reviewLine33
+	statuses := reviewStatusesV1
 	if isV2(request) {
 		statuses = reviewStatusesV2
 	}
-	prompt := []string{reviewLine27, reviewLine28, reviewLine29, reviewLine30, reviewLine31, reviewLine32, statuses, reviewLine34, reviewLine35, s.Stringify(context)}
-	return ModelRequest{System: reviewLine25, Prompt: strings.Join(prompt, "\n\n"), Schema: s.JSONSchema(schema)}
+	prompt := []string{reviewStyle, reviewScope, reviewPlan, reviewPrivate, reviewAdaptation, reviewPeriod, reviewReading, statuses, reviewPolicy, reviewFindings, s.Stringify(context)}
+	return ModelRequest{System: reviewSystem, Prompt: strings.Join(prompt, "\n\n"), Schema: s.JSONSchema(schema)}
 }
 
 func invalidReview() *ModelError {

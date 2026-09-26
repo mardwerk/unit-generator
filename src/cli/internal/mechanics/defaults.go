@@ -1,6 +1,12 @@
 package mechanics
 
-// DefaultDefinition returns the base BTD6-inspired starter Definition.
+// DefaultDefinition returns the base BTD6-inspired starter Definition. Its
+// reference scale is Dart Monkey 0-0-0 with its top-path purchase prices, as
+// captured by btd6-atlas 56.3 (Steam build 24829026, revision a380413):
+// data/56.3-build-24829026/game-data/Towers/DartMonkey/DartMonkey.json and
+// game-data/Upgrades/{Sharp Shots, Razor Sharp Shots, Spike-o-pult,
+// Juggernaut, Ultra-Juggernaut}.json. The default Profile's rules document
+// adds references for other roles; see research/BTD6-REFERENCE.md.
 func DefaultDefinition() Definition {
 	return Definition{
 		Version:       "1",
