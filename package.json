@@ -1,57 +1,24 @@
 {
-  "name": "@mardwerk/unit-generator",
+  "name": "@mardwerk/unit-generator-web",
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "description": "Structured Tower Defense unit authoring for humans and applications",
+  "description": "Build tooling for the mardwerk-unit web app; the Tool itself is the Go binary in src/cli",
   "engines": {
-    "node": ">=24"
+    "node": ">=22"
   },
-  "bin": {
-    "mardwerk-unit": "./dist/lab/main.js",
-    "unit-generator": "./dist/cli.js"
-  },
-  "exports": {
-    ".": {
-      "types": "./dist/core/index.d.ts",
-      "import": "./dist/core/index.js"
-    },
-    "./node": {
-      "types": "./dist/node/index.d.ts",
-      "import": "./dist/node/index.js"
-    }
-  },
-  "files": [
-    "dist",
-    "data",
-    "docs",
-    "research",
-    "README.md",
-    "CONTEXT.md"
-  ],
   "scripts": {
-    "dev": "node --watch --watch-path=src --watch-path=scripts --watch-path=data/reference --watch-path=tsconfig.json scripts/dev.mjs",
-    "build": "tsc -p tsconfig.json && node scripts/copy-lab-assets.mjs",
-    "typecheck": "tsc -p tsconfig.json --noEmit && tsc -p tsconfig.test.json --noEmit",
-    "test": "node -e \"require('node:fs').rmSync('.test-build', { recursive: true, force: true })\" && tsc -p tsconfig.test.json && node --test .test-build/tests/*.test.js",
-    "format": "prettier --write \"src/**/*.{ts,tsx,html,css}\" \"tests/**/*.{ts,tsx}\" \"scripts/*.mjs\" \"*.json\" \"data/**/*.json\"",
-    "format:check": "prettier --check \"src/**/*.{ts,tsx,html,css}\" \"tests/**/*.{ts,tsx}\" \"scripts/*.mjs\" \"*.json\" \"data/**/*.json\"",
-    "cli": "node dist/cli.js",
-    "lab": "node dist/lab/main.js",
-    "start": "node dist/lab/main.js"
+    "build": "node src/web/build.mjs",
+    "typecheck": "tsc -p src/web/tsconfig.json",
+    "format": "prettier --write \"src/web/**/*.{ts,tsx,mjs,html,css,json}\" \"*.json\" \"data/**/*.json\"",
+    "format:check": "prettier --check \"src/web/**/*.{ts,tsx,mjs,html,css,json}\" \"*.json\" \"data/**/*.json\""
   },
   "dependencies": {
-    "@openrouter/sdk": "^1.2.146",
-    "cheerio": "^1.1.2",
     "lucide-react": "^1.47.0",
     "react": "^19.3.0",
-    "react-dom": "^19.3.0",
-    "sharp": "^0.35.4",
-    "smol-toml": "^1.8.0",
-    "zod": "^4.3.6"
+    "react-dom": "^19.3.0"
   },
   "devDependencies": {
-    "@types/node": "^24.0.0",
     "@types/react": "^19.3.0",
     "@types/react-dom": "^19.3.0",
     "esbuild": "^0.28.2",
