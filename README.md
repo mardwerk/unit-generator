@@ -37,7 +37,6 @@ From the terminal:
 | `src/cli/` | The Go program: the `mardwerk-unit` command and its internal packages |
 | `src/web/` | The web app: React client (`app/`, `features/`, `ui/`, `api/`), static files (`public/`) and the embedded build (`dist/`) |
 | `data/` | Example requests, saved Profiles (`data/profiles`) and local runs (`data/runs`, ignored) |
-| `testdata/parity/` | Recorded behavior of the former TypeScript Tool that the Go tests replay |
 | `research/` | Design research and the [BTD6 reference](research/BTD6-REFERENCE.md), which points to btd6-atlas for BTD6 facts |
 
 ## Development
@@ -63,12 +62,7 @@ pnpm build        # rewrites src/web/dist, which the binary embeds; commit it
 
 Verified without network access:
 
-- **Parity with the TypeScript Tool.** The Go Engine replays the [parity corpus](testdata/parity/README.md):
-  - schema checks on about 26,000 cases;
-  - every mechanics function;
-  - request preparation and hashing;
-  - drafting with plans, repairs and failures, where every model request matches the recording byte for byte;
-  - checks, reviews, Markdown renders, usage summaries and kit stats.
+- **Engine stages.** A scripted reference unit ([fixture](src/cli/internal/fixture)) runs through plan, mechanics, targeted repair, check, review, render and the library; native tests cover schemas, all 64 legal builds, crosspath arithmetic, design-policy gates and version 1 and version 2 equivalence.
 - **Adapters.** The TypeScript tests for OpenRouter, Codex, images, research, documents, evidence, library, Profiles, the HTTP API and the CLI are ported. They run against a fake OpenRouter server, a fake `codex` executable and a fixture HTTP transport.
 - **Web app.** In Chromium against the Go server, with a recorded model and fixture research ([browser_test.go](src/cli/internal/server/browser_test.go), opt-in with `UNIT_BROWSER_PORT`):
   - Profile selection;
@@ -84,7 +78,7 @@ Needs live testing (not possible from the development container):
 - **Codex** with a real `codex` CLI and login, including MCP-server disabling against a real `config.toml`.
 - **Character research** against live Wikipedia, Wikidata and Fandom. The rules were ported and tested on fixtures only; real pages may differ.
 - **Windows**: Codex process cleanup uses process groups on Unix only.
-- **A quality reference.** The parity corpus says nothing about unit quality. A useful next step is a reference built from real BTD6 towers ([btd6-atlas](https://github.com/KyleDerZweite/btd6-atlas)): generate, for example, Dart Monkey from its sources, then compare structure, prices and specializations with the real tower.
+- **A quality reference.** The scripted fixture says nothing about unit quality. A useful next step is a reference built from real BTD6 towers ([btd6-atlas](https://github.com/KyleDerZweite/btd6-atlas)): generate, for example, Dart Monkey from its sources, then compare structure, prices and specializations with the real tower.
 
 ## Documentation
 

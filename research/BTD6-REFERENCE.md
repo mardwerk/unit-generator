@@ -18,7 +18,7 @@ No test or runtime code reads BTD6 research files. The values below were compile
 | `src/cli/internal/unit/prompt_text.go` | Pattern guidance distilled from the 26-tower analysis. |
 | `data/reference/` | Dart Monkey requests with a supplied brief. |
 
-The prompt texts are model-facing and pinned by the [parity corpus](../testdata/parity/README.md). When one of these is next revised, take its values from btd6-atlas and cite the atlas capture (patch and build) in place of the old provenance.
+The prompt texts are model-facing. When one of these is next revised, take its values from btd6-atlas and cite the atlas capture (patch and build) in place of the old provenance.
 
 ## Retired material
 

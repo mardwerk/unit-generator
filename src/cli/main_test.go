@@ -9,7 +9,7 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mardwerk/unit-generator/src/cli/internal/parity"
+	"github.com/mardwerk/unit-generator/src/cli/internal/fixture"
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
 	"github.com/mardwerk/unit-generator/src/cli/internal/server"
 )
@@ -32,23 +32,17 @@ func scratch(t *testing.T) string {
 	return dir
 }
 
-// recordedFiles writes a recorded planned draft and its reviewed Result.
+// recordedFiles writes the scripted fixture's draft and its reviewed Result.
 func recordedFiles(t *testing.T, dir string) (string, string) {
 	t.Helper()
-	entries, _ := parity.Entries("reviewDraft")
-	for _, entry := range entries {
-		result, ok := parity.Output(entry)
-		draft := parity.Get(parity.Arg(entry, 0), "draft")
-		if !ok || parity.Get(draft, "candidate", "blueprint") == nil {
-			continue
-		}
-		draftFile, resultFile := filepath.Join(dir, "draft.json"), filepath.Join(dir, "result.json")
-		_ = os.WriteFile(draftFile, []byte(s.Stringify(draft)), 0o600)
-		_ = os.WriteFile(resultFile, []byte(s.Stringify(result)), 0o600)
-		return draftFile, resultFile
+	stages, err := fixture.Build()
+	if err != nil {
+		t.Fatal(err)
 	}
-	t.Fatal("no recorded review")
-	return "", ""
+	draftFile, resultFile := filepath.Join(dir, "draft.json"), filepath.Join(dir, "result.json")
+	_ = os.WriteFile(draftFile, []byte(s.Stringify(s.FromGoValue(stages.Draft))), 0o600)
+	_ = os.WriteFile(resultFile, []byte(s.Stringify(s.FromGoValue(stages.Result))), 0o600)
+	return draftFile, resultFile
 }
 
 func TestOfflineCommandsIgnoreModelSettings(t *testing.T) {

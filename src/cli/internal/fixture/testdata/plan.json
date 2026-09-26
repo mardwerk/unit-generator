@@ -1,0 +1,71 @@
+{
+  "contract": "purchase-plan-v1",
+  "concept": "A cheap dart thrower whose three purchases lead to a rebounding spiked ball, a fast triple throw with a timed frenzy, and a long range crossbow with personal Camo detection.",
+  "signature": {
+    "name": "Dart Throw",
+    "sourceIds": ["source1:2"],
+    "adaptation": "The ordinary dart throw stays the base attack; every path develops that one throw instead of adding separate weapons."
+  },
+  "repertoire": [
+    { "name": "Spiked Ball", "sourceIds": ["source1:6"], "limitation": "Rebounds off obstacles need wall geometry that the Definition does not model." },
+    { "name": "Triple Throw", "sourceIds": ["source1:11"], "limitation": "The thirty degree arc becomes three darts aimed at the selected target." },
+    { "name": "Fan Club", "sourceIds": ["source1:12"], "limitation": "Only this Unit's own frenzy can be a manual boost; transforming nearby allies is unsupported." },
+    { "name": "Crossbow", "sourceIds": ["source1:16", "source1:17"], "limitation": "Counted critical shots have no operator and stay unsupported." }
+  ],
+  "base": {
+    "name": "Dart Throw",
+    "sourceIds": ["source1:2", "source1:3"],
+    "behavior": "Throws one sharp dart at the selected target on a steady interval; it cannot target Camo enemies or damage Lead and Frozen enemies."
+  },
+  "paths": {
+    "path1": {
+      "name": "Juggernaut Line",
+      "sourceIds": ["source1:4", "source1:6", "source1:7", "source1:8"],
+      "buyFor": "Dense lanes where one throw can pass through many enemies.",
+      "weakness": "Throws stay slow and have no Camo detection, so sparse or hidden enemies waste most of the ball's pierce.",
+      "milestones": {
+        "tier1": { "change": "1-x-x raises dart pierce by one.", "improves": ["pierce"], "unlock": "none" },
+        "tier2": { "change": "2-x-x raises dart pierce by two more.", "improves": ["pierce"], "unlock": "none" },
+        "tier3": { "change": "3-x-x replaces the dart with a heavier spiked ball that deals more damage, reaches farther and pierces far more enemies, at a slower throw.", "improves": ["damage", "pierce", "range"], "unlock": "none" },
+        "tier4": { "change": "4-x-x throws the ball faster, multiplies its pierce and switches it to normal damage so it can hit Lead.", "improves": ["pierce", "attack-rate"], "unlock": "damage-type-change" },
+        "tier5": { "change": "5-x-x raises ball damage and pierce again and adds a split: after each throw hits, up to twelve smaller balls strike other nearby enemies once each.", "improves": ["damage", "pierce"], "unlock": "follow-up" }
+      },
+      "capstoneValue": "One throw clears a whole cluster and its split covers enemies the ball missed."
+    },
+    "path2": {
+      "name": "Fan Club Line",
+      "sourceIds": ["source1:9", "source1:10", "source1:11", "source1:12", "source1:13"],
+      "buyFor": "Steady streams where more darts per second matter more than pierce.",
+      "weakness": "Each dart keeps low damage and pierce, and the frenzy only helps while enemies stay in range.",
+      "milestones": {
+        "tier1": { "change": "x-1-x shortens the attack interval.", "improves": ["attack-rate"], "unlock": "none" },
+        "tier2": { "change": "x-2-x shortens the attack interval again.", "improves": ["attack-rate"], "unlock": "none" },
+        "tier3": { "change": "x-3-x throws three darts at the selected target per attack and throws faster.", "improves": ["projectiles", "attack-rate"], "unlock": "none" },
+        "tier4": { "change": "x-4-x halves the interval again and unlocks a manual frenzy that makes this Unit attack far faster for a short window.", "improves": ["attack-rate"], "unlock": "manual-boost" },
+        "tier5": { "change": "x-5-x doubles dart damage during the frenzy and lengthens the frenzy window.", "improves": ["active-damage", "active-duration"], "unlock": "none" }
+      },
+      "capstoneValue": "The frenzy window turns into the Unit's peak damage moment instead of only a speed spike."
+    },
+    "path3": {
+      "name": "Crossbow Line",
+      "sourceIds": ["source1:14", "source1:15", "source1:16", "source1:17", "source1:18"],
+      "buyFor": "Long lanes and hidden enemies that the other paths cannot see.",
+      "weakness": "Bolts pierce few enemies until the last purchase, so dense groups still leak.",
+      "milestones": {
+        "tier1": { "change": "x-x-1 extends range.", "improves": ["range"], "unlock": "none" },
+        "tier2": { "change": "x-x-2 extends range again and lets this Unit target Camo enemies.", "improves": ["range"], "unlock": "camo" },
+        "tier3": { "change": "x-x-3 replaces the dart with a crossbow bolt that deals more damage, pierces more enemies and reaches much farther.", "improves": ["damage", "pierce", "range"], "unlock": "none" },
+        "tier4": { "change": "x-x-4 doubles bolt damage and fires twice as often.", "improves": ["damage", "attack-rate"], "unlock": "none" },
+        "tier5": { "change": "x-x-5 raises bolt damage, fires twice as often again, doubles pierce and switches to normal damage so bolts hit Lead.", "improves": ["damage", "attack-rate", "pierce"], "unlock": "damage-type-change" }
+      },
+      "capstoneValue": "Sustained precise fire at long range with access to Lead enemies."
+    }
+  },
+  "omittedTechniques": [
+    { "name": "Allied Fan Club", "reason": "Transforming nearby allied Units needs an ally operator that the Definition lacks." },
+    { "name": "Critical shots", "reason": "Every tenth or fifth shot dealing extra damage needs a shot counter operator." }
+  ],
+  "scopeLimits": [
+    "Rebounds, knockback and Ceramic or Fortified bonuses have no operator and stay unsupported."
+  ]
+}

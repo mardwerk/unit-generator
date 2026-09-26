@@ -1,0 +1,34 @@
+{
+  "schemaVersion": "1",
+  "task": "Adapt Dart Monkey into a Tower Defense Unit from the supplied atlas brief. Keep its three upgrade paths, their named purchases and incremental prices. Represent the supported mechanics exactly and list crits, rebounds, enemy-class bonuses and allied transformations as unsupported mechanics instead of hiding them in ordinary stats.",
+  "character": {
+    "name": "Dart Monkey",
+    "work": "Bloons TD 6",
+    "scope": "BTD6 patch 56.3 (Steam build 24829026) as captured by btd6-atlas at revision a380413. Supplied brief only; no other research."
+  },
+  "documents": [
+    {
+      "id": "dart-monkey-atlas-56-3",
+      "kind": "source",
+      "sourceUrl": "https://github.com/KyleDerZweite/btd6-atlas/tree/a380413ed809c98654acec7aa37cba40f80bf5c5/data/56.3-build-24829026/game-data/Towers/DartMonkey",
+      "text": "Dart Monkey is a primary tower. Placement costs 200 at Medium. Its base attack throws one dart every 0.95 seconds at range 32; each dart deals 1 sharp damage and can hit 2 bloons. It cannot target Camo bloons, and its sharp darts cannot damage Lead or Frozen bloons.\n\nTop path. Sharp Shots (140) raises dart pierce to 3. Razor Sharp Shots (200) raises it to 5. Spike-o-pult (320) replaces the dart with a spiked ball thrown every 1.15 seconds at range 36.8 that deals 2 damage, hits up to 18 bloons, rebounds off obstacles and can damage Frozen bloons. Juggernaut (1800) throws every second, raises pierce to 60, damages Lead, adds 3 damage against Ceramic and 2 against Fortified bloons and knocks light bloons back. Ultra-Juggernaut (15000) deals 5 damage with pierce 210 and larger Ceramic, Fortified and Lead bonuses; when its pierce runs out it splits into two rings of six smaller balls that each deal 2 damage with pierce 50.\n\nMiddle path. Quick Shots (100) shortens the attack interval to 0.8075 seconds. Very Quick Shots (190) shortens it to 0.6365 seconds. Triple Shot (450) throws three darts in a 30 degree arc every 0.477 seconds. Super Monkey Fan Club (7200) halves the interval again and adds an activated ability: for 15 seconds, up to 10 nearby Dart Monkeys with no path above tier 2 become super monkeys that attack about 16 times as often; the ability recharges in 50 seconds. Plasma Monkey Fan Club (45000) keeps that timing, affects up to 20 Dart Monkeys, and their plasma darts gain 1 damage and 3 pierce.\n\nBottom path. Long Range Darts (90) extends range to 40. Enhanced Eyesight (200) extends range to 48 and lets this Dart Monkey target Camo bloons. Crossbow (575) fires bolts that deal 3 damage with pierce 4 at range 60. Sharp Shooter (2050) deals 6 damage every 0.475 seconds, and every tenth shot is a critical hit for 50 damage. Crossbow Master (21500) deals 8 damage every 0.2375 seconds with pierce 8 at range 80, can damage every bloon type, and every fifth shot is a critical hit for 80 damage."
+    }
+  ],
+  "constraints": [
+    {
+      "id": "personal-detection",
+      "text": "Camo detection arrives only through Enhanced Eyesight on the bottom path and applies to this Unit alone. There is no allied revealing."
+    },
+    {
+      "id": "lead-permission",
+      "text": "Lead damage arrives only through Juggernaut on the top path or Crossbow Master on the bottom path. Attack speed and range purchases do not grant it."
+    },
+    {
+      "id": "fan-club-scope",
+      "text": "The Fan Club ability transforms other nearby Dart Monkeys. Only this Unit's own share of the ability may be modeled as a manual boost; the allied transformation stays an unsupported mechanic."
+    }
+  ],
+  "progression": null,
+  "previous": null,
+  "feedback": null
+}

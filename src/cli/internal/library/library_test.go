@@ -9,32 +9,20 @@ import (
 	"sync"
 	"testing"
 
-	"github.com/mardwerk/unit-generator/src/cli/internal/parity"
+	"github.com/mardwerk/unit-generator/src/cli/internal/fixture"
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
 	"github.com/mardwerk/unit-generator/src/cli/internal/unit"
 )
 
-// stages returns a prepared request, draft, checked draft and Result of one
-// recorded planned-route review.
+// stages returns the scripted fixture's prepared request, draft, checked
+// draft and Result.
 func stages(t *testing.T) []any {
 	t.Helper()
-	entries, err := parity.Entries("reviewDraft")
+	built, err := fixture.Build()
 	if err != nil {
 		t.Fatal(err)
 	}
-	for _, entry := range entries {
-		result, ok := parity.Output(entry)
-		checked := parity.Arg(entry, 0).(*s.Object)
-		draft, _ := checked.Get("draft")
-		candidate, _ := draft.(*s.Object).Get("candidate")
-		if _, planned := candidate.(*s.Object).Get("blueprint"); !ok || !planned {
-			continue
-		}
-		prepared, _ := draft.(*s.Object).Get("prepared")
-		return []any{prepared, draft, checked, result}
-	}
-	t.Fatal("no recorded review")
-	return nil
+	return built.Values()
 }
 
 func open(t *testing.T) (*Library, string) {
@@ -75,7 +63,7 @@ func TestLibrarySavesEveryStageOnceAndRestoresIt(t *testing.T) {
 		}
 		loaded, err := library.Load(entries[0].ID)
 		// Saving keeps the content; keys follow the contract order.
-		if err != nil || parity.Canonical(loaded) != parity.Canonical(artifact) || s.Stringify(artifact) != before {
+		if err != nil || s.Canonical(loaded) != s.Canonical(artifact) || s.Stringify(artifact) != before {
 			t.Errorf("load changed the %v artifact: %v", kind, err)
 		}
 	}

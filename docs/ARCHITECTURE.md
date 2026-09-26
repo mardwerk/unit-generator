@@ -128,9 +128,8 @@ src/cli/internal/research/     character lookup, Sources, explicit documents and
 src/cli/internal/library/      library folder and Profiles folder
 src/cli/internal/evidence/     --evidence-dir records
 src/cli/internal/server/       serve: routes and security checks
-src/cli/internal/parity/       test helper: reads testdata/parity
+src/cli/internal/fixture/      test helper: a scripted reference unit run through every stage
 src/web/                       web client: app/, features/, ui/, api/ (React), public/, dist/ (embedded), build.mjs
-testdata/parity/               recorded TypeScript behavior the Go tests replay
 ```
 
 Go dependencies: `golang.org/x/text` (NFKC and NFKD), `github.com/clipperhouse/uax29` (sentence segmentation of evidence), `github.com/PuerkitoBio/goquery` (HTML), `golang.org/x/image` (WebP decoding, thumbnails) and `github.com/BurntSushi/toml` (Codex configuration).

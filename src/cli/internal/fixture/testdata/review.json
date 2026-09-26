@@ -1,0 +1,17 @@
+{
+  "summary": "Scripted fixture review: the three paths follow the brief's purchase order and prices, and the unsupported rebounds, critical shots and allied transformation stay listed as unsupported mechanics.",
+  "findings": [
+    {
+      "id": "model.fan-club-allies",
+      "method": "model",
+      "category": "unsupported",
+      "severity": "warning",
+      "outcome": "unresolved",
+      "subject": "path-2 tier 4",
+      "rule": "source-fidelity",
+      "message": "The brief's Fan Club transforms up to 10 nearby Dart Monkeys; the Unit keeps only its own frenzy.",
+      "evidence": ["dart-monkey-atlas-56-3"],
+      "action": "Decide whether an ally operator is worth a Definition extension."
+    }
+  ]
+}

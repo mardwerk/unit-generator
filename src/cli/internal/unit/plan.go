@@ -18,17 +18,29 @@ type ModelRequest struct {
 
 var (
 	milestoneSchema = UpgradeIntentSchema.Extend(s.F("change", s.String().Trim().Min(1).Max(800)))
-	purchaseBranch  = planBranch.Omit("crosspaths", "referenceExample").Extend(s.F("milestones", s.StrictObject(
-		s.F("tier1", milestoneSchema), s.F("tier2", milestoneSchema), s.F("tier3", milestoneSchema), s.F("tier4", milestoneSchema), s.F("tier5", milestoneSchema),
-	)))
+	purchaseBranch  = purchaseBranchOf(milestoneSchema)
 	// PurchasePlanSchema is the compact plan the model returns: one description
 	// and one checkable promise per purchase.
-	PurchasePlanSchema = DesignPlanSchema.Omit("upgradeIntents").Extend(
-		s.F("contract", s.Literal("purchase-plan-v1")),
-		s.F("paths", s.StrictObject(s.F("path1", purchaseBranch), s.F("path2", purchaseBranch), s.F("path3", purchaseBranch))),
-	)
+	PurchasePlanSchema = purchasePlanOf(purchaseBranch)
+	// purchasePlanSchemaV2 accepts any well-formed promise ID, so a version 2
+	// Definition's status effects and detection traits survive expansion;
+	// DecodeDesignPlan then holds them to the Definition's vocabulary.
+	purchasePlanSchemaV2 = purchasePlanOf(purchaseBranchOf(upgradeIntentSchema(promiseID, promiseID).Extend(s.F("change", s.String().Trim().Min(1).Max(800)))))
 	earlyIdentityUnlocks = map[string]bool{"none": true, "camo": true}
 )
+
+func purchaseBranchOf(milestone s.Schema) *s.ObjectSchema {
+	return planBranch.Omit("crosspaths", "referenceExample").Extend(s.F("milestones", s.StrictObject(
+		s.F("tier1", milestone), s.F("tier2", milestone), s.F("tier3", milestone), s.F("tier4", milestone), s.F("tier5", milestone),
+	)))
+}
+
+func purchasePlanOf(branch s.Schema) *s.ObjectSchema {
+	return DesignPlanSchema.Omit("upgradeIntents").Extend(
+		s.F("contract", s.Literal("purchase-plan-v1")),
+		s.F("paths", s.StrictObject(s.F("path1", branch), s.F("path2", branch), s.F("path3", branch))),
+	)
+}
 
 // PurchasePlanOutputSchema narrows the compact plan to what the Definition supports.
 func PurchasePlanOutputSchema(request *Request) *s.ObjectSchema {
@@ -95,11 +107,23 @@ func earlyPurchases(branch *s.Object) string {
 // ExpandPurchasePlan turns a compact plan into the retained plan shape.
 // Other values pass through unchanged.
 func ExpandPurchasePlan(output any) (any, error) {
+	return expandPurchasePlan(output, PurchasePlanSchema)
+}
+
+// ExpandPurchasePlanFor expands a compact plan written under a Definition.
+func ExpandPurchasePlanFor(output any, definition *m.Definition) (any, error) {
+	if definition != nil && definition.IsV2() {
+		return expandPurchasePlan(output, purchasePlanSchemaV2)
+	}
+	return expandPurchasePlan(output, PurchasePlanSchema)
+}
+
+func expandPurchasePlan(output any, schema s.Schema) (any, error) {
 	obj, ok := output.(*s.Object)
 	if !ok || !obj.Has("contract") || obj.Has("upgradeIntents") {
 		return output, nil
 	}
-	wireValue, issues := s.Parse(PurchasePlanSchema, output)
+	wireValue, issues := s.Parse(schema, output)
 	if len(issues) > 0 {
 		return nil, &s.Error{Issues: issues}
 	}
@@ -331,7 +355,7 @@ func isDetection(d *m.Definition, id string) bool {
 // DecodeDesignPlan validates a plan's joins and structural choices.
 // Source interpretation remains a review obligation.
 func DecodeDesignPlan(output any, request *Request) (DesignPlan, error) {
-	expanded, err := ExpandPurchasePlan(output)
+	expanded, err := ExpandPurchasePlanFor(output, request.MechanicsDefinition)
 	if err != nil {
 		return DesignPlan{}, err
 	}

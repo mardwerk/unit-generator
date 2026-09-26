@@ -162,14 +162,17 @@ func UnlocksFor(d *mechanics.Definition) []string {
 // version 2 Definition given as nil (reading artifacts), any well-formed ID.
 func UpgradeIntentsSchemaFor(d *mechanics.Definition) *s.ObjectSchema {
 	if d == nil {
-		id := s.String().Regex(`^[a-z][a-z0-9-]{0,39}$`, "Use a promise ID of this Definition.")
-		return upgradeIntentsSchema(upgradeIntentSchema(id, id))
+		return upgradeIntentsSchema(upgradeIntentSchema(promiseID, promiseID))
 	}
 	if !d.IsV2() {
 		return UpgradeIntentsSchema
 	}
 	return upgradeIntentsSchema(upgradeIntentSchema(s.Enum(ImprovementsFor(d)...), s.Enum(UnlocksFor(d)...)))
 }
+
+// promiseID is any well-formed promise ID; the Definition's vocabulary
+// decides which ones a plan may use.
+var promiseID = s.String().Regex(`^[a-z][a-z0-9-]{0,39}$`, "Use a promise ID of this Definition.")
 
 func containsKey(path []any, key string) bool {
 	for _, p := range path {
