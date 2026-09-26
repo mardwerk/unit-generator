@@ -16,9 +16,6 @@ func Each(t *testing.T, name string, fn func(t *testing.T, entry *s.Object)) {
 	}
 	failures := 0
 	for _, entry := range entries {
-		if args, _ := entry.Get("args"); NonFinite(args) {
-			continue
-		}
 		if !t.Run(name, func(t *testing.T) { fn(t, entry) }) {
 			failures++
 			if failures > 5 {

@@ -22,12 +22,7 @@ All prices are authored incremental Gold proposals. Catalogue purchases range fr
 
 The recipes retain large specialty gains as proposed examples. The default authoring policy no longer requires a universal 3x gain, different broad role labels or a new T3 operator. Custom Definitions can request those gates. Direct, group and control capacity remain analytical estimates; peak active output is not time-averaged combat output. These recipes do not establish useful activation timing, target access or gameplay balance.
 
-Run the offline catalogue verification from the unit-generator directory:
-
-```sh
-pnpm exec tsc -p tsconfig.test.json
-node --test .test-build/tests/reference-patterns.test.js
-```
+The offline catalogue verification described here belonged to the TypeScript Tool and was removed with it; the links point to its last version.
 
 The [tests](https://github.com/mardwerk/unit-generator/blob/9244cd5/tests/reference-patterns.test.ts) validate each complete blueprint under the current authoring Definition, resolve all 64 legal selections per recipe and check their boosted attacks, for 320 builds total. They also check compatibility, immutable catalogue data, invalid fractional counts and the nonburn recipe's status-free inheritance. Compatibility compares rules, progression, currency and reference scale; per-recipe validation still handles customized policy and ceilings. Separate [candidate tests](https://github.com/mardwerk/unit-generator/blob/9244cd5/tests/attack-evidence.test.ts), [routing tests](https://github.com/mardwerk/unit-generator/blob/9244cd5/tests/reference-routing.test.ts) and [adapter tests](https://github.com/mardwerk/unit-generator/blob/9244cd5/tests/reference-authoring.test.ts) cover source filtering, custom-request preservation and selection. They do not certify the meaning of quoted passages.
 

@@ -1,12 +1,21 @@
+# Go builds: go build -o mardwerk-unit ./src/cli, a plain go build ./src/cli
+# (which writes cli), Windows executables, test binaries and profiles.
+mardwerk-unit
+/cli
+/bin/
+*.exe
+*.test
+*.out
+*.prof
+
+# Web client dependencies. The built client in src/web/dist is committed,
+# because the Go binary embeds it.
 node_modules/
-dist/
-# The built web client is embedded in the Go binary and committed.
-!src/web/dist/
-.test-build/
-.scratch/
+
+# Local runs, notes and secrets.
 data/runs/*
 !data/runs/.gitkeep
+.scratch/
 .env
 .env.*
 !.env.example
-coverage/

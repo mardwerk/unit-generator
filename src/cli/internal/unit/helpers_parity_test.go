@@ -104,7 +104,7 @@ func TestPlanningParity(t *testing.T) {
 	each(t, "designPlanRequest", func(t *testing.T, entry *s.Object) {
 		prepared, err := ParsePrepared(parity.Arg(entry, 0))
 		if err != nil {
-			t.Skip(err)
+			t.Fatal(err)
 		}
 		got, err := DesignPlanRequest(prepared)
 		if want, ok := parity.Output(entry); ok {
@@ -143,7 +143,7 @@ func TestPlanningParity(t *testing.T) {
 	each(t, "bindDesignPlan", func(t *testing.T, entry *s.Object) {
 		var plan DesignPlan
 		if err := s.ToGo(parity.Arg(entry, 1), &plan); err != nil {
-			t.Skip(err)
+			t.Fatal(err)
 		}
 		want, _ := parity.Output(entry)
 		if got := BindDesignPlan(parity.Arg(entry, 0), plan); !parity.Same(got, want) {
@@ -162,7 +162,7 @@ func TestPlanningParity(t *testing.T) {
 		var plan DesignPlan
 		var d m.Definition
 		if err := s.ToGo(parity.Arg(entry, 0), &plan); err != nil {
-			t.Skip(err)
+			t.Fatal(err)
 		}
 		_ = s.ToGo(parity.Arg(entry, 1), &d)
 		want, _ := parity.Output(entry)
@@ -197,6 +197,22 @@ func TestMechanicsOutputParity(t *testing.T) {
 			}
 		} else {
 			compareErr(t, err, entry)
+		}
+	})
+	each(t, "progressionBuildViolations", func(t *testing.T, entry *s.Object) {
+		// The recorded second argument is the tier map the function derives
+		// from the build's selections itself.
+		var build RepresentativeBuild
+		var progression Progression
+		if err := s.ToGo(parity.Arg(entry, 0), &build); err != nil {
+			t.Fatal(err)
+		}
+		if err := s.ToGo(parity.Arg(entry, 2), &progression); err != nil {
+			t.Fatal(err)
+		}
+		want, _ := parity.Output(entry)
+		if got := ProgressionBuildViolations(build, progression); !parity.Same(got, want) {
+			t.Errorf("got %s\nwant %s", show(got), s.Stringify(want))
 		}
 	})
 	each(t, "tierEffectLimit", func(t *testing.T, entry *s.Object) {
@@ -280,7 +296,7 @@ func TestMechanicsOutputParity(t *testing.T) {
 		if value := parity.Arg(entry, 1); value != nil && value != s.Missing {
 			plan = &DesignPlan{}
 			if err := s.ToGo(value, plan); err != nil {
-				t.Skip(err)
+				t.Fatal(err)
 			}
 		}
 		var d m.Definition
@@ -302,9 +318,6 @@ func TestMechanicsOutputParity(t *testing.T) {
 
 func TestRepairParity(t *testing.T) {
 	each(t, "targetedTierRepair", func(t *testing.T, entry *s.Object) {
-		if !prepared(parity.Arg(entry, 0)) {
-			t.Skip("request was never prepared; its key order is JavaScript insertion order")
-		}
 		r := requestArg(t, entry, 0)
 		var issues []string
 		for _, item := range parity.Arg(entry, 2).([]any) {
@@ -347,16 +360,9 @@ func TestReviewRequestParity(t *testing.T) {
 	each(t, "blueprintReviewRequest", func(t *testing.T, entry *s.Object) {
 		checked, err := ParseChecked(parity.Arg(entry, 0))
 		if err != nil {
-			t.Skip(err)
+			t.Fatal(err)
 		}
 		want, _ := parity.Output(entry)
 		sameRequest(t, BlueprintReviewRequest(checked), want)
 	})
-}
-
-// prepared reports whether a recorded request is in schema order, as every
-// prepared request is. Unit tests sometimes passed hand-built requests.
-func prepared(value any) bool {
-	out, issues := s.Parse(RequestSchema, value)
-	return len(issues) == 0 && s.Stringify(out) == s.Stringify(value)
 }

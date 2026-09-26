@@ -15,6 +15,8 @@ go build -o mardwerk-unit ./src/cli
 
 Open `http://127.0.0.1:4317`, enter a character name and select Generate.
 
+If `go build` stops with `error obtaining VCS status`, Git could not read the checkout, for example because another user owns it. Build with `go build -buildvcs=false -o mardwerk-unit ./src/cli`. The binary then lacks only its Git revision; `--evidence-dir` manifests still record its SHA-256.
+
 Model calls go through OpenRouter by default (`openrouter/free`, free models only, no paid fallback). Put `OPENROUTER_API_KEY` in a `.env` file in the working directory (see [.env.example](.env.example)), set it in the environment, or enter it in Settings. To use an existing Codex login instead, run `./mardwerk-unit serve --provider codex`.
 
 From the terminal:

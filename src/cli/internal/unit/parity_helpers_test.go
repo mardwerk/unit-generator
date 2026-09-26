@@ -13,12 +13,12 @@ func each(t *testing.T, name string, fn func(t *testing.T, entry *s.Object)) {
 	parity.Each(t, name, fn)
 }
 
-// requestArg decodes a recorded request argument, skipping unparseable ones.
+// requestArg decodes a recorded request argument.
 func requestArg(t *testing.T, entry *s.Object, i int) Request {
 	t.Helper()
 	var r Request
 	if err := s.ToGo(parity.Arg(entry, i), &r); err != nil {
-		t.Skipf("request not decodable: %v", err)
+		t.Fatalf("request not decodable: %v", err)
 	}
 	return r
 }

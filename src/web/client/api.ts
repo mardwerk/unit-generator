@@ -29,7 +29,7 @@ export async function api<T>(endpoint: string, body?: unknown, signal?: AbortSig
   } catch (error) {
     if (signal?.aborted) throw error;
     throw new LabApiError(
-      'The local server could not be reached. Check that pnpm dev is running, then reload this page.',
+      'The local server could not be reached. Check that mardwerk-unit serve is running, then reload this page.',
       undefined,
       'SERVER_UNREACHABLE',
     );

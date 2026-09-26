@@ -24,15 +24,9 @@ func maxRepairs(entry *s.Object) Options {
 
 func TestDraftUnitParity(t *testing.T) {
 	each(t, "draftUnit", func(t *testing.T, entry *s.Object) {
-		if legacyRoute(entry) {
-			t.Skip("legacy prose route is retired")
-		}
-		if recordedCode(entry) == CodeCancelled || recordedName(entry) == "AbortError" {
-			t.Skip("cancellation cannot be replayed")
-		}
 		prepared, err := ParsePrepared(parity.Arg(entry, 0))
 		if err != nil {
-			t.Skipf("prepared not decodable: %v", err)
+			t.Fatalf("prepared not decodable: %v", err)
 		}
 		model := newReplay(t, entry)
 		got, err := DraftUnit(context.Background(), prepared, model, maxRepairs(entry))
@@ -82,10 +76,7 @@ func TestReviewDraftParity(t *testing.T) {
 	each(t, "reviewDraft", func(t *testing.T, entry *s.Object) {
 		checked, err := ParseChecked(parity.Arg(entry, 0))
 		if err != nil {
-			t.Skipf("checked not decodable: %v", err)
-		}
-		if checked.Draft.Candidate.Blueprint == nil {
-			t.Skip("legacy prose drafts are not reviewed")
+			t.Fatalf("checked not decodable: %v", err)
 		}
 		model := newReplay(t, entry)
 		got, err := ReviewDraft(context.Background(), checked, model, Options{})

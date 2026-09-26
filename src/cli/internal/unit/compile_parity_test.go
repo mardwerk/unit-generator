@@ -12,7 +12,7 @@ func blueprintArg(t *testing.T, entry *s.Object, i int) m.Blueprint {
 	t.Helper()
 	var b m.Blueprint
 	if err := s.ToGo(parity.Arg(entry, i), &b); err != nil {
-		t.Skipf("blueprint not decodable: %v", err)
+		t.Fatalf("blueprint not decodable: %v", err)
 	}
 	return b
 }

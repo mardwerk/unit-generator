@@ -118,46 +118,6 @@ func sameArtifact(got any, want any) bool {
 	return parity.Canonical(normalize(parity.Mark(s.FromGoValue(got)))) == parity.Canonical(normalize(want))
 }
 
-func legacyRoute(entry *s.Object) bool {
-	args, _ := entry.Get("args")
-	return !containsKey2(args, "mechanicsDefinition")
-}
-
-func containsKey2(value any, key string) bool {
-	switch v := value.(type) {
-	case *s.Object:
-		if v.Has(key) {
-			return true
-		}
-		for _, k := range v.Keys() {
-			item, _ := v.Get(k)
-			if containsKey2(item, key) {
-				return true
-			}
-		}
-	case []any:
-		for _, item := range v {
-			if containsKey2(item, key) {
-				return true
-			}
-		}
-	}
-	return false
-}
-
-func recordedCode(entry *s.Object) string {
-	e := parity.ErrorOf(entry)
-	if e == nil {
-		return ""
-	}
-	if failure, ok := e.Get("failure"); ok {
-		code, _ := failure.(*s.Object).Get("code")
-		text, _ := code.(string)
-		return text
-	}
-	return ""
-}
-
 func compareFailure(t *testing.T, err error, entry *s.Object) {
 	t.Helper()
 	recorded := parity.ErrorOf(entry)
@@ -182,13 +142,4 @@ func compareFailure(t *testing.T, err error, entry *s.Object) {
 			t.Errorf("usage got %s want %s", show(modelErr), s.Stringify(usage))
 		}
 	}
-}
-
-func recordedName(entry *s.Object) string {
-	if e := parity.ErrorOf(entry); e != nil {
-		name, _ := e.Get("name")
-		text, _ := name.(string)
-		return text
-	}
-	return ""
 }

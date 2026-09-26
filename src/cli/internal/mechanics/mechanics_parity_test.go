@@ -63,7 +63,7 @@ func TestSelectionIssuesParity(t *testing.T) {
 	each(t, "selectionIssues", func(t *testing.T, entry *s.Object) {
 		sel, ok := selectionArg(entry, 0)
 		if !ok {
-			t.Skip("non-integer selection")
+			t.Fatal("non-integer selection")
 		}
 		d, _ := definitionArg(t, entry, 1)
 		want, _ := parity.Output(entry)
@@ -96,7 +96,7 @@ func TestResolveBuildParity(t *testing.T) {
 		d, _ := definitionArg(t, entry, 2)
 		sel, ok := selectionArg(entry, 1)
 		if !ok {
-			t.Skip("non-integer selection")
+			t.Fatal("non-integer selection")
 		}
 		got, err := ResolveBuild(blueprintArg(t, entry, 0), sel, d)
 		if want, ok := parity.Output(entry); ok {

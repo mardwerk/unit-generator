@@ -96,27 +96,3 @@ func ErrorOf(entry *s.Object) *s.Object {
 	obj, _ := e.(*s.Object)
 	return obj
 }
-
-// NonFinite reports a recorded {"$number": ...} marker anywhere in value.
-// Such inputs only arose in memory; JSON cannot carry them.
-func NonFinite(value any) bool {
-	switch v := value.(type) {
-	case *s.Object:
-		if _, ok := v.Get("$number"); ok && v.Len() == 1 {
-			return true
-		}
-		for _, key := range v.Keys() {
-			item, _ := v.Get(key)
-			if NonFinite(item) {
-				return true
-			}
-		}
-	case []any:
-		for _, item := range v {
-			if NonFinite(item) {
-				return true
-			}
-		}
-	}
-	return false
-}

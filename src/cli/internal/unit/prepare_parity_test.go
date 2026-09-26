@@ -127,7 +127,7 @@ func TestProfilesParity(t *testing.T) {
 		r := requestArg(t, entry, 0)
 		var p Profile
 		if err := s.ToGo(parity.Arg(entry, 1), &p); err != nil {
-			t.Skip("profile not decodable")
+			t.Fatal(err)
 		}
 		want, _ := parity.Output(entry)
 		if got := ApplyProfile(r, p); !parity.Same(got, want) {
@@ -144,16 +144,4 @@ func TestProfilesParity(t *testing.T) {
 			t.Errorf("got %s want %s", show(got), s.Stringify(want))
 		}
 	})
-	if got := s.FromGoValue(DefaultProfile()); !parity.Same(got, mustParity(t, "validateProfile")) {
-		t.Log("default profile differs from the first recorded validated profile (informational)")
-	}
-}
-
-func mustParity(t *testing.T, name string) any {
-	entries, err := parity.Entries(name)
-	if err != nil || len(entries) == 0 {
-		t.Fatal(err)
-	}
-	out, _ := parity.Output(entries[0])
-	return out
 }
