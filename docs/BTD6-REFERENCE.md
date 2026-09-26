@@ -47,7 +47,6 @@ The default Profile follows BTD6 closely: the same 3 × 5 purchase structure, cr
 | Allied effects | Buffs, shared detection and transformations of nearby towers | Unsupported; only the Unit's own attack changes |
 | Damage modifiers | Bonuses against Ceramic, Fortified, MOAB-class and other tags, critical-hit counters, rebounds, knockback, shot arcs | Unsupported; listed as unsupported mechanics, never folded into ordinary damage |
 | Purchase size | An upgrade changes as many properties as it needs; Crossbow Master changes damage, interval, pierce, range and damage type | Each purchase has a change budget set by the Definition profile (`maxChangesPerTier`): the Default Profile allows five from the third purchase and three through the second, enough for Crossbow Master |
-| Third purchases | Some third upgrades only raise numbers; Crossbow adds damage, pierce and range | The third purchase of every path must add a behavior or access (a new delivery, volley, projectile count, splash, status, follow-up, damage type or detection), so a Crossbow adaptation adds one |
 | Vocabulary | Many damage types and bloon properties | Four damage types (Sharp, Normal, Explosive, Energy), seven enemy properties and the statuses Slow, Burn and Stun |
 
 A generated unit records its own departures from its source as unsupported-mechanic findings.

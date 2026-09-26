@@ -26,9 +26,9 @@
       "milestones": {
         "tier1": { "change": "1-x-x raises dart pierce by one.", "improves": ["pierce"], "unlock": "none" },
         "tier2": { "change": "2-x-x raises dart pierce by two more.", "improves": ["pierce"], "unlock": "none" },
-        "tier3": { "change": "3-x-x replaces the dart with a heavier spiked ball that deals more damage, reaches farther and pierces far more enemies, at a slower throw. The ball rebounds: after each throw hits, up to two other nearby enemies take half its damage once each.", "improves": ["damage", "pierce", "range"], "unlock": "follow-up" },
+        "tier3": { "change": "3-x-x replaces the dart with a heavier spiked ball that deals more damage, reaches farther and pierces far more enemies, at a slower throw.", "improves": ["damage", "pierce", "range"], "unlock": "none" },
         "tier4": { "change": "4-x-x throws the ball faster, multiplies its pierce and switches it to normal damage so it can hit Lead.", "improves": ["pierce", "attack-rate"], "unlock": "damage-type-change" },
-        "tier5": { "change": "5-x-x raises ball damage and pierce again and replaces the rebound with a split: after each throw hits, up to twelve smaller balls strike other nearby enemies once each.", "improves": ["damage", "pierce", "follow-up"], "unlock": "none" }
+        "tier5": { "change": "5-x-x raises ball damage and pierce again and adds a split: after each throw hits, up to twelve smaller balls strike other nearby enemies once each.", "improves": ["damage", "pierce"], "unlock": "follow-up" }
       },
       "capstoneValue": "One throw clears a whole cluster and its split covers enemies the ball missed."
     },
@@ -54,7 +54,7 @@
       "milestones": {
         "tier1": { "change": "x-x-1 extends range.", "improves": ["range"], "unlock": "none" },
         "tier2": { "change": "x-x-2 extends range again and lets this Unit target Camo enemies.", "improves": ["range"], "unlock": "camo" },
-        "tier3": { "change": "x-x-3 replaces the dart with a crossbow bolt that strikes its target instantly, deals more damage, pierces more enemies and reaches much farther.", "improves": ["damage", "pierce", "range"], "unlock": "delivery-change" },
+        "tier3": { "change": "x-x-3 replaces the dart with a crossbow bolt that deals more damage, pierces more enemies and reaches much farther.", "improves": ["damage", "pierce", "range"], "unlock": "none" },
         "tier4": { "change": "x-x-4 doubles bolt damage and fires twice as often.", "improves": ["damage", "attack-rate"], "unlock": "none" },
         "tier5": { "change": "x-x-5 raises bolt damage, fires twice as often again, doubles pierce and switches to normal damage so bolts hit Lead.", "improves": ["damage", "attack-rate", "pierce"], "unlock": "damage-type-change" }
       },

@@ -177,27 +177,36 @@ func TestTheDefinitionProfileSetsTheChangeBudget(t *testing.T) {
 	}
 }
 
-// Under the Default Profile the third purchase of every path adds a
-// supported behavior or access; larger numbers or a targeting change alone
-// are rejected when the plan is authored.
-func TestPlansRequireABehaviorAtTheThirdPurchase(t *testing.T) {
+// A third purchase needs a significant reason to commit, which the model
+// review judges; a substantial stat change qualifies, so the Default Profile
+// accepts one. A Profile can opt in to requiring a behavior or access, and
+// then a stat-only or targeting-only third purchase is rejected at the plan.
+func TestThirdPurchaseBehaviorIsAnOptInGate(t *testing.T) {
 	prepared, err := fixture.Prepare()
 	if err != nil {
 		t.Fatal(err)
 	}
-	for unlock, rejected := range map[string]bool{"none": true, "targeting-change": true, "splash": false, "damage-type-change": false} {
+	statOnly := recordedOutput(t, "plan")
+	at(statOnly, "paths", "path3", "milestones", "tier3").(*s.Object).Set("improves", []any{"damage", "range"}).Set("unlock", "none")
+	if _, err := unit.DecodeDesignPlan(statOnly, &prepared.Request); err != nil {
+		t.Fatalf("the Default Profile rejected a stat-only third purchase: %v", err)
+	}
+	if request, _ := unit.DesignPlanRequest(prepared); strings.Contains(request.Prompt, "This Profile requires the third purchase") {
+		t.Error("the Default Profile's plan prompt requires a third-purchase behavior")
+	}
+	optIn := prepared.Request
+	definition := *optIn.MechanicsDefinition
+	policy := *definition.Profile.DesignPolicy
+	required := true
+	policy.RequireTier3BehaviorChange = &required
+	definition.Profile.DesignPolicy = &policy
+	optIn.MechanicsDefinition = &definition
+	for unlock, rejected := range map[string]bool{"none": true, "targeting-change": true, "splash": false} {
 		plan := recordedOutput(t, "plan")
 		at(plan, "paths", "path3", "milestones", "tier3").(*s.Object).Set("improves", []any{"damage", "range"}).Set("unlock", unlock)
-		_, err := unit.DecodeDesignPlan(plan, &prepared.Request)
+		_, err := unit.DecodeDesignPlan(plan, &optIn)
 		if got := err != nil && strings.Contains(err.Error(), "x-x-3 must add a supported behavior or access"); got != rejected {
-			t.Errorf("unlock %s: %v", unlock, err)
+			t.Errorf("opt-in, unlock %s: %v", unlock, err)
 		}
-	}
-	plan := recordedOutput(t, "plan")
-	if request, err := unit.DesignPlanRequest(prepared); err != nil || !strings.Contains(request.Prompt, "This Profile requires the third purchase of every path to add a supported behavior or access") {
-		t.Errorf("the plan prompt does not state the requirement: %v", err)
-	}
-	if _, err := unit.DecodeDesignPlan(plan, &prepared.Request); err != nil {
-		t.Fatalf("the fixture plan was rejected: %v", err)
 	}
 }
