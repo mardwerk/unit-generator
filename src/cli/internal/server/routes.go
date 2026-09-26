@@ -126,6 +126,9 @@ func (srv *Server) posts() map[string]post {
 			if stats := render.Stats(view.Candidate, definition); stats != nil {
 				out.Set("stats", s.FromGoValue(stats))
 			}
+			if base := render.Base(view.Candidate, definition); base != nil {
+				out.Set("base", s.FromGoValue(base))
+			}
 			if purchases := render.Purchases(view.Candidate, definition); purchases != nil {
 				out.Set("purchases", s.FromGoValue(purchases))
 			}

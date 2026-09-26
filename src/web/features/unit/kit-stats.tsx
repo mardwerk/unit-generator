@@ -40,7 +40,7 @@ export const statLabels = {
   delivery: 'Delivery',
   damageType: 'Damage type',
   targeting: 'Targeting',
-  ability: 'Manual ability',
+  ability: 'Active Ability',
   distribution: 'Volley targets',
   followUp: 'Secondary attack',
   activeFollowUp: 'During activation',

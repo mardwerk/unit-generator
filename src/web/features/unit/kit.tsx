@@ -12,15 +12,10 @@ import { Disclosure } from '../../ui/disclosure.js';
 import { cn, safeUrl } from '../../ui/utils.js';
 import { KitIcon, type UnitIcons } from './icon-prompts.js';
 import { UnitPortrait } from './unit-portrait.js';
+import { CrosspathOverview } from './crosspaths.js';
 import { visualReferencesOf } from './visual-references.js';
 import { api } from '../../api/client.js';
-import {
-  buildCode,
-  tierStatKey,
-  type BuildRow,
-  type StatChange,
-  type UnitView,
-} from '../../api/contract.js';
+import { buildCode, tierStatKey, type StatChange, type UnitView } from '../../api/contract.js';
 import { Cost, StatValues } from './kit-stats.js';
 
 /**
@@ -45,59 +40,6 @@ function useUnitView(artifact: LabArtifact): UnitView | undefined {
 }
 
 const pathPositions = ['Top', 'Middle', 'Bottom'];
-
-/** Every legal two-path build, as the server resolved it. */
-function CrosspathTable({
-  title,
-  rows,
-  currency,
-}: {
-  title: string;
-  rows: BuildRow[];
-  currency: string;
-}) {
-  return (
-    <section className="my-4">
-      <h4 className="mb-2 text-sm font-semibold">{title}</h4>
-      <div className="overflow-x-auto">
-        <table className="w-full min-w-[640px] border-collapse text-left text-xs">
-          <thead className="text-muted-foreground">
-            <tr>
-              <th className="py-1.5 pr-3 font-medium">Build</th>
-              <th className="py-1.5 pr-3 font-medium">Total</th>
-              <th className="py-1.5 pr-3 font-medium">Added by the other path</th>
-              <th className="py-1.5 font-medium">Resulting attack</th>
-            </tr>
-          </thead>
-          <tbody>
-            {rows.map((row) => (
-              <tr className="border-t border-border align-top" key={row.code}>
-                <td className="py-1.5 pr-3 font-mono whitespace-nowrap">{row.code}</td>
-                <td className="py-1.5 pr-3 whitespace-nowrap">
-                  <Cost value={row.cost} currency={currency} />
-                </td>
-                <td className="py-1.5 pr-3">
-                  {row.contributions.map((contribution) => (
-                    <p key={contribution.from}>
-                      <span className="font-mono">{contribution.from}</span>:{' '}
-                      {contribution.changes.join(', ')}
-                    </p>
-                  ))}
-                </td>
-                <td className="py-1.5">
-                  <p>{row.attack}</p>
-                  {row.active && (
-                    <p className="text-muted-foreground">Active Ability: {row.active}</p>
-                  )}
-                </td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
-      </div>
-    </section>
-  );
-}
 
 type Ability = UnitCandidate['abilities'][number];
 
@@ -236,7 +178,14 @@ export function CharacterSheet({
   const assigned = new Set(
     candidate?.paths.flatMap((path) => path.tiers.flatMap((tier) => tier.abilityIds)),
   );
-  const remaining = candidate?.abilities.filter((ability) => !assigned.has(ability.id)) ?? [];
+  // A unit sheet shows what the unit does; reserved and omitted techniques
+  // stay with the mechanic proposals below it.
+  const remaining =
+    candidate?.abilities.filter(
+      (ability) =>
+        !assigned.has(ability.id) &&
+        !(unitView?.purchases && ['reserved', 'omitted'].includes(ability.placement)),
+    ) ?? [];
   const status =
     artifact.kind === 'draft'
       ? 'Draft only. Checks and review have not run.'
@@ -317,7 +266,7 @@ export function CharacterSheet({
               )}
             </div>
           </header>
-          <p className="mt-5 text-[15px]">{candidate.role}</p>
+          <p className="mt-5 text-[15px]">{unitView?.base?.text ?? candidate.role}</p>
           <div className="my-6 grid gap-4 md:grid-cols-2 [&>:only-child]:col-span-full">
             {stats && (
               <section className="rounded-lg border border-border bg-card p-[18px]">
@@ -343,7 +292,9 @@ export function CharacterSheet({
                   event.currentTarget.querySelector<HTMLButtonElement>('.card-open')?.click();
               }}
             >
-              <h3 className={cardHeading}>Basic attack</h3>
+              <h3 className={cardHeading}>
+                {unitView?.base ? `${unitView.base.code} basic attack` : 'Basic attack'}
+              </h3>
               <div className={entryHeading}>
                 {icons && (
                   <KitIcon
@@ -479,24 +430,7 @@ export function CharacterSheet({
             ))}
           </div>
           {unitView?.crosspaths && (
-            <Disclosure
-              title={`Crosspaths (${unitView.crosspaths.early.length} early, ${unitView.crosspaths.advanced.length} advanced builds)`}
-            >
-              <p className="my-2 text-xs text-muted-foreground">
-                Every two-path build: what each path's purchases add to the other and the resulting
-                attack.
-              </p>
-              <CrosspathTable
-                title="Early builds"
-                rows={unitView.crosspaths.early}
-                currency={currency}
-              />
-              <CrosspathTable
-                title="Advanced builds"
-                rows={unitView.crosspaths.advanced}
-                currency={currency}
-              />
-            </Disclosure>
+            <CrosspathOverview crosspaths={unitView.crosspaths} currency={currency} />
           )}
           {unitView?.revision && (
             <Disclosure title="Patch notes">

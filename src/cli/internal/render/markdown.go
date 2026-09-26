@@ -59,8 +59,7 @@ func compactProse(view View) string {
 
 func (sh *sheet) baseSection() []string {
 	base := sh.resolve(m.Selection{}).BaseAttack
-	text := "Placement costs " + sh.money(base.Cost) + ". " + strings.Join(sh.attackSentences(base), " ")
-	return []string{"## 0-0-0: " + Escape(base.Name), "", Escape(text), ""}
+	return []string{"## 0-0-0: " + Escape(base.Name), "", Escape(sh.baseText(base)), ""}
 }
 
 func (sh *sheet) pathSections() []string {

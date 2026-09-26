@@ -197,6 +197,9 @@ func TestStagesRunThroughTheAPI(t *testing.T) {
 	early, _ := at(view, "crosspaths", "early").([]any)
 	advanced, _ := at(view, "crosspaths", "advanced").([]any)
 	purchases, _ := view.Get("purchases")
+	if base, _ := at(view, "base", "text").(string); !strings.HasPrefix(base, "Placement costs 200 Gold.") || at(view, "base", "code") != "0-0-0" {
+		t.Errorf("view base %q", base)
+	}
 	if len(early) != 12 || len(advanced) != 36 || len(purchases.([]any)) != 3 || view.Has("revision") {
 		t.Errorf("view has %d early and %d advanced builds", len(early), len(advanced))
 	}

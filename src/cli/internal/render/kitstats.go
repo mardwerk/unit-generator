@@ -1,6 +1,8 @@
 package render
 
 import (
+	"strings"
+
 	"github.com/mardwerk/unit-generator/src/cli/internal/mechanics"
 	s "github.com/mardwerk/unit-generator/src/cli/internal/schema"
 	"github.com/mardwerk/unit-generator/src/cli/internal/unit"
@@ -190,6 +192,10 @@ func tierChanges(before, after mechanics.ResolvedBuild, vocabulary *mechanics.Vo
 	for _, key := range mechanics.BoostStatKeys {
 		next := boostStat(nextBoost, key)
 		if priorBoost == nil {
+			// A multiplier of 1 or a bonus of 0 changes nothing; it is not listed.
+			if (strings.HasSuffix(key, "Multiplier") && next == 1) || (key == "rangeBonus" && next == 0) {
+				continue
+			}
 			changes = append(changes, StatChange{Key: key, After: next})
 			continue
 		}

@@ -478,8 +478,16 @@ export interface RevisionNotes {
   changedBuilds: string[];
 }
 
+/** 0-0-0 as the unit sheet describes it: price and attack in sentences. */
+export interface BaseUnit {
+  code: string;
+  name: string;
+  text: string;
+}
+
 export interface UnitView {
   view: { kind: LabArtifact['kind']; designEvaluation?: unknown };
+  base?: BaseUnit;
   stats?: KitStats;
   purchases?: PathPurchases[];
   crosspaths?: Crosspaths;

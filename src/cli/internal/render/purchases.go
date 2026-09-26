@@ -476,6 +476,28 @@ func newAbilityOrLast(after m.Build) *m.ResolvedAbility {
 	return &after.Abilities[len(after.Abilities)-1]
 }
 
+// BaseUnit is 0-0-0 as the unit sheet describes it.
+type BaseUnit struct {
+	Code string `json:"code"`
+	Name string `json:"name"`
+	Text string `json:"text"`
+}
+
+// Base describes 0-0-0 of a valid blueprint: its price and attack. It
+// returns nil for a candidate without valid typed mechanics.
+func Base(candidate unit.Candidate, definition *m.Definition) *BaseUnit {
+	sh := newSheet(candidate.Blueprint, definition)
+	if sh == nil {
+		return nil
+	}
+	base := sh.resolve(m.Selection{}).BaseAttack
+	return &BaseUnit{Code: "0-0-0", Name: base.Name, Text: sh.baseText(base)}
+}
+
+func (sh *sheet) baseText(base m.Attack) string {
+	return "Placement costs " + sh.money(base.Cost) + ". " + strings.Join(sh.attackSentences(base), " ")
+}
+
 // Purchases describes every purchase of a valid blueprint along its pure
 // path. It returns nil for a candidate without valid typed mechanics.
 func Purchases(candidate unit.Candidate, definition *m.Definition) []PathPurchases {
