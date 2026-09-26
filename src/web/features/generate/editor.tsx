@@ -1,6 +1,6 @@
 import { useRef } from 'react';
 import { Plus, Upload, Trash2 } from 'lucide-react';
-import { Disclosure, Field, IconButton } from './ui.js';
+import { Disclosure, Field, IconButton } from '../../ui/legacy.js';
 import type { DocumentInput, EditorInput } from './editor-state.js';
 
 export function RequestEditor({

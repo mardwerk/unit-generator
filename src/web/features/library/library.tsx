@@ -1,8 +1,8 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ImageOff, Trash2, Archive, FolderOpen } from 'lucide-react';
-import type { LabArtifact, LibraryEntry, LibraryState } from './contract.js';
-import { api } from './api.js';
-import { Modal, IconButton } from './ui.js';
+import type { LabArtifact, LibraryEntry, LibraryState } from '../../api/contract.js';
+import { api } from '../../api/client.js';
+import { Modal, IconButton } from '../../ui/legacy.js';
 
 export function useLibrary() {
   const [state, setState] = useState<LibraryState>({ directory: '', entries: [] });

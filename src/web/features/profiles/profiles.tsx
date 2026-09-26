@@ -1,8 +1,8 @@
 import { useEffect, useState } from 'react';
 import { Copy, FolderOpen, Pencil, Play, Trash2 } from 'lucide-react';
-import type { ProfileEntry, ProfilesState, Progression, UnitProfile } from './contract.js';
-import { api } from './api.js';
-import { Disclosure, Field } from './ui.js';
+import type { ProfileEntry, ProfilesState, Progression, UnitProfile } from '../../api/contract.js';
+import { api } from '../../api/client.js';
+import { Disclosure, Field } from '../../ui/legacy.js';
 
 /** The server lists the bundled Profile first, then the saved ones from its Profiles folder. */
 export function useProfiles() {

@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { KeyRound } from 'lucide-react';
-import type { KeyState, ProviderState } from './contract.js';
-import type { GenerationLibrary } from './library.js';
-import { api } from './api.js';
-import { Field, Disclosure, Modal } from './ui.js';
+import type { KeyState, ProviderState } from '../../api/contract.js';
+import type { GenerationLibrary } from '../library/library.js';
+import { api } from '../../api/client.js';
+import { Field, Disclosure, Modal } from '../../ui/legacy.js';
 
 const keySources: Record<KeyState['source'], string> = {
   'env-file': 'from .env',

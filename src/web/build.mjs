@@ -9,7 +9,7 @@ await mkdir(dist, { recursive: true });
 for (const file of ['index.html', 'styles.css', 'mardwerk.png'])
   await copyFile(new URL(`public/${file}`, web), new URL(file, dist));
 await build({
-  entryPoints: [new URL('client/main.tsx', web).pathname],
+  entryPoints: [new URL('app/main.tsx', web).pathname],
   outfile: new URL('app.js', dist).pathname,
   bundle: true,
   format: 'esm',

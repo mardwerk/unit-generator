@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Copy, ImagePlus, RefreshCw } from 'lucide-react';
-import type { LabArtifact, LibraryIcon, LibraryIconsResponse } from './contract.js';
-import { candidateOf } from './artifacts.js';
-import { api } from './api.js';
-import { Modal, Field } from './ui.js';
+import type { LabArtifact, LibraryIcon, LibraryIconsResponse } from '../../api/contract.js';
+import { candidateOf } from '../../api/artifacts.js';
+import { api } from '../../api/client.js';
+import { Modal, Field } from '../../ui/legacy.js';
 import { GenerateIcon } from './generate-icon.js';
 
 export function useUnitIcons(artifact: LabArtifact | null, directory: string) {

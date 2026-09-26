@@ -42,7 +42,7 @@ The numerical Engine supports exactly 3 paths × 5 tiers. Other shapes need an e
 | `evidence` | `evidence` | Exact model inputs and raw outputs, with `--evidence-dir` only | Anything without that flag |
 | CLI | `src/cli` (main) | Arguments, explicit input and output files, exit codes | Business rules |
 | `serve` | `server` | Local HTTP routes, session token, host and origin checks, embedded web assets | Jobs, runs or resumable state |
-| Web client | `src/web/client` | Screens, stage orchestration for the user, unsaved session state | Legality, build resolution, prompts, provider calls, validation |
+| Web client | `src/web` | Screens, stage orchestration for the user, unsaved session state | Legality, build resolution, prompts, provider calls, validation |
 
 Dependencies point inward. `unit` imports `mechanics` and `schema`; `render`, `research`, `library` and `provider` import `unit` for types; the CLI and `server` wire everything together. The Engine's only interface is `unit.Model`, because model execution is its only external boundary.
 
@@ -129,7 +129,7 @@ src/cli/internal/library/      library folder and Profiles folder
 src/cli/internal/evidence/     --evidence-dir records
 src/cli/internal/server/       serve: routes and security checks
 src/cli/internal/parity/       test helper: reads testdata/parity
-src/web/                       web client: client/ (React), public/, dist/ (embedded), build.mjs
+src/web/                       web client: app/, features/, ui/, api/ (React), public/, dist/ (embedded), build.mjs
 testdata/parity/               recorded TypeScript behavior the Go tests replay
 ```
 
@@ -137,4 +137,4 @@ Go dependencies: `golang.org/x/text` (NFKC and NFKD), `github.com/clipperhouse/u
 
 ## Web client
 
-The TypeScript client keeps the React screens, the Profiles and Generate tabs, stage orchestration for the user, the current session's unsaved revisions, session import and export, and display-only helpers (portrait ordering, usage formatting, kit comparison). Its types are in `src/web/client/contract.ts`. It contains no Engine code, model prompts, provider calls or validation: the server supplies stats, icon prompts, Profile progressions and Profile application. `pnpm build` writes `src/web/dist`, which is committed so the Go build needs no Node.js.
+The TypeScript client keeps the React screens, the Profiles and Generate tabs, stage orchestration for the user, the current session's unsaved revisions, session import and export, and display-only helpers (portrait ordering, usage formatting, kit comparison). Its types are in `src/web/api/contract.ts`. It contains no Engine code, model prompts, provider calls or validation: the server supplies stats, icon prompts, Profile progressions and Profile application. `pnpm build` writes `src/web/dist`, which is committed so the Go build needs no Node.js.

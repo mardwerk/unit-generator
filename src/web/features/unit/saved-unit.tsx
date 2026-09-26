@@ -1,13 +1,13 @@
 import { useState } from 'react';
 import { ArrowLeft, Pencil } from 'lucide-react';
-import type { LabArtifact } from './contract.js';
-import { candidateOf, requestOf } from './artifacts.js';
-import { api } from './api.js';
+import type { LabArtifact } from '../../api/contract.js';
+import { candidateOf, requestOf } from '../../api/artifacts.js';
+import { api } from '../../api/client.js';
 import { useUnitIcons } from './icon-prompts.js';
 import { Gallery } from './gallery.js';
 import { CharacterSheet } from './kit.js';
 import { Workflow } from './workflow.js';
-import { Disclosure, download } from './ui.js';
+import { Disclosure, download } from '../../ui/legacy.js';
 
 /** Inspection owns no authoring state, so an in-flight job cannot replace this sheet. */
 export function SavedUnit({

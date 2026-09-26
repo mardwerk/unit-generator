@@ -1,6 +1,6 @@
-import { api } from './api.js';
-import type { CheckedArtifact, DraftArtifact } from './contract.js';
-import type { LabArtifact, LabStage } from './contract.js';
+import { api } from '../../api/client.js';
+import type { CheckedArtifact, DraftArtifact } from '../../api/contract.js';
+import type { LabArtifact, LabStage } from '../../api/contract.js';
 
 /** Explicit predecessors let a stage rerun without mutating the retained revision. */
 export async function inputBeforeStage(

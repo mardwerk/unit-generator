@@ -35,7 +35,7 @@ From the terminal:
 | Path | Content |
 | --- | --- |
 | `src/cli/` | The Go program: the `mardwerk-unit` command and its internal packages |
-| `src/web/` | The web app: React client (`client/`), static files (`public/`) and the embedded build (`dist/`) |
+| `src/web/` | The web app: React client (`app/`, `features/`, `ui/`, `api/`), static files (`public/`) and the embedded build (`dist/`) |
 | `data/` | Example requests, saved Profiles (`data/profiles`) and local runs (`data/runs`, ignored) |
 | `testdata/parity/` | Recorded behavior of the former TypeScript Tool that the Go tests replay |
 | `research/` | BTD6 reference material and design research |

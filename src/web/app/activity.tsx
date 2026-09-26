@@ -1,7 +1,7 @@
 import { Check, CircleAlert, LoaderCircle, Square } from 'lucide-react';
-import type { AuthoringSession } from './use-authoring.js';
-import { stageNames } from './use-authoring.js';
-import { IconButton } from './ui.js';
+import type { AuthoringSession } from '../features/authoring/use-authoring.js';
+import { stageNames } from '../features/authoring/use-authoring.js';
+import { IconButton } from '../ui/legacy.js';
 
 export function Activity({
   session,

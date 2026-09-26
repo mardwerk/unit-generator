@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
-import type { InspectedInput, LabArtifact, LabRequest, LabStage } from './contract.js';
-import { api } from './api.js';
+import type { InspectedInput, LabArtifact, LabRequest, LabStage } from '../../api/contract.js';
+import { api } from '../../api/client.js';
 import { inputBeforeStage } from './stage-input.js';
 import { AuthoringJobs, authoringError, type AuthoringJob } from './authoring-jobs.js';
 export { stageNames, type RunningStep, type AuthoringJob } from './authoring-jobs.js';
@@ -12,9 +12,14 @@ import {
   requestOf,
   sessionSnapshot,
   type Revision,
-} from './artifacts.js';
-import { editRequest, readEditor, selectProfile, type EditorInput } from './editor-state.js';
-import type { ProfileEntry } from './contract.js';
+} from '../../api/artifacts.js';
+import {
+  editRequest,
+  readEditor,
+  selectProfile,
+  type EditorInput,
+} from '../generate/editor-state.js';
+import type { ProfileEntry } from '../../api/contract.js';
 
 import {
   createDraft,
@@ -22,7 +27,7 @@ import {
   requestForDraft,
   snapshotCreateDraft,
   type CreateDraft,
-} from './create-draft.js';
+} from '../generate/create-draft.js';
 
 /** Browser session ownership. Every stage receives an explicit artifact through the HTTP adapter. */
 export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void>) {

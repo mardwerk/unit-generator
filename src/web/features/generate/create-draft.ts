@@ -1,5 +1,5 @@
-import type { LabRequest, ProfileEntry } from './contract.js';
-import { emptyRequest } from './artifacts.js';
+import type { LabRequest, ProfileEntry } from '../../api/contract.js';
+import { emptyRequest } from '../../api/artifacts.js';
 import { editRequest, readEditor, type EditorInput } from './editor-state.js';
 
 /**

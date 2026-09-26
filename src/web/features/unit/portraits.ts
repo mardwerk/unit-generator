@@ -1,4 +1,4 @@
-import type { VisualReference } from './contract.js';
+import type { VisualReference } from '../../api/contract.js';
 
 function metadata(reference: VisualReference): string {
   let text = `${reference.caption} ${reference.id} ${reference.url}`;

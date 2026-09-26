@@ -6,23 +6,23 @@ import {
   Plus,
   UserRound,
 } from 'lucide-react';
-import type { LabArtifact, LibraryEntry, Sources } from './contract.js';
-import { api } from './api.js';
-import { candidateOf, requestOf } from './artifacts.js';
+import type { LabArtifact, LibraryEntry, Sources } from '../api/contract.js';
+import { api } from '../api/client.js';
+import { candidateOf, requestOf } from '../api/artifacts.js';
 import { Activity } from './activity.js';
-import { SavedUnit } from './saved-unit.js';
-import { useAuthoring } from './use-authoring.js';
-import { useUnitIcons } from './icon-prompts.js';
-import { Gallery } from './gallery.js';
-import { CharacterSheet, Comparison } from './kit.js';
-import { Workflow } from './workflow.js';
-import { CharacterChoices, GenerateInputs } from './generate-inputs.js';
-import { Revisions } from './revisions.js';
-import { KeyStatus, Settings, useProvider } from './provider.js';
-import { Library, useLibrary } from './library.js';
-import { ProfilesView, useProfiles } from './profiles.js';
-import { Disclosure, Field, IconButton, download } from './ui.js';
-import { isEmptyCreateDraft } from './create-draft.js';
+import { SavedUnit } from '../features/unit/saved-unit.js';
+import { useAuthoring } from '../features/authoring/use-authoring.js';
+import { useUnitIcons } from '../features/unit/icon-prompts.js';
+import { Gallery } from '../features/unit/gallery.js';
+import { CharacterSheet, Comparison } from '../features/unit/kit.js';
+import { Workflow } from '../features/unit/workflow.js';
+import { CharacterChoices, GenerateInputs } from '../features/generate/generate-inputs.js';
+import { Revisions } from '../features/unit/revisions.js';
+import { KeyStatus, Settings, useProvider } from '../features/settings/settings.js';
+import { Library, useLibrary } from '../features/library/library.js';
+import { ProfilesView, useProfiles } from '../features/profiles/profiles.js';
+import { Disclosure, Field, IconButton, download } from '../ui/legacy.js';
+import { isEmptyCreateDraft } from '../features/generate/create-draft.js';
 
 const improvement =
   'Address the issues in the previous findings. Fix inconsistent identifiers and references. Preserve supplied confirmed decisions and the intended character design. Never invent approvals or evidence to make checks pass. Keep missing game rules explicit and retain a compact complete kit.';

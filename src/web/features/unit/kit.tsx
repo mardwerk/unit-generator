@@ -1,15 +1,15 @@
 import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { RefreshCw } from 'lucide-react';
-import type { Finding, UnitCandidate } from './contract.js';
-import type { LabArtifact } from './contract.js';
-import { candidateOf, findingsOf, requestOf } from './artifacts.js';
+import type { Finding, UnitCandidate } from '../../api/contract.js';
+import type { LabArtifact } from '../../api/contract.js';
+import { candidateOf, findingsOf, requestOf } from '../../api/artifacts.js';
 import { compareGameplay } from './kit-comparison.js';
-import { Disclosure, Modal, safeUrl } from './ui.js';
+import { Disclosure, Modal, safeUrl } from '../../ui/legacy.js';
 import { KitIcon, type UnitIcons } from './icon-prompts.js';
 import { UnitPortrait } from './unit-portrait.js';
 import { visualReferencesOf } from './visual-references.js';
-import { api } from './api.js';
-import { tierStatKey, type KitStats, type StatChange, type UnitView } from './contract.js';
+import { api } from '../../api/client.js';
+import { tierStatKey, type KitStats, type StatChange, type UnitView } from '../../api/contract.js';
 import { Cost, StatValues } from './kit-stats.js';
 
 /** Resolved stats come from the server; without them the kit shows authored prose. */

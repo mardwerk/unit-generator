@@ -1,6 +1,6 @@
-import type { LabArtifact } from './contract.js';
-import { requestOf } from './artifacts.js';
-import { safeUrl } from './ui.js';
+import type { LabArtifact } from '../../api/contract.js';
+import { requestOf } from '../../api/artifacts.js';
+import { safeUrl } from '../../ui/legacy.js';
 
 /** Keep all safe source references available independently of the chosen portrait. */
 export function visualReferencesOf(artifact: LabArtifact | null) {

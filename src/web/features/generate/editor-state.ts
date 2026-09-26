@@ -1,7 +1,7 @@
-import type { LabDocument, LabRequest } from './contract.js';
-import type { ResolvedDocument } from './contract.js';
-import { api } from './api.js';
-import type { ProfileEntry } from './contract.js';
+import type { LabDocument, LabRequest } from '../../api/contract.js';
+import type { ResolvedDocument } from '../../api/contract.js';
+import { api } from '../../api/client.js';
+import type { ProfileEntry } from '../../api/contract.js';
 
 export interface DocumentInput {
   id: string;

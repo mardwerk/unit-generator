@@ -1,8 +1,8 @@
-import type { PreparedRequest, Sources } from './contract.js';
-import type { LabArtifact, LabStage, ProviderState } from './contract.js';
-import { LabApiError, type api } from './api.js';
-import { formatCost } from './usage.js';
-import { nextStage, requestOf, type Revision } from './artifacts.js';
+import type { PreparedRequest, Sources } from '../../api/contract.js';
+import type { LabArtifact, LabStage, ProviderState } from '../../api/contract.js';
+import { LabApiError, type api } from '../../api/client.js';
+import { formatCost } from '../../api/usage.js';
+import { nextStage, requestOf, type Revision } from '../../api/artifacts.js';
 
 export type Choice = { id: number; name: string; description: string };
 export type RunningStep = LabStage | 'character' | null;

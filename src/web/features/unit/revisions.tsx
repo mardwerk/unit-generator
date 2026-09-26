@@ -1,7 +1,7 @@
 import { Download, FileJson, FileText, Save } from 'lucide-react';
-import { candidateOf } from './artifacts.js';
-import { Field } from './ui.js';
-import type { AuthoringSession } from './use-authoring.js';
+import { candidateOf } from '../../api/artifacts.js';
+import { Field } from '../../ui/legacy.js';
+import type { AuthoringSession } from '../authoring/use-authoring.js';
 
 export function Revisions({
   session,

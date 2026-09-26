@@ -15,7 +15,7 @@ import {
   MoveUpRight,
   type LucideIcon,
 } from 'lucide-react';
-import type { StatChange } from './contract.js';
+import type { StatChange } from '../../api/contract.js';
 
 export const statLabels = {
   damage: 'Damage',

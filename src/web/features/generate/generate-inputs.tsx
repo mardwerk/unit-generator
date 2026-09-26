@@ -1,11 +1,11 @@
 import { useRef, useState } from 'react';
 import { ChevronDown, Layers, SlidersHorizontal, Upload } from 'lucide-react';
-import type { LabRequest, ProfileEntry } from './contract.js';
-import { api } from './api.js';
+import type { LabRequest, ProfileEntry } from '../../api/contract.js';
+import { api } from '../../api/client.js';
 import { generationView, isEmptyCreateDraft } from './create-draft.js';
-import { emptyRequest } from './artifacts.js';
+import { emptyRequest } from '../../api/artifacts.js';
 import { RequestEditor } from './editor.js';
-import type { AuthoringSession } from './use-authoring.js';
+import type { AuthoringSession } from '../authoring/use-authoring.js';
 
 export function GenerateInputs({
   session,

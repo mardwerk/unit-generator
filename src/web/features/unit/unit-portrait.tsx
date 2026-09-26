@@ -1,8 +1,8 @@
 import { useState } from 'react';
 import { ImagePlus } from 'lucide-react';
-import type { UnitCandidate, VisualReference } from './contract.js';
+import type { UnitCandidate, VisualReference } from '../../api/contract.js';
 import { KitIcon, type UnitIcons } from './icon-prompts.js';
-import { safeUrl } from './ui.js';
+import { safeUrl } from '../../ui/legacy.js';
 import { rankedPortraits } from './portraits.js';
 
 export function UnitPortrait({

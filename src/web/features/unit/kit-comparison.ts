@@ -1,4 +1,4 @@
-import type { UnitCandidate } from './contract.js';
+import type { UnitCandidate } from '../../api/contract.js';
 
 type Fields = Record<string, string>;
 type Entry = { key: string; section: string; name: string; fields: Fields };
