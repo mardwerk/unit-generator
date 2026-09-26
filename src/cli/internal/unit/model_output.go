@@ -36,6 +36,49 @@ var (
 	pathOutput = m.PathSchema.Omit("sourceFactIndices", "specialization")
 )
 
+// wireStatusSchema is a status effect as models write it, with a null
+// magnitude for effects that have none.
+func wireStatusSchema(v *m.Vocabulary) *s.ObjectSchema {
+	return s.StrictObject(
+		s.F("effect", m.EffectSchemaV2(v)),
+		s.F("magnitude", s.Nullable(s.Number().Positive())),
+		s.F("seconds", s.Number().Positive()),
+	)
+}
+
+// tierOutputFor is a tier as models write it. Under a version 2 Definition,
+// statuses and detect replace slow, burn and camo, and the vocabulary names
+// damage types and targeting.
+func tierOutputFor(d *m.Definition) *s.ObjectSchema {
+	if d == nil || !d.IsV2() {
+		return tierOutput
+	}
+	v := d.Vocabulary
+	statuses := s.Array(wireStatusSchema(v)).Max(4)
+	if len(v.StatusEffects) == 0 {
+		statuses = s.Array(wireStatusSchema(v)).Max(0)
+	}
+	var detect s.Schema = s.Nullable(m.DetectionSchemaV2(v))
+	if len(v.Detection) == 0 {
+		detect = s.Null()
+	}
+	return s.StrictObject(
+		s.F("name", s.String().Min(1).Max(80)),
+		s.F("cost", s.Number().Positive()),
+		s.F("statChanges", s.Array(s.StrictObject(s.F("stat", s.Enum(m.CoreStatKeys...)), s.F("operation", m.OperationSchema), s.F("value", s.Number()))).Max(4)),
+		s.F("statuses", statuses),
+		s.F("detect", detect),
+		s.F("delivery", s.Nullable(m.DeliverySchema)),
+		s.F("damageType", s.Nullable(m.DamageTypeSchemaV2(v))),
+		s.F("targeting", s.Nullable(m.TargetingSchemaV2(v))),
+		s.F("distribution", s.Optional(s.Nullable(m.DistributionSchema))),
+		s.F("followUp", s.Optional(s.Nullable(m.FollowUpSchema))),
+		s.F("activeFollowUp", s.Optional(s.Nullable(m.FollowUpSchema))),
+		s.F("unlockBoost", wireUnlockBoost),
+		s.F("boostChanges", wireBoostChanges),
+	)
+}
+
 // ModelOutputSchema is the mechanics wire format for a request.
 func ModelOutputSchema(request *Request) (*s.ObjectSchema, error) {
 	var constraintIDs []string
@@ -93,7 +136,7 @@ func ModelOutputSchema(request *Request) (*s.ObjectSchema, error) {
 			if allowsBoost && tier == modifyTier {
 				boosts = wireBoostChanges
 			}
-			return tierOutput.Extend(
+			return tierOutputFor(definition).Extend(
 				s.F("distribution", distribution), s.F("followUp", followUp), s.F("activeFollowUp", active),
 				s.F("unlockBoost", unlock), s.F("boostChanges", boosts),
 			)
@@ -106,8 +149,13 @@ func ModelOutputSchema(request *Request) (*s.ObjectSchema, error) {
 		}
 		return output.Extend(s.F("sourceIds", sourceIDs))
 	}
-	return m.BlueprintSchema.Omit("sourceFacts", "proposals", "referencePattern").Extend(
-		s.F("baseAttack", m.AttackSchema.Extend(s.F("distribution", distribution), s.F("followUp", followUp))),
+	blueprint, attack := m.BlueprintSchema, m.AttackSchema
+	if definition != nil && definition.IsV2() {
+		blueprint = m.BlueprintSchemaV2(definition.Vocabulary)
+		attack = m.AttackSchemaV2(definition.Vocabulary).Extend(s.F("statuses", s.Array(wireStatusSchema(definition.Vocabulary)).Max(16)))
+	}
+	return blueprint.Omit("sourceFacts", "proposals", "referencePattern").Extend(
+		s.F("baseAttack", attack.Extend(s.F("distribution", distribution), s.F("followUp", followUp))),
 		s.F("unsupportedMechanics", m.BlueprintSchema.Shape("proposals")),
 		s.F("baseSourceIds", sourceIDs),
 		s.F("name", s.Literal(request.Character.Name)),
@@ -246,7 +294,11 @@ func DecodeForDiagnostics(output any, request *Request) (m.Blueprint, []s.Issue,
 	parsed := parsedValue.(*s.Object)
 	pathsValue := field(parsed, "paths").(*s.Object)
 	var budget []s.Issue
+	v2 := request.MechanicsDefinition != nil && request.MechanicsDefinition.IsV2()
 	nonnull := []string{"camo", "delivery", "damageType", "targeting", "unlockBoost", "distribution", "followUp", "activeFollowUp"}
+	if v2 {
+		nonnull[0] = "detect"
+	}
 	for _, path := range m.PathKeys {
 		tiers := field(field(pathsValue, path).(*s.Object), "tiers").(*s.Object)
 		for _, tier := range m.TierKeys {
@@ -264,6 +316,14 @@ func DecodeForDiagnostics(output any, request *Request) (m.Blueprint, []s.Issue,
 			if present(f, "burn") {
 				paired += 2
 			}
+			if v2 {
+				for _, status := range field(f, "statuses").([]any) {
+					paired++
+					if present(status.(*s.Object), "magnitude") {
+						paired++
+					}
+				}
+			}
 			stats := len(field(f, "statChanges").([]any))
 			boosts := len(field(f, "boostChanges").([]any))
 			count := stats + boosts + len(selected) + paired
@@ -277,9 +337,13 @@ func DecodeForDiagnostics(output any, request *Request) (m.Blueprint, []s.Issue,
 				if count > limit {
 					advice = fmt.Sprintf("Remove at least %d effects from those fields.", count-limit)
 				}
+				primitives := "slow/burn primitive changes"
+				if v2 {
+					primitives = "status changes (magnitude and duration count separately)"
+				}
 				budget = append(budget, s.Issue{
 					Code: "custom", Path: []any{"paths", path, "tiers", tier, "statChanges"},
-					Message: fmt.Sprintf("This tier contains %d effects: %d statChanges, %d boostChanges, %d slow/burn primitive changes and %d nonnull fields (%s). Total must be 1 to %d. %s", count, stats, boosts, paired, len(selected), names, limit, advice),
+					Message: fmt.Sprintf("This tier contains %d effects: %d statChanges, %d boostChanges, %d %s and %d nonnull fields (%s). Total must be 1 to %d. %s", count, stats, boosts, paired, primitives, len(selected), names, limit, advice),
 				})
 			}
 		}
@@ -341,6 +405,22 @@ func DecodeForDiagnostics(output any, request *Request) (m.Blueprint, []s.Issue,
 				burn := field(t, "burn").(*s.Object)
 				changes = append(changes, stat("burnDamagePerSecond", field(burn, "damagePerSecond")), stat("burnSeconds", field(burn, "durationSeconds")))
 			}
+			if v2 {
+				for _, raw := range field(t, "statuses").([]any) {
+					status := raw.(*s.Object)
+					set := func(name string, value any) any {
+						return s.NewObject().Set("kind", "status").Set("target", "base").Set("effect", field(status, "effect")).
+							Set("field", name).Set("operation", "set").Set("value", value)
+					}
+					if present(status, "magnitude") {
+						changes = append(changes, set("magnitude", field(status, "magnitude")))
+					}
+					changes = append(changes, set("seconds", field(status, "seconds")))
+				}
+				if present(t, "detect") {
+					changes = append(changes, s.NewObject().Set("kind", "detection").Set("target", "base").Set("trait", field(t, "detect")).Set("value", true))
+				}
+			}
 			simple := func(kind, target, key string) {
 				if present(t, key) {
 					changes = append(changes, s.NewObject().Set("kind", kind).Set("target", target).Set("value", field(t, key)))
@@ -389,6 +469,18 @@ func DecodeForDiagnostics(output any, request *Request) (m.Blueprint, []s.Issue,
 			base.Set(key, field(wireBase, key))
 		}
 	}
+	if v2 {
+		statuses := []any{}
+		for _, raw := range field(wireBase, "statuses").([]any) {
+			status := raw.(*s.Object)
+			out := s.NewObject().Set("effect", field(status, "effect"))
+			if present(status, "magnitude") {
+				out.Set("magnitude", field(status, "magnitude"))
+			}
+			statuses = append(statuses, out.Set("seconds", field(status, "seconds")))
+		}
+		base.Set("statuses", statuses)
+	}
 	if present(wireBase, "distribution") {
 		base.Set("distribution", field(wireBase, "distribution"))
 	}
@@ -399,8 +491,12 @@ func DecodeForDiagnostics(output any, request *Request) (m.Blueprint, []s.Issue,
 	blueprint.Set("proposals", field(parsed, "unsupportedMechanics"))
 	blueprint.Set("sourceFacts", facts)
 	blueprint.Set("paths", outPaths)
+	diagnostic := m.DiagnosticBlueprintSchema
+	if v2 {
+		diagnostic = m.DiagnosticBlueprintSchemaV2(request.MechanicsDefinition.Vocabulary)
+	}
 	var decoded m.Blueprint
-	if err := s.ParseInto(m.DiagnosticBlueprintSchema, blueprint, &decoded); err != nil {
+	if err := s.ParseInto(diagnostic, blueprint, &decoded); err != nil {
 		return m.Blueprint{}, nil, err
 	}
 	return decoded, budget, nil
@@ -415,8 +511,12 @@ func DecodeBlueprintOutput(output any, request *Request) (m.Blueprint, error) {
 	if len(budget) > 0 {
 		return m.Blueprint{}, &s.Error{Issues: budget}
 	}
+	schema := m.BlueprintSchema
+	if d := request.MechanicsDefinition; d != nil {
+		schema = m.BlueprintSchemaFor(*d)
+	}
 	var strict m.Blueprint
-	if err := s.ParseInto(m.BlueprintSchema, s.FromGoValue(blueprint), &strict); err != nil {
+	if err := s.ParseInto(schema, s.FromGoValue(blueprint), &strict); err != nil {
 		return m.Blueprint{}, err
 	}
 	return strict, nil

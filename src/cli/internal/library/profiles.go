@@ -16,7 +16,7 @@ import (
 var profileFile = regexp.MustCompile(`^([a-z0-9][a-z0-9-]{0,62})\.json$`)
 
 // Profiles is the folder of saved Profiles (by default data/profiles),
-// separate from generated runs. The bundled Profile is read-only.
+// separate from generated runs. The bundled Profiles are read-only.
 type Profiles struct {
 	mu        sync.Mutex
 	directory string
@@ -41,7 +41,9 @@ type ProfilesState struct {
 }
 
 // Bundled are the read-only Profiles shipped with the Tool.
-func Bundled() []unit.Profile { return []unit.Profile{unit.DefaultProfile()} }
+func Bundled() []unit.Profile {
+	return []unit.Profile{unit.DefaultProfile(), unit.ExampleStackingProfile()}
+}
 
 func bundledID(id string) bool {
 	for _, profile := range Bundled() {

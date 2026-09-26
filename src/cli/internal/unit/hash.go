@@ -19,7 +19,8 @@ const (
 
 // requestValue is the request's parse output: schema order, trimmed text.
 func requestValue(request Request) (any, error) {
-	out, issues := s.Parse(RequestSchema, s.FromGoValue(request))
+	value := s.FromGoValue(request)
+	out, issues := s.Parse(Versioned(value, RequestSchema, RequestSchemaV2), value)
 	if len(issues) > 0 {
 		return nil, &s.Error{Issues: issues}
 	}

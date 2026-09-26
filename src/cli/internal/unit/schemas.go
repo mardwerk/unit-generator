@@ -217,3 +217,77 @@ var UnitProfileSchema = s.StrictObject(
 	kind, _ := rules.(*s.Object).Get("kind")
 	return kind == "rules"
 }, "The Profile rules document must be rules")
+
+// Version 2 artifacts carry a version 2 Definition, whose vocabulary names
+// the status effects, damage types, targeting and detection their units use.
+// The version 1 schemas above stay exactly as they were, so saved version 1
+// artifacts read as before. An artifact's version is its request's.
+var (
+	version2 = s.Literal("2")
+
+	// CandidateSchemaV2 accepts any well-formed vocabulary ID; mechanics
+	// validation checks the IDs against the request's Definition.
+	CandidateSchemaV2 = CandidateSchema.Extend(
+		s.F("schemaVersion", version2),
+		s.F("blueprint", s.Optional(mechanics.BlueprintSchemaV2(nil))),
+	)
+	// A version 2 revision may start from a version 1 unit.
+	previousCandidate = s.Union(CandidateSchema, CandidateSchemaV2)
+
+	RequestSchemaV2 = RequestSchema.Extend(
+		s.F("schemaVersion", version2),
+		s.F("mechanicsDefinition", mechanics.DefinitionV2Schema),
+		s.F("previous", s.Nullable(s.StrictObject(
+			s.F("resultId", text()),
+			s.F("draft", previousCandidate),
+			s.F("findings", s.Array(FindingSchema)),
+		))),
+	)
+	PreparedSchemaV2 = PreparedSchema.Extend(s.F("schemaVersion", version2), s.F("request", RequestSchemaV2))
+
+	// DesignPlanSchemaV2 accepts the vocabulary's status and detection IDs as
+	// promises; plan checks hold them to the request's Definition.
+	DesignPlanSchemaV2 = DesignPlanSchema.Extend(s.F("upgradeIntents", s.Optional(UpgradeIntentsSchemaFor(nil))))
+	ModelRunSchemaV2   = ModelRunSchema.Extend(s.F("designPlan", s.Optional(DesignPlanSchemaV2)))
+
+	DraftSchemaV2 = DraftSchema.Extend(
+		s.F("schemaVersion", version2),
+		s.F("prepared", PreparedSchemaV2),
+		s.F("candidate", CandidateSchemaV2),
+		s.F("run", ModelRunSchemaV2),
+	)
+	CheckedSchemaV2 = CheckedSchema.Extend(s.F("schemaVersion", version2), s.F("draft", DraftSchemaV2))
+	ResultSchemaV2  = ResultSchema.Extend(
+		s.F("schemaVersion", version2),
+		s.F("prepared", PreparedSchemaV2),
+		s.F("candidate", CandidateSchemaV2),
+		s.F("run", s.StrictObject(s.F("draft", ModelRunSchemaV2), s.F("review", ModelRunSchema))),
+	)
+	UnitProfileSchemaV2 = UnitProfileSchema.Extend(
+		s.F("schemaVersion", version2),
+		s.F("mechanicsDefinition", mechanics.DefinitionV2Schema),
+	).Refine(func(profile *s.Object) bool {
+		rules, _ := profile.Get("rules")
+		kind, _ := rules.(*s.Object).Get("kind")
+		return kind == "rules"
+	}, "The Profile rules document must be rules")
+)
+
+// Versioned picks the version 2 schema for a value whose schemaVersion is
+// "2" and the version 1 schema otherwise.
+func Versioned(value any, v1, v2 s.Schema) s.Schema {
+	if o, ok := value.(*s.Object); ok {
+		if version, _ := o.Get("schemaVersion"); version == "2" {
+			return v2
+		}
+	}
+	return v1
+}
+
+// VersionOf is the schema version of a request under a Definition.
+func VersionOf(definition *mechanics.Definition) string {
+	if definition != nil && definition.IsV2() {
+		return "2"
+	}
+	return "1"
+}

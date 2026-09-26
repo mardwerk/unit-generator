@@ -37,6 +37,51 @@ func capabilities(attack Attack) map[string]bool {
 // capabilityOrder is the insertion order of capabilities in the original.
 var capabilityOrder = []string{"splash", "slow", "burn", "stun", "camo", "distinct-volley", "follow-up"}
 
+// capabilityList is a version 2 attack's capability groups in order:
+// splash, each status effect, each detection trait, then the volley shapes.
+func capabilityList(attack Attack) []string {
+	var out []string
+	if attack.Stats.SplashRadius > 0 {
+		out = append(out, "splash")
+	}
+	for _, status := range attack.AppliedStatuses() {
+		out = append(out, status.Effect)
+	}
+	out = append(out, attack.DetectionTraits()...)
+	if attack.Distribution == "distinct-targets" {
+		out = append(out, "distinct-volley")
+	}
+	if attack.FollowUp != nil {
+		out = append(out, "follow-up")
+	}
+	return out
+}
+
+// addedCapabilities lists the capability groups after has and before lacks.
+func addedCapabilities(before, after Attack) []string {
+	if !after.IsV2() {
+		existing, now := capabilities(before), capabilities(after)
+		var added []string
+		for _, capability := range capabilityOrder {
+			if now[capability] && !existing[capability] {
+				added = append(added, capability)
+			}
+		}
+		return added
+	}
+	existing := map[string]bool{}
+	for _, capability := range capabilityList(before) {
+		existing[capability] = true
+	}
+	var added []string
+	for _, capability := range capabilityList(after) {
+		if !existing[capability] {
+			added = append(added, capability)
+		}
+	}
+	return added
+}
+
 func sameBehavior(a, b Build) bool {
 	return s.Stringify(behaviorValue(a)) == s.Stringify(behaviorValue(b))
 }
@@ -62,6 +107,19 @@ func hasBenefit(before, after Build) bool {
 	}
 	if (!prior.Camo && next.Camo) || prior.DamageType != next.DamageType || prior.Delivery != next.Delivery || prior.Targeting != next.Targeting {
 		return true
+	}
+	if next.IsV2() {
+		for _, trait := range next.DetectionTraits() {
+			if !prior.DetectsTrait(trait) {
+				return true
+			}
+		}
+		for _, status := range next.AppliedStatuses() {
+			earlier, ok := prior.Status(status.Effect)
+			if !ok || status.Strength() > earlier.Strength() || status.Seconds > earlier.Seconds {
+				return true
+			}
+		}
 	}
 	if prior.Distribution != next.Distribution || (prior.FollowUp == nil && next.FollowUp != nil) {
 		return true
@@ -114,7 +172,7 @@ func abilityStat(a ResolvedAbility, stat string) float64 {
 // ValidateBlueprint validates syntax, every reachable build and each
 // immediately purchasable upgrade. input and definition are JSON values.
 func ValidateBlueprint(input any, definitionValue any) []Issue {
-	defOut, defIssues := s.Parse(MechanicsDefinitionSchema, definitionValue)
+	defOut, defIssues := s.Parse(DefinitionSchemaOf(definitionValue), definitionValue)
 	if len(defIssues) > 0 {
 		issues := make([]Issue, len(defIssues))
 		for i, issue := range defIssues {
@@ -122,7 +180,11 @@ func ValidateBlueprint(input any, definitionValue any) []Issue {
 		}
 		return issues
 	}
-	bpOut, bpIssues := s.Parse(DiagnosticBlueprintSchema, input)
+	var rules Definition
+	if err := s.ToGo(defOut, &rules); err != nil {
+		panic(err)
+	}
+	bpOut, bpIssues := s.Parse(DiagnosticBlueprintSchemaFor(rules), input)
 	if len(bpIssues) > 0 {
 		issues := make([]Issue, len(bpIssues))
 		for i, issue := range bpIssues {
@@ -131,11 +193,7 @@ func ValidateBlueprint(input any, definitionValue any) []Issue {
 		return issues
 	}
 	var blueprint Blueprint
-	var rules Definition
 	if err := s.ToGo(bpOut, &blueprint); err != nil {
-		panic(err)
-	}
-	if err := s.ToGo(defOut, &rules); err != nil {
 		panic(err)
 	}
 	return validateParsed(&blueprint, rules)
@@ -221,21 +279,15 @@ func validateParsed(blueprint *Blueprint, rules Definition) []Issue {
 				afterSel[pathIndex] = tier
 				before := ResolveUnchecked(blueprint, beforeSel).BaseAttack
 				after := ResolveUnchecked(blueprint, afterSel).BaseAttack
-				existing := capabilities(before)
-				now := capabilities(after)
-				var added []string
-				for _, capability := range capabilityOrder {
-					if now[capability] && !existing[capability] {
-						added = append(added, capability)
-					}
-				}
+				added := addedCapabilities(before, after)
 				if before.DamageType != after.DamageType {
 					added = append(added, "damage-type-access")
 				}
 				preserve := profile.DesignPolicy != nil && profile.DesignPolicy.PreserveEarlyAttackIdentity != nil && *profile.DesignPolicy.PreserveEarlyAttackIdentity
+				// Personal detection stays allowed early; any other new capability is not.
 				nonCamo := false
 				for _, capability := range added {
-					if capability != "camo" {
+					if !after.DetectsTrait(capability) {
 						nonCamo = true
 					}
 				}

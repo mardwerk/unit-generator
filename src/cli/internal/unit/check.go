@@ -10,7 +10,7 @@ import (
 // ParseDraft validates a draft artifact value.
 func ParseDraft(value any) (Draft, error) {
 	var d Draft
-	return d, s.ParseInto(DraftSchema, value, &d)
+	return d, s.ParseInto(Versioned(value, DraftSchema, DraftSchemaV2), value, &d)
 }
 
 // CheckDraft runs the deterministic checks. Findings keep their emitted order.
@@ -101,5 +101,5 @@ func CheckDraft(input Draft) (Checked, error) {
 		scope = "Typed checks resolve every legal upgrade build and verify the compiled candidate. " + scope
 	}
 	report(checkFinding{Category: "scope", Outcome: "not_checked", Subject: "candidate", Rule: "validation-scope", Message: scope})
-	return Checked{SchemaVersion: "1", Kind: "checked", Draft: draft, Findings: findings}, nil
+	return Checked{SchemaVersion: draft.SchemaVersion, Kind: "checked", Draft: draft, Findings: findings}, nil
 }

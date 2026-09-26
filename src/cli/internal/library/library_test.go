@@ -301,13 +301,14 @@ func TestProfilesAreValidatedAndNeverReplaceBundledOnes(t *testing.T) {
 	directory := filepath.Join(t.TempDir(), "profiles")
 	profiles, _ := OpenProfiles(directory)
 	state, err := profiles.List()
-	if err != nil || len(state.Profiles) != 1 || !state.Profiles[0].BuiltIn {
+	bundled := len(Bundled())
+	if err != nil || len(state.Profiles) != bundled || bundled < 2 || !state.Profiles[0].BuiltIn || !state.Profiles[bundled-1].BuiltIn {
 		t.Fatalf("state %+v %v", state, err)
 	}
 	copy := unit.DefaultProfile()
 	copy.ID, copy.Name, copy.Rules.ID = "quick-copy", "Quick copy", "profile:quick-copy"
 	saved, err := profiles.Save(s.FromGoValue(copy))
-	if err != nil || len(saved.Profiles) != 2 || saved.Profiles[1].Profile.ID != "quick-copy" || saved.Profiles[1].BuiltIn {
+	if err != nil || len(saved.Profiles) != bundled+1 || saved.Profiles[bundled].Profile.ID != "quick-copy" || saved.Profiles[bundled].BuiltIn {
 		t.Fatalf("saved %v", err)
 	}
 	if content, _ := os.ReadFile(filepath.Join(directory, "quick-copy.json")); !strings.Contains(string(content), `"id": "quick-copy"`) {
@@ -334,10 +335,10 @@ func TestProfilesAreValidatedAndNeverReplaceBundledOnes(t *testing.T) {
 	}
 	_ = os.WriteFile(filepath.Join(directory, "broken.json"), []byte("{"), 0o600)
 	_ = os.Symlink(filepath.Join(directory, "quick-copy.json"), filepath.Join(directory, "linked.json"))
-	if state, _ := profiles.List(); len(state.Profiles) != 2 {
+	if state, _ := profiles.List(); len(state.Profiles) != bundled+1 {
 		t.Errorf("listed %d", len(state.Profiles))
 	}
-	if state, err := profiles.Delete("quick-copy"); err != nil || len(state.Profiles) != 1 {
+	if state, err := profiles.Delete("quick-copy"); err != nil || len(state.Profiles) != bundled {
 		t.Errorf("delete %v", err)
 	}
 	if _, err := profiles.Delete("quick-copy"); err == nil {

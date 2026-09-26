@@ -393,7 +393,10 @@ func (srv *Server) prepare(ctx context.Context, body *s.Object) (any, error) {
 	return unit.Prepare(request)
 }
 
-var requestFields = unit.RequestSchema.Omit("documents").Extend(s.F("previousResultFile", s.Optional(s.String().Min(1))))
+var (
+	requestFields   = unit.RequestSchema.Omit("documents").Extend(s.F("previousResultFile", s.Optional(s.String().Min(1))))
+	requestFieldsV2 = unit.RequestSchemaV2.Omit("documents").Extend(s.F("previousResultFile", s.Optional(s.String().Min(1))))
+)
 
 // requestInput validates a request whose documents may still be explicit
 // inputs (text or URL) instead of resolved documents.
@@ -408,7 +411,7 @@ func requestInput(value any) (*s.Object, error) {
 	}
 	rest := s.Clone(object).(*s.Object)
 	rest.Delete("documents")
-	parsed, issues := s.Parse(requestFields, rest)
+	parsed, issues := s.Parse(unit.Versioned(rest, requestFields, requestFieldsV2), rest)
 	if len(issues) > 0 {
 		return nil, &s.Error{Issues: issues}
 	}

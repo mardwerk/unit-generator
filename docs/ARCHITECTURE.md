@@ -109,7 +109,7 @@ Errors are `{"error": {"code", "message", "details"?, "usage"?}}`. The status is
 
 ## Contracts and versioning
 
-- **Artifacts.** Sources, prepared request, draft, checked artifact and Result carry `schemaVersion: "1"`. The contracts are strict schemas in `src/cli/internal/unit` and `src/cli/internal/research`: readers reject unknown keys and unknown versions. A field an older reader would reject bumps the version. Saved artifacts are never rewritten in place.
+- **Artifacts.** Sources carry `schemaVersion: "1"`. A request, prepared request, draft, checked artifact, Result and Profile carry `schemaVersion: "1"`, or `"2"` exactly when their mechanics Definition is a version 2 Definition with a [Profile-defined vocabulary](MECHANICS.md#profile-defined-vocabulary-version-2); readers choose the schema from that field, so version 1 artifacts stay readable. The contracts are strict schemas in `src/cli/internal/unit` and `src/cli/internal/research`: readers reject unknown keys and unknown versions. A field an older reader would reject bumps the version. Saved artifacts are never rewritten in place.
 - **Input hash.** New prepared requests use `jcs-sha256:` (RFC 8785 canonical JSON). The older `sha256:` form (JavaScript `JSON.stringify` of the contract-ordered request) still verifies.
 - **Versions.** Three, no more: the URL prefix for endpoints, `schemaVersion` for artifacts, and the Definition's `revision` inside each prepared request for rules.
 - **Findings.** A check that finds problems still completes; failures are findings, not errors.

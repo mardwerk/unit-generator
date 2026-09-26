@@ -1,6 +1,14 @@
 import { useEffect, useState } from 'react';
 import { Copy, FolderOpen, Pencil, Play, Trash2 } from 'lucide-react';
-import type { ProfileEntry, ProfilesState, Progression, UnitProfile } from '../../api/contract.js';
+import type {
+  ProfileEntry,
+  ProfilesState,
+  Progression,
+  StatusEffect,
+  Term,
+  UnitProfile,
+  Vocabulary,
+} from '../../api/contract.js';
 import { api } from '../../api/client.js';
 import { Alert } from '../../ui/alert.js';
 import { Badge } from '../../ui/badge.js';
@@ -10,7 +18,7 @@ import { Field } from '../../ui/field.js';
 import { Input, Textarea } from '../../ui/input.js';
 import { cn } from '../../ui/utils.js';
 
-/** The server lists the bundled Profile first, then the saved ones from its Profiles folder. */
+/** The server lists the bundled Profiles first, then the saved ones from its Profiles folder. */
 export function useProfiles() {
   const [state, setState] = useState<ProfilesState>({ directory: '', profiles: [] });
   const [error, setError] = useState('');
@@ -141,6 +149,106 @@ function Facts({ profile }: { profile: UnitProfile }) {
   );
 }
 
+const effectKinds: Record<StatusEffect['kind'], string> = {
+  moveSpeed: 'Movement speed',
+  damageOverTime: 'Damage over time',
+  disable: 'Disable',
+  damageTaken: 'Damage taken',
+  custom: 'Custom',
+};
+
+const refreshModes: Record<StatusEffect['stacking']['refresh'], string> = {
+  reset: 'each hit resets every stack',
+  extend: 'each hit extends the duration',
+  independent: 'each stack keeps its own duration',
+};
+
+const number = (value: number) => Number(value.toFixed(4)).toString();
+
+function names(ids: string[], terms: Term[]): string {
+  return ids.map((id) => terms.find((term) => term.id === id)?.name || id).join(', ');
+}
+
+/** Bounds at the Definition's stat ceiling are shown as no limit. */
+function effectBounds(effect: StatusEffect, ceiling: number): string {
+  const magnitude = effect.magnitude;
+  let strength = 'No magnitude';
+  if (magnitude) {
+    const unit = magnitude.unit === 'percent' ? '%' : ` ${magnitude.unit}`;
+    strength =
+      magnitude.max >= ceiling
+        ? `Any positive ${magnitude.unit === 'percent' ? 'percent' : magnitude.unit}`
+        : `${number(magnitude.min)} to ${number(magnitude.max)}${unit}`;
+  }
+  const duration =
+    effect.maxSeconds >= ceiling ? 'no duration limit' : `up to ${number(effect.maxSeconds)} s`;
+  return `${strength}; ${duration}`;
+}
+
+function effectStacking(effect: StatusEffect): string {
+  const { maxStacks, refresh, maxMagnitude } = effect.stacking;
+  let text =
+    maxStacks === 1 ? 'Does not stack' : `Up to ${maxStacks} stacks; ${refreshModes[refresh]}`;
+  if (maxMagnitude !== null) text += `; at most ${number(maxMagnitude)} combined`;
+  return text;
+}
+
+/** A version 2 Definition's status effects, damage types, targeting and detection. */
+function VocabularyFacts({ vocabulary, ceiling }: { vocabulary: Vocabulary; ceiling: number }) {
+  const properties = vocabulary.enemyProperties;
+  const damageTypes = vocabulary.damageTypes.map((type) =>
+    type.ineffectiveAgainst.length
+      ? `${type.name} (not against ${names(type.ineffectiveAgainst, properties)})`
+      : type.name,
+  );
+  return (
+    <section aria-labelledby="profile-effects" className="my-4">
+      <h3 id="profile-effects" className="mb-2 text-sm font-semibold">
+        Status effects
+      </h3>
+      {vocabulary.statusEffects.length === 0 ? (
+        <p className="text-[13px] text-muted-foreground">This Profile defines no status effects.</p>
+      ) : (
+        <ul className="grid gap-2.5 text-[13px]">
+          {vocabulary.statusEffects.map((effect) => (
+            <li key={effect.id} className="rounded-md border border-border px-3 py-2">
+              <div className="flex flex-wrap items-baseline gap-2">
+                <span className="font-medium">{effect.name}</span>
+                <Badge variant="outline">{effectKinds[effect.kind]}</Badge>
+                {effect.aliases.length > 0 && (
+                  <span className="text-xs text-muted-foreground">
+                    also {effect.aliases.join(', ')}
+                  </span>
+                )}
+              </div>
+              {effect.description && <p className="my-1">{effect.description}</p>}
+              <p className="text-xs text-muted-foreground">
+                {effectBounds(effect, ceiling)}. {effectStacking(effect)}.
+                {effect.immune.length > 0 && ` Immune: ${names(effect.immune, properties)}.`}
+              </p>
+            </li>
+          ))}
+        </ul>
+      )}
+      <dl className="my-4 grid gap-x-6 gap-y-2.5 text-[13px] sm:grid-cols-[max-content_1fr]">
+        {(
+          [
+            ['Damage types', damageTypes.join('; ')],
+            ['Targeting', vocabulary.targeting.map((term) => term.name).join(', ')],
+            ['Detection', vocabulary.detection.map((term) => term.name).join(', ') || 'none'],
+            ['Enemy properties', properties.map((term) => term.name).join(', ') || 'none'],
+          ] as const
+        ).map(([term, value]) => (
+          <div className="contents" key={term}>
+            <dt className="text-muted-foreground">{term}</dt>
+            <dd className="[overflow-wrap:anywhere]">{value}</dd>
+          </div>
+        ))}
+      </dl>
+    </section>
+  );
+}
+
 function ProfileEditor({
   initial,
   isNew,
@@ -170,8 +278,10 @@ function ProfileEditor({
       setError('The mechanics Definition must be valid JSON.');
       return;
     }
+    // A Profile's contract version follows its Definition's version.
+    const version = (parsed as { version?: unknown } | null)?.version === '2' ? '2' : '1';
     const profile = {
-      schemaVersion: '1',
+      schemaVersion: version,
       kind: 'profile',
       id: id.trim(),
       name,
@@ -284,8 +394,8 @@ export function ProfilesView({
     <main className="mx-auto max-w-[1400px] px-[18px] py-6 sm:px-8 sm:py-10">
       <h2 className="text-2xl font-semibold tracking-tight">Profiles</h2>
       <p className="mt-1 text-muted-foreground">
-        A Profile holds the rules a unit is generated under. The default is read-only; copy it to
-        make your own.
+        A Profile holds the rules a unit is generated under. Built-in Profiles are read-only; copy
+        one to make your own.
       </p>
       {directory && (
         <p className="mt-4 mb-6 flex items-center gap-2 font-mono text-xs [overflow-wrap:anywhere] text-muted-foreground">
@@ -345,6 +455,12 @@ export function ProfilesView({
               </p>
               <ProgressionGrid progression={shown.progression} />
               <Facts profile={shown.profile} />
+              {shown.profile.mechanicsDefinition.vocabulary && (
+                <VocabularyFacts
+                  vocabulary={shown.profile.mechanicsDefinition.vocabulary}
+                  ceiling={shown.profile.mechanicsDefinition.profile.maxStatValue}
+                />
+              )}
               <Disclosure title="Task">
                 <p>{shown.profile.task}</p>
               </Disclosure>

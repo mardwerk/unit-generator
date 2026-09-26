@@ -11,7 +11,8 @@ import (
 
 // DefinitionDocument turns a Definition into inspectable rules evidence.
 func DefinitionDocument(definition mechanics.Definition) (Document, error) {
-	out, issues := s.Parse(mechanics.MechanicsDefinitionSchema, s.FromGoValue(definition))
+	value := s.FromGoValue(definition)
+	out, issues := s.Parse(mechanics.DefinitionSchemaOf(value), value)
 	if len(issues) > 0 {
 		return Document{}, &s.Error{Issues: issues}
 	}
@@ -68,7 +69,7 @@ func DefinitionProgression(definition mechanics.Definition) Progression {
 // ParseRequest validates a request value and decodes it.
 func ParseRequest(value any) (Request, error) {
 	var request Request
-	return request, s.ParseInto(RequestSchema, value, &request)
+	return request, s.ParseInto(Versioned(value, RequestSchema, RequestSchemaV2), value, &request)
 }
 
 func unique[T comparable](values []T, subject string) error {
@@ -219,7 +220,7 @@ func Prepare(value any) (Prepared, error) {
 	if err != nil {
 		return Prepared{}, err
 	}
-	return Prepared{SchemaVersion: "1", Kind: "prepared", InputHash: hash, Request: request}, nil
+	return Prepared{SchemaVersion: request.SchemaVersion, Kind: "prepared", InputHash: hash, Request: request}, nil
 }
 
 // VerifyPrepared checks a prepared request's rules and its hash.
@@ -249,6 +250,7 @@ func IsProfileDocument(id string) bool { return profileDocument.MatchString(id) 
 func ApplyProfile(request Request, profile Profile) Request {
 	progression := DefinitionProgression(profile.MechanicsDefinition)
 	definition := profile.MechanicsDefinition
+	request.SchemaVersion = VersionOf(&definition)
 	request.Task = profile.Task
 	request.Progression = &progression
 	request.MechanicsDefinition = &definition
@@ -265,7 +267,7 @@ func ApplyProfile(request Request, profile Profile) Request {
 // ParseProfile validates a Profile value.
 func ParseProfile(value any) (Profile, error) {
 	var profile Profile
-	return profile, s.ParseInto(UnitProfileSchema, value, &profile)
+	return profile, s.ParseInto(Versioned(value, UnitProfileSchema, UnitProfileSchemaV2), value, &profile)
 }
 
 // ValidateProfile checks that a request prepared under the Profile passes
@@ -276,7 +278,7 @@ func ValidateProfile(value any) (Profile, error) {
 		return Profile{}, err
 	}
 	placeholder := Request{
-		SchemaVersion: "1",
+		SchemaVersion: VersionOf(&profile.MechanicsDefinition),
 		Task:          profile.Task,
 		Character:     Character{Name: "Profile check", Work: "Profile check", Scope: "Profile check"},
 		Documents: []Document{{
