@@ -5,8 +5,8 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mardwerk/unit-generator/internal/golden"
 	"github.com/mardwerk/unit-generator/internal/mechanics"
+	"github.com/mardwerk/unit-generator/internal/parity"
 	s "github.com/mardwerk/unit-generator/internal/schema"
 )
 
@@ -34,7 +34,7 @@ var staticSchemas = map[string]s.Schema{
 var contextSchemas = map[string]func(context any) (s.Schema, error){}
 
 func TestSchemasMatchRecordedBehavior(t *testing.T) {
-	entries, err := golden.Entries("schemas")
+	entries, err := parity.Entries("schemas")
 	if err != nil {
 		t.Fatal(err)
 	}
@@ -55,8 +55,8 @@ func TestSchemasMatchRecordedBehavior(t *testing.T) {
 		}
 		t.Run(fmt.Sprintf("%d-%s", n, name), func(t *testing.T) {
 			want, _ := entry.Get("jsonSchema")
-			if got := s.JSONSchema(schema); golden.Canonical(got) != golden.Canonical(want) {
-				t.Errorf("JSON Schema differs\n got %s\nwant %s", golden.Canonical(got), golden.Canonical(want))
+			if got := s.JSONSchema(schema); parity.Canonical(got) != parity.Canonical(want) {
+				t.Errorf("JSON Schema differs\n got %s\nwant %s", parity.Canonical(got), parity.Canonical(want))
 			}
 			base, _ := entry.Get("base")
 			cases, _ := entry.Get("cases")
@@ -85,7 +85,7 @@ func TestSchemasMatchRecordedBehavior(t *testing.T) {
 
 func describe(out any, issues []s.Issue) string {
 	if len(issues) == 0 {
-		return "ok " + golden.Hash(out)
+		return "ok " + parity.Hash(out)
 	}
 	lines := make([]string, len(issues))
 	for i, issue := range issues {
@@ -129,7 +129,7 @@ func Mutate(base any, path []any, op string) any {
 	if len(path) == 0 {
 		return applyOp(root, op)
 	}
-	parent := golden.Get(root, path[:len(path)-1]...)
+	parent := parity.Get(root, path[:len(path)-1]...)
 	switch key := path[len(path)-1].(type) {
 	case string:
 		obj := parent.(*s.Object)

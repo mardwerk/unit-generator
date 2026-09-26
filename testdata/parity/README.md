@@ -1,6 +1,6 @@
-# Golden corpus
+# Parity corpus
 
-Recorded behavior of the TypeScript Engine, used to check that the Go implementation behaves the same.
+Recorded behavior of the TypeScript Engine, used to check that the Go implementation behaves the same. It proves parity, not quality: the recorded units come from scripted test responses and old test fixtures, and none of them is a good unit. A quality reference, such as real BTD6 towers, is separate work.
 
 Each `<function>.jsonl.gz` file holds one JSON object per line:
 

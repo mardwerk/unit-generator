@@ -1,4 +1,4 @@
-package golden
+package parity
 
 import (
 	"math"

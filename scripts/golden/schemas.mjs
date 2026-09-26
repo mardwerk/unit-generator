@@ -7,7 +7,7 @@ import { join, resolve } from 'node:path';
 import { gunzipSync, gzipSync } from 'node:zlib';
 import { pathToFileURL } from 'node:url';
 
-const golden = process.argv[2] ?? 'contracts/v1/golden';
+const golden = process.argv[2] ?? 'testdata/parity';
 const load = async (module) => import(pathToFileURL(resolve('.test-build/src', module)).href);
 const { z } = await import('zod');
 const core = await load('core/index.js');

@@ -1,6 +1,6 @@
-// Package golden reads the recorded TypeScript behavior in contracts/v1/golden
+// Package parity reads the recorded TypeScript behavior in testdata/parity
 // so tests can check the Go implementation against it.
-package golden
+package parity
 
 import (
 	"bufio"
@@ -17,7 +17,7 @@ import (
 // Dir is the corpus directory.
 func Dir() string {
 	_, file, _, _ := runtime.Caller(0)
-	return filepath.Join(filepath.Dir(file), "..", "..", "contracts", "v1", "golden")
+	return filepath.Join(filepath.Dir(file), "..", "..", "testdata", "parity")
 }
 
 // Entries returns every recorded line of name.jsonl.gz as ordered values.

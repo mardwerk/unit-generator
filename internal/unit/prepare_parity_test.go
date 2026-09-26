@@ -4,35 +4,35 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/mardwerk/unit-generator/internal/golden"
 	"github.com/mardwerk/unit-generator/internal/mechanics"
+	"github.com/mardwerk/unit-generator/internal/parity"
 	s "github.com/mardwerk/unit-generator/internal/schema"
 )
 
-func TestEvidenceSpansGolden(t *testing.T) {
+func TestEvidenceSpansParity(t *testing.T) {
 	each(t, "evidenceSpans", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 0)
-		want, _ := golden.Output(entry)
-		if got := EvidenceSpans(&r); !golden.Same(got, want) {
+		want, _ := parity.Output(entry)
+		if got := EvidenceSpans(&r); !parity.Same(got, want) {
 			t.Errorf("got  %s\nwant %s", show(got), s.Stringify(want))
 		}
 	})
 }
 
-func TestAuthorEvidenceGolden(t *testing.T) {
+func TestAuthorEvidenceParity(t *testing.T) {
 	each(t, "authorEvidence", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 0)
-		want, _ := golden.Output(entry)
-		if got := AuthorEvidence(&r); !golden.Same(got, want) {
+		want, _ := parity.Output(entry)
+		if got := AuthorEvidence(&r); !parity.Same(got, want) {
 			t.Errorf("got  %s\nwant %s", show(got), s.Stringify(want))
 		}
 	})
 }
 
-func TestLegacyHashGolden(t *testing.T) {
+func TestLegacyHashParity(t *testing.T) {
 	each(t, "hashRequest", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 0)
-		want, ok := golden.Output(entry)
+		want, ok := parity.Output(entry)
 		got, err := LegacyHash(r)
 		if !ok {
 			if err == nil {
@@ -46,27 +46,27 @@ func TestLegacyHashGolden(t *testing.T) {
 	})
 }
 
-func TestDefinitionHelpersGolden(t *testing.T) {
+func TestDefinitionHelpersParity(t *testing.T) {
 	each(t, "definitionDocument", func(t *testing.T, entry *s.Object) {
 		var d mechanics.Definition
-		_ = s.ToGo(golden.Arg(entry, 0), &d)
-		want, _ := golden.Output(entry)
+		_ = s.ToGo(parity.Arg(entry, 0), &d)
+		want, _ := parity.Output(entry)
 		got, err := DefinitionDocument(d)
-		if err != nil || !golden.Same(got, want) {
+		if err != nil || !parity.Same(got, want) {
 			t.Errorf("got %s %v want %s", show(got), err, s.Stringify(want))
 		}
 	})
 	each(t, "definitionProgression", func(t *testing.T, entry *s.Object) {
 		var d mechanics.Definition
-		_ = s.ToGo(golden.Arg(entry, 0), &d)
-		want, _ := golden.Output(entry)
-		if got := DefinitionProgression(d); !golden.Same(got, want) {
+		_ = s.ToGo(parity.Arg(entry, 0), &d)
+		want, _ := parity.Output(entry)
+		if got := DefinitionProgression(d); !parity.Same(got, want) {
 			t.Errorf("got %s want %s", show(got), s.Stringify(want))
 		}
 	})
 	each(t, "withDefinitionEvidence", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 0)
-		want, ok := golden.Output(entry)
+		want, ok := parity.Output(entry)
 		got, _, err := WithDefinitionEvidence(r)
 		if !ok {
 			if err == nil {
@@ -74,7 +74,7 @@ func TestDefinitionHelpersGolden(t *testing.T) {
 			}
 			return
 		}
-		if err != nil || !golden.Same(got, want) {
+		if err != nil || !parity.Same(got, want) {
 			t.Errorf("got %s %v\nwant %s", show(got), err, s.Stringify(want))
 		}
 	})
@@ -92,22 +92,22 @@ func sameExceptHash(t *testing.T, got Prepared, want any) {
 		t.Errorf("legacy hash %s %v, recorded %s", lh, err, legacy)
 	}
 	recorded.Set("inputHash", got.InputHash)
-	if !golden.Same(got, recorded) {
+	if !parity.Same(got, recorded) {
 		t.Errorf("got  %s\nwant %s", show(got), s.Stringify(recorded))
 	}
 }
 
-func TestPrepareGolden(t *testing.T) {
+func TestPrepareParity(t *testing.T) {
 	each(t, "prepareRequest", func(t *testing.T, entry *s.Object) {
-		want, ok := golden.Output(entry)
-		got, err := Prepare(golden.Arg(entry, 0))
+		want, ok := parity.Output(entry)
+		got, err := Prepare(parity.Arg(entry, 0))
 		if !ok {
 			if err == nil {
-				t.Errorf("expected failure %s", s.Stringify(golden.ErrorOf(entry)))
+				t.Errorf("expected failure %s", s.Stringify(parity.ErrorOf(entry)))
 				return
 			}
-			message, _ := golden.ErrorOf(entry).Get("message")
-			if name, _ := golden.ErrorOf(entry).Get("name"); name != "ZodError" && err.Error() != message {
+			message, _ := parity.ErrorOf(entry).Get("message")
+			if name, _ := parity.ErrorOf(entry).Get("name"); name != "ZodError" && err.Error() != message {
 				t.Errorf("error %q want %q", err.Error(), message)
 			}
 			return
@@ -122,38 +122,38 @@ func TestPrepareGolden(t *testing.T) {
 	})
 }
 
-func TestProfilesGolden(t *testing.T) {
+func TestProfilesParity(t *testing.T) {
 	each(t, "applyProfile", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 0)
 		var p Profile
-		if err := s.ToGo(golden.Arg(entry, 1), &p); err != nil {
+		if err := s.ToGo(parity.Arg(entry, 1), &p); err != nil {
 			t.Skip("profile not decodable")
 		}
-		want, _ := golden.Output(entry)
-		if got := ApplyProfile(r, p); !golden.Same(got, want) {
+		want, _ := parity.Output(entry)
+		if got := ApplyProfile(r, p); !parity.Same(got, want) {
 			t.Errorf("got  %s\nwant %s", show(got), s.Stringify(want))
 		}
 	})
 	each(t, "validateProfile", func(t *testing.T, entry *s.Object) {
-		want, ok := golden.Output(entry)
-		got, err := ValidateProfile(golden.Arg(entry, 0))
+		want, ok := parity.Output(entry)
+		got, err := ValidateProfile(parity.Arg(entry, 0))
 		if ok != (err == nil) {
 			t.Fatalf("ok=%v err=%v", ok, err)
 		}
-		if ok && !golden.Same(got, want) {
+		if ok && !parity.Same(got, want) {
 			t.Errorf("got %s want %s", show(got), s.Stringify(want))
 		}
 	})
-	if got := s.FromGoValue(DefaultProfile()); !golden.Same(got, mustGolden(t, "validateProfile")) {
+	if got := s.FromGoValue(DefaultProfile()); !parity.Same(got, mustParity(t, "validateProfile")) {
 		t.Log("default profile differs from the first recorded validated profile (informational)")
 	}
 }
 
-func mustGolden(t *testing.T, name string) any {
-	entries, err := golden.Entries(name)
+func mustParity(t *testing.T, name string) any {
+	entries, err := parity.Entries(name)
 	if err != nil || len(entries) == 0 {
 		t.Fatal(err)
 	}
-	out, _ := golden.Output(entries[0])
+	out, _ := parity.Output(entries[0])
 	return out
 }

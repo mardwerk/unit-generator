@@ -6,7 +6,7 @@ import (
 	"fmt"
 	"testing"
 
-	"github.com/mardwerk/unit-generator/internal/golden"
+	"github.com/mardwerk/unit-generator/internal/parity"
 	s "github.com/mardwerk/unit-generator/internal/schema"
 )
 
@@ -50,7 +50,7 @@ func (r *replayModel) Generate(_ context.Context, request ModelRequest) (ModelRe
 		return ModelResponse{}, replayError(recordedErr.(*s.Object))
 	}
 	response := field(exchange, "response").(*s.Object)
-	out := ModelResponse{Output: golden.Restore(field(response, "output"))}
+	out := ModelResponse{Output: parity.Restore(field(response, "output"))}
 	if usage, ok := response.Get("usage"); ok && usage != nil {
 		var u Usage
 		_ = s.ToGo(usage, &u)
@@ -115,7 +115,7 @@ func normalize(value any) any {
 }
 
 func sameArtifact(got any, want any) bool {
-	return golden.Canonical(normalize(golden.Mark(s.FromGoValue(got)))) == golden.Canonical(normalize(want))
+	return parity.Canonical(normalize(parity.Mark(s.FromGoValue(got)))) == parity.Canonical(normalize(want))
 }
 
 func legacyRoute(entry *s.Object) bool {
@@ -146,7 +146,7 @@ func containsKey2(value any, key string) bool {
 }
 
 func recordedCode(entry *s.Object) string {
-	e := golden.ErrorOf(entry)
+	e := parity.ErrorOf(entry)
 	if e == nil {
 		return ""
 	}
@@ -160,7 +160,7 @@ func recordedCode(entry *s.Object) string {
 
 func compareFailure(t *testing.T, err error, entry *s.Object) {
 	t.Helper()
-	recorded := golden.ErrorOf(entry)
+	recorded := parity.ErrorOf(entry)
 	message, _ := recorded.Get("message")
 	if err == nil {
 		t.Fatalf("expected failure %q", message)
@@ -173,19 +173,19 @@ func compareFailure(t *testing.T, err error, entry *s.Object) {
 		if !errors.As(err, &modelErr) || modelErr.Failure == nil {
 			t.Fatalf("expected a model failure, got %T", err)
 		}
-		if !golden.Same(modelErr.Failure, failure) {
+		if !parity.Same(modelErr.Failure, failure) {
 			t.Errorf("failure got %s want %s", show(modelErr.Failure), s.Stringify(failure))
 		}
 	}
 	if usage, ok := recorded.Get("usage"); ok {
-		if modelErr == nil || !golden.Same(modelErr.Usage, usage) {
+		if modelErr == nil || !parity.Same(modelErr.Usage, usage) {
 			t.Errorf("usage got %s want %s", show(modelErr), s.Stringify(usage))
 		}
 	}
 }
 
 func recordedName(entry *s.Object) string {
-	if e := golden.ErrorOf(entry); e != nil {
+	if e := parity.ErrorOf(entry); e != nil {
 		name, _ := e.Get("name")
 		text, _ := name.(string)
 		return text

@@ -3,8 +3,8 @@ package unit
 import (
 	"testing"
 
-	"github.com/mardwerk/unit-generator/internal/golden"
 	m "github.com/mardwerk/unit-generator/internal/mechanics"
+	"github.com/mardwerk/unit-generator/internal/parity"
 	s "github.com/mardwerk/unit-generator/internal/schema"
 )
 
@@ -53,7 +53,7 @@ func issuesOf(err error) any {
 }
 
 func recordedIssues(entry *s.Object) any {
-	e := golden.ErrorOf(entry)
+	e := parity.ErrorOf(entry)
 	if e == nil {
 		return nil
 	}
@@ -100,14 +100,14 @@ func compareErr(t *testing.T, err error, entry *s.Object) {
 	}
 }
 
-func TestPlanningGolden(t *testing.T) {
+func TestPlanningParity(t *testing.T) {
 	each(t, "designPlanRequest", func(t *testing.T, entry *s.Object) {
-		prepared, err := ParsePrepared(golden.Arg(entry, 0))
+		prepared, err := ParsePrepared(parity.Arg(entry, 0))
 		if err != nil {
 			t.Skip(err)
 		}
 		got, err := DesignPlanRequest(prepared)
-		if want, ok := golden.Output(entry); ok {
+		if want, ok := parity.Output(entry); ok {
 			if err != nil {
 				t.Fatal(err)
 			}
@@ -118,12 +118,12 @@ func TestPlanningGolden(t *testing.T) {
 	})
 	each(t, "decodeDesignPlan", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 1)
-		got, err := DecodeDesignPlan(golden.Arg(entry, 0), &r)
-		if want, ok := golden.Output(entry); ok {
+		got, err := DecodeDesignPlan(parity.Arg(entry, 0), &r)
+		if want, ok := parity.Output(entry); ok {
 			if err != nil {
 				t.Fatal(err)
 			}
-			if !golden.Same(got, want) {
+			if !parity.Same(got, want) {
 				t.Errorf("got %s\nwant %s", show(got), s.Stringify(want))
 			}
 		} else {
@@ -131,9 +131,9 @@ func TestPlanningGolden(t *testing.T) {
 		}
 	})
 	each(t, "expandPurchasePlan", func(t *testing.T, entry *s.Object) {
-		got, err := ExpandPurchasePlan(golden.Arg(entry, 0))
-		if want, ok := golden.Output(entry); ok {
-			if err != nil || !golden.Same(got, want) {
+		got, err := ExpandPurchasePlan(parity.Arg(entry, 0))
+		if want, ok := parity.Output(entry); ok {
+			if err != nil || !parity.Same(got, want) {
 				t.Errorf("got %s %v\nwant %s", show(got), err, s.Stringify(want))
 			}
 		} else {
@@ -142,18 +142,18 @@ func TestPlanningGolden(t *testing.T) {
 	})
 	each(t, "bindDesignPlan", func(t *testing.T, entry *s.Object) {
 		var plan DesignPlan
-		if err := s.ToGo(golden.Arg(entry, 1), &plan); err != nil {
+		if err := s.ToGo(parity.Arg(entry, 1), &plan); err != nil {
 			t.Skip(err)
 		}
-		want, _ := golden.Output(entry)
-		if got := BindDesignPlan(golden.Arg(entry, 0), plan); !golden.Same(got, want) {
+		want, _ := parity.Output(entry)
+		if got := BindDesignPlan(parity.Arg(entry, 0), plan); !parity.Same(got, want) {
 			t.Errorf("got %s\nwant %s", show(got), s.Stringify(want))
 		}
 	})
 	each(t, "mechanicsPlan", func(t *testing.T, entry *s.Object) {
 		var plan DesignPlan
-		_ = s.ToGo(golden.Arg(entry, 0), &plan)
-		want, _ := golden.Output(entry)
+		_ = s.ToGo(parity.Arg(entry, 0), &plan)
+		want, _ := parity.Output(entry)
 		if got := MechanicsPlan(plan); s.Stringify(got) != s.Stringify(want) {
 			t.Errorf("got %s\nwant %s", s.Stringify(got), s.Stringify(want))
 		}
@@ -161,37 +161,37 @@ func TestPlanningGolden(t *testing.T) {
 	each(t, "planFeasibilityIssues", func(t *testing.T, entry *s.Object) {
 		var plan DesignPlan
 		var d m.Definition
-		if err := s.ToGo(golden.Arg(entry, 0), &plan); err != nil {
+		if err := s.ToGo(parity.Arg(entry, 0), &plan); err != nil {
 			t.Skip(err)
 		}
-		_ = s.ToGo(golden.Arg(entry, 1), &d)
-		want, _ := golden.Output(entry)
+		_ = s.ToGo(parity.Arg(entry, 1), &d)
+		want, _ := parity.Output(entry)
 		got := PlanFeasibilityIssues(plan, d)
 		if got == nil {
 			got = []m.Issue{}
 		}
-		if !golden.Same(got, want) {
+		if !parity.Same(got, want) {
 			t.Errorf("got %s\nwant %s", show(got), s.Stringify(want))
 		}
 	})
 	each(t, "designGuidance", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 0)
-		want, _ := golden.Output(entry)
+		want, _ := parity.Output(entry)
 		got := DesignGuidance(&r)
 		if got == nil {
 			got = []string{}
 		}
-		if !golden.Same(got, want) {
+		if !parity.Same(got, want) {
 			t.Errorf("got %s\nwant %s", show(got), s.Stringify(want))
 		}
 	})
 }
 
-func TestMechanicsOutputGolden(t *testing.T) {
+func TestMechanicsOutputParity(t *testing.T) {
 	each(t, "modelOutputJsonSchema", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 0)
 		got, err := ModelOutputJSONSchema(&r)
-		if want, ok := golden.Output(entry); ok {
+		if want, ok := parity.Output(entry); ok {
 			if err != nil || s.Canonical(got) != s.Canonical(want) {
 				t.Errorf("got %s %v\nwant %s", s.Canonical(got), err, s.Canonical(want))
 			}
@@ -201,16 +201,16 @@ func TestMechanicsOutputGolden(t *testing.T) {
 	})
 	each(t, "tierEffectLimit", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 0)
-		want, _ := golden.Output(entry)
-		if got := TierEffectLimit(&r, golden.Arg(entry, 1).(string)); float64(got) != want {
+		want, _ := parity.Output(entry)
+		if got := TierEffectLimit(&r, parity.Arg(entry, 1).(string)); float64(got) != want {
 			t.Errorf("got %d want %v", got, want)
 		}
 	})
 	each(t, "decodeBlueprintOutput", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 1)
-		got, err := DecodeBlueprintOutput(golden.Arg(entry, 0), &r)
-		if want, ok := golden.Output(entry); ok {
-			if err != nil || !golden.Same(got, want) {
+		got, err := DecodeBlueprintOutput(parity.Arg(entry, 0), &r)
+		if want, ok := parity.Output(entry); ok {
+			if err != nil || !parity.Same(got, want) {
 				t.Errorf("got %s %v\nwant %s", show(got), err, s.Stringify(want))
 			}
 		} else {
@@ -219,13 +219,13 @@ func TestMechanicsOutputGolden(t *testing.T) {
 	})
 	each(t, "decodeBlueprintOutputForDiagnostics", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 1)
-		blueprint, budget, err := DecodeForDiagnostics(golden.Arg(entry, 0), &r)
-		if want, ok := golden.Output(entry); ok {
+		blueprint, budget, err := DecodeForDiagnostics(parity.Arg(entry, 0), &r)
+		if want, ok := parity.Output(entry); ok {
 			if err != nil {
 				t.Fatal(err)
 			}
 			wantObj := want.(*s.Object)
-			if !golden.Same(blueprint, field(wantObj, "blueprint")) {
+			if !parity.Same(blueprint, field(wantObj, "blueprint")) {
 				t.Errorf("blueprint got %s\nwant %s", show(blueprint), s.Stringify(field(wantObj, "blueprint")))
 			}
 			var gotBudget []any
@@ -235,7 +235,7 @@ func TestMechanicsOutputGolden(t *testing.T) {
 			if gotBudget == nil {
 				gotBudget = []any{}
 			}
-			if !golden.Same(gotBudget, field(wantObj, "budgetIssues")) {
+			if !parity.Same(gotBudget, field(wantObj, "budgetIssues")) {
 				t.Errorf("budget got %s\nwant %s", s.Stringify(gotBudget), s.Stringify(field(wantObj, "budgetIssues")))
 			}
 		} else {
@@ -245,12 +245,12 @@ func TestMechanicsOutputGolden(t *testing.T) {
 	each(t, "validateBlueprintRequest", func(t *testing.T, entry *s.Object) {
 		b := blueprintArg(t, entry, 0)
 		r := requestArg(t, entry, 1)
-		want, _ := golden.Output(entry)
+		want, _ := parity.Output(entry)
 		got := ValidateBlueprintRequest(b, r)
 		if got == nil {
 			got = []m.Issue{}
 		}
-		if !golden.Same(got, want) {
+		if !parity.Same(got, want) {
 			t.Errorf("got %s\nwant %s", show(got), s.Stringify(want))
 		}
 	})
@@ -258,34 +258,34 @@ func TestMechanicsOutputGolden(t *testing.T) {
 		b := blueprintArg(t, entry, 0)
 		var plan DesignPlan
 		plan.UpgradeIntents = nil
-		if intents, ok := golden.Arg(entry, 1).(*s.Object).Get("upgradeIntents"); ok {
+		if intents, ok := parity.Arg(entry, 1).(*s.Object).Get("upgradeIntents"); ok {
 			var u UpgradeIntents
 			_ = s.ToGo(intents, &u)
 			plan.UpgradeIntents = &u
 		}
 		var d m.Definition
-		_ = s.ToGo(golden.Arg(entry, 2), &d)
-		want, _ := golden.Output(entry)
+		_ = s.ToGo(parity.Arg(entry, 2), &d)
+		want, _ := parity.Output(entry)
 		got := PlanIntentIssues(b, plan.UpgradeIntents, d)
 		if got == nil {
 			got = []m.Issue{}
 		}
-		if !golden.Same(got, want) {
+		if !parity.Same(got, want) {
 			t.Errorf("got %s\nwant %s", show(got), s.Stringify(want))
 		}
 	})
 	each(t, "evaluateUnitDesign", func(t *testing.T, entry *s.Object) {
 		b := blueprintArg(t, entry, 0)
 		var plan *DesignPlan
-		if value := golden.Arg(entry, 1); value != nil && value != s.Missing {
+		if value := parity.Arg(entry, 1); value != nil && value != s.Missing {
 			plan = &DesignPlan{}
 			if err := s.ToGo(value, plan); err != nil {
 				t.Skip(err)
 			}
 		}
 		var d m.Definition
-		_ = s.ToGo(golden.Arg(entry, 2), &d)
-		want, ok := golden.Output(entry)
+		_ = s.ToGo(parity.Arg(entry, 2), &d)
+		want, ok := parity.Output(entry)
 		got, err := EvaluateUnitDesign(b, plan, d)
 		if !ok {
 			compareErr(t, err, entry)
@@ -294,27 +294,27 @@ func TestMechanicsOutputGolden(t *testing.T) {
 		if err != nil {
 			t.Fatalf("error: %v", err)
 		}
-		if !golden.Same(got, want) {
+		if !parity.Same(got, want) {
 			t.Errorf("got %s %v\nwant %s", show(got), err, s.Stringify(want))
 		}
 	})
 }
 
-func TestRepairGolden(t *testing.T) {
+func TestRepairParity(t *testing.T) {
 	each(t, "targetedTierRepair", func(t *testing.T, entry *s.Object) {
-		if !prepared(golden.Arg(entry, 0)) {
+		if !prepared(parity.Arg(entry, 0)) {
 			t.Skip("request was never prepared; its key order is JavaScript insertion order")
 		}
 		r := requestArg(t, entry, 0)
 		var issues []string
-		for _, item := range golden.Arg(entry, 2).([]any) {
+		for _, item := range parity.Arg(entry, 2).([]any) {
 			issues = append(issues, item.(string))
 		}
-		got, err := TargetedTierRepair(&r, golden.Arg(entry, 1), issues)
+		got, err := TargetedTierRepair(&r, parity.Arg(entry, 1), issues)
 		if err != nil {
 			t.Fatal(err)
 		}
-		want, _ := golden.Output(entry)
+		want, _ := parity.Output(entry)
 		if want == nil {
 			if got != nil {
 				t.Error("expected no targeted repair")
@@ -329,27 +329,27 @@ func TestRepairGolden(t *testing.T) {
 	each(t, "capstoneRepairContext", func(t *testing.T, entry *s.Object) {
 		b := blueprintArg(t, entry, 0)
 		r := requestArg(t, entry, 1)
-		want, _ := golden.Output(entry)
-		if got := CapstoneRepairContext(b, &r); !golden.Same(got, want) {
+		want, _ := parity.Output(entry)
+		if got := CapstoneRepairContext(b, &r); !parity.Same(got, want) {
 			t.Errorf("got %s\nwant %s", show(got), s.Stringify(want))
 		}
 	})
 	each(t, "wireRepairContext", func(t *testing.T, entry *s.Object) {
 		r := requestArg(t, entry, 1)
-		want, _ := golden.Output(entry)
-		if got := WireRepairContext(golden.Arg(entry, 0), &r); !golden.Same(got, want) {
+		want, _ := parity.Output(entry)
+		if got := WireRepairContext(parity.Arg(entry, 0), &r); !parity.Same(got, want) {
 			t.Errorf("got %s\nwant %s", show(got), s.Stringify(want))
 		}
 	})
 }
 
-func TestReviewRequestGolden(t *testing.T) {
+func TestReviewRequestParity(t *testing.T) {
 	each(t, "blueprintReviewRequest", func(t *testing.T, entry *s.Object) {
-		checked, err := ParseChecked(golden.Arg(entry, 0))
+		checked, err := ParseChecked(parity.Arg(entry, 0))
 		if err != nil {
 			t.Skip(err)
 		}
-		want, _ := golden.Output(entry)
+		want, _ := parity.Output(entry)
 		sameRequest(t, BlueprintReviewRequest(checked), want)
 	})
 }

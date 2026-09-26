@@ -17,7 +17,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { gzipSync } from 'node:zlib';
 
-const out = process.argv[2] ?? 'contracts/v1/golden';
+const out = process.argv[2] ?? 'testdata/parity';
 const raw = mkdtempSync(join(tmpdir(), 'golden-'));
 const run = (command, args, env = {}) =>
   execFileSync(command, args, { stdio: 'inherit', env: { ...process.env, ...env } });

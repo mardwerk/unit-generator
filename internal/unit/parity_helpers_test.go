@@ -3,20 +3,20 @@ package unit
 import (
 	"testing"
 
-	"github.com/mardwerk/unit-generator/internal/golden"
+	"github.com/mardwerk/unit-generator/internal/parity"
 	s "github.com/mardwerk/unit-generator/internal/schema"
 )
 
 // each runs fn for every recorded call of name, stopping after a few failures.
 func each(t *testing.T, name string, fn func(t *testing.T, entry *s.Object)) {
 	t.Helper()
-	entries, err := golden.Entries(name)
+	entries, err := parity.Entries(name)
 	if err != nil {
 		t.Fatal(err)
 	}
 	failures := 0
 	for _, entry := range entries {
-		if args, _ := entry.Get("args"); golden.NonFinite(args) {
+		if args, _ := entry.Get("args"); parity.NonFinite(args) {
 			continue
 		}
 		if !t.Run(name, func(t *testing.T) { fn(t, entry) }) {
@@ -32,10 +32,10 @@ func each(t *testing.T, name string, fn func(t *testing.T, entry *s.Object)) {
 func requestArg(t *testing.T, entry *s.Object, i int) Request {
 	t.Helper()
 	var r Request
-	if err := s.ToGo(golden.Arg(entry, i), &r); err != nil {
+	if err := s.ToGo(parity.Arg(entry, i), &r); err != nil {
 		t.Skipf("request not decodable: %v", err)
 	}
 	return r
 }
 
-func show(value any) string { return s.Stringify(golden.Mark(s.FromGoValue(value))) }
+func show(value any) string { return s.Stringify(parity.Mark(s.FromGoValue(value))) }
