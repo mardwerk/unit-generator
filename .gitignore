@@ -1,5 +1,7 @@
 node_modules/
 dist/
+# The built web client is embedded in the Go binary and committed.
+!web/dist/
 .test-build/
 .scratch/
 data/runs/*

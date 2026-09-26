@@ -82,6 +82,20 @@ func Open(settingsFile, defaultDirectory string) (*Library, error) {
 	return &Library{directory: directory, settingsFile: settings}, nil
 }
 
+// OpenAt uses directory regardless of recorded settings; Configure still
+// records a new folder in settingsFile.
+func OpenAt(directory, settingsFile string) (*Library, error) {
+	absolute, err := filepath.Abs(directory)
+	if err != nil {
+		return nil, err
+	}
+	settings, err := filepath.Abs(settingsFile)
+	if err != nil {
+		return nil, err
+	}
+	return &Library{directory: absolute, settingsFile: settings}, nil
+}
+
 // Directory is the current library folder.
 func (l *Library) Directory() string {
 	l.mu.Lock()

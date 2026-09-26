@@ -239,6 +239,10 @@ func VerifyPrepared(prepared Prepared) error {
 
 var profileDocument = regexp.MustCompile(`^(default-td-profile-v[0-9]+|profile:.+|mechanics:.+)$`)
 
+// IsProfileDocument reports whether a document ID belongs to a Profile: its
+// rules or its Definition's evidence. Applying another Profile replaces them.
+func IsProfileDocument(id string) bool { return profileDocument.MatchString(id) }
+
 // ApplyProfile replaces the rules a request is generated under with a Profile:
 // its task, progression, Definition and rules document. Character, sources,
 // decisions and revision context stay.
@@ -250,7 +254,7 @@ func ApplyProfile(request Request, profile Profile) Request {
 	request.MechanicsDefinition = &definition
 	var documents []Document
 	for _, d := range request.Documents {
-		if !profileDocument.MatchString(d.ID) {
+		if !IsProfileDocument(d.ID) {
 			documents = append(documents, d)
 		}
 	}
