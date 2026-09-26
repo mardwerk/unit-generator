@@ -1,8 +1,8 @@
 # Unit design research
 
-This index owns Unit Generator research: paper notes that frame representation and evaluation, plus the BTD6 reference material below. Framework notes, the natural-language design synthesis and the September 21 generator survey now live in the planning workspace (knowledge and cold-store); [next generation work](https://github.com/mardwerk/unit-generator/blob/9244cd5/docs/NEXT-EXPERIMENT.md) owns the current roadmap.
+This index owns Unit Generator research: paper notes that frame representation and evaluation, plus the pointer to BTD6 facts below. Framework notes, the natural-language design synthesis and the September 21 generator survey now live in the planning workspace (knowledge and cold-store); [next generation work](https://github.com/mardwerk/unit-generator/blob/9244cd5/docs/NEXT-EXPERIMENT.md) owns the current roadmap.
 
-The [BTD6 pattern analysis](btd6/PATTERNS.md) derives authoring guidance from the supplied 26 towers and all 390 regular upgrade summaries. The [bounded optimization proposal](btd6/AUTORESEARCH.md) describes a future experiment, not an implemented autonomous training loop.
+The [bounded optimization proposal](AUTORESEARCH.md) describes a future experiment, not an implemented autonomous training loop.
 
 ## Papers most relevant to unit generation
 
@@ -19,15 +19,10 @@ Use these papers to frame representation and evaluation, not to choose a pipelin
 
 These are a closer fit than the old card/monster examples. Runtime claims still require a compatible Consumer; concept work can retain predicted scenarios and attributed review. [REFINEMENT.md](https://github.com/mardwerk/unit-generator/blob/9244cd5/docs/REFINEMENT.md) owns the study protocol.
 
-## BTD6 evidence
+## BTD6 facts
 
-The BTD6 material is consolidated here:
-
-- [Raw reference package](btd6/raw/btd6_README.txt): the compiled tower/upgrade [JSON](btd6/raw/btd6_towers.json) plus the editorial [role categories](btd6/raw/towerdefense_categories.json). Alternate exports (workbook, CSVs, readable roster) were retired; the upstream [btd6-game-data](https://github.com/Btd6ModHelper/btd6-game-data) repo (Towers/, Upgrades/, Bloons/, Rounds/, Maps/, textTable.json) is the canonical check-when-needed source. No dependency.
-- [Design baseline](btd6/BTD6-UNIT-DESIGN.md) and [six detailed tower examples](btd6/BTD6-UNIT-EXAMPLES.md), retaining the September 20 research and source limitations.
-- [Dart/Boomerang snapshots](btd6/source-snapshots/) retained as source evidence for the bundled Profile's reference scale and for a future quality reference; the remaining page snapshots were retired. Snapshots are evidence, not current instructions.
-- [File provenance with SHA-256 hashes](btd6/provenance.json), covering the current files plus the retired September 20 exports.
+BTD6 domain facts live in [btd6-atlas](https://github.com/KyleDerZweite/btd6-atlas); [BTD6-REFERENCE.md](BTD6-REFERENCE.md) says what it is authoritative for, which code still carries hand-compiled BTD6 values, and where the retired September 20 research is kept in history. Do not add BTD6 facts to this repository.
 
 Generated runs and live provider responses remain in the ignored `data/runs/`; they are not source references or public fixtures. Manga Mayhem's [enemy baseline](../../manga-mayhem/docs/BTD6-ENEMY-BASELINE.md) belongs to that sibling project and remains there. That optional local link is intentionally external to this repository.
 
-The raw package is a mixed-source reference compiled September 20, 2026, not a pinned current-patch database. Missing values do not mean zero. Consult the source register and limitations before converting any example into executable mechanics. [Current mechanics documentation](../docs/MECHANICS.md) owns implementation guarantees.
+[Current mechanics documentation](../docs/MECHANICS.md) owns implementation guarantees.

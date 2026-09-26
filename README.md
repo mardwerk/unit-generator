@@ -38,7 +38,7 @@ From the terminal:
 | `src/web/` | The web app: React client (`client/`), static files (`public/`) and the embedded build (`dist/`) |
 | `data/` | Example requests, saved Profiles (`data/profiles`) and local runs (`data/runs`, ignored) |
 | `testdata/parity/` | Recorded behavior of the former TypeScript Tool that the Go tests replay |
-| `research/` | BTD6 reference material and design research |
+| `research/` | Design research and the [BTD6 reference](research/BTD6-REFERENCE.md), which points to btd6-atlas for BTD6 facts |
 
 ## Development
 
@@ -84,7 +84,7 @@ Needs live testing (not possible from the development container):
 - **Codex** with a real `codex` CLI and login, including MCP-server disabling against a real `config.toml`.
 - **Character research** against live Wikipedia, Wikidata and Fandom. The rules were ported and tested on fixtures only; real pages may differ.
 - **Windows**: Codex process cleanup uses process groups on Unix only.
-- **A quality reference.** The parity corpus says nothing about unit quality. A useful next step is a reference built from real BTD6 towers ([research/btd6](research/btd6)): generate, for example, Dart Monkey from its sources, then compare structure, prices and specializations with the real tower.
+- **A quality reference.** The parity corpus says nothing about unit quality. A useful next step is a reference built from real BTD6 towers ([btd6-atlas](https://github.com/KyleDerZweite/btd6-atlas)): generate, for example, Dart Monkey from its sources, then compare structure, prices and specializations with the real tower.
 
 ## Documentation
 
@@ -97,6 +97,6 @@ Needs live testing (not possible from the development container):
 | [docs/MECHANICS.md](docs/MECHANICS.md) | What can the numerical Engine resolve and check? |
 | [docs/OPENROUTER.md](docs/OPENROUTER.md) | Which models may agents call? |
 | [AGENTS.md](AGENTS.md) | Rules for contributors and agents |
-| [data/README.md](data/README.md), [research/README.md](research/README.md) | Example requests, Profiles and research material |
+| [data/README.md](data/README.md), [research/README.md](research/README.md), [research/BTD6-REFERENCE.md](research/BTD6-REFERENCE.md) | Example requests, Profiles, research material and where BTD6 facts live |
 
 Related repositories: [Map Generator](https://github.com/mardwerk/map-generator) and [organization metadata](https://github.com/mardwerk/.github).
