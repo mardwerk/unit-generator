@@ -1,15 +1,12 @@
 import { useEffect, useState } from 'react';
 import { Copy, FolderOpen, Pencil, Play, Trash2 } from 'lucide-react';
-import { bundledProfiles, profileProgression, type UnitProfile } from '../../core/index.js';
-import type { ProfileEntry, ProfilesState } from '../contracts.js';
+import type { ProfileEntry, ProfilesState, Progression, UnitProfile } from './contract.js';
 import { api } from './api.js';
 import { Disclosure, Field } from './ui.js';
 
-const bundled: ProfileEntry[] = bundledProfiles.map((profile) => ({ profile, builtIn: true }));
-
-/** Bundled Profiles are always available; saved ones are read from the library folder. */
-export function useProfiles(directory: string) {
-  const [state, setState] = useState<ProfilesState>({ directory: '', profiles: bundled });
+/** The server lists the bundled Profile first, then the saved ones from its Profiles folder. */
+export function useProfiles() {
+  const [state, setState] = useState<ProfilesState>({ directory: '', profiles: [] });
   const [error, setError] = useState('');
   useEffect(() => {
     let active = true;
@@ -26,12 +23,14 @@ export function useProfiles(directory: string) {
     return () => {
       active = false;
     };
-  }, [directory]);
+  }, []);
   return {
     ...state,
     error,
     async save(profile: UnitProfile) {
-      setState(await api<ProfilesState>('profiles/save', { profile }));
+      const next = await api<ProfilesState>('profiles/save', { profile });
+      setState(next);
+      return next;
     },
     async remove(id: string) {
       setState(await api<ProfilesState>('profiles/delete', { id }));
@@ -60,8 +59,7 @@ function savedRules(id: string, text: string): UnitProfile['rules'] {
   };
 }
 
-export function ProgressionGrid({ profile }: { profile: UnitProfile }) {
-  const progression = profileProgression(profile);
+export function ProgressionGrid({ progression }: { progression: Progression }) {
   const tiers = Math.max(...progression.paths.map((path) => Math.max(...path.tiers)));
   return (
     <figure className="progression-figure">
@@ -246,27 +244,41 @@ export function ProfilesView({
   directory: string;
   error: string;
   selectedId: string | null;
-  onUse: (profile: UnitProfile) => void;
+  onUse: (entry: ProfileEntry) => void;
   onSave: (profile: UnitProfile) => Promise<void>;
   onDelete: (id: string) => Promise<void>;
 }) {
-  const [shownId, setShownId] = useState(selectedId ?? profiles[0]!.profile.id);
+  const [shownId, setShownId] = useState(selectedId ?? profiles[0]?.profile.id ?? '');
   const [editing, setEditing] = useState<{ profile: UnitProfile; isNew: boolean } | null>(null);
   const [actionError, setActionError] = useState('');
-  const shown = profiles.find(({ profile }) => profile.id === shownId) ?? profiles[0]!;
+  const shown = profiles.find(({ profile }) => profile.id === shownId) ?? profiles[0];
+  if (!shown)
+    return (
+      <main className="library-view profiles-view">
+        <h2>Profiles</h2>
+        {error ? (
+          <p className="error" role="alert">
+            {error}
+          </p>
+        ) : (
+          <p className="muted">Loading Profiles...</p>
+        )}
+      </main>
+    );
   const isDefault = shown.builtIn && shown.profile.id === profiles[0]!.profile.id;
-  function duplicate() {
-    const id = unusedId(shown.profile.id, profiles);
+  const source = shown.profile;
+  const duplicate = () => {
+    const id = unusedId(source.id, profiles);
     setEditing({
       isNew: true,
       profile: {
-        ...structuredClone(shown.profile),
+        ...structuredClone(source),
         id,
-        name: `${shown.profile.name} (copy)`,
-        rules: savedRules(id, shown.profile.rules.text),
+        name: `${source.name} (copy)`,
+        rules: savedRules(id, source.rules.text),
       },
     });
-  }
+  };
   return (
     <main className="library-view profiles-view">
       <div className="library-heading">
@@ -281,7 +293,7 @@ export function ProfilesView({
       {directory && (
         <p className="library-directory">
           <FolderOpen size={14} />
-          {directory}/profiles
+          {directory}
         </p>
       )}
       {(error || actionError) && (
@@ -329,7 +341,7 @@ export function ProfilesView({
                 {shown.profile.name} {isDefault && <span className="badge confirmed">Default</span>}
               </h3>
               <p className="muted small">Prices and stats are checked by the Engine.</p>
-              <ProgressionGrid profile={shown.profile} />
+              <ProgressionGrid progression={shown.progression} />
               <Facts profile={shown.profile} />
               <Disclosure title="Task">
                 <p>{shown.profile.task}</p>
@@ -344,7 +356,7 @@ export function ProfilesView({
                   type="button"
                   className="primary"
                   disabled={shown.profile.id === selectedId}
-                  onClick={() => onUse(shown.profile)}
+                  onClick={() => onUse(shown)}
                 >
                   <Play size={15} /> Use for new units
                 </button>

@@ -1,6 +1,7 @@
-import type { LabDocument, LabRequest } from '../contracts.js';
-import type { ResolvedDocument } from '../../core/index.js';
-import { applyProfile, type UnitProfile } from '../../core/index.js';
+import type { LabDocument, LabRequest } from './contract.js';
+import type { ResolvedDocument } from './contract.js';
+import { api } from './api.js';
+import type { ProfileEntry } from './contract.js';
 
 export interface DocumentInput {
   id: string;
@@ -90,11 +91,14 @@ export function readEditor(input: EditorInput): LabRequest {
 }
 
 /** Choosing a Profile replaces the rules and starts a new design; imported rules stay until then. */
-export function selectProfile(input: EditorInput, profile: UnitProfile): EditorInput {
+export async function selectProfile(input: EditorInput, entry: ProfileEntry): Promise<EditorInput> {
   const {
     deliverable: _deliverable,
     operation: _operation,
     ...request
-  } = applyProfile(readEditor(input), profile);
+  } = await api<LabRequest>('profiles/apply', {
+    request: readEditor(input),
+    profileId: entry.profile.id,
+  });
   return editRequest({ ...request, previous: null, feedback: null });
 }

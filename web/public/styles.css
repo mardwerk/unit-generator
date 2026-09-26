@@ -267,6 +267,59 @@ button.nav-button.active {
 .generate-form button {
   min-height: 43px;
 }
+/* A compact Profile dropdown that lines up with the name field and Generate. */
+.profile-picker {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  flex: 0 1 auto;
+  max-width: 210px;
+  min-height: 43px;
+  border: 1px solid var(--input-border);
+  border-radius: 6px;
+  background: var(--surface);
+  color: var(--muted);
+}
+.profile-picker:hover {
+  background: var(--raised);
+}
+.profile-picker:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: 1px;
+}
+.profile-picker-icon,
+.profile-picker-chevron {
+  position: absolute;
+  pointer-events: none;
+}
+.profile-picker-icon {
+  left: 11px;
+}
+.profile-picker-chevron {
+  right: 10px;
+}
+.profile-picker select {
+  appearance: none;
+  min-height: 41px;
+  padding: 0 30px 0 34px;
+  border: 0;
+  background: transparent;
+  color: var(--text);
+  font-size: 0.85rem;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.profile-picker select:focus {
+  outline: none;
+}
+.profile-picker select:disabled {
+  cursor: default;
+  opacity: 0.6;
+}
+.profile-picker option {
+  background: var(--surface);
+  color: var(--text);
+}
 .input-actions {
   display: flex;
   gap: 8px;
@@ -1008,6 +1061,10 @@ dialog::backdrop {
   .generate-form .field {
     flex-basis: 100%;
   }
+  .generate-form .profile-picker {
+    flex: 1;
+    max-width: none;
+  }
 }
 @media (max-width: 850px) {
   .workspace {
@@ -1487,5 +1544,17 @@ button.card-open:hover:not(:disabled) {
 @media (max-width: 760px) {
   .profiles-layout {
     grid-template-columns: 1fr;
+  }
+}
+@media (max-width: 600px) {
+  .generate-form {
+    flex-wrap: wrap;
+  }
+  .generate-form .field {
+    flex-basis: 100%;
+  }
+  .generate-form .profile-picker {
+    flex: 1;
+    max-width: none;
   }
 }

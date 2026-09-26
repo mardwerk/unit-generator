@@ -1,4 +1,4 @@
-import type { LabArtifact } from '../contracts.js';
+import type { LabArtifact } from './contract.js';
 import { requestOf } from './artifacts.js';
 import { safeUrl } from './ui.js';
 

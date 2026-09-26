@@ -1,5 +1,6 @@
-import { checkDraft, type DraftArtifact } from '../../core/index.js';
-import type { LabArtifact, LabStage } from '../contracts.js';
+import { api } from './api.js';
+import type { CheckedArtifact, DraftArtifact } from './contract.js';
+import type { LabArtifact, LabStage } from './contract.js';
 
 /** Explicit predecessors let a stage rerun without mutating the retained revision. */
 export async function inputBeforeStage(
@@ -30,5 +31,5 @@ export async function inputBeforeStage(
           };
   if (stage === 'check') return draft;
   if (artifact.kind === 'draft') throw new Error('Check the draft first.');
-  return artifact.kind === 'checked' ? artifact : checkDraft(draft);
+  return artifact.kind === 'checked' ? artifact : api<CheckedArtifact>('check', { draft });
 }

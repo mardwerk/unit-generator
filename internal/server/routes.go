@@ -343,7 +343,7 @@ func (srv *Server) prepare(ctx context.Context, body *s.Object) (any, error) {
 		}
 		return sources.Prepare(profile)
 	}
-	if err := only(body, "request"); err != nil {
+	if err := only(body, "request", "profile", "profileId"); err != nil {
 		return nil, err
 	}
 	request, err := requestInput(get(body, "request"))
@@ -378,6 +378,18 @@ func (srv *Server) prepare(ctx context.Context, body *s.Object) (any, error) {
 		return nil, ctx.Err()
 	}
 	request.Set("documents", resolved)
+	// A request without its own rules is generated under the named Profile.
+	if !request.Has("mechanicsDefinition") && (body.Has("profile") || body.Has("profileId")) {
+		profile, err := srv.profile(body)
+		if err != nil {
+			return nil, err
+		}
+		applied, err := applyProfile(request, profile)
+		if err != nil {
+			return nil, err
+		}
+		return unit.Prepare(applied)
+	}
 	return unit.Prepare(request)
 }
 

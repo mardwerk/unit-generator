@@ -1,11 +1,11 @@
 import { useEffect, useRef, useState } from 'react';
 import { ImageOff, ExternalLink } from 'lucide-react';
-import type { LabArtifact } from '../contracts.js';
-import type { VisualReference } from '../../core/index.js';
+import type { LabArtifact } from './contract.js';
+import type { VisualReference } from './contract.js';
 import { requestOf } from './artifacts.js';
 import { Disclosure, safeUrl } from './ui.js';
 import { api } from './api.js';
-import { isFullBodyReference } from '../../presentation/portraits.js';
+import { isFullBodyReference } from './portraits.js';
 import { visualReferencesOf } from './visual-references.js';
 
 function SourceImage({ reference }: { reference: VisualReference }) {

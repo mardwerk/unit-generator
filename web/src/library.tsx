@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react';
 import { ImageOff, Trash2, Archive, FolderOpen } from 'lucide-react';
-import type { LabArtifact, LibraryEntry, LibraryState } from '../contracts.js';
+import type { LabArtifact, LibraryEntry, LibraryState } from './contract.js';
 import { api } from './api.js';
 import { Modal, IconButton } from './ui.js';
 
@@ -175,8 +175,12 @@ export function Library({
                     <LibraryPortrait entry={entry} />
                     <h4>{entry.character.name}</h4>
                     <small>
-                      {entry.kind === 'result' ? 'Reviewed draft' : entry.kind} ·{' '}
-                      {new Date(entry.savedAt).toLocaleString()}
+                      {entry.kind === 'result'
+                        ? 'Reviewed draft'
+                        : entry.kind === 'sources'
+                          ? 'Researched sources'
+                          : entry.kind}{' '}
+                      · {new Date(entry.savedAt).toLocaleString()}
                     </small>
                   </button>
                   <IconButton

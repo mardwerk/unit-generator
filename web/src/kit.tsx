@@ -1,16 +1,35 @@
-import { useMemo, useRef, useState, type CSSProperties } from 'react';
+import { useEffect, useRef, useState, type CSSProperties } from 'react';
 import { RefreshCw } from 'lucide-react';
-import type { Finding, UnitCandidate } from '../../core/index.js';
-import type { LabArtifact } from '../contracts.js';
+import type { Finding, UnitCandidate } from './contract.js';
+import type { LabArtifact } from './contract.js';
 import { candidateOf, findingsOf, requestOf } from './artifacts.js';
 import { compareGameplay } from './kit-comparison.js';
 import { Disclosure, Modal, safeUrl } from './ui.js';
 import { KitIcon, type UnitIcons } from './icon-prompts.js';
 import { UnitPortrait } from './unit-portrait.js';
 import { visualReferencesOf } from './visual-references.js';
-
-import { kitStats, tierStatKey, type StatChange } from '../../presentation/kit-stats.js';
+import { api } from './api.js';
+import { tierStatKey, type KitStats, type StatChange, type UnitView } from './contract.js';
 import { Cost, StatValues } from './kit-stats.js';
+
+/** Resolved stats come from the server; without them the kit shows authored prose. */
+function useKitStats(artifact: LabArtifact): KitStats | undefined {
+  const [loaded, setLoaded] = useState<{ artifact: LabArtifact; stats?: KitStats } | null>(null);
+  useEffect(() => {
+    if (!candidateOf(artifact)) return;
+    const abort = new AbortController();
+    void api<UnitView>('view', { artifact }, abort.signal)
+      .then((value) => {
+        if (!abort.signal.aborted)
+          setLoaded({ artifact, ...(value.stats ? { stats: value.stats } : {}) });
+      })
+      .catch(() => {
+        if (!abort.signal.aborted) setLoaded({ artifact });
+      });
+    return () => abort.abort();
+  }, [artifact]);
+  return loaded?.artifact === artifact ? loaded.stats : undefined;
+}
 
 type Ability = UnitCandidate['abilities'][number];
 function Badge({ value }: { value: string }) {
@@ -82,10 +101,7 @@ export function CharacterSheet({
   const report = useRef<HTMLDetailsElement>(null);
   const candidate = candidateOf(artifact);
   const definition = requestOf(artifact).mechanicsDefinition;
-  const stats = useMemo(
-    () => (candidate ? kitStats(candidate, definition) : undefined),
-    [candidate, definition],
-  );
+  const stats = useKitStats(artifact);
   const currency = definition?.profile.currency ?? 'Gold';
   const findings = findingsOf(artifact);
   const failures = findings.filter((f) => f.outcome === 'fail');
@@ -212,8 +228,6 @@ export function CharacterSheet({
                   <KitIcon
                     iconKey="basic-attack"
                     label={candidate.basicAttack.name}
-                    description={candidate.basicAttack.behavior}
-                    candidate={candidate}
                     icons={icons}
                   />
                 )}
@@ -269,7 +283,7 @@ export function CharacterSheet({
                   <p className="path-theme">{path.theme}</p>
                 </header>
                 {path.tiers.map((tier) => {
-                  const tierStats = stats?.tiers.get(tierStatKey(path.id, tier.tier));
+                  const tierStats = stats?.tiers[tierStatKey(path.id, tier.tier)];
                   const openTier = () =>
                     setDetail({
                       title: tier.name,
@@ -298,8 +312,6 @@ export function CharacterSheet({
                             <KitIcon
                               iconKey={`tier:${path.id}:${tier.tier}`}
                               label={tier.name}
-                              description={`${path.name}: ${path.theme}. Tier ${tier.tier}: ${tier.benefit}`}
-                              candidate={candidate}
                               icons={icons}
                             />
                           )}
@@ -345,8 +357,6 @@ export function CharacterSheet({
                       <KitIcon
                         iconKey={`ability:${ability.id}`}
                         label={ability.name}
-                        description={ability.description}
-                        candidate={candidate}
                         icons={icons}
                       />
                     )}

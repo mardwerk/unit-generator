@@ -1,5 +1,5 @@
-import type { LabError } from '../contracts.js';
-import type { ModelUsage, ModelFailure } from '../../core/index.js';
+import type { LabError } from './contract.js';
+import type { ModelUsage, ModelFailure } from './contract.js';
 
 export class LabApiError extends Error {
   constructor(
@@ -17,7 +17,7 @@ export async function api<T>(endpoint: string, body?: unknown, signal?: AbortSig
     document.querySelector<HTMLMetaElement>('meta[name="unitlab-session"]')?.content ?? '';
   let response: Response;
   try {
-    response = await fetch(`/api/${endpoint}`, {
+    response = await fetch(`/api/v1/${endpoint}`, {
       method: body === undefined ? 'GET' : 'POST',
       headers: {
         Authorization: `Bearer ${token}`,

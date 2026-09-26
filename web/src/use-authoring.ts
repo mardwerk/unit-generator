@@ -1,5 +1,5 @@
 import { useEffect, useRef, useState } from 'react';
-import type { InspectedInput, LabArtifact, LabRequest, LabStage } from '../contracts.js';
+import type { InspectedInput, LabArtifact, LabRequest, LabStage } from './contract.js';
 import { api } from './api.js';
 import { inputBeforeStage } from './stage-input.js';
 import { AuthoringJobs, authoringError, type AuthoringJob } from './authoring-jobs.js';
@@ -14,7 +14,7 @@ import {
   type Revision,
 } from './artifacts.js';
 import { editRequest, readEditor, selectProfile, type EditorInput } from './editor-state.js';
-import { defaultUnitProfile, type UnitProfile } from '../../core/index.js';
+import type { ProfileEntry } from './contract.js';
 
 import {
   createDraft,
@@ -109,7 +109,7 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
     request: LabRequest,
     value: LabArtifact | null,
     foreground = true,
-    profile?: UnitProfile,
+    profile?: ProfileEntry,
   ) {
     const revision: Revision = {
       id: crypto.randomUUID(),
@@ -137,7 +137,12 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
     const query = (fresh?.name ?? name).trim();
     if (!query) return;
     if (fresh ? fresh.edited : usesEditedInputs) {
-      await run(remaining, fresh ? requestForDraft(fresh) : undefined, foreground);
+      await run(
+        remaining,
+        fresh ? requestForDraft(fresh) : undefined,
+        foreground,
+        fresh?.profile ?? undefined,
+      );
       return;
     }
     if (!fresh && selected && manager.busy(selected.id)) return;
@@ -157,18 +162,23 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
       lookup: {
         name: query,
         ...(choice === undefined ? {} : { choice }),
-        ...(profile ? { profile } : {}),
+        ...(profile ? { profileId: profile.profile.id } : {}),
       },
     });
   }
-  async function run(remaining: boolean, explicit?: LabRequest, foreground = true) {
+  async function run(
+    remaining: boolean,
+    explicit?: LabRequest,
+    foreground = true,
+    profile?: ProfileEntry,
+  ) {
     if (!explicit && selected && manager.busy(selected.id)) return;
     let revision = selected;
     if (explicit || dirty || !revision) {
       const request = explicit ?? readEditor(input);
       if (!explicit) retainEditor();
       if (foreground && selected && candidateOf(selected.artifact)) setComparisonId(selected.id);
-      revision = insertRevision(request, null, foreground);
+      revision = insertRevision(request, null, foreground, profile);
     }
     if (foreground) {
       setStatus('');
@@ -356,9 +366,7 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
       } else {
         const checked = await inspect(value);
         if (checked.kind === 'request')
-          setCreation((draft) =>
-            createDraft(checked.artifact, draft.profile ?? defaultUnitProfile),
-          );
+          setCreation((draft) => createDraft(checked.artifact, draft.profile));
         else {
           addArtifact(checked.artifact);
           destination = 'unit';
@@ -374,6 +382,8 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
     try {
       const fresh = snapshotCreateDraft(creation);
       setCreateError('');
+      // The started run keeps its own snapshot; the form is ready for the next character.
+      setCreation((draft) => createDraft(undefined, draft.profile));
       void generate(undefined, true, fresh, foreground).catch(reportError);
       return true;
     } catch (error) {
@@ -401,12 +411,16 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
       setName: (value: string) => setCreation((draft) => nameCreateDraft(draft, value)),
       profile: creation.profile,
       /** Name-only drafts send the Profile with the lookup; edited inputs take its rules now. */
-      setProfile: (profile: UnitProfile) =>
-        setCreation((draft) =>
-          draft.edited
-            ? { ...draft, profile, input: selectProfile(draft.input, profile) }
-            : { ...draft, profile },
-        ),
+      setProfile: (profile: ProfileEntry) => {
+        if (!creation.edited) {
+          setCreation((draft) => ({ ...draft, profile }));
+          return;
+        }
+        void loadCreate(async () => {
+          const input = await selectProfile(creation.input, profile);
+          setCreation((draft) => ({ ...draft, profile, input }));
+        });
+      },
       changeInput: (value: EditorInput) =>
         setCreation((draft) => ({
           ...draft,
@@ -415,7 +429,7 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
           edited: true,
         })),
       loadRequest: (request: LabRequest) =>
-        setCreation((draft) => createDraft(request, draft.profile ?? defaultUnitProfile)),
+        setCreation((draft) => createDraft(request, draft.profile)),
       load: loadCreate,
       uploadDocuments: (files: File[]) =>
         loadCreate(async () => {
@@ -437,7 +451,7 @@ export function useAuthoring(onComplete: (artifact: LabArtifact) => Promise<void
     },
     newCreate: () => {
       if (createLoading.current) return;
-      setCreation((draft) => createDraft(undefined, draft.profile ?? defaultUnitProfile));
+      setCreation((draft) => createDraft(undefined, draft.profile));
       setCreateError('');
     },
     importCreateFile,

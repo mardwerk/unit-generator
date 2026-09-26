@@ -1,7 +1,7 @@
-import type { PreparedRequest, UnitProfile } from '../../core/index.js';
-import type { LabArtifact, LabStage, ProviderState } from '../contracts.js';
+import type { PreparedRequest, Sources } from './contract.js';
+import type { LabArtifact, LabStage, ProviderState } from './contract.js';
 import { LabApiError, type api } from './api.js';
-import { formatCost } from '../../presentation/usage.js';
+import { formatCost } from './usage.js';
 import { nextStage, requestOf, type Revision } from './artifacts.js';
 
 export type Choice = { id: number; name: string; description: string };
@@ -56,6 +56,12 @@ export class AuthoringJobs {
       controller.abort();
     }
   }
+  /** New work hides runs that ended without a result. Their revisions stay available. */
+  dismissEnded() {
+    for (const [id, job] of this.#jobs)
+      if ((job.state === 'failed' || job.state === 'stopped') && !this.#controllers.has(id))
+        this.#jobs.delete(id);
+  }
   dispose() {
     for (const controller of this.#controllers.values()) controller.abort();
   }
@@ -67,12 +73,13 @@ export class AuthoringJobs {
     initial: Revision,
     options: {
       remaining: boolean;
-      lookup?: { name: string; choice?: number; profile?: UnitProfile };
+      lookup?: { name: string; choice?: number; profileId?: string };
       before?: () => Promise<Revision>;
     },
   ): Promise<void> {
     const id = initial.id;
     if (this.busy(id)) return;
+    this.dismissEnded();
     const controller = new AbortController();
     this.#controllers.set(id, controller);
     this.#jobs.set(id, {
@@ -110,18 +117,32 @@ export class AuthoringJobs {
           }
         }
         step('character');
-        const result = await this.dependencies.api<
-          PreparedRequest | { kind: 'choices'; choices: Choice[] }
-        >('character', options.lookup, controller.signal);
+        const { profileId, ...lookup } = options.lookup;
+        const found = await this.dependencies.api<Sources | { kind: 'choices'; choices: Choice[] }>(
+          'research',
+          lookup,
+          controller.signal,
+        );
         controller.signal.throwIfAborted();
-        if (result.kind === 'choices') {
+        if (found.kind === 'choices') {
           this.#update(id, {
             state: 'waiting',
-            choices: result.choices,
+            choices: found.choices,
             status: 'Choose the character to continue.',
           });
           return;
         }
+        // Keep the research reusable: the library stores Sources next to the units.
+        await this.dependencies
+          .api('library/save', { artifact: found }, controller.signal)
+          .catch(() => undefined);
+        controller.signal.throwIfAborted();
+        const result = await this.dependencies.api<PreparedRequest>(
+          'prepare',
+          { sources: found, ...(profileId ? { profileId } : {}) },
+          controller.signal,
+        );
+        controller.signal.throwIfAborted();
         revision = {
           ...revision,
           label: result.request.character.name,
@@ -144,7 +165,10 @@ export class AuthoringJobs {
         step(stage);
         const body =
           stage === 'prepare'
-            ? { request: revision.request }
+            ? {
+                request: revision.request,
+                ...(revision.profile ? { profileId: revision.profile.profile.id } : {}),
+              }
             : stage === 'draft'
               ? { prepared: revision.artifact }
               : stage === 'check'

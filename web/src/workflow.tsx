@@ -1,9 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Check, Circle, LoaderCircle, Play, RotateCcw, Square } from 'lucide-react';
-import type { LabArtifact, LabStage } from '../contracts.js';
+import type { LabArtifact, LabStage } from './contract.js';
 import { requestOf, nextStage } from './artifacts.js';
 import { IconButton } from './ui.js';
-import { formatCost, summarizeUsage } from '../../presentation/usage.js';
+import { formatCost, summarizeUsage } from './usage.js';
 import { stageNames, type RunningStep } from './use-authoring.js';
 
 export function Progress({

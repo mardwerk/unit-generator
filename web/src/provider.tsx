@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import type { ProviderState } from '../contracts.js';
+import type { ProviderState } from './contract.js';
 import type { GenerationLibrary } from './library.js';
 import { api } from './api.js';
 import { Field, Disclosure, Modal } from './ui.js';
@@ -111,10 +111,13 @@ export function Settings({
           <>
             <p id="current-key" className="muted small">
               {keyState?.configured
-                ? `Current key: ${keyState.hint ?? 'hidden'} (${
-                    keyState.source === 'env'
-                      ? 'from the environment or .env'
-                      : 'entered in Settings'
+                ? `Current key: ${keyState.hint ?? 'set (too short to show a fragment)'} (${
+                    {
+                      'env-file': 'from .env',
+                      env: 'from the OPENROUTER_API_KEY environment variable',
+                      settings: 'entered in Settings',
+                      none: '',
+                    }[keyState.source]
                   })`
                 : 'No OpenRouter key configured.'}
             </p>

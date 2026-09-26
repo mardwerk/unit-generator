@@ -1,12 +1,9 @@
 import { useEffect, useState } from 'react';
 import { Copy, ImagePlus, RefreshCw } from 'lucide-react';
-import type { UnitCandidate } from '../../core/index.js';
-import type { LabArtifact, LibraryIcon, LibraryIconsResponse } from '../contracts.js';
+import type { LabArtifact, LibraryIcon, LibraryIconsResponse } from './contract.js';
 import { candidateOf } from './artifacts.js';
 import { api } from './api.js';
 import { Modal, Field } from './ui.js';
-import { imagePrompt, iconPrompt } from '../../presentation/image-prompts.js';
-import { iconSubjects } from '../../presentation/icon-subjects.js';
 import { GenerateIcon } from './generate-icon.js';
 
 export function useUnitIcons(artifact: LabArtifact | null, directory: string) {
@@ -42,19 +39,19 @@ export function useUnitIcons(artifact: LabArtifact | null, directory: string) {
 }
 export type UnitIcons = ReturnType<typeof useUnitIcons>;
 
-export { imagePrompt, iconPrompt } from '../../presentation/image-prompts.js';
+function iconKind(key: string): LibraryIcon['kind'] {
+  if (key === 'unit-portrait') return 'portrait';
+  if (key === 'basic-attack') return 'attack';
+  return key.startsWith('tier:') ? 'upgrade' : 'ability';
+}
 
 export function KitIcon({
   iconKey,
   label,
-  description,
-  candidate,
   icons,
 }: {
   iconKey: string;
   label: string;
-  description: string;
-  candidate: UnitCandidate;
   icons: UnitIcons;
 }) {
   const [open, setOpen] = useState(false);
@@ -65,14 +62,10 @@ export function KitIcon({
     (icon) => icon.key === iconKey,
   );
   useEffect(() => setFailed(false), [reference?.dataUrl]);
-  const subject = iconSubjects(candidate).find((entry) => entry.key === iconKey);
-  const kind = subject?.kind ?? 'ability';
-  const promptLabel = subject?.label ?? label;
-  const promptDescription = subject?.description ?? description;
-  const imageOnly = imagePrompt(candidate, promptLabel, promptDescription, kind);
-  const codex = reference
-    ? iconPrompt(candidate, promptLabel, promptDescription, reference.path, kind)
-    : '';
+  // The server owns the icon catalogue and its prompts.
+  const kind = reference?.kind ?? iconKind(iconKey);
+  const imageOnly = reference?.imagePrompt ?? '';
+  const codex = reference?.codexPrompt ?? '';
   function copy(mode: 'image' | 'codex') {
     setMode(mode);
     void navigator.clipboard

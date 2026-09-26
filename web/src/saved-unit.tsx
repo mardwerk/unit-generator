@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { ArrowLeft, Pencil } from 'lucide-react';
-import type { LabArtifact } from '../contracts.js';
+import type { LabArtifact } from './contract.js';
 import { candidateOf, requestOf } from './artifacts.js';
 import { api } from './api.js';
 import { useUnitIcons } from './icon-prompts.js';

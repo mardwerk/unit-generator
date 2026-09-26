@@ -1,5 +1,5 @@
-import type { AuthorRequest, Finding, UnitCandidate, UnitProfile } from '../../core/index.js';
-import type { LabArtifact, LabRequest, LabStage } from '../contracts.js';
+import type { AuthorRequest, Finding, ProfileEntry, UnitCandidate } from './contract.js';
+import type { LabArtifact, LabRequest, LabStage } from './contract.js';
 
 export interface Revision {
   id: string;
@@ -8,7 +8,7 @@ export interface Revision {
   request: LabRequest;
   artifact: LabArtifact | null;
   /** The Profile a name lookup runs under, until the lookup has prepared a request. */
-  profile?: UnitProfile;
+  profile?: ProfileEntry;
 }
 
 export function emptyRequest(): LabRequest {

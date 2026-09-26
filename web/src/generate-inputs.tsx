@@ -1,7 +1,6 @@
 import { useRef, useState } from 'react';
-import { SlidersHorizontal, Upload } from 'lucide-react';
-import type { LabRequest, ProfileEntry } from '../contracts.js';
-import { bundledProfiles } from '../../core/index.js';
+import { ChevronDown, Layers, SlidersHorizontal, Upload } from 'lucide-react';
+import type { LabRequest, ProfileEntry } from './contract.js';
 import { api } from './api.js';
 import { generationView, isEmptyCreateDraft } from './create-draft.js';
 import { emptyRequest } from './artifacts.js';
@@ -14,7 +13,7 @@ export function GenerateInputs({
   onImport,
   inputsOpen: openInputs,
   onInputsOpenChange,
-  profiles = bundledProfiles.map((profile) => ({ profile, builtIn: true })),
+  profiles = [],
 }: {
   session: AuthoringSession['creation'];
   onGenerate: (view: 'generate' | 'unit') => void;
@@ -22,7 +21,7 @@ export function GenerateInputs({
   /** Controlled by the app so the panel survives switching views. */
   inputsOpen?: boolean;
   onInputsOpenChange?: (open: boolean) => void;
-  /** Bundled and saved Profiles; the first is the default. */
+  /** Bundled and saved Profiles from the server; the first is the default. */
   profiles?: ProfileEntry[];
 }) {
   const submitView = useRef<'generate' | 'unit'>('unit');
@@ -30,6 +29,12 @@ export function GenerateInputs({
   const inputsOpen = openInputs ?? localInputsOpen;
   const setInputsOpen = onInputsOpenChange ?? setLocalInputsOpen;
   const hasDraft = !isEmptyCreateDraft({ name: session.name, edited: session.usesEditedInputs });
+  // Without a chosen Profile, imported inputs keep their own rules; otherwise the default applies.
+  const importedRules = !session.profile && Boolean(session.input.base.mechanicsDefinition);
+  const profileId =
+    session.profile?.profile.id ?? (importedRules ? '' : (profiles[0]?.profile.id ?? ''));
+  const profileName =
+    profiles.find(({ profile }) => profile.id === profileId)?.profile.name ?? 'Imported rules';
   return (
     <>
       <section className="create-unit" aria-label="Generate a Unit">
@@ -55,20 +60,21 @@ export function GenerateInputs({
               disabled={session.busy}
             />
           </label>
-          <label className="field">
-            <span>Profile</span>
+          <label className="profile-picker" title={`Profile: ${profileName}`}>
+            <Layers size={16} aria-hidden="true" className="profile-picker-icon" />
+            <span className="sr-only">Profile</span>
             <select
               id="profile-select"
-              value={session.profile?.id ?? ''}
+              value={profileId}
               onChange={(e) => {
                 const entry = profiles.find(({ profile }) => profile.id === e.target.value);
-                if (entry) session.setProfile(entry.profile);
+                if (entry) session.setProfile(entry);
               }}
-              disabled={session.busy}
+              disabled={session.busy || profiles.length === 0}
             >
-              {!session.profile && (
+              {(importedRules || profiles.length === 0) && (
                 <option value="" disabled>
-                  Rules from imported inputs
+                  {profiles.length === 0 ? 'Loading Profiles...' : 'Imported rules'}
                 </option>
               )}
               {profiles.map(({ profile, builtIn }) => (
@@ -77,6 +83,7 @@ export function GenerateInputs({
                 </option>
               ))}
             </select>
+            <ChevronDown size={14} aria-hidden="true" className="profile-picker-chevron" />
           </label>
           <button
             id="generate"

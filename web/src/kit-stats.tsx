@@ -15,12 +15,45 @@ import {
   MoveUpRight,
   type LucideIcon,
 } from 'lucide-react';
-import {
-  statLabels,
-  statValue,
-  type StatKey,
-  type StatChange,
-} from '../../presentation/kit-stats.js';
+import type { StatChange } from './contract.js';
+
+export const statLabels = {
+  damage: 'Damage',
+  intervalSeconds: 'Attack interval',
+  range: 'Range',
+  pierce: 'Targets per hit',
+  projectiles: 'Hits per attack',
+  splashRadius: 'Splash radius',
+  slowPercent: 'Slow',
+  slowSeconds: 'Slow duration',
+  burnDamagePerSecond: 'Burn damage per second',
+  burnSeconds: 'Burn duration',
+  stunSeconds: 'Stun duration',
+  durationSeconds: 'Active duration',
+  cooldownSeconds: 'Cooldown',
+  damageMultiplier: 'Active damage multiplier',
+  intervalMultiplier: 'Active interval multiplier',
+  rangeBonus: 'Active range bonus',
+  camo: 'Camo detection',
+  delivery: 'Delivery',
+  damageType: 'Damage type',
+  targeting: 'Targeting',
+  ability: 'Manual ability',
+  distribution: 'Volley targets',
+  followUp: 'Secondary attack',
+  activeFollowUp: 'During activation',
+} as const;
+export type StatKey = keyof typeof statLabels;
+
+export function statValue(key: StatKey, value: string | number): string {
+  if (typeof value === 'string') return value;
+  const number = Number(value.toFixed(4)).toString();
+  if (key.endsWith('Seconds')) return `${number} s`;
+  if (key === 'slowPercent') return `${number}%`;
+  if (key.endsWith('Multiplier')) return `×${number}`;
+  return number;
+}
+
 const icons: Record<StatKey, LucideIcon> = {
   damage: Sword,
   intervalSeconds: Timer,
@@ -63,8 +96,9 @@ export function StatValues({ changes }: { changes: StatChange[] }) {
   return (
     <ul className="kit-stats">
       {changes.map((change) => {
-        const Icon = icons[change.key];
-        const label = statLabels[change.key];
+        const key = change.key as StatKey;
+        const Icon = icons[key];
+        const label = statLabels[key];
         return (
           <li key={change.key} title={label} data-improvement={change.improvement}>
             <Icon size={15} aria-hidden="true" />
@@ -74,14 +108,14 @@ export function StatValues({ changes }: { changes: StatChange[] }) {
                 <>
                   <span className="stat-before">
                     <span className="sr-only">Previous: </span>
-                    {statValue(change.key, change.before)}
+                    {statValue(key, change.before)}
                   </span>
                   <ArrowRight size={12} aria-hidden="true" />
                 </>
               )}
               <span className={change.before === undefined ? 'stat-current' : 'stat-after'}>
                 <span className="sr-only">{change.before === undefined ? '' : 'New: '}</span>
-                {statValue(change.key, change.after)}
+                {statValue(key, change.after)}
               </span>
             </span>
             {(change.key === 'intervalSeconds' || change.key === 'intervalMultiplier') &&

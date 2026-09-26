@@ -26,6 +26,12 @@ type Profiles struct {
 type ProfileEntry struct {
 	Profile unit.Profile `json:"profile"`
 	BuiltIn bool         `json:"builtIn"`
+	// Progression is the path and tier layout the Profile's Definition allows.
+	Progression unit.Progression `json:"progression"`
+}
+
+func entry(profile unit.Profile, builtIn bool) ProfileEntry {
+	return ProfileEntry{Profile: profile, BuiltIn: builtIn, Progression: unit.DefinitionProgression(profile.MechanicsDefinition)}
 }
 
 // ProfilesState is the folder and every available Profile.
@@ -65,7 +71,7 @@ func (p *Profiles) file(id string) (string, error) {
 func (p *Profiles) list() (ProfilesState, error) {
 	state := ProfilesState{Directory: p.directory}
 	for _, profile := range Bundled() {
-		state.Profiles = append(state.Profiles, ProfileEntry{Profile: profile, BuiltIn: true})
+		state.Profiles = append(state.Profiles, entry(profile, true))
 	}
 	files, err := os.ReadDir(p.directory)
 	if err != nil && !errors.Is(err, os.ErrNotExist) {
@@ -90,7 +96,7 @@ func (p *Profiles) list() (ProfilesState, error) {
 		if err != nil || profile.ID != match[1] {
 			continue
 		}
-		state.Profiles = append(state.Profiles, ProfileEntry{Profile: profile})
+		state.Profiles = append(state.Profiles, entry(profile, false))
 	}
 	return state, nil
 }

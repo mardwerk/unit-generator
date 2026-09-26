@@ -5,9 +5,9 @@ import type {
   LabArtifact,
   LibraryIcon,
   ProviderState,
-} from '../contracts.js';
+} from './contract.js';
 import { api, LabApiError } from './api.js';
-import { formatCost } from '../../presentation/usage.js';
+import { formatCost } from './usage.js';
 
 /** Opening a placeholder only loads settings. A separate confirmation submits one paid request. */
 export function GenerateIcon({

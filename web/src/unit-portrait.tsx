@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import { ImagePlus } from 'lucide-react';
-import type { UnitCandidate, VisualReference } from '../../core/index.js';
+import type { UnitCandidate, VisualReference } from './contract.js';
 import { KitIcon, type UnitIcons } from './icon-prompts.js';
 import { safeUrl } from './ui.js';
-import { rankedPortraits } from '../../presentation/portraits.js';
+import { rankedPortraits } from './portraits.js';
 
 export function UnitPortrait({
   candidate,
@@ -38,13 +38,7 @@ export function UnitPortrait({
       </a>
     );
   return icons ? (
-    <KitIcon
-      iconKey="unit-portrait"
-      label={candidate.character.name}
-      description={candidate.role}
-      candidate={candidate}
-      icons={icons}
-    />
+    <KitIcon iconKey="unit-portrait" label={candidate.character.name} icons={icons} />
   ) : (
     <span className="unit-portrait" aria-label="No character image">
       <ImagePlus size={24} />

@@ -1,14 +1,16 @@
-import { applyProfile, defaultUnitProfile, type UnitProfile } from '../../core/index.js';
-import type { LabRequest } from '../contracts.js';
+import type { LabRequest, ProfileEntry } from './contract.js';
 import { emptyRequest } from './artifacts.js';
 import { editRequest, readEditor, type EditorInput } from './editor-state.js';
 
-/** `profile` is null when imported inputs carry their own rules. */
+/**
+ * `profile` is the Profile a new design is generated under; null means the
+ * server's default, or rules the imported inputs already carry.
+ */
 export type CreateDraft = {
   name: string;
   input: EditorInput;
   edited: boolean;
-  profile: UnitProfile | null;
+  profile: ProfileEntry | null;
 };
 
 /** True when a request already names the rules it is generated under. */
@@ -16,17 +18,17 @@ export function hasProfileRules(request: LabRequest): boolean {
   return Boolean(request.mechanicsDefinition);
 }
 
-/** The explicit request a draft generates: its own rules, or the selected Profile's. */
+/**
+ * The explicit request a draft generates. The server applies the selected
+ * Profile (or its default) when the request carries no rules of its own.
+ */
 export function requestForDraft(draft: CreateDraft): LabRequest {
-  const request = readEditor(draft.input);
-  return draft.profile && !hasProfileRules(request)
-    ? applyProfile(request, draft.profile)
-    : request;
+  return readEditor(draft.input);
 }
 
 export function createDraft(
   request?: LabRequest,
-  profile: UnitProfile = defaultUnitProfile,
+  profile: ProfileEntry | null = null,
 ): CreateDraft {
   const input = editRequest(request ?? emptyRequest());
   return {

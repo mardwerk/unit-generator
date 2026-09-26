@@ -6,7 +6,7 @@ import {
   Plus,
   UserRound,
 } from 'lucide-react';
-import type { LabArtifact, LibraryEntry } from '../contracts.js';
+import type { LabArtifact, LibraryEntry, Sources } from './contract.js';
 import { api } from './api.js';
 import { candidateOf, requestOf } from './artifacts.js';
 import { Activity } from './activity.js';
@@ -32,7 +32,7 @@ export function App() {
   const session = useAuthoring(library.save);
   const icons = useUnitIcons(session.artifact, library.directory);
   const [view, setView] = useState<'generate' | 'library' | 'profiles' | 'unit'>('generate');
-  const profiles = useProfiles(library.directory);
+  const profiles = useProfiles();
   const [inputsOpen, setInputsOpen] = useState(false);
   const [inspected, setInspected] = useState<LabArtifact | null>(null);
   const [opening, setOpening] = useState(false);
@@ -74,8 +74,19 @@ export function App() {
     setOpening(true);
     setLibraryError('');
     try {
-      const { artifact } = await api<{ artifact: LabArtifact }>('library/load', { id: entry.id });
-      setInspected(artifact);
+      const { artifact } = await api<{ artifact: LabArtifact | Sources }>('library/load', {
+        id: entry.id,
+      });
+      // Saved research is prepared under the selected Profile, without researching again.
+      const profileId = session.creation.profile?.profile.id;
+      setInspected(
+        artifact.kind === 'sources'
+          ? await api<LabArtifact>('prepare', {
+              sources: artifact,
+              ...(profileId ? { profileId } : {}),
+            })
+          : artifact,
+      );
       setView('unit');
     } catch (error) {
       setLibraryError(error instanceof Error ? error.message : String(error));
@@ -224,14 +235,16 @@ export function App() {
           profiles={profiles.profiles}
           directory={profiles.directory}
           error={profiles.error}
-          selectedId={session.creation.profile?.id ?? null}
+          selectedId={session.creation.profile?.profile.id ?? null}
           onUse={(profile) => {
             session.creation.setProfile(profile);
             setView('generate');
           }}
           onSave={async (profile) => {
-            await profiles.save(profile);
-            if (session.creation.profile?.id === profile.id) session.creation.setProfile(profile);
+            const saved = await profiles.save(profile);
+            const entry = saved.profiles.find((candidate) => candidate.profile.id === profile.id);
+            if (entry && session.creation.profile?.profile.id === profile.id)
+              session.creation.setProfile(entry);
           }}
           onDelete={(id) => profiles.remove(id)}
         />
