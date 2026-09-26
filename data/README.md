@@ -6,19 +6,19 @@ ignored; everything else is committed.
 
 | Path | Content |
 | --- | --- |
-| `reference/` | BTD6 towers converted to the request schema, ready for `prepare`, `author` and `draft`. These are source requests, not accepted generated units. |
-| `runs/` | Default local output for generations, evidence, the UnitLab library and lab settings. Ignored by Git except `.gitkeep`. Change it with `UNIT_RUNS_DIR`. |
+| `reference/` | BTD6 towers converted to the request schema, ready for `prepare --profile default`, `author` and `draft`. These are source requests, not accepted generated units. |
+| `profiles/` | Saved Profiles, one `<id>.json` each, written by the web app's Profiles tab. Created on first save. Change it with `--profiles DIR`. |
+| `runs/` | Default local output for generations, evidence, the library (`runs/library`) and the web app's library setting (`runs/lab-settings.json`). Ignored by Git except `.gitkeep`. Change it with `UNIT_RUNS_DIR`. |
 
 ## Schema
 
-The request and result formats are defined by the zod contracts in code,
-not by snapshots: `requestFileSchema` in `src/node/request-file.ts` and
-`requestSchema` / `resultSchema` in `src/core/schemas.ts`. Run
-`pnpm cli definition -o data/runs/mechanics.json` for the default
-mechanics definition.
-
-Website assets live in `src/web/public/` and are copied to `dist/lab/public/` by `pnpm build`.
+The request, Sources and result formats are the strict contracts in the
+Go code: `RequestSchema`, `PreparedSchema`, `DraftSchema`, `CheckedSchema`
+and `ResultSchema` in `src/cli/internal/unit`, `SourcesSchema` and
+`RequestFileSchema` in `src/cli/internal/research`. Run
+`mardwerk-unit definition -o data/runs/mechanics.json` for the default
+mechanics Definition and `mardwerk-unit profiles` for the Profiles.
 
 `UNIT_DATA_DIR` overrides the data directory itself; `UNIT_RUNS_DIR`
-overrides just the runs directory. CLI `-o` outputs and `--evidence-dir`
-always win over both defaults.
+overrides just the runs directory. CLI `-o` outputs, `--profiles`,
+`--library` and `--evidence-dir` always win over both defaults.

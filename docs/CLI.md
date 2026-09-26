@@ -1,145 +1,77 @@
-# CLI usage
+# CLI
 
-Run `pnpm install` and `pnpm build` with Node.js 24 or newer. `pnpm cli --help` lists options. Generation defaults to the OpenRouter SDK with `openrouter/free` and requires `OPENROUTER_API_KEY`. Use `--provider codex` for the existing local Codex configuration and login. `--model`, `--reasoning` and `--timeout` override that call. OpenRouter reasoning defaults to `none`; `low`, `medium` and `high` are optional. Codex retains its own configured default and accepts those three levels. Default timeouts are 120 seconds for OpenRouter and 600 seconds for Codex. Large source and rules documents can take several minutes to process.
-
-## Generate from a name
+Build the binary with Go 1.24 or newer, then run `mardwerk-unit <command> [input] [options]`. `mardwerk-unit --help` lists everything.
 
 ```sh
-pnpm cli generate "Monkey D. Luffy" -o data/runs/luffy.json
-pnpm cli render data/runs/luffy.json -o data/runs/luffy.md
-pnpm cli build data/runs/luffy.json --tiers 5,2,0
-pnpm cli review data/runs/luffy.json -o data/runs/luffy-reviewed.json
+go build -o mardwerk-unit ./src/cli
 ```
 
-## Qualitative concepts
+## Commands
 
-Concept mode describes complete behavior without prices or combat magnitudes. It does not require the numerical backend to support every proposed interaction. Choose it explicitly for name-based intake:
-
-```sh
-pnpm cli generate "Monkey D. Luffy" --deliverable concept -o data/runs/luffy-concept.json
-pnpm cli render data/runs/luffy-concept.json -o data/runs/luffy-concept.md
-```
-
-For reproducible supplied sources, [Wizard Monkey](../data/reference/wizard-monkey.concept.request.json) uses the public three-path profile. These are source requests, not accepted generated units.
-
-```sh
-pnpm cli prepare data/reference/wizard-monkey.concept.request.json -o data/runs/wizard.prepared.json
-pnpm cli draft data/runs/wizard.prepared.json --evidence-dir data/runs/concept-evidence -o data/runs/wizard.draft.json
-pnpm cli check data/runs/wizard.draft.json -o data/runs/wizard.checked.json
-pnpm cli render data/runs/wizard.checked.json -o data/runs/wizard.md
-pnpm cli author data/reference/wizard-monkey.concept.request.json --previous data/runs/wizard.checked.json --operation prose-edit --feedback "Simplify wording while preserving every behavior." -o data/runs/wizard.revised.json
-```
-
-`--operation redesign` permits deliberate design changes. `prose-edit` preserves declared structure and asks the model to preserve behavior; free-text equivalence remains a separate review obligation. `author` includes a model review, while `draft` followed by `check` uses one generation call. Concept drafting has no automatic repair loop. Use an explicit revision to address findings. `--repairs` continues to control numerical authoring only.
-
-For stronger replacement coverage, [automatic branch Sniper Monkey](../data/reference/sniper-monkey.automatic.concept.request.json) supplies a complete Definition and Profile with three four-tier branches, no crosspaths and no manual controls. Run it through the same prepare, draft, check and render commands. `--operation adapt` explicitly changes the rules of a prior concept; ordinary redesign and prose-edit reject a changed retained contract. See [Definition compatibility](API.md#concept-definition-compatibility).
-
-Concept requests carry `deliverable: "concept"` and either a `conceptDefinition` with its permitted Profile or explicit `progression` and `conceptRules`. Import a complete external request to change those rules without changing generator code. `--deliverable concept` converts a legacy request to the bundled public concept preset, or preserves an already explicit concept request. Concept requests reject `mechanicsDefinition`; numerical references in supplied text do not change the qualitative deliverable. Concept-to-mechanics formalization is not implemented: supply a separate explicit mechanics request instead of expecting `--deliverable mechanics` to translate behavior. `build` still requires numerical mechanics.
-
-Every concept model operation retains its input, exact prompt/schema, original output, safe settings, usage and outcome in a unique folder under `data/runs/evidence`, or the supplied `--evidence-dir`. Failed attempts remain there. Each folder includes an `observations.json` template for predicted scenarios, preservation and acceptance reasons; those fields start unassessed. Evidence files can contain the complete supplied material. Choose an external output directory for external project content. Credentials and raw provider error objects are not retained.
-
-The default concept Markdown is the readable unit sheet. `render --details` includes source evidence and scoped findings. Structural checks cover declared paths, tiers, activation slots and directional crosspaths. They do not prove the meaning of prose, runtime support, balance or preference. Keep final acceptance separate from a successful command exit.
-
-## Numerical generation
-
-`generate` returns a checked artifact using the explicit [BTD6-inspired mechanics definition](MECHANICS.md). The default `planned-v1` route first authors a compact purchase plan, then a numerical blueprint. The model selects source passage IDs; code copies their exact text, verifies the references, resolves all 64 legal builds and compiles the readable kit. Each stage permits one repair of invalid design output by default, receiving its failed checks. `--repairs 0` disables repairs; `--repairs 2` permits two repairs per stage. Default `planned-v1` therefore uses two to four drafting calls, excluding review. Authentication, rate limits and timeouts stop immediately. Invalid blueprints never become published candidates. This is mechanics validation, not combat simulation or balance approval. Independent semantic `review` remains a separate call so a failed review cannot discard the saved Unit.
-
-The default is `default-td-profile-v9` with definition `btd6-combat-v1`, revision `2026-09-21-design-v9`: Gold currency, a 1-health enemy layer and Dart-based references of 200 Gold, 1 damage, 0.95-second interval, 32 range and 2 pierce. Health means shared player lives, with a 150-Health starter reference. Units have no HP. Explicit older artifacts and custom definitions keep their supplied scale. See [mechanics](MECHANICS.md) for provenance and scope.
-
-  `build` returns resolved attack stats, cumulative investment, available boosts and upgrade deltas for the three purchased tiers. It uses no model. Invalid combinations such as `5,3,0` are rejected.
-
-Repairs replace only failing tiers when the previous response is structurally valid and every issue identifies a tier. Code preserves all unaffected fields and repeats the full checks. Other design errors require a full-output repair within the same attempt limit. Tier 1 and Tier 2 can add only one new capability. The fresh preset allows at most three typed changes at T1/T2 and four at T3 through T5. The older policy-free Definition keeps the three-change limit through T3. A slow or burn includes both magnitude and duration.
-
-An overfilled tier can receive a small choice of existing effects to keep. The model selects a combination; code preserves its numbers and checks the whole Unit again. This avoids asking the model to rewrite the same overloaded tier without constraining the correction.
-
-For separate stages, `character` saves the retrieved inputs before any generation:
-
-```sh
-pnpm cli character "Monkey D. Luffy" -o data/runs/luffy-input.json
-pnpm cli draft data/runs/luffy-input.json -o data/runs/luffy-draft.json
-pnpm cli check data/runs/luffy-draft.json -o data/runs/luffy-checked.json
-```
-
-If a name is ambiguous, repeat `character` or `generate` with `--choice ID` from the listed choices. Lookup and image retrieval use network requests; models receive retained source text rather than browsing tools.
-
-Numerical `planned-v1` selects at most 96 passages and 18,000 source characters; other numerical routes retain the 6,000-character limit. The full article remains in the saved input; source notes report how many exact passages reached the model. Selection favors identity, combat abilities and limitations, but does not establish complete canon coverage. Supply focused source documents when a particular period or technique matters. Confirmed constraints and game rules remain unabridged.
-
-`definition` exports the default JSON definition without a model or input file. To use this preset with your own source documents, add `--preset btd6` to `prepare` or `author`. An explicitly conflicting progression is rejected. Existing custom requests without `mechanicsDefinition` keep the earlier prose authoring contract and do not receive typed build guarantees.
-
-```sh
-pnpm cli definition -o data/runs/mechanics.json
-pnpm cli prepare my-character.request.json --preset btd6 -o data/runs/prepared.json
-```
-
-## Author and revise
-
-The CLI loads optional `.env` settings from its working directory. Existing environment variables take precedence; `--model` overrides `OPENROUTER_MODEL` and `--reasoning` overrides `OPENROUTER_REASONING`. Use [.env.example](../.env.example) for the setting names. Keep real keys in ignored local files.
-
-```sh
-pnpm cli author data/reference/dart-monkey.request.json -o data/runs/dart-v1.json
-pnpm cli render data/runs/dart-v1.json -o data/runs/dart-v1.md
-pnpm cli render data/runs/dart-v1.json --details -o data/runs/dart-v1.details.md
-pnpm cli author data/reference/dart-monkey.request.json --previous data/runs/dart-v1.json --feedback "Strengthen the support role." -o data/runs/dart-v2.json
-```
-
-`author` resolves inputs, generates one candidate, checks structural constraints and makes a fresh model call for semantic review. It returns one revision. Definition-backed drafting permits the bounded design repair described above; semantic findings require explicit revision feedback. Revisions receive the full current Request, previous candidate and findings, and explicit feedback. No command looks up a previous run implicitly.
-
-`render` defaults to the Unit's role, basic attack, every upgrade, forms and other abilities, shared gameplay rules, corrections and open decisions. Upgrade abilities appear with their tier. `--details` adds the expanded evidence, reference IDs, example builds and check report. Both views use the same artifact without model calls; JSON retains the complete structured record. Long gameplay descriptions remain intact, so an existing verbose draft can still produce a long kit.
-
-Markdown includes reported cost and tokens for completed model stages, with stage details in the expanded view. Unknown values are unavailable; partial totals are labeled. Failed calls report known usage on stderr. A successful repaired draft includes the usage of every draft attempt exactly once and retains per-attempt issues and usage in `run.attempts`. A timeout may occur before any usage report is received. The Codex adapter currently does not report usage.
-
-Use `--output` or `-o` to create a new file. Existing files are refused before generation and protected against replacement during writing. Without that option, stdout contains the complete JSON artifact, or Markdown for `render`. Diagnostics use stderr. If using shell redirection, choose a new filename that is not also an input.
-
-Exit `0` means the operation completed. Findings may still contain failed or unresolved checks. A nonzero exit means execution failed; stdout stays empty and no completed output file is created. Errors include missing files, invalid artifacts, inaccessible sources and failed model calls. Ctrl+C cancels ongoing work. A failed semantic review can be retried from a saved checked artifact when using stages.
-
-## Run each step separately
-
-```sh
-pnpm cli prepare data/reference/dart-monkey.request.json -o data/runs/prepared.json
-pnpm cli draft data/runs/prepared.json -o data/runs/draft.json
-pnpm cli check data/runs/draft.json -o data/runs/checked.json
-pnpm cli review data/runs/checked.json -o data/runs/result.json
-pnpm cli render data/runs/result.json -o data/runs/result.md
-```
-
-| Step | Input and outcome | Model use |
+| Command | Input → output | Model calls |
 | --- | --- | --- |
-| `prepare` | Resolve named text, files or URLs. Retain exact text and an input hash. | None. URLs may use the network. |
-| `draft` | Read a prepared Request and return a structured candidate with evidence and open details. | One call for legacy or concept requests; numerical `planned-v1` has two stages, each with bounded repair. |
-| `check` | Read a draft and return reference, assignment, dependency and supplied progression findings. | None. |
-| `review` | Verify the checked artifact, then review the candidate against the original evidence and decisions. | One fresh selected-provider call. |
-| `render` | Show a draft, checked artifact or Result as a compact Markdown kit. Use `--details` for the expanded report. | None. |
+| `research NAME` | Character name → Sources (identity, retrieved documents, source images) | none (network lookup) |
+| `prepare INPUT` | Sources (under `--profile`) or a request file → prepared request with its input hash | none (URLs are fetched) |
+| `generate NAME\|SOURCES` | `research` if given a name, then `prepare` + `draft` + `check` → checked artifact | 2–6 |
+| `author INPUT` | Sources or a request file → `prepare` + `draft` + `check` + `review` → Result | 3–7 |
+| `edit RESULT --feedback TEXT` | A Result revised with the feedback, keeping its decisions and findings → new Result | 3–7 |
+| `draft PREPARED` | → draft | 2–6 |
+| `check DRAFT` | → checked artifact with deterministic findings | none |
+| `review CHECKED` | → Result with a model review | 1 |
+| `render ARTIFACT` | → Markdown unit sheet; `--details` adds purchases, usage, evidence and findings | none |
+| `build ARTIFACT --tiers 5,2,0` | → resolved stats and costs for one purchased build | none |
+| `inspect FILE` | → kind, validity and character of a saved file | none |
+| `definition` | → the bundled mechanics Definition | none |
+| `profiles` | → the bundled and saved Profiles | none |
+| `library [list]`, `library save FILE`, `library load ID`, `library delete ID...` | the local library | none |
+| `serve` | the local web app ([LAB.md](LAB.md)) | per request |
 
-Each artifact is schema-versioned JSON and can be inspected or saved between steps. Input edits invalidate the retained hash; prepare a new Request after changing inputs. A reviewer cannot replace the deterministic findings with fabricated passes. Model findings remain explicitly labeled as model judgments.
+Drafting makes a planning call and a mechanics call, each allowed one repair by default (`--repairs 0|1|2`).
 
-## Supply a character and game rules
+## Options
 
-The [Dart Monkey Request](../data/reference/dart-monkey.request.json) is complete and public. The [source-file template](../data/reference/dart-monkey.source-file.request.json) shows how to supply your own tower text, game rules and character decisions.
+| Option | Applies to | Meaning |
+| --- | --- | --- |
+| `-o, --output FILE` | all but `serve` | Write a new file; an existing file is never replaced |
+| `--profile ID` | `prepare`, `generate`, `author` | The Profile to prepare under (default: the bundled `default`) |
+| `--profiles DIR` | `prepare`, `generate`, `author`, `profiles`, `serve` | Saved Profiles (default `data/profiles`) |
+| `--library DIR` | `library`, `serve` | Library folder (default `data/runs/library`) |
+| `--provider openrouter\|codex` | model commands, `serve` | OpenRouter (default) or an existing Codex login |
+| `--model NAME`, `--reasoning LEVEL`, `--timeout SECONDS` | model commands | Model, reasoning (`low`, `medium`, `high`, plus `none` for OpenRouter) and per-call timeout (OpenRouter 120 s, Codex 600 s) |
+| `--codex FILE` | model commands | Codex executable |
+| `--choice ID` | `research`, `generate` | Pick a character when the name is ambiguous |
+| `--previous FILE`, `--feedback TEXT` | `prepare`, `author` (request files); `--feedback` also `edit` | Revise an earlier Result |
+| `--repairs 0\|1\|2` | `draft`, `generate`, `author`, `edit` | Repair budget per model stage |
+| `--evidence-dir DIR` | `draft`, `generate`, `author`, `edit`, `review` | Keep exact model inputs and raw outputs |
+| `--tiers A,B,C` | `build` | Purchased tiers, each 0–5 |
+| `--details` | `render` | Expanded report |
+| `--port PORT` | `serve` | Port (default 4317) |
 
-Each document has `id`, `kind` (`source`, `rules` or `decisions`) and exactly one of `text`, `file` or `url`. `sourceUrl` can attribute pasted or saved text without claiming that the URL was retrieved. Local text and saved HTML are supported.
+## Examples
 
-For the live Luffy article, replace the source document with:
+```sh
+mardwerk-unit research "Monkey D. Luffy" -o data/runs/luffy.sources.json
+mardwerk-unit generate data/runs/luffy.sources.json -o data/runs/luffy.json
+mardwerk-unit generate data/runs/luffy.sources.json --profile my-copy -o data/runs/luffy-mine.json
+mardwerk-unit review data/runs/luffy.json -o data/runs/luffy-reviewed.json
+mardwerk-unit render data/runs/luffy-reviewed.json -o data/runs/luffy.md
+mardwerk-unit edit data/runs/luffy-reviewed.json --feedback "Give path 2 a clearer support role." -o data/runs/luffy-v2.json
 
-```json
-{
-  "id": "character-source",
-  "kind": "source",
-  "url": "https://onepiece.fandom.com/wiki/Monkey_D._Luffy"
-}
+mardwerk-unit prepare data/reference/dart-monkey.request.json --profile default -o data/runs/prepared.json
+mardwerk-unit draft data/runs/prepared.json -o data/runs/draft.json
+mardwerk-unit check data/runs/draft.json -o data/runs/checked.json
 ```
 
-If a Fandom article returns HTTP 403, the source adapter tries that site's public MediaWiki API and records this access method. A denied page or challenge never becomes evidence. If both routes fail, save the article text yourself and use `file` with `sourceUrl`. No broader web research occurs during generation.
+## Request files
 
-For Manga Mayhem, supply the relevant product, ability, combat and progression documents, plus the existing Luffy decisions. Keep them in local Requests and Results. The generator does not require or automatically read that private repository. Pass explicit `progression` fields to enable deterministic path and build checks; prose rules alone receive model review. `null` means those structural checks are unavailable, not that Manga Mayhem defaults apply.
+A request file has `schemaVersion: "1"`, a `task`, the character (`name`, `work`, `scope`) and a list of documents. Each document has an `id`, a `kind` (`source`, `rules` or `decisions`) and exactly one of `text`, `file` or `url`; `sourceUrl` attributes pasted text. File paths resolve relative to the request file. `constraints` lists confirmed decisions by ID. Examples are in [data/reference](../data/reference); [dart-monkey.source-file.request.json](../data/reference/dart-monkey.source-file.request.json) is a template for your own text.
 
-`constraints` lists confirmed choices by ID. The candidate records how each was preserved. This checks coverage, while semantic preservation still needs review. Proposed upgrades must remain proposals. Missing behavior, balance values and unsupported mechanics remain findings rather than invented approvals.
+A request needs a mechanics Definition to be drafted. Prepare a request file with `--profile` (for example `--profile default`): the Profile replaces its task, progression, Definition and rules document and keeps its character, sources, decisions and revision context. `prepare` prints a note when the result has no Definition.
 
-## Model connection and limits
+## Output and exit codes
 
-OpenRouter uses the official SDK with structured output. Free routing enforces zero-price models and never falls back to a paid model. An explicit `--model` override may select a paid model. Credentials stay outside artifacts. The browser app also supports entering a session key in Settings.
+Without `-o`, stdout carries the complete JSON artifact (Markdown for `render`) and stderr carries diagnostics. Exit `0` means the operation completed; findings can still fail. Exit `1` means it failed and no output file was written. Ctrl+C cancels.
 
-Only the Node Codex adapter invokes the installed Codex CLI. It uses a fresh temporary workspace, existing model/auth settings, a structured final-response file and restricted tools. It does not resume sessions or parse human console output. Requests are sent to the provider configured in Codex. Provider credentials are neither copied into Results nor printed by this tool. The integration was tested with Codex CLI 0.155.1.
+Model inputs and raw outputs are recorded only with `--evidence-dir`: each run gets a new folder with the input, a manifest (the binary's build and SHA-256), every request, raw answer, output and outcome.
 
-Generation and semantic review are model-assisted. Deterministic checks cover explicit structure and relationships. Definition-backed Units additionally resolve all legal builds, including crosspath and boost inheritance. They do not simulate combat, establish player appeal or implement a game runtime. Shared purchase-based unlocks are represented as `conditional` availability and are not forced into one upgrade path. Numerical balancing and general mechanics execution remain future work.
-
-The [API](API.md) exposes the same stages directly for UnitLab or another caller. A UI does not need to run these commands or parse their output.
+Configuration: existing environment variables win over `.env` in the working directory; command-line options win over both. `.env` is read from the working directory only, as UTF-8 or UTF-16 with a byte-order mark; a line it cannot read is an error that names the line. `serve` prints the model and the OpenRouter key it uses, the key masked, and the `.env` file or variable it came from. `UNIT_DATA_DIR` moves `data/`, and `UNIT_RUNS_DIR` moves `data/runs/`. Credentials never enter artifacts. Agents must follow [OPENROUTER.md](OPENROUTER.md).
