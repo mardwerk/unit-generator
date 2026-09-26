@@ -2,6 +2,8 @@
 
 Terms and ownership used across this repository. [docs/ARCHITECTURE.md](docs/ARCHITECTURE.md) describes how the pieces fit together.
 
+Each term has one meaning here. Use it only with that meaning and do not substitute a synonym. Other Mardwerk documents use some of these words more broadly, so outside this repository name the scope, such as "Unit Generator Result".
+
 ## Terms
 
 | Term | Meaning |
@@ -9,7 +11,8 @@ Terms and ownership used across this repository. [docs/ARCHITECTURE.md](docs/ARC
 | Tool | Unit Generator as a whole: the Engine plus its CLI and `serve` API. It keeps no hidden state between calls. |
 | Engine | The code that prepares, drafts, checks and reviews units. It does not run combat; a Consumer does. |
 | Definition | The rules of one game that the Engine can check: paths, tiers, legal purchases, supported mechanics, currency and scale. |
-| Profile | A reusable, editable file that selects a Definition and the values it allows, plus rules text and the task. The bundled default is read-only; saved Profiles are copies in the Profiles folder (`data/profiles` by default). |
+| Profile | A reusable, editable file that a user selects for generation. It contains a Definition with the values it allows, plus rules text and the task. The bundled default is read-only; saved Profiles are copies in the Profiles folder (`data/profiles` by default). A game's own Profile ships with that game; a copy saved here is a local copy. |
+| Definition profile | The `profile` field inside a Definition: currency, cost, stat and change limits, reference scale and the optional design policy. It is not a Profile; write "Definition profile" or `profile` in full. |
 | Sources | The saved result of researching a character: its identity, retrieved source documents and source images. It needs no model call and can be prepared under any Profile. |
 | Request | The complete explicit input for one unit: character, source documents, Profile content, confirmed decisions and, for a revision, the previous version and feedback. |
 | Prepared request | A validated Request with its input hash. Editing the Request invalidates the hash. |
@@ -18,6 +21,9 @@ Terms and ownership used across this repository. [docs/ARCHITECTURE.md](docs/ARC
 | Result | A checked artifact plus a model review. |
 | Artifact | Any of the above saved as versioned JSON. |
 | Finding | One recorded issue or observation: what it concerns, how it was established (deterministic or model), severity and outcome (`pass`, `fail`, `unresolved`, `not_checked`). |
+| Candidate | The readable unit, with its blueprint when mechanics are typed. Drafts, checked artifacts and Results each carry one. |
+| Run | The record of one model stage inside a Draft or Result: model, timing and usage. |
+| Active Ability | An ability that the unit's owner activates manually. The design policy calls it a manual ability (`manualAbilityPath`, `maxManualAbilityPaths`); those field names stay. |
 | Mechanic proposal | A suggested addition to a Definition. It is not an approved rule and does not mean the Engine supports it. |
 | Library | The folder, chosen by the user (`data/runs/library` by default), where saved Sources, artifacts with their Markdown, icons and portraits live. The CLI and `serve` write it; nothing else is stored. |
 | Consumer | The game or runtime that executes generated units. |
