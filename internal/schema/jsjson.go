@@ -1,6 +1,8 @@
 package schema
 
 import (
+	"bytes"
+	"encoding/json"
 	"fmt"
 	"math"
 	"reflect"
@@ -369,4 +371,15 @@ func canonical(b *strings.Builder, value any) {
 	default:
 		canonical(b, FromGoValue(v))
 	}
+}
+
+// Indent is JSON.stringify(value, null, 2): Go values are converted with
+// FromGoValue, key order is kept.
+func Indent(value any) string {
+	var b bytes.Buffer
+	compact := Stringify(FromGoValue(value))
+	if err := json.Indent(&b, []byte(compact), "", "  "); err != nil {
+		return compact
+	}
+	return b.String()
 }
