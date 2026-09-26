@@ -23,7 +23,7 @@ Each term has one meaning here. Use it only with that meaning and do not substit
 | Finding | One recorded issue or observation: what it concerns, how it was established (deterministic or model), severity and outcome (`pass`, `fail`, `unresolved`, `not_checked`). |
 | Candidate | The readable unit, with its blueprint when mechanics are typed. Drafts, checked artifacts and Results each carry one. |
 | Run | The record of one model stage inside a Draft or Result: model, timing and usage. |
-| Active Ability | An ability that the unit's owner activates manually. The design policy calls it a manual ability (`manualAbilityPath`, `maxManualAbilityPaths`); those field names stay. |
+| Active Ability | An ability that the player activates by clicking it. In a blueprint, owned `abilities` are Active Abilities; automatic effects are modeled as attack stats and statuses, not as abilities. The design policy calls an Active Ability a manual ability (`manualAbilityPath`, `maxManualAbilityPaths`). Those field names stay, and they refer only to Active Abilities. |
 | Mechanic proposal | A suggested addition to a Definition. It is not an approved rule and does not mean the Engine supports it. |
 | Library | The folder, chosen by the user (`data/runs/library` by default), where saved Sources, artifacts with their Markdown, icons and portraits live. The CLI and `serve` write it; nothing else is stored. |
 | Consumer | The game or runtime that executes generated units. |
